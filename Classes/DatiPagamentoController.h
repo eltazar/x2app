@@ -18,7 +18,7 @@
     
     PickerViewController *pickerCards;
     PickerViewController *pickerDate;
-    UIActionSheet *actionSheet;
+    UIActionSheet *myActionSheet;
     
     //dati carta di credito
     NSString *titolare;
@@ -26,11 +26,19 @@
     NSString *scadenza;
     NSString *tipoCarta;
     NSString *cvv;
+    
+    NSUserDefaults *prefs;
 }
+
+@property(nonatomic, retain) NSString *titolare;
+@property(nonatomic, retain) NSString *numeroCarta;
+@property(nonatomic, retain) NSString *scadenza;
+@property(nonatomic, retain) NSString *tipoCarta;
+@property(nonatomic, retain) NSString *cvv;
 
 @property(nonatomic, assign) id<DatiPagamentoDelegate> delegate;
 
--(void)getCardInfo;
+-(void)fillCell: (UITableViewCell *)cell rowDesc:(NSDictionary *)rowDesc;
 
 @end
 

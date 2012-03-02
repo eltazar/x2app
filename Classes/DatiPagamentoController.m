@@ -10,14 +10,11 @@
 #import "BaseCell.h"
 #import "PickerViewController.h"
 #import "TextFieldCell.h"
+#import "ActionCell.h"
 
-#define HEXCOLOR(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 \
-green:((c>>16)&0xFF)/255.0 \
-blue:((c>>8)&0xFF)/255.0 \
-alpha:((c)&0xFF)/255.0]
 
 @implementation DatiPagamentoController
-@synthesize delegate;
+@synthesize delegate, titolare, numeroCarta, tipoCarta, cvv, scadenza;
 
 #pragma mark - init
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -48,6 +45,7 @@ alpha:((c)&0xFF)/255.0]
     return 0;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *sec = [sectionData objectAtIndex:indexPath.section];
@@ -63,8 +61,14 @@ alpha:((c)&0xFF)/255.0]
         cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
     }
     
+    if(indexPath.row == 0){
+        cell.detailTextLabel.text = self.tipoCarta;
+    }
+    else if(indexPath.row == 3){
+        cell.detailTextLabel.text = self.scadenza;
+    }
     
-    //[self fillCell:cell rowDesc:rowDesc];
+    [self fillCell:cell rowDesc:rowDesc];
     
     [cell setDelegate:self];
     
@@ -74,28 +78,23 @@ alpha:((c)&0xFF)/255.0]
 //riempe le celle in base ai dati del job creato
 -(void)fillCell: (UITableViewCell *)cell rowDesc:(NSDictionary *)rowDesc
 {
-   /* NSString *datakey= [rowDesc objectForKey:@"DataKey"];
+   NSString *datakey= [rowDesc objectForKey:@"DataKey"];
     
-    if([datakey isEqualToString:@"employee"]){
-        cell.detailTextLabel.text = job.field;
-        if(job.field == nil || [job.field isEqualToString:@""])
-            ((ActionCell *)cell).detailTextLabel.text = [rowDesc objectForKey:@"placeholder"];
-        else ((ActionCell *)cell).detailTextLabel.text = job.field;
+    if([datakey isEqualToString:@"number"]){
+        ((TextFieldCell *)cell).textField.text = self.numeroCarta;
+        //((TextFieldCell *)cell).textField.text = [prefs objectForKey:@"_numero"];
     }
-    else if([datakey isEqualToString:@"description"])
-        ((TextAreaCell*)cell).textView.text = job.description;
-    else if([datakey isEqualToString:@"phone"])
-        ((TextFieldCell *)cell).textField.text = job.phone;
-    else if([datakey isEqualToString:@"phone2"])
-        ((TextFieldCell *)cell).textField.text = job.phone2;
-    else if([datakey isEqualToString:@"email"])
-        ((TextFieldCell *)cell).textField.text = job.email;
-    else if([datakey isEqualToString:@"url"])
-        ((TextFieldCell *)cell).textField.text = [job.url absoluteString]; 
+    else if([datakey isEqualToString:@"cvv"]){
+        ((TextFieldCell *)cell).textField.text = self.cvv;
+        //((TextFieldCell *)cell).textField.text = [prefs objectForKey:@"cvv"];
+    }
+    else if([datakey isEqualToString:@"owner"]){
+        ((TextFieldCell *)cell).textField.text = self.titolare;
+        
+        //((TextFieldCell *)cell).textField.text = [prefs objectForKey:@"_nome"];
+    }
 
-    */
 }
-
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section 
 {
@@ -107,70 +106,67 @@ alpha:((c)&0xFF)/255.0]
     
     int section = indexPath.section;
     int row = indexPath.row;
-    //    NSURL *url; 
     
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     if(section == 0 && row == 0){
         
         //creo actionSheet con un solo tasto custom
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Tipo di carta" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
+        myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tipo di carta" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
         //setto il frame NN CE NE è BISOGNO; PERCHé???
         //        [actionSheet setFrame:CGRectMake(0, 117, 320, 383)];
         
-        actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         //imposto questo controller come delegato dell'actionSheet
-        [actionSheet setDelegate:self];
+        [myActionSheet setDelegate:self];
         //[actionSheet showInView:self.view];
-        [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+        [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
         //setto i bounds dell'action sheet in modo tale da contenere il picker
-        [actionSheet setBounds:CGRectMake(0,0,320, 500)]; 
+        [myActionSheet setBounds:CGRectMake(0,0,320, 565)]; 
         
         //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
-        NSArray *subviews = [actionSheet subviews];
+        NSArray *subviews = [myActionSheet subviews];
         //setto il frame del tasto così da mostrarlo sotto al picker
         //1 lo passo a mano, MODIFICARE
         [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
-//        pickerView = [[PickerViewController alloc] initw];
-        [actionSheet addSubview: pickerCards.view];
+        [myActionSheet addSubview: pickerCards.view];      
         
-        //inizializzo la cella al primo elemento del picker
-        //cell.detailTextLabel.text = pickerView.jobCategory;
-        
-        //inizializzo la cella al primo elemento del picker
-        //cell.detailTextLabel.text = pickerView.jobCategory;
+        [myActionSheet addSubview: pickerCards.view];
+
     }
     else if(section == 0 && row == 3){
         
         //creo actionSheet con un solo tasto custom
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
+        myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
         //setto il frame NN CE NE è BISOGNO; PERCHé???
         //        [actionSheet setFrame:CGRectMake(0, 117, 320, 383)];
         
-        actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
         //imposto questo controller come delegato dell'actionSheet
-        [actionSheet setDelegate:self];
+        [myActionSheet setDelegate:self];
         //[actionSheet showInView:self.view];
-        [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+        [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
         //setto i bounds dell'action sheet in modo tale da contenere il picker
-        [actionSheet setBounds:CGRectMake(0,0,320, 500)]; 
+        [myActionSheet setBounds:CGRectMake(0,0,320, 500)]; 
         
         //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
-        NSArray *subviews = [actionSheet subviews];
+        NSArray *subviews = [myActionSheet subviews];
         //setto il frame del tasto così da mostrarlo sotto al picker
         //1 lo passo a mano, MODIFICARE
         [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
         //        pickerView = [[PickerViewController alloc] initw];
-        [actionSheet addSubview: pickerDate.view];
-        
-        //inizializzo la cella al primo elemento del picker
-        //cell.detailTextLabel.text = pickerView.jobCategory;
-        
-        //inizializzo la cella al primo elemento del picker
-        //cell.detailTextLabel.text = pickerView.jobCategory;
+        [myActionSheet addSubview: pickerDate.view];
         
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+-(void)selectedFromActionSheet{
+
+    NSLog(@"dismiss");
+}
+
 
 
 #pragma mark - TextField and TextView Delegate
@@ -180,16 +176,18 @@ alpha:((c)&0xFF)/255.0]
     //recupera la cella relativa al texfield
     TextFieldCell *cell = (TextFieldCell *) [[txtField superview] superview];
     
-    if([cell.dataKey isEqualToString:@"type"])
-        tipoCarta = txtField.text;
-    else if([cell.dataKey isEqualToString:@"number"])
-        numeroCarta = txtField.text;
-    else if([cell.dataKey isEqualToString:@"cvv"])
-        cvv = txtField.text;
-    else if([cell.dataKey isEqualToString:@"expire"])
-        scadenza = txtField.text;
-    else if([cell.dataKey isEqualToString:@"owner"])
-        titolare = txtField.text;
+    if([cell.dataKey isEqualToString:@"number"]){
+        //[prefs setObject: txtField.text forKey:@"_numero"];
+        self.numeroCarta = txtField.text;
+    }
+    else if([cell.dataKey isEqualToString:@"cvv"]){
+        self.cvv = txtField.text;
+        //[prefs setObject: txtField.text forKey:@"_cvv"];
+    }
+    else if([cell.dataKey isEqualToString:@"owner"]){
+        //[prefs setObject: txtField.text forKey:@"_nome"];
+        self.titolare = txtField.text;
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -198,22 +196,49 @@ alpha:((c)&0xFF)/255.0]
 	return YES;
 }
 
+
 #pragma mark - ActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {   
-    NSLog(@"EDITA_TABLE: job.employee = ");
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+
+    if([[actionSheet.subviews objectAtIndex:2] tag] == 777){
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        BaseCell *cell = (ActionCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+        
+        cell.detailTextLabel.text = [pickerCards.objectsInRow objectAtIndex:0];
+        
+        NSLog(@" carta di credito = %@, cell = %@",[pickerCards.objectsInRow objectAtIndex:0],cell.detailTextLabel.text);
+        
+       
+        self.tipoCarta = [pickerCards.objectsInRow objectAtIndex:0];
+        
+        //[prefs setObject: [pickerCards.objectsInRow objectAtIndex:0] forKey:@"_tipoCarta"];
+        
+    }
+    else if([[actionSheet.subviews objectAtIndex:2] tag] == 778){
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+        BaseCell *cell = (ActionCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+        NSLog(@"cell = %@, %p",cell,cell);
+        NSString *date = [NSString stringWithFormat:@"%@/%@",[pickerDate.objectsInRow objectAtIndex:0],[pickerDate.objectsInRow objectAtIndex:1]];
+        
+        NSLog(@"date = %@", date);
+        
+        cell.detailTextLabel.text = date;
+        
+        
+        NSLog(@" data  cell = %@",cell.detailTextLabel.text);
     
-//    if(pickerView.jobCategory != nil)
-//        cell.detailTextLabel.text = pickerView.jobCategory;
-//    else cell.detailTextLabel.text = @"Scegli...";
+        //[prefs setObject: date forKey:@"_scadenza"];
+        
+        self.scadenza = date;
+        
+    }
+
+    [self.tableView reloadData];
     
-    //salvo dato preso dal picker dentro job
-    //job.employee = pickerView.jobCategory;
-    //   NSLog(@"EDITA_TABLE: job.employee = %@",job.employee);
-    //    NSLog(@"job puntatore: %p",job);
 }
 
 #pragma mark - TableViewDelegate
@@ -228,8 +253,37 @@ alpha:((c)&0xFF)/255.0]
 
 #pragma mark - Gestione Bottoni view
 
+-(void)validateData{
+        
+//    if([scadenza isEqualToString:@"--/--"] || [[scadenza substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"--"] || [[scadenza substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"--"]){
+//        
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Formato data errato" message:@"Seleziona una data di scadenza valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+//        [alert show];
+//        [alert release];
+//    }
+//    else NSLog(@"data valida");
+    
+}
+
 -(void)save{
-    NSLog(@"Save button pressed");
+    
+    //dismette la tastiera e prende i salva i dati nelle variabili quando si preme il button
+    [self.view endEditing:TRUE];
+    
+    NSLog(@"Save button pressed: \n titolare = %@, numero = %@, cvv = %@, tipo = %@, scadenza = %@", titolare, numeroCarta, cvv, tipoCarta, scadenza);
+    
+    //[self validateData];
+    
+    
+    
+//    [prefs setObject:titolare forKey:@"_nome"];
+//    [prefs setObject:tipoCarta forKey:@"_tipoCarta"];
+//    [prefs setObject:numeroCarta forKey:@"_numero"];
+//    [prefs setObject:cvv forKey:@"_cvv"];
+//    [prefs setObject:scadenza forKey:@"_scadenza"];
+//    [prefs synchronize];
+    
+    
 }
 
 -(void)cancel{
@@ -239,24 +293,6 @@ alpha:((c)&0xFF)/255.0]
        
 }
 
--(void)getCardInfo{
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    NSLog(@"USER DEFAULTS = %@",[prefs objectForKey:@"xxxxxxxx"]);
-    
-    if([prefs objectForKey:@"_nome"])
-        titolare = [prefs objectForKey:@"_nome"];
-    
-    if([prefs objectForKey:@"_tipoCarta"])
-        tipoCarta = [prefs objectForKey:@"_tipoCarta"];
-    
-    if([prefs objectForKey:@"_numero"])
-        numeroCarta = [prefs objectForKey:@"_numero"];
-    
-    if([prefs objectForKey:@"_scadenza"])
-        scadenza = [prefs objectForKey:@"_scadenza"];
-}
 
 #pragma mark - View lifecycle
 
@@ -265,13 +301,14 @@ alpha:((c)&0xFF)/255.0]
     [super viewDidLoad];
     [self.tableView setBackgroundView:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]] autorelease] ];
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
     self.title = @"Dati pagamento";
     
-    UIColor *color = HEXCOLOR(0x8B1800);
     
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:139.0/255 green:29.0/255 blue:0.0 alpha:1]];
     
-    UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"Salva" style:UIBarButtonItemStyleBordered target:self action:@selector(save)];
+    UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"Conferma" style:UIBarButtonItemStyleBordered target:self action:@selector(save)];
     
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithTitle:@"Annulla" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
     
@@ -281,7 +318,6 @@ alpha:((c)&0xFF)/255.0]
     [saveBtn release];
     [cancelBtn release];
     
-    [self getCardInfo];
     
     sectionDescripition = [[NSArray alloc] initWithObjects:@"", nil];
     
@@ -290,9 +326,9 @@ alpha:((c)&0xFF)/255.0]
     
     [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"type",            @"DataKey",
-                         @"InfoCell",    @"kind",
+                         @"ActionCell",    @"kind",
                          @"Tipo Carta",         @"label",
-                         tipoCarta,             @"detailLabel",
+                         //@"Scegli...",             @"detailLabel",
                          @"Visa, Mastercard, ...",         @"placeholder",
                          @"",                 @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
@@ -302,7 +338,7 @@ alpha:((c)&0xFF)/255.0]
                          @"number",            @"DataKey",
                          @"TextFieldCell",    @"kind",
                          @"Numero",         @"label",
-                         numeroCarta,                 @"detailLabel",
+                         //numeroCarta,                 @"detailLabel",
                          @"1234123412341234",         @"placeholder",
                          @"",                 @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
@@ -321,9 +357,9 @@ alpha:((c)&0xFF)/255.0]
     
     [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"expire",              @"DataKey",
-                         @"InfoCell",    @"kind", 
+                         @"ActionCell",    @"kind", 
                          @"Scadenza",              @"label", 
-                         scadenza,             @"detailLabel",
+                        // @"Seleziona data...",             @"detailLabel",
                          @"01/2013",  @"placeholder",
                          @"",                 @"img", 
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
@@ -333,7 +369,7 @@ alpha:((c)&0xFF)/255.0]
                          @"owner",            @"DataKey",
                          @"TextFieldCell",    @"kind",
                          @"Titolare",           @"label",
-                         titolare,             @"detailLabel",
+                         //titolare,             @"detailLabel",
                          @"Mario Rossi", @"placeholder",
                          @"",                 @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
@@ -343,18 +379,19 @@ alpha:((c)&0xFF)/255.0]
     
     sectionData = [[NSArray alloc] initWithObjects: secC,nil];
     
-    NSArray *payCards = [[NSArray alloc] initWithObjects:@"", @"Visa",@"Mastercard",@"Maestro", nil];
+    NSArray *payCards = [[NSArray alloc] initWithObjects:@"--",@"Visa",@"Mastercard",@"Maestro", nil];
     pickerCards = [[PickerViewController alloc] initWithArray:[NSArray arrayWithObjects:payCards,nil] andNumber:1];
     [payCards release];
     
 
-    NSArray *calendar = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12", nil],[NSArray arrayWithObjects:@"Gennaio",@"Febbraio",@"Marzo",@"Aprile",@"Maggio",@"Giugno",@"Luglio",@"Agosto",@"Settembre",@"Ottobre",@"Novembre",@"Dicembre", nil] , nil];
+    NSArray *calendar = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"--",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12", nil],[NSArray arrayWithObjects:@"--",@"2012",@"2013",@"2014",@"2015",@"2016",@"2017",@"2018",@"2020",@"2021",@"2022",@"2023",@"2024", nil] , nil];
     
     pickerDate = [[PickerViewController alloc] initWithArray: calendar andNumber:2];
 
     [calendar release];
     
     [secC release];
+    
 }
 
 
@@ -395,15 +432,17 @@ alpha:((c)&0xFF)/255.0]
 - (void)dealloc
 {
     [pickerCards release];
+    [pickerDate release];
+    [myActionSheet release];
     
     [sectionDescripition release];
     [sectionData release];
     
-    [titolare release];
-    [tipoCarta release];
-    [numeroCarta release];
-    [scadenza release];
-    [cvv release];
+    self.titolare = nil;
+    self.numeroCarta = nil;
+    self.cvv = nil;
+    self.scadenza = nil;
+    self.tipoCarta = nil;
     
     [super dealloc];
 }
