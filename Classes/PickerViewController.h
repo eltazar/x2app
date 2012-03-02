@@ -10,17 +10,14 @@
 
 @interface PickerViewController : UIViewController< UIPickerViewDelegate, UIPickerViewDataSource>
 {
-    NSArray *jobListCategory;
-    NSString *jobCategory;
     int numElements;
-
+    
+    NSMutableArray *objectsInRow;
     
 }
+@property(nonatomic, retain) NSMutableArray *objectsInRow;
 @property(nonatomic, retain) UIPickerView *picker;
 @property(nonatomic, retain) NSArray *arrayFields;
-@property(nonatomic, retain) NSArray *arrayDays;
-@property(nonatomic, retain) NSArray *arrayMonths;
 
 -(id)initWithArray:(NSArray*)fields andNumber:(int)elements;
--(id)initWithDictionary:(NSDictionary*)dic andNumber:(int)elements;;
 @end

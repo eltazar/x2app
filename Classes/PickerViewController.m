@@ -9,19 +9,7 @@
 #import "PickerViewController.h"
 
 @implementation PickerViewController
-@synthesize picker, arrayFields;
-
-
-
-//- (CGRect)pickerFrameWithSize:(CGSize)size
-//{
-//    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-//    CGRect pickerRect = CGRectMake( 0.0,
-//                                   screenRect.size.height - 84.0 - size.height,
-//                                   size.width,
-//                                   size.height);
-//    return pickerRect;
-//}
+@synthesize picker, arrayFields, objectsInRow;
 
 
 -(id)initWithArray:(NSArray*)fields andNumber:(int)elements;{
@@ -37,21 +25,6 @@
     return self;
 }
 
--(id)initWithDictionary:(NSDictionary*)dic andNumber:(int)elements;{
-    
-    self = [super init];
-    
-    if(self){
-        
-        self.arrayDays = [dic objectForKey:@"days"];
-        self.arrayMonths = [dic objectForKey:@"months"];
-        numElements = elements;
-    }
-    
-    return self;
-    
-    
-}
 
 #pragma mark - PickerDelegate
 
@@ -63,16 +36,14 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
       inComponent:(NSInteger)component
-{
-    //NSLog(@"selezionato dal picker: %@", [jobListCategory objectAtIndex:row]);
+{    
+    NSLog(@"SELEZIONATO SUL PICKER = %@, component = %d", [[arrayFields objectAtIndex:component] objectAtIndex:row], component);
+
     
-    //jobCategory = [arrayFields objectAtIndex:row]; /*[NSString stringWithFormat:@"%@",[jobListCategory objectAtIndex:row]];*/
+    [objectsInRow replaceObjectAtIndex:component withObject:[[arrayFields objectAtIndex:component] objectAtIndex:row]];
+    NSLog(@" object = %@", [objectsInRow objectAtIndex:component]);
     
-    
-    //    NSLog(@"jobCategori stringa: %@",jobCategory);
-    //   NSLog(@"puntatore stringa %p",jobCategory);
-    
-    NSLog(@"SELEZIONATO SUL PICKER = %@", [[arrayFields objectAtIndex:component] objectAtIndex:row]);
+
 }
 
 #pragma mark - PickerDataSource
@@ -88,20 +59,30 @@
 
 #pragma mark - View lifecycle
 
+-(void)viewDidAppear:(BOOL)animated{
+
+    [picker reloadAllComponents];
+    [super viewDidAppear:animated];
+     
+}
+
 - (void)viewDidLoad
 {   
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    //picker = [[UIPickerView alloc] initWithFrame:CGRectZero];
-    //CGSize pickerSize = [picker sizeThatFits:CGSizeZero];
-    //picker.frame = [self pickerFrameWithSize:pickerSize];
-    
     picker = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 20, 320, 216)];
     [self.view setFrame:CGRectMake(0, 20, 320, 216)];
     
+    if(numElements == 1){
+        self.view.tag = 777;
+    }
+    else if(numElements == 2){
+        self.view.tag = 778;
+    }
+    
     // picker.autoresizingMask = UIViewAutoresizingNone;
-    picker.showsSelectionIndicator = YES;       // note this is default to NO
+    picker.showsSelectionIndicator = YES;       // note this is default to NO    
     
     // this view controller is the data source and delegate
     picker.delegate = self;
@@ -109,34 +90,25 @@
     //    self.view = picker;
     [self.view addSubview:picker];
     
-    //    [self.view setBounds:CGRectMake(0,100, 320, 216)];
-    //    [self.view addSubview:positionPicker];
     
-    //    
-    //    job = [[NSArray alloc] initWithObjects:
-    //                         @"Australia (AUD)", @"China (CNY)", @"France (EUR)",
-    //                         @"Great Britain (GBP)", @"Japan (JPY)", nil];
-    //    
-    //    self.exchangeRates = [[NSArray alloc] 
-    //                          initWithObjects: [NSNumber numberWithFloat:0.9922],
-    //                          [NSNumber numberWithFloat:6.5938], 
-    //                          [NSNumber numberWithFloat:0.7270],
-    //                          [NSNumber numberWithFloat:0.6206], 
-    //                          [NSNumber numberWithFloat:81.57], nil];
-    //    
+    objectsInRow = [[NSMutableArray alloc] init];
+    NSLog(@"oggetti in array = %d, capacità passata = %d", objectsInRow.count,numElements);
     
+    for(int i = 0; i < numElements; i++){
+        NSLog(@"aggiungo %d", i);
+        [objectsInRow addObject:@"--"];
+    }
     
-//    jobListCategory = [[NSArray alloc] initWithObjects:@"Ingegneria",@"Edilizia",@"Architettura",@"Medicina",@"Biologia",@"Chimica",@"Informatica",@"Idraulica", nil];
-//    
-//    jobCategory = [jobListCategory objectAtIndex:0];
-    //NSLog(@"jobCategory iniziale= %@", jobCategory);
+    NSLog(@"oggetti in array = %d dopo init", objectsInRow.count);
+
     
 }
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+    
     self.picker = nil;
+    [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -159,9 +131,10 @@
 
 -(void) dealloc
 {
-    
+    self.arrayFields = nil;
+    self.objectsInRow = nil,    
     [picker release];
-    [super dealloc];    //  [jobCategory release];
+    [super dealloc];    
     
 }
 
