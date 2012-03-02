@@ -12,6 +12,7 @@
 #import "TextFieldCell.h"
 #import "ActionCell.h"
 
+#define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
 
 @implementation DatiPagamentoController
 @synthesize delegate, titolare, numeroCarta, tipoCarta, cvv, scadenza;
@@ -253,15 +254,56 @@
 
 #pragma mark - Gestione Bottoni view
 
--(void)validateData{
+-(BOOL)isNumeric:(NSString*)inputString{
+    BOOL isValid = NO;
+    NSCharacterSet *alphaNumbersSet = [NSCharacterSet decimalDigitCharacterSet];
+    NSCharacterSet *stringSet = [NSCharacterSet characterSetWithCharactersInString:inputString];
+    isValid = [alphaNumbersSet isSupersetOfSet:stringSet];
+    return isValid;
+}
+
+-(void)validateFields{
         
-//    if([scadenza isEqualToString:@"--/--"] || [[scadenza substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"--"] || [[scadenza substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"--"]){
-//        
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Formato data errato" message:@"Seleziona una data di scadenza valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-//        [alert show];
-//        [alert release];
-//    }
-//    else NSLog(@"data valida");
+    
+    //controlla che le stringhe non siano ne vuote ne formate da soli spazi bianchi
+    if([allTrim(titolare) length] == 0 || [allTrim(tipoCarta) length] == 0 || 
+       [allTrim(numeroCarta) length] == 0 || [allTrim(cvv) length] == 0 ||
+       [allTrim(scadenza) length] == 0){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati mancanti" message:@"Per favore inserisci tutti i dati richiesti" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        
+        return;
+    }
+    
+    //controlla formato della stringa scadenza
+    if([scadenza isEqualToString:@"--/--"] || [[scadenza substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"--"] || [[scadenza substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"--"]){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Formato data errato" message:@"Seleziona una data di scadenza valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        return;
+    }
+    
+    //controlla che i dati inseriti siano solo numerici per il numero carta e cvv
+    if(![self isNumeric:numeroCarta]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero carta di credito formalmente non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        return;
+    }
+    
+    if(![self isNumeric:cvv]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Codice CVV formalmente non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        return;
+    }
+    
+    //controlla che i dati inseriti nel titolare siano solo caratteri
+    
+    
     
 }
 
@@ -273,6 +315,7 @@
     NSLog(@"Save button pressed: \n titolare = %@, numero = %@, cvv = %@, tipo = %@, scadenza = %@", titolare, numeroCarta, cvv, tipoCarta, scadenza);
     
     //[self validateData];
+    [self validateFields];
     
     
     
