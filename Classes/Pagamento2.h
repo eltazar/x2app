@@ -13,8 +13,10 @@
 #import "Contatti.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "DatiPagamentoController.h"
+#import "DatiUtenteController.h"
+@class PickerViewController;
 
-@interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate> {
+@interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate, DatiUtenteDelegate> {
 	NSInteger identificativo;
 	double valore;
 	double quant;
@@ -41,11 +43,6 @@
 	IBOutlet UITableViewCell *celladaticarta;	
 	IBOutlet UITableViewCell *cellamail;
 
-	IBOutlet UIView *quantitaPickerv;
-	IBOutlet UIPickerView * quantitaPicker;
-	NSArray *arrayQuantita;
-	
-
 	CGFloat animatedDistance;
 	
 	IBOutlet UIToolbar *confermaquantita;
@@ -57,6 +54,7 @@
 	UIViewController *detail;
 	IBOutlet UIViewController *info;
     
+    BOOL isQtField;
     
 
 }

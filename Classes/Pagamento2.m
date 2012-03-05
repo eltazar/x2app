@@ -8,6 +8,7 @@
 
 #import "Pagamento2.h"
 #import "DatiPagamentoController.h"
+#import "DatiUtenteController.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -19,30 +20,28 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 @implementation Pagamento2
 @synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,campo,vistadatipagamento,vistadatipersonali,info;
 
--(IBAction)confermaquantita:(id)sender{
-	[tablegenerale reloadData];
-	[quantitaPickerv removeFromSuperview];
-
-}
-
 
 - (IBAction)compra:(id)sender {
-	NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Nome"];
+	//persona
+    NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Nome"];
 	NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Cognome"];
 	NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"Email"];
 	NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"Telefono"];
-	NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"TipoCarta"];
-	NSString *numerocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"NumeroCarta"];
-	NSString *mesescadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"MeseScadenza"];
+    
+    //carta
+	NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
+	NSString *numerocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
+	NSString *mesescadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"_scadenza"];
 	NSString *annoscadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"AnnoScadenza"];
-	NSString *cvv = [[NSUserDefaults standardUserDefaults] objectForKey:@"Cvv"];
-	NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"Intestatario"];
+	NSString *cvv = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cvv"];
+	NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"_titolare"];
 
-	if( ([nome length] <= 2) || ([cognome length] <= 2) || ([email length] <= 3) || ([telefono length] <= 6) || ([tipocarta length] == 0) || ([numerocarta length] <= 14) || ([mesescadenza length] == 0) || ([annoscadenza length] == 0) || ([cvv length] <= 2) || ([intestatario length] <= 3)) {
+#warning SISTEMARE QUESTA VALIDAZIONE
+    
+    if( ([nome length] <= 2) || ([cognome length] <= 2) || ([email length] <= 3) || ([telefono length] <= 6) || ([tipocarta length] == 0) || ([numerocarta length] <= 14) || ([mesescadenza length] == 0) || ([annoscadenza length] == 0) || ([cvv length] <= 2) || ([intestatario length] <= 3)) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inserire tutti i dati" message:@"Devi inserire i tuoi dati personali e quelli della carta di credito per effettuare l'acquisto" delegate:self cancelButtonTitle:@"Non ora" otherButtonTitles:@"Inserisci",nil];
 		[alert show];
 	}
-
 	else {
 	PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
 	UIActionSheet *aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Vuoi comprare il coupon?"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Compra", nil];
@@ -55,6 +54,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	
 }
 
+//sheet relativo a "compra" o "annulla" 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
 		NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Nome"];
@@ -95,20 +95,36 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex  {  
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];  
 	
+#warning SISTEMARE ANCHE QUESTA VALIDAZIONE PER CAPIRE QUALE FORM CARICARE
+    
     if([title isEqualToString:@"Inserisci"])  { 
 		NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Nome"];
 		NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Cognome"];
 		NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"Email"];
 		NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"Telefono"];
-		if( ([nome length] <= 2) || ([cognome length] <= 2) || ([email length] <= 3) || ([telefono length] <= 6) ){ //dati personali incompleti
+		
+        if( ([nome length] <= 2) || ([cognome length] <= 2) || ([email length] <= 3) || ([telefono length] <= 6) ){ //dati personali incompleti
 			detail = [[DatiPers alloc] initWithNibName:@"DatiPers" bundle:[NSBundle mainBundle]];
 			detail.title = [NSString stringWithFormat:@"Dati Cliente"];
 			[self.navigationController pushViewController:detail animated:YES];
 		}
 		else { //dati personali completi, vado ai dati pagamento
-			detail = [[DatiPag alloc] initWithNibName:@"DatiPag" bundle:[NSBundle mainBundle]];
-			detail.title = [NSString stringWithFormat:@"Dati Pagamento"];
-			[self.navigationController pushViewController:detail animated:YES];
+//			detail = [[DatiPag alloc] initWithNibName:@"DatiPag" bundle:[NSBundle mainBundle]];
+//			detail.title = [NSString stringWithFormat:@"Dati Pagamento"];
+//			[self.navigationController pushViewController:detail animated:YES];
+            
+            DatiPagamentoController *paymentDetail = [[DatiPagamentoController alloc] initWithNibName:@"DatiPagamentoController" bundle:nil];
+            
+            paymentDetail.delegate = self;
+            
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:paymentDetail];
+            [paymentDetail release];
+            
+            navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            
+            [self presentModalViewController:navController animated:YES];
+            
+            [navController release];
 		}
 
 		
@@ -208,21 +224,22 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	
 	static NSString *CellIdentifier = @"Cell"; 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];  
-		if(indexPath.section==0) {
+		
+    if(indexPath.section==0) {
 			if (cell == nil){	
 				[[NSBundle mainBundle] loadNibNamed:@"cellatotalepagamento" owner:self options:NULL];
 				cell=cellapag;	
 			}
 			UILabel *prezzo = (UILabel *)[cell viewWithTag:1];
 			[prezzo setText:[NSString stringWithFormat:@"%.2f€", valore]];
-			UITextField *quantita= (UITextField *)[cell viewWithTag:2];
-			[quantita setInputView:quantitaPickerv];
+			//UITextField *quantita= (UITextField *)[cell viewWithTag:2];
+            //[quantita setInputView:myActionSheet];
 				
-			quantita.text=[arrayQuantita objectAtIndex:[quantitaPicker selectedRowInComponent:0]];
-			quant=[quantita.text integerValue];
-			UILabel *tot = (UILabel *)[cell viewWithTag:3];
-			totale=quant*valore;
-			[tot setText:[NSString stringWithFormat:@"%.2f€", totale]];
+			//quantita.text=[arrayQuantita objectAtIndex:[quantitaPicker selectedRowInComponent:0]];
+			//quant=[quantita.text integerValue];
+			//UILabel *tot = (UILabel *)[cell viewWithTag:3];
+			//totale=quant*valore;
+			//[tot setText:[NSString stringWithFormat:@"%.2f€", totale]];
 	
 			
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -287,6 +304,13 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
+    if(indexPath.section == 0){
+        
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        NSLog(@"########## = %@", [cell.accessoryView viewWithTag:2]);
+    }
+    
 		if(indexPath.section==1) {			
 //			detail = [[DatiPers alloc] initWithNibName:@"DatiPers" bundle:[NSBundle mainBundle]];
 //			detail.title = [NSString stringWithFormat:@"Dati Cliente"];
@@ -347,34 +371,84 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 }
 */
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView { // This method needs to be used. It asks how many columns will be used in the UIPickerView
-			return 1; 	
-	
-}
-- (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component { // This method also needs to be used. This asks how many rows the UIPickerView will have.
-		return [arrayQuantita count];
-	
-}
 
-- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component { // This method asks for what the title or label of each row will be.
-	return [arrayQuantita objectAtIndex:row];
-		
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+	[textField resignFirstResponder];
+    
+	return YES;
 }
 
-- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-	
-	
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    NSLog(@"iniziato editing");
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    NSLog(@"finito editing");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
+- (void)addButtonToKeyboard {
+	// create custom button
+	UIButton *doneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	doneButton.frame = CGRectMake(0, 163, 106, 53);
+	doneButton.adjustsImageWhenHighlighted = NO;
+ 
+    [doneButton setImage:[UIImage imageNamed:@"DoneUp3.png"] forState:UIControlStateNormal];
+    [doneButton setImage:[UIImage imageNamed:@"DoneDown3.png"] forState:UIControlStateHighlighted];
 
 
+	[doneButton addTarget:self action:@selector(doneButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+	// locate keyboard view
+	UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+    
+	UIView* keyboard;
+	for(int i=0; i<[tempWindow.subviews count]; i++) {
+		keyboard = [tempWindow.subviews objectAtIndex:i];
+		// keyboard found, add the button
+		if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 3.2) {
+			if([[keyboard description] hasPrefix:@"<UIPeripheralHost"] == YES)
+				[keyboard addSubview:doneButton];
+		} else {
+			if([[keyboard description] hasPrefix:@"<UIKeyboard"] == YES)
+                
+				[keyboard addSubview:doneButton];
+		}
+	}
+}
+
+- (void)keyboardDidShow:(NSNotification *)note 
+{
+   
+        [self addButtonToKeyboard];
+    
+}
+
+- (void)doneButtonClicked:(NSNotification *)note
+{    
+    //[[cellapag.accessoryView viewWithTag:2] resignFirstResponder];
+    UITextField *quantitaTextField= (UITextField *)[cellapag viewWithTag:2];
+    
+    quant=[quantitaTextField.text integerValue];
+    UILabel *tot = (UILabel *)[cellapag viewWithTag:3];
+    totale=quant*valore;
+    [tot setText:[NSString stringWithFormat:@"%.2f€", totale]];
+    
+    [quantitaTextField resignFirstResponder];
+    //NSLog(@"accessory view = %@",[cellapag viewWithTag:2] );
+}
 
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    isQtField = FALSE;
+    
 	[[compra layer] setCornerRadius:8.0f];
 	[[compra layer] setMasksToBounds:YES];
 	[compra setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
@@ -386,7 +460,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	[infoButton release];
 	[modalButton release];
 	titololabel.text=[NSString stringWithFormat:@"%@",titolo];
-	arrayQuantita= [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",nil];
+	
+    
+    
 //	NSString *value=@"";
 //	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //	[defaults setObject:value forKey:@"NumeroCarta"];
@@ -483,7 +559,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	
 	[rows release];
 	[dict release]; 
-	[arrayQuantita release];
 	
     [currentKey release];
 	[detail release];
