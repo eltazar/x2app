@@ -333,7 +333,7 @@
     return isValid;
 }
 
--(void)validateFields{
+-(BOOL)validateFields{
         
     
     //controlla che le stringhe non siano ne vuote ne formate da soli spazi bianchi
@@ -345,7 +345,7 @@
         [alert show];
         [alert release];
         
-        return;
+        return FALSE ;
     }
     
     //controlla formato della stringa scadenza
@@ -354,7 +354,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Formato data errato" message:@"Seleziona una data di scadenza valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
-        return;
+        return FALSE;
     }
     
     //controlla che i dati inseriti siano solo numerici per il numero carta e cvv
@@ -362,18 +362,19 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero carta di credito formalmente non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
-        return;
+        return FALSE;
     }
     
     if(![self isNumeric:cvv]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Codice CVV formalmente non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
-        return;
+        return FALSE;
     }
     
     //controlla che i dati inseriti nel titolare siano solo caratteri
     
+    return TRUE;
     
     
 }
@@ -385,7 +386,6 @@
     
     NSLog(@"Save button pressed: \n titolare = %@, numero = %@, cvv = %@, tipo = %@, scadenza = %@", titolare, numeroCarta, cvv, tipoCarta, scadenza);
     
-    //[self validateData];
     [self validateFields];
     
     
