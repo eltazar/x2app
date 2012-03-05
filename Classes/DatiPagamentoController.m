@@ -224,8 +224,6 @@
         [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
         [myActionSheet addSubview: pickerCards.view];      
         
-        [myActionSheet addSubview: pickerCards.view];
-        
     }
     else if(section == 0 && row == 3){
         
