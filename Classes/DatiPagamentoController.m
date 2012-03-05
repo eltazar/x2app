@@ -34,7 +34,7 @@
     
     if(section == 1){
         // create the parent view that will hold 1 or more buttons
-        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(22.0, 10.0, 280.0, 35)];
+        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 35)];
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -42,7 +42,7 @@
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
-        b.frame = CGRectMake(22.0, 0.0, 280.0, 35);
+        b.frame = CGRectMake(21.0, 0.0, 280.0, 35);
         b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
         [b setTitle:@"Cancella dati" forState:UIControlStateNormal];
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -389,21 +389,24 @@
     if(! [self validateFields]){
         //qualcosa
     }
+    else{
     
-    [prefs removeObjectForKey:@"_nome"];
-    [prefs setObject:titolare forKey:@"_nome"];
-    [prefs removeObjectForKey:@"_tipoCarta"];
-    [prefs setObject:tipoCarta forKey:@"_tipoCarta"];
-    [prefs removeObjectForKey:@"_numero"];
-    [prefs setObject:numeroCarta forKey:@"_numero"];
-    [prefs removeObjectForKey:@"_cvv"];
-    [prefs setObject:cvv forKey:@"_cvv"];
-    [prefs removeObjectForKey:@"_scadenza"];
-    [prefs setObject:scadenza forKey:@"_scadenza"];
-    
-    [prefs synchronize];
-    
-    
+        [prefs removeObjectForKey:@"_nome"];
+        [prefs setObject:titolare forKey:@"_nome"];
+        [prefs removeObjectForKey:@"_tipoCarta"];
+        [prefs setObject:tipoCarta forKey:@"_tipoCarta"];
+        [prefs removeObjectForKey:@"_numero"];
+        [prefs setObject:numeroCarta forKey:@"_numero"];
+        [prefs removeObjectForKey:@"_cvv"];
+        [prefs setObject:cvv forKey:@"_cvv"];
+        [prefs removeObjectForKey:@"_scadenza"];
+        [prefs setObject:scadenza forKey:@"_scadenza"];
+        
+        [prefs synchronize];
+        
+        if(delegate && [delegate respondsToSelector:@selector(didSavePaymentDetail)])
+            [self.delegate didSavePaymentDetail];
+    }
 }
 
 -(void)cancel{
