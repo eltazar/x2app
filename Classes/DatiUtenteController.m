@@ -29,54 +29,14 @@
 
 #pragma mark - DataSourceDelegate
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    if(section == 1){
-        // create the parent view that will hold 1 or more buttons
-        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 35)];
-        
-        // create the button object
-        UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"buttonGrayPattern.png"] forState:UIControlStateNormal];
-        
-        //[b setBackgroundColor:[UIColor grayColor]];
-        
-        b.frame = CGRectMake(21.0, 0.0, 280.0, 35);
-        b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-        [b setTitle:@"Cancella dati" forState:UIControlStateNormal];
-        [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        
-        // give it a tag in case you need it later
-        //b.tag = 1;
-        
-        // this sets up the callback for when the user hits the button
-        [b addTarget:self action:@selector(cancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
-        // add the button to the parent view
-        [v addSubview:b];
-        
-        return [v autorelease];
-    }
-    
-    return nil;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView   heightForHeaderInSection:(NSInteger)section {
-    
-    if(section == 3)
-        return 46;
-    else return 40;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
-{
-    if(section == 1){
-        return @"Premendo \"Cancella dati\" verranno cancellati i dati da te inseriti";
-    }
-    return nil;
-    
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+//{
+//    if(section == 1){
+//        return @"Premendo \"Cancella dati\" verranno cancellati i dati da te inseriti";
+//    }
+//    return nil;
+//    
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -147,17 +107,6 @@
     return [sectionDescripition objectAtIndex:section];
 }
 
-//azioni per le celle selezionate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-
-    TextFieldCell *cell = (TextFieldCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-    [cell.textField becomeFirstResponder];
-    
-}
-
-
 #pragma mark - TextField and TextView Delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)txtField
@@ -192,6 +141,89 @@
 
 
 #pragma mark - TableViewDelegate
+//azioni per le celle selezionate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    TextFieldCell *cell = (TextFieldCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+    [cell.textField becomeFirstResponder];
+    
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if(section == 1){
+        // create the parent view that will hold 1 or more buttons
+        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 37)];
+        
+        // create the button object
+        UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [b setBackgroundImage:[UIImage imageNamed:@"buttonGrayPattern.png"] forState:UIControlStateNormal];
+        
+        //[b setBackgroundColor:[UIColor grayColor]];
+        
+        b.frame = CGRectMake(21.0, 0.0, 280.0, 37);
+        b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+        [b setTitle:@"Cancella dati" forState:UIControlStateNormal];
+        [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        
+        // give it a tag in case you need it later
+        //b.tag = 1;
+        
+        // this sets up the callback for when the user hits the button
+        [b addTarget:self action:@selector(cancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        // add the button to the parent view
+        [v addSubview:b];
+        
+        return [v autorelease];
+    }
+    
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView   heightForHeaderInSection:(NSInteger)section {
+    
+    if(section == 3)
+        return 46;
+    else return 40;
+}
+
+//setta il colore delle label dell'header BIANCHE
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (section == 1) {
+
+        UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
+        [customView setBackgroundColor:[UIColor clearColor]];
+        
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
+        
+        lbl.backgroundColor = [UIColor clearColor];
+        lbl.textColor = [UIColor whiteColor];
+        lbl.lineBreakMode = UILineBreakModeWordWrap;
+        lbl.numberOfLines = 0;
+        lbl.textAlignment =  UITextAlignmentCenter;
+        lbl.font = [UIFont systemFontOfSize:15];       
+        
+        
+        lbl.text = @"Premendo \"Cancella dati\" verranno cancellati i dati da te inseriti";
+        
+        UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
+        CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
+        CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+        
+        lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
+        
+        [customView addSubview:lbl];
+        
+        return customView;
+    }
+    
+    return nil;
+}
 
 
 //setto altezza celle
