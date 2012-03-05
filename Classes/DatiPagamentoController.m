@@ -30,6 +30,54 @@
 
 #pragma mark - DataSourceDelegate
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if(section == 1){
+        // create the parent view that will hold 1 or more buttons
+        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(22.0, 10.0, 280.0, 35)];
+        
+        // create the button object
+        UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [b setBackgroundImage:[UIImage imageNamed:@"buttonGrayPattern.png"] forState:UIControlStateNormal];
+        
+        //[b setBackgroundColor:[UIColor grayColor]];
+        
+        b.frame = CGRectMake(22.0, 0.0, 280.0, 35);
+        b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+        [b setTitle:@"Cancella dati" forState:UIControlStateNormal];
+        [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        
+        // give it a tag in case you need it later
+        //b.tag = 1;
+        
+        // this sets up the callback for when the user hits the button
+        [b addTarget:self action:@selector(cancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        // add the button to the parent view
+        [v addSubview:b];
+        
+        return [v autorelease];
+    }
+    
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView   heightForHeaderInSection:(NSInteger)section {
+    
+    if(section == 3)
+        return 46;
+    else return 40;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    if(section == 1){
+        return @"Premendo \"Cancella dati\" i dati relativi alla tua carta di credito saranno rimossi";
+    }
+    return nil;
+    
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -254,6 +302,29 @@
 
 #pragma mark - Gestione Bottoni view
 
+-(void)cancelBtnClicked:(id)sender{
+    
+    [prefs removeObjectForKey:@"_nome"];
+    [prefs removeObjectForKey:@"_tipoCarta"];
+    [prefs removeObjectForKey:@"_numero"];
+    [prefs removeObjectForKey:@"_cvv"];
+    [prefs removeObjectForKey:@"_scadenza"];
+    [prefs synchronize];
+    
+    self.titolare = @"";
+    self.tipoCarta = @"";
+    self.numeroCarta = @"";
+    self.scadenza = @"";
+    self.cvv = @"";
+    
+    [self.tableView reloadData];
+    
+    
+    
+    
+    
+}
+
 -(BOOL)isNumeric:(NSString*)inputString{
     BOOL isValid = NO;
     NSCharacterSet *alphaNumbersSet = [NSCharacterSet decimalDigitCharacterSet];
@@ -362,10 +433,11 @@
     [cancelBtn release];
     
     
-    sectionDescripition = [[NSArray alloc] initWithObjects:@"", nil];
+    
+    sectionDescripition = [[NSArray alloc] initWithObjects:@"",@"", nil];
     
     NSMutableArray *secC = [[NSMutableArray alloc] initWithCapacity:5];
-    
+    NSMutableArray *secD = [[NSMutableArray alloc] init];
     
     [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"type",            @"DataKey",
@@ -420,7 +492,7 @@
                          nil] autorelease] atIndex: 4];
     
     
-    sectionData = [[NSArray alloc] initWithObjects: secC,nil];
+    sectionData = [[NSArray alloc] initWithObjects: secC, secD, nil];
     
     NSArray *payCards = [[NSArray alloc] initWithObjects:@"--",@"Visa",@"Mastercard",@"Maestro", nil];
     pickerCards = [[PickerViewController alloc] initWithArray:[NSArray arrayWithObjects:payCards,nil] andNumber:1];
@@ -435,6 +507,7 @@
     
     [secC release];
     
+    [secD release];
 }
 
 
