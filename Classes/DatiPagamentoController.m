@@ -386,16 +386,22 @@
     
     NSLog(@"Save button pressed: \n titolare = %@, numero = %@, cvv = %@, tipo = %@, scadenza = %@", titolare, numeroCarta, cvv, tipoCarta, scadenza);
     
-    [self validateFields];
+    if(! [self validateFields]){
+        //qualcosa
+    }
     
+    [prefs removeObjectForKey:@"_nome"];
+    [prefs setObject:titolare forKey:@"_nome"];
+    [prefs removeObjectForKey:@"_tipoCarta"];
+    [prefs setObject:tipoCarta forKey:@"_tipoCarta"];
+    [prefs removeObjectForKey:@"_numero"];
+    [prefs setObject:numeroCarta forKey:@"_numero"];
+    [prefs removeObjectForKey:@"_cvv"];
+    [prefs setObject:cvv forKey:@"_cvv"];
+    [prefs removeObjectForKey:@"_scadenza"];
+    [prefs setObject:scadenza forKey:@"_scadenza"];
     
-    
-//    [prefs setObject:titolare forKey:@"_nome"];
-//    [prefs setObject:tipoCarta forKey:@"_tipoCarta"];
-//    [prefs setObject:numeroCarta forKey:@"_numero"];
-//    [prefs setObject:cvv forKey:@"_cvv"];
-//    [prefs setObject:scadenza forKey:@"_scadenza"];
-//    [prefs synchronize];
+    [prefs synchronize];
     
     
 }
@@ -415,7 +421,7 @@
     [super viewDidLoad];
     [self.tableView setBackgroundView:[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.png"]] autorelease] ];
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    prefs = [NSUserDefaults standardUserDefaults];
     
     self.title = @"Dati pagamento";
     
@@ -432,7 +438,23 @@
     [saveBtn release];
     [cancelBtn release];
     
+    if([prefs objectForKey:@"_nome"])
+        self.titolare =  [prefs objectForKey:@"_nome"];
+    else self.titolare = @"";
     
+    if([prefs objectForKey:@"_tipoCarta"])
+         self.tipoCarta = [prefs objectForKey:@"_tipoCarta"];
+    else self.tipoCarta = @"";
+    
+    if([prefs objectForKey:@"_numero"])
+        self.numeroCarta = [prefs objectForKey:@"_numero"];
+    else self.numeroCarta = [prefs objectForKey:@"_numero"];
+    
+    self.cvv = @"";
+    
+    if([prefs objectForKey:@"_scadenza"])
+        self.scadenza = [prefs objectForKey:@"_scadenza"];
+    else self.scadenza = @"";
     
     sectionDescripition = [[NSArray alloc] initWithObjects:@"",@"", nil];
     
@@ -506,7 +528,6 @@
     [calendar release];
     
     [secC release];
-    
     [secD release];
 }
 
