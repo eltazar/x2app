@@ -30,54 +30,15 @@
 
 #pragma mark - DataSourceDelegate
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    if(section == 1){
-        // create the parent view that will hold 1 or more buttons
-        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 35)];
-        
-        // create the button object
-        UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"buttonGrayPattern.png"] forState:UIControlStateNormal];
-        
-        //[b setBackgroundColor:[UIColor grayColor]];
-        
-        b.frame = CGRectMake(21.0, 0.0, 280.0, 35);
-        b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-        [b setTitle:@"Cancella dati" forState:UIControlStateNormal];
-        [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        
-        // give it a tag in case you need it later
-        //b.tag = 1;
-        
-        // this sets up the callback for when the user hits the button
-        [b addTarget:self action:@selector(cancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
-        // add the button to the parent view
-        [v addSubview:b];
-        
-        return [v autorelease];
-    }
-    
-    return nil;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView   heightForHeaderInSection:(NSInteger)section {
-    
-    if(section == 3)
-        return 46;
-    else return 40;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
-{
-    if(section == 1){
-        return @"Premendo \"Cancella dati\" i dati relativi alla tua carta di credito saranno rimossi";
-    }
-    return nil;
-    
-}
+//
+//- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+//{
+//    if(section == 1){
+//        return @"Premendo \"Cancella dati\" i dati relativi alla tua carta di credito saranno rimossi";
+//    }
+//    return nil;
+//    
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -150,66 +111,7 @@
     return [sectionDescripition objectAtIndex:section];
 }
 
-//azioni per le celle selezionate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    int section = indexPath.section;
-    int row = indexPath.row;
-    
-    //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    if(section == 0 && row == 0){
-        
-        //creo actionSheet con un solo tasto custom
-        myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tipo di carta" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
-        //setto il frame NN CE NE è BISOGNO; PERCHé???
-        //        [actionSheet setFrame:CGRectMake(0, 117, 320, 383)];
-        
-        myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-        //imposto questo controller come delegato dell'actionSheet
-        [myActionSheet setDelegate:self];
-        //[actionSheet showInView:self.view];
-        [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
-        //setto i bounds dell'action sheet in modo tale da contenere il picker
-        [myActionSheet setBounds:CGRectMake(0,0,320, 565)]; 
-        
-        //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
-        NSArray *subviews = [myActionSheet subviews];
-        //setto il frame del tasto così da mostrarlo sotto al picker
-        //1 lo passo a mano, MODIFICARE
-        [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
-        [myActionSheet addSubview: pickerCards.view];      
-        
-        [myActionSheet addSubview: pickerCards.view];
 
-    }
-    else if(section == 0 && row == 3){
-        
-        //creo actionSheet con un solo tasto custom
-        myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
-        //setto il frame NN CE NE è BISOGNO; PERCHé???
-        //        [actionSheet setFrame:CGRectMake(0, 117, 320, 383)];
-        
-        myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-        //imposto questo controller come delegato dell'actionSheet
-        [myActionSheet setDelegate:self];
-        //[actionSheet showInView:self.view];
-        [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
-        //setto i bounds dell'action sheet in modo tale da contenere il picker
-        [myActionSheet setBounds:CGRectMake(0,0,320, 500)]; 
-        
-        //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
-        NSArray *subviews = [myActionSheet subviews];
-        //setto il frame del tasto così da mostrarlo sotto al picker
-        //1 lo passo a mano, MODIFICARE
-        [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
-        //        pickerView = [[PickerViewController alloc] initw];
-        [myActionSheet addSubview: pickerDate.view];
-        
-    }
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
 
 -(void)selectedFromActionSheet{
 
@@ -292,6 +194,141 @@
 
 #pragma mark - TableViewDelegate
 
+//azioni per le celle selezionate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    int section = indexPath.section;
+    int row = indexPath.row;
+    
+    //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if(section == 0 && row == 0){
+        
+        //creo actionSheet con un solo tasto custom
+        myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tipo di carta" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
+        //setto il frame NN CE NE è BISOGNO; PERCHé???
+        //        [actionSheet setFrame:CGRectMake(0, 117, 320, 383)];
+        
+        myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        //imposto questo controller come delegato dell'actionSheet
+        [myActionSheet setDelegate:self];
+        //[actionSheet showInView:self.view];
+        [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+        //setto i bounds dell'action sheet in modo tale da contenere il picker
+        [myActionSheet setBounds:CGRectMake(0,0,320, 565)]; 
+        
+        //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
+        NSArray *subviews = [myActionSheet subviews];
+        //setto il frame del tasto così da mostrarlo sotto al picker
+        //1 lo passo a mano, MODIFICARE
+        [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
+        [myActionSheet addSubview: pickerCards.view];      
+        
+        [myActionSheet addSubview: pickerCards.view];
+        
+    }
+    else if(section == 0 && row == 3){
+        
+        //creo actionSheet con un solo tasto custom
+        myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
+        //setto il frame NN CE NE è BISOGNO; PERCHé???
+        //        [actionSheet setFrame:CGRectMake(0, 117, 320, 383)];
+        
+        myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        //imposto questo controller come delegato dell'actionSheet
+        [myActionSheet setDelegate:self];
+        //[actionSheet showInView:self.view];
+        [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+        //setto i bounds dell'action sheet in modo tale da contenere il picker
+        [myActionSheet setBounds:CGRectMake(0,0,320, 500)]; 
+        
+        //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
+        NSArray *subviews = [myActionSheet subviews];
+        //setto il frame del tasto così da mostrarlo sotto al picker
+        //1 lo passo a mano, MODIFICARE
+        [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
+        //        pickerView = [[PickerViewController alloc] initw];
+        [myActionSheet addSubview: pickerDate.view];
+        
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    if(section == 1){
+        // create the parent view that will hold 1 or more buttons
+        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 37)];
+        
+        // create the button object
+        UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [b setBackgroundImage:[UIImage imageNamed:@"buttonGrayPattern.png"] forState:UIControlStateNormal];
+        
+        //[b setBackgroundColor:[UIColor grayColor]];
+        
+        b.frame = CGRectMake(21.0, 0.0, 280.0, 37);
+        b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+        [b setTitle:@"Cancella dati" forState:UIControlStateNormal];
+        [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        
+        // give it a tag in case you need it later
+        //b.tag = 1;
+        
+        // this sets up the callback for when the user hits the button
+        [b addTarget:self action:@selector(cancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        // add the button to the parent view
+        [v addSubview:b];
+        
+        return [v autorelease];
+    }
+    
+    return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView   heightForHeaderInSection:(NSInteger)section {
+    
+    if(section == 3)
+        return 46;
+    else return 40;
+}
+
+
+//setta il colore delle label dell'header BIANCHE
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (section == 1) {
+        
+        UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
+        [customView setBackgroundColor:[UIColor clearColor]];
+        
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
+        
+        lbl.backgroundColor = [UIColor clearColor];
+        lbl.textColor = [UIColor whiteColor];
+        lbl.lineBreakMode = UILineBreakModeWordWrap;
+        lbl.numberOfLines = 0;
+        lbl.textAlignment =  UITextAlignmentCenter;
+        lbl.font = [UIFont systemFontOfSize:14];       
+        
+        
+        lbl.text = @"Premendo \"Cancella dati\" verranno rimossi i dati relativi alla tua carta di credito";
+        
+        UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
+        CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
+        CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+        
+        lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
+        
+        [customView addSubview:lbl];
+        
+        return customView;
+    }
+    
+    return nil;
+}
 
 //setto altezza celle
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
