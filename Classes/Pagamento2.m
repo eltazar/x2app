@@ -22,17 +22,20 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 
 - (IBAction)compra:(id)sender {
-	//persona
+	//dati persona
     NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Nome"];
 	NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Cognome"];
 	NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"Email"];
 	NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"Telefono"];
     
-    //carta
+    //dati carta
 	NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
 	NSString *numerocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
-	NSString *mesescadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"_scadenza"];
-	NSString *annoscadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"AnnoScadenza"];
+	NSString *scadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"_scadenza"];
+    NSArray *componentiScadenza = [scadenza componentsSeparatedByString:@"/"];
+    NSString *mesescadenza = [componentiScadenza objectAtIndex:0];
+    NSString *annoscadenza = [componentiScadenza objectAtIndex:1];
+    NSLog(@"scadenza = %@, mese = %@, anno %@",scadenza,mesescadenza, annoscadenza);
 	NSString *cvv = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cvv"];
 	NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"_titolare"];
 
