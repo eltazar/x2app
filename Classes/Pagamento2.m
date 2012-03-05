@@ -260,10 +260,16 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 				UILabel *numero = (UILabel *)[cell viewWithTag:1];				
 				UILabel *tipo = (UILabel *)[cell viewWithTag:2];	
-				NSString *numerosalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"NumeroCarta"];
-				NSString *tiposalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"TipoCarta"];
-				numero.text = [[NSString alloc] initWithFormat:@"%@", numerosalvato];
-				tipo.text = [[NSString alloc] initWithFormat:@"%@", tiposalvato];
+            
+				NSString *numerosalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
+				NSString *tiposalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
+                if(numerosalvato)
+                    numero.text = [[NSString alloc] initWithFormat:@"%@", numerosalvato];
+                else numero.text =@"";
+            
+                if(tiposalvato)
+                    tipo.text = [[NSString alloc] initWithFormat:@"%@", tiposalvato];
+                else tipo.text = @"";
 
 				
 		}
@@ -354,15 +360,15 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	[modalButton release];
 	titololabel.text=[NSString stringWithFormat:@"%@",titolo];
 	arrayQuantita= [[NSArray alloc] initWithObjects:@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",@"19",@"20",nil];
-	NSString *value=@"";
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:value forKey:@"NumeroCarta"];
-	[defaults setObject:value forKey:@"TipoCarta"];
-	[defaults setObject:value forKey:@"MeseScadenza"];
-	[defaults setObject:value forKey:@"AnnoScadenza"];
-	[defaults setObject:value forKey:@"Intestatario"];
-	[defaults setObject:value forKey:@"Cvv"];
-	[defaults synchronize];
+//	NSString *value=@"";
+//	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//	[defaults setObject:value forKey:@"NumeroCarta"];
+//	[defaults setObject:value forKey:@"TipoCarta"];
+//	[defaults setObject:value forKey:@"MeseScadenza"];
+//	[defaults setObject:value forKey:@"AnnoScadenza"];
+//	[defaults setObject:value forKey:@"Intestatario"];
+//	[defaults setObject:value forKey:@"Cvv"];
+//	[defaults synchronize];
 	[tablegenerale reloadData];
 
 
@@ -388,7 +394,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 -(void)didSavePaymentDetail{
 
-    
+    [self.navigationController dismissModalViewControllerAnimated:YES];    
 }
 
 
