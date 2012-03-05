@@ -237,19 +237,28 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 				UILabel *nome = (UILabel *)[cell viewWithTag:1];				
 				UILabel *mail = (UILabel *)[cell viewWithTag:2];				
 				
-				NSString *nomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"Nome"];
-				NSString *cognomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"Cognome"];
+				NSString *nomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
+				NSString *cognomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
 				
-				NSString *mailsalvata = [[NSUserDefaults standardUserDefaults] objectForKey:@"Email"];
-				if ( ([mailsalvata length]==0) ||  (mailsalvata ==nil) )
-					mailsalvata=@"";
-				mail.text = [[NSString alloc] initWithFormat:@"%@", mailsalvata];
-
-
-				if(([nomesalvato length]==0) || ([nomesalvato length]==0) ||   ((nomesalvato ==nil) ||  (cognomesalvato ==nil)) )
-					nome.text = [[NSString alloc] initWithFormat:@""];
-				else 
-					nome.text = [[NSString alloc] initWithFormat:@"%@ %@", nomesalvato,cognomesalvato];
+				NSString *mailsalvata = [[NSUserDefaults standardUserDefaults] objectForKey:@"_email"];
+                        
+                if(nomesalvato && cognomesalvato)
+                    nome.text = [NSString stringWithFormat:@"%@ %@", nomesalvato, cognomesalvato];
+                else nome.text = @"";
+            
+                if(mailsalvata)
+                    mail.text = mailsalvata;
+                else mail.text = @"";
+                    
+//				if ( ([mailsalvata length]==0) ||  (mailsalvata ==nil) )
+//					mailsalvata=@"";
+//				mail.text = [[NSString alloc] initWithFormat:@"%@", mailsalvata];
+//
+//
+//				if(([nomesalvato length]==0) || ([nomesalvato length]==0) ||   ((nomesalvato ==nil) ||  (cognomesalvato ==nil)) )
+//					nome.text = [[NSString alloc] initWithFormat:@""];
+//				else 
+//					nome.text = [[NSString alloc] initWithFormat:@"%@ %@", nomesalvato,cognomesalvato];
 				
 		}
 		if(indexPath.section==2) {
@@ -279,10 +288,28 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 		if(indexPath.section==1) {			
-			detail = [[DatiPers alloc] initWithNibName:@"DatiPers" bundle:[NSBundle mainBundle]];
-			detail.title = [NSString stringWithFormat:@"Dati Cliente"];
-			[self.navigationController pushViewController:detail animated:YES];
-			[tableView deselectRowAtIndexPath:indexPath animated:YES];
+//			detail = [[DatiPers alloc] initWithNibName:@"DatiPers" bundle:[NSBundle mainBundle]];
+//			detail.title = [NSString stringWithFormat:@"Dati Cliente"];
+//			[self.navigationController pushViewController:detail animated:YES];
+//			[tableView deselectRowAtIndexPath:indexPath animated:YES];
+            
+            DatiUtenteController *userDetail = [[DatiUtenteController alloc] initWithNibName:@"DatiUtenteController" bundle:nil];
+            
+            userDetail.delegate = self;
+            
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userDetail];
+            [userDetail release];
+            
+            navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            
+            [self presentModalViewController:navController animated:YES];
+            
+            [navController release];
+            
+            //[self.navigationController pushViewController:detail animated:YES];
+            //[self.navigationController presentModalViewController:detail animated:YES];
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
 		}
 		if(indexPath.section==2) {
 //			detail = [[DatiPag alloc] initWithNibName:@"DatiPag" bundle:[NSBundle mainBundle]];
@@ -391,6 +418,18 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 */
 
 #pragma mark - Pagamenti2Delegate
+
+-(void)didSaveUserDetail{
+    
+    [self.navigationController dismissModalViewControllerAnimated:YES];    
+}
+
+
+-(void)didAbortUserDetail{
+    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+}
 
 -(void)didSavePaymentDetail{
 
