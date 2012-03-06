@@ -11,7 +11,7 @@
 #import "PerDueCItyCardAppDelegate.h"
 
 @implementation AbbinaCartaViewController
-@synthesize viewPulsante, abbinaButton, titolare, numeroCarta, scadenza;
+@synthesize viewPulsante, abbinaButton, titolare, numeroCarta, scadenza,delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -119,6 +119,10 @@
 	if (![context save:&error]) {
 		NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
 	}
+    else{
+        if(delegate && [delegate respondsToSelector:@selector(didMatchNewCard)])
+            [delegate didMatchNewCard];
+    }
 }
 
 #pragma mark - View lifecycle
