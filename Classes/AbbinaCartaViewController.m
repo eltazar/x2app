@@ -7,8 +7,10 @@
 //
 
 #import "AbbinaCartaViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AbbinaCartaViewController
+@synthesize viewPulsante, abbinaButton, titolare, numeroCarta, scadenza;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,16 +34,15 @@
 {   
     
     if(txtField.tag == 5){
-        
+        self.titolare = txtField.text;
     }
     else if(txtField.tag == 4){
-        
+        self.numeroCarta = txtField.text;
     }
     else if(txtField.tag == 3){
-        
+        self.scadenza = txtField.text;
     }
- 
-
+    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -78,6 +79,27 @@
     
 }
 
+#pragma mark - Bottoni view
+
+-(IBAction)abbinaButtonClicked:(id)sender{
+        
+    //validare i campi inseriti
+    
+    //query sul db per vedere se esiste carta fisica
+    
+    //se esiste salvo dati
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    NSLog(@"abbina premuto = %@, %@, %@", titolare,numeroCarta,scadenza);
+    
+    [prefs setObject:titolare forKey:@"_titolare_AB"];
+    [prefs setObject:numeroCarta forKey:@"_carta_AB"];
+    [prefs setObject:scadenza forKey:@"_scadenza_AB"];
+    [prefs synchronize];
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -88,9 +110,10 @@
     
     isViewUp = FALSE;
     
+    self.viewPulsante.layer.cornerRadius = 6;
     
     UIImageView *cartaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartaGrande.png"]];
-    [cartaView setFrame:CGRectMake(11, 40, 300, 180)];
+    [cartaView setFrame:CGRectMake(11, 20, 300, 180)];
     cartaView.userInteractionEnabled = YES;
     
     
@@ -141,10 +164,13 @@
     [cartaView addSubview:scadenzaField];
     [cartaView addSubview:numeroCartaField];
     [cartaView addSubview:titolareField];
+   
+    [self.view addSubview:cartaView];
+    
+    [cartaView release];
     [numeroCartaField release];
     [titolareField release];
     [scadenzaField release];
-    [self.view addSubview:cartaView];
     
     // Do any additional setup after loading the view from its nib.
 }
