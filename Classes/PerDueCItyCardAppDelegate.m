@@ -7,13 +7,12 @@
 //
 
 #import "PerDueCItyCardAppDelegate.h"
-#import "LocalDBAccess.h"
 #import <CoreData/CoreData.h>
 
 @implementation PerDueCItyCardAppDelegate
 
 @synthesize window;
-@synthesize tabBarController, localDbAccess;
+@synthesize tabBarController;
 @synthesize _session;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
@@ -24,12 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    // Override point for customization after application launch.
-
-    localDbAccess = [[LocalDBAccess alloc] init];
-    [localDbAccess customInitialization];
-    
-    
+    // Override point for customization after application launch.   
     
 	// Set the tab bar controller as the window's root view controller and display.
     self.window.rootViewController = self.tabBarController;
@@ -226,7 +220,6 @@
     [tabBarController release];
     [window release];
 	[_session release];
-    [localDbAccess release];
     
     [__managedObjectContext release];
     [__managedObjectModel release];

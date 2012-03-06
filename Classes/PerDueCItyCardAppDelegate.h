@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "FBConnect.h"
 #import "FBSession.h"
-@class LocalDBAccess;
 
 @interface PerDueCItyCardAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
@@ -25,7 +24,6 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
-@property(nonatomic,retain) LocalDBAccess *localDbAccess;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
