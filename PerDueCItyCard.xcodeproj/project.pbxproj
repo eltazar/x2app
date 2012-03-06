@@ -183,6 +183,7 @@
 		AC0C66421505053700B4F971 /* DoneDown3.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66401505053700B4F971 /* DoneDown3.png */; };
 		AC0C66431505053700B4F971 /* DoneUp3.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66411505053700B4F971 /* DoneUp3.png */; };
 		AC0C66451505185600B4F971 /* cartaGrande.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66441505185600B4F971 /* cartaGrande.png */; };
+		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CarteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CarteViewController.m */; };
 		AC85A22914FB9CA900DD91F6 /* CarteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A22714FB9CA900DD91F6 /* CarteViewController.xib */; };
 		AC85A22D14FBA37300DD91F6 /* BaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22C14FBA37300DD91F6 /* BaseCell.m */; };
@@ -199,6 +200,7 @@
 		ACDE7C9A14FDA988000F6890 /* DatiPagamentoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDE7C9814FDA987000F6890 /* DatiPagamentoController.xib */; };
 		ACDE7C9D14FDB0A9000F6890 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */; };
 		ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9F14FDB432000F6890 /* PickerViewController.m */; };
+		ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -439,6 +441,7 @@
 		AC0C66401505053700B4F971 /* DoneDown3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneDown3.png; sourceTree = "<group>"; };
 		AC0C66411505053700B4F971 /* DoneUp3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneUp3.png; sourceTree = "<group>"; };
 		AC0C66441505185600B4F971 /* cartaGrande.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartaGrande.png; sourceTree = "<group>"; };
+		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AC85A22514FB9CA900DD91F6 /* CarteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarteViewController.h; sourceTree = "<group>"; };
 		AC85A22614FB9CA900DD91F6 /* CarteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarteViewController.m; sourceTree = "<group>"; };
 		AC85A22714FB9CA900DD91F6 /* CarteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarteViewController.xib; sourceTree = "<group>"; };
@@ -465,6 +468,7 @@
 		ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
 		ACDE7C9E14FDB432000F6890 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		ACDE7C9F14FDB432000F6890 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
+		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +476,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -808,6 +813,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC75F4F1150680CE00EE15B3 /* CoreData.framework */,
 				1959DAC8135078C100954576 /* MapKit.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -839,6 +845,7 @@
 				AC0C663C1504DDB400B4F971 /* DatiUtenteController.xib */,
 				ACDE7C9E14FDB432000F6890 /* PickerViewController.h */,
 				ACDE7C9F14FDB432000F6890 /* PickerViewController.m */,
+				ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */,
 			);
 			name = "classi x aggiornamento";
 			sourceTree = "<group>";
@@ -1111,6 +1118,7 @@
 				ACDE7C9D14FDB0A9000F6890 /* TextFieldCell.m in Sources */,
 				ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */,
 				AC0C663D1504DDB400B4F971 /* DatiUtenteController.m in Sources */,
+				ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1203,6 +1211,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */,
+			);
+			currentVersion = ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */;
+			path = PerDUEmodel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }

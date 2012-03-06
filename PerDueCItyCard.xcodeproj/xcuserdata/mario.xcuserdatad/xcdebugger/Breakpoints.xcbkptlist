@@ -22,20 +22,6 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "Classes/Pagamento2.m"
-         timestampString = "352666289.901798"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "458"
-         endingLineNumber = "458"
-         landmarkName = "-doneButtonClicked:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
          filePath = "Classes/Coupon.m"
          timestampString = "352649268.797317"
          startingColumnNumber = "9223372036854775807"
@@ -43,6 +29,20 @@
          startingLineNumber = "51"
          endingLineNumber = "51"
          landmarkName = "-Paga:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/DataDB.m"
+         timestampString = "352746692.009617"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "155"
+         endingLineNumber = "155"
+         landmarkName = "-inserisciValoriDaDB::"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
