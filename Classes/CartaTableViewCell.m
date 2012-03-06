@@ -9,7 +9,7 @@
 #import "CartaTableViewCell.h"
 
 @implementation CartaTableViewCell
-
+@synthesize nome, tessera, data;
 
 + (CartaTableViewCell *)cellFromNibNamed:(NSString *)nibName andDictionary:(NSDictionary *)dictionary;{
     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:NULL];
@@ -66,7 +66,7 @@
         tessera.font = [UIFont systemFontOfSize:13];
         
         data = [[UILabel alloc] init];
-        data.text = @"01/01/2010";
+        data.text = [dictionary objectForKey:@"data"];
         data.textAlignment = UITextAlignmentRight;
         data.font = [UIFont systemFontOfSize:13.0];
         
