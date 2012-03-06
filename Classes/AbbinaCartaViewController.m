@@ -50,7 +50,7 @@
     
     // riabbasso la view se si tratta dei texfield relativi a numeroCarta e scadenz
     if(isViewUp){
-        [UIView animateWithDuration:0.3 animations:^void{
+        [UIView animateWithDuration:0.15 animations:^void{
             [self.view setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y+25, self.view.frame.size.width, self.view.frame.size.height)];
         }
                          completion:^(BOOL finished){
@@ -68,7 +68,7 @@
     //alzo la view se si tratta dei texfield relativi a numeroCarta e scadenza
     
     if(!isViewUp){
-        [UIView animateWithDuration:0.3 animations:^void{
+        [UIView animateWithDuration:0.25 animations:^void{
             [self.view setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-25, self.view.frame.size.width, self.view.frame.size.height)];
         }
                          completion:^(BOOL finished){
@@ -177,6 +177,9 @@
 
 - (void)viewDidUnload
 {
+    self.viewPulsante = nil;
+    self.abbinaButton = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -188,4 +191,11 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+-(void)dealloc{
+    
+    [titolare release];
+    [numeroCarta release];
+    [scadenza release];
+    [super dealloc];
+}
 @end
