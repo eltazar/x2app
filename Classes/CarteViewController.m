@@ -88,6 +88,11 @@
         ((CartaTableViewCell*)cell).data.text =  [rowDesc objectForKey:@"data"];
     }
     
+    if(indexPath.section == 1 && numCarteAbbinate >= MAX_CARD){
+        cell.backgroundColor = [UIColor lightGrayColor];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
     
     return cell;
 }
