@@ -15,6 +15,8 @@
     NSMutableArray *sectionData;
     BOOL temp;
     
+    int numCarteAbbinate;
+    
         
 }
 @end

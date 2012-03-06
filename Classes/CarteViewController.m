@@ -13,6 +13,8 @@
 #import "AbbinaCartaViewController.h"
 #import "PerDueCItyCardAppDelegate.h"
 
+#define MAX_CARD 3
+
 @implementation CarteViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -90,44 +92,6 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
@@ -257,7 +221,7 @@
     
     if(sectionData.count == 1){
         [sectionDescripition replaceObjectAtIndex:0 withObject:@"Carte"];
-        [sectionDescripition insertObject:@"ciao" atIndex:1];
+        [sectionDescripition insertObject:@"Gestione" atIndex:1];
         
         NSArray *tempA = [[sectionData objectAtIndex:0]retain];
         
@@ -271,6 +235,8 @@
         
         [sectionData replaceObjectAtIndex:0 withObject:[self creaDataContent]];
     }
+    
+    numCarteAbbinate = [[sectionData objectAtIndex:0] count];
 
  }
 
@@ -291,7 +257,7 @@
     
     if(secA && secA.count > 0){
         [sectionDescripition insertObject:@"Carte" atIndex:0];
-        [sectionDescripition insertObject:@"ciao" atIndex:1];
+        [sectionDescripition insertObject:@"Gestione" atIndex:1];
     }
     else{
         [sectionDescripition insertObject:@"Carte" atIndex:0];
@@ -321,6 +287,7 @@
         sectionData = [[NSMutableArray alloc] init];
         [sectionData insertObject:secA atIndex:0];
         [sectionData insertObject:secB atIndex:1];
+        numCarteAbbinate = secA.count;
     
     }
     else{
