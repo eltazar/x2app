@@ -23,10 +23,10 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (IBAction)compra:(id)sender {
 	//dati persona
-    NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Nome"];
-	NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Cognome"];
-	NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"Email"];
-	NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"Telefono"];
+    NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
+	NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
+	NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"_email"];
+	NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"_telefono"];
     
     //dati carta
 	NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
@@ -60,21 +60,17 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 //sheet relativo a "compra" o "annulla" 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Nome"];
-		NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Cognome"];
-		cognome=[cognome stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
-		NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"Email"];
-		NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"Telefono"];
-		NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"TipoCarta"];
+	
+        //recupera dati pagamento e dati cliente
+        
+        NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
+		NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
+		//mario: perchè rimuove spazi :|???
+        //cognome=[cognome stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
+		NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"_email"];
+		NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"_telefono"];
+		NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
 		tipocarta=[tipocarta stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino spazi
-		NSString *numerocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"NumeroCarta"];
-		NSString *mesescadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"MeseScadenza"];
-		NSString *annoscadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"AnnoScadenza"];
-		NSString *cvv = [[NSUserDefaults standardUserDefaults] objectForKey:@"Cvv"];
-		NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"Intestatario"];
-		intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
-		NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
-		NSLog(@"Anno:%d",[annoscadenza integerValue]);
 		url = [NSURL URLWithString:[NSString stringWithFormat: @"https://www.cartaperdue.it/partner/pagamento.php?identificativo=%d&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
 		NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
 		NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
@@ -91,6 +87,24 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 			[alert release];
 				
 		}
+		NSString *numerocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
+        
+		NSString *scadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"_scadenza"];
+        NSArray *componentiScadenza = [scadenza componentsSeparatedByString:@"/"];
+        NSString *mesescadenza = [componentiScadenza objectAtIndex:0];
+        NSString *annoscadenza = [componentiScadenza objectAtIndex:1];
+        //NSLog(@"scadenza = %@, mese = %@, anno %@",scadenza,mesescadenza, annoscadenza);
+        
+        NSString *cvv = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cvv"];
+        NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nome"];	
+        
+       //mario: perchè deve eliminare gli spazi :| ???
+        //intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
+		
+        NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
+		
+        //NSLog(@"Anno:%d",[annoscadenza integerValue]);
+		
 		[self.navigationController popViewControllerAnimated:YES];
 	} 
 }
