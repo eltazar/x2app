@@ -21,12 +21,25 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 @synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,campo,vistadatipagamento,vistadatipersonali,info;
 
 
-- (IBAction)compra:(id)sender {
-	//dati persona
+-(BOOL)validaDatiUtente{
+    
+    //dati persona
     NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
 	NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
 	NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"_email"];
 	NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"_telefono"];
+    
+    //NSLog(@" nome = %@, cognome = %@, email = %@, telefono = %@", nome,cognome,email, telefono);
+    
+    if( (nome && nome.length > 0) && (cognome && cognome.length > 0) &&
+       (email && email.length > 0) && (telefono && telefono.length >0)){
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+-(BOOL)validaDatiCartaCredito{
     
     //dati carta
 	NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
@@ -37,22 +50,44 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     NSString *annoscadenza = [componentiScadenza objectAtIndex:1];
     NSLog(@"scadenza = %@, mese = %@, anno %@",scadenza,mesescadenza, annoscadenza);
 	NSString *cvv = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cvv"];
-	NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"_titolare"];
-
-#warning SISTEMARE QUESTA VALIDAZIONE
+	NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nome"];
     
-    if( ([nome length] <= 2) || ([cognome length] <= 2) || ([email length] <= 3) || ([telefono length] <= 6) || ([tipocarta length] == 0) || ([numerocarta length] <= 14) || ([mesescadenza length] == 0) || ([annoscadenza length] == 0) || ([cvv length] <= 2) || ([intestatario length] <= 3)) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inserire tutti i dati" message:@"Devi inserire i tuoi dati personali e quelli della carta di credito per effettuare l'acquisto" delegate:self cancelButtonTitle:@"Non ora" otherButtonTitles:@"Inserisci",nil];
-		[alert show];
-	}
-	else {
-	PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
-	UIActionSheet *aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Vuoi comprare il coupon?"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Compra", nil];
-	
-	[aSheet showInView:appDelegate.window];
-	[aSheet release];	
+    NSLog(@"tipo carta = %@, numero = %@, mese  = %@, anno = %@, cvv = %@, intestatario = %@", tipocarta, numerocarta, mesescadenza, annoscadenza, cvv, intestatario);
+    
+    if( (tipocarta && tipocarta.length > 0) && (numerocarta && numerocarta.length > 0) &&
+       (mesescadenza && mesescadenza.length >0) && (annoscadenza && annoscadenza.length > 0) &&
+       (cvv && cvv.length > 0) && (intestatario && intestatario.length > 0)){
+           return TRUE;
+    }
+       
+    return FALSE;
+}
 
+
+- (IBAction)compra:(id)sender {    
+
+    if( ! [self validaDatiUtente] || ! [self validaDatiCartaCredito]){
+
+        NSLog(@"dati utenti mancanti");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inserire tutti i dati" message:@"Devi inserire i tuoi dati personali e quelli della carta di credito per effettuare l'acquisto" delegate:self cancelButtonTitle:@"Non ora" otherButtonTitles:@"Inserisci",nil];
+        [alert show];
+        [alert release];
 	}
+    else if(quant <= 0){
+        
+        NSLog(@"quantità 0 o minore");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Acquista almeno un coupon" message:@"Il numero di coupon per procedere con l'acquisto deve essere maggiore di zero" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil,nil];
+        [alert show];
+        [alert release];
+
+    }
+    else{
+        PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
+        UIActionSheet *aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Vuoi comprare il coupon?"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Compra", nil];
+        
+        [aSheet showInView:appDelegate.window];
+        [aSheet release];
+    }
 	
 	
 }
@@ -71,22 +106,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 		NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"_telefono"];
 		NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
 		tipocarta=[tipocarta stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino spazi
-		url = [NSURL URLWithString:[NSString stringWithFormat: @"https://www.cartaperdue.it/partner/pagamento.php?identificativo=%d&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
-		NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-		NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-		if([jsonreturn isEqualToString:@"Ok"]) {
-			NSString *messagetext = [NSString stringWithFormat: @"La richiesta di acquisto coupon è stata inoltrata.\nRiceverai una mail all'indirizzo %@ non appena la transazione sarà autorizzata",email];
-
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Richiesta inviata" message:messagetext delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-			[alert show];
-			[alert release];
-		}
-		else{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Riprovare" message:@"Ci sono stati problemi nell'invio della richiesta di acquisto. Riprovare!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-			[alert show];
-			[alert release];
-				
-		}
 		NSString *numerocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
         
 		NSString *scadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"_scadenza"];
@@ -105,42 +124,61 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 		
         //NSLog(@"Anno:%d",[annoscadenza integerValue]);
 		
+        //creo richiesta GET --> cambiare in POST ????
+        url = [NSURL URLWithString:[NSString stringWithFormat: @"https://www.cartaperdue.it/partner/pagamento.php?identificativo=%d&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
+        
+        NSLog(@ " ////// DATI PER IL COUPON \n: %@",[NSString stringWithFormat: @"https://www.cartaperdue.it/partner/pagamento.php?identificativo=%d&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]);
+		
+    //invia richiesta
+        
+//        NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
+//		NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+//		if([jsonreturn isEqualToString:@"Ok"]) {
+//			NSString *messagetext = [NSString stringWithFormat: @"La richiesta di acquisto coupon è stata inoltrata.\nRiceverai una mail all'indirizzo %@ non appena la transazione sarà autorizzata",email];
+//
+//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Richiesta inviata" message:messagetext delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+//			[alert show];
+//			[alert release];
+//		}
+//		else{
+//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Riprovare" message:@"Ci sono stati problemi nell'invio della richiesta di acquisto. Riprovare!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+//			[alert show];
+//			[alert release];
+//				
+//		}
+        
+        //rimuovo  il codice  cvv sela transazione è andata a buon fine o è fallita
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
+        
 		[self.navigationController popViewControllerAnimated:YES];
 	} 
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex  {  
+   
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];  
-	
-#warning SISTEMARE ANCHE QUESTA VALIDAZIONE PER CAPIRE QUALE FORM CARICARE
-    
+	    
     if([title isEqualToString:@"Inserisci"])  { 
-		NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Nome"];
-		NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"Cognome"];
-		NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"Email"];
-		NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"Telefono"];
-		
-        if( ([nome length] <= 2) || ([cognome length] <= 2) || ([email length] <= 3) || ([telefono length] <= 6) ){ //dati personali incompleti
-			detail = [[DatiPers alloc] initWithNibName:@"DatiPers" bundle:[NSBundle mainBundle]];
-			detail.title = [NSString stringWithFormat:@"Dati Cliente"];
-			[self.navigationController pushViewController:detail animated:YES];
+		if( ! [self validaDatiUtente] ){
+            //dati personali incompleti
+            DatiUtenteController *userDetail = [[DatiUtenteController alloc] initWithNibName:@"DatiUtenteController" bundle:nil];
+            userDetail.delegate = self;
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:userDetail];
+            [userDetail release];
+            navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            [self presentModalViewController:navController animated:YES];
+            [navController release];
 		}
-		else { //dati personali completi, vado ai dati pagamento
-//			detail = [[DatiPag alloc] initWithNibName:@"DatiPag" bundle:[NSBundle mainBundle]];
-//			detail.title = [NSString stringWithFormat:@"Dati Pagamento"];
-//			[self.navigationController pushViewController:detail animated:YES];
+        
+        if( ! [self validaDatiCartaCredito] ) {
             
+            //dati personali completi, vado ai dati pagamento            
             DatiPagamentoController *paymentDetail = [[DatiPagamentoController alloc] initWithNibName:@"DatiPagamentoController" bundle:nil];
-            
             paymentDetail.delegate = self;
-            
             UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:paymentDetail];
             [paymentDetail release];
-            
             navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-            
             [self presentModalViewController:navController animated:YES];
-            
             [navController release];
 		}
 
@@ -251,7 +289,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 			[prezzo setText:[NSString stringWithFormat:@"%.2f€", valore]];
             
 			UITextField *quantita= (UITextField *)[cell viewWithTag:2];
-        NSLog(@"QUANTITA = %f", quant);
+        NSLog(@"QUANTITA = %.2f", quant);
             quantita.text = [NSString stringWithFormat:@"%.0f", quant];
             //[quantita setInputView:myActionSheet];
 				
