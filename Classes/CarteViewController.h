@@ -7,20 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AbbinaCartaViewController.h"
 
-@interface CarteViewController : UITableViewController
+@interface CarteViewController : UITableViewController <AbbinaCartaDelegate>
 {
     NSMutableArray *sectionDescripition;
     NSMutableArray *sectionData;
-    NSString *nome;
-    NSString *data;
-    NSString *tessera;
     BOOL temp;
     
-    NSMutableArray *cards;
-    NSString *mWritablePath;
         
 }
-
-@property(nonatomic, retain) NSMutableArray *cards;
 @end
