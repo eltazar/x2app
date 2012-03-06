@@ -18,7 +18,7 @@
     
     PickerViewController *pickerCards;
     PickerViewController *pickerDate;
-    UIActionSheet *myActionSheet;
+    //UIActionSheet *myActionSheet;
     
     //dati carta di credito
     NSString *titolare;

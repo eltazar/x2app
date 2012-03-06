@@ -205,7 +205,7 @@
     if(section == 0 && row == 0){
         
         //creo actionSheet con un solo tasto custom
-        myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tipo di carta" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
+       UIActionSheet *myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tipo di carta" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
         //setto il frame NN CE NE è BISOGNO; PERCHé???
         //        [actionSheet setFrame:CGRectMake(0, 117, 320, 383)];
         
@@ -222,13 +222,15 @@
         //setto il frame del tasto così da mostrarlo sotto al picker
         //1 lo passo a mano, MODIFICARE
         [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
-        [myActionSheet addSubview: pickerCards.view];      
+        [myActionSheet addSubview: pickerCards.view];   
+        
+        [myActionSheet release];
         
     }
     else if(section == 0 && row == 3){
         
         //creo actionSheet con un solo tasto custom
-        myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
+      UIActionSheet *myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
         //setto il frame NN CE NE è BISOGNO; PERCHé???
         //        [actionSheet setFrame:CGRectMake(0, 117, 320, 383)];
         
@@ -248,6 +250,7 @@
         //        pickerView = [[PickerViewController alloc] initw];
         [myActionSheet addSubview: pickerDate.view];
         
+        [myActionSheet release];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -610,7 +613,7 @@
 {
     [pickerCards release];
     [pickerDate release];
-    [myActionSheet release];
+    //[myActionSheet release];
     
     [sectionDescripition release];
     [sectionData release];
