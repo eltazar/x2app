@@ -489,6 +489,8 @@
     else self.numeroCarta = [prefs objectForKey:@"_numero"];
     
     self.cvv = @"";
+    [prefs removeObjectForKey:@"_cvv"];
+    [prefs synchronize];
     
     if([prefs objectForKey:@"_scadenza"])
         self.scadenza = [prefs objectForKey:@"_scadenza"];
