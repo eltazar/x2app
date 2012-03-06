@@ -18,6 +18,13 @@
 	NSString * ultimavista;
 
 }
+@property (readonly, retain, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, retain, nonatomic) NSManagedObjectModel *managedObjectModel;
+@property (readonly, retain, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+- (void)saveContext;
+- (NSURL *)applicationDocumentsDirectory;
+
 @property(nonatomic,retain) LocalDBAccess *localDbAccess;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
