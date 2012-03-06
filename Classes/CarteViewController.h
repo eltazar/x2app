@@ -19,7 +19,7 @@
     
     NSMutableArray *cards;
     NSString *mWritablePath;
-    
+        
 }
 
 @property(nonatomic, retain) NSMutableArray *cards;

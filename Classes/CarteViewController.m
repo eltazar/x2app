@@ -12,7 +12,7 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import "LocalDBAccess.h"
 #import "AbbinaCartaViewController.h"
-
+#import "PerDueCItyCardAppDelegate.h"
 
 @implementation CarteViewController
 @synthesize cards;
@@ -76,6 +76,16 @@
         cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
         
         NSLog(@"CELL = %@",cell);
+    }
+    
+    if([kind isEqualToString:@"CartaTableViewCell"]){
+        NSLog(@"carta per due");
+        
+       
+        
+        ((CartaTableViewCell*)cell).nome.text =  [rowDesc objectForKey:@"nome"];
+        ((CartaTableViewCell*)cell).tessera.text =  [rowDesc objectForKey:@"tessera"];
+        ((CartaTableViewCell*)cell).data.text =  [rowDesc objectForKey:@"data"];
     }
     
     
@@ -174,19 +184,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-    
+{    
     BaseCell *cell = (BaseCell*) [tableView cellForRowAtIndexPath:indexPath];
-    
-    
     
     if ([cell.dataKey isEqualToString:@"abbina"]) {
         
@@ -205,7 +204,8 @@
 {
     [super viewDidLoad];
     
-    //[self setTitle:@"Le mie carte"];
+    [self setTitle:@"Gestione carte"];
+    
     
 //    PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*) [[UIApplication sharedApplication] delegate];
 //    
@@ -214,54 +214,128 @@
 //    NSString *DownloadsPlistPath =[[NSBundle mainBundle] pathForResource:@"userCards" ofType:@"plist"];
 //    NSLog(@"\n############\n path = %@ \n#############\n",DownloadsPlistPath);
 //    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+
     
-    NSString *filePath = [basePath stringByAppendingPathComponent:@"Enterprise/userCards.plist"];
+        //per lettura e scrittura di un plist sull'hd, funziona
     
-    if([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
-        cards =[[NSMutableArray alloc] initWithContentsOfFile:filePath];
-        NSLog(@"CARDS = %@",cards);
-    }
-    else{
-        printf("Errore NEL CARICARE IL FILE");
-    }
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+//    
+//    NSString *filePath = [basePath stringByAppendingPathComponent:@"Enterprise/userCards.plist"];
+//    
+//    if([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+//        cards =[[NSMutableArray alloc] initWithContentsOfFile:filePath];
+//        NSLog(@"CARDS = %@",cards);
+//    }
+//    else{
+//        printf("Errore NEL CARICARE IL FILE");
+//    }
+    
+//    sectionDescripition = [[NSMutableArray alloc]init];
+//    
+//    if(cards.count > 0){
+//        [sectionDescripition insertObject:@"Carte" atIndex:0];
+//        [sectionDescripition insertObject:@"Operazioni" atIndex:1];
+//    }
+//    else{
+//        [sectionDescripition insertObject:@"Operazioni" atIndex:0];
+//    }
     
     
-    
-    
-    sectionDescripition = [[NSMutableArray alloc]init];
-    
-    if(cards.count > 0){
-        [sectionDescripition insertObject:@"Carte" atIndex:0];
-        [sectionDescripition insertObject:@"Operazioni" atIndex:1];
-    }
-    else{
-        [sectionDescripition insertObject:@"Operazioni" atIndex:0];
-    }
-    
-    
+    sectionDescripition = [[NSMutableArray alloc] init];
     NSMutableArray *secA = [[NSMutableArray alloc] init];
     
-    for(int i = 0; i < cards.count; i++){
+    
+    //Otteniamo il puntatore al NSManagedContext
+    PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+	NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+	//istanziamo la classe NSFetchRequest di cui abbiamo parlato in precedenza
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+	//istanziamo l'Entità da passare alla Fetch Request
+	NSEntityDescription *entity = [NSEntityDescription 
+								   entityForName:@"CartaPerDue" inManagedObjectContext:context];
+	//Settiamo la proprietà Entity della Fetch Request
+	[fetchRequest setEntity:entity];
+    
+	//Eseguiamo la Fetch Request e salviamo il risultato in un array, per visualizzarlo nella tabella
+	NSError *error;
+	NSArray *fo = [context executeFetchRequest:fetchRequest error:&error];
+	//contattiList = [fo retain];
+    
+    NSLog(@ " --------> FO = %@ \n, fo count = %d, \n titolare = %@, carta = %@, scadenza = %@",fo,fo.count, [[fo objectAtIndex:0] valueForKey:@"titolare"], [[fo objectAtIndex:1] valueForKey:@"numero"], [[fo objectAtIndex:1] valueForKey:@"scadenza"]);
+    
+    if(fo && fo.count > 0){
         
         
-        [secA insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                             @"card",              @"DataKey",
-                             @"CartaTableViewCell",@"kind",
-                             [[cards objectAtIndex:i] objectForKey:@"nome"],  @"nome",
-                             [[cards objectAtIndex:i] objectForKey:@"tessera"],@"tessera",
-                             [[cards objectAtIndex:i] objectForKey:@"data"],   @"data",
-                             [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                             nil] autorelease] atIndex: i];
+        [sectionDescripition insertObject:@"Carte" atIndex:0];
+        [sectionDescripition insertObject:@"ciao" atIndex:1];
         
+        for(int i = 0; i < fo.count ; i++){
+            
+            NSManagedObject *carta = [fo objectAtIndex:i];
+            [secA insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                 @"card",              @"DataKey",
+                                 @"CartaTableViewCell",@"kind",
+                                 [carta valueForKey:@"titolare"],  @"nome",
+                                 [carta valueForKey:@"numero"],@"tessera",
+                                 [carta valueForKey:@"scadenza"],   @"data",
+                                 [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",nil] autorelease] atIndex: i];
+            
+            
+        }
+    }
+    else{
+        [sectionDescripition insertObject:@"ciao" atIndex:0];
     }
     
+    
+	[fetchRequest release];
+    
+    
+    
+    
+    
+//    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+//    
+//    if([prefs objectForKey:@"_titolare_AB"] && [prefs objectForKey:@"_carta_AB"] &&
+//       [prefs objectForKey:@"_scadenza_AB"]){
+//        
+//        [sectionDescripition insertObject:@"Carta abbinata" atIndex:0];
+//        [sectionDescripition insertObject:@"" atIndex:1];        
+//        
+//        [secA insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+//                             @"card",              @"DataKey",
+//                             @"CartaTableViewCell",@"kind",
+//                             [prefs objectForKey:@"_titolare_AB"],  @"nome",
+//                             [prefs objectForKey:@"_carta_AB"],@"tessera",
+//                             [prefs objectForKey:@"_scadenza_AB"],   @"data",
+//                             [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+//                             nil] autorelease] atIndex: 0];
+//
+//        
+//    }
+//    else{
+//        [sectionDescripition insertObject:@"TEMP" atIndex:0];
+//    }
+    
    
-    
-    
-    
-    
+ //per lettura file plist    
+//    for(int i = 0; i < cards.count; i++){
+//        
+//        
+//        [secA insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+//                             @"card",              @"DataKey",
+//                             @"CartaTableViewCell",@"kind",
+//                             [[cards objectAtIndex:i] objectForKey:@"nome"],  @"nome",
+//                             [[cards objectAtIndex:i] objectForKey:@"tessera"],@"tessera",
+//                             [[cards objectAtIndex:i] objectForKey:@"data"],   @"data",
+//                             [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+//                             nil] autorelease] atIndex: i];
+//        
+//    }
     
     ////////////////////
     
@@ -285,14 +359,21 @@
                          nil] autorelease] atIndex: 1];
     
     
-    if(cards.count > 0){
+    if(secA && secA.count > 0){
         sectionData = [[NSMutableArray alloc] initWithObjects: secA, secB, nil];
     }
     else{
         sectionData = [[NSMutableArray alloc] initWithObjects:secB, nil];
     }
     
+    [secA release];
     [secB release];
+    
+    
+
+    
+    
+    
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -312,6 +393,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
