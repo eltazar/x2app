@@ -8,6 +8,7 @@
 
 #import "AbbinaCartaViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PerDueCItyCardAppDelegate.h"
 
 @implementation AbbinaCartaViewController
 @synthesize viewPulsante, abbinaButton, titolare, numeroCarta, scadenza;
@@ -89,15 +90,35 @@
     
     //se esiste salvo dati
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+   // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     
     NSLog(@"abbina premuto = %@, %@, %@", titolare,numeroCarta,scadenza);
     
-    [prefs setObject:titolare forKey:@"_titolare_AB"];
-    [prefs setObject:numeroCarta forKey:@"_carta_AB"];
-    [prefs setObject:scadenza forKey:@"_scadenza_AB"];
-    [prefs synchronize];
+//    [prefs setObject:titolare forKey:@"_titolare_AB"];
+//    [prefs setObject:numeroCarta forKey:@"_carta_AB"];
+//    [prefs setObject:scadenza forKey:@"_scadenza_AB"];
+//    [prefs synchronize];
+
+    //Otteniamo il puntatore al NSManagedContext
+    PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
+	
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
     
+	//Creiamo un'istanza di NSManagedObject per l'Entità che ci interessa
+	NSManagedObject *cartaPD = [NSEntityDescription
+                                 insertNewObjectForEntityForName:@"CartaPerDue" 
+                                 inManagedObjectContext:context];
+    
+	//Usando il Key-Value Coding inseriamo i dati presi dall'interfaccia nell'istanza dell'Entità appena creata
+	[cartaPD setValue:titolare forKey:@"titolare"];
+	[cartaPD setValue:numeroCarta forKey:@"numero"];
+	[cartaPD setValue:scadenza forKey:@"scadenza"];
+    
+	//Effettuiamo il salvataggio gestendo eventuali errori
+	NSError *error;
+	if (![context save:&error]) {
+		NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
+	}
 }
 
 #pragma mark - View lifecycle
@@ -107,7 +128,7 @@
     [super viewDidLoad];
     
     self.title = @"bla";
-    
+        
     isViewUp = FALSE;
     
     self.viewPulsante.layer.cornerRadius = 6;
