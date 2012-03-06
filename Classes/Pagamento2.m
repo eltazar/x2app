@@ -249,14 +249,17 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 			}
 			UILabel *prezzo = (UILabel *)[cell viewWithTag:1];
 			[prezzo setText:[NSString stringWithFormat:@"%.2f€", valore]];
-			//UITextField *quantita= (UITextField *)[cell viewWithTag:2];
+            
+			UITextField *quantita= (UITextField *)[cell viewWithTag:2];
+        NSLog(@"QUANTITA = %f", quant);
+            quantita.text = [NSString stringWithFormat:@"%.0f", quant];
             //[quantita setInputView:myActionSheet];
 				
 			//quantita.text=[arrayQuantita objectAtIndex:[quantitaPicker selectedRowInComponent:0]];
 			//quant=[quantita.text integerValue];
-			//UILabel *tot = (UILabel *)[cell viewWithTag:3];
+			UILabel *tot = (UILabel *)[cell viewWithTag:3];
 			//totale=quant*valore;
-			//[tot setText:[NSString stringWithFormat:@"%.2f€", totale]];
+			[tot setText:[NSString stringWithFormat:@"%.2f€", totale]];
 	
 			
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
