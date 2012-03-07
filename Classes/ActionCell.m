@@ -13,7 +13,8 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withDictionary:(NSDictionary *)dictionary 
 {
     
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier withDictionary:dictionary]) {
+    
+    if (self = [super initWithStyle:[[dictionary objectForKey:@"style"] integerValue] reuseIdentifier:reuseIdentifier withDictionary:dictionary]) {
 		// Custom initialization
         [self setSelectionStyle:UITableViewCellSelectionStyleBlue]; 
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -21,6 +22,7 @@
         self.textLabel.minimumFontSize = 11;
         UIImage *image = [UIImage imageNamed: [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"img"]]];
         self.imageView.image = image;
+        self.detailTextLabel.text = [dictionary objectForKey:@"subtitle"];
         //NSLog(@"IMAGE SIZE action %f, %f",image.size.width,image.size.height);
         
     }
