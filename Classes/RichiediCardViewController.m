@@ -74,7 +74,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    if (section == 0) {
+    if (section == 1) {
         
         UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
         [customView setBackgroundColor:[UIColor clearColor]];
