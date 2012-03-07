@@ -133,6 +133,8 @@
     
     self.title = @"bla";
         
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backGroundPattern.png"]]];
+    
     isViewUp = FALSE;
     
     self.viewPulsante.layer.cornerRadius = 6;
