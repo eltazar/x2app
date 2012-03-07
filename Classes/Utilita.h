@@ -13,5 +13,5 @@
 +(BOOL)isNumeric:(NSString*)inputString;
 +(BOOL)isStringEmptyOrWhite:(NSString*)string;
 +(BOOL)isEmailValid:(NSString*)email;
-
++(BOOL)isDateFormatValid:(NSString*)data;
 @end

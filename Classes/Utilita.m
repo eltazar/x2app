@@ -37,4 +37,15 @@
 
 }
 
++(BOOL)isDateFormatValid:(NSString*)data{
+    
+ 
+    //controlla formato della stringa scadenza
+    if([data isEqualToString:@"--/--"] || [[data substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"--"] || [[data substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"--"]){
+        return FALSE;
+    }
+    else return TRUE;
+    
+}
+
 @end
