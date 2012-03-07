@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PerDueCItyCardAppDelegate.h"
 #import "PickerViewController.h"
+#import "Utilita.h"
 
 @interface AbbinaCartaViewController()
 @property(nonatomic, retain)NSString *titolare;
@@ -150,13 +151,32 @@
 -(BOOL)isValidFields{
     
     
+    if(! [Utilita isDateFormatValid:self.scadenza]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data errata" message:@"Inserisci una data di scadenza valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    if(! [Utilita isStringEmptyOrWhite:self.titolare] || ! [Utilita isStringEmptyOrWhite:self.numeroCarta]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati incompleti" message:@"Inserisci tutti i dati richiesti" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    
+    }
+    
     return true;
 }
 
 -(IBAction)abbinaButtonClicked:(id)sender{
         
     //validare i campi inseriti
-    
+    if([self isValidFields]){
+        
+        NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
+        
+        
+        
+        //poi se esiste salvo i dati in core data
+    }
     NSLog(@"abbina premuto = %@, %@, %@", titolare,numeroCarta,scadenza);
     
 
