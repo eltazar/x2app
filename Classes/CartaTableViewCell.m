@@ -98,7 +98,7 @@
     frame= CGRectMake(boundsX+10 ,25, 200, 15);
     tessera.frame = frame;
     
-    frame = CGRectMake(boundsX+180, 25, 100, 15);
+    frame = CGRectMake(boundsX+170, 25, 100, 15);
     data.frame = frame;
 }
 
