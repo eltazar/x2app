@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RichiediCardViewController : UITableViewController
+@interface RichiediCardViewController : UITableViewController{
+    
+    NSMutableArray *sectionData;
+    NSMutableArray *sectionDescription;
+    
+    NSString *nome;
+    NSString *cognome;
+    NSString *email;
+    NSString *telefono;
 
+}
 @end
