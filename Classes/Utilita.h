@@ -12,6 +12,6 @@
 
 +(BOOL)isNumeric:(NSString*)inputString;
 +(BOOL)isStringEmptyOrWhite:(NSString*)string;
-+(BOOL)iseEmailValid:(NSString*)email;
++(BOOL)isEmailValid:(NSString*)email;
 
 @end
