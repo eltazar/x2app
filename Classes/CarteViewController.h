@@ -11,7 +11,7 @@
 
 @interface CarteViewController : UITableViewController <AbbinaCartaDelegate>
 {
-    NSMutableArray *sectionDescripition;
+    NSMutableArray *sectionDescription;
     NSMutableArray *sectionData;
     BOOL temp;
     

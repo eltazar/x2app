@@ -12,6 +12,7 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import "AbbinaCartaViewController.h"
 #import "PerDueCItyCardAppDelegate.h"
+#import "RichiediCardViewController.h"
 
 #define MAX_CARD 3
 
@@ -32,13 +33,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return sectionDescripition.count;
+    return sectionDescription.count;
 }
 
 //setta gli header delle sezioni
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section 
 {  
-    return [sectionDescripition objectAtIndex:section];
+    return [sectionDescription objectAtIndex:section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section
@@ -120,7 +121,7 @@
     
 	
     
-    lbl.text = [sectionDescripition objectAtIndex:section];
+    lbl.text = [sectionDescription objectAtIndex:section];
     
     //	if (section == 0)
     //	{
@@ -161,9 +162,11 @@
         [self.navigationController pushViewController:abbinaCartaViewController animated:YES];
         [abbinaCartaViewController release];
     }
-    else if([cell.dataKey isEqualToString:@"acquista"])
+    else if([cell.dataKey isEqualToString:@"richiedi"])
     {
-        
+        RichiediCardViewController *richiediViewController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
+        [self.navigationController pushViewController:richiediViewController animated:YES];
+        [richiediViewController release];
     }
 }
 
@@ -225,8 +228,8 @@
     NSLog(@" quiiiiiiiiiii");
     
     if(sectionData.count == 1){
-        [sectionDescripition replaceObjectAtIndex:0 withObject:@"Carte"];
-        [sectionDescripition insertObject:@"Gestione" atIndex:1];
+        [sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
+        [sectionDescription insertObject:@"Gestione" atIndex:1];
         
         NSArray *tempA = [[sectionData objectAtIndex:0]retain];
         
@@ -255,17 +258,17 @@
     
     
     
-    sectionDescripition = [[NSMutableArray alloc] init];
+    sectionDescription = [[NSMutableArray alloc] init];
  
     
     NSMutableArray *secA = [[self creaDataContent] retain];
     
     if(secA && secA.count > 0){
-        [sectionDescripition insertObject:@"Carte" atIndex:0];
-        [sectionDescripition insertObject:@"Gestione" atIndex:1];
+        [sectionDescription insertObject:@"Carte" atIndex:0];
+        [sectionDescription insertObject:@"Gestione" atIndex:1];
     }
     else{
-        [sectionDescripition insertObject:@"Carte" atIndex:0];
+        [sectionDescription insertObject:@"Carte" atIndex:0];
     }
     
     NSMutableArray *secB = [[NSMutableArray alloc] init];
@@ -288,6 +291,14 @@
                          @"",       @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
                          nil] autorelease] atIndex: 1];
+    [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                         @"richiedi",           @"DataKey",
+                         @"ActionCell",       @"kind",
+                         @"Richiedi carta",   @"label",
+                         @"Per contattare PerDue e richiedere la carta", @"subtitle",
+                         @"",       @"img",
+                         [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
+                         nil] autorelease] atIndex: 2];
     
     
     if(secA && secA.count > 0){
@@ -352,7 +363,7 @@
 -(void)dealloc{
     
     [sectionData release];
-    [sectionDescripition release];
+    [sectionDescription release];
     
     
     [super dealloc];
