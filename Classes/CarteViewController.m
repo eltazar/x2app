@@ -13,6 +13,7 @@
 #import "AbbinaCartaViewController.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "RichiediCardViewController.h"
+#import "ControlloCartaController.h"
 
 #define MAX_CARD 3
 
@@ -76,7 +77,7 @@
         
         cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
         
-        NSLog(@"CELL = %@",cell);
+        //NSLog(@"CELL = %@",cell);
     }
     
     if([kind isEqualToString:@"CartaTableViewCell"]){
@@ -168,6 +169,15 @@
         [self.navigationController pushViewController:richiediViewController animated:YES];
         [richiediViewController release];
     }
+    else if([cell.dataKey isEqualToString:@"card"]){
+        
+        
+        
+        ControlloCartaController *controllaCartaCtrl = [[ControlloCartaController alloc] initWithCardDetail:[NSDictionary dictionaryWithObjectsAndKeys:((CartaTableViewCell*)cell).nome.text,@"titolare",((CartaTableViewCell*)cell).tessera.text, @"tessera",((CartaTableViewCell*)cell).data.text,@"scadenza",nil]];
+        [self.navigationController pushViewController:controllaCartaCtrl animated:YES];
+        [controllaCartaCtrl release];
+    }
+    
 }
 
 
@@ -255,8 +265,6 @@
     [super viewDidLoad];
     
     [self setTitle:@"Gestione carte"];
-    
-    
     
     sectionDescription = [[NSMutableArray alloc] init];
  
