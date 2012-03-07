@@ -22,6 +22,8 @@
         self.textLabel.minimumFontSize = 11;
         UIImage *image = [UIImage imageNamed: [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"img"]]];
         self.imageView.image = image;
+        [self.detailTextLabel setAdjustsFontSizeToFitWidth:YES];
+        self.detailTextLabel.minimumFontSize = 11;
         self.detailTextLabel.text = [dictionary objectForKey:@"subtitle"];
         //NSLog(@"IMAGE SIZE action %f, %f",image.size.width,image.size.height);
         
