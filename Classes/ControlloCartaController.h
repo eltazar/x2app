@@ -10,4 +10,11 @@
 
 @interface ControlloCartaController : UIViewController
 
+@property(nonatomic,retain) IBOutlet UIView *viewPulsante;
+@property(nonatomic,retain) IBOutlet UIButton *cercaButton;
+@property(nonatomic,retain) NSDictionary *datiCarta;
+
+-(IBAction)cercaButtonClicked:(id)sender;
+-(id)initWithCardDetail:(NSDictionary*)dati;
+
 @end
