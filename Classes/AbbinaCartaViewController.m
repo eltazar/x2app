@@ -9,6 +9,15 @@
 #import "AbbinaCartaViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "PerDueCItyCardAppDelegate.h"
+#import "PickerViewController.h"
+
+@interface AbbinaCartaViewController()
+@property(nonatomic, retain)NSString *titolare;
+@property(nonatomic, retain)NSString *numeroCarta;
+@property(nonatomic, retain)NSString *scadenza;
+
+-(BOOL)isValidFields;
+@end
 
 @implementation AbbinaCartaViewController
 @synthesize viewPulsante, abbinaButton, titolare, numeroCarta, scadenza,delegate;
@@ -80,24 +89,51 @@
     
 }
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    NSLog(@"cliccato su %d", textField.tag);
+    
+    UIActionSheet *myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
+    
+    myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    //imposto questo controller come delegato dell'actionSheet
+    [myActionSheet setDelegate:self];
+    //[actionSheet showInView:self.view];
+    [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    //setto i bounds dell'action sheet in modo tale da contenere il picker
+    [myActionSheet setBounds:CGRectMake(0,0,320, 500)]; 
+    
+    //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
+    NSArray *subviews = [myActionSheet subviews];
+    //setto il frame del tasto così da mostrarlo sotto al picker
+    //1 lo passo a mano, MODIFICARE
+    [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
+    //        pickerView = [[PickerViewController alloc] initw];
+    [myActionSheet addSubview: pickerDate.view];
+    
+    [textField setInputView:myActionSheet];
+    
+    [myActionSheet release];
+
+    return NO;
+}
+
+
+
+
 #pragma mark - Bottoni view
+
+-(BOOL)isValidFields{
+    
+    
+    
+}
 
 -(IBAction)abbinaButtonClicked:(id)sender{
         
     //validare i campi inseriti
     
-    //query sul db per vedere se esiste carta fisica
-    
-    //se esiste salvo dati
-    
-   // NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
     NSLog(@"abbina premuto = %@, %@, %@", titolare,numeroCarta,scadenza);
     
-//    [prefs setObject:titolare forKey:@"_titolare_AB"];
-//    [prefs setObject:numeroCarta forKey:@"_carta_AB"];
-//    [prefs setObject:scadenza forKey:@"_scadenza_AB"];
-//    [prefs synchronize];
 
     //Otteniamo il puntatore al NSManagedContext
     PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -144,14 +180,6 @@
     cartaView.userInteractionEnabled = YES;
     
     
-    //    
-//    UITextField *titolareTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 191, 31)];
-//    titolareTextField.tag = 5;
-//    
-//    [self.view addSubview:titolareTextField];
-//    [self.view addSubview:cartaView];
-    
-    
     UITextField *titolareField = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + 10, 191, 28)];
     titolareField.borderStyle = UITextBorderStyleRoundedRect;
     titolareField.font = [UIFont systemFontOfSize:15];
@@ -179,12 +207,12 @@
     UITextField *scadenzaField = [[UITextField alloc] initWithFrame:CGRectMake(numeroCartaField.frame.origin.x+numeroCartaField.frame.size.width+20, cartaView.frame.size.height/2 + titolareField.frame.size.height+20, 100, 28)];
     scadenzaField.borderStyle = UITextBorderStyleRoundedRect;
     scadenzaField.font = [UIFont systemFontOfSize:15];
-    scadenzaField.placeholder = @"Scadenza";
-    scadenzaField.autocorrectionType = UITextAutocorrectionTypeNo;
-    scadenzaField.keyboardType = UIKeyboardTypeDefault;
-    scadenzaField.returnKeyType = UIReturnKeyDone;
-    scadenzaField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    scadenzaField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter; 
+//    scadenzaField.placeholder = @"Scadenza";
+//    scadenzaField.autocorrectionType = UITextAutocorrectionTypeNo;
+//    scadenzaField.keyboardType = UIKeyboardTypeDefault;
+//    scadenzaField.returnKeyType = UIReturnKeyDone;
+//    scadenzaField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//    scadenzaField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter; 
     scadenzaField.tag = 3;
     scadenzaField.delegate = self;
     
@@ -198,6 +226,13 @@
     [numeroCartaField release];
     [titolareField release];
     [scadenzaField release];
+    
+    NSArray *calendar = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"--",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12", nil],[NSArray arrayWithObjects:@"--",@"2012",@"2013",@"2014",@"2015",@"2016",@"2017",@"2018",@"2020",@"2021",@"2022",@"2023",@"2024", nil] , nil];
+    
+    pickerDate = [[PickerViewController alloc] initWithArray: calendar andNumber:2];
+    
+    [calendar release];
+
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -223,6 +258,10 @@
     [titolare release];
     [numeroCarta release];
     [scadenza release];
+
+    [viewPulsante release];
+    [abbinaButton release];
+    
     [super dealloc];
 }
 @end

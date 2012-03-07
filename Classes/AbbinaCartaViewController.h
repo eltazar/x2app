@@ -8,18 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@class PickerViewController;
 @protocol AbbinaCartaDelegate;
 
-@interface AbbinaCartaViewController : UIViewController <UITextFieldDelegate>
+@interface AbbinaCartaViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>
 {
     BOOL isViewUp;
+    PickerViewController *pickerDate;
 }
 
 @property(nonatomic,assign) id<AbbinaCartaDelegate> delegate;
 
-@property(nonatomic, retain)NSString *titolare;
-@property(nonatomic, retain)NSString *numeroCarta;
-@property(nonatomic, retain)NSString *scadenza;
+
 
 @property(nonatomic,retain) IBOutlet UIView *viewPulsante;
 @property(nonatomic,retain) IBOutlet UIButton *abbinaButton;
