@@ -1,0 +1,17 @@
+//
+//  Utilita.h
+//  PerDueCItyCard
+//
+//  Created by mario greco on 07/03/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+
+
+@interface Utilita : NSObject
+
++(BOOL)isNumeric:(NSString*)inputString;
++(BOOL)isStringEmptyOrWhite:(NSString*)string;
++(BOOL)iseEmailValid:(NSString*)email;
+
+@end
