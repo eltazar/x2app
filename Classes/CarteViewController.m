@@ -275,16 +275,18 @@
                          @"ActionCell",               @"kind",
                          @"Abbina carta"      , @"label",
                          @"",                   @"detailLabel",
+                         @"Per abbinare la tua carta reale all'iPhone", @"subtitle",
                          @"",               @"img",
-                         [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
                          nil] autorelease] atIndex: 0];
     
     [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"acquista",           @"DataKey",
                          @"ActionCell",       @"kind",
                          @"Acquista carta",   @"label",
+                         @"Per acquistare la carta PerDue online", @"subtitle",
                          @"",       @"img",
-                         [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
                          nil] autorelease] atIndex: 1];
     
     
