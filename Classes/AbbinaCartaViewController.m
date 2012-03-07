@@ -42,7 +42,7 @@
 #pragma mark - UITextField delegate
 - (void)textFieldDidEndEditing:(UITextField *)txtField
 {   
-    
+    NSLog(@"editing finito");
     if(txtField.tag == 5){
         self.titolare = txtField.text;
     }
@@ -89,35 +89,60 @@
     
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    NSLog(@"cliccato su %d", textField.tag);
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{    
     
-    UIActionSheet *myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
-    
-    myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-    //imposto questo controller come delegato dell'actionSheet
-    [myActionSheet setDelegate:self];
-    //[actionSheet showInView:self.view];
-    [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
-    //setto i bounds dell'action sheet in modo tale da contenere il picker
-    [myActionSheet setBounds:CGRectMake(0,0,320, 500)]; 
-    
-    //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
-    NSArray *subviews = [myActionSheet subviews];
-    //setto il frame del tasto così da mostrarlo sotto al picker
-    //1 lo passo a mano, MODIFICARE
-    [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
-    //        pickerView = [[PickerViewController alloc] initw];
-    [myActionSheet addSubview: pickerDate.view];
-    
-    [textField setInputView:myActionSheet];
-    
-    [myActionSheet release];
+    if(textField.tag == 3){
+        UIActionSheet *myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
+        
+        myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        //imposto questo controller come delegato dell'actionSheet
+        [myActionSheet setDelegate:self];
+        //[actionSheet showInView:self.view];
+        [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+        //setto i bounds dell'action sheet in modo tale da contenere il picker
+        [myActionSheet setBounds:CGRectMake(0,0,320, 500)]; 
+        
+        //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
+        NSArray *subviews = [myActionSheet subviews];
+        //setto il frame del tasto così da mostrarlo sotto al picker
+        //1 lo passo a mano, MODIFICARE
+        [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
+        //        pickerView = [[PickerViewController alloc] initw];
+        [myActionSheet addSubview: pickerDate.view];
+        
+        [textField setInputView:myActionSheet];
+        
+        [myActionSheet release];
+        return NO;
 
-    return NO;
+    }
+    return YES;
 }
 
 
+#pragma mark - ActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{         
+    NSString *date = [NSString stringWithFormat:@"%@/%@",[pickerDate.objectsInRow objectAtIndex:0],[pickerDate.objectsInRow objectAtIndex:1]];
+    
+    //NSLog(@"date = %@", date);
+                    
+    for(UIView *tempView in [self.view subviews]){
+        
+       // NSLog(@"temp view tag = %d",tempView.tag);
+        if (tempView.tag == 2) {
+            for(UIView *textField in [tempView subviews]){
+                if(textField.tag == 3)
+                    ((UITextField*)textField).text = date;
+            }
+            
+        }
+    }
+        
+    self.scadenza = date;
+    
+}
 
 
 #pragma mark - Bottoni view
@@ -125,7 +150,7 @@
 -(BOOL)isValidFields{
     
     
-    
+    return true;
 }
 
 -(IBAction)abbinaButtonClicked:(id)sender{
@@ -178,6 +203,7 @@
     UIImageView *cartaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartaGrande.png"]];
     [cartaView setFrame:CGRectMake(11, 20, 300, 180)];
     cartaView.userInteractionEnabled = YES;
+    cartaView.tag = 2;
     
     
     UITextField *titolareField = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + 10, 191, 28)];
