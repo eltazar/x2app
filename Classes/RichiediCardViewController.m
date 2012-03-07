@@ -224,6 +224,13 @@
     //controlla che i dati inseriti nel titolare siano solo caratteri
     
     //controllare formato email
+    if( ! [Utilita isEmailValid:email]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail formalmente non valida" message:@"Controlla l'indirizzo inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        return FALSE;
+    }
+    
     
     return TRUE;
 }
