@@ -14,7 +14,6 @@
 
 /*facebook*/
 @synthesize facebookAlert;
-@synthesize usersession;
 @synthesize username;
 @synthesize post;
 #define _APP_KEY @"223476134356120"
@@ -427,12 +426,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			[controller release];
 		} 
 		if (buttonIndex == 1) { //facebook
-			if (appDelegate._session.isConnected) {
-				[self postToWall];
-			} else {
-				FBLoginDialog* dialog = [[[FBLoginDialog alloc] initWithSession:appDelegate._session] autorelease];
-				[dialog show];
-			}
+//			if (appDelegate._session.isConnected) {
+//				[self postToWall];
+//			} else {
+//				FBLoginDialog* dialog = [[[FBLoginDialog alloc] initWithSession:appDelegate._session] autorelease];
+//				[dialog show];
+//			}
 		}
 	}
 	if(actionSheet==aSheet2) {
@@ -463,13 +462,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     /*facebook*/
     appDelegate =(PerDueCItyCardAppDelegate *)   [[UIApplication sharedApplication]delegate];
-    if (appDelegate._session == nil){
-        appDelegate._session = [FBSession sessionForApplication:_APP_KEY secret:_SECRET_KEY delegate:self];
-    }
-    else{
-        [[appDelegate._session delegates] addObject:self];
-        [[appDelegate._session delegates] removeObjectAtIndex:0];
-    }        
+//    if (appDelegate._session == nil){
+//        appDelegate._session = [FBSession sessionForApplication:_APP_KEY secret:_SECRET_KEY delegate:self];
+//    }
+//    else{
+//        [[appDelegate._session delegates] addObject:self];
+//        [[appDelegate._session delegates] removeObjectAtIndex:0];
+//    }        
     
 
 }
@@ -686,39 +685,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[faq release];
 }
 
-#pragma mark -
-#pragma mark facebook
-
-- (void)session:(FBSession*)session didLogin:(FBUID)uid {
-	self.usersession =session;
-	NSLog(@"User with id %lld logged in.", uid);
-	[self getFacebookName];
-}
-
-- (void)getFacebookName {
-	NSString* fql = [NSString stringWithFormat:@"select uid,name from user where uid == %lld", self.usersession.uid];
-	NSDictionary* params = [NSDictionary dictionaryWithObject:fql forKey:@"query"];
-	[[FBRequest requestWithDelegate:self] call:@"facebook.fql.query" params:params];
-	self.post=YES;
-}
-
-- (void)request:(FBRequest*)request didLoad:(id)result {
-	if ([request.method isEqualToString:@"facebook.fql.query"]) {
-		NSArray* users = result;
-		NSDictionary* user = [users objectAtIndex:0];
-		NSString* name = [user objectForKey:@"name"];
-		self.username = name;
-		
-		if (self.post) {
-			[self postToWall];
-			self.post = NO;
-		}
-	}
-}
-
-
+#warning POSTO TO WALL
 - (void)postToWall {
-	FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
+	/*
+     FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
 	
 	NSString *name = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]] ; 
     NSString *href = @"http://www.cartaperdue.it";
@@ -740,7 +710,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                                 "\"href\":\"%@\"}],"
                                 "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref];
     [dialog show];
-
+*/
 }
 
 @end

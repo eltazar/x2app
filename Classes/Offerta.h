@@ -15,11 +15,9 @@
 #import "DettaglioEsercenti.h"
 #import "DettaglioEsercenteGenerico.h"
 #import "Coupon.h"
-#import "FBConnect.h"
-#import "FBSession.h"
 #import "Reachability.h"
 
-@interface Offerta : UIViewController <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,FBSessionDelegate,FBRequestDelegate>  {
+@interface Offerta : UIViewController <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate>  {
 	NSInteger identificativo;
 	NSInteger identificativoesercente;
 
@@ -70,7 +68,6 @@
 	
 	/*facebook*/
 	UIAlertView *facebookAlert;
-	FBSession *usersession;
 	NSString *username;
 	BOOL post;
     PerDueCItyCardAppDelegate *appDelegate;	
@@ -109,7 +106,6 @@
 
 /*facebook*/
 @property(nonatomic,retain) UIAlertView *facebookAlert;
-@property(nonatomic,retain) FBSession *usersession;
 @property(nonatomic,retain) NSString *username;
 @property(nonatomic,assign) BOOL post;
 

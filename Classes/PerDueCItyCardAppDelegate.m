@@ -13,7 +13,6 @@
 
 @synthesize window;
 @synthesize tabBarController;
-@synthesize _session;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
@@ -219,7 +218,6 @@
 - (void)dealloc {
     [tabBarController release];
     [window release];
-	[_session release];
     
     [__managedObjectContext release];
     [__managedObjectModel release];

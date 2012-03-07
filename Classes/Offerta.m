@@ -14,7 +14,6 @@
 
 /*facebook*/
 @synthesize facebookAlert;
-@synthesize usersession;
 @synthesize username;
 @synthesize post;
 #define _APP_KEY @"223476134356120"
@@ -33,8 +32,10 @@
 	}
 }
 
+//richiamato quando si preme "compra"
 -(void)Paga:(id)sender{
 	if ([rows count]>0){
+        //controlla scadenza offerta
 		if(secondsLeft>0) {
 			detail = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
 			[(Pagamento2*)detail setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
@@ -412,12 +413,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			[controller release];
 		} 
 		if (buttonIndex == 1) { //facebook
-			if (appDelegate._session.isConnected) {
+			/*if (appDelegate._session.isConnected) {
 				[self postToWall];
 			} else {
 				FBLoginDialog* dialog = [[[FBLoginDialog alloc] initWithSession:appDelegate._session] autorelease];
 				[dialog show];
 			}
+             */
 		}
 	}
 	if(actionSheet==aSheet2) {
@@ -464,13 +466,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[timer invalidate];
     /*facebook*/
     appDelegate =(PerDueCItyCardAppDelegate *)   [[UIApplication sharedApplication]delegate];
-    if (appDelegate._session == nil){
-        appDelegate._session = [FBSession sessionForApplication:_APP_KEY secret:_SECRET_KEY delegate:self];
-    }
-    else{
-        [[appDelegate._session delegates] addObject:self];
-        [[appDelegate._session delegates] removeObjectAtIndex:0];
-    }        
+//    if (appDelegate._session == nil){
+//        appDelegate._session = [FBSession sessionForApplication:_APP_KEY secret:_SECRET_KEY delegate:self];
+//    }
+//    else{
+//        [[appDelegate._session delegates] addObject:self];
+//        [[appDelegate._session delegates] removeObjectAtIndex:0];
+//    }        
     
 		//NSLog(@"Delegates: %@", [appDelegate._session delegates]);
 }
@@ -625,58 +627,58 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark -
 #pragma mark facebook
 
-- (void)session:(FBSession*)session didLogin:(FBUID)uid {
-	self.usersession =session;
-	NSLog(@"User with id %lld logged in.", uid);
-	[self getFacebookName];
-}
-
-- (void)getFacebookName {
-	NSString* fql = [NSString stringWithFormat:@"select uid,name from user where uid == %lld", self.usersession.uid];
-	NSDictionary* params = [NSDictionary dictionaryWithObject:fql forKey:@"query"];
-	[[FBRequest requestWithDelegate:self] call:@"facebook.fql.query" params:params];
-	self.post=YES;
-}
-
-- (void)request:(FBRequest*)request didLoad:(id)result {
-	if ([request.method isEqualToString:@"facebook.fql.query"]) {
-		NSArray* users = result;
-		NSDictionary* user = [users objectAtIndex:0];
-		NSString* name = [user objectForKey:@"name"];
-		self.username = name;
-		
-		if (self.post) {
-			[self postToWall];
-			self.post = NO;
-		}
-	}
-}
-
-
-- (void)postToWall {
-	FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
-	
-	NSString *name = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]] ; 
-    NSString *href = @"http://www.cartaperdue.it";
-	
-    NSString *caption = @"Carta PerDue - Sconti da vivere subito nella tua citta!";
-    NSString *description = [NSString stringWithFormat:@"Scopri l'offerta del giorno - Acquista il coupon - Decidi quando utilizzarlo. Semplice, utile e versatile: questo è il tempo libero con PerDue!"]; 
-    NSString *imageSource = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_vetrina"]];
-    NSString *imageHref =[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_big"]];
-	
-    NSString *linkTitle = @"Per ulteriori dettagli";
-    NSString *linkText = @"Vedi l'offerta";
-    NSString *linkHref = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/dettaglio_affare.jsp?idofferta=%@",[dict objectForKey:@"idofferta"]];
-    dialog.attachment = [NSString stringWithFormat:
-						 @"{ \"name\":\"%@\","
-						 "\"href\":\"%@\","
-						 "\"caption\":\"%@\",\"description\":\"%@\","
-						 "\"media\":[{\"type\":\"image\","
-						 "\"src\":\"%@\","
-						 "\"href\":\"%@\"}],"
-						 "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref];
-    [dialog show];
-	
-}
+//- (void)session:(FBSession*)session didLogin:(FBUID)uid {
+//	self.usersession =session;
+//	NSLog(@"User with id %lld logged in.", uid);
+//	[self getFacebookName];
+//}
+//
+//- (void)getFacebookName {
+//	NSString* fql = [NSString stringWithFormat:@"select uid,name from user where uid == %lld", self.usersession.uid];
+//	NSDictionary* params = [NSDictionary dictionaryWithObject:fql forKey:@"query"];
+//	[[FBRequest requestWithDelegate:self] call:@"facebook.fql.query" params:params];
+//	self.post=YES;
+//}
+//
+//- (void)request:(FBRequest*)request didLoad:(id)result {
+//	if ([request.method isEqualToString:@"facebook.fql.query"]) {
+//		NSArray* users = result;
+//		NSDictionary* user = [users objectAtIndex:0];
+//		NSString* name = [user objectForKey:@"name"];
+//		self.username = name;
+//		
+//		if (self.post) {
+//			[self postToWall];
+//			self.post = NO;
+//		}
+//	}
+//}
+//
+//
+//- (void)postToWall {
+//	FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
+//	
+//	NSString *name = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]] ; 
+//    NSString *href = @"http://www.cartaperdue.it";
+//	
+//    NSString *caption = @"Carta PerDue - Sconti da vivere subito nella tua citta!";
+//    NSString *description = [NSString stringWithFormat:@"Scopri l'offerta del giorno - Acquista il coupon - Decidi quando utilizzarlo. Semplice, utile e versatile: questo è il tempo libero con PerDue!"]; 
+//    NSString *imageSource = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_vetrina"]];
+//    NSString *imageHref =[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_big"]];
+//	
+//    NSString *linkTitle = @"Per ulteriori dettagli";
+//    NSString *linkText = @"Vedi l'offerta";
+//    NSString *linkHref = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/dettaglio_affare.jsp?idofferta=%@",[dict objectForKey:@"idofferta"]];
+//    dialog.attachment = [NSString stringWithFormat:
+//						 @"{ \"name\":\"%@\","
+//						 "\"href\":\"%@\","
+//						 "\"caption\":\"%@\",\"description\":\"%@\","
+//						 "\"media\":[{\"type\":\"image\","
+//						 "\"src\":\"%@\","
+//						 "\"href\":\"%@\"}],"
+//						 "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref];
+//    [dialog show];
+//	
+//}
 
 @end
