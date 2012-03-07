@@ -12,11 +12,6 @@
     
     NSMutableArray *sectionData;
     NSMutableArray *sectionDescription;
-    
-    NSString *nome;
-    NSString *cognome;
-    NSString *email;
-    NSString *telefono;
 
 }
 @end

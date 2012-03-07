@@ -11,8 +11,19 @@
 #import "TextFieldCell.h"
 #import "Utilita.h"
 
-@implementation RichiediCardViewController
+//metodi e variabili private
+@interface RichiediCardViewController ()
 
+@property(nonatomic,retain) NSString *nome;
+@property(nonatomic,retain) NSString *cognome;
+@property(nonatomic,retain) NSString *telefono;
+@property(nonatomic,retain) NSString *email;
+
+-(BOOL)isValidFields;
+@end
+
+@implementation RichiediCardViewController
+@synthesize nome,cognome,telefono,email;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -193,7 +204,7 @@
     
     //controlla che le stringhe non siano ne vuote ne formate da soli spazi bianchi
     if(! [Utilita isStringEmptyOrWhite:nome] || ! [Utilita isStringEmptyOrWhite:cognome] ||
-       [Utilita isStringEmptyOrWhite:telefono] || ! [Utilita isStringEmptyOrWhite:email]){
+       ![Utilita isStringEmptyOrWhite:telefono] || ! [Utilita isStringEmptyOrWhite:email]){
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati mancanti" message:@"Per favore inserisci tutti i dati richiesti" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
@@ -204,7 +215,7 @@
     
     //controlla che i dati inseriti siano solo numerici per il numero di telefono
     if(![Utilita isNumeric:telefono]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero carta di credito formalmente non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero di telefono formalmente non valido" message:@"Il numero deve esser composto da soli numeri" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
@@ -238,19 +249,19 @@
     
     if([cell.dataKey isEqualToString:@"name"]){
         //[prefs setObject: txtField.text forKey:@"_numero"];
-        nome = txtField.text;
+        self.nome = txtField.text;
     }
     else if([cell.dataKey isEqualToString:@"surname"]){
-        cognome = txtField.text;
+        self.cognome = txtField.text;
         //[prefs setObject: txtField.text forKey:@"_cvv"];
     }
     else if([cell.dataKey isEqualToString:@"email"]){
         //[prefs setObject: txtField.text forKey:@"_nome"];
-        email = txtField.text;
+        self.email = txtField.text;
     }
     else if([cell.dataKey isEqualToString:@"phone"]){
         //[prefs setObject: txtField.text forKey:@"_nome"];
-        telefono = txtField.text;
+        self.telefono = txtField.text;
     }
 }
 
@@ -318,10 +329,10 @@
     [secBtn release];
     [secB release];
     
-    nome = @"";
-    cognome = @"";
-    telefono = @"";
-    email = @"";
+    self.nome = @"";
+    self.cognome = @"";
+    self.telefono = @"";
+    self.email = @"";
     
 }
 
@@ -349,10 +360,10 @@
 
 - (void)dealloc {
     
-    [nome release];
-    [telefono release];
-    [cognome release];
-    [email release];
+    self.nome = nil;
+    self.cognome = nil;
+    self.telefono = nil;
+    self.email = nil;
     
     [sectionData release];
     [sectionDescription release];
