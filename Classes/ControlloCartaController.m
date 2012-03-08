@@ -8,6 +8,7 @@
 
 #import "ControlloCartaController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Utilita.h"
 
 @implementation ControlloCartaController
 @synthesize viewPulsante, cercaButton, datiCarta;
@@ -59,7 +60,6 @@
     
     UIImageView *cartaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartaGrande.png"]];
     [cartaView setFrame:CGRectMake(11, 20, 300, 180)];
-    cartaView.userInteractionEnabled = YES;
     
     
     //    
@@ -97,6 +97,13 @@
     [titolareLabel release];
     [scadenzaLabel release];
 
+    if([Utilita isDateExpired:[datiCarta objectForKey:@"scadenza"]]){
+        //attacco adesivo "scaduta"
+        UIImageView *scadutaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scadutaImg.png"]];
+        [scadutaView setFrame:CGRectMake(11, 20, 300, 180)];
+        [self.view addSubview:scadutaView];
+        [scadutaView release];
+    }
 
 }
 
