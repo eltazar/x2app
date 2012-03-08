@@ -159,20 +159,31 @@
 {    
     BaseCell *cell = (BaseCell*) [tableView cellForRowAtIndexPath:indexPath];
     
-    if ([cell.dataKey isEqualToString:@"abbina"]) {
-        
-        AbbinaCartaViewController *abbinaCartaViewController = [[AbbinaCartaViewController alloc] init];
-        abbinaCartaViewController.delegate = self;
-        [self.navigationController pushViewController:abbinaCartaViewController animated:YES];
-        [abbinaCartaViewController release];
+    if(numCarteAbbinate < MAX_CARD){
+        if ([cell.dataKey isEqualToString:@"abbina"]) {
+            
+            AbbinaCartaViewController *abbinaCartaViewController = [[AbbinaCartaViewController alloc] init];
+            abbinaCartaViewController.delegate = self;
+            [self.navigationController pushViewController:abbinaCartaViewController animated:YES];
+            [abbinaCartaViewController release];
+        }
+        else if([cell.dataKey isEqualToString:@"richiedi"])
+        {
+            RichiediCardViewController *richiediViewController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
+            [self.navigationController pushViewController:richiediViewController animated:YES];
+            [richiediViewController release];
+        }
+        else if([cell.dataKey isEqualToString:@"acquista"]){
+            
+        }
     }
-    else if([cell.dataKey isEqualToString:@"richiedi"])
-    {
-        RichiediCardViewController *richiediViewController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
-        [self.navigationController pushViewController:richiediViewController animated:YES];
-        [richiediViewController release];
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Azione non permesssa" message:@"Hai raggiunto il numero massimo di carte associabili al dispositivo" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
     }
-    else if([cell.dataKey isEqualToString:@"card"]){
+    
+    if([cell.dataKey isEqualToString:@"card"]){
         
         
         
@@ -180,7 +191,8 @@
         [self.navigationController pushViewController:controllaCartaCtrl animated:YES];
         [controllaCartaCtrl release];
     }
-    
+ 
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
