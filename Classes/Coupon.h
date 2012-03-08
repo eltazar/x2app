@@ -19,8 +19,11 @@
 #import "OpzioniCoupon.h"
 #import "AsyncImageView.h"
 #import "Reachability.h"
+#import "FBConnect.h"
+#import "Facebook.h"
 
-@interface Coupon : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate>{
+@interface Coupon : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate>{
+        
 	NSInteger identificativoesercente;
 	IBOutlet UIViewController *insintesi;
 	IBOutlet UIViewController *termini;
@@ -71,6 +74,7 @@
 	int secondsLeft;
 	
 	/*facebook*/
+    NSArray *permissions;    
 	UIAlertView *facebookAlert;
 	NSString *username;
 	BOOL post;
@@ -84,7 +88,8 @@
 	IBOutlet UIViewController *faq;
 	IBOutlet UIWebView *faqwebview;
 	IBOutlet UILabel *titololabel; //nella view "In sintesi"
-
+    BOOL waitingForFacebook;
+    UIBarButtonItem *logoutBtn;
 
 		
 }

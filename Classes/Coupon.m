@@ -7,17 +7,22 @@
 //
 
 #import "Coupon.h"
-
+#import "FBConnect.h"
+#import "FBDialog.h"
+#import "Facebook.h"
+#import "PerDueCItyCardAppDelegate.h"
 
 @implementation Coupon
 @synthesize titolo,tempo,riepilogo,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel;
-
 /*facebook*/
 @synthesize facebookAlert;
 @synthesize username;
 @synthesize post;
 #define _APP_KEY @"223476134356120"
 #define _SECRET_KEY @"6d2eaf75967fc247ac45aac716a4dd64"
+
+
+
 
 -(int)check:(Reachability*) curReach{
 	NetworkStatus netStatus = [curReach currentReachabilityStatus];
@@ -432,6 +437,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //				FBLoginDialog* dialog = [[[FBLoginDialog alloc] initWithSession:appDelegate._session] autorelease];
 //				[dialog show];
 //			}
+            if (![appDelegate.facebook isSessionValid]) {
+                [appDelegate logIntoFacebook];
+                waitingForFacebook = YES;
+                //                [self postOnFacebookWall];
+            }
+            else{
+                [self postToWall];
+            }
+            
 		}
 	}
 	if(actionSheet==aSheet2) {
@@ -489,6 +503,53 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UIBarButtonItem *cittaBtn = [[UIBarButtonItem alloc] initWithTitle:@"Città" style:UIBarButtonItemStyleBordered target:self action:@selector(Opzioni:)];
     self.navigationItem.leftBarButtonItem = cittaBtn;
     [cittaBtn release];
+    
+    //FACEBOOK
+    //###### FACEBOOK ########
+    
+    //setto il pulsante per il logout
+    UIImage *buttonImage = [UIImage imageNamed:@"logout.png"];
+    
+    UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [tmpButton setImage:buttonImage forState:UIControlStateNormal];
+    tmpButton.frame = CGRectMake(0.0, 0.0, buttonImage.size.width, buttonImage.size.height);
+    [tmpButton addTarget:self action:@selector(logoutFromFB) forControlEvents:UIControlEventTouchUpInside];
+    
+    logoutBtn = [[UIBarButtonItem alloc] initWithCustomView:tmpButton];
+    
+    appDelegate = (PerDueCItyCardAppDelegate*) [[UIApplication sharedApplication] delegate];
+    
+    //controllo se ci sono token e sessione precedenti valide
+    [appDelegate checkForPreviouslySavedAccessTokenInfo];
+    
+    //mostra il tasto per il logout se connesso
+    if([appDelegate.facebook isSessionValid]){
+        // NSLog(@"DID LOAD CONNECTED");
+        self.navigationItem.rightBarButtonItem = logoutBtn;
+    }
+    else{
+        //NSLog(@"DID LOAD NOT CONNECTED");
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(FBdidLogout)
+                                                 name:@"FBdidLogout"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(FBdidLogin)
+                                                 name:@"FBdidLogin"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(FBerrLogin)
+                                                 name:@"FBerrLogin"
+                                               object:nil];
+    
+    waitingForFacebook = NO;
+
     
     
 
@@ -666,7 +727,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 - (void)dealloc {
-    [super dealloc];
+    
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[rows release];
 	[dict2 release];
@@ -683,12 +744,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[internetReach release];
 	[photobig release];
 	[faq release];
+    [logoutBtn release];
+    logoutBtn = nil;
+    [super dealloc];
 }
 
-#warning POSTO TO WALL
 - (void)postToWall {
-	/*
-     FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
+	
+     //FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
 	
 	NSString *name = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]] ; 
     NSString *href = @"http://www.cartaperdue.it";
@@ -701,16 +764,112 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *linkTitle = @"Per ulteriori dettagli";
     NSString *linkText = @"Vedi l'offerta";
     NSString *linkHref = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/dettaglio_affare.jsp?idofferta=%@",[dict objectForKey:@"idofferta"]];
-    dialog.attachment = [NSString stringWithFormat:
+   /* dialog.attachment = [NSString stringWithFormat:
                                 @"{ \"name\":\"%@\","
                                 "\"href\":\"%@\","
                                 "\"caption\":\"%@\",\"description\":\"%@\","
                                 "\"media\":[{\"type\":\"image\","
                                 "\"src\":\"%@\","
                                 "\"href\":\"%@\"}],"
-                                "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref];
-    [dialog show];
-*/
+                                "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref];*/
+    //[dialog show];
+
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   @"223476134356120", @"app_id",
+                                   @"www.google.it", @"link",
+                                   @"", @"picture",
+                                   @"Segnalazione di un'offerta", @"name",
+                                   [NSString stringWithFormat:
+                                    @"{ \"name\":\"%@\","
+                                    "\"href\":\"%@\","
+                                    "\"caption\":\"%@\",\"description\":\"%@\","
+                                    "\"media\":[{\"type\":\"image\","
+                                    "\"src\":\"%@\","
+                                    "\"href\":\"%@\"}],"
+                                    "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref],@"caption",
+                                   [NSString stringWithFormat:
+                                    @"{ \"name\":\"%@\","
+                                    "\"href\":\"%@\","
+                                    "\"caption\":\"%@\",\"description\":\"%@\","
+                                    "\"media\":[{\"type\":\"image\","
+                                    "\"src\":\"%@\","
+                                    "\"href\":\"%@\"}],"
+                                    "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref],@"description",
+                                   nil];                
+    //[facebook requestWithGraphPath:@"me/feed" andParams:params andHttpMethod:@"POST" andDelegate:self]; 
+    
+    [appDelegate.facebook dialog:@"feed" andParams:params andDelegate:self];
 }
+
+
+#pragma mark - FACEBOOK
+
+-(void)logoutFromFB{
+    //eseguo logout e rimuovo token
+    [appDelegate.facebook logout:appDelegate];
+    //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //    [defaults removeObjectForKey:@"FBAccessTokenKey"];
+    //    [defaults removeObjectForKey:@"FBExpirationDateKey"];
+    //    [defaults synchronize];
+}
+
+-(void)FBdidLogout{
+    [self.navigationItem setRightBarButtonItem:nil animated:YES];
+}
+
+-(void)FBdidLogin{
+    
+    NSLog(@"fblogin");
+    if(waitingForFacebook){
+        [self postToWall];
+        waitingForFacebook = NO;
+    }
+    [self.navigationItem setRightBarButtonItem:logoutBtn animated:YES];
+}
+
+-(void)FBerrLogin{
+    waitingForFacebook = NO;
+}
+
+#pragma mark - FacebookDialogDelegate
+
+- (void) dialogDidNotComplete:(FBDialog *)dialog
+{
+        NSLog(@"DIALOG DID NOT COMPLETE");
+}
+
+- (void)dialogCompleteWithUrl:(NSURL *)url{
+    
+    NSLog(@"DIALOG COMPLETE WITH URL : %@", [url absoluteString]);
+    
+    if ([[url absoluteString] rangeOfString:@"?post_id="].location == NSNotFound )
+    {
+        NSLog(@"post non inserito");
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Messaggio pubblicato sulla tua bacheca" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        
+    }
+}
+
+- (void) dialogDidNotCompleteWithUrl:(NSURL *)url{
+    NSLog(@"DIALOG NOT COMPLETE WITH URL : %@", [url absoluteString]);
+}
+
+- (void)dialog:(FBDialog*)dialog didFailWithError:(NSError *)error{
+    
+    NSLog(@"DIALOG FAIL WITH ERROR: %@", error);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Non è stato possibile condividere questo contenuto su facebook, riprova" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
+}
+
+- (void)dialogDidComplete:(FBDialog *)dialog{
+    
+}
+
 
 @end
