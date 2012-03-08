@@ -81,6 +81,7 @@
 		return 0;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if ([rows count]==0) //coupon non disponibile
 		return 0;
@@ -384,8 +385,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		
 	}
 	if ( (indexPath.section==2) && (indexPath.row == 0)){
-		PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
-		aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
+		//PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
+		
+        //mostra il tasto per il logout se connesso
+            if([appDelegate.facebook isSessionValid]){
+                 NSLog(@"DID LOAD CONNECTED");
+                aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:@"Logout da Facebook" otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
+            }
+            else{
+                NSLog(@"DID LOAD NOT CONNECTED");
+                aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
+            }
+        
+//        aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
 		
 		[aSheet showInView:appDelegate.window];
 		[aSheet release];			
@@ -394,7 +406,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	}
 	if ( (indexPath.section==2) && (indexPath.row == 1)){
-		PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
+//		PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
 		aSheet2 = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Contatta PerDue"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Telefona", @"Invia mail", nil];
 		
 		[aSheet2 showInView:appDelegate.window];
@@ -420,7 +432,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if(actionSheet==aSheet) {
-		if (buttonIndex == 0) { //mail
+		
+        NSLog(@" numero di bottoni = %d", actionSheet.numberOfButtons);
+        
+        
+        if(actionSheet.numberOfButtons == 4){
+            if(buttonIndex == 0){
+                NSLog(@"richiamo logout facebook");
+                [self logoutFromFB];
+                return;
+                
+            }
+            else{
+                buttonIndex -= 1;
+            }
+        }
+        
+        if (buttonIndex == 0) { //mail
 			MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
 			[[controller navigationBar] setTintColor:[UIColor colorWithRed:142/255.0 green:21/255.0 blue:7/255.0 alpha:1.0]];
 			controller.mailComposeDelegate = self;
@@ -506,32 +534,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //FACEBOOK
     //###### FACEBOOK ########
+
     
-    //setto il pulsante per il logout
-    UIImage *buttonImage = [UIImage imageNamed:@"logout.png"];
-    
-    UIButton *tmpButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [tmpButton setImage:buttonImage forState:UIControlStateNormal];
-    tmpButton.frame = CGRectMake(0.0, 0.0, buttonImage.size.width, buttonImage.size.height);
-    [tmpButton addTarget:self action:@selector(logoutFromFB) forControlEvents:UIControlEventTouchUpInside];
-    
-    logoutBtn = [[UIBarButtonItem alloc] initWithCustomView:tmpButton];
+    //logoutBtn = [[UIBarButtonItem alloc] initWithCustomView:tmpButton];
     
     appDelegate = (PerDueCItyCardAppDelegate*) [[UIApplication sharedApplication] delegate];
     
     //controllo se ci sono token e sessione precedenti valide
     [appDelegate checkForPreviouslySavedAccessTokenInfo];
-    
-    //mostra il tasto per il logout se connesso
-    if([appDelegate.facebook isSessionValid]){
-        // NSLog(@"DID LOAD CONNECTED");
-        self.navigationItem.rightBarButtonItem = logoutBtn;
-    }
-    else{
-        //NSLog(@"DID LOAD NOT CONNECTED");
-        self.navigationItem.rightBarButtonItem = nil;
-    }
-    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -744,8 +754,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[internetReach release];
 	[photobig release];
 	[faq release];
-    [logoutBtn release];
-    logoutBtn = nil;
+//    [logoutBtn release];
+//    logoutBtn = nil;
     [super dealloc];
 }
 
@@ -815,7 +825,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 -(void)FBdidLogout{
-    [self.navigationItem setRightBarButtonItem:nil animated:YES];
+    //[self.navigationItem setRightBarButtonItem:nil animated:YES];
+    
 }
 
 -(void)FBdidLogin{
@@ -825,7 +836,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         [self postToWall];
         waitingForFacebook = NO;
     }
-    [self.navigationItem setRightBarButtonItem:logoutBtn animated:YES];
+    [self.tableview reloadData];
 }
 
 -(void)FBerrLogin{

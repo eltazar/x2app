@@ -89,8 +89,6 @@
 	IBOutlet UIWebView *faqwebview;
 	IBOutlet UILabel *titololabel; //nella view "In sintesi"
     BOOL waitingForFacebook;
-    UIBarButtonItem *logoutBtn;
-
 		
 }
 
