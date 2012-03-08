@@ -31,5 +31,14 @@
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb223476134356120</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
