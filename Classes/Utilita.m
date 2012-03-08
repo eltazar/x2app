@@ -47,5 +47,25 @@
     else return TRUE;
     
 }
+//ritorna VERO se scaduta
++(BOOL)isDateExpired:(NSString *)data{
+    
+    if([data isEqualToString:@"Scaduta"])
+       return TRUE;
+       
+    NSArray *componentiScadenza = [data componentsSeparatedByString:@"/"];
+    NSInteger mesescadenza = [[componentiScadenza objectAtIndex:0] intValue];
+    NSInteger annoscadenza = [[componentiScadenza objectAtIndex:1] intValue];
+    
+   NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit | NSMonthCalendarUnit | NSYearCalendarUnit fromDate:[NSDate date]];
+    
+    NSLog(@"DATA = %@, mese = %d, anno = %d", data, [components month], [components year]);
+
+    
+    if([components year] > annoscadenza ||
+       ([components year] == annoscadenza && [components month] > mesescadenza))
+        return TRUE;
+    else return FALSE;
+}
 
 @end

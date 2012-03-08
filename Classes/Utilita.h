@@ -14,4 +14,5 @@
 +(BOOL)isStringEmptyOrWhite:(NSString*)string;
 +(BOOL)isEmailValid:(NSString*)email;
 +(BOOL)isDateFormatValid:(NSString*)data;
++(BOOL)isDateExpired:(NSString*)data;
 @end
