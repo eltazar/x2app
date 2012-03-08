@@ -92,6 +92,10 @@
             ((CartaTableViewCell*)cell).data.text = @"Scaduta";
         else ((CartaTableViewCell*)cell).data.text =  [rowDesc objectForKey:@"data"];
     }
+    else if([kind isEqualToString:@"ActionCell"]){
+        cell.textLabel.text = [rowDesc objectForKey:@"label"];
+        cell.detailTextLabel.text = [rowDesc objectForKey:@"subtitle"];
+    }
     
     if(indexPath.section == 1 && numCarteAbbinate >= MAX_CARD){
         cell.backgroundColor = [UIColor lightGrayColor];
