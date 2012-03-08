@@ -53,6 +53,7 @@
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [self.textLabel setAdjustsFontSizeToFitWidth:YES];
         self.textLabel.minimumFontSize = 11;
+        self.backgroundColor = [UIColor whiteColor];
         
         nome = [[UILabel alloc] init];
         nome.text = [dictionary objectForKey:@"nome"];
