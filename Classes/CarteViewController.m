@@ -14,6 +14,7 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import "RichiediCardViewController.h"
 #import "ControlloCartaController.h"
+#import "Utilita.h"
 
 #define MAX_CARD 3
 
@@ -87,7 +88,9 @@
         
         ((CartaTableViewCell*)cell).nome.text =  [rowDesc objectForKey:@"nome"];
         ((CartaTableViewCell*)cell).tessera.text =  [rowDesc objectForKey:@"tessera"];
-        ((CartaTableViewCell*)cell).data.text =  [rowDesc objectForKey:@"data"];
+        if([Utilita isDateExpired:[rowDesc objectForKey:@"data"]])
+            ((CartaTableViewCell*)cell).data.text = @"Scaduta";
+        else ((CartaTableViewCell*)cell).data.text =  [rowDesc objectForKey:@"data"];
     }
     
     if(indexPath.section == 1 && numCarteAbbinate >= MAX_CARD){
