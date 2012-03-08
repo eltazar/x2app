@@ -8,6 +8,7 @@
 
 #import "PerDueCItyCardAppDelegate.h"
 #import <CoreData/CoreData.h>
+#import "FBConnect.h"
 
 @implementation PerDueCItyCardAppDelegate
 
@@ -16,17 +17,37 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize facebook;
 
 #pragma mark -
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    // Override point for customization after application launch.   
-    
-	// Set the tab bar controller as the window's root view controller and display.
+    // Set the tab bar controller as the window's root view controller and display.
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
+    
+    // Override point for customization after application launch.   
+    
+    facebook = [[Facebook alloc] initWithAppId:@"223476134356120" andDelegate:self];
+    
+    //FACEBOOK
+    // Set i permessi di accesso
+    permissions = [[NSArray arrayWithObjects:@"publish_stream", nil] retain];
+    
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    if ([defaults objectForKey:@"FBAccessTokenKey"] 
+//        && [defaults objectForKey:@"FBExpirationDateKey"]) {
+//        facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+//        facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+//    }
+//    
+//    if (![facebook isSessionValid]) {
+//        [facebook authorize:nil];
+//    }
+    
+
 
     
     return YES;
@@ -204,6 +225,87 @@
 }
 */
 
+#pragma mark - Facebook
+
+#pragma mark - FacebookSessionDelegate
+
+// Pre 4.2 support
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    
+    return [facebook handleOpenURL:url]; 
+}
+
+// For 4.2+ support
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    return [facebook handleOpenURL:url]; 
+}
+
+-(void)checkForPreviouslySavedAccessTokenInfo{
+    // Initially set the isConnected value to NO.
+    //isConnected = NO;
+    
+    // Check if there is a previous access token key in the user defaults file.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"FBAccessTokenKey"] &&
+        [defaults objectForKey:@"FBExpirationDateKey"]) {
+        facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+        facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+        //        NSLog(@"APP DELEGATE: expirationDate = %@",facebook.expirationDate);       
+        // Check if the facebook session is valid.
+        // If it’s not valid clear any authorization and mark the status as not connected.
+        if (![facebook isSessionValid]) {
+            //[facebook authorize:nil];
+                        NSLog(@"APP DELEGATE: SESSIONE NN VALIDA");
+            [facebook logout:self];
+            //isConnected = NO;
+        }
+        else {
+                        NSLog(@"APP DELEGATE: SESSIONE VALIDA");
+            //isConnected = YES;
+        }
+    }
+}
+
+-(void)logIntoFacebook
+{
+    NSLog(@"entrato2");
+    [facebook authorize:permissions];
+}
+
+#pragma mark - FBSessionDelegate
+-(void)fbDidLogin{
+    //salva valori di accesso e sessione
+    NSLog(@"entrato1");
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[facebook accessToken] forKey:@"FBAccessTokenKey"];
+    [defaults setObject:[facebook expirationDate] forKey:@"FBExpirationDateKey"];
+    [defaults synchronize];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"FBdidLogin" object:nil];
+}
+
+-(void)fbDidNotLogin:(BOOL)cancelled{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"FBerrLogin" object:nil];
+}
+
+-(void)fbDidLogout{
+    // Keep this for testing purposes.
+    
+    //nascondo tasto logout
+    
+    // Remove saved authorization information if it exists
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"FBAccessTokenKey"]) {
+        [defaults removeObjectForKey:@"FBAccessTokenKey"];
+        [defaults removeObjectForKey:@"FBExpirationDateKey"];
+        [defaults synchronize];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"FBdidLogout" object:nil];
+    //[self.navigationItem setRightBarButtonItem:nil animated:YES];
+}
 
 #pragma mark -
 #pragma mark Memory management
@@ -218,6 +320,9 @@
 - (void)dealloc {
     [tabBarController release];
     [window release];
+    
+    [facebook release];
+    [permissions release];
     
     [__managedObjectContext release];
     [__managedObjectModel release];
