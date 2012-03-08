@@ -7,11 +7,12 @@
 //
 
 #import "ControlloCartaController.h"
+#import "RichiediCardViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Utilita.h"
 
 @implementation ControlloCartaController
-@synthesize viewPulsante, cercaButton, datiCarta;
+@synthesize viewPulsante, cercaButton, datiCarta, viewPulsante2,acquistaButton, richiediButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,6 +48,24 @@
     NSLog(@"pulsante cerca premuto");
 }
 
+-(IBAction)acquistaButtonClicked:(id)sender{
+    NSLog(@"pulsante acquista premuto");
+    
+    //carica sezione acquisti
+}
+
+-(IBAction)richiediButtonClicked:(id)sender{
+    NSLog(@"pulsante richiedi premuto");
+    
+    //caricare come modal?
+    
+    RichiediCardViewController *richiediController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:richiediController animated:YES];
+    [richiediController release];
+
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -55,6 +74,9 @@
     // Do any additional setup after loading the view from its nib.
 
     viewPulsante.layer.cornerRadius = 6;
+    viewPulsante2.layer.cornerRadius = 6;
+    
+    [viewPulsante2 setHidden:YES];
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backGroundPattern.png"]]];
     
@@ -103,12 +125,18 @@
         [scadutaView setFrame:CGRectMake(11, 20, 300, 180)];
         [self.view addSubview:scadutaView];
         [scadutaView release];
+        
+        //[viewPulsante removeFromSuperview];
+        [viewPulsante2 setHidden:NO];
     }
 
 }
 
 - (void)viewDidUnload
 {
+    self.richiediButton = nil;
+    self.acquistaButton = nil;
+    self.viewPulsante2 = nil;
     self.cercaButton = nil;
     self.viewPulsante = nil;
     [super viewDidUnload];
@@ -125,6 +153,11 @@
 - (void)dealloc {
     [cercaButton release];
     [viewPulsante release];
+    
+    [viewPulsante2 release];
+    [richiediButton release];
+    [acquistaButton release];
+    
     self.datiCarta = nil;
     
     [super dealloc];

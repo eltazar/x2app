@@ -14,7 +14,14 @@
 @property(nonatomic,retain) IBOutlet UIButton *cercaButton;
 @property(nonatomic,retain) NSDictionary *datiCarta;
 
+@property(nonatomic,retain) IBOutlet UIView *viewPulsante2;
+@property(nonatomic,retain) IBOutlet UIButton *acquistaButton;
+@property(nonatomic,retain) IBOutlet UIButton *richiediButton;
+
 -(IBAction)cercaButtonClicked:(id)sender;
+-(IBAction)acquistaButtonClicked:(id)sender;
+-(IBAction)richiediButtonClicked:(id)sender;
+
 -(id)initWithCardDetail:(NSDictionary*)dati;
 
 @end
