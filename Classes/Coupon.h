@@ -22,7 +22,9 @@
 #import "FBConnect.h"
 #import "Facebook.h"
 
-@interface Coupon : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate>{
+#import "DatabaseAccess.h";
+
+@interface Coupon : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, DatabaseAccessDelegate>{
         
 	NSInteger identificativoesercente;
 	IBOutlet UIViewController *insintesi;
@@ -89,7 +91,8 @@
 	IBOutlet UIWebView *faqwebview;
 	IBOutlet UILabel *titololabel; //nella view "In sintesi"
     BOOL waitingForFacebook;
-		
+    
+    DatabaseAccess *dbAccess;
 }
 
 @property (nonatomic,retain) IBOutlet UILabel *titolo;

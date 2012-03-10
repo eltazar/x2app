@@ -11,6 +11,7 @@
 #import "FBDialog.h"
 #import "Facebook.h"
 #import "PerDueCItyCardAppDelegate.h"
+#import "DatabaseAccess.h"
 
 @implementation Coupon
 @synthesize titolo,tempo,riepilogo,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel;
@@ -501,24 +502,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-
-    /*facebook*/
-    appDelegate =(PerDueCItyCardAppDelegate *)   [[UIApplication sharedApplication]delegate];
-//    if (appDelegate._session == nil){
-//        appDelegate._session = [FBSession sessionForApplication:_APP_KEY secret:_SECRET_KEY delegate:self];
-//    }
-//    else{
-//        [[appDelegate._session delegates] addObject:self];
-//        [[appDelegate._session delegates] removeObjectAtIndex:0];
-//    }        
-    
-
 }
 
 	
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    dbAccess = [[DatabaseAccess alloc] init];
+    dbAccess.delegate = self;
+    
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillAppear:) name:UIApplicationDidBecomeActiveNotification object:nil];
 	[[compra layer] setCornerRadius:8.0f];
 	[[compra layer] setMasksToBounds:YES];
@@ -576,7 +569,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 }
 - (void)viewWillAppear:(BOOL)animated {
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+
+    
+    
+	
+    
+    //[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 
 	int wifi=0;
 	int internet=0;
@@ -604,98 +602,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	NSLog(@"Ho salvato il valore: %ld",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
 	self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
+    
+
 	
 	NSString *prov= [citycoupon stringByReplacingOccurrencesOfString:@" " withString:@"!"]; //inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
 	
-	url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];
+    //[dbAccess getCouponFromServer:prov];
+    
+	//url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];
 	
 	NSLog(@"Url: %@", url);
 	
-	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+	//NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
+	//NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
 	
-	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-	NSError *error = nil;	
+	//NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
+	//NSError *error = nil;	
 	
-	dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
+	//dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
 	
-	NSMutableArray *r=[[NSMutableArray alloc] init];
-	
-	if (dict)
-	{
-		r = [[dict objectForKey:@"Esercente"] retain];
-		
-	}
-	
-	NSLog(@"Array: %@",r);	
-	rows= [[NSMutableArray alloc]init];
-	[rows addObjectsFromArray: r];
-	
-	NSLog(@"Numero totale:%d",[rows count]);
-	
-	[jsonreturn release];
-	jsonreturn=nil;
-	[r release];
-	r=nil;
-	
-	if([rows count]==0){ //niente coupon 
-		titolo.text=@"";
-		
-		[compra setHidden:YES];
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"In questo momento non ci sono offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-		[alert show];
-		[alert release];
-	}
-	
-	else { //offerta esite
-		[compra setHidden:NO];
-		dict = [rows objectAtIndex: 0];
-		titolo.text=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-		identificativo=[[dict objectForKey:@"idofferta"]integerValue];
-		identificativoesercente=[[dict objectForKey:@"idesercente"]integerValue];
-		NSLog(@"L'id del ristorante da visualizzare è %d",identificativoesercente);
-		url2 = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/tipoesercente.php?id=%d",identificativoesercente]];
-		NSLog(@"Url2: %@", url2);
-		
-		NSString *jsonreturn2 = [[NSString alloc] initWithContentsOfURL:url2];
-		NSLog(@"%@",jsonreturn2); // Look at the console and you can see what the restults are
-		
-		NSData *jsonData2 = [jsonreturn2 dataUsingEncoding:NSUTF8StringEncoding];
-		NSError *error2 = nil;	
-		
-		dict2 = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData2 error:&error2] retain];	
-		
-		NSMutableArray *r2=[[NSMutableArray alloc] init];
-		
-		if (dict2)
-		{
-			r2 = [[dict2 objectForKey:@"Esercente"] retain];
-			
-		}
-		
-		NSLog(@"Array2: %@",r2);
-		if ([r2 count]==0){ //l'eserncente non ha contratto nel db, il suo dettaglio sarà una view più semplice (senza condizioni, commenti ec..)
-			tipodettaglio=3;
-		}
-		if ([r2 count]!=0){
-			dict2 = [r2 objectAtIndex: 0];	
-			NSInteger tipo=[[dict2 objectForKey:@"IdTipologia_Esercente"]integerValue];
-			NSLog(@"Tipologia: %d",tipo);
-			
-			if( (tipo==2) || (tipo==5) || (tipo==6) || (tipo==9) || (tipo==59) || (tipo==60) || (tipo==61) || (tipo==27)){ //per dettaglio ristopub
-				tipodettaglio=1;
-			}
-			else { //per dettaglio esercente generico
-				tipodettaglio=2;
-			}
-		}				
-	}
-	
-	
-		//NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		//defaults = [NSUserDefaults standardUserDefaults];
-	self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
-	[tableview reloadData];
+    [dbAccess getCouponFromServer:prov];
+    
 }
 
 
@@ -811,7 +738,99 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [appDelegate.facebook dialog:@"feed" andParams:params andDelegate:self];
 }
+#pragma mark - DatabaseAccessDelegate
 
+-(void)didReceiveCoupon:(NSDictionary *)coupon;
+{
+    dict = [coupon retain];
+    
+    //NSLog(@"DICT MARIOz \n: %@",dict);
+    
+    NSMutableArray *r=[[NSMutableArray alloc] init];
+	
+	if (dict)
+	{
+        //NSLog(@"dict = %@", dict);
+		r = [[dict objectForKey:@"Esercente"] retain];
+		//NSLog(@"R MARIO \n %@",r);
+	}
+	
+	//NSLog(@"Array: %@",r);	
+	rows= [[NSMutableArray alloc]init];
+	[rows addObjectsFromArray: r];
+	
+	NSLog(@"Numero totale di rows:%d",[rows count]);
+	
+//	[jsonreturn release];
+//	jsonreturn=nil;
+	[r release];
+	r=nil;
+	
+	if([rows count]==0){ //niente coupon 
+		titolo.text=@"";
+		
+		[compra setHidden:YES];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Spiacenti" message:@"In questo momento non ci sono offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+		[alert show];
+		[alert release];
+	}
+	
+	else { //offerta esite
+		[compra setHidden:NO];
+		dict = [rows objectAtIndex: 0];
+		titolo.text=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+		identificativo=[[dict objectForKey:@"idofferta"]integerValue];
+		identificativoesercente=[[dict objectForKey:@"idesercente"]integerValue];
+		
+        
+        //MARIO: da qui recupero dati dell'esercente per la cella di informazioni relative ad esso(nuova view con dentro tutto, luogo, commenti ecc..)
+        
+        NSLog(@"L'id del ristorante da visualizzare è %d",identificativoesercente);
+		url2 = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/tipoesercente.php?id=%d",identificativoesercente]];
+		NSLog(@"Url2: %@", url2);
+		
+		NSString *jsonreturn2 = [[NSString alloc] initWithContentsOfURL:url2];
+		//NSLog(@"%@",jsonreturn2); // Look at the console and you can see what the restults are
+		
+		NSData *jsonData2 = [jsonreturn2 dataUsingEncoding:NSUTF8StringEncoding];
+		NSError *error2 = nil;	
+		
+		dict2 = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData2 error:&error2] retain];	
+		
+		NSMutableArray *r2=[[NSMutableArray alloc] init];
+		
+		if (dict2)
+		{
+			r2 = [[dict2 objectForKey:@"Esercente"] retain];
+			
+		}
+		
+		NSLog(@"Array2: %@",r2);
+		if ([r2 count]==0){ //l'eserncente non ha contratto nel db, il suo dettaglio sarà una view più semplice (senza condizioni, commenti ecc..)
+			tipodettaglio=3;
+		}
+		if ([r2 count]!=0){
+			dict2 = [r2 objectAtIndex: 0];	
+			NSInteger tipo=[[dict2 objectForKey:@"IdTipologia_Esercente"]integerValue];
+			NSLog(@"Tipologia: %d",tipo);
+			
+			if( (tipo==2) || (tipo==5) || (tipo==6) || (tipo==9) || (tipo==59) || (tipo==60) || (tipo==61) || (tipo==27)){ //per dettaglio ristopub
+				tipodettaglio=1;
+			}
+			else { //per dettaglio esercente generico
+				tipodettaglio=2;
+			}
+		}				
+	}
+	
+	
+    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //defaults = [NSUserDefaults standardUserDefaults];
+	//self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
+	[tableview reloadData];
+
+    
+}
 
 #pragma mark - FACEBOOK
 
