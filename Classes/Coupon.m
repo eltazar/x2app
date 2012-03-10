@@ -38,41 +38,9 @@
 	}
 }
 
-- (IBAction)Opzioni:(id)sender{
-	OpzioniCoupon *opt = [[[OpzioniCoupon alloc] init] autorelease];
-	 if ( [timer isValid]){
-		 [timer invalidate];
-		 timer=nil;
-	 }
-    [self presentModalViewController:opt animated:YES];
-
-}
 
 
-
--(void)Paga:(id)sender{
-	if ([rows count]>0) {//coupon disponibile
-		if(secondsLeft>0) {
-			detail = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
-			[(Pagamento2*)detail setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-			NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
-			[(Pagamento2*)detail setIdentificativo:identificativo];
-
-			NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-			NSLog(@"Titolo:%@",tit);
-			[(Pagamento2*)detail setTitolo:tit];
-
-			[detail setTitle:@"Acquisto"];
-			[self.navigationController pushViewController:detail animated:YES];
-		}
-		else{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Offerta scaduta!" message:@"Questa offerta non è più disponibile" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-			[alert show];
-			[alert release];
-		}
-	}
-}
-
+#pragma mark - UITableViewDataSourceDelegate
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -109,20 +77,9 @@
 	}
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-	if(indexPath.section==0)
-		return 155;
-	if( (indexPath.section==1) &&(indexPath.row==2) )
-		return 60;
-	if( (indexPath.section==1) &&( (indexPath.row==0) || (indexPath.row==1) || (indexPath.row==3) ) )
-	return 44;
-	if(indexPath.section==2)
-		return 44;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView
-			cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
 	UITableViewCell *cell = [tableView
 							 dequeueReusableCellWithIdentifier:@"cellID"];
 	
@@ -131,14 +88,14 @@
 			[[NSBundle mainBundle] loadNibNamed:@"infocoupon" owner:self options:NULL];
 			cell=cellainfocoupon;
 			[CellSpinner startAnimating];
-
-    } 
-	else {
-		[CellSpinner stopAnimating];
-		AsyncImageView* oldImage = (AsyncImageView*)
-		[cell.contentView viewWithTag:999];
-		[oldImage removeFromSuperview];
-    }
+            
+        } 
+        else {
+            [CellSpinner stopAnimating];
+            AsyncImageView* oldImage = (AsyncImageView*)
+            [cell.contentView viewWithTag:999];
+            [oldImage removeFromSuperview];
+        }
 		
 		[compra setTitle: [NSString stringWithFormat:@"Compra subito! Solo %@€",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
 		riepilogo.text=[NSString stringWithFormat:@"Solo %@€ invece di %@€",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"coupon_valore_facciale"]]; 
@@ -160,9 +117,9 @@
 		NSString *img=[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_big"]];
 		NSURL *urlfoto = [NSURL URLWithString:img];
 		asyncImage.tag = 999;
-			
+        
 		[asyncImage loadImageFromURL:urlfoto];
-			//[asyncImage setUserInteractionEnabled:YES];
+        //[asyncImage setUserInteractionEnabled:YES];
 		[cell.contentView addSubview:asyncImage];
 		
 		UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];  
@@ -186,12 +143,12 @@
 		tempo.text=[NSString stringWithFormat:@"%dg %02d:%02d:%02d",days,hours, minutes, seconds];
 		//			timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-		}
-
+        
+    }
+    
 	else{
 		if(indexPath.section==1){
-
+            
 			switch (indexPath.row) {
 				case 0:
 					if (cell == nil){	
@@ -232,7 +189,7 @@
 			}
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		}
-	
+        
 		else {
 			if(indexPath.section==2){
 				switch (indexPath.row) {
@@ -266,6 +223,182 @@
 	}
 	return cell;
 }
+
+
+#pragma mark - UITtableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+	if(indexPath.section==0)
+		return 155;
+	if( (indexPath.section==1) &&(indexPath.row==2) )
+		return 60;
+	if( (indexPath.section==1) &&( (indexPath.row==0) || (indexPath.row==1) || (indexPath.row==3) ) )
+	return 44;
+	if(indexPath.section==2)
+		return 44;
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
+	if ( (indexPath.section==1) && (indexPath.row == 0)){
+		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+		[insintesi setTitle:@"In sintesi"];
+		NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+		titololabel.text=tit;
+		sintesitxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_descrizione_breve"]];
+		[insintesitext loadHTMLString:sintesitxt baseURL:nil];
+		[comprasintesi setTitle: [NSString stringWithFormat:@"Compra subito! Solo %@€",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+		[[comprasintesi layer] setCornerRadius:8.0f];
+		[[comprasintesi layer] setMasksToBounds:YES];
+		[comprasintesi setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
+        
+		
+		[self.navigationController pushViewController:insintesi animated:YES];
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+	}
+	if ( (indexPath.section==1) && (indexPath.row == 1)){
+		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+		[termini setTitle:@"Termini e condizioni"];
+		condizionitext=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_condizioni_sintetiche"]];
+		[condizionitxt loadHTMLString:condizionitext baseURL:nil];
+		[compratermini setTitle: [NSString stringWithFormat:@"Compra subito! Solo €%@",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+		[[compratermini layer] setCornerRadius:8.0f];
+		[[compratermini layer] setMasksToBounds:YES];
+		[compratermini setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
+		
+		[self.navigationController pushViewController:termini animated:YES];
+		
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
+	if ( (indexPath.section==1) && (indexPath.row == 2)){
+		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+		[contatti setTitle:@"Info Esercente"];
+		if(tipodettaglio==1){ //dettglio ristopub
+			detail = [[DettaglioRistoCoupon alloc] initWithNibName:@"DettaglioRistoCoupon" bundle:[NSBundle mainBundle]];
+			[(DettaglioRistoCoupon*)detail setIdentificativo:identificativoesercente];
+			[detail setTitle:@"Esercente"];
+			//Facciamo visualizzare la vista con i dettagli
+			[self.navigationController pushViewController:detail animated:YES];
+            
+		}	
+		else {
+			if (tipodettaglio==2) { //esercente generico
+				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+				detail = [[DettaglioEsercenteCoupon alloc] initWithNibName:@"DettaglioEsercenteCoupon" bundle:[NSBundle mainBundle]];
+				[(DettaglioEsercenteCoupon*)detail setIdentificativo:identificativoesercente];
+				[detail setTitle:@"Esercente"];				//Facciamo visualizzare la vista con i dettagli
+				[self.navigationController pushViewController:detail animated:YES];
+			}
+			else { //esercente generico senza contratto
+				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+				detail = [[DettaglioEsercenteGenerico alloc] initWithNibName:@"DettaglioEsercenteGenerico" bundle:[NSBundle mainBundle]];
+				[(DettaglioEsercenteGenerico*)detail setIdentificativo:identificativoesercente];
+				[detail setTitle:@"Esercente"];				
+				//Facciamo visualizzare la vista con i dettagli
+				[self.navigationController pushViewController:detail animated:YES];
+			}
+		}
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	}
+	if ( (indexPath.section==1) && (indexPath.row == 3)){
+		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+		[dipiu setTitle:@"Per saperne di più..."];
+		dipiutxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_descrizione_estesa"]];
+		[dipiutext loadHTMLString:dipiutxt baseURL:nil];
+		[compradipiu setTitle: [NSString stringWithFormat:@"Compra subito! Solo €%@",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+		[[compradipiu layer] setCornerRadius:8.0f];
+		[[compradipiu layer] setMasksToBounds:YES];
+		[compradipiu setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
+		
+		[self.navigationController pushViewController:dipiu animated:YES];
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		
+	}
+	if ( (indexPath.section==2) && (indexPath.row == 0)){
+		//PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
+		
+        //mostra il tasto per il logout se connesso
+        if([appDelegate.facebook isSessionValid]){
+            NSLog(@"DID LOAD CONNECTED");
+            aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:@"Logout da Facebook" otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
+        }
+        else{
+            NSLog(@"DID LOAD NOT CONNECTED");
+            aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
+        }
+        
+        //        aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
+		
+		[aSheet showInView:appDelegate.window];
+		[aSheet release];			
+		
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+	}
+	if ( (indexPath.section==2) && (indexPath.row == 1)){
+        //		PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
+		aSheet2 = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Contatta PerDue"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Telefona", @"Invia mail", nil];
+		
+		[aSheet2 showInView:appDelegate.window];
+		[aSheet2 release];			
+		
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		
+	}
+	if ( (indexPath.section==2) && (indexPath.row == 2)){
+		
+		[self presentModalViewController:faq animated:YES];
+		NSURL *infos = [NSURL URLWithString:@"http://www.cartaperdue.it/partner/faq.html"];
+		NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
+		[faqwebview loadRequest:requestObj];		
+		[faqwebview release];
+		faqwebview=nil;
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		
+	}
+	
+	
+}
+
+#pragma mark - Gestione view e bottoni
+
+- (IBAction)Opzioni:(id)sender{
+	OpzioniCoupon *opt = [[[OpzioniCoupon alloc] init] autorelease];
+    if ( [timer isValid]){
+        [timer invalidate];
+        timer=nil;
+    }
+    [self presentModalViewController:opt animated:YES];
+    
+}
+
+
+
+-(void)Paga:(id)sender{
+	if ([rows count]>0) {//coupon disponibile
+		if(secondsLeft>0) {
+			detail = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
+			[(Pagamento2*)detail setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
+			NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+			[(Pagamento2*)detail setIdentificativo:identificativo];
+            
+			NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+			NSLog(@"Titolo:%@",tit);
+			[(Pagamento2*)detail setTitolo:tit];
+            
+			[detail setTitle:@"Acquisto"];
+			[self.navigationController pushViewController:detail animated:YES];
+		}
+		else{
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Offerta scaduta!" message:@"Questa offerta non è più disponibile" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+			[alert show];
+			[alert release];
+		}
+	}
+}
+
+
 - (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {  
 	NSString *img=[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_big"]];
 	NSURL *urlfoto = [NSURL URLWithString:img];
@@ -308,128 +441,17 @@
 	}
 }
 
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
-	if ( (indexPath.section==1) && (indexPath.row == 0)){
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-		[insintesi setTitle:@"In sintesi"];
-		NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-		titololabel.text=tit;
-		sintesitxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_descrizione_breve"]];
-		[insintesitext loadHTMLString:sintesitxt baseURL:nil];
-		[comprasintesi setTitle: [NSString stringWithFormat:@"Compra subito! Solo %@€",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-		[[comprasintesi layer] setCornerRadius:8.0f];
-		[[comprasintesi layer] setMasksToBounds:YES];
-		[comprasintesi setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
-
-		
-		[self.navigationController pushViewController:insintesi animated:YES];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-	}
-	if ( (indexPath.section==1) && (indexPath.row == 1)){
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-		[termini setTitle:@"Termini e condizioni"];
-		condizionitext=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_condizioni_sintetiche"]];
-		[condizionitxt loadHTMLString:condizionitext baseURL:nil];
-		[compratermini setTitle: [NSString stringWithFormat:@"Compra subito! Solo €%@",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-		[[compratermini layer] setCornerRadius:8.0f];
-		[[compratermini layer] setMasksToBounds:YES];
-		[compratermini setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
-		
-		[self.navigationController pushViewController:termini animated:YES];
-		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	}
-	if ( (indexPath.section==1) && (indexPath.row == 2)){
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-		[contatti setTitle:@"Info Esercente"];
-		if(tipodettaglio==1){ //dettglio ristopub
-			detail = [[DettaglioRistoCoupon alloc] initWithNibName:@"DettaglioRistoCoupon" bundle:[NSBundle mainBundle]];
-			[(DettaglioRistoCoupon*)detail setIdentificativo:identificativoesercente];
-			[detail setTitle:@"Esercente"];
-			//Facciamo visualizzare la vista con i dettagli
-			[self.navigationController pushViewController:detail animated:YES];
-		
-		}	
-		else {
-			if (tipodettaglio==2) { //esercente generico
-				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-				detail = [[DettaglioEsercenteCoupon alloc] initWithNibName:@"DettaglioEsercenteCoupon" bundle:[NSBundle mainBundle]];
-				[(DettaglioEsercenteCoupon*)detail setIdentificativo:identificativoesercente];
-				[detail setTitle:@"Esercente"];				//Facciamo visualizzare la vista con i dettagli
-				[self.navigationController pushViewController:detail animated:YES];
-			}
-			else { //esercente generico senza contratto
-				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-				detail = [[DettaglioEsercenteGenerico alloc] initWithNibName:@"DettaglioEsercenteGenerico" bundle:[NSBundle mainBundle]];
-				[(DettaglioEsercenteGenerico*)detail setIdentificativo:identificativoesercente];
-				[detail setTitle:@"Esercente"];				
-				//Facciamo visualizzare la vista con i dettagli
-				[self.navigationController pushViewController:detail animated:YES];
-			}
-		}
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	}
-	if ( (indexPath.section==1) && (indexPath.row == 3)){
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-		[dipiu setTitle:@"Per saperne di più..."];
-		dipiutxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_descrizione_estesa"]];
-		[dipiutext loadHTMLString:dipiutxt baseURL:nil];
-		[compradipiu setTitle: [NSString stringWithFormat:@"Compra subito! Solo €%@",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-		[[compradipiu layer] setCornerRadius:8.0f];
-		[[compradipiu layer] setMasksToBounds:YES];
-		[compradipiu setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
-		
-		[self.navigationController pushViewController:dipiu animated:YES];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-		
-	}
-	if ( (indexPath.section==2) && (indexPath.row == 0)){
-		//PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
-		
-        //mostra il tasto per il logout se connesso
-            if([appDelegate.facebook isSessionValid]){
-                 NSLog(@"DID LOAD CONNECTED");
-                aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:@"Logout da Facebook" otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
-            }
-            else{
-                NSLog(@"DID LOAD NOT CONNECTED");
-                aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
-            }
-        
-//        aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
-		
-		[aSheet showInView:appDelegate.window];
-		[aSheet release];			
-		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-	}
-	if ( (indexPath.section==2) && (indexPath.row == 1)){
-//		PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
-		aSheet2 = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Contatta PerDue"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Telefona", @"Invia mail", nil];
-		
-		[aSheet2 showInView:appDelegate.window];
-		[aSheet2 release];			
-		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-		
-	}
-	if ( (indexPath.section==2) && (indexPath.row == 2)){
-		
-		[self presentModalViewController:faq animated:YES];
-		NSURL *infos = [NSURL URLWithString:@"http://www.cartaperdue.it/partner/faq.html"];
-		NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
-		[faqwebview loadRequest:requestObj];		
-		[faqwebview release];
-		faqwebview=nil;
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-		
-	}
-	
+- (IBAction)AltreOfferte:(id)sender {
+	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+    
+	detail = [[AltreOfferte alloc] initWithNibName:@"AltreOfferte" bundle:[NSBundle mainBundle]];
+	[detail setTitle:@"Altre Offerte"];
+	//Facciamo visualizzare la vista con i dettagli
+	[self.navigationController pushViewController:detail animated:YES];
 	
 }
+
+#pragma mark - ActionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if(actionSheet==aSheet) {
@@ -494,10 +516,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		}
 	}	
 }
+
+#pragma mark - MailComposerDelegate
+
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[self becomeFirstResponder];
 	[self dismissModalViewControllerAnimated:YES];
 }
+
+#pragma mark - View life cycle
 	
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -559,15 +586,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }	
 
 
-- (IBAction)AltreOfferte:(id)sender {
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 
-	detail = [[AltreOfferte alloc] initWithNibName:@"AltreOfferte" bundle:[NSBundle mainBundle]];
-	[detail setTitle:@"Altre Offerte"];
-	//Facciamo visualizzare la vista con i dettagli
-	[self.navigationController pushViewController:detail animated:YES];
-	
-}
 - (void)viewWillAppear:(BOOL)animated {
 
     
@@ -686,58 +705,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [super dealloc];
 }
 
-- (void)postToWall {
-	
-     //FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
-	
-	NSString *name = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]] ; 
-    NSString *href = @"http://www.cartaperdue.it";
-	
-    NSString *caption = @"Carta PerDue - Sconti da vivere subito nella tua citta!";
-    NSString *description = [NSString stringWithFormat:@"Scopri l'offerta del giorno - Acquista il coupon - Decidi quando utilizzarlo. Semplice, utile e versatile: questo è il tempo libero con PerDue!"]; 
-    NSString *imageSource = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_vetrina"]];
-    NSString *imageHref =[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_big"]];
-	
-    NSString *linkTitle = @"Per ulteriori dettagli";
-    NSString *linkText = @"Vedi l'offerta";
-    NSString *linkHref = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/dettaglio_affare.jsp?idofferta=%@",[dict objectForKey:@"idofferta"]];
-   /* dialog.attachment = [NSString stringWithFormat:
-                                @"{ \"name\":\"%@\","
-                                "\"href\":\"%@\","
-                                "\"caption\":\"%@\",\"description\":\"%@\","
-                                "\"media\":[{\"type\":\"image\","
-                                "\"src\":\"%@\","
-                                "\"href\":\"%@\"}],"
-                                "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref];*/
-    //[dialog show];
-
-    
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   @"223476134356120", @"app_id",
-                                   @"www.google.it", @"link",
-                                   @"", @"picture",
-                                   @"Segnalazione di un'offerta", @"name",
-                                   [NSString stringWithFormat:
-                                    @"{ \"name\":\"%@\","
-                                    "\"href\":\"%@\","
-                                    "\"caption\":\"%@\",\"description\":\"%@\","
-                                    "\"media\":[{\"type\":\"image\","
-                                    "\"src\":\"%@\","
-                                    "\"href\":\"%@\"}],"
-                                    "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref],@"caption",
-                                   [NSString stringWithFormat:
-                                    @"{ \"name\":\"%@\","
-                                    "\"href\":\"%@\","
-                                    "\"caption\":\"%@\",\"description\":\"%@\","
-                                    "\"media\":[{\"type\":\"image\","
-                                    "\"src\":\"%@\","
-                                    "\"href\":\"%@\"}],"
-                                    "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref],@"description",
-                                   nil];                
-    //[facebook requestWithGraphPath:@"me/feed" andParams:params andHttpMethod:@"POST" andDelegate:self]; 
-    
-    [appDelegate.facebook dialog:@"feed" andParams:params andDelegate:self];
-}
 #pragma mark - DatabaseAccessDelegate
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon;
@@ -861,6 +828,60 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)FBerrLogin{
     waitingForFacebook = NO;
 }
+
+- (void)postToWall {
+	
+    //FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
+	
+	NSString *name = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]] ; 
+    NSString *href = @"http://www.cartaperdue.it";
+	
+    NSString *caption = @"Carta PerDue - Sconti da vivere subito nella tua citta!";
+    NSString *description = [NSString stringWithFormat:@"Scopri l'offerta del giorno - Acquista il coupon - Decidi quando utilizzarlo. Semplice, utile e versatile: questo è il tempo libero con PerDue!"]; 
+    NSString *imageSource = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_vetrina"]];
+    NSString *imageHref =[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_big"]];
+	
+    NSString *linkTitle = @"Per ulteriori dettagli";
+    NSString *linkText = @"Vedi l'offerta";
+    NSString *linkHref = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/dettaglio_affare.jsp?idofferta=%@",[dict objectForKey:@"idofferta"]];
+    /* dialog.attachment = [NSString stringWithFormat:
+     @"{ \"name\":\"%@\","
+     "\"href\":\"%@\","
+     "\"caption\":\"%@\",\"description\":\"%@\","
+     "\"media\":[{\"type\":\"image\","
+     "\"src\":\"%@\","
+     "\"href\":\"%@\"}],"
+     "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref];*/
+    //[dialog show];
+    
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   @"223476134356120", @"app_id",
+                                   @"www.google.it", @"link",
+                                   @"", @"picture",
+                                   @"Segnalazione di un'offerta", @"name",
+                                   [NSString stringWithFormat:
+                                    @"{ \"name\":\"%@\","
+                                    "\"href\":\"%@\","
+                                    "\"caption\":\"%@\",\"description\":\"%@\","
+                                    "\"media\":[{\"type\":\"image\","
+                                    "\"src\":\"%@\","
+                                    "\"href\":\"%@\"}],"
+                                    "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref],@"caption",
+                                   [NSString stringWithFormat:
+                                    @"{ \"name\":\"%@\","
+                                    "\"href\":\"%@\","
+                                    "\"caption\":\"%@\",\"description\":\"%@\","
+                                    "\"media\":[{\"type\":\"image\","
+                                    "\"src\":\"%@\","
+                                    "\"href\":\"%@\"}],"
+                                    "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref],@"description",
+                                   nil];                
+    //[facebook requestWithGraphPath:@"me/feed" andParams:params andHttpMethod:@"POST" andDelegate:self]; 
+    
+    [appDelegate.facebook dialog:@"feed" andParams:params andDelegate:self];
+}
+
 
 #pragma mark - FacebookDialogDelegate
 
