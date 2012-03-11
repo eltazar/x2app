@@ -643,6 +643,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	}
     else{
         
+        if(timer){
+            NSLog(@"INVALIDO TIMEE");
+            if([timer isValid]){
+                NSLog(@"TIMER VALIDO");
+                [timer invalidate];
+            }
+        }
+        
         NSLog(@"INTERNET PRESENTE");
         
         [compra setHidden:NO];
@@ -687,9 +695,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-	if([rows count]>0){ //c'è un coupon
-        [timer invalidate];
-	}
+//	if([rows count]>0){ //c'è un coupon
+//        [timer invalidate];
+//	}
 
 }
 
