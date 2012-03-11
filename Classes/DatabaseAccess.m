@@ -33,6 +33,38 @@ NSString* key(NSURLConnection* con)
     return [NSString stringWithFormat:@"%p",con];
 }
 
+-(void)getNewsFromServer:(int)indice{
+    
+    NSLog(@"QUERY: get news");
+    
+    NSURLRequest *request =
+    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner//news.php?from=%d&to=10",indice]]];
+    
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    
+    
+    if(connection){
+        //NSLog(@"IS CONNECTION TRUE");
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        [readConnections addObject:connection];
+        
+        NSMutableData *receivedData = [[NSMutableData data] retain];
+        //[connectionDictionary setObject:connection forKey:key(connection)];
+        [dataDictionary setObject:receivedData forKey:key(connection)];
+        //NSLog(@"RECEIVED DATA FROM DICTIONARY : %p",[dataDictionary objectForKey:connection]);
+    }
+    else{
+        NSLog(@"theConnection is NULL");
+        //mostrare alert all'utente che la connessione è fallita??
+    }
+
+    
+    
+}
+
 -(void)getCouponFromServer:(NSString*)prov{
 	
     NSLog(@"CHIAMATA A DB");
