@@ -471,6 +471,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		secondsLeft=0;
 		tempo.text=[NSString stringWithFormat:@"Offerta scaduta!"];
 		[timer invalidate];
+        timer = nil;
 	}
 }
 
@@ -653,6 +654,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
         NSLog(@"INTERNET PRESENTE");
         
+        [timer invalidate];
+        timer = nil;
         [compra setHidden:NO];
         titolo.text = @" Caricamento...";
         NSString *citycoupon;	
@@ -698,6 +701,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //	if([rows count]>0){ //c'è un coupon
 //        [timer invalidate];
 //	}
+    
+    NSLog(@"TIMER PRE = %@",timer);
+    //if(timer){
+        //NSLog(@"INVALIDO TIMEE");
+        //if([timer isValid]){
+            //NSLog(@"TIMER VALIDO");
+            [timer invalidate];
+            timer = nil;
+            NSLog(@"TIMER POST = %@", timer);
+        //}
+    //}
+
 
 }
 
