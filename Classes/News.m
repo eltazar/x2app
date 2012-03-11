@@ -33,10 +33,12 @@
     [super viewDidLoad];
     
     dbAccess = [[DatabaseAccess alloc] init];
+    dbAccess.delegate = self;
     
 		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillAppear:) name:UIApplicationDidBecomeActiveNotification object:nil];
-	UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+	
+    UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
 	[infoButton addTarget:self action:@selector(OpenInfo:) forControlEvents:UIControlEventTouchUpInside];
 	UIBarButtonItem *modalButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
 	[self.navigationItem setRightBarButtonItem:modalButton animated:YES];
@@ -55,7 +57,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES; 
+	//[UIApplication sharedApplication].networkActivityIndicatorVisible = YES; 
 
     [super viewWillAppear:animated];
 	int wifi=0;
@@ -64,42 +66,50 @@
 	internet= [self check:internetReach];
 	
 	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
+	
+    wifi=[self check:wifiReach];	
+	
+    if( (internet==-1) &&( wifi==-1) ){
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
 	}
-	
-	indice=0;
-	url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/news.php?from=%d&to=10",indice]];
-	NSLog(@"Url: %@", url);
-	
-	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-	
-	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-	NSError *error = nil;	
-	dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
-		//rows=[[NSMutableArray alloc] initWithObjects:[dict allObjects],nil];
-	NSMutableArray *r=[[NSMutableArray alloc] init];
-	if (dict)
-	{
-		r = [[dict objectForKey:@"Esercente"] retain];
-		
-	}
-	
-	NSLog(@"Array: %@",r);
-	
-	rows=[[NSMutableArray alloc] init];
-	
-	[rows addObjectsFromArray: r];
-	
-	NSLog(@"Ho aggiunto %d righe",[r count]);
-	NSLog(@"Rows ha %d righe",[rows count]);
-	[self.tableView reloadData];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO; 
+	else{
+    
+        indice=0;
+        //url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/news.php?from=%d&to=10",indice]];
+        //NSLog(@"Url: %@", url);
+        
+        //NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
+        //NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+        
+       // NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
+        //NSError *error = nil;	
+        //dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
+            //rows=[[NSMutableArray alloc] initWithObjects:[dict allObjects],nil];
+        
+//        NSMutableArray *r=[[NSMutableArray alloc] init];
+//        if (dict)
+//        {
+//            r = [[dict objectForKey:@"Esercente"] retain];
+//            
+//        }
+//        
+//        NSLog(@"Array: %@",r);
+//        
+//        rows=[[NSMutableArray alloc] init];
+//        
+//        [rows addObjectsFromArray: r];
+//        
+//        NSLog(@"Ho aggiunto %d righe",[r count]);
+//        NSLog(@"Rows ha %d righe",[rows count]);
+//        [self.tableView reloadData];
+        
+        
+        //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO; 
 
-
+        
+        [dbAccess getNewsFromServer:indice];
+    }
 
 }
 
@@ -132,6 +142,33 @@
 }
 */
 
+
+#pragma mark - DatabaseAccess delegate
+
+-(void)didReceiveCoupon:(NSDictionary *)coupon{
+    
+   // NSLog(@"DID RECEIVE NEWS: %@",coupon);
+    
+    dict = [[NSMutableDictionary alloc]initWithDictionary:coupon];
+    
+    NSMutableArray *r=[[NSMutableArray alloc] init];
+    if (dict)
+    {
+        r = [[dict objectForKey:@"Esercente"] retain];
+        
+    }
+    
+    //NSLog(@"Array: %@",r);
+    
+    rows=[[NSMutableArray alloc] init];
+    
+    [rows addObjectsFromArray: r];
+    
+    NSLog(@"Ho aggiunto %d righe",[r count]);
+    NSLog(@"Rows ha %d righe",[rows count]);
+    [self.tableView reloadData];
+    
+}
 
 #pragma mark -
 #pragma mark Table view data source
@@ -202,6 +239,8 @@
 
 	}
 	else {
+        
+        NSLog(@"PREMUTOAGGIORNA");
 		int i=[self aggiorna];
 		if(i<10){ // non ci sono alri esercenti
 			UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -252,7 +291,7 @@
 		
 		}
 	
-		NSLog(@"Array: %@",r);
+		//NSLog(@"Array: %@",r);
 	
 		[rows addObjectsFromArray: r];
 	

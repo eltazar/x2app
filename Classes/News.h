@@ -13,7 +13,7 @@
 #import "Reachability.h"
 #import "DatabaseAccess.h"
 
-@interface News: UITableViewController <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>{
+@interface News: UITableViewController <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,DatabaseAccessDelegate>{
 	NSMutableArray *rows;
 	UIViewController *detail;
 	NSMutableDictionary *dict;
