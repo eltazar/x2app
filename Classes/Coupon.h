@@ -41,7 +41,7 @@
 
 	IBOutlet UILabel *titolo;
 	IBOutlet UILabel *riepilogo;
-
+    
 	IBOutlet UILabel *sconto;
 	IBOutlet UILabel *risparmio;
 
@@ -51,7 +51,7 @@
 	IBOutlet UIButton *compradipiu;
 
 	IBOutlet UIActivityIndicatorView *CellSpinner;
-
+    IBOutlet UIActivityIndicatorView *caricamentoSpinner;
 	
 	UITableView *tableview;
 	IBOutlet UITableViewCell *cellacoupon;

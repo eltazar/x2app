@@ -57,7 +57,7 @@
 
 	switch (section) {
 		case 0:
-			return 1;
+			return 2;
 			break;
 		case 1:
 			if ( ([[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_descrizione_estesa"]] isEqualToString:@"<null>"]) || ([[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_descrizione_estesa"]] isEqualToString:@""])){
@@ -179,7 +179,7 @@
 						cell=cellacoupon;
 					}
 					UILabel *t1 = (UILabel *)[cell viewWithTag:1];
-					t1.text = @"In sintesi";
+					t1.text = @"Dettagli offerta";
 					break;
 				case 1:
 					if (cell == nil){	
@@ -275,7 +275,7 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
 	if ( (indexPath.section==1) && (indexPath.row == 0)){
 		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-		[insintesi setTitle:@"In sintesi"];
+		[insintesi setTitle:@"Dettagli offerta"];
 		NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
 		titololabel.text=tit;
 		sintesitxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_descrizione_breve"]];
@@ -622,10 +622,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)viewWillAppear:(BOOL)animated {
 
-    
-    
-	
-    
     //[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 
 	int wifi=0;
@@ -692,7 +688,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 	if([rows count]>0){ //c'è un coupon
-		[timer invalidate];
+        [timer invalidate];
 	}
 
 }
@@ -729,6 +725,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)dealloc {
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [caricamentoSpinner release];
 	[rows release];
 	[dict2 release];
 	[url release];
@@ -753,6 +750,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon;
 {
+    [caricamentoSpinner stopAnimating];
+    
     dict = [coupon retain];
     
     //NSLog(@"DICT MARIOz \n: %@",dict);
@@ -789,7 +788,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	else { //offerta esite
 		[compra setHidden:NO];
 		dict = [rows objectAtIndex: 0];
-		titolo.text=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+		titolo.text=[NSString stringWithFormat:@"  Solo %@€, sconto %@%",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"offerta_sconto_per"]];
 		identificativo=[[dict objectForKey:@"idofferta"]integerValue];
 		identificativoesercente=[[dict objectForKey:@"idesercente"]integerValue];
 		
