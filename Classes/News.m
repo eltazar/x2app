@@ -31,6 +31,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    dbAccess = [[DatabaseAccess alloc] init];
+    
 		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillAppear:) name:UIApplicationDidBecomeActiveNotification object:nil];
 	UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];

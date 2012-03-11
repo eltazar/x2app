@@ -11,6 +11,7 @@
 #import "Notizia.h"
 #import "Info.h"
 #import "Reachability.h"
+#import "DatabaseAccess.h"
 
 @interface News: UITableViewController <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>{
 	NSMutableArray *rows;
@@ -22,6 +23,8 @@
 	NSURL *url;
 	Reachability* internetReach;
 	Reachability* wifiReach;
+    
+    DatabaseAccess *dbAccess;
 }
 
 
