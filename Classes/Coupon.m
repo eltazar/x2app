@@ -561,7 +561,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+//	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
 }
 
 	
@@ -838,6 +838,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //defaults = [NSUserDefaults standardUserDefaults];
 	//self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+    
 	[tableview reloadData];
 
     
