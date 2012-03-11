@@ -57,6 +57,7 @@
 	IBOutlet UITableViewCell *cellacoupon;
 	IBOutlet UITableViewCell *cellainfocoupon;
 	IBOutlet UITableViewCell *cellanomesercente;
+    IBOutlet UITableViewCell *cellaDescrizioneOfferta;
 
 	NSString *sintesitxt;
 	IBOutlet UIWebView *insintesitext;
@@ -101,6 +102,7 @@
 @property (nonatomic,retain) IBOutlet UILabel *riepilogo;
 @property (nonatomic,retain) IBOutlet UILabel *tempo;
 
+@property(nonatomic, retain) IBOutlet UILabel *offerta;
 @property (nonatomic,retain) IBOutlet UILabel *sconto;
 @property (nonatomic,retain) IBOutlet UILabel *risparmio;
 @property (nonatomic, retain) IBOutlet UIButton *compra;
