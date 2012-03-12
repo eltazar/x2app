@@ -12,7 +12,7 @@
 #import "Utilita.h"
 
 @implementation ControlloCartaController
-@synthesize viewPulsante, cercaButton, datiCarta, viewPulsante2,acquistaButton, richiediButton;
+@synthesize cercaButton, datiCarta, acquistaButton, richiediButton, cercaLabel, scadutaLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,14 +71,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //query su db per verificare se carta è stata abbinata ad altro dispositivo
+    //se si viene mostrato avviso e rimuovere "cerca esercizi commerciali ...."
+    //al suo posto mostare tasto "riabbina"
+    //inoltre inserire tasto "rimuovi abbinamento"
+    
     // Do any additional setup after loading the view from its nib.
-
-    viewPulsante.layer.cornerRadius = 6;
-    viewPulsante2.layer.cornerRadius = 6;
     
-    [viewPulsante2 setHidden:YES];
+    [scadutaLabel setHidden:YES];
+    [acquistaButton setHidden:YES];
+    [richiediButton setHidden:YES];
     
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backGroundPattern.png"]]];
+    //[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backGroundPattern.png"]]];
     
     UIImageView *cartaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartaGrande.png"]];
     [cartaView setFrame:CGRectMake(11, 20, 300, 180)];
@@ -127,7 +132,11 @@
         [scadutaView release];
         
         //[viewPulsante removeFromSuperview];
-        [viewPulsante2 setHidden:NO];
+        [cercaLabel setHidden:YES];
+        [cercaButton setHidden:YES];
+        [acquistaButton setHidden:NO];
+        [richiediButton setHidden:NO];
+        [scadutaLabel setHidden:NO];
     }
 
 }
@@ -136,9 +145,9 @@
 {
     self.richiediButton = nil;
     self.acquistaButton = nil;
-    self.viewPulsante2 = nil;
     self.cercaButton = nil;
-    self.viewPulsante = nil;
+    self.scadutaLabel = nil;
+    self.cercaLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -152,9 +161,8 @@
 
 - (void)dealloc {
     [cercaButton release];
-    [viewPulsante release];
-    
-    [viewPulsante2 release];
+    [scadutaLabel release];
+    [cercaLabel release];
     [richiediButton release];
     [acquistaButton release];
     

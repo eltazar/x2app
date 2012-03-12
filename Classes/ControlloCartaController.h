@@ -10,11 +10,10 @@
 
 @interface ControlloCartaController : UIViewController
 
-@property(nonatomic,retain) IBOutlet UIView *viewPulsante;
 @property(nonatomic,retain) IBOutlet UIButton *cercaButton;
 @property(nonatomic,retain) NSDictionary *datiCarta;
-
-@property(nonatomic,retain) IBOutlet UIView *viewPulsante2;
+@property(nonatomic,retain) IBOutlet UILabel *cercaLabel;
+@property(nonatomic,retain) IBOutlet UILabel *scadutaLabel;
 @property(nonatomic,retain) IBOutlet UIButton *acquistaButton;
 @property(nonatomic,retain) IBOutlet UIButton *richiediButton;
 
