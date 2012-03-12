@@ -796,18 +796,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //        [timer invalidate];
 //	}
     
-    NSLog(@"TIMER PRE = %@",timer);
-    //if(timer){
-        //NSLog(@"INVALIDO TIMEE");
-        //if([timer isValid]){
-            //NSLog(@"TIMER VALIDO");
-            [timer invalidate];
-            timer = nil;
-            NSLog(@"TIMER POST = %@", timer);
+//    NSLog(@"WIEW WILL DISAPPEAR TIMER prima di invalidazione = %@",timer);
+//    //if(timer){
+//        //NSLog(@"INVALIDO TIMEE");
+//        //if([timer isValid]){
+//            //NSLog(@"TIMER VALIDO");
+//            [timer invalidate];
+//            timer = nil;
+//            NSLog(@"WIEW WILL DISAPPEAR TIMER dopo di invalidazione = %@", timer);
         //}
     //}
 
 
+-(void)viewDidDisappear:(BOOL)animated{
+    
+    NSLog(@"WIEW WILL DISAPPEAR TIMER prima di invalidazione = %@",timer);
+    [timer invalidate];
+    timer = nil;
+    NSLog(@"WIEW WILL DISAPPEAR TIMER dopo di invalidazione = %@", timer);
+    [super viewDidDisappear:animated];
 }
 
 -(void)spinTheSpinner {
