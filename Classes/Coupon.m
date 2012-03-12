@@ -623,6 +623,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
         //dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
         
+        if(self.view.window){
+            [caricamentoSpinner startAnimating];
+            [dbAccess getCouponFromServer:prov];
+        }
+    }
+
 }
 
 	
