@@ -563,6 +563,66 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 //	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+    
+    int wifi=0;
+	int internet=0;
+	internetReach = [[Reachability reachabilityForInternetConnection] retain];
+	internet= [self check:internetReach];
+	
+	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+	wifi=[self check:wifiReach];	
+	if( (internet==-1) &&( wifi==-1) ){
+        NSLog(@"INTERNET ASSENTE");
+        
+        titolo.text = @" Internet assente!";
+        [compra setHidden:YES];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+		[alert show];
+        [alert release];
+        
+	}
+    else{
+        
+        NSLog(@"INTERNET PRESENTE");
+        
+        NSLog(@"VIEW WILL APPEAR TIMER prima dell'invalidazione = %@",timer);
+        [timer invalidate];
+        timer = nil;
+        
+        [compra setHidden:NO];
+        titolo.text = @" Caricamento...";
+        NSString *citycoupon;	
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        defaults = [NSUserDefaults standardUserDefaults];
+        citycoupon=[defaults objectForKey:@"cittacoupon"];
+        if ( ([citycoupon length]==0) ||  (citycoupon ==nil) ){
+            citycoupon=@"Roma";
+            [defaults setObject:citycoupon forKey:@"cittacoupon"];
+            [defaults setObject:[NSNumber numberWithInt:85] forKey:@"idcitycoupon"];	
+            [defaults synchronize];
+        }
+        
+        NSLog(@"Ho salvato il valore: %ld",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
+        self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
+        
+        
+        
+        NSString *prov= [citycoupon stringByReplacingOccurrencesOfString:@" " withString:@"!"]; //inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
+        
+        //[dbAccess getCouponFromServer:prov];
+        
+        //url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];
+        
+        NSLog(@"Url: %@", url);
+        
+        //NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
+        //NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+        
+        //NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
+        //NSError *error = nil;	
+        
+        //dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
+        
 }
 
 	
