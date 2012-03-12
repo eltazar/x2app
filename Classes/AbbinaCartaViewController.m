@@ -21,7 +21,7 @@
 @end
 
 @implementation AbbinaCartaViewController
-@synthesize viewPulsante, abbinaButton, titolare, numeroCarta, scadenza,delegate;
+@synthesize abbinaButton, titolare, numeroCarta, scadenza,delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -285,7 +285,6 @@
 
 - (void)viewDidUnload
 {
-    self.viewPulsante = nil;
     self.abbinaButton = nil;
     
     [super viewDidUnload];
@@ -305,7 +304,6 @@
     [numeroCarta release];
     [scadenza release];
 
-    [viewPulsante release];
     [abbinaButton release];
     
     [super dealloc];

@@ -19,9 +19,6 @@
 
 @property(nonatomic,assign) id<AbbinaCartaDelegate> delegate;
 
-
-
-@property(nonatomic,retain) IBOutlet UIView *viewPulsante;
 @property(nonatomic,retain) IBOutlet UIButton *abbinaButton;
 
 -(IBAction)abbinaButtonClicked:(id)sender;
