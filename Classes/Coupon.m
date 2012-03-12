@@ -690,7 +690,33 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)viewWillAppear:(BOOL)animated {
 
     //[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-
+    
+    
+    
+    if(dict){
+        NSLog(@"VIEW WILL APPEAR: allineo counter");
+        NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
+        [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *now = [[NSDate alloc] init];
+        NSString *scad = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_periodo_al"]];
+        NSDate *datascadenza=[formatodb dateFromString:scad];
+        secondsLeft =[datascadenza timeIntervalSinceDate:now];
+        int days, hours, minutes, seconds;
+        days= secondsLeft/(3600*24);
+        hours = (secondsLeft - (days*24*3600))/3600;
+        minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
+        seconds = secondsLeft % 60;
+        //NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
+        tempo.text=[NSString stringWithFormat:@"%dg %02d:%02d:%02d",days,hours, minutes, seconds];
+    }
+    
+    
+    
+//    [timer invalidate];
+//    timer = nil;
+    
+    /*
+    
 	int wifi=0;
 	int internet=0;
 	internetReach = [[Reachability reachabilityForInternetConnection] retain];
@@ -927,9 +953,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //defaults = [NSUserDefaults standardUserDefaults];
 	//self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-    
+
 	[tableview reloadData];
+    
+    NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",timer);
+    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+    NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",timer);
 
     
 }
