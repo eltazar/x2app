@@ -958,10 +958,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	[tableview reloadData];
     
-    NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",timer);
-    timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-    NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",timer);
-
+    if(self.view.window){
+        NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",timer);
+        [timer invalidate];
+        timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+        NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",timer);
+    }
+    //DA METTERE [dict release];
     
 }
 
