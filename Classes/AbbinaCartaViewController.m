@@ -176,33 +176,34 @@
         
         
         //poi se esiste salvo i dati in core data
-    }
-    NSLog(@"abbina premuto = %@, %@, %@", titolare,numeroCarta,scadenza);
-    
+        
+        NSLog(@"abbina premuto = %@, %@, %@", titolare,numeroCarta,scadenza);
+        
 
-    //Otteniamo il puntatore al NSManagedContext
-    PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
-	
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    
-	//Creiamo un'istanza di NSManagedObject per l'Entità che ci interessa
-	NSManagedObject *cartaPD = [NSEntityDescription
-                                 insertNewObjectForEntityForName:@"CartaPerDue" 
-                                 inManagedObjectContext:context];
-    
-	//Usando il Key-Value Coding inseriamo i dati presi dall'interfaccia nell'istanza dell'Entità appena creata
-	[cartaPD setValue:titolare forKey:@"titolare"];
-	[cartaPD setValue:numeroCarta forKey:@"numero"];
-	[cartaPD setValue:scadenza forKey:@"scadenza"];
-    
-	//Effettuiamo il salvataggio gestendo eventuali errori
-	NSError *error;
-	if (![context save:&error]) {
-		NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
-	}
-    else{
-        if(delegate && [delegate respondsToSelector:@selector(didMatchNewCard)])
-            [delegate didMatchNewCard];
+        //Otteniamo il puntatore al NSManagedContext
+        PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        NSManagedObjectContext *context = [appDelegate managedObjectContext];
+        
+        //Creiamo un'istanza di NSManagedObject per l'Entità che ci interessa
+        NSManagedObject *cartaPD = [NSEntityDescription
+                                     insertNewObjectForEntityForName:@"CartaPerDue" 
+                                     inManagedObjectContext:context];
+        
+        //Usando il Key-Value Coding inseriamo i dati presi dall'interfaccia nell'istanza dell'Entità appena creata
+        [cartaPD setValue:titolare forKey:@"titolare"];
+        [cartaPD setValue:numeroCarta forKey:@"numero"];
+        [cartaPD setValue:scadenza forKey:@"scadenza"];
+        
+        //Effettuiamo il salvataggio gestendo eventuali errori
+        NSError *error;
+        if (![context save:&error]) {
+            NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
+        }
+        else{
+            if(delegate && [delegate respondsToSelector:@selector(didMatchNewCard)])
+                [delegate didMatchNewCard];
+        }
     }
 }
 
