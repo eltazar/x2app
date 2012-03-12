@@ -60,6 +60,7 @@
 	//[UIApplication sharedApplication].networkActivityIndicatorVisible = YES; 
 
     [super viewWillAppear:animated];
+/*
 	int wifi=0;
 	int internet=0;
 	internetReach = [[Reachability reachabilityForInternetConnection] retain];
@@ -75,41 +76,10 @@
 	}
 	else{
     
-        indice=0;
-        //url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/news.php?from=%d&to=10",indice]];
-        //NSLog(@"Url: %@", url);
-        
-        //NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-        //NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-        
-       // NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-        //NSError *error = nil;	
-        //dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
-            //rows=[[NSMutableArray alloc] initWithObjects:[dict allObjects],nil];
-        
-//        NSMutableArray *r=[[NSMutableArray alloc] init];
-//        if (dict)
-//        {
-//            r = [[dict objectForKey:@"Esercente"] retain];
-//            
-//        }
-//        
-//        NSLog(@"Array: %@",r);
-//        
-//        rows=[[NSMutableArray alloc] init];
-//        
-//        [rows addObjectsFromArray: r];
-//        
-//        NSLog(@"Ho aggiunto %d righe",[r count]);
-//        NSLog(@"Rows ha %d righe",[rows count]);
-//        [self.tableView reloadData];
-        
-        
-        //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO; 
-
-        
+        indice=0;        
         [dbAccess getNewsFromServer:indice];
     }
+ */
 
 }
 
@@ -117,6 +87,26 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 	
+    int wifi=0;
+	int internet=0;
+	internetReach = [[Reachability reachabilityForInternetConnection] retain];
+	internet= [self check:internetReach];
+	
+	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+	
+    wifi=[self check:wifiReach];	
+	
+    if( (internet==-1) &&( wifi==-1) ){
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+		[alert show];
+	}
+	else{
+        
+        if(self.view.window){
+            indice=0;        
+            [dbAccess getNewsFromServer:indice];
+        }
+    }
 }
 
 
@@ -147,7 +137,7 @@
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
-   // NSLog(@"DID RECEIVE NEWS: %@",coupon);
+    NSLog(@"RICEVUTE NEWS DAL SERVER");
     
     dict = [[NSMutableDictionary alloc]initWithDictionary:coupon];
     
