@@ -15,4 +15,5 @@
 +(BOOL)isEmailValid:(NSString*)email;
 +(BOOL)isDateFormatValid:(NSString*)data;
 +(BOOL)isDateExpired:(NSString*)data;
++(BOOL)networkReachable;
 @end

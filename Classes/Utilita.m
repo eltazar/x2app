@@ -7,10 +7,37 @@
 //
 
 #import "Utilita.h"
+#import "Reachability.h"
 
 #define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
 
 @implementation Utilita
+
+
++(BOOL)networkReachable {
+    Reachability *r = [[Reachability reachabilityForInternetConnection] retain];
+    NetworkStatus internetStatus = [r currentReachabilityStatus];
+    BOOL result = NO;
+    
+    if(internetStatus == ReachableViaWWAN){
+        //NSLog(@"3g");
+        result =  YES;
+        
+    }
+    else if(internetStatus == ReachableViaWiFi){
+        //NSLog(@"Wifi");
+        result = YES;
+        
+    }
+    else if(internetStatus == NotReachable){
+        result = NO;        
+    }
+    
+    [r release];
+    
+    return  result;
+}
+
 
 +(BOOL)isNumeric:(NSString*)inputString{
     BOOL isValid = NO;
