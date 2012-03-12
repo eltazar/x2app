@@ -109,10 +109,10 @@
     }
 }
 
-
+//#warning crasha wifireach PER ORA COMMENTATO -> RISOLVERE
 - (void)viewWillDisappear:(BOOL)animated {
-	[wifiReach release];
-	[internetReach release];
+//	[wifiReach release];
+//	[internetReach release];
     [super viewWillDisappear:animated];
 	
 
