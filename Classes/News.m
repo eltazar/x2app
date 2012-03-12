@@ -7,7 +7,7 @@
 //
 
 #import "News.h"
-
+#import "Utilita.h"
 
 @implementation News
 
@@ -16,18 +16,18 @@
 #pragma mark -
 #pragma mark View lifecycle
 
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
+//-(int)check:(Reachability*) curReach{
+//	NetworkStatus netStatus = [curReach currentReachabilityStatus];
+//	
+//	switch (netStatus){
+//		case NotReachable:{
+//			return -1;
+//			break;
+//		}
+//		default:
+//			return 0;
+//	}
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -87,19 +87,26 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 	
-    int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	
-    wifi=[self check:wifiReach];	
-	
-    if( (internet==-1) &&( wifi==-1) ){
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-		[alert show];
-	}
+//    int wifi=0;
+//	int internet=0;
+//	internetReach = [[Reachability reachabilityForInternetConnection] retain];
+//	internet= [self check:internetReach];
+//	
+//	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+//	
+//    wifi=[self check:wifiReach];	
+//	
+//    if( (internet==-1) &&( wifi==-1) ){
+//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+//		[alert show];
+//         
+//	}
+    if( ! [Utilita networkReachable]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert show];
+        [alert release];
+    
+    }
 	else{
         
         if(self.view.window){
@@ -212,37 +219,46 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 
-	if (indexPath.section==0) {
-		dict = [rows objectAtIndex: indexPath.row];
-		NSInteger i=[[dict objectForKey:@"ID"]integerValue];
-		NSLog(@"L'id della news da visualizzare è %d",i);
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-		detail = [[Notizia alloc] initWithNibName:@"Notizia" bundle:[NSBundle mainBundle]];
-		[(Notizia*)detail setIdentificativo:i];
-		[detail setTitle:@"News"];
-			//Facciamo visualizzare la vista con i dettagli
-		[self.navigationController pushViewController:detail animated:YES];
-			//rilascio controller
-		[detail release];
-		detail = nil; 
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //INSERIRE CONTROLLO PRESENZA INTERNET SENNO CRASHA
+    if([Utilita networkReachable]){
+        if (indexPath.section==0) {
+            dict = [rows objectAtIndex: indexPath.row];
+            NSInteger i=[[dict objectForKey:@"ID"]integerValue];
+            NSLog(@"L'id della news da visualizzare è %d",i);
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            detail = [[Notizia alloc] initWithNibName:@"Notizia" bundle:[NSBundle mainBundle]];
+            [(Notizia*)detail setIdentificativo:i];
+            [detail setTitle:@"News"];
+                //Facciamo visualizzare la vista con i dettagli
+            [self.navigationController pushViewController:detail animated:YES];
+                //rilascio controller
+            [detail release];
+            detail = nil; 
+            //[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-	}
-	else {
-        
-        NSLog(@"PREMUTOAGGIORNA");
-		int i=[self aggiorna];
-		if(i<10){ // non ci sono alri esercenti
-			UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-			UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
-			altri2.text = @"Non ci sono altre news da mostrare";
-			
-		}
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+        }
+        else {
+            
+            NSLog(@"PREMUTOAGGIORNA");
+            int i=[self aggiorna];
+            if(i<10){ // non ci sono alri esercenti
+                UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
+                altri2.text = @"Non ci sono altre news da mostrare";
+                
+            }
+            //[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
-		
-	}
+            
+        }
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert show];
+        [alert release];
 
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 -(void)spinTheSpinner {
     NSLog(@"Spin The Spinner");

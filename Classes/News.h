@@ -21,8 +21,8 @@
 	IBOutlet UITableViewCell *cellafinale;
 	int indice;
 	NSURL *url;
-	Reachability* internetReach;
-	Reachability* wifiReach;
+//	Reachability* internetReach;
+//	Reachability* wifiReach;
     
     DatabaseAccess *dbAccess;
 }
@@ -38,6 +38,6 @@
 - (int)aggiorna;
 - (void) spinTheSpinner;
 - (void) doneSpinning;
--(int)check:(Reachability*) curReach;
+//-(int)check:(Reachability*) curReach;
 
 @end
