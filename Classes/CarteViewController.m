@@ -162,24 +162,32 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
     BaseCell *cell = (BaseCell*) [tableView cellForRowAtIndexPath:indexPath];
+    NSLog(@"CELL DATAKEY = %@",cell.dataKey);
     
-    if(numCarteAbbinate < MAX_CARD){
-        if ([cell.dataKey isEqualToString:@"abbina"]) {
-            
-            AbbinaCartaViewController *abbinaCartaViewController = [[AbbinaCartaViewController alloc] init];
-            abbinaCartaViewController.delegate = self;
-            [self.navigationController pushViewController:abbinaCartaViewController animated:YES];
-            [abbinaCartaViewController release];
-        }
-        else if([cell.dataKey isEqualToString:@"richiedi"])
-        {
-            RichiediCardViewController *richiediViewController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
-            [self.navigationController pushViewController:richiediViewController animated:YES];
-            [richiediViewController release];
-        }
-        else if([cell.dataKey isEqualToString:@"acquista"]){
-            
-        }
+    if (numCarteAbbinate < MAX_CARD && [cell.dataKey isEqualToString:@"abbina"]) {
+        
+        AbbinaCartaViewController *abbinaCartaViewController = [[AbbinaCartaViewController alloc] init];
+        abbinaCartaViewController.delegate = self;
+        [self.navigationController pushViewController:abbinaCartaViewController animated:YES];
+        [abbinaCartaViewController release];
+    }
+    else if(numCarteAbbinate < MAX_CARD && [cell.dataKey isEqualToString:@"richiedi"])
+    {
+        RichiediCardViewController *richiediViewController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
+        [self.navigationController pushViewController:richiediViewController animated:YES];
+        [richiediViewController release];
+    }
+    else if(numCarteAbbinate < MAX_CARD && [cell.dataKey isEqualToString:@"acquista"]){
+        
+        AcquistoOnlineController *acquistaController = [[AcquistoOnlineController alloc] initWithNibName:@"AcquistoOnlineController" bundle:nil];
+        [self.navigationController pushViewController:acquistaController animated:YES];
+        [acquistaController release];
+    }
+    else if([cell.dataKey isEqualToString:@"card"]){
+        
+        ControlloCartaController *controllaCartaCtrl = [[ControlloCartaController alloc] initWithCardDetail:[NSDictionary dictionaryWithObjectsAndKeys:((CartaTableViewCell*)cell).nome.text,@"titolare",((CartaTableViewCell*)cell).tessera.text, @"tessera",((CartaTableViewCell*)cell).data.text,@"scadenza",nil]];
+        [self.navigationController pushViewController:controllaCartaCtrl animated:YES];
+        [controllaCartaCtrl release];
     }
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Azione non permesssa" message:@"Hai raggiunto il numero massimo di carte associabili al dispositivo" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
@@ -187,15 +195,7 @@
         [alert release];
     }
     
-    if([cell.dataKey isEqualToString:@"card"]){
-        
-        
-        
-        ControlloCartaController *controllaCartaCtrl = [[ControlloCartaController alloc] initWithCardDetail:[NSDictionary dictionaryWithObjectsAndKeys:((CartaTableViewCell*)cell).nome.text,@"titolare",((CartaTableViewCell*)cell).tessera.text, @"tessera",((CartaTableViewCell*)cell).data.text,@"scadenza",nil]];
-        [self.navigationController pushViewController:controllaCartaCtrl animated:YES];
-        [controllaCartaCtrl release];
-    }
- 
+     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
