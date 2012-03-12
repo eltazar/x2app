@@ -10,7 +10,7 @@
 
 
 @implementation Offerta
-@synthesize titolo,sconto,risparmio,compra,tableview,identificativo,riepilogo,compratermini,compradipiu,comprasintesi,CellSpinner,fotoingrandita,faqwebview;
+@synthesize titolo,sconto,risparmio,compra,tableview,identificativo,riepilogo,compratermini,compradipiu,comprasintesi,CellSpinner,fotoingrandita,faqwebview, offerta;
 
 /*facebook*/
 @synthesize facebookAlert;
@@ -63,7 +63,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return 1;
+			return 2;
 			break;
 		case 1: 				
 			if ( ([[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_descrizione_estesa"]] isEqualToString:@"<null>"]) || ([[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_descrizione_estesa"]] isEqualToString:@""])){
@@ -84,8 +84,19 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-	if(indexPath.section==0)
-		return 155;
+	if(indexPath.section==0){
+        switch (indexPath.row) {
+            case 0:
+                return 63;
+                break;
+            case 1:
+                return 155;
+                break;
+            default:
+                break;
+        }
+    }
+
 	if( (indexPath.section==1) &&(indexPath.row==2) )
 		return 60;
 	if( (indexPath.section==1) &&( (indexPath.row==0) || (indexPath.row==1) || (indexPath.row==3) ) )
@@ -100,72 +111,94 @@
 	UITableViewCell *cell = [tableView
 							 dequeueReusableCellWithIdentifier:@"cellID"];
 	
-	if (indexPath.section==0){
-		if (cell==nil){
-			[[NSBundle mainBundle] loadNibNamed:@"infocoupon" owner:self options:NULL];
-			cell=cellainfocoupon;
-			[CellSpinner startAnimating];
-			} 
-		else {
-			[CellSpinner stopAnimating];
-			AsyncImageView* oldImage = (AsyncImageView*)
-			[cell.contentView viewWithTag:999];
-			[oldImage removeFromSuperview];
-		}
-			
-	[compra setTitle: [NSString stringWithFormat:@"Compra subito! Solo %@€",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-	riepilogo.text=[NSString stringWithFormat:@"Solo %@€ invece di %@€",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"coupon_valore_facciale"]]; 
-	sconto.text=[NSString stringWithFormat:@"Sconto: %@",[dict objectForKey:@"offerta_sconto_per"]];
-	risparmio.text=[NSString stringWithFormat:@"Risparmio: %@€",[dict objectForKey:@"offerta_sconto_va"]];
-	
-	NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
-	[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm"];
-	NSString *datadb = [NSString stringWithFormat:@"%@",[dict objectForKey:@"coupon_periodo_dal"]];
-	NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
-	[formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-	NSDate *d1=[formatodb dateFromString:datadb];
-	NSString *dataapp = [formatoapp stringFromDate:d1];
-	
-	CGRect frame;
-	frame.size.width=101; frame.size.height=135;
-	frame.origin.x=10; frame.origin.y=10;
-	AsyncImageView* asyncImage = [[[AsyncImageView alloc] initWithFrame:frame] autorelease];
-	NSString *img=[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_big"]];
-	NSURL *urlfoto = [NSURL URLWithString:img];
-	asyncImage.tag = 999;
-	
-	[asyncImage loadImageFromURL:urlfoto];
-		
-	[cell.contentView addSubview:asyncImage];
+    if (indexPath.section==0){
+        
+        switch(indexPath.row){
+            case 0:
+                if (cell==nil){
+                    [[NSBundle mainBundle] loadNibNamed:@"descrizioneOfferta" owner:self options:NULL];
+                    cell=cellaDescrizioneOfferta;                    
+                } 
+                offerta.text = [dict objectForKey:@"offerta_titolo_breve"];
+                //UILabel *offertaLabel = [[UILabel alloc] init];
+                
+                offerta.numberOfLines = 0;
+                //                offertaLabel.minimumFontSize = 10.0;
+                //                [offertaLabel setAdjustsFontSizeToFitWidth:YES];
+                [offerta sizeToFit];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                break;
+           
+            case 1:
+                
+                if (cell==nil){
+                    [[NSBundle mainBundle] loadNibNamed:@"infocoupon" owner:self options:NULL];
+                    cell=cellainfocoupon;
+                    [CellSpinner startAnimating];
+                    } 
+                else {
+                    [CellSpinner stopAnimating];
+                    AsyncImageView* oldImage = (AsyncImageView*)
+                    [cell.contentView viewWithTag:999];
+                    [oldImage removeFromSuperview];
+                }
+                    
+            [compra setTitle: [NSString stringWithFormat:@"Compra",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+            riepilogo.text=[NSString stringWithFormat:@"Solo %@€ invece di %@€",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"coupon_valore_facciale"]]; 
+            sconto.text=[NSString stringWithFormat:@"Sconto: %@",[dict objectForKey:@"offerta_sconto_per"]];
+            risparmio.text=[NSString stringWithFormat:@"Risparmio: %@€",[dict objectForKey:@"offerta_sconto_va"]];
+            
+            NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
+            [formatoapp setDateFormat:@"dd-MM-YYYY HH:mm"];
+            NSString *datadb = [NSString stringWithFormat:@"%@",[dict objectForKey:@"coupon_periodo_dal"]];
+            NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
+            [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSDate *d1=[formatodb dateFromString:datadb];
+            NSString *dataapp = [formatoapp stringFromDate:d1];
+            
+            CGRect frame;
+            frame.size.width=101; frame.size.height=135;
+            frame.origin.x=10; frame.origin.y=10;
+            AsyncImageView* asyncImage = [[[AsyncImageView alloc] initWithFrame:frame] autorelease];
+            NSString *img=[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_big"]];
+            NSURL *urlfoto = [NSURL URLWithString:img];
+            asyncImage.tag = 999;
+            
+            [asyncImage loadImageFromURL:urlfoto];
+                
+            [cell.contentView addSubview:asyncImage];
 
-	UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];  
-	UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];  
-		
-	[doubleTap setNumberOfTapsRequired:2];  
-		
-	[asyncImage addGestureRecognizer:singleTap];  
-	[asyncImage addGestureRecognizer:doubleTap];  
-		
-	[singleTap release];  
-	[doubleTap release];  	
+            UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];  
+            UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];  
+                
+            [doubleTap setNumberOfTapsRequired:2];  
+                
+            [asyncImage addGestureRecognizer:singleTap];  
+            [asyncImage addGestureRecognizer:doubleTap];  
+                
+            [singleTap release];  
+            [doubleTap release];  	
 
-		
-	NSDate *now = [[NSDate alloc] init];
-	NSString *scad = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_periodo_al"]];
-	NSDate *datascadenza=[formatodb dateFromString:scad];
-	secondsLeft =[datascadenza timeIntervalSinceDate:now];
-	int days, hours, minutes, seconds;
-	secondsLeft=secondsLeft-1;
-	days= secondsLeft/(3600*24);
-	hours = (secondsLeft - (days*24*3600))/3600;
-	minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
-	seconds = secondsLeft % 60;
-	//NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
-	tempo.text=[NSString stringWithFormat:@"%dg %02d:%02d:%02d",days,hours, minutes, seconds];
-	//timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-	
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			
+                
+            NSDate *now = [[NSDate alloc] init];
+            NSString *scad = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_periodo_al"]];
+            NSDate *datascadenza=[formatodb dateFromString:scad];
+            secondsLeft =[datascadenza timeIntervalSinceDate:now];
+            int days, hours, minutes, seconds;
+            secondsLeft=secondsLeft-1;
+            days= secondsLeft/(3600*24);
+            hours = (secondsLeft - (days*24*3600))/3600;
+            minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
+            seconds = secondsLeft % 60;
+            //NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
+            tempo.text=[NSString stringWithFormat:@"%dg %02d:%02d:%02d",days,hours, minutes, seconds];
+            //timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            break;
+        }
 	}
 	
 	else{
@@ -524,7 +557,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	r=nil;
 	
 	dict = [rows objectAtIndex: 0];		
-	titolo.text=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+    titolo.text=[NSString stringWithFormat:@"  Solo %@€, sconto %@%",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"offerta_sconto_per"]];
 	identificativoesercente=[[dict objectForKey:@"idesercente"]integerValue];
 	url2 = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/tipoesercente.php?id=%d",identificativoesercente]];
 	NSLog(@"Url2: %@", url2);
