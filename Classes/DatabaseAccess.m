@@ -467,6 +467,10 @@ NSString* key(NSURLConnection* con)
     
     //esempio se richiedo connessione quando rete non disponibile, mostrare allert view?
     NSLog(@"ERROR with theConenction");
+    
+    if(delegate && [delegate respondsToSelector:@selector(didReceiveError:)])
+        [delegate didReceiveError:error];
+    
     [connection release];
     [receivedData release];
 }
