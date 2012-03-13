@@ -82,8 +82,8 @@
 	NSString *username;
 	BOOL post;
     PerDueCItyCardAppDelegate *appDelegate;	
-	Reachability* internetReach;
-	Reachability* wifiReach;
+//	Reachability* internetReach;
+//	Reachability* wifiReach;
 	UIActionSheet *aSheet;
 	UIActionSheet *aSheet2;
 	IBOutlet UIViewController *fotoingrandita;

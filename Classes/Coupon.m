@@ -12,6 +12,7 @@
 #import "Facebook.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "DatabaseAccess.h"
+#import "Utilita.h"
 
 @implementation Coupon
 @synthesize titolo,tempo,riepilogo,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel, offerta;
@@ -25,18 +26,18 @@
 
 
 
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
+//-(int)check:(Reachability*) curReach{
+//	NetworkStatus netStatus = [curReach currentReachabilityStatus];
+//	
+//	switch (netStatus){
+//		case NotReachable:{
+//			return -1;
+//			break;
+//		}
+//		default:
+//			return 0;
+//	}
+//}
 
 
 
@@ -564,14 +565,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [super viewDidAppear:animated];
 //	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
     
-    int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
+//    int wifi=0;
+//	int internet=0;
+//	internetReach = [[Reachability reachabilityForInternetConnection] retain];
+//	internet= [self check:internetReach];
+//	
+//	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+//	wifi=[self check:wifiReach];	
+    
+	if( ! [Utilita networkReachable]){
         NSLog(@"INTERNET ASSENTE");
         
         titolo.text = @" Internet assente!";
@@ -861,8 +863,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[condizionitext release];
 	[dipiutxt release];
 	[timer release];
-	[wifiReach release];
-	[internetReach release];
+//	[wifiReach release];
+//	[internetReach release];
 	[photobig release];
 	[faq release];
 //    [logoutBtn release];
