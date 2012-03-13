@@ -273,33 +273,39 @@
 }
 
 - (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+    
+    //mostra dettaglio offerta controller, è in questo controller, i dati sono stati già scaricati asincronamente
+    
 	if ( (indexPath.section==1) && (indexPath.row == 0)){
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		[insintesi setTitle:@"Dettagli offerta"];
 		NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
 		titololabel.text=tit;
 		sintesitxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_descrizione_breve"]];
 		[insintesitext loadHTMLString:sintesitxt baseURL:nil];
-		[comprasintesi setTitle: [NSString stringWithFormat:@"Compra subito! Solo %@€",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-		[[comprasintesi layer] setCornerRadius:8.0f];
-		[[comprasintesi layer] setMasksToBounds:YES];
-		[comprasintesi setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
+//		[comprasintesi setTitle: [NSString stringWithFormat:@"Compra subito! Solo %@€",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+//		[[comprasintesi layer] setCornerRadius:8.0f];
+//		[[comprasintesi layer] setMasksToBounds:YES];
+//		[comprasintesi setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
         
 		
 		[self.navigationController pushViewController:insintesi animated:YES];
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
         
 	}
+    
+    //stessa filosofia di sopra
 	if ( (indexPath.section==1) && (indexPath.row == 1)){
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+//		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		[termini setTitle:@"Termini e condizioni"];
 		condizionitext=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_condizioni_sintetiche"]];
 		[condizionitxt loadHTMLString:condizionitext baseURL:nil];
-		[compratermini setTitle: [NSString stringWithFormat:@"Compra subito! Solo €%@",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-		[[compratermini layer] setCornerRadius:8.0f];
-		[[compratermini layer] setMasksToBounds:YES];
-		[compratermini setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
+//		[compratermini setTitle: [NSString stringWithFormat:@"Compra subito! Solo €%@",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+//		[[compratermini layer] setCornerRadius:8.0f];
+//		[[compratermini layer] setMasksToBounds:YES];
+//		[compratermini setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
 		
 		[self.navigationController pushViewController:termini animated:YES];
 		
@@ -360,10 +366,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[dipiu setTitle:@"Per saperne di più..."];
 		dipiutxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_descrizione_estesa"]];
 		[dipiutext loadHTMLString:dipiutxt baseURL:nil];
-		[compradipiu setTitle: [NSString stringWithFormat:@"Compra subito! Solo €%@",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-		[[compradipiu layer] setCornerRadius:8.0f];
-		[[compradipiu layer] setMasksToBounds:YES];
-		[compradipiu setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
+//		[compradipiu setTitle: [NSString stringWithFormat:@"Compra subito! Solo €%@",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+//		[[compradipiu layer] setCornerRadius:8.0f];
+//		[[compradipiu layer] setMasksToBounds:YES];
+//		[compradipiu setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
 		
 		[self.navigationController pushViewController:dipiu animated:YES];
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
