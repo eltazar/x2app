@@ -1003,6 +1003,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
 
+-(void)didReceiveError:(NSError *)error{
+    NSLog(@"coupon: errore connessione: %@",[error description]);
+    [caricamentoSpinner stopAnimating];
+}
+
 #pragma mark - FACEBOOK
 
 -(void)logoutFromFB{
