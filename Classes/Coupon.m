@@ -306,31 +306,51 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
 	if ( (indexPath.section==1) && (indexPath.row == 2)){
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-		[contatti setTitle:@"Info Esercente"];
-		if(tipodettaglio==1){ //dettglio ristopub
-			detail = [[DettaglioRistoCoupon alloc] initWithNibName:@"DettaglioRistoCoupon" bundle:[NSBundle mainBundle]];
-			[(DettaglioRistoCoupon*)detail setIdentificativo:identificativoesercente];
-			[detail setTitle:@"Esercente"];
-			//Facciamo visualizzare la vista con i dettagli
-			[self.navigationController pushViewController:detail animated:YES];
+//		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+		
+        [contatti setTitle:@"Info Esercente"];
+		
+        if(tipodettaglio==1){ //dettglio ristopub
+//			detail = [[DettaglioRistoCoupon alloc] initWithNibName:@"DettaglioRistoCoupon" bundle:[NSBundle mainBundle]];
+//			[(DettaglioRistoCoupon*)detail setIdentificativo:identificativoesercente];
+//			[detail setTitle:@"Esercente"];
+//			//Facciamo visualizzare la vista con i dettagli
+//			[self.navigationController pushViewController:detail animated:YES];
             
+            NSLog(@"ESERCENTE RISTOPUB");
+            
+            DettaglioRistoCoupon *dettaglioRistoCoup = [[DettaglioRistoCoupon alloc] initWithNibName:@"DettaglioRistoCoupon" bundle:[NSBundle mainBundle]];
+            [dettaglioRistoCoup setIdentificativo:identificativoesercente];
+            [dettaglioRistoCoup setTitle:@"Esercente"];
+            [self.navigationController pushViewController:dettaglioRistoCoup animated:YES];
 		}	
 		else {
-			if (tipodettaglio==2) { //esercente generico
-				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-				detail = [[DettaglioEsercenteCoupon alloc] initWithNibName:@"DettaglioEsercenteCoupon" bundle:[NSBundle mainBundle]];
-				[(DettaglioEsercenteCoupon*)detail setIdentificativo:identificativoesercente];
-				[detail setTitle:@"Esercente"];				//Facciamo visualizzare la vista con i dettagli
-				[self.navigationController pushViewController:detail animated:YES];
+			if (tipodettaglio==2) {
+                //esercente generico
+                NSLog(@"ESERCENTE GENERICO");
+//				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+//				detail = [[DettaglioEsercenteCoupon alloc] initWithNibName:@"DettaglioEsercenteCoupon" bundle:[NSBundle mainBundle]];
+//				[(DettaglioEsercenteCoupon*)detail setIdentificativo:identificativoesercente];
+//				[detail setTitle:@"Esercente"];				//Facciamo visualizzare la vista con i dettagli
+//				[self.navigationController pushViewController:detail animated:YES];
+                
+                DettaglioEsercenteCoupon *dettaglioEseCoup = [[DettaglioEsercenteCoupon alloc] initWithNibName:@"DettaglioEsercenteCoupon" bundle:[NSBundle mainBundle]];
+                [dettaglioEseCoup setIdentificativo:identificativoesercente];
+                [dettaglioEseCoup setTitle:@"Esercente"];
+                [self.navigationController pushViewController:dettaglioEseCoup animated:YES];
 			}
-			else { //esercente generico senza contratto
-				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-				detail = [[DettaglioEsercenteGenerico alloc] initWithNibName:@"DettaglioEsercenteGenerico" bundle:[NSBundle mainBundle]];
-				[(DettaglioEsercenteGenerico*)detail setIdentificativo:identificativoesercente];
-				[detail setTitle:@"Esercente"];				
-				//Facciamo visualizzare la vista con i dettagli
-				[self.navigationController pushViewController:detail animated:YES];
+			else { 
+                //esercente generico senza contratto
+//				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+//				detail = [[DettaglioEsercenteGenerico alloc] initWithNibName:@"DettaglioEsercenteGenerico" bundle:[NSBundle mainBundle]];
+//				[(DettaglioEsercenteGenerico*)detail setIdentificativo:identificativoesercente];
+//				[detail setTitle:@"Esercente"];				
+//				//Facciamo visualizzare la vista con i dettagli
+//				[self.navigationController pushViewController:detail animated:YES];
+                DettaglioEsercenteGenerico *dettaglioEseGen = [[DettaglioEsercenteGenerico alloc] initWithNibName:@"DettaglioEsercenteGenerico" bundle:[NSBundle mainBundle]];
+                [dettaglioEseGen setIdentificativo:identificativoesercente];
+                [dettaglioEseGen setTitle:@"Esercente"];
+                [self.navigationController pushViewController:dettaglioEseGen animated:YES];
 			}
 		}
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
