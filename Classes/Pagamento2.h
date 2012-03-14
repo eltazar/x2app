@@ -15,6 +15,7 @@
 #import "DatiPagamentoController.h"
 #import "DatiUtenteController.h"
 #import "DatabaseAccess.h"
+
 @class PickerViewController;
 
 @interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate, DatiUtenteDelegate,DatabaseAccessDelegate> {
