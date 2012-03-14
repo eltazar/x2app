@@ -515,7 +515,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	[infoButton addTarget:self action:@selector(OpenContatti:) forControlEvents:UIControlEventTouchUpInside];
 	UIBarButtonItem *modalButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
 	[self.navigationItem setRightBarButtonItem:modalButton animated:YES];
-	[infoButton release];
+	//[infoButton release];
 	[modalButton release];
 	titololabel.text=[NSString stringWithFormat:@"%@",titolo];
 	
