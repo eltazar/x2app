@@ -11,6 +11,7 @@
 #import "OpzioniCoupon.h"
 #import "DatabaseAccess.h"
 #import "Reachability.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AltreOfferte
 @synthesize footerView,CellSpinner,tableview,rows,dict;
@@ -215,9 +216,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     rows=[[NSMutableArray alloc] init];
     
+    spinnerView.layer.cornerRadius = 6;
+    //[spinnerView startAnimating];
+    
+}
+
+-(void)didReceiveError:(NSError *)error{
+    NSLog(@"ALTRE OFFERTE ERRORE SERVER = %@",[error description]);
+    [spinnerView stopAnimating];
 }
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
+    
+    [spinnerView stopAnimating];
     
     dict = [[NSMutableDictionary alloc] initWithDictionary:coupon];
     
@@ -281,6 +292,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         //url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner//altreofferte.php?prov=%@",prov]];
         //NSLog(@"Url: %@", url);
         
+        [spinnerView startAnimating];
         [dbAccess getAltreOfferteFromServer:prov];
         
 //        NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
@@ -356,7 +368,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)viewDidUnload {
-
+    NSLog(@"memory warning");
+    
     dict = nil;
     rows = nil;
     
@@ -370,6 +383,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)dealloc {
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [spinnerView release];
     dbAccess.delegate = nil;
     [dbAccess release];
 	[tableview release];

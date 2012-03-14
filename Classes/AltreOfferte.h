@@ -24,6 +24,7 @@
 	IBOutlet UIActivityIndicatorView *CellSpinner;
     IBOutlet UILabel *citta;
     DatabaseAccess *dbAccess;
+    IBOutlet UIActivityIndicatorView *spinnerView;
 }
 
 

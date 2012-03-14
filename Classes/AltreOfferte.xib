@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<string>IBUIActivityIndicatorView</string>
 			<string>IBUITableView</string>
 			<string>IBUIImageView</string>
 			<string>IBUIView</string>
@@ -46,7 +47,7 @@
 						<int key="NSvFlags">274</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUILabel" id="666452677">
+							<object class="IBUILabel" id="325615501">
 								<reference key="NSNextResponder" ref="353777234"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrameSize">{320, 44}</string>
@@ -64,7 +65,7 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Città</string>
-								<object class="NSColor" key="IBUITextColor" id="406037518">
+								<object class="NSColor" key="IBUITextColor" id="210603599">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
@@ -86,8 +87,8 @@
 						<string key="NSFrameSize">{320, 418}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="666452677"/>
-						<reference key="IBUIBackgroundColor" ref="406037518"/>
+						<reference key="NSNextKeyView" ref="325615501"/>
+						<reference key="IBUIBackgroundColor" ref="210603599"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<bool key="IBUIAlwaysBounceVertical">YES</bool>
@@ -97,7 +98,22 @@
 						<float key="IBUIRowHeight">135</float>
 						<float key="IBUISectionHeaderHeight">22</float>
 						<float key="IBUISectionFooterHeight">22</float>
-						<reference key="IBUITableHeaderView" ref="666452677"/>
+						<reference key="IBUITableHeaderView" ref="325615501"/>
+					</object>
+					<object class="IBUIActivityIndicatorView" id="829460962">
+						<reference key="NSNextResponder" ref="191373211"/>
+						<int key="NSvFlags">-2147483356</int>
+						<string key="NSFrame">{{141, 165}, {37, 37}}</string>
+						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
+						<string key="NSReuseIdentifierKey">_NS:1030</string>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+						</object>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<int key="IBUIStyle">0</int>
 					</object>
 				</object>
 				<string key="NSFrame">{{0, 64}, {320, 367}}</string>
@@ -180,9 +196,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">citta</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="666452677"/>
+						<reference key="destination" ref="325615501"/>
 					</object>
 					<int key="connectionID">16</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">spinnerView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="829460962"/>
+					</object>
+					<int key="connectionID">22</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -218,6 +242,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="353777234"/>
+							<reference ref="829460962"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -237,7 +262,7 @@
 						<reference key="object" ref="353777234"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="666452677"/>
+							<reference ref="325615501"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -257,8 +282,13 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">15</int>
-						<reference key="object" ref="666452677"/>
+						<reference key="object" ref="325615501"/>
 						<reference key="parent" ref="353777234"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">21</int>
+						<reference key="object" ref="829460962"/>
+						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
 			</object>
@@ -273,6 +303,7 @@
 					<string>1.IBPluginDependency</string>
 					<string>10.IBPluginDependency</string>
 					<string>15.IBPluginDependency</string>
+					<string>21.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
 					<string>9.IBPluginDependency</string>
 				</object>
@@ -281,6 +312,7 @@
 					<string>AltreOfferte</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -301,7 +333,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">16</int>
+			<int key="maxID">22</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -328,6 +360,7 @@
 							<string>cellaofferte</string>
 							<string>citta</string>
 							<string>footerView</string>
+							<string>spinnerView</string>
 							<string>tableview</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -336,6 +369,7 @@
 							<string>UITableViewCell</string>
 							<string>UILabel</string>
 							<string>UIView</string>
+							<string>UIActivityIndicatorView</string>
 							<string>UITableView</string>
 						</object>
 					</object>
@@ -347,6 +381,7 @@
 							<string>cellaofferte</string>
 							<string>citta</string>
 							<string>footerView</string>
+							<string>spinnerView</string>
 							<string>tableview</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -366,6 +401,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">footerView</string>
 								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">spinnerView</string>
+								<string key="candidateClassName">UIActivityIndicatorView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">tableview</string>
