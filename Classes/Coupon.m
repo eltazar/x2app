@@ -423,15 +423,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 #pragma mark - Gestione view e bottoni
 
-- (IBAction)Opzioni:(id)sender{
-	OpzioniCoupon *opt = [[[OpzioniCoupon alloc] init] autorelease];
-    if ( [timer isValid]){
-        [timer invalidate];
-        timer=nil;
-    }
-    [self presentModalViewController:opt animated:YES];
-    
-}
+//- (IBAction)Opzioni:(id)sender{
+//	OpzioniCoupon *opt = [[[OpzioniCoupon alloc] init] autorelease];
+//    if ( [timer isValid]){
+//        [timer invalidate];
+//        timer=nil;
+//    }
+//    [self presentModalViewController:opt animated:YES];
+//    
+//}
 
 
 
@@ -690,9 +690,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.navigationItem.rightBarButtonItem = altreOfferteBtn;
     [altreOfferteBtn release];
     
-    UIBarButtonItem *cittaBtn = [[UIBarButtonItem alloc] initWithTitle:@"Città" style:UIBarButtonItemStyleBordered target:self action:@selector(Opzioni:)];
-    self.navigationItem.leftBarButtonItem = cittaBtn;
-    [cittaBtn release];
+//    UIBarButtonItem *cittaBtn = [[UIBarButtonItem alloc] initWithTitle:@"Città" style:UIBarButtonItemStyleBordered target:self action:@selector(Opzioni:)];
+//    self.navigationItem.leftBarButtonItem = cittaBtn;
+//    [cittaBtn release];
     
     //FACEBOOK
     //###### FACEBOOK ########
