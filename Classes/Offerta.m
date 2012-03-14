@@ -613,6 +613,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    [compra setHidden:YES];
+    
     //	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
     
     //    int wifi=0;
@@ -641,7 +644,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         [timer invalidate];
         timer = nil;
         
-        [compra setHidden:NO];
         titolo.text = @" Caricamento...";
 //        NSString *citycoupon;	
 //        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -675,12 +677,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
         //dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
         
-//        if(self.view.window){
-//            [caricamentoSpinner startAnimating];
-//            [dbAccess getCouponFromServer:prov];            
-//        }
+        if(self.view.window){
         [caricamentoSpinner startAnimating];
         [dbAccess getCouponFromServerWithId:identificativo];
+        }
     }
     
 }
@@ -691,6 +691,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [super viewDidLoad];
     
     NSLog(@"CLASSE OFFERTA DID LOAD");
+    
+    [compra setHidden:YES];
     
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
@@ -937,6 +939,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)didReceiveCoupon:(NSDictionary *)coupon;
 {
     [caricamentoSpinner stopAnimating];
+    [compra setHidden:NO];
     
     dict = [coupon retain];
     
@@ -1029,19 +1032,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	[tableview reloadData];
     
-    //if(self.view.window){
+    if(self.view.window){
         NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",timer);
         [timer invalidate];
         timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
         NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",timer);
-    //}
+    }
     //DA METTERE [dict release];
     
 }
 
 -(void)didReceiveError:(NSError *)error{
-    NSLog(@"coupon: errore connessione: %@",[error description]);
+    NSLog(@"OFFERTA: errore connessione: %@",[error description]);
     [caricamentoSpinner stopAnimating];
+    [compra setHidden:YES];
 }
 
 #pragma mark - FACEBOOK
