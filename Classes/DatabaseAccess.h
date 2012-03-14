@@ -26,8 +26,11 @@ NSString* key(NSURLConnection* con);
 
 @property(nonatomic,assign) id<DatabaseAccessDelegate> delegate;
 
+-(void)buyCouponRequest:(NSString*)string;
+-(void)getCouponFromServerWithId:(NSInteger)idCoupon;
 -(void)getCouponFromServer:(NSString*)prov;
 -(void)getNewsFromServer:(int)indice;
+-(void)getAltreOfferteFromServer:(NSString*)prov;
 
 //-(void)jobDelRequest:(Job*)job;
 //-(void)jobModRequest:(Job*)job;
