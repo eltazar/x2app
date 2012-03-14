@@ -122,42 +122,13 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         //intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
 		
         NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
-		
-        //NSLog(@"Anno:%d",[annoscadenza integerValue]);
-		
-        //creo richiesta GET --> cambiare in POST ????
-//        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/provamario.php?identificativo=%d&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
         
-       // NSLog(@ " ////// DATI PER IL COUPON \n: %@",[NSString stringWithFormat: @"https://www.cartaperdue.it/partner/provamario.php?identificativo=%d",identificativo]);//&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]);
-		
-    //invia richiesta
-        
-//        NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-//		NSLog(@"RISULTATO DAL SERVER: %@",jsonreturn); // Look at the console and you can see what the restults are
-//		if([jsonreturn isEqualToString:@"Ok"]) {
-//			NSString *messagetext = [NSString stringWithFormat: @"La richiesta di acquisto coupon è stata inoltrata.\nRiceverai una mail all'indirizzo %@ non appena la transazione sarà autorizzata",email];
-//
-//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Richiesta inviata" message:messagetext delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-//			[alert show];
-//			[alert release];
-        
-        NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
+        //NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
         
         [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
         
-        
-//		}
-//		else{
-////			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Riprovare" message:@"Ci sono stati problemi nell'invio della richiesta di acquisto. Riprovare!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-////			[alert show];
-////			[alert release];
-//            NSLog(@"TRANSAZIONE FALLITA");
-//		}
-        
-        //rimuovo  il codice  cvv sela transazione è andata a buon fine o è fallita
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
         
-		//[self.navigationController popViewControllerAnimated:YES];
 	} 
 }
 
