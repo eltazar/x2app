@@ -482,6 +482,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	photobig.image = tempImage;
 	[self presentModalViewController:fotoingrandita animated:YES];
+    [tempImage release];
 	
 	
 }
@@ -494,6 +495,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	photobig.image = tempImage;
 	[self presentModalViewController:fotoingrandita animated:YES];
+    [tempImage release];
 }
 
 - (IBAction)chiudi:(id)sender {
@@ -903,26 +905,29 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
     [caricamentoSpinner release];
-	[rows release];
+	
+    [rows release];
 	[dict2 release];
-	//[url release];
-	//[url2 release];
 	[dict release];
-	[detail release];
-	[tableview release];		
-	//[sintesitxt release];
-	//[condizionitext release];
-	//[dipiutxt release];
+	
+    [tableview release];		
 	[timer release];
-    //	[wifiReach release];
-    //	[internetReach release];
 	[photobig release];
 	[faq release];
-    //    [logoutBtn release];
-    //    logoutBtn = nil;
     
     dbAccess.delegate = nil;
     [dbAccess release];
+    
+    [insintesi release];
+    [termini release];
+    [contatti release];
+    [dipiu release];
+    
+    [insintesitextWebView release];
+    [condizionitxtWebView release];
+    [dipiutextWebView release];
+    
+    [fotoingrandita release];
     
     [super dealloc];
 }
