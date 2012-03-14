@@ -10,11 +10,11 @@
 #import "CJSONDeserializer.h"
 #import "Offerta.h"
 #import "AsyncImageView.h"
-#import "Reachability.h"
 #import "DatabaseAccess.h"
 
 @interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,DatabaseAccessDelegate> {
-	UITableView *tableview;
+	
+    UITableView *tableview;
 	NSMutableArray *rows;
 	UIViewController *detail;
 	NSMutableDictionary *dict;
@@ -22,8 +22,6 @@
 	//NSURL *url;
 	IBOutlet UIView* footerView;
 	IBOutlet UIActivityIndicatorView *CellSpinner;
-	Reachability* internetReach;
-	Reachability* wifiReach;
     IBOutlet UILabel *citta;
     DatabaseAccess *dbAccess;
 }

@@ -10,6 +10,7 @@
 #import "Utilita.h"
 #import "OpzioniCoupon.h"
 #import "DatabaseAccess.h"
+#import "Reachability.h"
 
 @implementation AltreOfferte
 @synthesize footerView,CellSpinner,tableview,rows,dict;
@@ -143,7 +144,7 @@
 	// Metodo relativo alla selezione di una cella
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+	//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 
 	dict = [rows objectAtIndex: indexPath.row];
 	detail = [[Offerta alloc] initWithNibName:@"Offerta" bundle:[NSBundle mainBundle]];
