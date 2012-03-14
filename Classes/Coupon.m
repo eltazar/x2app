@@ -886,6 +886,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)viewDidUnload {
+    [dict release];
+    dict = nil;
     [super viewDidUnload];
 
 
