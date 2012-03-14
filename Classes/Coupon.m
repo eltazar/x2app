@@ -362,7 +362,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
 	if ( (indexPath.section==1) && (indexPath.row == 3)){
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		[dipiu setTitle:@"Per saperne di più..."];
 		dipiutxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_descrizione_estesa"]];
 		[dipiutext loadHTMLString:dipiutxt baseURL:nil];
@@ -515,7 +515,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (IBAction)AltreOfferte:(id)sender {
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+	//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
     
 //	detail = [[AltreOfferte alloc] initWithNibName:@"AltreOfferte" bundle:[NSBundle mainBundle]];
 //	[detail setTitle:@"Altre Offerte"];
