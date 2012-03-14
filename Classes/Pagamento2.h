@@ -17,18 +17,18 @@
 @class PickerViewController;
 
 @interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate, DatiUtenteDelegate> {
-	NSInteger identificativo;
+	
+    NSInteger identificativo;
 	double valore;
 	double quant;
 	double totale;
-	IBOutlet UIButton *compra;
+	
+    IBOutlet UIButton *compra;
 
 	IBOutlet UILabel *titololabel;
 	IBOutlet UILabel *datopersonale;
 
 	NSString *titolo;
-	IBOutlet UIViewController *vistadatipersonali;
-	IBOutlet UIViewController *vistadatipagamento;
 
 	NSURL *url;
 	IBOutlet UITableView *tablegenerale;
@@ -44,16 +44,7 @@
 	IBOutlet UITableViewCell *cellamail;
 
 	CGFloat animatedDistance;
-	
-	IBOutlet UIToolbar *confermaquantita;
-	
-	
-    NSString * currentKey;
-    UITextField * currentField;
-	
-	UIViewController *detail;
-	IBOutlet UIViewController *info;
-    
+    	    
     BOOL isQtField;
     
 
@@ -71,12 +62,10 @@
 
 @property (nonatomic,retain) IBOutlet UILabel *titololabel;
 @property (nonatomic,retain) IBOutlet UILabel *datopersonale;
-@property (nonatomic,retain) IBOutlet UITextField *campo;
 
 @property (nonatomic,retain) IBOutlet UITableView *tablegenerale;
 @property (nonatomic, retain) IBOutlet UIViewController *vistadatipersonali;
 @property (nonatomic, retain) IBOutlet UIViewController *vistadatipagamento;
-@property (nonatomic, retain) IBOutlet UIToolbar *confermaquantita;
 @property (nonatomic, retain) IBOutlet UIButton *compra;
 
 @property (nonatomic,retain) UIViewController *info;
@@ -84,7 +73,6 @@
 -(IBAction)editingEnded:(id)sender;
 
 - (IBAction)compra:(id)sender;
--(IBAction)confermaquantita:(id)sender;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (IBAction)OpenInfo:(id)sender;
 - (IBAction)chiudi:(id)sender;

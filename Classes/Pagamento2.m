@@ -18,7 +18,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 
 @implementation Pagamento2
-@synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,campo,vistadatipagamento,vistadatipersonali,info;
+@synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,vistadatipagamento,vistadatipersonali,info, titololabel;
 
 
 -(BOOL)validaDatiUtente{
@@ -125,27 +125,27 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         //NSLog(@"Anno:%d",[annoscadenza integerValue]);
 		
         //creo richiesta GET --> cambiare in POST ????
-        url = [NSURL URLWithString:[NSString stringWithFormat: @"https://www.cartaperdue.it/partner/pagamento.php?identificativo=%d&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
+        url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/provamario.php"]];//?identificativo=%d&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
         
-        NSLog(@ " ////// DATI PER IL COUPON \n: %@",[NSString stringWithFormat: @"https://www.cartaperdue.it/partner/pagamento.php?identificativo=%d&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]);
+        NSLog(@ " ////// DATI PER IL COUPON \n: %@",[NSString stringWithFormat: @"https://www.cartaperdue.it/partner/provamario.php?identificativo=%d&idiphone=%@&quantita=%.2f&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]);
 		
     //invia richiesta
         
-//        NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-//		NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-//		if([jsonreturn isEqualToString:@"Ok"]) {
-//			NSString *messagetext = [NSString stringWithFormat: @"La richiesta di acquisto coupon è stata inoltrata.\nRiceverai una mail all'indirizzo %@ non appena la transazione sarà autorizzata",email];
-//
-//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Richiesta inviata" message:messagetext delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-//			[alert show];
-//			[alert release];
-//		}
-//		else{
-//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Riprovare" message:@"Ci sono stati problemi nell'invio della richiesta di acquisto. Riprovare!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-//			[alert show];
-//			[alert release];
-//				
-//		}
+        NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
+		NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+		if([jsonreturn isEqualToString:@"Ok"]) {
+			NSString *messagetext = [NSString stringWithFormat: @"La richiesta di acquisto coupon è stata inoltrata.\nRiceverai una mail all'indirizzo %@ non appena la transazione sarà autorizzata",email];
+
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Richiesta inviata" message:messagetext delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+			[alert show];
+			[alert release];
+		}
+		else{
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Riprovare" message:@"Ci sono stati problemi nell'invio della richiesta di acquisto. Riprovare!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+			[alert show];
+			[alert release];
+				
+		}
         
         //rimuovo  il codice  cvv sela transazione è andata a buon fine o è fallita
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
@@ -596,6 +596,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 
 - (void)viewDidUnload {
+    self.compra = nil;
     [super viewDidUnload];
 
     // Release any retained subviews of the main view.
@@ -605,11 +606,10 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 
 - (void)dealloc {
-    [super dealloc];
 		
+    [compra release];
+    
 	[titolo release];
-	[vistadatipersonali release];
-	[vistadatipagamento release];
 	
 	[url release];
 	[tablegenerale release];
@@ -618,8 +618,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	[rows release];
 	[dict release]; 
 	
-    [currentKey release];
-	[detail release];
+    [super dealloc];
 	
 }
 
