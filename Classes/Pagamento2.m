@@ -617,7 +617,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
 	[titolo release];
 	
-	[url release];
+	//[url release];
 	[tablegenerale release];
 	
 	

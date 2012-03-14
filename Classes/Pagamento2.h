@@ -31,7 +31,7 @@
 
 	NSString *titolo;
 
-	NSURL *url;
+	//NSURL *url;
 	IBOutlet UITableView *tablegenerale;
 
 
