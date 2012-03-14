@@ -8,6 +8,7 @@
 
 #import "AltreOfferte.h"
 
+#import "Utilita.h"
 
 @implementation AltreOfferte
 @synthesize footerView,CellSpinner,tableview,rows,dict;
@@ -187,63 +188,68 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 }
 - (void)viewWillAppear:(BOOL)animated {
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-	int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+//	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+//	int wifi=0;
+//	int internet=0;
+//	internetReach = [[Reachability reachabilityForInternetConnection] retain];
+//	internet= [self check:internetReach];
+//	
+//	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+//	wifi=[self check:wifiReach];	
+//	if( (internet==-1) &&( wifi==-1) ){
+    if(! [Utilita networkReachable]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
 		
 	}
+    else{
 	
-	NSString *citycoupon;	
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	citycoupon=[defaults objectForKey:@"cittacoupon"];
-	NSString *prov= [citycoupon stringByReplacingOccurrencesOfString:@" " withString:@"!"]; //inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
-	url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner//altreofferte.php?prov=%@",prov]];
-	NSLog(@"Url: %@", url);
-	
-	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-	
-	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-	NSError *error = nil;	
-	
-	dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
-		//rows=[[NSMutableArray alloc] initWithObjects:[dict allValues],nil];
-	NSMutableArray *r=[[NSMutableArray alloc] init];
-	
-	if (dict)
-	{
-		r = [[dict objectForKey:@"Esercente"] retain];
-		
-	}
-	
-	NSLog(@"Array: %@",r);
-	rows=[[NSMutableArray alloc] init];
-	
-	[rows addObjectsFromArray: r];
-	
-	NSLog(@"Numero totale:%d",[rows count]);
-	if([rows count]==0){ //tabella vuota
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"In questo momento non ci sono altre offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-		[alert show];
-		[alert release];
-			//[self.navigationController popViewControllerAnimated:YES];
-	}
-	
-	else {
-		[jsonreturn release];
-		jsonreturn=nil;
-		[r release];
-		r=nil;	
-	}
+        NSString *citycoupon;	
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        citycoupon=[defaults objectForKey:@"cittacoupon"];
+        NSString *prov= [citycoupon stringByReplacingOccurrencesOfString:@" " withString:@"!"]; //inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
+        url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner//altreofferte.php?prov=%@",prov]];
+        NSLog(@"Url: %@", url);
+        
+        NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
+        //NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+        
+        NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error = nil;	
+        
+        dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
+            //rows=[[NSMutableArray alloc] initWithObjects:[dict allValues],nil];
+        NSMutableArray *r=[[NSMutableArray alloc] init];
+        
+        NSLog(@"MARIO DICT \n %@",dict);
+        
+        if (dict)
+        {
+            r = [[dict objectForKey:@"Esercente"] retain];
+            
+        }
+        
+        //NSLog(@"Array: %@",r);
+        rows=[[NSMutableArray alloc] init];
+        
+        [rows addObjectsFromArray: r];
+        
+        NSLog(@"Numero totale:%d",[rows count]);
+        if([rows count]==0){ //tabella vuota
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"In questo momento non ci sono altre offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+            [alert show];
+            [alert release];
+                //[self.navigationController popViewControllerAnimated:YES];
+        }
+        
+        else {
+            [jsonreturn release];
+            jsonreturn=nil;
+            [r release];
+            r=nil;	
+        }
+    }
 }
 -(void)spinTheSpinner {
     NSLog(@"Spin The Spinner");
