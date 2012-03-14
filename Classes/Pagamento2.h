@@ -21,7 +21,7 @@
 	
     NSInteger identificativo;
 	double valore;
-	double quant;
+	int quant;
 	double totale;
 	
     IBOutlet UIButton *compra;
