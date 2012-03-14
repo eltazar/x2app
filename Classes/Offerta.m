@@ -920,6 +920,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[faq release];
     //    [logoutBtn release];
     //    logoutBtn = nil;
+    
+    dbAccess.delegate = nil;
+    [dbAccess release];
+    
     [super dealloc];
 }
 
