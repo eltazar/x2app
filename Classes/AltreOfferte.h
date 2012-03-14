@@ -19,11 +19,12 @@
 	UIViewController *detail;
 	NSMutableDictionary *dict;
 	IBOutlet UITableViewCell *cellaofferte;
-	NSURL *url;
+	//NSURL *url;
 	IBOutlet UIView* footerView;
 	IBOutlet UIActivityIndicatorView *CellSpinner;
 	Reachability* internetReach;
 	Reachability* wifiReach;
+    IBOutlet UILabel *citta;
     DatabaseAccess *dbAccess;
 }
 
@@ -34,6 +35,7 @@
 @property (nonatomic, retain) IBOutlet UIView *footerView;
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *CellSpinner;
 
+- (IBAction)Opzioni:(id)sender;
 -(int)check:(Reachability*) curReach;
 - (void) spinTheSpinner;
 - (void) doneSpinning;

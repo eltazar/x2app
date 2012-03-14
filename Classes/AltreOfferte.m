@@ -7,8 +7,8 @@
 //
 
 #import "AltreOfferte.h"
-
 #import "Utilita.h"
+#import "OpzioniCoupon.h"
 #import "DatabaseAccess.h"
 
 @implementation AltreOfferte
@@ -181,14 +181,34 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+- (IBAction)Opzioni:(id)sender{
+	OpzioniCoupon *opt = [[OpzioniCoupon alloc] init];
+    [self presentModalViewController:opt animated:YES];
+    [opt release];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillAppear:) name:UIApplicationDidBecomeActiveNotification object:nil];
-	
+    
+    NSLog(@"ALTRE OFFERTE DID LOAD");
+    
+//	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillAppear:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    UIBarButtonItem *cittaBtn = [[UIBarButtonItem alloc] initWithTitle:@"Città" style:UIBarButtonItemStyleBordered target:self action:@selector(Opzioni:)];
+    self.navigationItem.rightBarButtonItem = cittaBtn;
+    [cittaBtn release];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    citta.text  = [defaults objectForKey:@"cittacoupon"];
+    
 	dbAccess = [[DatabaseAccess alloc]init];
     dbAccess.delegate = self;
+    
+    rows=[[NSMutableArray alloc] init];
+    
+}
+
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
     dict = [NSMutableDictionary dictionaryWithDictionary:coupon];
@@ -220,7 +240,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     
 }
+
 - (void)viewWillAppear:(BOOL)animated {
+    
+    NSLog(@"ALTRE OFFERTE VIEW WILL APPEAR");
 //	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 //	int wifi=0;
 //	int internet=0;
@@ -289,6 +312,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //        }
     }
 }
+
+
+
+
 -(void)spinTheSpinner {
     NSLog(@"Spin The Spinner");
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
