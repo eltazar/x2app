@@ -25,18 +25,16 @@
 
 @interface Offerta : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, DatabaseAccessDelegate>{
     
-	NSInteger identificativoesercente;
-	IBOutlet UIViewController *insintesi;
+	
+    IBOutlet UIViewController *insintesi;
 	IBOutlet UIViewController *termini;
 	IBOutlet UIViewController *dipiu;
 	IBOutlet UIViewController *contatti;
     
 	NSMutableArray *rows;
 	NSDictionary *dict2;
-	//NSURL *url;
-	//NSURL *url2;
 	NSDictionary *dict;
-	UIViewController *detail;
+	
     
 	IBOutlet UILabel *titolo;
 	IBOutlet UILabel *riepilogo;
@@ -58,17 +56,12 @@
 	IBOutlet UITableViewCell *cellanomesercente;
     IBOutlet UITableViewCell *cellaDescrizioneOfferta;
     
-	//NSString *sintesitxt;
 	IBOutlet UIWebView *insintesitextWebView;
-	
-    
-	
-	//NSString *condizionitext;
 	IBOutlet UIWebView *condizionitxtWebView;
+    IBOutlet UIWebView *dipiutextWebView;
 	
-	//NSString *dipiutxt;
-	IBOutlet UIWebView *dipiutextWebView;
-	NSInteger identificativo;
+    NSInteger identificativoesercente;
+    NSInteger identificativo;
 	int tipodettaglio;
 	
 	IBOutlet UILabel *tempo;
@@ -83,6 +76,8 @@
     PerDueCItyCardAppDelegate *appDelegate;	
     //	Reachability* internetReach;
     //	Reachability* wifiReach;
+    BOOL waitingForFacebook;
+    
 	UIActionSheet *aSheet;
 	UIActionSheet *aSheet2;
 	IBOutlet UIViewController *fotoingrandita;
@@ -90,7 +85,7 @@
 	IBOutlet UIViewController *faq;
 	IBOutlet UIWebView *faqwebview;
 	IBOutlet UILabel *titololabel; //nella view "In sintesi"
-    BOOL waitingForFacebook;
+    
     
     DatabaseAccess *dbAccess;
 }
