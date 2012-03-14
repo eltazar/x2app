@@ -327,17 +327,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 - (void)dealloc {
-    [super dealloc];
+    
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    dbAccess.delegate = nil;
+    [dbAccess release];
 	[tableview release];
 	[rows release];
 	[detail release];
 	[dict release];
-	[url release];
+	//[url release];
 	[footerView release];
 	[CellSpinner release];
-	[wifiReach release];
-	[internetReach release];
+//	[wifiReach release];
+//	[internetReach release];
+    [super dealloc];
 }
 
 
