@@ -147,14 +147,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 
 	dict = [rows objectAtIndex: indexPath.row];
-	detail = [[Offerta alloc] initWithNibName:@"Offerta" bundle:[NSBundle mainBundle]];
-	NSInteger identificativo=[[dict objectForKey:@"idofferta"]integerValue]; 
-	[(Offerta*)detail setIdentificativo:identificativo];
-	[detail setTitle:@"Offerta"];
-		//Facciamo visualizzare la vista con i dettagli
-	[self.navigationController pushViewController:detail animated:YES];
+//	detail = [[Offerta alloc] initWithNibName:@"Offerta" bundle:[NSBundle mainBundle]];
+//    NSInteger identificativo=[[dict objectForKey:@"idofferta"]integerValue];
+//	[(Offerta*)detail setIdentificativo:identificativo];
+//	[detail setTitle:@"Offerta"];
+//		//Facciamo visualizzare la vista con i dettagli
+//	[self.navigationController pushViewController:detail animated:YES];
 	
+    
+    Offerta *couponSelezionatoController = [[Offerta alloc] initWithNibName:@"Offerta" bundle:[NSBundle mainBundle]];
+    NSInteger identificativoOfferta=[[dict objectForKey:@"idofferta"]integerValue];
+    [couponSelezionatoController setIdentificativo:identificativoOfferta];
+    [self.navigationController pushViewController:couponSelezionatoController animated:YES];
+    
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [couponSelezionatoController release];
 
 }
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
