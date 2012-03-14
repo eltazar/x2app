@@ -9,6 +9,7 @@
 #import "Pagamento2.h"
 #import "DatiPagamentoController.h"
 #import "DatiUtenteController.h"
+#import "DatabaseAccess.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -505,6 +506,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    dbAccess = [[DatabaseAccess alloc] init];
+    dbAccess.delegate = self;
+    
     isQtField = FALSE;
     
 	[[compra layer] setCornerRadius:8.0f];
@@ -607,6 +611,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)dealloc {
 		
+    [dbAccess release];
+    
     [compra release];
     
 	[titolo release];
