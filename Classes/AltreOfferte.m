@@ -212,7 +212,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
-    dict = [NSMutableDictionary dictionaryWithDictionary:coupon];
+    dict = [[NSMutableDictionary alloc] initWithDictionary:coupon];
     
     NSMutableArray *r=[[NSMutableArray alloc] init];
     
@@ -237,6 +237,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         //[self.navigationController popViewControllerAnimated:YES];
     }
     
+    [r release];
+    [dict release];
     [self.tableview reloadData];
 
     
@@ -366,7 +368,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableview release];
 	[rows release];
 	[detail release];
-	[dict release];
+	//[dict release];
 	//[url release];
 	[footerView release];
 	[CellSpinner release];
