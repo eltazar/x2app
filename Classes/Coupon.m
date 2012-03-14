@@ -517,10 +517,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (IBAction)AltreOfferte:(id)sender {
 	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
     
-	detail = [[AltreOfferte alloc] initWithNibName:@"AltreOfferte" bundle:[NSBundle mainBundle]];
-	[detail setTitle:@"Altre Offerte"];
-	//Facciamo visualizzare la vista con i dettagli
-	[self.navigationController pushViewController:detail animated:YES];
+//	detail = [[AltreOfferte alloc] initWithNibName:@"AltreOfferte" bundle:[NSBundle mainBundle]];
+//	[detail setTitle:@"Altre Offerte"];
+//	//Facciamo visualizzare la vista con i dettagli
+//	[self.navigationController pushViewController:detail animated:YES];
+    
+    AltreOfferte *altreOfferteController = [[AltreOfferte alloc] initWithNibName:@"AltreOfferte" bundle:[NSBundle mainBundle]];
+    altreOfferteController.title = @"Altre Offerte";
+    [self.navigationController pushViewController:altreOfferteController animated:YES];
+    [altreOfferteController release];
 	
 }
 
