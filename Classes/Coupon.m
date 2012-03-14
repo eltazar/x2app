@@ -15,7 +15,7 @@
 #import "Utilita.h"
 
 @implementation Coupon
-@synthesize titolo,tempo,riepilogo,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel, offerta;
+@synthesize titolo,tempo,riepilogo,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel, offerta,identificativo;
 /*facebook*/
 @synthesize facebookAlert;
 @synthesize username;
@@ -255,7 +255,7 @@
 	if(indexPath.section==0){
         switch (indexPath.row) {
             case 0:
-                return 60;
+                return 63;
                 break;
             case 1:
                 return 155;
@@ -311,6 +311,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
+    
+    
 	if ( (indexPath.section==1) && (indexPath.row == 2)){
 //		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		
@@ -358,9 +360,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 [dettaglioEseGen setTitle:@"Esercente"];
                 [self.navigationController pushViewController:dettaglioEseGen animated:YES];
 			}
-		}
+		 }
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
+    
 	if ( (indexPath.section==1) && (indexPath.row == 3)){
 		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		[dipiu setTitle:@"Per saperne di più..."];
@@ -453,6 +456,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
             [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
             NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+            //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
             [pagamentoController setIdentificativo:identificativo];
             NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
             NSLog(@"%@",tit);
@@ -479,7 +483,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	photobig.image = tempImage;
 	[self presentModalViewController:fotoingrandita animated:YES];
-	
+	[tempImage release];
 	
 }
 
@@ -491,12 +495,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	photobig.image = tempImage;
 	[self presentModalViewController:fotoingrandita animated:YES];
+    [tempImage release];
 }
 
 - (IBAction)chiudi:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
 }
 - (void)countDown{
+    
+    //NSLog(@"RICHIAMATO COUNT DOWN");
 	int days, hours, minutes, seconds;
 	if (secondsLeft>0) {
 		secondsLeft=secondsLeft-1;
@@ -605,7 +612,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - View life cycle
 	
 -(void)viewDidAppear:(BOOL)animated{
+    
     [super viewDidAppear:animated];
+    
+    [compra setHidden:YES];
 //	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
     
 //    int wifi=0;
@@ -630,11 +640,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
         NSLog(@"INTERNET PRESENTE");
         
-        NSLog(@"VIEW WILL APPEAR TIMER prima dell'invalidazione = %@",timer);
+        NSLog(@"VIEW DID APPEAR TIMER prima dell'invalidazione = %@",timer);
         [timer invalidate];
         timer = nil;
         
-        [compra setHidden:NO];
+        
         titolo.text = @" Caricamento...";
         NSString *citycoupon;	
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -647,8 +657,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             [defaults synchronize];
         }
         
-        NSLog(@"Ho salvato il valore: %ld",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
-        self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
+        NSLog(@"Ho salvato il valore: %d",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
+        //self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
         
         
         
@@ -658,7 +668,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
         //url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];
         
-        NSLog(@"Url: %@", url);
+        //NSLog(@"Url: %@", url);
         
         //NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
         //NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
@@ -670,7 +680,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
         if(self.view.window){
             [caricamentoSpinner startAnimating];
-            [dbAccess getCouponFromServer:prov];
+            [dbAccess getCouponFromServer:prov];            
         }
     }
 
@@ -680,6 +690,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"CLASSE COUPON DID LOAD");
+    
+    self.navigationItem.title = @"Coupon del giorno";
+    
+    [compra setHidden:YES];
     
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
@@ -782,19 +798,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	}
     else{
-        
-        if(timer){
-            NSLog(@"INVALIDO TIMEE");
-            if([timer isValid]){
-                NSLog(@"TIMER VALIDO");
-                [timer invalidate];
-            }
-        }
-        
+                
         NSLog(@"INTERNET PRESENTE");
         
+        NSLog(@"VIEW WILL APPEAR TIMER prima dell'invalidazione = %@",timer);
         [timer invalidate];
         timer = nil;
+        
         [compra setHidden:NO];
         titolo.text = @" Caricamento...";
         NSString *citycoupon;	
@@ -834,6 +844,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             [dbAccess getCouponFromServer:prov];
         }
     }
+     
+     */
 }
 
 
@@ -854,6 +866,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         //}
     //}
 
+}
 
 -(void)viewDidDisappear:(BOOL)animated{
     
@@ -886,6 +899,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)viewDidUnload {
+    
+    self.compra = nil;
     [dict release];
     dict = nil;
     [super viewDidUnload];
@@ -901,7 +916,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [caricamentoSpinner release];
 	[rows release];
 	[dict2 release];
-	[url release];
+	//[url release];
 	[url2 release];
 	[dict release];
 	[detail release];
@@ -924,6 +939,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)didReceiveCoupon:(NSDictionary *)coupon;
 {
     [caricamentoSpinner stopAnimating];
+    [compra setHidden:NO];
     
     dict = [coupon retain];
     
@@ -962,11 +978,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[compra setHidden:NO];
 		dict = [rows objectAtIndex: 0];
 		titolo.text=[NSString stringWithFormat:@"  Solo %@€, sconto %@%",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"offerta_sconto_per"]];
+        //identificativo è relativo all'offerta
 		identificativo=[[dict objectForKey:@"idofferta"]integerValue];
 		identificativoesercente=[[dict objectForKey:@"idesercente"]integerValue];
 		
         
         //MARIO: da qui recupero dati dell'esercente per la cella di informazioni relative ad esso(nuova view con dentro tutto, luogo, commenti ecc..)
+        //MARIO: fa richiesta bloccante, quindi renderla asincrona  e soprattutto farla DOPO che si apre la pagina relativa all'esercente
         
         NSLog(@"L'id del ristorante da visualizzare è %d",identificativoesercente);
 		url2 = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/tipoesercente.php?id=%d",identificativoesercente]];
@@ -1027,6 +1045,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)didReceiveError:(NSError *)error{
     NSLog(@"coupon: errore connessione: %@",[error description]);
     [caricamentoSpinner stopAnimating];
+    [compra setHidden:YES];
 }
 
 #pragma mark - FACEBOOK

@@ -34,7 +34,7 @@
 
 	NSMutableArray *rows;
 	NSDictionary *dict2;
-	NSURL *url;
+	//NSURL *url;
 	NSURL *url2;
 	NSDictionary *dict;
 	UIViewController *detail;
@@ -96,6 +96,7 @@
     DatabaseAccess *dbAccess;
 }
 
+@property (nonatomic, readwrite) NSInteger identificativo; 
 @property (nonatomic,retain) IBOutlet UILabel *titolo;
 @property (nonatomic,retain) IBOutlet UILabel *titololabel;
 
@@ -134,7 +135,7 @@
 
 
 - (IBAction)AltreOfferte:(id)sender;
-- (IBAction)Opzioni:(id)sender;
+//- (IBAction)Opzioni:(id)sender;
 - (void)countDown;
 -(void)Paga:(id)sender;
 -(int)check:(Reachability*) curReach;
