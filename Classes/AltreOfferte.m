@@ -9,6 +9,7 @@
 #import "AltreOfferte.h"
 
 #import "Utilita.h"
+#import "DatabaseAccess.h"
 
 @implementation AltreOfferte
 @synthesize footerView,CellSpinner,tableview,rows,dict;
@@ -186,6 +187,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillAppear:) name:UIApplicationDidBecomeActiveNotification object:nil];
 	
+	dbAccess = [[DatabaseAccess alloc]init];
+    dbAccess.delegate = self;
 }
 - (void)viewWillAppear:(BOOL)animated {
 //	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];

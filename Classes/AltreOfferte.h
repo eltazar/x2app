@@ -11,8 +11,9 @@
 #import "Offerta.h"
 #import "AsyncImageView.h"
 #import "Reachability.h"
+#import "DatabaseAccess.h"
 
-@interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate> {
+@interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,DatabaseAccessDelegate> {
 	UITableView *tableview;
 	NSMutableArray *rows;
 	UIViewController *detail;
@@ -23,6 +24,7 @@
 	IBOutlet UIActivityIndicatorView *CellSpinner;
 	Reachability* internetReach;
 	Reachability* wifiReach;
+    DatabaseAccess *dbAccess;
 }
 
 
