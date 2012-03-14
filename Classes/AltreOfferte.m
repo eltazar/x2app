@@ -189,6 +189,36 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	dbAccess = [[DatabaseAccess alloc]init];
     dbAccess.delegate = self;
+-(void)didReceiveCoupon:(NSDictionary *)coupon{
+    
+    dict = [NSMutableDictionary dictionaryWithDictionary:coupon];
+    
+    NSMutableArray *r=[[NSMutableArray alloc] init];
+    
+    NSLog(@"MARIO DICT \n %@",dict);
+    
+    if (dict)
+    {
+        r = [[dict objectForKey:@"Esercente"] retain];
+        
+    }
+    
+    //NSLog(@"Array: %@",r);
+    //rows=[[NSMutableArray alloc] init];
+    [rows removeAllObjects];
+    [rows addObjectsFromArray: r];
+    
+    NSLog(@"Numero totale:%d",[rows count]);
+    if([rows count]==0){ //tabella vuota
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"In questo momento non ci sono altre offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+        [alert show];
+        [alert release];
+        //[self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    [self.tableview reloadData];
+
+    
 }
 - (void)viewWillAppear:(BOOL)animated {
 //	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
