@@ -346,6 +346,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)viewDidUnload {
+
+    dict = nil;
+    rows = nil;
+    
     [super viewDidUnload];
 	
     // Release any retained subviews of the main view.
@@ -365,6 +369,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	//[url release];
 	[footerView release];
 	[CellSpinner release];
+    [citta release];
 //	[wifiReach release];
 //	[internetReach release];
     [super dealloc];
