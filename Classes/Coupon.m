@@ -679,7 +679,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
     
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewWillAppear:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    //quando passa da back a foreground rilancia la query per aggiornare la vista
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidAppear:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    
 	[[compra layer] setCornerRadius:8.0f];
 	[[compra layer] setMasksToBounds:YES];
 	[compra setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
