@@ -9,5 +9,8 @@
 #import "BaseCell.h"
 
 @interface BuyCell : BaseCell
-
+{
+    UIButton *buyButton;
+}
+@property(nonatomic,retain)UIButton *buyButton;
 @end

@@ -9,52 +9,52 @@
 #import "BuyCell.h"
 
 @implementation BuyCell
+@synthesize buyButton;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withDictionary:(NSDictionary *)dictionary {
+    
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier withDictionary:dictionary]) {
+		// Configuro il textfield secondo la necessità
+        self.selectionStyle = UITableViewCellSelectionStyleNone;        
+        [self.textLabel setAdjustsFontSizeToFitWidth:YES];
+        self.textLabel.minimumFontSize = 11;
+
+        self.buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [buyButton setTitle:@"Prezzo" forState:UIControlStateNormal];
+        //[buttonRight setFrame: CGRectMake( self.contentView.frame.size.width -50, 7.0f, 80.0f, 30)];
+        //[buyButton addTarget:self action:@selector(addToFavorites) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.contentView addSubview:buyButton];
+		//[self.contentView addSubview:self.textField];
     }
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
+- (void)layoutSubviews {
     
-    // Release any cached data, images, etc that aren't in use.
+    CGRect rect = CGRectMake(200,7,80,30);
+    [buyButton setFrame:rect];
+    
+	[super layoutSubviews];
+    
+
 }
+//-(void) setDelegate:(id<UITextFieldDelegate>)delegate
+//{
+//    buyButton.delegate = delegate; 
+//}
 
-#pragma mark - View lifecycle
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
+#pragma mark - Memory management
+
+-(void) dealloc
 {
-}
-*/
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-*/
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    self.buyButton = nil;
+    [super dealloc];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+
+
 
 @end
+
