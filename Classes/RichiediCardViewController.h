@@ -12,6 +12,7 @@
     
     NSMutableArray *sectionData;
     NSMutableArray *sectionDescription;
+    UISegmentedControl *segmentedCtrl;
 
 }
 @end

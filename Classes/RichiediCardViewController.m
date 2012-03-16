@@ -19,7 +19,6 @@
 @property(nonatomic,retain) NSString *telefono;
 @property(nonatomic,retain) NSString *email;
 
--(BOOL)isValidFields;
 @end
 
 @implementation RichiediCardViewController
@@ -72,8 +71,14 @@
 	if (cell == nil) {        
         cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
         
-        NSLog(@"CELL = %@",cell);
+        //NSLog(@"CELL = %@",cell);
     }    
+    
+    if(indexPath.section == 0 && indexPath.row == 0){
+        cell.accessoryView = segmentedCtrl;
+        //[cell.contentView addSubview:segmentedCtrl]; 
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
+    }
     
     [cell setDelegate:self];
     
@@ -85,7 +90,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    if (section == 1) {
+    if (section == 2) {
         
         UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
         [customView setBackgroundColor:[UIColor clearColor]];
@@ -100,13 +105,13 @@
         lbl.font = [UIFont systemFontOfSize:14];       
         
         
-        lbl.text = @"Inviando la richiesta sarai ricontattato entro un giorno lavorativo ";
+        lbl.text = @"Sarai ricontattato entro un giorno lavorativo ";
         
         UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
         CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
         CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
         
-        lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
+        lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height);
         
         [customView addSubview:lbl];
         
@@ -124,7 +129,7 @@
 //setta il colore delle label dell'header BIANCHE
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    if(section == 1){
+    if(section == 2){
         // create the parent view that will hold 1 or more buttons
         UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 37)];
         
@@ -186,8 +191,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
-    TextFieldCell *cell = (TextFieldCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-    [cell.textField becomeFirstResponder];
+    if(indexPath.section != 0){
+        TextFieldCell *cell = (TextFieldCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell.textField becomeFirstResponder];
+    }
 }
 
 #pragma mark - Bottoni view
@@ -245,6 +252,12 @@
     if([self validateFields])
         NSLog(@"tutti campi sono validi!");
     
+    //inviare email alla PerDue o salvare richiesta sul DB
+    
+}
+
+-(void)selectedTime:(id)sender{
+    
 }
 
 #pragma mark - TextField and TextView Delegate
@@ -289,14 +302,23 @@
     
     [super viewDidLoad];
     
-    [self setTitle:@"Gestione carte"];
+    [self setTitle:@"Richiedi"];
     
-    
-    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"I tuoi dati",@"", nil];  
+    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"Validità carta",@"I tuoi dati",@"", nil];  
     sectionData = [[NSMutableArray alloc] init];
     
     NSArray *secBtn = [[NSArray alloc] init];
     NSMutableArray *secB = [[NSMutableArray alloc] initWithCapacity:4];
+    NSMutableArray *secA = [[NSMutableArray alloc] initWithCapacity:1];
+    
+    [secA insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                         @"segmentedCtrl",              @"DataKey",
+                         @"BaseCell",               @"kind",
+                         @""      , @"label",
+                         @"",                   @"detailLabel",
+                         @"",               @"img",
+                         [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         nil] autorelease] atIndex: 0];
     
     [secB insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                          @"name",              @"DataKey",
@@ -330,9 +352,11 @@
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
                          nil] autorelease] atIndex: 2];
     
-    [sectionData insertObject:secB atIndex:0];
-    [sectionData insertObject:secBtn atIndex:1];
+    [sectionData insertObject:secA atIndex:0];
+    [sectionData insertObject:secB atIndex:1];
+    [sectionData insertObject:secBtn atIndex:2];
     
+    [secA release];
     [secBtn release];
     [secB release];
     
@@ -340,6 +364,13 @@
     self.cognome = @"";
     self.telefono = @"";
     self.email = @"";
+    
+    segmentedCtrl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"1 mese",@"6 mesi",@"1 anno",@"2 anni", nil]];       
+    segmentedCtrl.frame = CGRectMake(25, 7, 280, 30);
+    [segmentedCtrl addTarget:self
+                      action:@selector(selectedTime:)
+            forControlEvents:UIControlEventValueChanged];
+    segmentedCtrl.segmentedControlStyle = UISegmentedControlStyleBar;
     
 }
 
@@ -366,7 +397,8 @@
 }
 
 - (void)dealloc {
-    
+
+    [segmentedCtrl release];
     self.nome = nil;
     self.cognome = nil;
     self.telefono = nil;
