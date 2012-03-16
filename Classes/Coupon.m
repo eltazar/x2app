@@ -446,19 +446,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)Paga:(id)sender{
 	if ([rows count]>0) {//coupon disponibile
-		if(secondsLeft>0) {
-//			detail = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
-//			[(Pagamento2*)detail setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-//			NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
-//			[(Pagamento2*)detail setIdentificativo:identificativo];
-//            
-//			NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-//			NSLog(@"Titolo:%@",tit);
-//			[(Pagamento2*)detail setTitolo:tit];
-//            
-//			[detail setTitle:@"Acquisto"];
-//			[self.navigationController pushViewController:detail animated:YES];
-            
             Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
             [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
             NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
