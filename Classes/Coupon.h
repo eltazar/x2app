@@ -40,10 +40,11 @@
 	UIViewController *detail;
 
 	IBOutlet UILabel *titolo;
-	IBOutlet UILabel *riepilogo;
+	IBOutlet UILabel *prezzoCoupon;
     
 	IBOutlet UILabel *sconto;
 	IBOutlet UILabel *risparmio;
+    IBOutlet UILabel *prezzoOrig;
 
 	IBOutlet UIButton *compra;
 	IBOutlet UIButton *compratermini;
@@ -93,6 +94,8 @@
 	IBOutlet UILabel *titololabel; //nella view "In sintesi"
     BOOL waitingForFacebook;
     
+    float altezzaCella;
+    
     DatabaseAccess *dbAccess;
 }
 
@@ -100,7 +103,9 @@
 @property (nonatomic,retain) IBOutlet UILabel *titolo;
 @property (nonatomic,retain) IBOutlet UILabel *titololabel;
 
-@property (nonatomic,retain) IBOutlet UILabel *riepilogo;
+@property(nonatomic,retain) IBOutlet UILabel *prezzoCoupon;
+@property(nonatomic,retain) IBOutlet UILabel *prezzoOrig;
+//@property (nonatomic,retain) IBOutlet UILabel *riepilogo;
 @property (nonatomic,retain) IBOutlet UILabel *tempo;
 
 @property(nonatomic, retain) IBOutlet UILabel *offerta;

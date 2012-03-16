@@ -6,6 +6,7 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "Coupon.h"
 #import "FBConnect.h"
 #import "FBDialog.h"
@@ -15,7 +16,7 @@
 #import "Utilita.h"
 
 @implementation Coupon
-@synthesize titolo,tempo,riepilogo,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel, offerta,identificativo;
+@synthesize titolo,tempo,prezzoCoupon,prezzoOrig,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel, offerta,identificativo;
 /*facebook*/
 @synthesize facebookAlert;
 @synthesize username;
@@ -92,13 +93,13 @@
                     [[NSBundle mainBundle] loadNibNamed:@"descrizioneOfferta" owner:self options:NULL];
                     cell=cellaDescrizioneOfferta;                    
                 } 
-                offerta.text = [dict objectForKey:@"offerta_titolo_breve"];
-                //UILabel *offertaLabel = [[UILabel alloc] init];
-            
                 offerta.numberOfLines = 0;
-//                offertaLabel.minimumFontSize = 10.0;
-//                [offertaLabel setAdjustsFontSizeToFitWidth:YES];
+                offerta.text = [dict objectForKey:@"offerta_titolo_breve"];
+                
+                //                offertaLabel.minimumFontSize = 10.0;
+                //                [offertaLabel setAdjustsFontSizeToFitWidth:YES];
                 [offerta sizeToFit];
+
 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -119,9 +120,10 @@
                 
                 //offerta.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];		
                 [compra setTitle: [NSString stringWithFormat:@"Compra",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-                riepilogo.text=[NSString stringWithFormat:@"Solo %@€ invece di %@€",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"coupon_valore_facciale"]]; 
-                sconto.text=[NSString stringWithFormat:@"Sconto: %@",[dict objectForKey:@"offerta_sconto_per"]];
-                risparmio.text=[NSString stringWithFormat:@"Risparmio: %@€",[dict objectForKey:@"offerta_sconto_va"]];
+                prezzoCoupon.text=[NSString stringWithFormat:@"%@€",[dict objectForKey:@"coupon_valore_acquisto"]]; 
+                sconto.text=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_sconto_per"]];
+                risparmio.text=[NSString stringWithFormat:@"%@€",[dict objectForKey:@"offerta_sconto_va"]];
+                prezzoOrig.text = [NSString stringWithFormat:@"%@€",[dict objectForKey:@"coupon_valore_facciale"]];
                 
                 NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
                 [formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
@@ -161,7 +163,7 @@
                 minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
                 seconds = secondsLeft % 60;
                 //NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
-                tempo.text=[NSString stringWithFormat:@"%dg %02d:%02d:%02d",days,hours, minutes, seconds];
+                tempo.text=[NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
                 //			timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 break;
@@ -255,7 +257,7 @@
 	if(indexPath.section==0){
         switch (indexPath.row) {
             case 0:
-                return 63;
+                return altezzaCella;
                 break;
             case 1:
                 return 155;
@@ -277,6 +279,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
     
     //mostra dettaglio offerta controller, è in questo controller, i dati sono stati già scaricati asincronamente
+    if(indexPath.section == 0 && indexPath.row == 0){
+        altezzaCella = 66.0;
+        [self.tableview reloadData];
+    }
     
 	if ( (indexPath.section==1) && (indexPath.row == 0)){
 		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
@@ -511,7 +517,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		hours = (secondsLeft - (days*24*3600))/3600;
 		minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
 		seconds = secondsLeft % 60;
-		tempo.text=[NSString stringWithFormat:@"%dg %02d:%02d:%02d",days,hours, minutes, seconds];
+		tempo.text=[NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
 	}
 	else{
 		secondsLeft=0;
@@ -650,7 +656,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         defaults = [NSUserDefaults standardUserDefaults];
         citycoupon=[defaults objectForKey:@"cittacoupon"];
-        if ( ([citycoupon length]==0) ||  (citycoupon ==nil) ){
+        if ( (citycoupon ==nil) || ([citycoupon length]==0)){
             citycoupon=@"Roma";
             [defaults setObject:citycoupon forKey:@"cittacoupon"];
             [defaults setObject:[NSNumber numberWithInt:85] forKey:@"idcitycoupon"];	
@@ -690,6 +696,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    altezzaCella = 44.0;
+    
+    self.prezzoCoupon.layer.cornerRadius = 6;
     
     NSLog(@"CLASSE COUPON DID LOAD");
     
@@ -938,6 +948,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon;
 {
+        
     [caricamentoSpinner stopAnimating];
     [compra setHidden:NO];
     
@@ -981,8 +992,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         //identificativo è relativo all'offerta
 		identificativo=[[dict objectForKey:@"idofferta"]integerValue];
 		identificativoesercente=[[dict objectForKey:@"idesercente"]integerValue];
-		
         
+        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(50,50,284,31)];
+        myLabel.numberOfLines = 0;
+        myLabel.lineBreakMode = UILineBreakModeWordWrap;
+        myLabel.text = [dict objectForKey:@"offerta_titolo_breve"];
+        [myLabel sizeToFit];
+        CGSize labelSize = [myLabel.text sizeWithFont:myLabel.font 
+                                    constrainedToSize:myLabel.frame.size 
+                                        lineBreakMode:UILineBreakModeWordWrap];
+        NSLog(@"ALTEZZA = %f",myLabel.frame.size.height);
+        
+        if(myLabel.frame.size.height <=21)
+            altezzaCella = 44;
+        else if(myLabel.frame.size.height <= 42)
+            altezzaCella = 55;
+        else if(myLabel.frame.size.height <= 63)
+            altezzaCella = 67;
+        else altezzaCella = 44;
+        
+        [myLabel release];
+         
         //MARIO: da qui recupero dati dell'esercente per la cella di informazioni relative ad esso(nuova view con dentro tutto, luogo, commenti ecc..)
         //MARIO: fa richiesta bloccante, quindi renderla asincrona  e soprattutto farla DOPO che si apre la pagina relativa all'esercente
         
