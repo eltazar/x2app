@@ -42,10 +42,9 @@
 							<object class="IBUILabel" id="1030277436">
 								<reference key="NSNextResponder" ref="545789287"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 7}, {279, 42}}</string>
+								<string key="NSFrame">{{11, 7}, {284, 31}}</string>
 								<reference key="NSSuperview" ref="545789287"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -65,16 +64,16 @@
 								<int key="IBUILineBreakMode">0</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">2</int>
-									<double key="pointSize">15</double>
+									<double key="pointSize">16</double>
 								</object>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica-Bold</string>
-									<double key="NSSize">15</double>
+									<double key="NSSize">16</double>
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 58}</string>
+						<string key="NSFrameSize">{320, 46}</string>
 						<reference key="NSSuperview" ref="975891988"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1030277436"/>
@@ -90,14 +89,14 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrameSize">{320, 59}</string>
+				<string key="NSFrameSize">{320, 47}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="545789287"/>
 				<string key="NSReuseIdentifierKey">_NS:384</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<reference key="IBUIContentView" ref="545789287"/>
-				<real value="59" key="IBUIRowHeight"/>
+				<real value="47" key="IBUIRowHeight"/>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -174,16 +173,11 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="AltreOfferte:">id</string>
-						<string key="Opzioni:">id</string>
 						<string key="chiudi:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="AltreOfferte:">
 							<string key="name">AltreOfferte:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="Opzioni:">
-							<string key="name">Opzioni:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="chiudi:">
@@ -193,6 +187,7 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="CellSpinner">UIActivityIndicatorView</string>
+						<string key="caricamentoSpinner">UIActivityIndicatorView</string>
 						<string key="cellaDescrizioneOfferta">UITableViewCell</string>
 						<string key="cellacoupon">UITableViewCell</string>
 						<string key="cellainfocoupon">UITableViewCell</string>
@@ -212,7 +207,8 @@
 						<string key="insintesitext">UIWebView</string>
 						<string key="offerta">UILabel</string>
 						<string key="photobig">UIImageView</string>
-						<string key="riepilogo">UILabel</string>
+						<string key="prezzoCoupon">UILabel</string>
+						<string key="prezzoOrig">UILabel</string>
 						<string key="risparmio">UILabel</string>
 						<string key="sconto">UILabel</string>
 						<string key="tableview">UITableView</string>
@@ -224,6 +220,10 @@
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="CellSpinner">
 							<string key="name">CellSpinner</string>
+							<string key="candidateClassName">UIActivityIndicatorView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="caricamentoSpinner">
+							<string key="name">caricamentoSpinner</string>
 							<string key="candidateClassName">UIActivityIndicatorView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="cellaDescrizioneOfferta">
@@ -302,8 +302,12 @@
 							<string key="name">photobig</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="riepilogo">
-							<string key="name">riepilogo</string>
+						<object class="IBToOneOutletInfo" key="prezzoCoupon">
+							<string key="name">prezzoCoupon</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="prezzoOrig">
+							<string key="name">prezzoOrig</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="risparmio">
