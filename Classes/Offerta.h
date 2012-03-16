@@ -34,13 +34,19 @@
 	NSMutableArray *rows;
 	NSDictionary *dict2;
 	NSDictionary *dict;
-	
-    
+
 	IBOutlet UILabel *titolo;
-	IBOutlet UILabel *riepilogo;
+	IBOutlet UILabel *prezzoCoupon;
     
 	IBOutlet UILabel *sconto;
 	IBOutlet UILabel *risparmio;
+    IBOutlet UILabel *prezzoOrig;
+    
+//	IBOutlet UILabel *titolo;
+//	IBOutlet UILabel *riepilogo;
+//    
+//	IBOutlet UILabel *sconto;
+//	IBOutlet UILabel *risparmio;
     
 	IBOutlet UIButton *compra;
 	IBOutlet UIButton *compratermini;
@@ -86,20 +92,34 @@
 	IBOutlet UIWebView *faqwebview;
 	IBOutlet UILabel *titololabel; //nella view "In sintesi"
     
+    float altezzaCella;
     
     DatabaseAccess *dbAccess;
 }
 
 @property (nonatomic, readwrite) NSInteger identificativo; 
+
 @property (nonatomic,retain) IBOutlet UILabel *titolo;
 @property (nonatomic,retain) IBOutlet UILabel *titololabel;
 
-@property (nonatomic,retain) IBOutlet UILabel *riepilogo;
+@property(nonatomic,retain) IBOutlet UILabel *prezzoCoupon;
+@property(nonatomic,retain) IBOutlet UILabel *prezzoOrig;
+//@property (nonatomic,retain) IBOutlet UILabel *riepilogo;
 @property (nonatomic,retain) IBOutlet UILabel *tempo;
 
 @property(nonatomic, retain) IBOutlet UILabel *offerta;
 @property (nonatomic,retain) IBOutlet UILabel *sconto;
 @property (nonatomic,retain) IBOutlet UILabel *risparmio;
+
+//@property (nonatomic,retain) IBOutlet UILabel *titolo;
+//@property (nonatomic,retain) IBOutlet UILabel *titololabel;
+//
+//@property (nonatomic,retain) IBOutlet UILabel *riepilogo;
+//@property (nonatomic,retain) IBOutlet UILabel *tempo;
+//
+//@property(nonatomic, retain) IBOutlet UILabel *offerta;
+//@property (nonatomic,retain) IBOutlet UILabel *sconto;
+//@property (nonatomic,retain) IBOutlet UILabel *risparmio;
 @property (nonatomic, retain) IBOutlet UIButton *compra;
 @property (nonatomic, retain) IBOutlet UIButton *compratermini;
 @property (nonatomic, retain) IBOutlet UIButton *comprasintesi;

@@ -15,7 +15,7 @@
 #import "Utilita.h"
 
 @implementation Offerta
-@synthesize titolo,tempo,riepilogo,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel, offerta,identificativo;
+@synthesize titolo,tempo,prezzoCoupon,prezzoOrig,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel, offerta,identificativo;
 /*facebook*/
 @synthesize facebookAlert;
 @synthesize username;
@@ -100,6 +100,7 @@
                 //                [offertaLabel setAdjustsFontSizeToFitWidth:YES];
                 [offerta sizeToFit];
                 
+                
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 break;
@@ -119,9 +120,10 @@
                 
                 //offerta.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];		
                 [compra setTitle: [NSString stringWithFormat:@"Compra",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-                riepilogo.text=[NSString stringWithFormat:@"Solo %@€ invece di %@€",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"coupon_valore_facciale"]]; 
-                sconto.text=[NSString stringWithFormat:@"Sconto: %@",[dict objectForKey:@"offerta_sconto_per"]];
-                risparmio.text=[NSString stringWithFormat:@"Risparmio: %@€",[dict objectForKey:@"offerta_sconto_va"]];
+                prezzoCoupon.text=[NSString stringWithFormat:@"%@€",[dict objectForKey:@"coupon_valore_acquisto"]]; 
+                sconto.text=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_sconto_per"]];
+                risparmio.text=[NSString stringWithFormat:@"%@€",[dict objectForKey:@"offerta_sconto_va"]];
+                prezzoOrig.text = [NSString stringWithFormat:@"%@€",[dict objectForKey:@"coupon_valore_facciale"]];
                 
                 NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
                 [formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
@@ -255,7 +257,7 @@
 	if(indexPath.section==0){
         switch (indexPath.row) {
             case 0:
-                return 63;
+                return altezzaCella;
                 break;
             case 1:
                 return 155;
@@ -694,6 +696,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [compra setHidden:YES];
     
+    altezzaCella = 44.0;
+    
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
     
@@ -981,7 +985,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         //identificativo è relativo all'offerta
 		//identificativo=[[dict objectForKey:@"idofferta"]integerValue];
 		identificativoesercente=[[dict objectForKey:@"idesercente"]integerValue];
-		
+        
+        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(50,50,284,31)];
+        myLabel.numberOfLines = 0;
+        myLabel.lineBreakMode = UILineBreakModeWordWrap;
+        myLabel.text = [dict objectForKey:@"offerta_titolo_breve"];
+        [myLabel sizeToFit];
+        CGSize labelSize = [myLabel.text sizeWithFont:myLabel.font 
+                                    constrainedToSize:myLabel.frame.size 
+                                        lineBreakMode:UILineBreakModeWordWrap];
+        NSLog(@"ALTEZZA = %f",myLabel.frame.size.height);
+        
+        if(myLabel.frame.size.height <=21)
+            altezzaCella = 44;
+        else if(myLabel.frame.size.height <= 42)
+            altezzaCella = 55;
+        else if(myLabel.frame.size.height <= 63)
+            altezzaCella = 67;
+        else altezzaCella = 44;
+        
+        [myLabel release];
         
         //MARIO: da qui recupero dati dell'esercente per la cella di informazioni relative ad esso(nuova view con dentro tutto, luogo, commenti ecc..)
         //MARIO: fa richiesta bloccante, quindi renderla asincrona  e soprattutto farla DOPO che si apre la pagina relativa all'esercente
