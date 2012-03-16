@@ -112,6 +112,7 @@
 								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{0, 20}, {320, 411}}</string>
+								<string key="NSBounds">{{0, 6}, {320, 411}}</string>
 								<reference key="NSSuperview"/>
 								<reference key="NSNextKeyView" ref="795333663"/>
 								<string key="NSReuseIdentifierKey">_NS:744</string>
@@ -515,6 +516,9 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">243</int>
 						<reference key="object" ref="689546403"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+						</object>
 						<reference key="parent" ref="519842039"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -761,7 +765,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">281</int>
+			<int key="maxID">282</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
