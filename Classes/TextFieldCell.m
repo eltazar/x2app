@@ -23,7 +23,7 @@
 		self.textField.clearsOnBeginEditing = NO;
 		self.textField.textAlignment = UITextAlignmentLeft;
 		self.textField.returnKeyType = UIReturnKeyDone;
-		self.textField.font = [UIFont systemFontOfSize:17];
+		self.textField.font = [UIFont systemFontOfSize:16];
         [self.textField setAdjustsFontSizeToFitWidth:YES];
 		self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
 		self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
