@@ -86,7 +86,7 @@
         
        
         
-        ((CartaTableViewCell*)cell).nome.text =  [rowDesc objectForKey:@"nome"];
+        ((CartaTableViewCell*)cell).nome.text =  [NSString stringWithFormat:@"%@ %@",[rowDesc objectForKey:@"nome"], [rowDesc objectForKey:@"cognome"]];
         ((CartaTableViewCell*)cell).tessera.text =  [rowDesc objectForKey:@"tessera"];
         if([Utilita isDateExpired:[rowDesc objectForKey:@"data"]])
             ((CartaTableViewCell*)cell).data.text = @"Scaduta";
@@ -236,7 +236,8 @@
             [secA insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                  @"card",              @"DataKey",
                                  @"CartaTableViewCell",@"kind",
-                                 [carta valueForKey:@"titolare"],  @"nome",
+                                 [carta valueForKey:@"nome"],  @"nome",
+                                 [carta valueForKey:@"cognome"],  @"cognome",
                                  [carta valueForKey:@"numero"],@"tessera",
                                  [carta valueForKey:@"scadenza"],   @"data",
                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",nil] autorelease] atIndex: i];
