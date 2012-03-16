@@ -12,8 +12,10 @@
 #import "PickerViewController.h"
 #import "Utilita.h"
 
+//metodi e ivar private
 @interface AbbinaCartaViewController()
-@property(nonatomic, retain)NSString *titolare;
+@property(nonatomic, retain)NSString *nome;
+@property(nonatomic, retain)NSString *cognome;
 @property(nonatomic, retain)NSString *numeroCarta;
 @property(nonatomic, retain)NSString *scadenza;
 
@@ -21,7 +23,7 @@
 @end
 
 @implementation AbbinaCartaViewController
-@synthesize abbinaButton, titolare, numeroCarta, scadenza,delegate;
+@synthesize abbinaButton, nome, cognome, numeroCarta, scadenza,delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,8 +46,11 @@
 - (void)textFieldDidEndEditing:(UITextField *)txtField
 {   
     NSLog(@"editing finito");
-    if(txtField.tag == 5){
-        self.titolare = txtField.text;
+    if(txtField.tag == 6){
+        self.nome = txtField.text;
+    }
+    else if(txtField.tag == 5){
+        self.cognome = txtField.text;
     }
     else if(txtField.tag == 4){
         self.numeroCarta = txtField.text;
@@ -155,15 +160,17 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data errata" message:@"Inserisci una data di scadenza valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
+        return FALSE;
     }
-    if(! [Utilita isStringEmptyOrWhite:self.titolare] || ! [Utilita isStringEmptyOrWhite:self.numeroCarta]){
+    if(! [Utilita isStringEmptyOrWhite:self.nome] || ! [Utilita isStringEmptyOrWhite:self.cognome] || ! [Utilita isStringEmptyOrWhite:self.numeroCarta]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati incompleti" message:@"Inserisci tutti i dati richiesti" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
+        return FALSE;
     
     }
     
-    return true;
+    return TRUE;
 }
 
 -(IBAction)abbinaButtonClicked:(id)sender{
@@ -177,7 +184,7 @@
         
         //poi se esiste salvo i dati in core data
         
-        NSLog(@"abbina premuto = %@, %@, %@", titolare,numeroCarta,scadenza);
+        NSLog(@"abbina premuto = %@, %@, %@", nome,cognome,numeroCarta,scadenza);
         
 
         //Otteniamo il puntatore al NSManagedContext
@@ -191,7 +198,8 @@
                                      inManagedObjectContext:context];
         
         //Usando il Key-Value Coding inseriamo i dati presi dall'interfaccia nell'istanza dell'Entità appena creata
-        [cartaPD setValue:titolare forKey:@"titolare"];
+        [cartaPD setValue:nome forKey:@"nome"];
+        [cartaPD setValue:cognome forKey:@"cognome"];
         [cartaPD setValue:numeroCarta forKey:@"numero"];
         [cartaPD setValue:scadenza forKey:@"scadenza"];
         
@@ -213,33 +221,45 @@
 {
     [super viewDidLoad];
     
-    self.title = @"bla";
+    self.title = @"Abbina carta";
         
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backGroundPattern.png"]]];
+    //[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backGroundPattern.png"]]];
     
     isViewUp = FALSE;
     
-    self.viewPulsante.layer.cornerRadius = 6;
-    
+    self.abbinaButton.layer.cornerRadius = 6;    
+        
     UIImageView *cartaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartaGrande.png"]];
     [cartaView setFrame:CGRectMake(11, 20, 300, 180)];
     cartaView.userInteractionEnabled = YES;
     cartaView.tag = 2;
     
     
-    UITextField *titolareField = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + 10, 191, 28)];
-    titolareField.borderStyle = UITextBorderStyleRoundedRect;
-    titolareField.font = [UIFont systemFontOfSize:15];
-    titolareField.placeholder = @"Titolare";
-    titolareField.autocorrectionType = UITextAutocorrectionTypeNo;
-    titolareField.keyboardType = UIKeyboardTypeDefault;
-    titolareField.returnKeyType = UIReturnKeyDone;
-    titolareField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    titolareField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;   
-    titolareField.tag = 5;
-    titolareField.delegate = self;
+    UITextField *nomeField = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + 10, 110, 28)];
+    nomeField.borderStyle = UITextBorderStyleRoundedRect;
+    nomeField.font = [UIFont systemFontOfSize:15];
+    nomeField.placeholder = @"Nome";
+    nomeField.autocorrectionType = UITextAutocorrectionTypeNo;
+    nomeField.keyboardType = UIKeyboardTypeDefault;
+    nomeField.returnKeyType = UIReturnKeyDone;
+    nomeField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    nomeField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;   
+    nomeField.tag = 6;
+    nomeField.delegate = self;
     
-    UITextField *numeroCartaField = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + titolareField.frame.size.height+20, 160, 28)];
+    UITextField *cognomeField = [[UITextField alloc] initWithFrame:CGRectMake(nomeField.frame.origin.x+nomeField.frame.size.width+10, cartaView.frame.size.height/2 + 10, 110, 28)];
+    cognomeField.borderStyle = UITextBorderStyleRoundedRect;
+    cognomeField.font = [UIFont systemFontOfSize:15];
+    cognomeField.placeholder = @"Cognome";
+    cognomeField.autocorrectionType = UITextAutocorrectionTypeNo;
+    cognomeField.keyboardType = UIKeyboardTypeDefault;
+    cognomeField.returnKeyType = UIReturnKeyDone;
+    cognomeField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    cognomeField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;   
+    cognomeField.tag = 5;
+    cognomeField.delegate = self;
+    
+    UITextField *numeroCartaField = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + nomeField.frame.size.height+20, 160, 28)];
     numeroCartaField.borderStyle = UITextBorderStyleRoundedRect;
     numeroCartaField.font = [UIFont systemFontOfSize:15];
     numeroCartaField.placeholder = @"Numero carta";
@@ -251,10 +271,10 @@
     numeroCartaField.tag = 4;
     numeroCartaField.delegate = self;
     
-    UITextField *scadenzaField = [[UITextField alloc] initWithFrame:CGRectMake(numeroCartaField.frame.origin.x+numeroCartaField.frame.size.width+20, cartaView.frame.size.height/2 + titolareField.frame.size.height+20, 100, 28)];
+    UITextField *scadenzaField = [[UITextField alloc] initWithFrame:CGRectMake(numeroCartaField.frame.origin.x+numeroCartaField.frame.size.width+15, cartaView.frame.size.height/2 + nomeField.frame.size.height+20, 100, 28)];
     scadenzaField.borderStyle = UITextBorderStyleRoundedRect;
     scadenzaField.font = [UIFont systemFontOfSize:15];
-//    scadenzaField.placeholder = @"Scadenza";
+    scadenzaField.placeholder = @"Scadenza";
 //    scadenzaField.autocorrectionType = UITextAutocorrectionTypeNo;
 //    scadenzaField.keyboardType = UIKeyboardTypeDefault;
 //    scadenzaField.returnKeyType = UIReturnKeyDone;
@@ -265,14 +285,16 @@
     
     [cartaView addSubview:scadenzaField];
     [cartaView addSubview:numeroCartaField];
-    [cartaView addSubview:titolareField];
-   
-    [self.view addSubview:cartaView];
+    [cartaView addSubview:nomeField];
+    [cartaView addSubview:cognomeField];
     
+    [self.view addSubview:cartaView];
+        
     [cartaView release];
     [numeroCartaField release];
-    [titolareField release];
+    [nomeField release];
     [scadenzaField release];
+    [cognomeField release];
     
     NSArray *calendar = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"--",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12", nil],[NSArray arrayWithObjects:@"--",@"2012",@"2013",@"2014",@"2015",@"2016",@"2017",@"2018",@"2020",@"2021",@"2022",@"2023",@"2024", nil] , nil];
     
@@ -301,7 +323,8 @@
 
 -(void)dealloc{
     
-    [titolare release];
+    [nome release];
+    [cognome release];
     [numeroCarta release];
     [scadenza release];
 
