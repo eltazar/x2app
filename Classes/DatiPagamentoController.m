@@ -172,7 +172,7 @@
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
         BaseCell *cell = (ActionCell*)[self.tableView cellForRowAtIndexPath:indexPath];
-        NSLog(@"cell = %@, %p",cell,cell);
+        //NSLog(@"cell = %@, %p",cell,cell);
         NSString *date = [NSString stringWithFormat:@"%@/%@",[pickerDate.objectsInRow objectAtIndex:0],[pickerDate.objectsInRow objectAtIndex:1]];
         
         NSLog(@"date = %@", date);
@@ -180,7 +180,7 @@
         cell.detailTextLabel.text = date;
         
         
-        NSLog(@" data  cell = %@",cell.detailTextLabel.text);
+        //NSLog(@" data  cell = %@",cell.detailTextLabel.text);
     
         //[prefs setObject: date forKey:@"_scadenza"];
         
