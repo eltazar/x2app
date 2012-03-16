@@ -138,30 +138,43 @@ NSString* key(NSURLConnection* con)
     
 }
 
+-(void)getCouponFromServerWithId:(NSInteger)idCoupon{
+    NSLog(@"QUERY PER COUPON CON ID");
+    
+	//url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];   
+    
+    
+    NSURLRequest *request =
+    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/offerta.php?id=%d",idCoupon]]];
+    
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    
+    
+    if(connection){
+        //NSLog(@"IS CONNECTION TRUE");
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        [readConnections addObject:connection];
+        
+        NSMutableData *receivedData = [[NSMutableData data] retain];
+        //[connectionDictionary setObject:connection forKey:key(connection)];
+        [dataDictionary setObject:receivedData forKey:key(connection)];
+        //NSLog(@"RECEIVED DATA FROM DICTIONARY : %p",[dataDictionary objectForKey:connection]);
+    }
+    else{
+        NSLog(@"theConnection is NULL");
+        //mostrare alert all'utente che la connessione è fallita??
+    }
+
+}
+
 -(void)getCouponFromServer:(NSString*)prov{
 	
-    NSLog(@"CHIAMATA A DB");
+    NSLog(@"QUERY PER COUPON");
     
-	//url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];
-	
-	//NSLog(@"Url: %@", url);
-	
-	//NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	//NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-	
-	//NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-	//NSError *error = nil;	
-	
-	//dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
-	
-	//NSMutableArray *r=[[NSMutableArray alloc] init];
-	
-//	if (dict)
-//	{
-//		r = [[dict objectForKey:@"Esercente"] retain];
-//		
-//	}
-    
+	//url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];   
     
     
     NSURLRequest *request =
