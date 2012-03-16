@@ -14,9 +14,10 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import "RichiediCardViewController.h"
 #import "ControlloCartaController.h"
+#import "AcquistoOnlineController.h"
 #import "Utilita.h"
 
-#define MAX_CARD 3
+#define MAX_CARD 6
 
 @implementation CarteViewController
 
@@ -83,9 +84,6 @@
     
     if([kind isEqualToString:@"CartaTableViewCell"]){
         NSLog(@"carta per due");
-        
-       
-        
         ((CartaTableViewCell*)cell).nome.text =  [NSString stringWithFormat:@"%@ %@",[rowDesc objectForKey:@"nome"], [rowDesc objectForKey:@"cognome"]];
         ((CartaTableViewCell*)cell).tessera.text =  [rowDesc objectForKey:@"tessera"];
         if([Utilita isDateExpired:[rowDesc objectForKey:@"data"]])
@@ -296,7 +294,7 @@
         [sectionDescription insertObject:@"Gestione" atIndex:1];
     }
     else{
-        [sectionDescription insertObject:@"Carte" atIndex:0];
+        [sectionDescription insertObject:@"Gestione" atIndex:0];
     }
     
     NSMutableArray *secB = [[NSMutableArray alloc] init];
@@ -304,7 +302,7 @@
     [secB insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                          @"abbina",              @"DataKey",
                          @"ActionCell",               @"kind",
-                         @"Abbina carta"      , @"label",
+                         @"Abbina la tua carta"      , @"label",
                          @"",                   @"detailLabel",
                          @"Per abbinare la tua carta reale all'iPhone", @"subtitle",
                          @"",               @"img",
@@ -323,7 +321,7 @@
                          @"richiedi",           @"DataKey",
                          @"ActionCell",       @"kind",
                          @"Richiedi carta",   @"label",
-                         @"Per contattare PerDue e richiedere la carta", @"subtitle",
+                         @"Sarai ricontattato da PerDue", @"subtitle",
                          @"",       @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
                          nil] autorelease] atIndex: 2];
