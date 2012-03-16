@@ -386,6 +386,8 @@
 	return [r count];
 }
 
+
+//fa una query per ottenere elenco ristoranti
 - (void) ricerca:(NSString*)tiporic {
 	[rows removeAllObjects];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -491,6 +493,8 @@
 								  target:self
 								  action:@selector(showMap:)];
     self.navigationItem.rightBarButtonItem = mapButton;
+    
+    //lancia la query
 	[self ricerca:@"distanza"];
 
 }
@@ -516,7 +520,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			//[detail release];
 			//detail = nil; 
 		}
-	else { //riga mostra altri
+	else {
+        //riga "mostra altri"
 		int i=[self aggiorna];
 		if(i<20){ // non ci sono alri esercenti
 			UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
