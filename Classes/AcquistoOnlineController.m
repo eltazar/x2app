@@ -7,6 +7,7 @@
 //
 
 #import "AcquistoOnlineController.h"
+#import "BaseCell.h"
 
 @implementation AcquistoOnlineController
 
@@ -33,6 +34,44 @@
 {
     [super viewDidLoad];
 
+    //query al db per ottenere lista di oggetti da vendere
+    
+    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"Offerte", nil];
+    
+    NSMutableArray *secC = [[NSMutableArray alloc] initWithCapacity:5];
+    
+    [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                         @"name",            @"DataKey",
+                         @"BuyCell",    @"kind",
+                         @"Tipo 1",         @"label",
+                         //@"Scegli...",             @"detailLabel",
+                         @"Mario",         @"placeholder",
+                         @"",                 @"img",
+                         [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
+                         nil] autorelease ]  atIndex: 0];
+    
+    [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                         @"surname",            @"DataKey",
+                         @"BuyCell",    @"kind",
+                         @"Tipo 2",         @"label",
+                         //numeroCarta,                 @"detailLabel",
+                         @"",                 @"img",
+                         [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
+                         nil] autorelease ]  atIndex: 1];
+    
+    [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                         @"phone",            @"DataKey",
+                         @"BuyCell",    @"kind",
+                         @"Tipo 3",           @"label",
+                         @"",                 @"img",
+                         [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
+                         nil] autorelease] atIndex: 2];
+    
+    
+    sectionData = [[NSMutableArray alloc] initWithObjects: secC, nil];
+    
+    [secC release];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -47,6 +86,12 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void)dealloc {
+    [sectionData release];
+    [sectionDescription release];
+    
+    [super dealloc];
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -75,32 +120,40 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 0;
+    return sectionDescription.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section
+{   
+    if(sectionData){
+        return [[sectionData objectAtIndex: section] count];
+    } 
+    
     return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    NSArray *sec = [sectionData objectAtIndex:indexPath.section];
+    NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
+    NSString *kind = [rowDesc objectForKey:@"kind"];
+    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    int cellStyle = UITableViewCellStyleDefault;
+    
+    BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier:dataKey];
+    
+    if (cell == nil) {       
+        cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
     }
     
-    // Configure the cell...
-    
-    return cell;
+    //[self fillCell:cell rowDesc:rowDesc];
+        
+    return cell;    
+
 }
 
 /*

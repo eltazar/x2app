@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface AcquistoOnlineController : UITableViewController
-
+{
+    NSMutableArray *sectionDescription;
+    NSMutableArray *sectionData;
+}
 @end
