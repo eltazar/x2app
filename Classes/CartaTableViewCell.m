@@ -75,9 +75,9 @@
         [self.contentView addSubview:nome];
         [self.contentView addSubview:tessera];
         
-        [data release];
-        [nome release];
-        [tessera release];
+//        [data release];
+//        [nome release];
+//        [tessera release];
         
         //    customCell.nome = [dictionary objectForKey:@"nome"];
         //    customCell.tessera = [dictionary objectForKey:@"tessera"];
@@ -109,6 +109,13 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)dealloc {
+    self.nome = nil;
+    self.tessera = nil;
+    self.data = nil;
+    [super dealloc];
 }
 
 @end

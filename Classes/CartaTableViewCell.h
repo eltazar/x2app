@@ -18,6 +18,7 @@
 @property(nonatomic,retain) UILabel *nome;
 @property(nonatomic,retain) UILabel *tessera;
 @property(nonatomic,retain) UILabel *data;
+
 +(CartaTableViewCell *)cellFromNibNamed:(NSString *)nibName andDictionary:(NSDictionary *)dictionary;;
 
 @end
