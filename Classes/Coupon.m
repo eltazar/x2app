@@ -447,36 +447,52 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)Paga:(id)sender{
     
+    //lancio view modale per il login
+     LoginController *loginController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
+        
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+    [loginController release];
     
-    if(1==1){
-        LoginController *logController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
-        [self.navigationController pushViewController:logController animated:YES];
-        [logController release];
-        return;
-    }
+    navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     
-	if ([rows count]>0) {//coupon disponibile
-		if(secondsLeft>0) {            
-            Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
-            [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-            NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
-            //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
-            [pagamentoController setIdentificativo:identificativo];
-            NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-            NSLog(@"%@",tit);
-            pagamentoController.titolo = tit;
-            [pagamentoController setTitle:@"Acquisto"];
-            [self.navigationController pushViewController:pagamentoController animated:YES];
-            [pagamentoController release];
-            
-		}
-		else{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Offerta scaduta!" message:@"Questa offerta non è più disponibile" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-			[alert show];
-			[alert release];
-		}
-	}
+    [self presentModalViewController:navController animated:YES];
+    
+    [navController release];
 }
+
+
+//codice da inserire nei metodi di ritorno delle query login
+/*
+if(1==1){
+    LoginController *logController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
+    [self.navigationController pushViewController:logController animated:YES];
+    [logController release];
+    return;
+}
+
+if ([rows count]>0) {//coupon disponibile
+    if(secondsLeft>0) {            
+        Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
+        [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
+        NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+        //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
+        [pagamentoController setIdentificativo:identificativo];
+        NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+        NSLog(@"%@",tit);
+        pagamentoController.titolo = tit;
+        [pagamentoController setTitle:@"Acquisto"];
+        [self.navigationController pushViewController:pagamentoController animated:YES];
+        [pagamentoController release];
+        
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Offerta scaduta!" message:@"Questa offerta non è più disponibile" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+        [alert show];
+        [alert release];
+    }
+}
+
+*/
 
 
 - (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {  
