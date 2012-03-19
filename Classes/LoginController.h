@@ -13,14 +13,6 @@
 
 @interface LoginController : UIViewController <UITextFieldDelegate,DatabaseAccessDelegate>
 {
-    IBOutlet UILabel *emailLabel;
-    IBOutlet UILabel *pswLabel;
-    IBOutlet UILabel *messaggioEmailTrue;
-    IBOutlet UITextField *emailTextField;
-    IBOutlet UITextField *pswTextField;
-    
-    IBOutlet UILabel *nonRicordoPswLabel;
-    IBOutlet UIButton *ricordaBtn;
     
     DatabaseAccess *dbAccess;
     
@@ -29,6 +21,17 @@
     
     int idUtente;
 }
+
+
+@property(nonatomic,retain) IBOutlet UILabel *emailLabel;
+@property(nonatomic,retain) IBOutlet UILabel *pswLabel;
+@property(nonatomic,retain) IBOutlet UILabel *messaggioEmailTrue;
+@property(nonatomic,retain) IBOutlet UITextField *emailTextField;
+@property(nonatomic,retain) IBOutlet UITextField *pswTextField;
+
+@property(nonatomic,retain) IBOutlet UILabel *nonRicordoPswLabel;
+@property(nonatomic,retain) IBOutlet UIButton *ricordaBtn;
+
 
 @property(nonatomic,assign)id<LoginControllerDelegate> delegate;
 @property(nonatomic,retain)NSString *usr;
@@ -39,5 +42,6 @@
 @protocol LoginControllerDelegate <NSObject>
 
 -(void)didLogin:(int)idUtente;
+-(void)didAbortLogin;
 
 @end

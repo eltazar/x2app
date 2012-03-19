@@ -9,8 +9,14 @@
 #import "LoginController.h"
 #import "RegistrazioneController.h"
 
+/*l *emailLabel;
+ @property(nonatomic,retain) IBOutlet UILabel *pswLabel;
+ @property(nonatomic,retain) IBOutlet UILabel *messaggioEmailTrue;
+ @property(nonatomic,retain) IBOutlet UITextField *emailTextField;
+ @property(nonatomic,retain) IBOutlet UITextField *pswTextField;*/
+
 @implementation LoginController
-@synthesize usr,psw,delegate;
+@synthesize usr,psw,delegate, pswLabel,emailLabel, messaggioEmailTrue, emailTextField, pswTextField,nonRicordoPswLabel,ricordaBtn;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -183,6 +189,13 @@
 
 - (void)viewDidUnload
 {
+    self.emailLabel = nil;
+    self.pswLabel = nil;
+    self.messaggioEmailTrue = nil;
+    self.emailTextField = nil;
+    self.pswTextField = nil;
+    self.ricordaBtn = nil;
+    self.nonRicordoPswLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -198,6 +211,15 @@
 #pragma mark - Memory Management
 
 - (void)dealloc {
+    
+    [nonRicordoPswLabel release];
+    [ricordaBtn release];
+    [emailLabel release];
+    [pswLabel release];
+    [messaggioEmailTrue release];
+    [pswTextField release];
+    [emailTextField release];
+    
     [dbAccess release];
     [super dealloc];
 }
