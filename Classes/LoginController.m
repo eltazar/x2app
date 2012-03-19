@@ -95,6 +95,19 @@
 
 #pragma mark - TextField and TextView Delegate
 
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    if(textField.tag == 11){
+        
+        [UIView animateWithDuration:0.2
+                         animations:^(void){
+                             self.view.frame = CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y - 50, self.view.frame.size.width, self.view.frame.size.height);
+                         }
+                        completion:^(BOOL finished){
+        
+                        }
+         ];
+    }
+}
 - (void)textFieldDidEndEditing:(UITextField *)txtField
 {   
     if( txtField.tag == 10){
@@ -102,6 +115,14 @@
     }
     else if(txtField.tag == 11){
         self.psw = txtField.text;
+        [UIView animateWithDuration:0.1
+                         animations:^(void){
+                             self.view.frame = CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y + 50, self.view.frame.size.width, self.view.frame.size.height);
+                         }
+                         completion:^(BOOL finished){
+                             
+                         }
+         ];
     }
 }
 
