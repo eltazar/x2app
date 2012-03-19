@@ -27,6 +27,20 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+
+#pragma mark - DBAccessDelegate
+
+-(void)didReceiveCoupon:(NSDictionary *)coupon{
+    
+    NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@",coupon);
+    
+}
+
+-(void)didReceiveError:(NSError *)error{
+    
+    NSLog(@"ERRORE CHECK EMAIL SU SERVER = %@",[error description]);
+}
+
 #pragma mark - TextField and TextView Delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)txtField
@@ -42,7 +56,7 @@
 { 
     if(textField.tag ==10){
         NSLog(@"lancia query email");
-        
+        [dbAccess chekUserEmail:textField.text];        
     }
     else if(textField.tag == 11){
         NSLog(@"lancia query email+psw");
@@ -63,9 +77,7 @@
     [pswLabel setHidden:YES];
     [pswTextField setHidden:YES];
     [messaggioEmailTrue setHidden:YES];
-    [nonRegistratoLabel setHidden:YES];
     [nonRicordoPswLabel setHidden:YES];
-    [registratiBtn setHidden:YES];
     [ricordaBtn setHidden:YES];
     
     // Do any additional setup after loading the view from its nib.
