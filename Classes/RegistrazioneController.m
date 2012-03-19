@@ -7,8 +7,10 @@
 //
 
 #import "RegistrazioneController.h"
+#import "Utilita.h"
 
 @implementation RegistrazioneController
+@synthesize nome,cognome,email,telefono;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -62,6 +64,8 @@
     
     return TRUE;
 }
+
+
 -(IBAction)registraBtnClicked:(id)sender{
  
     //fa si che il testo inserito nei texfield sia preso anche se non è stata dismessa la keyboard
@@ -75,6 +79,7 @@
     }
     
 }
+
 #pragma mark - TextField and TextView Delegate
 
 - (void)textFieldDidEndEditing:(UITextField *)txtField
@@ -97,6 +102,20 @@
 { 
 	[textField resignFirstResponder];
 	return YES;
+}
+
+
+#pragma mark - DBAccessDelegate
+
+-(void)didReceiveError:(NSError *)error{
+    
+    NSLog(@"ERRORE REGISTRAZIONE UTENTE SU SERVER = %@",[error description]);
+}
+
+-(void)didReceiveResponsFromServer:(NSString *)receivedData{
+    
+    NSLog(@"DATI RICEVUTI DOPO REGISTRAZIONE = %@",receivedData);
+    
 }
 
 #pragma mark - View lifecycle
@@ -124,6 +143,20 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - MemoryManagement
+
+-(void)dealloc{
+    
+    [dbAccess release];
+    
+    self.nome = nil;
+    self.cognome = nil;
+    self.email = nil;
+    self.telefono = nil;
+    [super dealloc];
+    
 }
 
 @end
