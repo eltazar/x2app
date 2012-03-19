@@ -431,6 +431,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 }
 
+#pragma mark - LoginControllerDelegate
+
+-(void)didLogin:(int)idUtente{
+    NSLog(@"IN COUPON DOPO LOGIN id = %d",idUtente);
+    [self dismissModalViewControllerAnimated:YES];
+    
+    Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
+    pagamentoController.idUtente = idUtente;
+    [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
+    NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+    //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
+    [pagamentoController setIdentificativo:identificativo];
+    NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+    NSLog(@"%@",tit);
+    pagamentoController.titolo = tit;
+    [pagamentoController setTitle:@"Acquisto"];
+    [self.navigationController pushViewController:pagamentoController animated:YES];
+    [pagamentoController release];
+
+}
+
 #pragma mark - Gestione view e bottoni
 
 //- (IBAction)Opzioni:(id)sender{
