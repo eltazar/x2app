@@ -10,7 +10,7 @@
 #import "RegistrazioneController.h"
 
 @implementation LoginController
-@synthesize usr,psw;
+@synthesize usr,psw,delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -74,6 +74,10 @@
             NSLog(@"UTENTE ESISTE");
             idUtente = [[[array objectAtIndex:0] objectForKey:@"idcustomer"] intValue];
             NSLog(@" ID CUSTOMER LOGIN = %d",idUtente);
+            
+            if(delegate && [delegate respondsToSelector:@selector(didLogin:)])
+                [delegate didLogin:idUtente];
+            
         }
         else{
             NSLog(@"PSW SBAGLIATA ");
