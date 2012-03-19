@@ -32,6 +32,9 @@ NSString* key(NSURLConnection* con);
 -(void)getNewsFromServer:(int)indice;
 -(void)getAltreOfferteFromServer:(NSString*)prov;
 
+//metodi per login e registrazione
+-(void)chekUserEmail:(NSString*)usr;
+
 //-(void)jobDelRequest:(Job*)job;
 //-(void)jobModRequest:(Job*)job;
 //-(void)jobWriteRequest:(Job*)job;

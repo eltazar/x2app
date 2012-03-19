@@ -33,6 +33,50 @@ NSString* key(NSURLConnection* con)
     return [NSString stringWithFormat:@"%p",con];
 }
 
+-(void)chekUserEmail:(NSString*)usr{
+    
+    NSLog(@"DBACCESS CHECK  EMAIL --> user = %@",usr);
+    
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/checkEmail.php"];
+    
+    [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+    NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSString *postFormatString = @"usr=%@";
+    NSString *postString = [NSString stringWithFormat:postFormatString,
+                            usr];
+    
+    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    [request addValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    [request setHTTPMethod:@"POST"];
+    
+    [request setHTTPBody:postData];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];    
+    if(connection){
+        //NSLog(@"IS CONNECTION TRUE");
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        [readConnections addObject:connection];
+        
+        NSMutableData *receivedData = [[NSMutableData data] retain];
+        //[connectionDictionary setObject:connection forKey:key(connection)];
+        [dataDictionary setObject:receivedData forKey:key(connection)];
+        //NSLog(@"RECEIVED DATA FROM DICTIONARY : %p",[dataDictionary objectForKey:connection]);
+    }
+    else{
+        NSLog(@"theConnection is NULL");
+        //mostrare alert all'utente che la connessione è fallita??
+    }
+    
+
+}
+
+
+
 -(void)buyCouponRequest:(NSString*)string{
     
     NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/provamario.php"];
@@ -78,7 +122,7 @@ NSString* key(NSURLConnection* con)
     NSLog(@"QUERY: altre offerte");
     
     NSURLRequest *request =
-    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner//altreofferte.php?prov=%@",prov]]];
+    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/altreofferte.php?prov=%@",prov]]];
     
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
