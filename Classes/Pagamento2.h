@@ -53,7 +53,7 @@
 
 }
 
-
+@property(nonatomic,assign)int idUtente;
 @property (nonatomic, readwrite) double  quant; 
 @property (nonatomic, readwrite) double  valore; 
 @property (nonatomic, readwrite) double  totale; 

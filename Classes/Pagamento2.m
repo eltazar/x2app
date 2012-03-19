@@ -19,7 +19,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 
 @implementation Pagamento2
-@synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,vistadatipagamento,vistadatipersonali,info, titololabel;
+@synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,vistadatipagamento,vistadatipersonali,info, titololabel, idUtente;
 
 
 -(BOOL)validaDatiUtente{
