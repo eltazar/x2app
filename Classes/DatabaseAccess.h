@@ -33,7 +33,8 @@ NSString* key(NSURLConnection* con);
 -(void)getAltreOfferteFromServer:(NSString*)prov;
 
 //metodi per login e registrazione
--(void)chekUserEmail:(NSString*)usr;
+-(void)checkUserFields:(NSArray*)usr;
+-(void)registerUserOnServer:(NSArray*)userData;
 
 //-(void)jobDelRequest:(Job*)job;
 //-(void)jobModRequest:(Job*)job;

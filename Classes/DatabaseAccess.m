@@ -14,6 +14,10 @@
 @implementation DatabaseAccess
 @synthesize delegate;
 
+
+#warning sistemare questa classe
+// cercare di riciclare il codice invece di duplicare sempre le stesse istruzioni
+
 - (id)init
 {
     self = [super init];
@@ -34,6 +38,50 @@ NSString* key(NSURLConnection* con)
 }
 
 -(void)chekUserEmail:(NSString*)usr{
+-(void)registerUserOnServer:(NSArray*)userData{
+    
+    [userData retain];
+    NSLog(@"DBACCESS REGISTER  --> user = %@",userData);
+    
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/registra.php"];
+    
+    [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+    NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSString *postFormatString = @"nome=%@&cognome=%@&email=%@&telefono=%d";
+    NSString *postString = [NSString stringWithFormat:postFormatString, [userData objectAtIndex:0],[userData objectAtIndex:1],[userData objectAtIndex:2],[userData objectAtIndex:3]];
+    
+    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    [request addValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    [request setHTTPMethod:@"POST"];
+    
+    [request setHTTPBody:postData];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];    
+    if(connection){
+        //NSLog(@"IS CONNECTION TRUE");
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        [writeConnections addObject:connection];
+        
+        NSMutableData *receivedData = [[NSMutableData data] retain];
+        //[connectionDictionary setObject:connection forKey:key(connection)];
+        [dataDictionary setObject:receivedData forKey:key(connection)];
+        //NSLog(@"RECEIVED DATA FROM DICTIONARY : %p",[dataDictionary objectForKey:connection]);
+    }
+    else{
+        NSLog(@"theConnection is NULL");
+        //mostrare alert all'utente che la connessione è fallita??
+    }
+  
+    [userData release];
+    
+}
+
+
     
     NSLog(@"DBACCESS CHECK  EMAIL --> user = %@",usr);
     
