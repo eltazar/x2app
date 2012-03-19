@@ -142,11 +142,30 @@
 	return YES;
 }
 
+#pragma mark - Gestione bottoni view
+-(void)cancel{
+    
+    if(delegate && [delegate respondsToSelector:@selector(didAbortLogin)])
+        [self.delegate didAbortLogin];
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:139.0/255 green:29.0/255 blue:0.0 alpha:1]];
+    
+    //UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithTitle:@"Conferma" style:UIBarButtonItemStyleBordered target:self action:@selector(save)];
+    
+    UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithTitle:@"Annulla" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
+    
+    self.navigationItem.leftBarButtonItem = cancelBtn;
+    //self.navigationItem.rightBarButtonItem = saveBtn;
+    
+    //[saveBtn release];
+    [cancelBtn release];
     
     utente = @"";
     
