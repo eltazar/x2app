@@ -117,6 +117,9 @@
     
     NSLog(@"ERRORE CHECK EMAIL SU SERVER = %@",[error description]);
     [spinnerView stopAnimating];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore rete" message:@"Non è stato possibile effettuare la richiesta, riprovare" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
 }
 
 #pragma mark - TextField and TextView Delegate
