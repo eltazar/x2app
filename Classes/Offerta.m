@@ -163,7 +163,7 @@
                 minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
                 seconds = secondsLeft % 60;
                 //NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
-                tempo.text=[NSString stringWithFormat:@"%dg %02d:%02d:%02d",days,hours, minutes, seconds];
+                tempo.text=[NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
                 //			timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 break;
@@ -513,7 +513,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		hours = (secondsLeft - (days*24*3600))/3600;
 		minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
 		seconds = secondsLeft % 60;
-		tempo.text=[NSString stringWithFormat:@"%dg %02d:%02d:%02d",days,hours, minutes, seconds];
+		tempo.text=[NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
 	}
 	else{
 		secondsLeft=0;
@@ -1002,7 +1002,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             altezzaCella = 55;
         else if(myLabel.frame.size.height <= 63)
             altezzaCella = 67;
-        else altezzaCella = 44;
+        else if(myLabel.frame.size.height <= 84)
+            altezzaCella = 90;
+        else altezzaCella = 100;
         
         [myLabel release];
         
