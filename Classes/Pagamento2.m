@@ -128,8 +128,17 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         
         NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
       
-        //NSLog(@"PAGAMENTO: ID UTENTE = %d",idUtente);
+        NSLog(@"PAGAMENTO: ID UTENTE da server = %d",idUtente);
         
+        //se il controller è stato richiamato senza login idutente lo devo recuperare dall'iphone
+        if(idUtente == -1){
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+            idUtente = [[prefs objectForKey:@"_idUtente"] intValue];
+             NSLog(@"PAGAMENTO: ID UTENTE da prefs = %d",idUtente);
+        }
+       
+
         //identificativo è relativo all'offerta, cioè è id coupon
         
         [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
@@ -499,6 +508,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     dbAccess.delegate = self;
     
     isQtField = FALSE;
+    idUtente = -1;
+    
     
 	[[compra layer] setCornerRadius:8.0f];
 	[[compra layer] setMasksToBounds:YES];
