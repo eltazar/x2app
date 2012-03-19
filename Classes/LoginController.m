@@ -81,6 +81,19 @@
             idUtente = [[[array objectAtIndex:0] objectForKey:@"idcustomer"] intValue];
             NSLog(@" ID CUSTOMER LOGIN = %d",idUtente);
             
+            //salvo i dati per il login
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            
+            [prefs removeObjectForKey:@"_idUtente"];
+            [prefs setObject:[NSNumber numberWithInt:idUtente] forKey:@"_idUtente"];
+            [prefs removeObjectForKey:@"_nomeUtente"];
+            [prefs setObject:[[array objectAtIndex:0] objectForKey:@"nome_contatto"] forKey:@"_nomeUtente"];
+            [prefs removeObjectForKey:@"_cognome"];
+            [prefs setObject:[[array objectAtIndex:0] objectForKey:@"cognome_contatto"] forKey:@"_cognome"];
+            [prefs removeObjectForKey:@"_email"];
+            [prefs setObject:self.usr forKey:@"_email"];
+            [prefs synchronize];
+            
             if(delegate && [delegate respondsToSelector:@selector(didLogin:)])
                 [delegate didLogin:idUtente];
             
