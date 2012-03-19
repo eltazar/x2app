@@ -74,8 +74,8 @@
     if([self validateFields]){
         NSLog(@"tutti campi sono validi!");
     
-        
-    
+        NSArray *datiUtente = [NSArray arrayWithObjects:self.nome,self.cognome,self.email,self.telefono, nil];
+        [dbAccess registerUserOnServer:datiUtente];
     }
     
 }
@@ -127,6 +127,9 @@
     self.cognome = @"";
     self.email = @"";
     self.telefono = @"";
+    
+    dbAccess = [[DatabaseAccess alloc]init];
+    dbAccess.delegate = self;
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
