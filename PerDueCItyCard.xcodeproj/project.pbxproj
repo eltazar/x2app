@@ -212,6 +212,8 @@
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACD939F0150E083B008D5C7B /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD939EE150E083B008D5C7B /* LoginController.m */; };
 		ACD939F1150E083B008D5C7B /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD939EF150E083B008D5C7B /* LoginController.xib */; };
+		ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDBD982151755490079A966 /* RegistrazioneController.m */; };
+		ACDBD985151755490079A966 /* RegistrazioneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDBD983151755490079A966 /* RegistrazioneController.xib */; };
 		ACDD14891500481500ACEEB0 /* buttonGrayPattern.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD14881500481500ACEEB0 /* buttonGrayPattern.png */; };
 		ACDE7C9914FDA988000F6890 /* DatiPagamentoController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9714FDA987000F6890 /* DatiPagamentoController.m */; };
 		ACDE7C9A14FDA988000F6890 /* DatiPagamentoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDE7C9814FDA987000F6890 /* DatiPagamentoController.xib */; };
@@ -503,6 +505,9 @@
 		ACD939ED150E083B008D5C7B /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		ACD939EE150E083B008D5C7B /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		ACD939EF150E083B008D5C7B /* LoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginController.xib; sourceTree = "<group>"; };
+		ACDBD981151755490079A966 /* RegistrazioneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrazioneController.h; sourceTree = "<group>"; };
+		ACDBD982151755490079A966 /* RegistrazioneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrazioneController.m; sourceTree = "<group>"; };
+		ACDBD983151755490079A966 /* RegistrazioneController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrazioneController.xib; sourceTree = "<group>"; };
 		ACDD14881500481500ACEEB0 /* buttonGrayPattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonGrayPattern.png; sourceTree = "<group>"; };
 		ACDE7C9614FDA987000F6890 /* DatiPagamentoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatiPagamentoController.h; sourceTree = "<group>"; };
 		ACDE7C9714FDA987000F6890 /* DatiPagamentoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatiPagamentoController.m; sourceTree = "<group>"; };
@@ -666,6 +671,9 @@
 				ACD939ED150E083B008D5C7B /* LoginController.h */,
 				ACD939EE150E083B008D5C7B /* LoginController.m */,
 				ACD939EF150E083B008D5C7B /* LoginController.xib */,
+				ACDBD981151755490079A966 /* RegistrazioneController.h */,
+				ACDBD982151755490079A966 /* RegistrazioneController.m */,
+				ACDBD983151755490079A966 /* RegistrazioneController.xib */,
 				19D4CA8D13ED5144001C7763 /* DatiPag.h */,
 				19D4CA8E13ED5144001C7763 /* DatiPag.m */,
 				19D4CA8F13ED5144001C7763 /* DatiPag.xib */,
@@ -1145,6 +1153,7 @@
 				AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */,
 				ACBEB025150BC16100F7B5F7 /* descrizioneOfferta.xib in Resources */,
 				ACD939F1150E083B008D5C7B /* LoginController.xib in Resources */,
+				ACDBD985151755490079A966 /* RegistrazioneController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1230,6 +1239,7 @@
 				AC13B7091509691500E54106 /* BuyCell.m in Sources */,
 				AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */,
 				ACD939F0150E083B008D5C7B /* LoginController.m in Sources */,
+				ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
