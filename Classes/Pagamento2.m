@@ -67,10 +67,10 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (IBAction)compra:(id)sender {    
 
-    if( ! [self validaDatiUtente] || ! [self validaDatiCartaCredito]){
+    if( /*! [self validaDatiUtente] ||*/ ! [self validaDatiCartaCredito]){
 
         NSLog(@"dati utenti mancanti");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inserire tutti i dati" message:@"Devi inserire i tuoi dati personali e quelli della carta di credito per effettuare l'acquisto" delegate:self cancelButtonTitle:@"Non ora" otherButtonTitles:@"Inserisci",nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inserire tutti i dati" message:@"Devi inserire i della carta di credito per effettuare l'acquisto" delegate:self cancelButtonTitle:@"Non ora" otherButtonTitles:@"Inserisci",nil];
         [alert show];
         [alert release];
 	}
@@ -126,7 +126,11 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 		
         NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
         
-        //NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
+        NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
+      
+        //NSLog(@"PAGAMENTO: ID UTENTE = %d",idUtente);
+        
+        //identificativo è relativo all'offerta, cioè è id coupon
         
         [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
         
@@ -140,6 +144,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];  
 	    
     if([title isEqualToString:@"Inserisci"])  { 
+        /*
 		if( ! [self validaDatiUtente] ){
             //dati personali incompleti
             DatiUtenteController *userDetail = [[DatiUtenteController alloc] initWithNibName:@"DatiUtenteController" bundle:nil];
@@ -149,7 +154,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
             [self presentModalViewController:navController animated:YES];
             [navController release];
-		}
+		}*/
         
         if( ! [self validaDatiCartaCredito] ) {
             
@@ -170,7 +175,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-		return 3;
+		return 2;
 	
 }
 
@@ -237,12 +242,12 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
 		if (section == 1)
 		{
-			lbl.text =@"Dati Cliente";
+			lbl.text =@"Dati Pagamento";
 		}
-		if (section == 2)
-		{
-			lbl.text = @"Dati Pagamento";
-		}
+//		if (section == 2)
+//		{
+//			lbl.text = @"Dati Pagamento";
+//		}
 	
 		//UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
 		//CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
@@ -283,6 +288,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 			
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		}
+    /*
 		if(indexPath.section==1) {
 			if (cell == nil){	
 				[[NSBundle mainBundle] loadNibNamed:@"riepilogodatipersonali" owner:self options:NULL];
@@ -317,7 +323,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 //					nome.text = [[NSString alloc] initWithFormat:@"%@ %@", nomesalvato,cognomesalvato];
 				
 		}
-		if(indexPath.section==2) {
+    */
+		if(indexPath.section==1) {
 			if (cell == nil){	
 				[[NSBundle mainBundle] loadNibNamed:@"riepilogocartadicredito" owner:self options:NULL];
 				cell=celladaticarta;	
@@ -350,6 +357,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         NSLog(@"########## = %@", [cell.accessoryView viewWithTag:2]);
     }
     
+    /*
 		if(indexPath.section==1) {			
 //			detail = [[DatiPers alloc] initWithNibName:@"DatiPers" bundle:[NSBundle mainBundle]];
 //			detail.title = [NSString stringWithFormat:@"Dati Cliente"];
@@ -374,7 +382,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 		}
-		if(indexPath.section==2) {
+    */
+		if(indexPath.section==1) {
 //			detail = [[DatiPag alloc] initWithNibName:@"DatiPag" bundle:[NSBundle mainBundle]];
 //			detail.title = [NSString stringWithFormat:@"Dati Pagamento"];
 //			[self.navigationController pushViewController:detail animated:YES];
