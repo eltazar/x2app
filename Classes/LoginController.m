@@ -36,25 +36,46 @@
     
     NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@",coupon);
     
-    NSArray *array = [[coupon objectForKey:@"Utente"] retain];
+    NSArray *array;//= [[coupon objectForKey:@"checkEmail"] retain];
     
    // NSLog(@"DIMENSIONE ARRAY = %d",[array count]);
     
-    if(array.count == 2){
-        NSLog(@"UTENTE ESISTE");
-        idUtente = [[[array objectAtIndex:0] objectForKey:@"idcustomer"] intValue];
-        NSLog(@" ID CUSTOMER = %d",idUtente);
+    if([coupon objectForKey:@"checkEmail"]){
+      
+        array = [[coupon objectForKey:@"checkEmail"] retain];  
         
-        //mostro altri campi
+        if(array.count == 2){
+            NSLog(@"UTENTE ESISTE");
+            idUtente = [[[array objectAtIndex:0] objectForKey:@"idcustomer"] intValue];
+            NSLog(@" ID CUSTOMER CHECK = %d",idUtente);
+            
+            //mostro altri campi
+            [messaggioEmailTrue setHidden:NO];
+            [pswLabel setHidden:NO];
+            [pswTextField setHidden:NO];
+            [nonRicordoPswLabel setHidden:NO];
+            [ricordaBtn setHidden:NO];
+        }
+        else{
+            NSLog(@"UTENTE NN ESISTE");
+            
+            //lancio controller registrazione
+            RegistrazioneController *regController = [[RegistrazioneController alloc] initWithNibName:@"RegistrazioneController" bundle:nil];
+            [self.navigationController pushViewController:regController animated:YES];
+            [regController release];
+        }
         
     }
-    else{
-        NSLog(@"UTENTE NN ESISTE");
-        
-        //lancio controller registrazione
-        RegistrazioneController *regController = [[RegistrazioneController alloc] initWithNibName:@"RegistrazioneController" bundle:nil];
-        [self.navigationController pushViewController:regController animated:YES];
-        [regController release];
+    else if([coupon objectForKey:@"login"]){
+            array = [[coupon objectForKey:@"login"] retain];
+        if(array.count == 2){
+            NSLog(@"UTENTE ESISTE");
+            idUtente = [[[array objectAtIndex:0] objectForKey:@"idcustomer"] intValue];
+            NSLog(@" ID CUSTOMER LOGIN = %d",idUtente);
+        }
+        else{
+            NSLog(@"PSW SBAGLIATA ");
+        }
     }
     
     [array release];
@@ -70,10 +91,11 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)txtField
 {   
-    if([txtField.text isEqualToString:@"prova"]){
-        [messaggioEmailTrue setHidden:NO];
-        [pswLabel setHidden:NO];
-        [pswTextField setHidden:NO];
+    if( txtField.tag == 10){
+        self.usr = txtField.text;
+    }
+    else if(txtField.tag == 11){
+        self.psw = txtField.text;
     }
 }
 
@@ -81,10 +103,13 @@
 { 
     if(textField.tag ==10 && ![textField.text isEqualToString:@""]){
         NSLog(@"lancia query email");
-        [dbAccess chekUserEmail:textField.text];        
+        NSArray *data = [NSArray arrayWithObject:textField.text];
+        [dbAccess checkUserFields:data];        
     }
     else if(textField.tag == 11){
         NSLog(@"lancia query email+psw");
+        NSArray *data = [NSArray arrayWithObjects:self.usr, textField.text,nil];
+        [dbAccess checkUserFields:data];
     }
 	[textField resignFirstResponder];
 	return YES;
