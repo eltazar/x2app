@@ -27,11 +27,33 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - TextField and TextView Delegate
+
+- (void)textFieldDidEndEditing:(UITextField *)txtField
+{   
+    if([txtField.text isEqualToString:@"prova"]){
+        [messaggioEmailTrue setHidden:NO];
+        [pswLabel setHidden:NO];
+        [pswTextField setHidden:NO];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{ 
+	[textField resignFirstResponder];
+	return YES;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [pswLabel setHidden:YES];
+    [pswTextField setHidden:YES];
+    [messaggioEmailTrue setHidden:YES];
+    
     // Do any additional setup after loading the view from its nib.
 }
 

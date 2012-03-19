@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginController : UIViewController
+@interface LoginController : UIViewController <UITextFieldDelegate>
+{
+    IBOutlet UILabel *emailLabel;
+    IBOutlet UILabel *pswLabel;
+    IBOutlet UILabel *messaggioEmailTrue;
+    IBOutlet UITextField *emailTextField;
+    IBOutlet UITextField *pswTextField;
+}
 
 @end
