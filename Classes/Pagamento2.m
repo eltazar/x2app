@@ -546,6 +546,22 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (IBAction)chiudi:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
 }
+
+-(IBAction)logoutBtnClicked:(id)sender{
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    [prefs removeObjectForKey:@"_nomeUtente"];
+    [prefs removeObjectForKey:@"_idUtente"];
+    [prefs removeObjectForKey:@"_cognome"];
+    [prefs removeObjectForKey:@"_email"];
+    [prefs synchronize];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+
+
 /*
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
