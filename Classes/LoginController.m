@@ -62,7 +62,7 @@
             [nonRicordoPswLabel setHidden:NO];
             [ricordaBtn setHidden:NO];
             
-            emailTextField.enabled = NO;
+            //emailTextField.enabled = NO;
         }
         else{
             NSLog(@"UTENTE NN ESISTE");
@@ -134,7 +134,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 { 
-    if(textField.tag ==10 && ![textField.text isEqualToString:@""]){
+    if(textField.tag == 10 && ![textField.text isEqualToString:@""] && [pswTextField isHidden]){
         NSLog(@"lancia query email");
         NSArray *data = [NSArray arrayWithObject:textField.text];
         [dbAccess checkUserFields:data];        
