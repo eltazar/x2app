@@ -451,6 +451,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
      LoginController *loginController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
         
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+    loginController.delegate = self;
     [loginController release];
     
     navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
