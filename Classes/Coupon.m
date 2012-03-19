@@ -437,6 +437,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"IN COUPON DOPO LOGIN id = %d",idUtente);
     [self dismissModalViewControllerAnimated:YES];
     
+    //identificativo è relativo all'offerta
+    
     Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
     pagamentoController.idUtente = idUtente;
     [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
@@ -1070,7 +1072,9 @@ if ([rows count]>0) {//coupon disponibile
             altezzaCella = 55;
         else if(myLabel.frame.size.height <= 63)
             altezzaCella = 67;
-        else altezzaCella = 44;
+        else if(myLabel.frame.size.height <= 84)
+            altezzaCella = 90;
+        else altezzaCella = 100;
         
         [myLabel release];
          
