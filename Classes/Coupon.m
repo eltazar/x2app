@@ -1175,54 +1175,18 @@ if ([rows count]>0) {//coupon disponibile
 
 - (void)postToWall {
 	
-    //FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
-	
-	NSString *name = [NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]] ; 
-    NSString *href = @"http://www.cartaperdue.it";
-	
-    NSString *caption = @"Carta PerDue - Sconti da vivere subito nella tua citta!";
-    NSString *description = [NSString stringWithFormat:@"Scopri l'offerta del giorno - Acquista il coupon - Decidi quando utilizzarlo. Semplice, utile e versatile: questo è il tempo libero con PerDue!"]; 
-    NSString *imageSource = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_vetrina"]];
-    NSString *imageHref =[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[dict objectForKey:@"offerta_foto_big"]];
-	
-    NSString *linkTitle = @"Per ulteriori dettagli";
-    NSString *linkText = @"Vedi l'offerta";
     NSString *linkHref = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/dettaglio_affare.jsp?idofferta=%@",[dict objectForKey:@"idofferta"]];
-    /* dialog.attachment = [NSString stringWithFormat:
-     @"{ \"name\":\"%@\","
-     "\"href\":\"%@\","
-     "\"caption\":\"%@\",\"description\":\"%@\","
-     "\"media\":[{\"type\":\"image\","
-     "\"src\":\"%@\","
-     "\"href\":\"%@\"}],"
-     "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref];*/
-    //[dialog show];
     
+    NSString *stringCaption = [NSString stringWithFormat:@"<b>Descrizione:</b> %@, <b>Prezzo coupon:</b> %@€, <b>Invece di:</b> %@€, </b>Risparmio: </b>%@€ ",[dict objectForKey:@"offerta_titolo_breve"],[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"coupon_valore_facciale"],[dict objectForKey:@"offerta_sconto_va"]];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   @"223476134356120", @"app_id",
-                                   @"www.google.it", @"link",
-                                   @"", @"picture",
-                                   @"Segnalazione di un'offerta", @"name",
-                                   [NSString stringWithFormat:
-                                    @"{ \"name\":\"%@\","
-                                    "\"href\":\"%@\","
-                                    "\"caption\":\"%@\",\"description\":\"%@\","
-                                    "\"media\":[{\"type\":\"image\","
-                                    "\"src\":\"%@\","
-                                    "\"href\":\"%@\"}],"
-                                    "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref],@"caption",
-                                   [NSString stringWithFormat:
-                                    @"{ \"name\":\"%@\","
-                                    "\"href\":\"%@\","
-                                    "\"caption\":\"%@\",\"description\":\"%@\","
-                                    "\"media\":[{\"type\":\"image\","
-                                    "\"src\":\"%@\","
-                                    "\"href\":\"%@\"}],"
-                                    "\"properties\":{\"%@\":{\"text\":\"%@\",\"href\":\"%@\"}}}", name, href, caption, description, imageSource, imageHref, linkTitle, linkText, linkHref],@"description",
-                                   nil];                
-    //[facebook requestWithGraphPath:@"me/feed" andParams:params andHttpMethod:@"POST" andDelegate:self]; 
-    
+                                   @"175161829247160", @"app_id",
+                                   linkHref, @"link",
+                                   @"http://www.cartaperdue.it/partner/icon.png", @"picture",
+                                   @"Offerta da non perdere da PerDue - click per dettagli",@"name",
+                                   stringCaption, @"caption",
+                                   @"Scopri l'offerta del giorno - Acquista il coupon - Decidi quando utilizzarlo. Semplice, utile e versatile: questo è il tempo libero con PerDue!",@"description",
+                                   nil];             
     [appDelegate.facebook dialog:@"feed" andParams:params andDelegate:self];
 }
 
