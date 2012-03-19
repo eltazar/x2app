@@ -7,6 +7,7 @@
 //
 
 #import "LoginController.h"
+#import "RegistrazioneController.h"
 
 @implementation LoginController
 
@@ -34,6 +35,26 @@
     
     NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@",coupon);
     
+    NSArray *array = [[coupon objectForKey:@"Utente"] retain];
+    
+   // NSLog(@"DIMENSIONE ARRAY = %d",[array count]);
+    
+    if(array.count == 2){
+        NSLog(@"UTENTE ESISTE");
+        idUtente = [[[array objectAtIndex:0] objectForKey:@"idcustomer"] intValue];
+        NSLog(@" ID CUSTOMER = %d",idUtente);
+        
+        //mostro altri campi
+        
+    }
+    else{
+        NSLog(@"UTENTE NN ESISTE");
+        
+        //lancio controller registrazione
+    }
+    
+    [array release];
+    
 }
 
 -(void)didReceiveError:(NSError *)error{
@@ -54,7 +75,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 { 
-    if(textField.tag ==10){
+    if(textField.tag ==10 && ![textField.text isEqualToString:@""]){
         NSLog(@"lancia query email");
         [dbAccess chekUserEmail:textField.text];        
     }
@@ -70,6 +91,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    utente = @"";
     
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;

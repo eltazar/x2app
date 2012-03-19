@@ -21,6 +21,9 @@
     IBOutlet UIButton *ricordaBtn;
     
     DatabaseAccess *dbAccess;
+    
+    NSString *utente;
+    int idUtente;
 }
 
 @end
