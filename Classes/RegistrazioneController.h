@@ -6,8 +6,19 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+#import "DatabaseAccess.h"
 
+@interface RegistrazioneController : UIViewController<UITextFieldDelegate,DatabaseAccessDelegate>
+{
+    DatabaseAccess *dbAccess;
+    
+}
 
-@interface RegistrazioneController : UIViewController
+@property(nonatomic,retain)NSString *nome;
+@property(nonatomic,retain)NSString *cognome;
+@property(nonatomic,retain)NSString *email;
+@property(nonatomic,retain)NSString *telefono;
 
+-(IBAction)registraBtnClicked:(id)sender;
 @end
