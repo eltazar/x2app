@@ -213,6 +213,9 @@
 
 - (void)viewDidUnload
 {
+    [spinnerView release];
+    spinnerView = nil;
+    
     self.emailLabel = nil;
     self.pswLabel = nil;
     self.messaggioEmailTrue = nil;
@@ -236,6 +239,7 @@
 
 - (void)dealloc {
     
+    [spinnerView release];
     [nonRicordoPswLabel release];
     [ricordaBtn release];
     [emailLabel release];
