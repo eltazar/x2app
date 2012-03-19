@@ -37,7 +37,6 @@ NSString* key(NSURLConnection* con)
     return [NSString stringWithFormat:@"%p",con];
 }
 
--(void)chekUserEmail:(NSString*)usr{
 -(void)registerUserOnServer:(NSArray*)userData{
     
     [userData retain];
@@ -82,18 +81,34 @@ NSString* key(NSURLConnection* con)
 }
 
 
+-(void)checkUserFields:(NSArray*)usr{
     
     NSLog(@"DBACCESS CHECK  EMAIL --> user = %@",usr);
     
-    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/checkEmail.php"];
+    [usr retain];
+    
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@""];
+    
+    if(usr.count == 1)
+        urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/checkEmail.php"];
+    else if(usr.count == 2)
+        urlString  = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/login.php"];
     
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSString *postFormatString = @"usr=%@";
-    NSString *postString = [NSString stringWithFormat:postFormatString,
-                            usr];
+    NSString *postFormatString = @"";
+    NSString *postString = @"";
+    
+    if(usr.count == 1){
+        postFormatString = @"usr=%@";
+        postString = [NSString stringWithFormat:postFormatString, [usr objectAtIndex:0]];
+    }
+    else if(usr.count == 2){
+        postFormatString = @"usr=%@&psw=%@";
+        postString = [NSString stringWithFormat:postFormatString, [usr objectAtIndex:0],[usr objectAtIndex:1]];
+    }
     
     NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
@@ -120,7 +135,7 @@ NSString* key(NSURLConnection* con)
         //mostrare alert all'utente che la connessione è fallita??
     }
     
-
+    [usr release];
 }
 
 
