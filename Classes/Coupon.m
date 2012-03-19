@@ -448,12 +448,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)Paga:(id)sender{
     
     
+    if(1==1){
+        LoginController *logController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
+        [self.navigationController pushViewController:logController animated:YES];
+        [logController release];
+        return;
+    }
     
 	if ([rows count]>0) {//coupon disponibile
-		if(secondsLeft>0) {  
-            
-            [loginAlert show];
-            
+		if(secondsLeft>0) {            
             Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
             [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
             NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
@@ -692,8 +695,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    loginAlert = [[UIAlertView alloc] initWithTitle:@"Acquisto Coupon" message:@"Per effettuare l'acquisto devi esser registrato a cartaperdue.it. Effettua il login se già registrato o premi \"registrati\" per farlo" delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Login",@"Registrati", nil];
-    
     altezzaCella = 44.0;
     
     self.prezzoCoupon.layer.cornerRadius = 6;
@@ -920,7 +921,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)dealloc {
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-    [loginAlert release];
     [caricamentoSpinner release];
 	[rows release];
 	[dict2 release];
