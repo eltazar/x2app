@@ -51,6 +51,9 @@
         NSLog(@"UTENTE NN ESISTE");
         
         //lancio controller registrazione
+        RegistrazioneController *regController = [[RegistrazioneController alloc] initWithNibName:@"RegistrazioneController" bundle:nil];
+        [self.navigationController pushViewController:regController animated:YES];
+        [regController release];
     }
     
     [array release];
