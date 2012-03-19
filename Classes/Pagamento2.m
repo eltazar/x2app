@@ -99,12 +99,15 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	
         //recupera dati pagamento e dati cliente
         
+        /*
         NSString *nome = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
 		NSString *cognome = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
 		//mario: perchè rimuove spazi :|???
-        //cognome=[cognome stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
+        //cognome=[cognome stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi        
 		NSString *email = [[NSUserDefaults standardUserDefaults] objectForKey:@"_email"];
 		NSString *telefono = [[NSUserDefaults standardUserDefaults] objectForKey:@"_telefono"];
+         */
+        
 		NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
 		tipocarta=[tipocarta stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino spazi
 		NSString *numerocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
@@ -125,7 +128,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         
         //NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
         
-        [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&nome=%@&cognome=%@&email=%@&telefono=%@&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,nome,cognome,email,telefono,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
+        [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
         
