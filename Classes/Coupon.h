@@ -97,6 +97,8 @@
     float altezzaCella;
     
     DatabaseAccess *dbAccess;
+
+    UIAlertView *loginAlert;
 }
 
 @property (nonatomic, readwrite) NSInteger identificativo; 
