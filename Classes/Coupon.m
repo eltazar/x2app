@@ -452,6 +452,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 }
 
+-(void)didAbortLogin{
+    NSLog(@"Abortito login da parte dell'utente");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 #pragma mark - Gestione view e bottoni
 
 //- (IBAction)Opzioni:(id)sender{
