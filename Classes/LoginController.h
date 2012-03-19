@@ -7,14 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DatabaseAccess.h"
 
-@interface LoginController : UIViewController <UITextFieldDelegate>
+@interface LoginController : UIViewController <UITextFieldDelegate,DatabaseAccessDelegate>
 {
     IBOutlet UILabel *emailLabel;
     IBOutlet UILabel *pswLabel;
     IBOutlet UILabel *messaggioEmailTrue;
     IBOutlet UITextField *emailTextField;
     IBOutlet UITextField *pswTextField;
+    
+    IBOutlet UILabel *nonRegistratoLabel;
+    IBOutlet UILabel *nonRicordoPswLabel;
+    IBOutlet UIButton *registratiBtn;
+    IBOutlet UIButton *ricordaBtn;
+    
+    DatabaseAccess *dbAccess;
 }
 
 @end

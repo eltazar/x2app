@@ -40,6 +40,13 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 { 
+    if(textField.tag ==10){
+        NSLog(@"lancia query email");
+        
+    }
+    else if(textField.tag == 11){
+        NSLog(@"lancia query email+psw");
+    }
 	[textField resignFirstResponder];
 	return YES;
 }
@@ -50,9 +57,16 @@
 {
     [super viewDidLoad];
     
+    dbAccess = [[DatabaseAccess alloc] init];
+    dbAccess.delegate = self;
+    
     [pswLabel setHidden:YES];
     [pswTextField setHidden:YES];
     [messaggioEmailTrue setHidden:YES];
+    [nonRegistratoLabel setHidden:YES];
+    [nonRicordoPswLabel setHidden:YES];
+    [registratiBtn setHidden:YES];
+    [ricordaBtn setHidden:YES];
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -68,6 +82,14 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+#pragma mark - Memory Management
+
+- (void)dealloc {
+    [dbAccess release];
+    [super dealloc];
 }
 
 @end
