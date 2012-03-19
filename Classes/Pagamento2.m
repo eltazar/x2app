@@ -19,7 +19,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 
 @implementation Pagamento2
-@synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,vistadatipagamento,vistadatipersonali,info, titololabel, idUtente;
+@synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,vistadatipagamento,vistadatipersonali,info, titololabel, idUtente,utente,email;
 
 
 -(BOOL)validaDatiUtente{
@@ -184,7 +184,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-		return 2;
+		return 3;
 	
 }
 
@@ -251,12 +251,12 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
 		if (section == 1)
 		{
-			lbl.text =@"Dati Pagamento";
+			lbl.text =@"Utente";
 		}
-//		if (section == 2)
-//		{
-//			lbl.text = @"Dati Pagamento";
-//		}
+		if (section == 2)
+		{
+			lbl.text = @"Dati Pagamento";
+		}
 	
 		//UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
 		//CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
@@ -297,29 +297,33 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 			
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		}
-    /*
+    
 		if(indexPath.section==1) {
 			if (cell == nil){	
-				[[NSBundle mainBundle] loadNibNamed:@"riepilogodatipersonali" owner:self options:NULL];
+				[[NSBundle mainBundle] loadNibNamed:@"DatiUtenteLogin" owner:self options:NULL];
 				cell=celladatipagamento;	
 			}
 			
-				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-				UILabel *nome = (UILabel *)[cell viewWithTag:1];				
+				//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				UILabel *_nome = (UILabel *)[cell viewWithTag:1];				
 				UILabel *mail = (UILabel *)[cell viewWithTag:2];				
 				
-				NSString *nomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
-				NSString *cognomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
-				
-				NSString *mailsalvata = [[NSUserDefaults standardUserDefaults] objectForKey:@"_email"];
-                        
-                if(nomesalvato && cognomesalvato)
-                    nome.text = [NSString stringWithFormat:@"%@ %@", nomesalvato, cognomesalvato];
-                else nome.text = @"";
+            _nome.text = self.utente;
+            mail.text = self.email;
             
-                if(mailsalvata)
-                    mail.text = mailsalvata;
-                else mail.text = @"";
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+//				NSString *nomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
+//				NSString *cognomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
+//				
+//				NSString *mailsalvata = [[NSUserDefaults standardUserDefaults] objectForKey:@"_email"];
+                        
+//                if(nomesalvato && cognomesalvato)
+//                    nome.text = [NSString stringWithFormat:@"%@ %@", nomesalvato, cognomesalvato];
+//                else nome.text = @"";
+//            
+//                if(mailsalvata)
+//                    mail.text = mailsalvata;
+//                else mail.text = @"";
                     
 //				if ( ([mailsalvata length]==0) ||  (mailsalvata ==nil) )
 //					mailsalvata=@"";
@@ -332,8 +336,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 //					nome.text = [[NSString alloc] initWithFormat:@"%@ %@", nomesalvato,cognomesalvato];
 				
 		}
-    */
-		if(indexPath.section==1) {
+    
+		if(indexPath.section==2) {
 			if (cell == nil){	
 				[[NSBundle mainBundle] loadNibNamed:@"riepilogocartadicredito" owner:self options:NULL];
 				cell=celladaticarta;	
@@ -392,7 +396,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 		}
     */
-		if(indexPath.section==1) {
+		if(indexPath.section==2) {
 //			detail = [[DatiPag alloc] initWithNibName:@"DatiPag" bundle:[NSBundle mainBundle]];
 //			detail.title = [NSString stringWithFormat:@"Dati Pagamento"];
 //			[self.navigationController pushViewController:detail animated:YES];
@@ -533,6 +537,11 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 //	[defaults setObject:value forKey:@"Intestatario"];
 //	[defaults setObject:value forKey:@"Cvv"];
 //	[defaults synchronize];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
+    self.utente = [NSString stringWithFormat:@"%@ %@", [prefs objectForKey:@"_nomeUtente"],[prefs objectForKey:@"_cognome"]];
+    self.email = [prefs objectForKey:@"_email"];
 	[tablegenerale reloadData];
 
 
@@ -643,6 +652,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)dealloc {
 		
+    self.utente = nil;
+    self.email = nil;
+    
     [dbAccess release];
     
     [compra release];
