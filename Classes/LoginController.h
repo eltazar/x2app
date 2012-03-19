@@ -23,7 +23,12 @@
     DatabaseAccess *dbAccess;
     
     NSString *utente;
+    NSString *psw;
+    
     int idUtente;
 }
+
+@property(nonatomic,retain)NSString *usr;
+@property(nonatomic, retain) NSString *psw;
 
 @end

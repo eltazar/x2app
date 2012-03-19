@@ -10,6 +10,7 @@
 #import "RegistrazioneController.h"
 
 @implementation LoginController
+@synthesize usr,psw;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
