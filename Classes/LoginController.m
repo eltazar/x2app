@@ -55,6 +55,8 @@
             [pswTextField setHidden:NO];
             [nonRicordoPswLabel setHidden:NO];
             [ricordaBtn setHidden:NO];
+            
+            emailTextField.enabled = NO;
         }
         else{
             NSLog(@"UTENTE NN ESISTE");

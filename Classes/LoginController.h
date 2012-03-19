@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "DatabaseAccess.h"
 
+@protocol LoginControllerDelegate;
+
 @interface LoginController : UIViewController <UITextFieldDelegate,DatabaseAccessDelegate>
 {
     IBOutlet UILabel *emailLabel;
@@ -28,7 +30,14 @@
     int idUtente;
 }
 
+@property(nonatomic,assign)id<LoginControllerDelegate> delegate;
 @property(nonatomic,retain)NSString *usr;
 @property(nonatomic, retain) NSString *psw;
+
+@end
+
+@protocol LoginControllerDelegate <NSObject>
+
+-(void)didLogin:(int)idUtente;
 
 @end
