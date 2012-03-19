@@ -20,6 +20,8 @@
     NSString *psw;
     
     int idUtente;
+    
+    IBOutlet UIActivityIndicatorView *spinnerView;
 }
 
 

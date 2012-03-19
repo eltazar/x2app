@@ -8,6 +8,7 @@
 
 #import "LoginController.h"
 #import "RegistrazioneController.h"
+#import <QuartzCore/QuartzCore.h>
 
 /*l *emailLabel;
  @property(nonatomic,retain) IBOutlet UILabel *pswLabel;
@@ -96,12 +97,17 @@
             
             if(delegate && [delegate respondsToSelector:@selector(didLogin:)])
                 [delegate didLogin:idUtente];
-            
+        
         }
         else{
             NSLog(@"PSW SBAGLIATA ");
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Errore" message:@"L'utente o la password inserita non è stata trovata, riprova" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
         }
     }
+    
+    [spinnerView stopAnimating];
     
     [array release];
     
@@ -110,6 +116,7 @@
 -(void)didReceiveError:(NSError *)error{
     
     NSLog(@"ERRORE CHECK EMAIL SU SERVER = %@",[error description]);
+    [spinnerView stopAnimating];
 }
 
 #pragma mark - TextField and TextView Delegate
@@ -150,12 +157,14 @@
     if(textField.tag == 10 && ![textField.text isEqualToString:@""] && [pswTextField isHidden]){
         NSLog(@"lancia query email");
         NSArray *data = [NSArray arrayWithObject:textField.text];
-        [dbAccess checkUserFields:data];        
+        [dbAccess checkUserFields:data];     
+        [spinnerView startAnimating];
     }
     else if(textField.tag == 11){
         NSLog(@"lancia query email+psw");
         NSArray *data = [NSArray arrayWithObjects:self.usr, textField.text,nil];
         [dbAccess checkUserFields:data];
+        [spinnerView startAnimating];
     }
 	[textField resignFirstResponder];
 	return YES;
@@ -187,6 +196,8 @@
     [cancelBtn release];
     
     utente = @"";
+    
+    spinnerView.layer.cornerRadius = 6;
     
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
