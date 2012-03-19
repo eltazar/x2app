@@ -53,6 +53,8 @@
 
 }
 
+@property(nonatomic,retain)NSString *utente;
+@property(nonatomic, retain)NSString *email;
 @property(nonatomic,assign)int idUtente;
 @property (nonatomic, readwrite) double  quant; 
 @property (nonatomic, readwrite) double  valore; 
@@ -79,7 +81,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (IBAction)OpenInfo:(id)sender;
 - (IBAction)chiudi:(id)sender;
-
+-(IBAction)logoutBtnClicked:(id)sender;
 
 @end
 
