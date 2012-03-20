@@ -18,7 +18,7 @@
 @property(nonatomic,retain) NSString *cognome;
 @property(nonatomic,retain) NSString *telefono;
 @property(nonatomic,retain) NSString *email;
-
+-(void)fillCell: (UITableViewCell *)cell rowDesc:(NSDictionary *)rowDesc;
 @end
 
 @implementation RichiediCardViewController
@@ -80,11 +80,34 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;  
     }
     
+    [self fillCell:cell rowDesc:rowDesc];
+    
     [cell setDelegate:self];
     
     return cell;
 }
 
+
+-(void)fillCell: (UITableViewCell *)cell rowDesc:(NSDictionary *)rowDesc
+{
+    NSString *datakey= [rowDesc objectForKey:@"DataKey"];
+    
+    if([datakey isEqualToString:@"name"]){
+        ((TextFieldCell *)cell).textField.text = self.nome;
+        //((TextFieldCell *)cell).textField.text = [prefs objectForKey:@"_numero"];
+    }
+    else if([datakey isEqualToString:@"surname"]){
+        ((TextFieldCell *)cell).textField.text = self.cognome;
+        //((TextFieldCell *)cell).textField.text = [prefs objectForKey:@"cvv"];
+    }
+    else if([datakey isEqualToString:@"email"]){
+        ((TextFieldCell *)cell).textField.text = self.email;
+    }
+    else if([datakey isEqualToString:@"phone"]){
+        ((TextFieldCell *)cell).textField.text = self.telefono;
+    }
+    
+}
 
 #pragma mark - Table view delegate
 
