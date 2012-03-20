@@ -9,16 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "DatabaseAccess.h"
 
-@interface RegistrazioneController : UIViewController<UITextFieldDelegate,DatabaseAccessDelegate>
-{
-    DatabaseAccess *dbAccess;
-    
+@interface RegistrazioneController : UITableViewController{
+        
+        NSMutableArray *sectionData;
+        NSMutableArray *sectionDescription;
+        UISegmentedControl *segmentedCtrl;
+        
 }
-
-@property(nonatomic,retain)NSString *nome;
-@property(nonatomic,retain)NSString *cognome;
-@property(nonatomic,retain)NSString *email;
-@property(nonatomic,retain)NSString *telefono;
-
--(IBAction)registraBtnClicked:(id)sender;
 @end
+
