@@ -98,6 +98,8 @@
     float altezzaCella;
     
     DatabaseAccess *dbAccess;
+    
+    IBOutlet UIButton *reloadBtn;
 }
 
 @property (nonatomic, readwrite) NSInteger identificativo; 
@@ -139,7 +141,7 @@
 
 
 
-
+-(IBAction)refreshView:(id)sender;
 - (IBAction)AltreOfferte:(id)sender;
 //- (IBAction)Opzioni:(id)sender;
 - (void)countDown;

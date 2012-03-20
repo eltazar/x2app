@@ -471,6 +471,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //    
 //}
 
+-(IBAction)refreshView:(id)sender
+{
+    [self viewDidAppear:YES];
+}
+
 
 
 -(void)Paga:(id)sender{
@@ -689,6 +694,7 @@ if ([rows count]>0) {//coupon disponibile
     
     [super viewDidAppear:animated];
     
+    [reloadBtn setHidden:YES];
     [compra setHidden:YES];
 //	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
     
@@ -768,6 +774,7 @@ if ([rows count]>0) {//coupon disponibile
     altezzaCella = 44.0;
     
     self.prezzoCoupon.layer.cornerRadius = 6;
+    [reloadBtn setHidden:YES];
     
     NSLog(@"CLASSE COUPON DID LOAD");
     
@@ -991,6 +998,7 @@ if ([rows count]>0) {//coupon disponibile
 - (void)dealloc {
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    [reloadBtn release];
     [caricamentoSpinner release];
 	[rows release];
 	[dict2 release];
@@ -1146,6 +1154,8 @@ if ([rows count]>0) {//coupon disponibile
     NSLog(@"coupon: errore connessione: %@",[error description]);
     [caricamentoSpinner stopAnimating];
     [compra setHidden:YES];
+    titolo.text = @" Errore caricamento, riprovare.";
+    [reloadBtn setHidden:NO];
 }
 
 #pragma mark - FACEBOOK
