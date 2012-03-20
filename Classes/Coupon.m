@@ -475,37 +475,42 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)Paga:(id)sender{
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if ([rows count]>0) {//coupon disponibile
+        if(secondsLeft>0) {     
     
-    NSNumber *idUtente = [prefs objectForKey:@"_idUtente"];
-    
-    if(!idUtente){
-        //lancio view modale per il login
-         LoginController *loginController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
-        loginController.delegate = self;
-        [loginController release];
-        
-        
-        navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        
-        [self presentModalViewController:navController animated:YES];
-        
-        [navController release];
-    }
-    else{
-        Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
-        [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-        NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
-        //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
-        [pagamentoController setIdentificativo:identificativo];
-        NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-        NSLog(@"%@",tit);
-        pagamentoController.titolo = tit;
-        [pagamentoController setTitle:@"Acquisto"];
-        [self.navigationController pushViewController:pagamentoController animated:YES];
-        [pagamentoController release];
+            NSNumber *idUtente = [prefs objectForKey:@"_idUtente"];
+            
+            if(!idUtente){
+                //lancio view modale per il login
+                 LoginController *loginController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
+                    
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+                loginController.delegate = self;
+                [loginController release];
+                
+                
+                navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                
+                [self presentModalViewController:navController animated:YES];
+                
+                [navController release];
+            }
+            else{
+                Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
+                [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
+                NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+                //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
+                [pagamentoController setIdentificativo:identificativo];
+                NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+                NSLog(@"%@",tit);
+                pagamentoController.titolo = tit;
+                [pagamentoController setTitle:@"Acquisto"];
+                [self.navigationController pushViewController:pagamentoController animated:YES];
+                [pagamentoController release];
+            }
+        }
     }
 }
 
