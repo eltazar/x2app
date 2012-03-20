@@ -12,9 +12,7 @@
 @interface RegistrazioneController : UITableViewController{
         
         NSMutableArray *sectionData;
-        NSMutableArray *sectionDescription;
-        UISegmentedControl *segmentedCtrl;
-        
+        NSMutableArray *sectionDescription;      
 }
 @end
 

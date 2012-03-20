@@ -149,7 +149,8 @@
 //setta il colore delle label dell'header BIANCHE
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    if(section == 2){
+    /*
+    if(section == 1){
         // create the parent view that will hold 1 or more buttons
         UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 37)];
         
@@ -181,6 +182,7 @@
         
     }
     else{
+        */
         
         UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
         [customView setBackgroundColor:[UIColor clearColor]];
@@ -206,7 +208,7 @@
         [customView addSubview:lbl];
         
         return customView;
-    }
+    /*}*/
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -218,6 +220,11 @@
 }
 
 #pragma mark - Bottoni view
+
+-(void)cancel{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 -(BOOL)isNumeric:(NSString*)inputString{
     BOOL isValid = NO;
     NSCharacterSet *alphaNumbersSet = [NSCharacterSet decimalDigitCharacterSet];
@@ -313,6 +320,7 @@
 
 
 
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -322,7 +330,21 @@
     
     [super viewDidLoad];
     
-    [self setTitle:@"Registra"];
+    [self setTitle:@"Registrazione"];
+    
+    UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithTitle:@"Annulla" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
+    
+    self.navigationItem.leftBarButtonItem = cancelBtn;
+    //self.navigationItem.rightBarButtonItem = saveBtn;
+    
+    //[saveBtn release];
+    [cancelBtn release];
+    
+    UIBarButtonItem *regBtn = [[UIBarButtonItem alloc] initWithTitle:@"Registrami" style:UIBarButtonItemStyleBordered target:self action:@selector(sendRequestClicked:)];
+    
+    self.navigationItem.rightBarButtonItem = regBtn;
+    [regBtn release];
+
     
     sectionDescription = [[NSMutableArray alloc] initWithObjects:@"Dati",@"", nil];  
     sectionData = [[NSMutableArray alloc] init];
@@ -362,8 +384,8 @@
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
                          nil] autorelease] atIndex: 2];
     
-    [sectionData insertObject:secB atIndex:1];
-    [sectionData insertObject:secBtn atIndex:2];
+    [sectionData insertObject:secB atIndex:0];
+    [sectionData insertObject:secBtn atIndex:1];
     
     [secBtn release];
     [secB release];
