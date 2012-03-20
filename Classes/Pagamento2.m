@@ -179,6 +179,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 		
 	}
+    if([alertView.title isEqualToString:@"Complimenti"]){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }  
   
 
@@ -585,7 +588,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 -(void)didReceiveError:(NSError *)error{
     
     NSLog(@"ERRORE SERVER NELL'ACQUISTO DEL COUPON = %@",error);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Riprovare" message:@"Ci sono stati problemi nell'invio della richiesta di acquisto. Riprovare!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Ci sono stati problemi nell'invio della richiesta di acquisto, Riprovare!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
     [alert show];
     [alert release];
 
@@ -594,6 +597,16 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 -(void)didReceiveResponsFromServer:(NSString *)receivedData{
     
     NSLog(@"DATI RICEVUTI DAL SERVER ACQUISTO COUPON = %@", receivedData);
+    if([receivedData isEqualToString:@"Ok"]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Complimenti" message:@"La tua richiesta di acquisto verrà processata in breve tempo, riceverai una mail con tutti i dettagli" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Non è stato possibile processare la tua richiesta, riprovare!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
 }
 
 #pragma mark - Pagamenti2Delegate
