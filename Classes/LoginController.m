@@ -101,7 +101,7 @@
         }
         else{
             NSLog(@"PSW SBAGLIATA ");
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Errore" message:@"L'utente o la password inserita non è stata trovata, riprova" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Errore" message:@"L'utente o la password non esiste, riprova" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             [alert show];
             [alert release];
         }
