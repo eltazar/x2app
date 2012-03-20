@@ -6,6 +6,9 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+
+// OFFERTA = COUPON --> ma perchè nn ha fatto una classe astratta? vabbè se si ha tempo astrarre il tutto
+
 #import "Offerta.h"
 #import "FBConnect.h"
 #import "FBDialog.h"
@@ -13,6 +16,7 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import "DatabaseAccess.h"
 #import "Utilita.h"
+#import "LoginController.h"
 
 @implementation Offerta
 @synthesize titolo,tempo,prezzoCoupon,prezzoOrig,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel, offerta,identificativo;
@@ -426,6 +430,34 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 }
 
+#pragma mark - LoginControllerDelegate
+
+-(void)didLogin:(int)idUtente{
+    NSLog(@"IN COUPON DOPO LOGIN id = %d",idUtente);
+    [self dismissModalViewControllerAnimated:YES];
+    
+    //identificativo è relativo all'offerta
+    
+    Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
+    pagamentoController.idUtente = idUtente;
+    [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
+    NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+    //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
+    [pagamentoController setIdentificativo:identificativo];
+    NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+    NSLog(@"%@",tit);
+    pagamentoController.titolo = tit;
+    [pagamentoController setTitle:@"Acquisto"];
+    [self.navigationController pushViewController:pagamentoController animated:YES];
+    [pagamentoController release];
+    
+}
+
+-(void)didAbortLogin{
+    NSLog(@"Abortito login da parte dell'utente");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 #pragma mark - Gestione view e bottoni
 
 //- (IBAction)Opzioni:(id)sender{
@@ -441,38 +473,44 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 -(void)Paga:(id)sender{
-	if ([rows count]>0) {//coupon disponibile
-		if(secondsLeft>0) {
-            //			detail = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
-            //			[(Pagamento2*)detail setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-            //			NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
-            //			[(Pagamento2*)detail setIdentificativo:identificativo];
-            //            
-            //			NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-            //			NSLog(@"Titolo:%@",tit);
-            //			[(Pagamento2*)detail setTitolo:tit];
-            //            
-            //			[detail setTitle:@"Acquisto"];
-            //			[self.navigationController pushViewController:detail animated:YES];
+    
+    if ([rows count]>0) {//coupon disponibile
+        if(secondsLeft>0) {     
             
-            Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
-            [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-            NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
-            [pagamentoController setIdentificativo:identificativo];
-            NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-            NSLog(@"%@",tit);
-            pagamentoController.titolo = tit;
-            [pagamentoController setTitle:@"Acquisto"];
-            [self.navigationController pushViewController:pagamentoController animated:YES];
-            [pagamentoController release];
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
             
-		}
-		else{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Offerta scaduta!" message:@"Questa offerta non è più disponibile" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-			[alert show];
-			[alert release];
-		}
-	}
+            NSNumber *idUtente = [prefs objectForKey:@"_idUtente"];
+            
+            if(!idUtente){
+                //lancio view modale per il login
+                LoginController *loginController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
+                
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+                loginController.delegate = self;
+                [loginController release];
+                
+                
+                navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                
+                [self presentModalViewController:navController animated:YES];
+                
+                [navController release];
+            }
+            else{
+                Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
+                [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
+                NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+                //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
+                [pagamentoController setIdentificativo:identificativo];
+                NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+                NSLog(@"%@",tit);
+                pagamentoController.titolo = tit;
+                [pagamentoController setTitle:@"Acquisto"];
+                [self.navigationController pushViewController:pagamentoController animated:YES];
+                [pagamentoController release];
+            }
+        }
+    }
 }
 
 
@@ -1071,6 +1109,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"OFFERTA: errore connessione: %@",[error description]);
     [caricamentoSpinner stopAnimating];
     [compra setHidden:YES];
+    titolo.text = @" Errore caricamento, riprovare.";
 }
 
 #pragma mark - FACEBOOK
