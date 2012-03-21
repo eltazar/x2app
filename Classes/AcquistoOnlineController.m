@@ -62,6 +62,25 @@
     
 }
 
+#pragma mark - Gestion bottoni
+- (IBAction)buyButtonTapped:(id)sender {
+    
+    NSLog(@"bottone premuto numero = %d", ((UIButton*)sender).tag);
+    
+   /*
+    UIButton *buyButton = (UIButton *)sender;    
+    SKProduct *product = [[InAppRageIAPHelper sharedHelper].products objectAtIndex:buyButton.tag];
+    
+    NSLog(@"Buying %@...", product.productIdentifier);
+    [[InAppRageIAPHelper sharedHelper] buyProductIdentifier:product.productIdentifier];
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    _hud.labelText = @"Buying comic...";
+    [self performSelector:@selector(timeout:) withObject:nil afterDelay:60*5];
+    */
+    
+}
+
 #pragma mark - DatabaseACcessDelegate
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
@@ -118,44 +137,7 @@
     
     productsId = [[NSMutableSet alloc] init];
 
-    //query al db per ottenere lista di oggetti da vendere
     
-    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"Offerte", nil];
-    
-    NSMutableArray *secC = [[NSMutableArray alloc] initWithCapacity:5];
-    
-    [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"name",            @"DataKey",
-                         @"BuyCell",    @"kind",
-                         @"Tipo 1",         @"label",
-                         //@"Scegli...",             @"detailLabel",
-                         @"Mario",         @"placeholder",
-                         @"",                 @"img",
-                         [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
-                         nil] autorelease ]  atIndex: 0];
-    
-    [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"surname",            @"DataKey",
-                         @"BuyCell",    @"kind",
-                         @"Tipo 2",         @"label",
-                         //numeroCarta,                 @"detailLabel",
-                         @"",                 @"img",
-                         [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
-                         nil] autorelease ]  atIndex: 1];
-    
-    [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"phone",            @"DataKey",
-                         @"BuyCell",    @"kind",
-                         @"Tipo 3",           @"label",
-                         @"",                 @"img",
-                         [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
-                         nil] autorelease] atIndex: 2];
-    
-    
-    sectionData = [[NSMutableArray alloc] initWithObjects: secC, nil];
-    
-    [secC release];
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -179,8 +161,7 @@
     [productsId release];
     dbAccess.delegate = nil;
     [dbAccess release];
-    [sectionData release];
-    [sectionDescription release];
+
     
     [super dealloc];
 }
@@ -224,40 +205,75 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return sectionDescription.count;
+    return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section
 {   
-    if(sectionData){
-        return [[sectionData objectAtIndex: section] count];
-    } 
-    
-    return 0;
+    //return [iapHelper.products count];
+    return 5;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSArray *sec = [sectionData objectAtIndex:indexPath.section];
-    NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
-    NSString *kind = [rowDesc objectForKey:@"kind"];
-    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    int cellStyle = UITableViewCellStyleDefault;
+    static NSString *CellIdentifier = @"Cell";
     
-    BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier:dataKey];
-    
-    if (cell == nil) {       
-        cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+       // cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        [[NSBundle mainBundle] loadNibNamed:@"CellProdottoListino" owner:self options:nil];
+		cell = cellProdotto;
     }
     
-    //[self fillCell:cell rowDesc:rowDesc];
-        
-    return cell;    
-
+	// Configure the cell.
+    
+    /*
+     SKProduct *product = [iapHelper.products objectAtIndex:indexPath.row];
+    
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [numberFormatter setLocale:product.priceLocale];
+    NSString *formattedString = [numberFormatter stringFromNumber:product.price];
+    */
+    //cell.textLabel.text = product.localizedTitle;
+    //cell.detailTextLabel.text = formattedString;
+    
+    /*
+    cell.textLabel.text = @"prova";
+    cell.detailTextLabel.text = @"prova 2";
+    
+    UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    buyButton.frame = CGRectMake(0, 0, 72, 37);
+    [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
+    buyButton.tag = indexPath.row;
+    [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.accessoryView = buyButton;     
+    */
+    
+    UILabel *prodotto = (UILabel *)[cell viewWithTag:1];
+    UILabel *descrizione = (UILabel *)[cell viewWithTag:2];
+    UILabel *prezzo = (UILabel *)[cell viewWithTag:3];
+    
+    prodotto.text = @"prodotto x";
+    descrizione.text = @"12 mesi offerta";
+    prezzo.text = @"prezzo: 12€";
+    
+    UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    buyButton.frame = CGRectMake(0, 0, 79, 38);
+    [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
+    buyButton.tag = indexPath.row;
+    [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.accessoryView = buyButton;   
+    
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    return cell;
 }
-
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -298,6 +314,9 @@
 */
 
 #pragma mark - Table view delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+	return 78;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

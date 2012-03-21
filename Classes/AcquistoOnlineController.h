@@ -13,12 +13,11 @@
 
 @interface AcquistoOnlineController : UITableViewController <DatabaseAccessDelegate>
 {
-    NSMutableArray *sectionDescription;
-    NSMutableArray *sectionData;
     DatabaseAccess *dbAccess;
     NSSet *productsId;
     
     IAPHelper *iapHelper;
+    IBOutlet UITableViewCell *cellProdotto;
 }
 
 @property (retain) MBProgressHUD *hud;
