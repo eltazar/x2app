@@ -5,13 +5,12 @@
 //  Created by mario greco on 08/03/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
+#import <QuartzCore/QuartzCore.h>
 #import "AcquistoOnlineController.h"
 #import "BaseCell.h"
 #import "Utilita.h"
 #import "IAPHelper.h"
 //
-#warning crasha su hud quando torno indietro nella vista precedente
 
 @implementation AcquistoOnlineController
 @synthesize hud = _hud;
@@ -130,6 +129,7 @@
 {
     [super viewDidLoad];
     
+    self.title = @"Acquisti";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productsLoaded:) name:kProductsLoadedNotification object:nil];
     
     dbAccess = [[DatabaseAccess alloc] init];
@@ -244,14 +244,6 @@
     /*
     cell.textLabel.text = @"prova";
     cell.detailTextLabel.text = @"prova 2";
-    
-    UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    buyButton.frame = CGRectMake(0, 0, 72, 37);
-    [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
-    buyButton.tag = indexPath.row;
-    [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.accessoryView = buyButton;     
     */
     
     UILabel *prodotto = (UILabel *)[cell viewWithTag:1];
@@ -262,11 +254,15 @@
     descrizione.text = @"12 mesi offerta";
     prezzo.text = @"prezzo: 12€";
     
-    UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     buyButton.frame = CGRectMake(0, 0, 79, 38);
-    [buyButton setTitle:@"Buy" forState:UIControlStateNormal];
+    [buyButton setTitle:@"Compra" forState:UIControlStateNormal];
+    buyButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
     buyButton.tag = indexPath.row;
     [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [buyButton setBackgroundImage:[UIImage imageNamed:@"greenButton.png"] forState:UIControlStateNormal];
+    buyButton.layer.cornerRadius = 8.0f;
+    buyButton.layer.masksToBounds = YES;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = buyButton;   
     
