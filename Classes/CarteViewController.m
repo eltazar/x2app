@@ -16,6 +16,7 @@
 #import "ControlloCartaController.h"
 #import "AcquistoOnlineController.h"
 #import "Utilita.h"
+#import "LocalDatabaseAccess.h"
 
 #define MAX_CARD 6
 
@@ -200,55 +201,25 @@
 
 
 -(NSMutableArray*)creaDataContent{
+    NSError *error;
+    NSArray *cardsArray = [LocalDatabaseAccess fetchStoredCardsAndWriteErrorIn:&error];
+    NSMutableArray *dataContent = [[NSMutableArray alloc] init];
     
-    NSMutableArray *secA = [[NSMutableArray alloc] init];
-    
-    //Otteniamo il puntatore al NSManagedContext
-    PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-	NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    
-	//istanziamo la classe NSFetchRequest di cui abbiamo parlato in precedenza
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    
-	//istanziamo l'Entità da passare alla Fetch Request
-	NSEntityDescription *entity = [NSEntityDescription 
-								   entityForName:@"CartaPerDue" inManagedObjectContext:context];
-	//Settiamo la proprietà Entity della Fetch Request
-	[fetchRequest setEntity:entity];
-    
-	//Eseguiamo la Fetch Request e salviamo il risultato in un array, per visualizzarlo nella tabella
-	NSError *error;
-	NSArray *tempArray = [context executeFetchRequest:fetchRequest error:&error];
-    
-    //se > 0 ci sono righe nella tabella, ovvero carte registrate
-    if(tempArray && tempArray.count > 0){
+    // TODO: controllare errori
+    for(int i = 0; i < cardsArray.count ; i++){
+        //creo l'array di dizionari per le righe della sezione "carte"            
+        CartaPerDue *carta = [cardsArray objectAtIndex:i];
         
-//        NSLog(@ " --------> FO = %@ \n, fo count = %d, \n titolare = %@, carta = %@, scadenza = %@",tempArray,tempArray.count, [[tempArray objectAtIndex:0] valueForKey:@"titolare"], [[tempArray objectAtIndex:0] valueForKey:@"numero"], [[tempArray objectAtIndex:1] valueForKey:@"scadenza"]);
-        
-        for(int i = 0; i < tempArray.count ; i++){
-            
-            //creo l'array di dizionari per le righe della sezione "carte"            
-            NSManagedObject *carta = [tempArray objectAtIndex:i];
-            
-            [secA insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                 @"card",              @"DataKey",
-                                 @"CartaTableViewCell",@"kind",
-                                 [carta valueForKey:@"nome"],  @"nome",
-                                 [carta valueForKey:@"cognome"],  @"cognome",
-                                 [carta valueForKey:@"numero"],@"tessera",
-                                 [carta valueForKey:@"scadenza"],   @"data",
-                                 [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",nil] autorelease] atIndex: i];
-            
-            
-        }
+        [dataContent insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                             @"card",               @"DataKey",
+                             @"CartaTableViewCell", @"kind",
+                             carta.name,            @"nome",
+                             carta.surname,         @"cognome",
+                             carta.number,          @"tessera",
+                             carta.expiryString,    @"data",
+                             [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",nil] autorelease] atIndex: i];
     }
-
-    
-	[fetchRequest release];
-    
-    return [secA autorelease];
-    
+    return [dataContent autorelease];
 }
 
 -(void)didMatchNewCard{
@@ -354,6 +325,8 @@
 {
     [super viewWillAppear:animated];    
     [self.tableView reloadData];
+    NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueIdentifier]);
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
