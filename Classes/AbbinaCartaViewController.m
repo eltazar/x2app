@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PerDueCItyCardAppDelegate.h"
 #import "PickerViewController.h"
+#import "LocalDatabaseAccess.h"
 #import "Utilita.h"
 
 //metodi e ivar private
@@ -181,32 +182,17 @@
         
         NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
         
-        
-        
         //poi se esiste salvo i dati in core data
-        
         NSLog(@"abbina premuto = %@, %@, %@, %@", nome,cognome,numeroCarta,scadenza);
-        
-
-        //Otteniamo il puntatore al NSManagedContext
-        PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
-        
-        NSManagedObjectContext *context = [appDelegate managedObjectContext];
-        
-        //Creiamo un'istanza di NSManagedObject per l'Entità che ci interessa
-        NSManagedObject *cartaPD = [NSEntityDescription
-                                     insertNewObjectForEntityForName:@"CartaPerDue" 
-                                     inManagedObjectContext:context];
-        
-        //Usando il Key-Value Coding inseriamo i dati presi dall'interfaccia nell'istanza dell'Entità appena creata
-        [cartaPD setValue:nome forKey:@"nome"];
-        [cartaPD setValue:cognome forKey:@"cognome"];
-        [cartaPD setValue:numeroCarta forKey:@"numero"];
-        [cartaPD setValue:scadenza forKey:@"scadenza"];
+        CartaPerDue *card = [[CartaPerDue alloc] init];
+        card.name = nome;
+        card.surname = cognome;
+        card.number = numeroCarta;
+        card.expiryString = scadenza;
         
         //Effettuiamo il salvataggio gestendo eventuali errori
         NSError *error;
-        if (![context save:&error]) {
+        if (![LocalDatabaseAccess storeCard:card AndWriteErrorIn:&error]) {
             NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
         }
         else{

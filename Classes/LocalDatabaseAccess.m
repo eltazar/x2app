@@ -57,4 +57,25 @@
     
 }
 
++ (BOOL) storeCard:(CartaPerDue *)card AndWriteErrorIn:(NSError **)error{
+    //Otteniamo il puntatore al NSManagedContext
+    PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+    
+    //Creiamo un'istanza di NSManagedObject per l'Entità che ci interessa
+    NSManagedObject *cartaPD = [NSEntityDescription
+                                insertNewObjectForEntityForName:@"CartaPerDue" 
+                                inManagedObjectContext:context];
+    
+    //Usando il Key-Value Coding inseriamo i dati presi dall'interfaccia nell'istanza dell'Entità appena creata
+    [cartaPD setValue:card.name forKey:@"nome"];
+    [cartaPD setValue:card.surname forKey:@"cognome"];
+    [cartaPD setValue:card.number forKey:@"numero"];
+    [cartaPD setValue:card.expiryString forKey:@"scadenza"];
+    
+    //Effettuiamo il salvataggio gestendo eventuali errori
+    return [context save:error];
+}
+
 @end
