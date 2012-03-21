@@ -156,14 +156,25 @@
 
 //zoom su posizione utente
 - (void)mapView:(MKMapView *)m didAddAnnotationViews:(NSArray *)views {
-    for (MKAnnotationView *annotationView in views) {
-		if (annotationView.annotation == m.userLocation) {
-			MKCoordinateSpan span = MKCoordinateSpanMake(0.15,0.15);
-			MKCoordinateRegion region = MKCoordinateRegionMake(m.userLocation.coordinate, span);
-			[m setRegion:region animated:YES];
-		}
-	}
+
+    if([[prefs objectForKey:@"citta"] isEqualToString:@"Qui"]){
+         NSLog(@"zoom su centro user loc");
+        for (MKAnnotationView *annotationView in views) {
+            if (annotationView.annotation == m.userLocation) {
+                MKCoordinateSpan span = MKCoordinateSpanMake(0.15,0.15);
+                MKCoordinateRegion region = MKCoordinateRegionMake(m.userLocation.coordinate, span);
+                [m setRegion:region animated:YES];
+            }
+        }
+    }
+//    else{
+//        NSLog(@"zoom su centro citta");
+//        MKCoordinateSpan span = MKCoordinateSpanMake(0.15,0.15);
+//        MKCoordinateRegion region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(latitude, longitude), span);
+//        [m setRegion:region animated:YES];
+//    }
 }
+
 - (IBAction)mostraTipoMappa:(id)sender{
 	if ([tipoMappa selectedSegmentIndex]==0) {
 		map.mapType=MKMapTypeStandard;
@@ -496,7 +507,11 @@
     
     //lancia la query
 	[self ricerca:@"distanza"];
+    
+    geodec = [[GeoDecoder alloc]init];
+    geodec.delegate = self;
 
+    prefs = [NSUserDefaults standardUserDefaults];
 }
 
 
@@ -534,6 +549,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 }
 
+
+#pragma mark - Geodecoderdelegate
+
+-(void)didReceivedGeoDecoderData:(NSDictionary *)geoData{
+    NSLog(@"DICTIONARY IS: %@",geoData);
+     NSArray *resultsArray = [geoData objectForKey:@"results"];
+    NSDictionary *result = [resultsArray objectAtIndex:0];
+    //NSString *addressString = [ result objectForKey:@"formatted_address"];
+    latitude = [[[[result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
+    longitude = [[[[result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
+    NSLog(@"LAT = %f LONG = %f",latitude,longitude);
+    MKCoordinateSpan span = MKCoordinateSpanMake(0.15,0.15);
+    MKCoordinateRegion region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(latitude, longitude), span);
+    [map setRegion:region animated:YES];
+}
+
+-(void)didReceiveErrorGeoDecoder:(NSError *)error{
+    NSLog(@"errore geodecoder = %@",[error description]);
+}
+
+
 -(void)spinTheSpinner {
     NSLog(@"Spin The Spinner");
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -569,6 +605,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
 	}
+    else{
+        //lancio query per trovare coordinate città
+        
+        if(! [[prefs objectForKey:@"citta"] isEqualToString:@"Qui"]){
+         
+            [geodec searchCoordinatesForAddress:[prefs objectForKey:@"citta"]];
+        }
+    }
 	
 	
 }
@@ -608,6 +652,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)dealloc {
 
+    geodec.delegate = nil;
+    [geodec release];
     [super dealloc];
 }
 

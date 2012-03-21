@@ -16,8 +16,9 @@
 #import "GoogleHQAnnotation.h"
 #import "DettaglioRistoPub.h"
 #import "Reachability.h"
+#import "GeoDecoder.h"
 
-@interface Ristoranti : UIViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,UIAlertViewDelegate> {
+@interface Ristoranti : UIViewController <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,UIAlertViewDelegate,GeoDecoderDelegate> {
 	UITableView *tableview;
 	NSMutableArray *rows;
 	UIViewController *detail;
@@ -40,6 +41,10 @@
 	NSURL *url;
 	Reachability* internetReach;
 	Reachability* wifiReach;
+    GeoDecoder *geodec;
+    CLLocationDegrees latitude;
+    CLLocationDegrees longitude;
+    NSUserDefaults *prefs;
 
 }
 
