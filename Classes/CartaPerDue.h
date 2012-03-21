@@ -11,18 +11,19 @@
 @interface CartaPerDue : NSObject {
     NSString *name;
     NSString *surname;
-    NSDate *expiryDate;
+    NSInteger expiryMonth;
+    NSInteger expiryYear;
     NSString *number;
 }
 
 @property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSString* surname;
-@property (nonatomic, retain) NSDate* expiryDate;
+@property (nonatomic, assign) NSInteger expiryMonth;
+@property (nonatomic, assign) NSInteger expiryYear;
 @property (nonatomic, retain) NSString* number;
 
 
 - (BOOL)isValid;
-- (void )queryAssociationToThisDevice;
-
+- (void)queryAssociationToThisDevice;
 
 @end
