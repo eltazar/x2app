@@ -81,11 +81,20 @@
     
     NSLog(@"SET = %@",productsId);
     
-    //recuperati gli id creo istanza del managare in app purchase
-    iapHelper = [[IAPHelper alloc] initWithProductIdentifiers:productsId];
-    
-    [iapHelper requestProducts];
-    [self performSelector:@selector(timeout:) withObject:nil afterDelay:30.0];
+    if([Utilita networkReachable]){
+        //recuperati gli id creo istanza del manager in app purchase
+        iapHelper = [[IAPHelper alloc] initWithProductIdentifiers:productsId];
+        
+        //lancio richiesta prodotti ai server apple
+        [iapHelper requestProducts];
+        self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        _hud.labelText = @"Caricamento catalogo...";
+        //dopo 30 secondi di attesa viene lanciato il metodo
+        [self performSelector:@selector(timeout:) withObject:nil afterDelay:30.0];
+    }
+    else{
+        NSLog(@"lancio query prodotti alla apple: internet assente");
+    }
     
 }
 
