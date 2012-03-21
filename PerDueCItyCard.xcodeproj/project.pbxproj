@@ -210,6 +210,8 @@
 		ACA2FBEE1507A22000E3921B /* Utilita.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA2FBED1507A22000E3921B /* Utilita.m */; };
 		ACBEB025150BC16100F7B5F7 /* descrizioneOfferta.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACBEB024150BC16100F7B5F7 /* descrizioneOfferta.xib */; };
 		ACC313C1151A7F16008DBEBA /* CellProdottoListino.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C0151A7F16008DBEBA /* CellProdottoListino.xib */; };
+		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
+		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
 		ACC747901517CDAE0049085F /* DatiUtenteLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACD939F0150E083B008D5C7B /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD939EE150E083B008D5C7B /* LoginController.m */; };
@@ -512,6 +514,8 @@
 		ACA2FBED1507A22000E3921B /* Utilita.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilita.m; sourceTree = "<group>"; };
 		ACBEB024150BC16100F7B5F7 /* descrizioneOfferta.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = descrizioneOfferta.xib; sourceTree = "<group>"; };
 		ACC313C0151A7F16008DBEBA /* CellProdottoListino.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellProdottoListino.xib; sourceTree = "<group>"; };
+		ACC313C7151A9507008DBEBA /* greenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButton.png; sourceTree = "<group>"; };
+		ACC313C9151A972C008DBEBA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatiUtenteLogin.xib; sourceTree = "<group>"; };
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
 		ACD939ED150E083B008D5C7B /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -550,6 +554,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */,
 				ACF76574151A4D4900914BDD /* StoreKit.framework in Frameworks */,
 				AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -568,6 +573,7 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				ACC313C7151A9507008DBEBA /* greenButton.png */,
 				ACA2FBDF1507846700E3921B /* newBackGroundColor2.png */,
 				AC9B692D1507D84A00BE6A30 /* scadutaImg.png */,
 				AC9B692B1507B1D900BE6A30 /* backGroundPattern.png */,
@@ -873,6 +879,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ACC313C9151A972C008DBEBA /* QuartzCore.framework */,
 				ACF76573151A4D4900914BDD /* StoreKit.framework */,
 				AC75F4F1150680CE00EE15B3 /* CoreData.framework */,
 				1959DAC8135078C100954576 /* MapKit.framework */,
@@ -1217,6 +1224,7 @@
 				ACDBD985151755490079A966 /* RegistrazioneController.xib in Resources */,
 				ACC747901517CDAE0049085F /* DatiUtenteLogin.xib in Resources */,
 				ACC313C1151A7F16008DBEBA /* CellProdottoListino.xib in Resources */,
+				ACC313C8151A9507008DBEBA /* greenButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
