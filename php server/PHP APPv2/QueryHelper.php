@@ -1,39 +1,41 @@
-class QueryHelper
-{
-    private static $host = 'sql.cartaperdue.it.cloud.seeweb.it'; 
-    private static = 'appperdue'; 
-    private static $pwd = 'Pitagora2011';
-    private static $appDb = 'cartaperdue_app';
-    private $sql_connection;
+<?php
     
-    public function __construct() {
-        $this->$sql_connection = mysql_connect($host, $usr, $pwd);
-        if ($this->$sql_connection){
-            mysql_select_db($appDb);
-        }
-    }
-    
-    public function query($query) {
-        $results = mysql_query($query)
-        if ($results) {
-            while($object = mysql_fetch_object($results)) {
-                $resultsArray[] = $object;
+    class QueryHelper
+    {
+        private static $host = 'sql.cartaperdue.it.cloud.seeweb.it'; 
+        private static = 'appperdue'; 
+        private static $pwd = 'Pitagora2011';
+        private static $appDb = 'cartaperdue_app';
+        private $sql_connection;
+        
+        public function __construct() {
+            $this->$sql_connection = mysql_connect($host, $usr, $pwd);
+            if ($this->$sql_connection){
+                mysql_select_db($this->appDb, $this->appDb);
             }
-            return json_encode($resultsArray);
         }
-        else {
-            return mysql_error();
+        
+        public function query($query) {
+            $results = mysql_query($query)
+            if ($results) {
+                while($object = mysql_fetch_object($results)) {
+                    $resultsArray[] = $object;
+                }
+                return json_encode($resultsArray);
+            }
+            else {
+                return mysql_error();
+            }
         }
-    }
 
-    public function __destruct() {
-        mysql_close($self->sql_connection)
+        public function __destruct() {
+            mysql_close($self->sql_connection)
+        }
+                               
+                               
+        
     }
-                           
-                           
-    
-}
-
+?>
 
 /* Database credentials
 
