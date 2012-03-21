@@ -9,8 +9,6 @@
 #import "LocalDatabaseAccess.h"
 #import "PerDueCItyCardAppDelegate.h"
 
-#warning ho fatto un commit!!
-#ne ho fatto un altro!
 
 @implementation LocalDatabaseAccess
 
