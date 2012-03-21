@@ -213,10 +213,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
-    if(indexPath.section != 0){
         TextFieldCell *cell = (TextFieldCell*)[self.tableView cellForRowAtIndexPath:indexPath];
         [cell.textField becomeFirstResponder];
-    }
 }
 
 #pragma mark - Bottoni view
