@@ -11,19 +11,23 @@
         public function __construct() {
             $this->sql_connection = mysql_connect(self::$host, self::$usr, self::$pwd);
             if ($this->sql_connection){
-                mysql_select_db(self::$appDb);
+                mysql_select_db(self::$appDb, $this->sql_connection);
             }
         }
         
         public function query($query) {
-            $results = mysql_query($query);
+            $results = mysql_query($query, $this->sql_connection);
             if ($results) {
                 while($resultsArray[] = mysql_fetch_object($results)) {  }
                 return json_encode($resultsArray);
             }
             else {
-                return mysql_error();
+                return mysql_error($this->sql_connection);
             }
+        }
+        
+        public function lastInsertedRowId (){
+            return mysql_insert_id($this->sql_connection);
         }
 
         public function __destruct() {
