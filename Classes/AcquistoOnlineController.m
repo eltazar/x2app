@@ -8,6 +8,7 @@
 
 #import "AcquistoOnlineController.h"
 #import "BaseCell.h"
+#import "Utilita.h"
 
 @implementation AcquistoOnlineController
 
@@ -32,10 +33,12 @@
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
+    NSLog(@"RICEVUTA LISTA ID PRODOUCT = %@",coupon);
+    
 }
 
 -(void)didReceiveError:(NSError *)error{
-    
+    NSLog(@"ACQUISTO ONLINE ERRORE SERVER = %@", [error description]);
 }
 
 #pragma mark - View lifecycle
@@ -111,6 +114,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if([Utilita networkReachable])
+        [dbAccess getCatalogIAP];
+    else{
+        NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
