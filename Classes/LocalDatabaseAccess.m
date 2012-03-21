@@ -46,8 +46,7 @@
             carta.name = [fetchedObject valueForKey:@"nome"];
             carta.surname = [fetchedObject valueForKey:@"cognome"];
             carta.number = [fetchedObject valueForKey:@"numero"];
-            carta.expiryDate2 = [fetchedObject valueForKey:@"scadenza"];
-            NSLog(@"Scadenza è di tipo: %@ e contiene: %@", [carta.expiryDate2 class], carta.expiryDate2);
+            carta.expiryString = [fetchedObject valueForKey:@"scadenza"];
             [tempCards addObject:carta];
         }
         NSArray *cardsArray = [[[NSArray alloc] initWithArray:tempCards] autorelease];
