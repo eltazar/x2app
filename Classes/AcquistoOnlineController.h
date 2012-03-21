@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "DatabaseAccess.h"
+#import "IAPHelper.h"
 @interface AcquistoOnlineController : UITableViewController <DatabaseAccessDelegate>
 {
     NSMutableArray *sectionDescription;
     NSMutableArray *sectionData;
     DatabaseAccess *dbAccess;
+    NSSet *productsId;
+    IAPHelper *iapHelper;
 }
 @end

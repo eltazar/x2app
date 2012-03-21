@@ -9,6 +9,7 @@
 #import "AcquistoOnlineController.h"
 #import "BaseCell.h"
 #import "Utilita.h"
+#import "IAPHelper.h"
 
 @implementation AcquistoOnlineController
 
@@ -34,7 +35,22 @@
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
     NSLog(@"RICEVUTA LISTA ID PRODOUCT = %@",coupon);
+    //NSLog(@"RICEVUTA LISTA ID PRODOUCT = %@, tipo = %@",coupon, [[coupon objectForKey:@"CatalogoIAP"] class]);
+    //NSLog(@"oggetto 1 = %@", [[[coupon objectForKey:@"CatalogoIAP"] objectAtIndex:0] class]);
     
+    if(coupon){
+        for(NSDictionary *tempDict in [coupon objectForKey:@"CatalogoIAP"]){
+            
+            [((NSMutableSet*)productsId) addObject: [tempDict objectForKey:@"product_id"]];
+        }
+    }
+    
+    NSLog(@"SET = %@",productsId);
+    
+    //recuperati gli id creo istanza del managare in app purchase
+    iapHelper = [[IAPHelper alloc] initWithProductIdentifiers:productsId];
+    
+    [iapHelper requestProducts];
 }
 
 -(void)didReceiveError:(NSError *)error{
@@ -49,6 +65,8 @@
     
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
+    
+    productsId = [[NSMutableSet alloc] init];
 
     //query al db per ottenere lista di oggetti da vendere
     
@@ -104,6 +122,7 @@
 
 - (void)dealloc {
     
+    [productsId release];
     dbAccess.delegate = nil;
     [dbAccess release];
     [sectionData release];
