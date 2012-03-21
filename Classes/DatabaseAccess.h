@@ -36,6 +36,9 @@ NSString* key(NSURLConnection* con);
 -(void)checkUserFields:(NSArray*)usr;
 -(void)registerUserOnServer:(NSArray*)userData;
 
+//metodi per in-app purchase
+-(void)getCatalogIAP;
+
 //metodi per controllo associazione carte
 - (void)checkThisDeviceAssociatedWithCard:(NSString *)cardNumber;
 

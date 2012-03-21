@@ -212,6 +212,32 @@ NSString* key(NSURLConnection* con)
     
 }
 
+-(void)getCatalogIAP{
+    NSURLRequest *request =
+    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/catalogoIAP.php"]]];
+    
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    
+    
+    if(connection){
+        //NSLog(@"IS CONNECTION TRUE");
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        [readConnections addObject:connection];
+        
+        NSMutableData *receivedData = [[NSMutableData data] retain];
+        //[connectionDictionary setObject:connection forKey:key(connection)];
+        [dataDictionary setObject:receivedData forKey:key(connection)];
+        //NSLog(@"RECEIVED DATA FROM DICTIONARY : %p",[dataDictionary objectForKey:connection]);
+    }
+    else{
+        NSLog(@"theConnection is NULL");
+        //mostrare alert all'utente che la connessione è fallita??
+    }
+
+}
 
 -(void)getNewsFromServer:(int)indice{
     
@@ -742,7 +768,7 @@ NSString* key(NSURLConnection* con)
         NSDictionary *dic = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&theError] retain];
         
         if(dic){
-            NSLog(@"DIZIONARIO MARIO \n: %@",dic);
+            //NSLog(@"DIZIONARIO MARIO \n: %@",dic);
             if(delegate != nil &&[delegate respondsToSelector:@selector(didReceiveCoupon:)])
                 [delegate didReceiveCoupon:dic];
         }
