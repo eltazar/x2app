@@ -14,6 +14,6 @@
     $json_result = $qh->query($query);
     
     
-    echo '{"login":'.$json_result).'}';
+    echo '{"login":'.$json_result.'}';
     
 ?>

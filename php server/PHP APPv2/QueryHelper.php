@@ -3,24 +3,22 @@
     class QueryHelper
     {
         private static $host = 'sql.cartaperdue.it.cloud.seeweb.it'; 
-        private static = 'appperdue'; 
+        private static $usr= 'appperdue'; 
         private static $pwd = 'Pitagora2011';
         private static $appDb = 'cartaperdue_app';
         private $sql_connection;
         
         public function __construct() {
-            $this->$sql_connection = mysql_connect($host, $usr, $pwd);
-            if ($this->$sql_connection){
-                mysql_select_db($this->appDb, $this->appDb);
+            $this->sql_connection = mysql_connect(self::$host, self::$usr, self::$pwd);
+            if ($this->sql_connection){
+                mysql_select_db(self::$appDb);
             }
         }
         
         public function query($query) {
-            $results = mysql_query($query)
+            $results = mysql_query($query);
             if ($results) {
-                while($object = mysql_fetch_object($results)) {
-                    $resultsArray[] = $object;
-                }
+                while($resultsArray[] = mysql_fetch_object($results)) {  }
                 return json_encode($resultsArray);
             }
             else {
@@ -29,13 +27,13 @@
         }
 
         public function __destruct() {
-            mysql_close($self->sql_connection)
+            mysql_close($this->sql_connection);
         }
                                
                                
         
     }
-?>
+
 
 /* Database credentials
 
@@ -76,6 +74,5 @@ while($obj = mysql_fetch_object($rs)) {
 }
 
 //return the json result. The string users is just a name for the container object. Can be set anything.
-echo '{"Esercente":'.json_encode($arr).'}';
+echo '{"Esercente":'.json_encode($arr).'}';*/
 ?>
-*/
