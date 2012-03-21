@@ -209,6 +209,7 @@
 		ACA2FBEB15079F1700E3921B /* yellowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2FBEA15079F1700E3921B /* yellowButton.png */; };
 		ACA2FBEE1507A22000E3921B /* Utilita.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA2FBED1507A22000E3921B /* Utilita.m */; };
 		ACBEB025150BC16100F7B5F7 /* descrizioneOfferta.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACBEB024150BC16100F7B5F7 /* descrizioneOfferta.xib */; };
+		ACC313C1151A7F16008DBEBA /* CellProdottoListino.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C0151A7F16008DBEBA /* CellProdottoListino.xib */; };
 		ACC747901517CDAE0049085F /* DatiUtenteLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACD939F0150E083B008D5C7B /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD939EE150E083B008D5C7B /* LoginController.m */; };
@@ -510,6 +511,7 @@
 		ACA2FBEC1507A22000E3921B /* Utilita.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilita.h; sourceTree = "<group>"; };
 		ACA2FBED1507A22000E3921B /* Utilita.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilita.m; sourceTree = "<group>"; };
 		ACBEB024150BC16100F7B5F7 /* descrizioneOfferta.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = descrizioneOfferta.xib; sourceTree = "<group>"; };
+		ACC313C0151A7F16008DBEBA /* CellProdottoListino.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellProdottoListino.xib; sourceTree = "<group>"; };
 		ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatiUtenteLogin.xib; sourceTree = "<group>"; };
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
 		ACD939ED150E083B008D5C7B /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -863,6 +865,7 @@
 				1947FDE913D5E4E600C3489B /* riepilogocartadicredito.xib */,
 				ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */,
 				190BC5D01430DF9F004D2705 /* cellacontatti.xib */,
+				ACC313C0151A7F16008DBEBA /* CellProdottoListino.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1213,6 +1216,7 @@
 				ACD939F1150E083B008D5C7B /* LoginController.xib in Resources */,
 				ACDBD985151755490079A966 /* RegistrazioneController.xib in Resources */,
 				ACC747901517CDAE0049085F /* DatiUtenteLogin.xib in Resources */,
+				ACC313C1151A7F16008DBEBA /* CellProdottoListino.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
