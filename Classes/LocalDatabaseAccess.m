@@ -12,13 +12,46 @@
 
 @implementation LocalDatabaseAccess
 
+static LocalDatabaseAccess *__instance = nil;
+NSManagedObjectContext *context;
 
-+ (NSArray *) fetchStoredCardsAndWriteErrorIn:(NSError **)error{
-    //Otteniamo il puntatore al NSManagedContext
-    PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
++ (LocalDatabaseAccess *) getInstance {
+    @synchronized([LocalDatabaseAccess class])
+	{
+		if (!__instance)
+			[[self alloc] init];
+        
+		return __instance;
+	}
     
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
+	return nil;
+}
+
++(id)alloc
+{
+	@synchronized([LocalDatabaseAccess class])
+	{
+		NSAssert(__instance == nil, @"Attempted to allocate a second instance of a singleton.");
+		__instance = [super alloc];
+		return __instance;
+	}
     
+	return nil;
+}
+
+-(id)init {
+	self = [super init];
+	if (self != nil) {
+		PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        context = [appDelegate managedObjectContext];
+        [context retain];
+	}
+    
+	return self;
+}
+
+- (NSArray *) fetchStoredCardsAndWriteErrorIn:(NSError **)error{
     //istanziamo la classe NSFetchRequest
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init]; 
     
@@ -58,12 +91,7 @@
     
 }
 
-+ (BOOL) storeCard:(CartaPerDue *)card AndWriteErrorIn:(NSError **)error{
-    //Otteniamo il puntatore al NSManagedContext
-    PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    NSManagedObjectContext *context = [appDelegate managedObjectContext];
-    
+- (BOOL) storeCard:(CartaPerDue *)card AndWriteErrorIn:(NSError **)error{
     //Creiamo un'istanza di NSManagedObject per l'Entità che ci interessa
     NSManagedObject *cartaPD = [NSEntityDescription
                                 insertNewObjectForEntityForName:@"CartaPerDue" 
@@ -77,6 +105,10 @@
     
     //Effettuiamo il salvataggio gestendo eventuali errori
     return [context save:error];
+}
+
+- (void) dealloc {
+    [context release];
 }
 
 @end

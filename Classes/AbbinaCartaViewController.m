@@ -192,7 +192,7 @@
         
         //Effettuiamo il salvataggio gestendo eventuali errori
         NSError *error;
-        if (![LocalDatabaseAccess storeCard:card AndWriteErrorIn:&error]) {
+        if (![[LocalDatabaseAccess getInstance ]storeCard:card AndWriteErrorIn:&error]) {
             NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
         }
         else{
