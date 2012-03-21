@@ -855,7 +855,7 @@ if ([rows count]>0) {//coupon disponibile
         minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
         seconds = secondsLeft % 60;
         //NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
-        tempo.text=[NSString stringWithFormat:@"%dg %02d:%02d:%02d",days,hours, minutes, seconds];
+        tempo.text=[NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
     }
     
     
