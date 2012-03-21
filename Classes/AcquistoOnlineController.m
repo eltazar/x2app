@@ -72,6 +72,8 @@
     //NSLog(@"RICEVUTA LISTA ID PRODOUCT = %@, tipo = %@",coupon, [[coupon objectForKey:@"CatalogoIAP"] class]);
     //NSLog(@"oggetto 1 = %@", [[[coupon objectForKey:@"CatalogoIAP"] objectAtIndex:0] class]);
     
+    
+    //recupero gli id dei product dal server aziendale
     if(coupon){
         for(NSDictionary *tempDict in [coupon objectForKey:@"CatalogoIAP"]){
             
@@ -99,7 +101,8 @@
 }
 
 -(void)didReceiveError:(NSError *)error{
-    NSLog(@"ACQUISTO ONLINE ERRORE SERVER = %@", [error description]);
+    NSLog(@"RICEZIONE CATALOGO AZIENDA ERRORE SERVER = %@", [error description]);
+    [self dismissHUD:nil];
 }
 
 #pragma mark - View lifecycle
@@ -188,7 +191,7 @@
     if([Utilita networkReachable]){
         [dbAccess getCatalogIAP];
         self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        _hud.labelText = @"Loading comics...";  
+        _hud.labelText = @"Caricamento catalogo...";  
     }
     else{
         NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
