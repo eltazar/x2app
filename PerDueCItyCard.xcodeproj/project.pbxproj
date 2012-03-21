@@ -526,10 +526,13 @@
 		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
 		D91D43021519CD50001D9033 /* LocalDatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDatabaseAccess.h; sourceTree = "<group>"; };
 		D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDatabaseAccess.m; sourceTree = "<group>"; };
+		D91D431A151A3D6F001D9033 /* CardDeviceAssociation.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = CardDeviceAssociation.php; path = "php server/PHP APPv2/CardDeviceAssociation.php"; sourceTree = SOURCE_ROOT; };
+		D91D431B151A3D6F001D9033 /* checkEmail.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = checkEmail.php; path = "php server/PHP APPv2/checkEmail.php"; sourceTree = SOURCE_ROOT; };
+		D91D431C151A3D6F001D9033 /* login.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = login.php; path = "php server/PHP APPv2/login.php"; sourceTree = SOURCE_ROOT; };
+		D91D431D151A3D6F001D9033 /* provamario.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = provamario.php; path = "php server/PHP APPv2/provamario.php"; sourceTree = SOURCE_ROOT; };
+		D91D431E151A3D6F001D9033 /* QueryHelper.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = QueryHelper.php; path = "php server/PHP APPv2/QueryHelper.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
 		D99378B11519368200DFC410 /* CartaPerDue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaPerDue.m; sourceTree = "<group>"; };
-		D99378B91519468400DFC410 /* QueryHelper.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = QueryHelper.php; sourceTree = "<group>"; };
-		D99378BA15194D2B00DFC410 /* CardDeviceAssociation.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CardDeviceAssociation.php; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1008,8 +1011,11 @@
 		D99378B81519463700DFC410 /* PHP */ = {
 			isa = PBXGroup;
 			children = (
-				D99378B91519468400DFC410 /* QueryHelper.php */,
-				D99378BA15194D2B00DFC410 /* CardDeviceAssociation.php */,
+				D91D431A151A3D6F001D9033 /* CardDeviceAssociation.php */,
+				D91D431B151A3D6F001D9033 /* checkEmail.php */,
+				D91D431C151A3D6F001D9033 /* login.php */,
+				D91D431D151A3D6F001D9033 /* provamario.php */,
+				D91D431E151A3D6F001D9033 /* QueryHelper.php */,
 			);
 			name = PHP;
 			sourceTree = "<group>";
