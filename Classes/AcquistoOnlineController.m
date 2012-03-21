@@ -12,6 +12,7 @@
 #import "IAPHelper.h"
 
 @implementation AcquistoOnlineController
+@synthesize hud = _hud;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -30,11 +31,42 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - Gestioni caricamenti 
+
+- (void)timeout:(id)arg {
+    
+    _hud.labelText = @"Tempo scaduto!";
+    _hud.detailsLabelText = @"Spiacenti, riprovare più tardi!";
+    _hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] autorelease];
+	_hud.mode = MBProgressHUDModeCustomView;
+    [self performSelector:@selector(dismissHUD:) withObject:nil afterDelay:3.0];
+    
+}
+
+- (void)dismissHUD:(id)arg {
+    
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    self.hud = nil;
+    
+}
+
+- (void)productsLoaded:(NSNotification *)notification {
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    self.tableView.hidden = FALSE;    
+    
+    [self.tableView reloadData];
+    
+}
+
 #pragma mark - DatabaseACcessDelegate
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
-    NSLog(@"RICEVUTA LISTA ID PRODOUCT = %@",coupon);
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    
     //NSLog(@"RICEVUTA LISTA ID PRODOUCT = %@, tipo = %@",coupon, [[coupon objectForKey:@"CatalogoIAP"] class]);
     //NSLog(@"oggetto 1 = %@", [[[coupon objectForKey:@"CatalogoIAP"] objectAtIndex:0] class]);
     
@@ -51,6 +83,8 @@
     iapHelper = [[IAPHelper alloc] initWithProductIdentifiers:productsId];
     
     [iapHelper requestProducts];
+    [self performSelector:@selector(timeout:) withObject:nil afterDelay:30.0];
+    
 }
 
 -(void)didReceiveError:(NSError *)error{
@@ -62,6 +96,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productsLoaded:) name:kProductsLoadedNotification object:nil];
     
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
@@ -115,12 +151,16 @@
 
 - (void)viewDidUnload
 {
+    self.hud = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void)dealloc {
+    
+    [_hud release];
+    _hud = nil;
     
     [productsId release];
     dbAccess.delegate = nil;
@@ -134,8 +174,11 @@
 {
     [super viewWillAppear:animated];
     
-    if([Utilita networkReachable])
+    if([Utilita networkReachable]){
         [dbAccess getCatalogIAP];
+        self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        _hud.labelText = @"Loading comics...";  
+    }
     else{
         NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
     }
@@ -144,7 +187,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewDidAppear:animated]; 
 }
 
 - (void)viewWillDisappear:(BOOL)animated
