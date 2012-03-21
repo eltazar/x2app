@@ -188,6 +188,7 @@
 		AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7031509658D00E54106 /* AcquistoOnlineController.m */; };
 		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
+		AC27879D15194A5C00747542 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
 		AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = AC365D62150B6BB7006CF120 /* DatabaseAccess.m */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CarteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CarteViewController.m */; };
@@ -471,6 +472,8 @@
 		AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcquistoOnlineController.xib; sourceTree = "<group>"; };
 		AC13B7071509691500E54106 /* BuyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyCell.h; sourceTree = "<group>"; };
 		AC13B7081509691500E54106 /* BuyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyCell.m; sourceTree = "<group>"; };
+		AC27879B15194A5C00747542 /* GeoDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoDecoder.h; sourceTree = "<group>"; };
+		AC27879C15194A5C00747542 /* GeoDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoDecoder.m; sourceTree = "<group>"; };
 		AC365D61150B6BB7006CF120 /* DatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseAccess.h; sourceTree = "<group>"; };
 		AC365D62150B6BB7006CF120 /* DatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseAccess.m; sourceTree = "<group>"; };
 		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -918,6 +921,8 @@
 		AC365D5F150B6B9B006CF120 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				AC27879B15194A5C00747542 /* GeoDecoder.h */,
+				AC27879C15194A5C00747542 /* GeoDecoder.m */,
 				AC365D61150B6BB7006CF120 /* DatabaseAccess.h */,
 				AC365D62150B6BB7006CF120 /* DatabaseAccess.m */,
 			);
@@ -1244,6 +1249,7 @@
 				AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */,
 				ACD939F0150E083B008D5C7B /* LoginController.m in Sources */,
 				ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */,
+				AC27879D15194A5C00747542 /* GeoDecoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
