@@ -654,6 +654,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
+    [reloadBtn setHidden:YES];
     [compra setHidden:YES];
     
     //	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
@@ -732,7 +733,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"CLASSE OFFERTA DID LOAD");
     
+    self.navigationItem.title = @"Coupon";
+    
     [compra setHidden:YES];
+    [reloadBtn setHidden:YES];
     
     altezzaCella = 44.0;
     
@@ -949,7 +953,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
     [caricamentoSpinner release];
-	
+	[reloadBtn release];
     [rows release];
 	[dict2 release];
 	[dict release];
@@ -1110,6 +1114,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [caricamentoSpinner stopAnimating];
     [compra setHidden:YES];
     titolo.text = @" Errore caricamento, riprovare.";
+    [reloadBtn setHidden:NO];
 }
 
 #pragma mark - FACEBOOK
