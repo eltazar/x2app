@@ -174,6 +174,7 @@
 }
 
 -(IBAction)abbinaButtonClicked:(id)sender{
+    // TODO: creare oggetto cartaPerDue e darlo in pasto a LocalDatabaseAccess
         
     //validare i campi inseriti
     if([self isValidFields]){
@@ -184,7 +185,7 @@
         
         //poi se esiste salvo i dati in core data
         
-        NSLog(@"abbina premuto = %@, %@, %@", nome,cognome,numeroCarta,scadenza);
+        NSLog(@"abbina premuto = %@, %@, %@, %@", nome,cognome,numeroCarta,scadenza);
         
 
         //Otteniamo il puntatore al NSManagedContext
