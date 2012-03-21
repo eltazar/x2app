@@ -12,7 +12,7 @@
 
 @implementation CartaPerDue
 
-@synthesize name, surname, expiryMonth, expiryYear, number;
+@synthesize name, surname, number;
 
 
 - (id) init
@@ -49,7 +49,32 @@
 
 }
 
+#pragma mark - Implementazione properties scadenza
+- (void) setExpiryMonth:(NSInteger)newExpiryMonth{
+    if (newExpiryMonth > 0 && newExpiryMonth < 13)
+        expiryMonth = newExpiryMonth;
+}
 
+- (void) setExpiryYear:(NSInteger)newExpiryYear{
+    if (newExpiryYear > 2000 && newExpiryYear < 9999)
+        expiryYear = newExpiryYear;
+}
+
+- (NSInteger) expiryMonth {return expiryMonth;}
+- (NSInteger) expiryYear  {return expiryYear;}
+
+
+- (void) setExpiryString:(NSString *)expiryString {
+    NSArray *tokens = [expiryString componentsSeparatedByString:@"/"];
+    if (tokens.count == 2) {
+        self.expiryMonth = [[tokens objectAtIndex:0] integerValue];
+        self.expiryYear = [[tokens objectAtIndex:1] integerValue];
+    }
+}
+
+- (NSString*) expiryString {
+    return [NSString stringWithFormat: @"%2d/%4d", self.expiryMonth, self.expiryYear];
+}
 
 #pragma mark - DatabaseAccessDelegate
 // Ma va dichiarato da qualche parte che implemento sto delegato?

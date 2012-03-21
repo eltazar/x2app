@@ -22,6 +22,8 @@
 @property (nonatomic, assign) NSInteger expiryYear;
 @property (nonatomic, retain) NSString* number;
 
+@property (nonatomic, assign) NSString *expiryString;
+
 
 - (BOOL)isValid;
 - (void)queryAssociationToThisDevice;
