@@ -28,11 +28,24 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - DatabaseACcessDelegate
+
+-(void)didReceiveCoupon:(NSDictionary *)coupon{
+    
+}
+
+-(void)didReceiveError:(NSError *)error{
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    dbAccess = [[DatabaseAccess alloc] init];
+    dbAccess.delegate = self;
 
     //query al db per ottenere lista di oggetti da vendere
     
@@ -87,6 +100,9 @@
 }
 
 - (void)dealloc {
+    
+    dbAccess.delegate = nil;
+    [dbAccess release];
     [sectionData release];
     [sectionDescription release];
     

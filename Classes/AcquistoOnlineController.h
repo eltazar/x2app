@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface AcquistoOnlineController : UITableViewController
+#import "DatabaseAccess.h"
+@interface AcquistoOnlineController : UITableViewController <DatabaseAccessDelegate>
 {
     NSMutableArray *sectionDescription;
     NSMutableArray *sectionData;
+    DatabaseAccess *dbAccess;
 }
 @end
