@@ -12,7 +12,7 @@
 
 @synthesize productIdentifiers = _productIdentifiers;
 @synthesize products = _products;
-@synthesize purchasedProducts = _purchasedProducts;
+//@synthesize purchasedProducts = _purchasedProducts;
 @synthesize request = _request;
 
 static IAPHelper * _sharedHelper;
@@ -32,18 +32,6 @@ static IAPHelper * _sharedHelper;
         
         // Store product identifiers
         _productIdentifiers = [productIdentifiers retain];
-        
-        // Check for previously purchased products
-        NSMutableSet * purchasedProducts = [NSMutableSet set];
-        for (NSString * productIdentifier in _productIdentifiers) {
-            BOOL productPurchased = [[NSUserDefaults standardUserDefaults] boolForKey:productIdentifier];
-            if (productPurchased) {
-                [purchasedProducts addObject:productIdentifier];
-                NSLog(@"Previously purchased: %@", productIdentifier);
-            }
-            NSLog(@"Not purchased: %@", productIdentifier);
-        }
-        self.purchasedProducts = purchasedProducts;
         
     }
     return self;
@@ -72,8 +60,8 @@ static IAPHelper * _sharedHelper;
     _productIdentifiers = nil;
     [_products release];
     _products = nil;
-    [_purchasedProducts release];
-    _purchasedProducts = nil;
+//    [_purchasedProducts release];
+//    _purchasedProducts = nil;
     [_request release];
     _request = nil;
     [super dealloc];

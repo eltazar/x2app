@@ -14,13 +14,13 @@
 @interface IAPHelper : NSObject <SKProductsRequestDelegate> {
     NSSet * _productIdentifiers;    
     NSArray * _products;
-    NSMutableSet * _purchasedProducts;
+//    NSMutableSet * _purchasedProducts;
     SKProductsRequest * _request;
 }
 
 @property (retain) NSSet *productIdentifiers;
 @property (retain) NSArray * products;
-@property (retain) NSMutableSet *purchasedProducts;
+//@property (retain) NSMutableSet *purchasedProducts;
 @property (retain) SKProductsRequest *request;
 
 - (void)requestProducts;
