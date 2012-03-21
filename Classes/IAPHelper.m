@@ -49,6 +49,7 @@ static IAPHelper * _sharedHelper;
     
     NSLog(@"Received products results...");   
     self.products = response.products;
+    //NSLog(@"products = %@",self.products);
     self.request = nil;    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kProductsLoadedNotification object:_products];    
