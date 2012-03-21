@@ -934,9 +934,17 @@
 			name = Networking;
 			sourceTree = "<group>";
 		};
+		AC4B2E92151A0A4C00CA5F9E /* in app purchase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "in app purchase";
+			sourceTree = "<group>";
+		};
 		AC85A21B14FB97FC00DD91F6 /* classi x aggiornamento */ = {
 			isa = PBXGroup;
 			children = (
+				AC4B2E92151A0A4C00CA5F9E /* in app purchase */,
 				D99378B81519463700DFC410 /* PHP */,
 				AC365D5F150B6B9B006CF120 /* Networking */,
 				ACBAA16D14FF968100F7B347 /* Utilities */,
