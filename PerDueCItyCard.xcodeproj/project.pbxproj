@@ -188,7 +188,6 @@
 		AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7031509658D00E54106 /* AcquistoOnlineController.m */; };
 		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
-		AC27879D15194A5C00747542 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
 		AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = AC365D62150B6BB7006CF120 /* DatabaseAccess.m */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CarteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CarteViewController.m */; };
@@ -222,6 +221,8 @@
 		ACDE7C9D14FDB0A9000F6890 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */; };
 		ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9F14FDB432000F6890 /* PickerViewController.m */; };
 		ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */; };
+		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
+		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -522,6 +523,10 @@
 		ACDE7C9E14FDB432000F6890 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		ACDE7C9F14FDB432000F6890 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
+		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
+		D99378B11519368200DFC410 /* CartaPerDue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaPerDue.m; sourceTree = "<group>"; };
+		D99378B91519468400DFC410 /* QueryHelper.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = QueryHelper.php; sourceTree = "<group>"; };
+		D99378BA15194D2B00DFC410 /* CardDeviceAssociation.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = CardDeviceAssociation.php; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -932,6 +937,7 @@
 		AC85A21B14FB97FC00DD91F6 /* classi x aggiornamento */ = {
 			isa = PBXGroup;
 			children = (
+				D99378B81519463700DFC410 /* PHP */,
 				AC365D5F150B6B9B006CF120 /* Networking */,
 				ACBAA16D14FF968100F7B347 /* Utilities */,
 				AC13B700150964E600E54106 /* Controller per acquisto coupon */,
@@ -952,6 +958,8 @@
 				AC13B7031509658D00E54106 /* AcquistoOnlineController.m */,
 				AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */,
 				ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */,
+				D99378B01519368200DFC410 /* CartaPerDue.h */,
+				D99378B11519368200DFC410 /* CartaPerDue.m */,
 			);
 			name = "classi x aggiornamento";
 			sourceTree = "<group>";
@@ -982,6 +990,15 @@
 				ACA2FBED1507A22000E3921B /* Utilita.m */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		D99378B81519463700DFC410 /* PHP */ = {
+			isa = PBXGroup;
+			children = (
+				D99378B91519468400DFC410 /* QueryHelper.php */,
+				D99378BA15194D2B00DFC410 /* CardDeviceAssociation.php */,
+			);
+			name = PHP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1212,6 +1229,7 @@
 				19D4CB0113ED5145001C7763 /* Pagamento2.m in Sources */,
 				19D4CB0313ED5145001C7763 /* Parchi.m in Sources */,
 				19D4CB0513ED5145001C7763 /* PerDueCItyCardAppDelegate.m in Sources */,
+				D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */,
 				19D4CB0613ED5145001C7763 /* Pubsebar.m in Sources */,
 				19D4CB0813ED5145001C7763 /* Ristoranti.m in Sources */,
 				19D4CB0A13ED5145001C7763 /* Teatri.m in Sources */,
@@ -1249,7 +1267,7 @@
 				AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */,
 				ACD939F0150E083B008D5C7B /* LoginController.m in Sources */,
 				ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */,
-				AC27879D15194A5C00747542 /* GeoDecoder.m in Sources */,
+				D99378B21519368200DFC410 /* CartaPerDue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
