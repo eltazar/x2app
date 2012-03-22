@@ -12,7 +12,7 @@
 #import "Utilita.h"
 
 @implementation ControlloCartaController
-@synthesize cercaButton, datiCarta, acquistaButton, richiediButton, cercaLabel, scadutaLabel;
+@synthesize cercaButton, card, acquistaButton, richiediButton, cercaLabel, scadutaLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,12 +23,12 @@
     return self;
 }
 
--(id)initWithCardDetail:(NSDictionary*)dati{
+-(id)initWithCard:(CartaPerDue *)aCard{
     
     self = [super initWithNibName:@"ControlloCartaController" bundle:nil];
     
     if(self){
-        self.datiCarta = dati;
+        self.card = aCard;
     }
     return self;
 }
@@ -99,18 +99,18 @@
     
     UITextField *titolareLabel = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + 10, 191, 28)];
     titolareLabel.font = [UIFont systemFontOfSize:15];
-    titolareLabel.text = [datiCarta objectForKey:@"titolare"];
+    titolareLabel.text = [NSString stringWithFormat:@"%@ %@", self.card.name, self.card.surname];
     //titolareLabel.tag = 5;
 
     
     UITextField *numeroCartaLabel = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + titolareLabel.frame.size.height+20, 160, 28)];
         numeroCartaLabel.font = [UIFont systemFontOfSize:15];
-    numeroCartaLabel.text = [datiCarta objectForKey:@"tessera"];
+    numeroCartaLabel.text = self.card.number;
     //numeroCartaLabel.tag = 4;
     
     UITextField *scadenzaLabel = [[UITextField alloc] initWithFrame:CGRectMake(numeroCartaLabel.frame.origin.x+numeroCartaLabel.frame.size.width+50, cartaView.frame.size.height/2 + titolareLabel.frame.size.height+20, 100, 28)];
     scadenzaLabel.font = [UIFont systemFontOfSize:15];
-    scadenzaLabel.text = [datiCarta objectForKey:@"scadenza"];
+    scadenzaLabel.text = self.card.expiryString;
     //scadenzaLabel.tag = 3;
     
     [cartaView addSubview:scadenzaLabel];
@@ -125,7 +125,7 @@
     [scadenzaLabel release];
 
 # warning TODO: rimuovere isDateExpired
-    if([Utilita isDateExpired:[datiCarta objectForKey:@"scadenza"]]){
+    if([Utilita isDateExpired:self.card.expiryString]){
         //attacco adesivo "scaduta"
         UIImageView *scadutaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scadutaImg.png"]];
         [scadutaView setFrame:CGRectMake(11, 20, 300, 180)];
@@ -167,7 +167,7 @@
     [richiediButton release];
     [acquistaButton release];
     
-    self.datiCarta = nil;
+    self.card = nil;
     
     [super dealloc];
 }

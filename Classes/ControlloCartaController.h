@@ -6,12 +6,14 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "CartaPerDue.h"
+
 
 
 @interface ControlloCartaController : UIViewController
 
 @property(nonatomic,retain) IBOutlet UIButton *cercaButton;
-@property(nonatomic,retain) NSDictionary *datiCarta;
+@property(nonatomic,retain) CartaPerDue *card;
 @property(nonatomic,retain) IBOutlet UILabel *cercaLabel;
 @property(nonatomic,retain) IBOutlet UILabel *scadutaLabel;
 @property(nonatomic,retain) IBOutlet UIButton *acquistaButton;
@@ -21,6 +23,6 @@
 -(IBAction)acquistaButtonClicked:(id)sender;
 -(IBAction)richiediButtonClicked:(id)sender;
 
--(id)initWithCardDetail:(NSDictionary*)dati;
+-(id)initWithCard:(CartaPerDue *)card;
 
 @end

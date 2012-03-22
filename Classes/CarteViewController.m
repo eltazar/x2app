@@ -85,12 +85,14 @@
     
     if([kind isEqualToString:@"CartaTableViewCell"]){
         NSLog(@"carta per due");
-        ((CartaTableViewCell*)cell).nome.text =  [NSString stringWithFormat:@"%@ %@",[rowDesc objectForKey:@"nome"], [rowDesc objectForKey:@"cognome"]];
-        ((CartaTableViewCell*)cell).tessera.text =  [rowDesc objectForKey:@"tessera"];
+        CartaTableViewCell *cardCell = (CartaTableViewCell *) cell;
+        CartaPerDue *card = [rowDesc objectForKey:@"card"];
+        cardCell.nome.text    =  [NSString stringWithFormat:@"%@ %@",card.name, card.surname];
+        cardCell.tessera.text =  card.number;
 # warning TODO: rimuovere isDateExpired
-        if([Utilita isDateExpired:[rowDesc objectForKey:@"data"]])
-            ((CartaTableViewCell*)cell).data.text = @"Scaduta";
-        else ((CartaTableViewCell*)cell).data.text =  [rowDesc objectForKey:@"data"];
+        if([Utilita isDateExpired:card.expiryString])
+            cardCell.data.text = @"Scaduta";
+        else cardCell.data.text =  card.expiryString;
     }
     else if([kind isEqualToString:@"ActionCell"]){
         cell.textLabel.text = [rowDesc objectForKey:@"label"];
@@ -161,41 +163,52 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
-    BaseCell *cell = (BaseCell*) [tableView cellForRowAtIndexPath:indexPath];
-    NSLog(@"CELL DATAKEY = %@",cell.dataKey);
+    // "Navigo" il model fino alla cella selezionata
+    NSArray *sec = [sectionData objectAtIndex:indexPath.section];
+    NSDictionary *row = [sec objectAtIndex:indexPath.row];
+    NSString *dataKey = [row objectForKey:@"DataKey"];
     
-    if (numCarteAbbinate < MAX_CARD && [cell.dataKey isEqualToString:@"abbina"]) {
+    
+    // Click su una carta
+    if ([dataKey isEqualToString:@"card"]){
+        CartaPerDue *card = [row objectForKey:@"card"];
+        ControlloCartaController *controllaCartaCtrl = [[ControlloCartaController alloc] initWithCard:card];
+        [self.navigationController pushViewController:controllaCartaCtrl animated:YES];
+        [controllaCartaCtrl release];
+    }
+    
+    // Click su un tasto relativo all'aggiunta / acquisto IAP / richiesta d'acquisto di una tessera
+    // nel caso in cui abbiamo già abbinato il numero massimo di tessere consentito
+    else if (numCarteAbbinate >= MAX_CARD) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Azione non permesssa" message:@"Hai raggiunto il numero massimo di carte associabili al dispositivo" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+            
+    // Click sul tasto "abbina"
+    else if ([dataKey isEqualToString:@"abbina"]) {
         
         AbbinaCartaViewController *abbinaCartaViewController = [[AbbinaCartaViewController alloc] init];
         abbinaCartaViewController.delegate = self;
         [self.navigationController pushViewController:abbinaCartaViewController animated:YES];
         [abbinaCartaViewController release];
     }
-    else if(numCarteAbbinate < MAX_CARD && [cell.dataKey isEqualToString:@"richiedi"])
-    {
+    
+    // Click sul tasto "richiedi"
+    else if ([dataKey isEqualToString:@"richiedi"]){
         RichiediCardViewController *richiediViewController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
         [self.navigationController pushViewController:richiediViewController animated:YES];
         [richiediViewController release];
     }
-    else if(numCarteAbbinate < MAX_CARD && [cell.dataKey isEqualToString:@"acquista"]){
-        
+    
+    // Click sul tasto "acquista"
+    else if ([dataKey isEqualToString:@"acquista"]){
         AcquistoOnlineController *acquistaController = [[AcquistoOnlineController alloc] initWithNibName:@"AcquistoOnlineController" bundle:nil];
         [self.navigationController pushViewController:acquistaController animated:YES];
         [acquistaController release];
     }
-    else if([cell.dataKey isEqualToString:@"card"]){
-        
-        ControlloCartaController *controllaCartaCtrl = [[ControlloCartaController alloc] initWithCardDetail:[NSDictionary dictionaryWithObjectsAndKeys:((CartaTableViewCell*)cell).nome.text,@"titolare",((CartaTableViewCell*)cell).tessera.text, @"tessera",((CartaTableViewCell*)cell).data.text,@"scadenza",nil]];
-        [self.navigationController pushViewController:controllaCartaCtrl animated:YES];
-        [controllaCartaCtrl release];
-    }
-    else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Azione non permesssa" message:@"Hai raggiunto il numero massimo di carte associabili al dispositivo" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
-    }
     
-     
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -211,14 +224,14 @@
         //creo l'array di dizionari per le righe della sezione "carte"            
         CartaPerDue *card = [cardsArray objectAtIndex:i];
         
-        [dataContent insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                             @"card",               @"DataKey",
-                             @"CartaTableViewCell", @"kind",
-                             card.name,             @"nome",
-                             card.surname,          @"cognome",
-                             card.number,           @"tessera",
-                             card.expiryString,     @"data",
-                             [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",nil] autorelease] atIndex: i];
+        NSMutableDictionary *tempDict = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                @"card",               @"DataKey",
+                @"CartaTableViewCell", @"kind",
+                card,                  @"card",
+                [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                nil] autorelease];
+
+        [dataContent insertObject: tempDict atIndex: i];
     }
     return [dataContent autorelease];
 }
