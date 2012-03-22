@@ -8,8 +8,9 @@
 
 #import "Pagamento2.h"
 #import "DatiPagamentoController.h"
-#import "DatiUtenteController.h"
+//#import "DatiUtenteController.h"
 #import "DatabaseAccess.h"
+#import "DataLoginController.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -21,7 +22,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 @implementation Pagamento2
 @synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,vistadatipagamento,vistadatipersonali,info, titololabel, idUtente,utente,email;
 
-
+/*
 -(BOOL)validaDatiUtente{
     
     //dati persona
@@ -39,6 +40,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     return FALSE;
 }
+*/
 
 -(BOOL)validaDatiCartaCredito{
     
@@ -214,7 +216,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 		case 0:
 			return 55;
 		case 1:
-			return 50;
+			return 45;
 		case 2:
 			return 50;
 		default:
@@ -314,7 +316,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             _nome.text = self.utente;
             mail.text = self.email;
             
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            //[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 //				NSString *nomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
 //				NSString *cognomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
 //				
@@ -372,7 +374,19 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         
         NSLog(@"########## = %@", [cell.accessoryView viewWithTag:2]);
     }
-    
+    else if(indexPath.section == 1 && indexPath.row == 0){
+        
+        DataLoginController *dataLogin = [[DataLoginController alloc] initWithNibName:@"DataLoginController" bundle:nil];
+        dataLogin.delegate = self;        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dataLogin];
+        [dataLogin release];
+        
+        navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        
+        [self presentModalViewController:navController animated:YES];
+        
+        [navController release];
+    }
     /*
 		if(indexPath.section==1) {			
 //			detail = [[DatiPers alloc] initWithNibName:@"DatiPers" bundle:[NSBundle mainBundle]];
@@ -399,7 +413,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 		}
     */
-		if(indexPath.section==2) {
+	else if(indexPath.section==2) {
 //			detail = [[DatiPag alloc] initWithNibName:@"DatiPag" bundle:[NSBundle mainBundle]];
 //			detail.title = [NSString stringWithFormat:@"Dati Pagamento"];
 //			[self.navigationController pushViewController:detail animated:YES];
@@ -559,20 +573,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	[self dismissModalViewControllerAnimated:YES];
 }
 
--(IBAction)logoutBtnClicked:(id)sender{
-    
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    
-    [prefs removeObjectForKey:@"_nomeUtente"];
-    [prefs removeObjectForKey:@"_idUtente"];
-    [prefs removeObjectForKey:@"_cognome"];
-    [prefs removeObjectForKey:@"_email"];
-    [prefs synchronize];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
-}
-
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -609,16 +609,22 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     }
 }
 
-#pragma mark - Pagamenti2Delegate
+#pragma mark - DatiPagamentoDelegate e DataloginDelegate 
 
--(void)didSaveUserDetail{
-    
-    [self.navigationController dismissModalViewControllerAnimated:YES];    
-}
+//-(void)didSaveUserDetail{
+//    
+//    [self.navigationController dismissModalViewControllerAnimated:YES];    
+//}
+//
+//
+//-(void)didAbortUserDetail{
+//    
+//    [self.navigationController dismissModalViewControllerAnimated:YES];
+//    
+//}
 
+-(void)didAbortLogout{    
 
--(void)didAbortUserDetail{
-    
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
 }
@@ -633,6 +639,11 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     [self.navigationController dismissModalViewControllerAnimated:YES];
     
+}
+
+-(void)didLogout{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

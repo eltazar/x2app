@@ -13,12 +13,12 @@
 #import "Contatti.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "DatiPagamentoController.h"
-#import "DatiUtenteController.h"
+//#import "DatiUtenteController.h"
 #import "DatabaseAccess.h"
-
+#import "DataLoginController.h"
 @class PickerViewController;
 
-@interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate, DatiUtenteDelegate,DatabaseAccessDelegate> {
+@interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate, /*DatiUtenteDelegate,*/DatabaseAccessDelegate,DataLoginDelegate> {
 	
     NSInteger identificativo;
 	double valore;
