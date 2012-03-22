@@ -87,6 +87,7 @@
         NSLog(@"carta per due");
         ((CartaTableViewCell*)cell).nome.text =  [NSString stringWithFormat:@"%@ %@",[rowDesc objectForKey:@"nome"], [rowDesc objectForKey:@"cognome"]];
         ((CartaTableViewCell*)cell).tessera.text =  [rowDesc objectForKey:@"tessera"];
+# warning TODO: rimuovere isDateExpired
         if([Utilita isDateExpired:[rowDesc objectForKey:@"data"]])
             ((CartaTableViewCell*)cell).data.text = @"Scaduta";
         else ((CartaTableViewCell*)cell).data.text =  [rowDesc objectForKey:@"data"];

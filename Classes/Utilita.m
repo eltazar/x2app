@@ -75,6 +75,7 @@
     
 }
 //ritorna VERO se scaduta
+# warning TODO: rimuovere isDateExpired
 +(BOOL)isDateExpired:(NSString *)data{
     
     if([data isEqualToString:@"Scaduta"])

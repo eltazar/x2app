@@ -14,6 +14,7 @@
 +(BOOL)isStringEmptyOrWhite:(NSString*)string;
 +(BOOL)isEmailValid:(NSString*)email;
 +(BOOL)isDateFormatValid:(NSString*)data;
+# warning TODO: rimuovere isDateExpired
 +(BOOL)isDateExpired:(NSString*)data;
 +(BOOL)networkReachable;
 @end

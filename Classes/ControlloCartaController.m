@@ -124,6 +124,7 @@
     [titolareLabel release];
     [scadenzaLabel release];
 
+# warning TODO: rimuovere isDateExpired
     if([Utilita isDateExpired:[datiCarta objectForKey:@"scadenza"]]){
         //attacco adesivo "scaduta"
         UIImageView *scadutaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scadutaImg.png"]];
