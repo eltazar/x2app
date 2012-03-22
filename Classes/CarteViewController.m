@@ -208,15 +208,15 @@
     // TODO: controllare errori
     for(int i = 0; i < cardsArray.count ; i++){
         //creo l'array di dizionari per le righe della sezione "carte"            
-        CartaPerDue *carta = [cardsArray objectAtIndex:i];
+        CartaPerDue *card = [cardsArray objectAtIndex:i];
         
         [dataContent insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                              @"card",               @"DataKey",
                              @"CartaTableViewCell", @"kind",
-                             carta.name,            @"nome",
-                             carta.surname,         @"cognome",
-                             carta.number,          @"tessera",
-                             carta.expiryString,    @"data",
+                             card.name,             @"nome",
+                             card.surname,          @"cognome",
+                             card.number,           @"tessera",
+                             card.expiryString,     @"data",
                              [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",nil] autorelease] atIndex: i];
     }
     return [dataContent autorelease];
@@ -252,65 +252,57 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self setTitle:@"Gestione carte"];
     
+    // Allocazione strutture dati del Data Model
     sectionDescription = [[NSMutableArray alloc] init];
- 
+    NSMutableArray *cardsSection  = [[self creaDataContent] retain];
+    NSMutableArray *manageSection = [[NSMutableArray alloc] init];
     
-    NSMutableArray *secA = [[self creaDataContent] retain];
+    // Inizializzazione struttura dati della sezione di gestione
+    [manageSection insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                  @"abbina",                @"DataKey",
+                                  @"ActionCell",            @"kind",
+                                  @"Abbina la tua carta",   @"label",
+                                  @"",                      @"detailLabel",
+                                  @"Per abbinare la tua carta reale all'iPhone", @"subtitle",
+                                  @"",                      @"img",
+                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
+                                  nil] autorelease] atIndex: 0];
     
-    if(secA && secA.count > 0){
+    [manageSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                                  @"acquista",              @"DataKey",
+                                  @"ActionCell",            @"kind",
+                                  @"Acquista carta",        @"label",
+                                  @"Per acquistare la carta PerDue online", @"subtitle",
+                                  @"",                      @"img",
+                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
+                                  nil] autorelease] atIndex: 1];
+    [manageSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                                  @"richiedi",              @"DataKey",
+                                  @"ActionCell",            @"kind",
+                                  @"Richiedi carta",        @"label",
+                                  @"Sarai ricontattato da PerDue", @"subtitle",
+                                  @"",                      @"img",
+                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
+                                  nil] autorelease] atIndex: 2];
+
+    
+    // se la sezione "Carte" è vuota, non la aggiungo al model, così da nasconderla
+    if(cardsSection && cardsSection.count > 0){
         [sectionDescription insertObject:@"Carte" atIndex:0];
         [sectionDescription insertObject:@"Gestione" atIndex:1];
+        
+        sectionData = [[NSMutableArray alloc] initWithObjects:cardsSection, manageSection, nil];
+        numCarteAbbinate = cardsSection.count;
     }
     else{
         [sectionDescription insertObject:@"Gestione" atIndex:0];
+        sectionData = [[NSMutableArray alloc] initWithObjects:manageSection, nil];
     }
     
-    NSMutableArray *secB = [[NSMutableArray alloc] init];
-    
-    [secB insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                         @"abbina",              @"DataKey",
-                         @"ActionCell",               @"kind",
-                         @"Abbina la tua carta"      , @"label",
-                         @"",                   @"detailLabel",
-                         @"Per abbinare la tua carta reale all'iPhone", @"subtitle",
-                         @"",               @"img",
-                         [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
-                         nil] autorelease] atIndex: 0];
-    
-    [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"acquista",           @"DataKey",
-                         @"ActionCell",       @"kind",
-                         @"Acquista carta",   @"label",
-                         @"Per acquistare la carta PerDue online", @"subtitle",
-                         @"",       @"img",
-                         [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
-                         nil] autorelease] atIndex: 1];
-    [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"richiedi",           @"DataKey",
-                         @"ActionCell",       @"kind",
-                         @"Richiedi carta",   @"label",
-                         @"Sarai ricontattato da PerDue", @"subtitle",
-                         @"",       @"img",
-                         [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
-                         nil] autorelease] atIndex: 2];
-    
-    
-    if(secA && secA.count > 0){
-        sectionData = [[NSMutableArray alloc] init];
-        [sectionData insertObject:secA atIndex:0];
-        [sectionData insertObject:secB atIndex:1];
-        numCarteAbbinate = secA.count;
-    
-    }
-    else{
-        sectionData = [[NSMutableArray alloc] initWithObjects:secB, nil];
-    }
-    
-    [secA release];
-    [secB release];
+    [cardsSection release];
+    [manageSection release];
 
 }
 
