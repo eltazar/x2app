@@ -63,13 +63,13 @@ static IAPHelper * _sharedHelper;
 
 - (void)provideContent:(NSString *)productIdentifier {
     
-    NSLog(@"Toggling flag for: %@", productIdentifier);
-    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:productIdentifier];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [_purchasedProducts addObject:productIdentifier];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchasedNotification object:productIdentifier];
-    
+//    NSLog(@"Toggling flag for: %@", productIdentifier);
+//    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:productIdentifier];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [_purchasedProducts addObject:productIdentifier];
+//    
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchasedNotification object:productIdentifier];
+//    
 }
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
