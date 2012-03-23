@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "StoreKit/StoreKit.h"
 
+//notifica per caricamento listino
 #define kProductsLoadedNotification         @"ProductsLoaded"
+//notifiche per acquisto
+#define kProductPurchasedNotification       @"ProductPurchased"
+#define kProductPurchaseFailedNotification  @"ProductPurchaseFailed"
 
-@interface IAPHelper : NSObject <SKProductsRequestDelegate> {
+@interface IAPHelper : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver> {
     NSSet * _productIdentifiers;    
     NSArray * _products;
 //    NSMutableSet * _purchasedProducts;
@@ -26,5 +30,7 @@
 - (void)requestProducts;
 - (id)initWithProductIdentifiers:(NSSet *)productIdentifiers;
 + (IAPHelper *) sharedHelper;
+//metodo per far partire l'acquisto
+- (void)buyProductIdentifier:(NSString *)productIdentifier;
 
 @end
