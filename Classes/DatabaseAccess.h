@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CartaPerDue.h"
 
 NSString* key(NSURLConnection* con);
 
@@ -33,13 +34,14 @@ NSString* key(NSURLConnection* con);
 - (void)getAltreOfferteFromServer:(NSString*)prov;
 
 //metodi per login e registrazione
--(void)checkUserFields:(NSArray*)usr;
--(void)registerUserOnServer:(NSArray*)userData;
+- (void)checkUserFields:(NSArray*)usr;
+- (void)registerUserOnServer:(NSArray*)userData;
 
 //metodi per in-app purchase
--(void)getCatalogIAP;
+- (void)getCatalogIAP;
 
 //metodi per controllo associazione carte
+- (void)checkCardExistence:(CartaPerDue *)card;
 - (void)checkThisDeviceAssociatedWithCard:(NSString *)cardNumber;
 
 //-(void)jobDelRequest:(Job*)job;

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DatabaseAccess.h"
 
 @class PickerViewController;
 @protocol AbbinaCartaDelegate;
 
-@interface AbbinaCartaViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>
+@interface AbbinaCartaViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate, DatabaseAccessDelegate>
 {
     BOOL isViewUp;
     PickerViewController *pickerDate;

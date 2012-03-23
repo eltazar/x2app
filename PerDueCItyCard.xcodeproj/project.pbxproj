@@ -550,6 +550,7 @@
 		D91D431C151A3D6F001D9033 /* login.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = login.php; path = "php server/PHP APPv2/login.php"; sourceTree = SOURCE_ROOT; };
 		D91D431D151A3D6F001D9033 /* provamario.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = provamario.php; path = "php server/PHP APPv2/provamario.php"; sourceTree = SOURCE_ROOT; };
 		D91D431E151A3D6F001D9033 /* QueryHelper.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = QueryHelper.php; path = "php server/PHP APPv2/QueryHelper.php"; sourceTree = SOURCE_ROOT; };
+		D9861EB3151BE2540017A16E /* CardExists.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = CardExists.php; path = "php server/PHP APPv2/CardExists.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
 		D99378B11519368200DFC410 /* CartaPerDue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaPerDue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1048,6 +1049,7 @@
 				D91D431C151A3D6F001D9033 /* login.php */,
 				D91D431D151A3D6F001D9033 /* provamario.php */,
 				D91D431E151A3D6F001D9033 /* QueryHelper.php */,
+				D9861EB3151BE2540017A16E /* CardExists.php */,
 			);
 			name = PHP;
 			sourceTree = "<group>";

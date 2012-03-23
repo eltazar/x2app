@@ -14,6 +14,7 @@
 #import "Utilita.h"
 
 //metodi e ivar private
+DatabaseAccess *dbAccess; 
 @interface AbbinaCartaViewController()
 @property(nonatomic, retain)NSString *nome;
 @property(nonatomic, retain)NSString *cognome;
@@ -180,19 +181,23 @@
     //validare i campi inseriti
     if([self isValidFields]){
         
-        NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
-        
-        //poi se esiste salvo i dati in core data
-        NSLog(@"abbina premuto = %@, %@, %@, %@", nome,cognome,numeroCarta,scadenza);
-        CartaPerDue *card = [[CartaPerDue alloc] init];
+        CartaPerDue *card = [[[CartaPerDue alloc] init] autorelease];
         card.name = nome;
         card.surname = cognome;
         card.number = numeroCarta;
         card.expiryString = scadenza;
+
+        NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
+        [dbAccess checkCardExistence:card];
         
+        //TODO: mostrare ProgressHUD
+        
+        //poi se esiste salvo i dati in core data
+        NSLog(@"abbina premuto = %@, %@, %@, %@", nome,cognome,numeroCarta,scadenza);
+                
         //Effettuiamo il salvataggio gestendo eventuali errori
         NSError *error;
-        if (![[LocalDatabaseAccess getInstance ]storeCard:card AndWriteErrorIn:&error]) {
+        if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {
             NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
         }
         else{
@@ -200,6 +205,18 @@
                 [delegate didMatchNewCard];
         }
     }
+}
+
+#pragma mark - DatabaseAccessDelegate
+
+- (void)didReceiveCoupon:(NSDictionary *)receivedData {
+    NSLog(@"AbbinaCartaViewController received from server: %@", [receivedData objectForKey:@"response"]);
+}
+
+- (void)didReceiveError:(NSError *)error {
+    NSLog(@"AbbinaCartaViewController received connection error: \n\t%@\n\t%@\n\t%@", 
+          [error localizedDescription], [error localizedFailureReason],
+          [error localizedRecoveryOptions]);
 }
 
 #pragma mark - View lifecycle
@@ -287,6 +304,9 @@
     
     pickerDate = [[PickerViewController alloc] initWithArray: calendar andNumber:2];
     
+    dbAccess = [[DatabaseAccess alloc] init];
+    [dbAccess setDelegate:self];
+    
     [calendar release];
 
     
@@ -316,6 +336,8 @@
     [scadenza release];
 
     [abbinaButton release];
+    
+    [dbAccess release];
     
     [super dealloc];
 }
