@@ -214,6 +214,8 @@
 		ACC313C1151A7F16008DBEBA /* CellProdottoListino.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C0151A7F16008DBEBA /* CellProdottoListino.xib */; };
 		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
 		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
+		ACC3192A151CD815008229B0 /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
+		ACC3192B151CD815008229B0 /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
 		ACC747901517CDAE0049085F /* DatiUtenteLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACD939F0150E083B008D5C7B /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD939EE150E083B008D5C7B /* LoginController.m */; };
@@ -521,6 +523,9 @@
 		ACC313C0151A7F16008DBEBA /* CellProdottoListino.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellProdottoListino.xib; sourceTree = "<group>"; };
 		ACC313C7151A9507008DBEBA /* greenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButton.png; sourceTree = "<group>"; };
 		ACC313C9151A972C008DBEBA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		ACC31927151CD815008229B0 /* LoginControllerBis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginControllerBis.h; sourceTree = "<group>"; };
+		ACC31928151CD815008229B0 /* LoginControllerBis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginControllerBis.m; sourceTree = "<group>"; };
+		ACC31929151CD815008229B0 /* LoginControllerBis.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginControllerBis.xib; sourceTree = "<group>"; };
 		ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatiUtenteLogin.xib; sourceTree = "<group>"; };
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
 		ACD939ED150E083B008D5C7B /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -713,6 +718,9 @@
 				ACDBD981151755490079A966 /* RegistrazioneController.h */,
 				ACDBD982151755490079A966 /* RegistrazioneController.m */,
 				ACDBD983151755490079A966 /* RegistrazioneController.xib */,
+				ACC31927151CD815008229B0 /* LoginControllerBis.h */,
+				ACC31928151CD815008229B0 /* LoginControllerBis.m */,
+				ACC31929151CD815008229B0 /* LoginControllerBis.xib */,
 				19D4CA8D13ED5144001C7763 /* DatiPag.h */,
 				19D4CA8E13ED5144001C7763 /* DatiPag.m */,
 				19D4CA8F13ED5144001C7763 /* DatiPag.xib */,
@@ -1236,6 +1244,7 @@
 				ACC313C1151A7F16008DBEBA /* CellProdottoListino.xib in Resources */,
 				ACC313C8151A9507008DBEBA /* greenButton.png in Resources */,
 				ACB207F2151BE5EC0033B060 /* DataLoginController.xib in Resources */,
+				ACC3192B151CD815008229B0 /* LoginControllerBis.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1328,6 +1337,7 @@
 				ACF7656E151A4CF000914BDD /* IAPHelper.m in Sources */,
 				ACF76572151A4D1000914BDD /* MBProgressHUD.m in Sources */,
 				ACB207F1151BE5EC0033B060 /* DataLoginController.m in Sources */,
+				ACC3192A151CD815008229B0 /* LoginControllerBis.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
