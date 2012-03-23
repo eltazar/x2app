@@ -24,8 +24,9 @@
 
 #import "DatabaseAccess.h"
 #import "LoginController.h"
+#import "LoginControllerBis.h"
 
-@interface Coupon : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, DatabaseAccessDelegate,LoginControllerDelegate>{
+@interface Coupon : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, DatabaseAccessDelegate,LoginControllerDelegate,LoginControllerBisDelegate>{
         
 	NSInteger identificativoesercente;
 	IBOutlet UIViewController *insintesi;
