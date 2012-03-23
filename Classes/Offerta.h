@@ -23,8 +23,9 @@
 #import "Facebook.h"
 #import "DatabaseAccess.h"
 #import "LoginController.h"
+#import "LoginControllerBis.h"
 
-@interface Offerta : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, DatabaseAccessDelegate, LoginControllerDelegate>{
+@interface Offerta : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, DatabaseAccessDelegate, LoginControllerDelegate,LoginControllerBisDelegate>{
     
 	
     IBOutlet UIViewController *insintesi;

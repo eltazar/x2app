@@ -483,7 +483,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             
             if(!idUtente){
                 //lancio view modale per il login
-                LoginController *loginController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
+                //LoginController *loginController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
+                LoginControllerBis *loginController = [[LoginControllerBis alloc] initWithNibName:@"LoginControllerBis" bundle:nil];
                 
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
                 loginController.delegate = self;
