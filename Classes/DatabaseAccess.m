@@ -311,7 +311,7 @@ NSString* key(NSURLConnection* con)
     
     
     NSURLRequest *request =
-    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]]];
+    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon2.php?prov=%@",prov]]];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
