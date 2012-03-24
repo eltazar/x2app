@@ -52,12 +52,12 @@
 						<object class="IBUIWebView" id="528589431">
 							<reference key="NSNextResponder" ref="699147415"/>
 							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{7, 35}, {307, 332}}</string>
+							<string key="NSFrame">{{7, 11}, {307, 356}}</string>
 							<reference key="NSSuperview" ref="699147415"/>
 							<reference key="NSWindow"/>
-							<object class="NSColor" key="IBUIBackgroundColor" id="647287524">
+							<object class="NSColor" key="IBUIBackgroundColor">
 								<int key="NSColorSpace">1</int>
-								<bytes key="NSRGB">MSAxIDEAA</bytes>
+								<bytes key="NSRGB">MC41NTYxMjI0NDkgMC4wODI5NDE3MTMwMiAwLjAyODUyMzIzMDYAA</bytes>
 							</object>
 							<bool key="IBUIMultipleTouchEnabled">YES</bool>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -100,7 +100,10 @@
 							<string key="NSFrame">{{7, 29}, {307, 338}}</string>
 							<reference key="NSSuperview" ref="466845750"/>
 							<reference key="NSWindow"/>
-							<reference key="IBUIBackgroundColor" ref="647287524"/>
+							<object class="NSColor" key="IBUIBackgroundColor" id="647287524">
+								<int key="NSColorSpace">1</int>
+								<bytes key="NSRGB">MSAxIDEAA</bytes>
+							</object>
 							<bool key="IBUIMultipleTouchEnabled">YES</bool>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							<bool key="IBUIScalesPageToFit">YES</bool>
@@ -139,7 +142,7 @@
 						<object class="IBUIWebView" id="200632097">
 							<reference key="NSNextResponder" ref="1024822705"/>
 							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{7, 26}, {307, 341}}</string>
+							<string key="NSFrame">{{7, 10}, {307, 357}}</string>
 							<reference key="NSSuperview" ref="1024822705"/>
 							<reference key="NSWindow"/>
 							<reference key="IBUIBackgroundColor" ref="647287524"/>
