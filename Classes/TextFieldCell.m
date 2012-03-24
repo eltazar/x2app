@@ -29,6 +29,7 @@
 		self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         self.textField.placeholder = [dictionary objectForKey:@"placeholder"];
         self.textField.text = [dictionary objectForKey:@"detailLabel"];
+        self.textField.secureTextEntry = [[dictionary objectForKey:@"isSecret"]integerValue];
 //        
 //        if(![dictionary objectForKey:@"detailLabel"] || [[dictionary objectForKey:@"detailLabel"] isEqualToString:@""]){
 //            self.textField.placeholder = [dictionary objectForKey:@"placeholder"];
