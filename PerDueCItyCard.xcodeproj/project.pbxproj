@@ -203,6 +203,7 @@
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
 		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
+		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1054,6 +1055,7 @@
 				19186662139A49D800172698 /* Pubs e Bar.png in Resources */,
 				19186663139A49D800172698 /* Pubs e Bar@2x.png in Resources */,
 				19186664139A49D800172698 /* Ristoranti.png in Resources */,
+				D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */,
 				19186665139A49D800172698 /* Ristoranti@2x.png in Resources */,
 				19186666139A49D800172698 /* Teatri.png in Resources */,
 				19186667139A49D800172698 /* Teatri@2x.png in Resources */,
