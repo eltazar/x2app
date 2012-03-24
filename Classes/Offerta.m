@@ -1108,7 +1108,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
         NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",timer);
     }
-    //DA METTERE [dict release];
+    
+    [coupon release];
     
 }
 
