@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "DatiPagamentoController.h"
 #import "BaseCell.h"
 #import "PickerViewController.h"
@@ -264,7 +265,7 @@
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"buttonGrayPattern.png"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"grayButton.png"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
@@ -279,7 +280,8 @@
         
         // this sets up the callback for when the user hits the button
         [b addTarget:self action:@selector(cancelBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
+        b.layer.cornerRadius = 8.0f;
+        b.layer.masksToBounds = YES;
         // add the button to the parent view
         [v addSubview:b];
         
