@@ -12,6 +12,8 @@
 #import "ActionCell.h"
 #import "RegistrazioneController.h"
 #import "Utilita.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface LoginControllerBis() {
 }
@@ -356,7 +358,7 @@
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"buttonGrayPattern.png"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"grayButton.png"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
@@ -371,6 +373,9 @@
         
         // this sets up the callback for when the user hits the button
         [b addTarget:self action:@selector(loginBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
+        b.layer.cornerRadius = 8.0f;
+        b.layer.masksToBounds = YES;
         
         // add the button to the parent view
         [v addSubview:b];
