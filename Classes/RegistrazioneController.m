@@ -338,13 +338,13 @@
     //[saveBtn release];
     [cancelBtn release];
     
-    UIBarButtonItem *regBtn = [[UIBarButtonItem alloc] initWithTitle:@"Registrami" style:UIBarButtonItemStyleBordered target:self action:@selector(sendRequestClicked:)];
+    UIBarButtonItem *regBtn = [[UIBarButtonItem alloc] initWithTitle:@"Registrati" style:UIBarButtonItemStyleBordered target:self action:@selector(sendRequestClicked:)];
     
     self.navigationItem.rightBarButtonItem = regBtn;
     [regBtn release];
 
     
-    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"Dati",@"", nil];  
+    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"Inserisci i dati",@"", nil];  
     sectionData = [[NSMutableArray alloc] init];
     
     NSArray *secBtn = [[NSArray alloc] init];
