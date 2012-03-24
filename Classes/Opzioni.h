@@ -24,7 +24,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *fatto;
 @property (nonatomic, retain) NSArray *giorni;
 @property (nonatomic, retain) NSArray *provinceattive;
-@property (nonatomic, retain) NSIndexPath *lastIndexPath;
 - (IBAction)chiudi:(id)sender;
 
 @end

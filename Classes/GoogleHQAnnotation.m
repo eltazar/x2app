@@ -9,15 +9,16 @@
 #import "GoogleHQAnnotation.h"
 
 @implementation GoogleHQAnnotation
+
 @synthesize coordinate;
 
-- (id)init:(double)latitudine:(double)longitudine:(NSString*)nome:(NSString*)indirizzo:(int)identificativo{
-    coordinate.latitude = latitudine;
-    coordinate.longitude = longitudine;
-	title=nome;
-	subtitle=indirizzo;
-	ide=identificativo;
-    return [super init];
+- (id)init:(CLLocationDegrees)latitudine:(CLLocationDegrees)longitudine:(NSString*)nome:(NSString*)indirizzo:(int)identificativo{
+    self = [super init];
+    self.coordinate = CLLocationCoordinate2DMake(latitudine, longitudine);
+	title = [nome retain];
+	subtitle = [indirizzo retain];
+	ide = identificativo;
+    return self;
 }
 
 
@@ -25,12 +26,20 @@
     return title;
 }
 
+
 - (NSString *)subtitle {
     return subtitle;
 }
 
 - (int)ide{
-    return ide;;
+    return ide;
 }
+
+
+- (void)dealloc {
+    [title release];
+    [subtitle release];
+}
+
 
 @end

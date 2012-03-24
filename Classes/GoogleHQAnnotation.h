@@ -16,10 +16,10 @@
 	int ide;
 }
 
-@property (readwrite,nonatomic) CLLocationCoordinate2D coordinate;
+@property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 
 
-- (id)init:(double)latitudine:(double)longitudine:(NSString*)nome:(NSString*)indirizzo:(int)identificativo;
+- (id)init:(CLLocationDegrees)latitudine:(CLLocationDegrees)longitudine:(NSString *)nome:(NSString* )indirizzo:(int)identificativo;
 - (NSString *)title;
 - (NSString *)subtitle;
 - (int)ide;
