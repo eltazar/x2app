@@ -9,6 +9,8 @@
 #import "DoveUsarla.h"
 #import "CategoriaCommerciale.h"
 #import "UserDefaults.h"
+#import "Opzioni.h"
+#import "Info.h"
 
 
 @interface DoveUsarla () {

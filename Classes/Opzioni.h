@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "Home.h"
 
 @interface Opzioni: UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 {

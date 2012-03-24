@@ -9,18 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "Reachability.h"
-#import "Ristoranti.h"
-#import "Pubsebar.h"
-#import "Cinema.h"
-#import "Teatri.h"
-#import "Musei.h"
-#import "Librerie.h"
-#import "Benessere.h"
-#import "Parchi.h"
-#import "Viaggi.h"
-#import "Altro.h"
-#import "Opzioni.h"
-#import "Info.h"
 
 @interface DoveUsarla : UITableViewController<CLLocationManagerDelegate,UIAlertViewDelegate>  {
 	NSArray *dataModel;

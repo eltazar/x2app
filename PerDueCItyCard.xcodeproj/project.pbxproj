@@ -41,10 +41,8 @@
 		191D6AB713B472570039A725 /* CellaCoupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 191D6AB613B472570039A725 /* CellaCoupon.xib */; };
 		1923D88C13F81648005A9815 /* OpzioniCoupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 1923D88A13F81648005A9815 /* OpzioniCoupon.m */; };
 		1923D88D13F81648005A9815 /* OpzioniCoupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1923D88B13F81648005A9815 /* OpzioniCoupon.xib */; };
-		193705011354600C008A07AF /* Ristoranti.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193704FF1354600C008A07AF /* Ristoranti.xib */; };
 		193706281354886F008A07AF /* News.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193706261354886F008A07AF /* News.xib */; };
 		1937064013548957008A07AF /* Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1937063E13548957008A07AF /* Coupon.xib */; };
-		193706C11354BF98008A07AF /* Cinema.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193706BF1354BF98008A07AF /* Cinema.xib */; };
 		19472FFD13CCB58D0009BFB6 /* CellaCouponesercente.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19472FFC13CCB58D0009BFB6 /* CellaCouponesercente.xib */; };
 		1947FDAD13D5DA1D00C3489B /* riepilogodatipersonali.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1947FDAC13D5DA1D00C3489B /* riepilogodatipersonali.xib */; };
 		1947FDEA13D5E4E600C3489B /* riepilogocartadicredito.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1947FDE913D5E4E600C3489B /* riepilogocartadicredito.xib */; };
@@ -55,7 +53,6 @@
 		196CD27D136EDC4900879122 /* Info.xib in Resources */ = {isa = PBXBuildFile; fileRef = 196CD27B136EDC4900879122 /* Info.xib */; };
 		1971C69913B718700032553A /* infocoupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1971C69813B7186F0032553A /* infocoupon.xib */; };
 		198C6A8213C843AE001E9399 /* cellatotalepagamento.xib in Resources */ = {isa = PBXBuildFile; fileRef = 198C6A8113C843AE001E9399 /* cellatotalepagamento.xib */; };
-		198CFF99136EE8230094F13C /* CellaHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 198CFF98136EE8230094F13C /* CellaHome.xib */; };
 		1995933A139657EE00E4064B /* cellaindirizzo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959339139657EE00E4064B /* cellaindirizzo.xib */; };
 		199593CF1396745D00E4064B /* CellaValidita.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199593CE1396745D00E4064B /* CellaValidita.xib */; };
 		1995949B1396974800E4064B /* CellaValidita2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1995949A1396974800E4064B /* CellaValidita2.xib */; };
@@ -73,38 +70,18 @@
 		19990D52138EC6AB003DB0D2 /* Notizia.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19990D50138EC6AB003DB0D2 /* Notizia.xib */; };
 		199910B8138FDE35003DB0D2 /* Commenti.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199910B6138FDE35003DB0D2 /* Commenti.xib */; };
 		1999401113902345006950F1 /* Commento.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1999400F13902345006950F1 /* Commento.xib */; };
-		199951911362AD0B0023C7EF /* Teatri.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1999518F1362AD0B0023C7EF /* Teatri.xib */; };
-		199951961362AD270023C7EF /* Musei.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199951941362AD270023C7EF /* Musei.xib */; };
-		1999519B1362AD380023C7EF /* Librerie.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199951991362AD380023C7EF /* Librerie.xib */; };
 		199FEAC213C871F70030CDD8 /* celladatipersonali.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199FEAC113C871F70030CDD8 /* celladatipersonali.xib */; };
 		19A0B3991384FF0E004C5DEA /* CellaDettaglio1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19A0B3981384FF0E004C5DEA /* CellaDettaglio1.xib */; };
-		19A0B76D138610F2004C5DEA /* CellaFinale.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19A0B76C138610F2004C5DEA /* CellaFinale.xib */; };
 		19A494D1139CE42C00ECFA7E /* cellacredits.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19A494D0139CE42C00ECFA7E /* cellacredits.xib */; };
 		19A495D6139D03D000ECFA7E /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A495D4139D03D000ECFA7E /* logo.png */; };
 		19A495D7139D03D000ECFA7E /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A495D5139D03D000ECFA7E /* logo@2x.png */; };
 		19A4960F139D0CE200ECFA7E /* footer.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A4960D139D0CE200ECFA7E /* footer.png */; };
 		19A49610139D0CE200ECFA7E /* footer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A4960E139D0CE200ECFA7E /* footer@2x.png */; };
-		19A843BC136DCF4B00B6C89F /* Opzioni.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19A843BA136DCF4B00B6C89F /* Opzioni.xib */; };
 		19BE0EFB13588A5500C0ED8F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19BE0EFA13588A5500C0ED8F /* CoreLocation.framework */; };
-		19BE719B1361D516003ABA7D /* CellaElencoAltriEsercenti.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19BE719A1361D516003ABA7D /* CellaElencoAltriEsercenti.xib */; };
 		19BF9ABB13FAB87500F00730 /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19BF9ABA13FAB87500F00730 /* AsyncImageView.m */; };
-		19C9850B13538A0F0010774E /* Header.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C9850A13538A0F0010774E /* Header.xib */; };
-		19C98556135395E70010774E /* CellaRistoPub.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C98555135395E70010774E /* CellaRistoPub.xib */; };
-		19CB7DF3134F9FAF008FD9DE /* Home.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19CB7DF1134F9FAF008FD9DE /* Home.xib */; };
-		19CB7E2B134FAAF0008FD9DE /* Pubsebar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19CB7E29134FAAF0008FD9DE /* Pubsebar.xib */; };
-		19D09D671366A38100A3484D /* Benessere.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D09D651366A38100A3484D /* Benessere.xib */; };
-		19D09D6C1366A38B00A3484D /* Parchi.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D09D6A1366A38B00A3484D /* Parchi.xib */; };
-		19D09D711366A39F00A3484D /* Viaggi.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D09D6F1366A39F00A3484D /* Viaggi.xib */; };
-		19D09D761366A3A700A3484D /* Altro.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D09D741366A3A700A3484D /* Altro.xib */; };
 		19D4CAD113ED5145001C7763 /* AltreOfferte.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA7613ED5144001C7763 /* AltreOfferte.m */; };
 		19D4CAD213ED5145001C7763 /* AltreOfferte.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA7713ED5144001C7763 /* AltreOfferte.xib */; };
-		19D4CAD313ED5145001C7763 /* Altro.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA7913ED5144001C7763 /* Altro.m */; };
-		19D4CAD413ED5145001C7763 /* Altro.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA7A13ED5144001C7763 /* Altro.xib */; };
-		19D4CAD513ED5145001C7763 /* Benessere.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA7C13ED5144001C7763 /* Benessere.m */; };
-		19D4CAD613ED5145001C7763 /* Benessere.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA7D13ED5144001C7763 /* Benessere.xib */; };
 		19D4CAD713ED5145001C7763 /* Celladati.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA7F13ED5144001C7763 /* Celladati.m */; };
-		19D4CAD813ED5145001C7763 /* Cinema.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8113ED5144001C7763 /* Cinema.m */; };
-		19D4CAD913ED5145001C7763 /* Cinema.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8213ED5144001C7763 /* Cinema.xib */; };
 		19D4CADA13ED5145001C7763 /* Commenti.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8413ED5144001C7763 /* Commenti.m */; };
 		19D4CADB13ED5145001C7763 /* Commenti.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8513ED5144001C7763 /* Commenti.xib */; };
 		19D4CADC13ED5145001C7763 /* Commento.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8713ED5144001C7763 /* Commento.m */; };
@@ -127,15 +104,8 @@
 		19D4CAED13ED5145001C7763 /* DettaglioRistoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA013ED5144001C7763 /* DettaglioRistoPub.m */; };
 		19D4CAEE13ED5145001C7763 /* DettaglioRistoPub.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAA113ED5144001C7763 /* DettaglioRistoPub.xib */; };
 		19D4CAEF13ED5145001C7763 /* GoogleHQAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA313ED5144001C7763 /* GoogleHQAnnotation.m */; };
-		19D4CAF013ED5145001C7763 /* Header.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAA413ED5144001C7763 /* Header.xib */; };
-		19D4CAF113ED5145001C7763 /* Home.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA613ED5144001C7763 /* Home.m */; };
-		19D4CAF213ED5145001C7763 /* Home.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAA713ED5144001C7763 /* Home.xib */; };
 		19D4CAF313ED5145001C7763 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA913ED5144001C7763 /* Info.m */; };
 		19D4CAF413ED5145001C7763 /* Info.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAAA13ED5144001C7763 /* Info.xib */; };
-		19D4CAF513ED5145001C7763 /* Librerie.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAAC13ED5144001C7763 /* Librerie.m */; };
-		19D4CAF613ED5145001C7763 /* Librerie.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAAD13ED5144001C7763 /* Librerie.xib */; };
-		19D4CAF713ED5145001C7763 /* Musei.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAAF13ED5144001C7763 /* Musei.m */; };
-		19D4CAF813ED5145001C7763 /* Musei.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAB013ED5144001C7763 /* Musei.xib */; };
 		19D4CAF913ED5145001C7763 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB213ED5144001C7763 /* News.m */; };
 		19D4CAFA13ED5145001C7763 /* News.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAB313ED5144001C7763 /* News.xib */; };
 		19D4CAFB13ED5145001C7763 /* Notizia.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB513ED5144001C7763 /* Notizia.m */; };
@@ -146,17 +116,7 @@
 		19D4CB0013ED5145001C7763 /* Opzioni.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CABC13ED5144001C7763 /* Opzioni.xib */; };
 		19D4CB0113ED5145001C7763 /* Pagamento2.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CABE13ED5144001C7763 /* Pagamento2.m */; };
 		19D4CB0213ED5145001C7763 /* Pagamento2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CABF13ED5144001C7763 /* Pagamento2.xib */; };
-		19D4CB0313ED5145001C7763 /* Parchi.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAC113ED5145001C7763 /* Parchi.m */; };
-		19D4CB0413ED5145001C7763 /* Parchi.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAC213ED5145001C7763 /* Parchi.xib */; };
 		19D4CB0513ED5145001C7763 /* PerDueCItyCardAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAC413ED5145001C7763 /* PerDueCItyCardAppDelegate.m */; };
-		19D4CB0613ED5145001C7763 /* Pubsebar.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAC613ED5145001C7763 /* Pubsebar.m */; };
-		19D4CB0713ED5145001C7763 /* Pubsebar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAC713ED5145001C7763 /* Pubsebar.xib */; };
-		19D4CB0813ED5145001C7763 /* Ristoranti.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAC913ED5145001C7763 /* Ristoranti.m */; };
-		19D4CB0913ED5145001C7763 /* Ristoranti.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CACA13ED5145001C7763 /* Ristoranti.xib */; };
-		19D4CB0A13ED5145001C7763 /* Teatri.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CACC13ED5145001C7763 /* Teatri.m */; };
-		19D4CB0B13ED5145001C7763 /* Teatri.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CACD13ED5145001C7763 /* Teatri.xib */; };
-		19D4CB0C13ED5145001C7763 /* Viaggi.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CACF13ED5145001C7763 /* Viaggi.m */; };
-		19D4CB0D13ED5145001C7763 /* Viaggi.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAD013ED5145001C7763 /* Viaggi.xib */; };
 		19DA381413A9FFFE007B5D38 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DA381313A9FFFE007B5D38 /* Reachability.m */; };
 		19DA382313AA008D007B5D38 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19DA382213AA008D007B5D38 /* SystemConfiguration.framework */; };
 		19EAE470136C299C0068B2F1 /* DettaglioEsercenti.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19EAE46E136C299C0068B2F1 /* DettaglioEsercenti.xib */; };
@@ -284,10 +244,8 @@
 		1923D88913F81648005A9815 /* OpzioniCoupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpzioniCoupon.h; sourceTree = "<group>"; };
 		1923D88A13F81648005A9815 /* OpzioniCoupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpzioniCoupon.m; sourceTree = "<group>"; };
 		1923D88B13F81648005A9815 /* OpzioniCoupon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OpzioniCoupon.xib; sourceTree = "<group>"; };
-		193704FF1354600C008A07AF /* Ristoranti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Ristoranti.xib; path = Classes/Ristoranti.xib; sourceTree = "<group>"; };
 		193706261354886F008A07AF /* News.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = News.xib; path = Classes/News.xib; sourceTree = "<group>"; };
 		1937063E13548957008A07AF /* Coupon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Coupon.xib; path = Classes/Coupon.xib; sourceTree = "<group>"; };
-		193706BF1354BF98008A07AF /* Cinema.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Cinema.xib; path = Classes/Cinema.xib; sourceTree = "<group>"; };
 		19472FFC13CCB58D0009BFB6 /* CellaCouponesercente.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaCouponesercente.xib; sourceTree = "<group>"; };
 		1947FDAC13D5DA1D00C3489B /* riepilogodatipersonali.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = riepilogodatipersonali.xib; sourceTree = "<group>"; };
 		1947FDE913D5E4E600C3489B /* riepilogocartadicredito.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = riepilogocartadicredito.xib; sourceTree = "<group>"; };
@@ -300,7 +258,6 @@
 		196CD27B136EDC4900879122 /* Info.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Info.xib; path = Classes/Info.xib; sourceTree = "<group>"; };
 		1971C69813B7186F0032553A /* infocoupon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = infocoupon.xib; path = img/infocoupon.xib; sourceTree = "<group>"; };
 		198C6A8113C843AE001E9399 /* cellatotalepagamento.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellatotalepagamento.xib; sourceTree = "<group>"; };
-		198CFF98136EE8230094F13C /* CellaHome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaHome.xib; sourceTree = "<group>"; };
 		19959339139657EE00E4064B /* cellaindirizzo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellaindirizzo.xib; sourceTree = "<group>"; };
 		199593CE1396745D00E4064B /* CellaValidita.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaValidita.xib; sourceTree = "<group>"; };
 		1995949A1396974800E4064B /* CellaValidita2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaValidita2.xib; sourceTree = "<group>"; };
@@ -328,44 +285,21 @@
 		19990D50138EC6AB003DB0D2 /* Notizia.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Notizia.xib; path = Classes/Notizia.xib; sourceTree = "<group>"; };
 		199910B6138FDE35003DB0D2 /* Commenti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Commenti.xib; path = Classes/Commenti.xib; sourceTree = "<group>"; };
 		1999400F13902345006950F1 /* Commento.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Commento.xib; path = Classes/Commento.xib; sourceTree = "<group>"; };
-		1999518F1362AD0B0023C7EF /* Teatri.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Teatri.xib; path = Classes/Teatri.xib; sourceTree = "<group>"; };
-		199951941362AD270023C7EF /* Musei.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Musei.xib; path = Classes/Musei.xib; sourceTree = "<group>"; };
-		199951991362AD380023C7EF /* Librerie.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Librerie.xib; path = Classes/Librerie.xib; sourceTree = "<group>"; };
 		199FEAC113C871F70030CDD8 /* celladatipersonali.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = celladatipersonali.xib; sourceTree = "<group>"; };
 		19A0B3981384FF0E004C5DEA /* CellaDettaglio1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaDettaglio1.xib; sourceTree = "<group>"; };
-		19A0B76C138610F2004C5DEA /* CellaFinale.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaFinale.xib; sourceTree = "<group>"; };
 		19A494D0139CE42C00ECFA7E /* cellacredits.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellacredits.xib; sourceTree = "<group>"; };
 		19A495D4139D03D000ECFA7E /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		19A495D5139D03D000ECFA7E /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		19A4960D139D0CE200ECFA7E /* footer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = footer.png; sourceTree = "<group>"; };
 		19A4960E139D0CE200ECFA7E /* footer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "footer@2x.png"; sourceTree = "<group>"; };
-		19A843BA136DCF4B00B6C89F /* Opzioni.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Opzioni.xib; path = Classes/Opzioni.xib; sourceTree = "<group>"; };
 		19BE0EFA13588A5500C0ED8F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		19BE719A1361D516003ABA7D /* CellaElencoAltriEsercenti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaElencoAltriEsercenti.xib; sourceTree = "<group>"; };
 		19BF9AB913FAB87500F00730 /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
 		19BF9ABA13FAB87500F00730 /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
-		19C9850A13538A0F0010774E /* Header.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Header.xib; path = Classes/Header.xib; sourceTree = "<group>"; };
-		19C98555135395E70010774E /* CellaRistoPub.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaRistoPub.xib; sourceTree = "<group>"; };
-		19CB7DF1134F9FAF008FD9DE /* Home.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Home.xib; path = Classes/Home.xib; sourceTree = "<group>"; };
-		19CB7E29134FAAF0008FD9DE /* Pubsebar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Pubsebar.xib; path = Classes/Pubsebar.xib; sourceTree = "<group>"; };
-		19D09D651366A38100A3484D /* Benessere.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Benessere.xib; path = Classes/Benessere.xib; sourceTree = "<group>"; };
-		19D09D6A1366A38B00A3484D /* Parchi.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Parchi.xib; path = Classes/Parchi.xib; sourceTree = "<group>"; };
-		19D09D6F1366A39F00A3484D /* Viaggi.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Viaggi.xib; path = Classes/Viaggi.xib; sourceTree = "<group>"; };
-		19D09D741366A3A700A3484D /* Altro.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Altro.xib; path = Classes/Altro.xib; sourceTree = "<group>"; };
 		19D4CA7513ED5144001C7763 /* AltreOfferte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AltreOfferte.h; sourceTree = "<group>"; };
 		19D4CA7613ED5144001C7763 /* AltreOfferte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AltreOfferte.m; sourceTree = "<group>"; };
 		19D4CA7713ED5144001C7763 /* AltreOfferte.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AltreOfferte.xib; sourceTree = "<group>"; };
-		19D4CA7813ED5144001C7763 /* Altro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Altro.h; sourceTree = "<group>"; };
-		19D4CA7913ED5144001C7763 /* Altro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Altro.m; sourceTree = "<group>"; };
-		19D4CA7A13ED5144001C7763 /* Altro.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Altro.xib; sourceTree = "<group>"; };
-		19D4CA7B13ED5144001C7763 /* Benessere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Benessere.h; sourceTree = "<group>"; };
-		19D4CA7C13ED5144001C7763 /* Benessere.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Benessere.m; sourceTree = "<group>"; };
-		19D4CA7D13ED5144001C7763 /* Benessere.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Benessere.xib; sourceTree = "<group>"; };
 		19D4CA7E13ED5144001C7763 /* Celladati.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Celladati.h; sourceTree = "<group>"; };
 		19D4CA7F13ED5144001C7763 /* Celladati.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Celladati.m; sourceTree = "<group>"; };
-		19D4CA8013ED5144001C7763 /* Cinema.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cinema.h; sourceTree = "<group>"; };
-		19D4CA8113ED5144001C7763 /* Cinema.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cinema.m; sourceTree = "<group>"; };
-		19D4CA8213ED5144001C7763 /* Cinema.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Cinema.xib; sourceTree = "<group>"; };
 		19D4CA8313ED5144001C7763 /* Commenti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commenti.h; sourceTree = "<group>"; };
 		19D4CA8413ED5144001C7763 /* Commenti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commenti.m; sourceTree = "<group>"; };
 		19D4CA8513ED5144001C7763 /* Commenti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Commenti.xib; sourceTree = "<group>"; };
@@ -399,19 +333,9 @@
 		19D4CAA113ED5144001C7763 /* DettaglioRistoPub.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DettaglioRistoPub.xib; sourceTree = "<group>"; };
 		19D4CAA213ED5144001C7763 /* GoogleHQAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleHQAnnotation.h; sourceTree = "<group>"; };
 		19D4CAA313ED5144001C7763 /* GoogleHQAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleHQAnnotation.m; sourceTree = "<group>"; };
-		19D4CAA413ED5144001C7763 /* Header.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Header.xib; sourceTree = "<group>"; };
-		19D4CAA513ED5144001C7763 /* Home.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Home.h; sourceTree = "<group>"; };
-		19D4CAA613ED5144001C7763 /* Home.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Home.m; sourceTree = "<group>"; };
-		19D4CAA713ED5144001C7763 /* Home.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Home.xib; sourceTree = "<group>"; };
 		19D4CAA813ED5144001C7763 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = "<group>"; };
 		19D4CAA913ED5144001C7763 /* Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Info.m; sourceTree = "<group>"; };
 		19D4CAAA13ED5144001C7763 /* Info.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Info.xib; sourceTree = "<group>"; };
-		19D4CAAB13ED5144001C7763 /* Librerie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Librerie.h; sourceTree = "<group>"; };
-		19D4CAAC13ED5144001C7763 /* Librerie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Librerie.m; sourceTree = "<group>"; };
-		19D4CAAD13ED5144001C7763 /* Librerie.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Librerie.xib; sourceTree = "<group>"; };
-		19D4CAAE13ED5144001C7763 /* Musei.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Musei.h; sourceTree = "<group>"; };
-		19D4CAAF13ED5144001C7763 /* Musei.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Musei.m; sourceTree = "<group>"; };
-		19D4CAB013ED5144001C7763 /* Musei.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Musei.xib; sourceTree = "<group>"; };
 		19D4CAB113ED5144001C7763 /* News.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = News.h; sourceTree = "<group>"; };
 		19D4CAB213ED5144001C7763 /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
 		19D4CAB313ED5144001C7763 /* News.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = News.xib; sourceTree = "<group>"; };
@@ -427,23 +351,8 @@
 		19D4CABD13ED5144001C7763 /* Pagamento2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pagamento2.h; sourceTree = "<group>"; };
 		19D4CABE13ED5144001C7763 /* Pagamento2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pagamento2.m; sourceTree = "<group>"; };
 		19D4CABF13ED5144001C7763 /* Pagamento2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Pagamento2.xib; sourceTree = "<group>"; };
-		19D4CAC013ED5145001C7763 /* Parchi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parchi.h; sourceTree = "<group>"; };
-		19D4CAC113ED5145001C7763 /* Parchi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Parchi.m; sourceTree = "<group>"; };
-		19D4CAC213ED5145001C7763 /* Parchi.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Parchi.xib; sourceTree = "<group>"; };
 		19D4CAC313ED5145001C7763 /* PerDueCItyCardAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerDueCItyCardAppDelegate.h; sourceTree = "<group>"; };
 		19D4CAC413ED5145001C7763 /* PerDueCItyCardAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerDueCItyCardAppDelegate.m; sourceTree = "<group>"; };
-		19D4CAC513ED5145001C7763 /* Pubsebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pubsebar.h; sourceTree = "<group>"; };
-		19D4CAC613ED5145001C7763 /* Pubsebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pubsebar.m; sourceTree = "<group>"; };
-		19D4CAC713ED5145001C7763 /* Pubsebar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Pubsebar.xib; sourceTree = "<group>"; };
-		19D4CAC813ED5145001C7763 /* Ristoranti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ristoranti.h; sourceTree = "<group>"; };
-		19D4CAC913ED5145001C7763 /* Ristoranti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ristoranti.m; sourceTree = "<group>"; };
-		19D4CACA13ED5145001C7763 /* Ristoranti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Ristoranti.xib; sourceTree = "<group>"; };
-		19D4CACB13ED5145001C7763 /* Teatri.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Teatri.h; sourceTree = "<group>"; };
-		19D4CACC13ED5145001C7763 /* Teatri.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Teatri.m; sourceTree = "<group>"; };
-		19D4CACD13ED5145001C7763 /* Teatri.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Teatri.xib; sourceTree = "<group>"; };
-		19D4CACE13ED5145001C7763 /* Viaggi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Viaggi.h; sourceTree = "<group>"; };
-		19D4CACF13ED5145001C7763 /* Viaggi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Viaggi.m; sourceTree = "<group>"; };
-		19D4CAD013ED5145001C7763 /* Viaggi.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Viaggi.xib; sourceTree = "<group>"; };
 		19DA381213A9FFFE007B5D38 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		19DA381313A9FFFE007B5D38 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		19DA382213AA008D007B5D38 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -716,18 +625,9 @@
 				19D4CA7513ED5144001C7763 /* AltreOfferte.h */,
 				19D4CA7613ED5144001C7763 /* AltreOfferte.m */,
 				19D4CA7713ED5144001C7763 /* AltreOfferte.xib */,
-				19D4CA7813ED5144001C7763 /* Altro.h */,
-				19D4CA7913ED5144001C7763 /* Altro.m */,
 				D9B05324151C8AED005A2E3D /* Dove Usarla V2 */,
-				19D4CA7A13ED5144001C7763 /* Altro.xib */,
-				19D4CA7B13ED5144001C7763 /* Benessere.h */,
-				19D4CA7C13ED5144001C7763 /* Benessere.m */,
-				19D4CA7D13ED5144001C7763 /* Benessere.xib */,
 				19D4CA7E13ED5144001C7763 /* Celladati.h */,
 				19D4CA7F13ED5144001C7763 /* Celladati.m */,
-				19D4CA8013ED5144001C7763 /* Cinema.h */,
-				19D4CA8113ED5144001C7763 /* Cinema.m */,
-				19D4CA8213ED5144001C7763 /* Cinema.xib */,
 				19D4CA8313ED5144001C7763 /* Commenti.h */,
 				19D4CA8413ED5144001C7763 /* Commenti.m */,
 				19D4CA8513ED5144001C7763 /* Commenti.xib */,
@@ -762,24 +662,11 @@
 				19D4CA9C13ED5144001C7763 /* DettaglioRistoCoupon.h */,
 				19D4CA9D13ED5144001C7763 /* DettaglioRistoCoupon.m */,
 				19D4CA9E13ED5144001C7763 /* DettaglioRistoCoupon.xib */,
-				19D4CA9F13ED5144001C7763 /* DettaglioRistoPub.h */,
-				19D4CAA013ED5144001C7763 /* DettaglioRistoPub.m */,
-				19D4CAA113ED5144001C7763 /* DettaglioRistoPub.xib */,
 				19D4CAA213ED5144001C7763 /* GoogleHQAnnotation.h */,
 				19D4CAA313ED5144001C7763 /* GoogleHQAnnotation.m */,
-				19D4CAA413ED5144001C7763 /* Header.xib */,
-				19D4CAA513ED5144001C7763 /* Home.h */,
-				19D4CAA613ED5144001C7763 /* Home.m */,
-				19D4CAA713ED5144001C7763 /* Home.xib */,
 				19D4CAA813ED5144001C7763 /* Info.h */,
 				19D4CAA913ED5144001C7763 /* Info.m */,
 				19D4CAAA13ED5144001C7763 /* Info.xib */,
-				19D4CAAB13ED5144001C7763 /* Librerie.h */,
-				19D4CAAC13ED5144001C7763 /* Librerie.m */,
-				19D4CAAD13ED5144001C7763 /* Librerie.xib */,
-				19D4CAAE13ED5144001C7763 /* Musei.h */,
-				19D4CAAF13ED5144001C7763 /* Musei.m */,
-				19D4CAB013ED5144001C7763 /* Musei.xib */,
 				19D4CAB113ED5144001C7763 /* News.h */,
 				19D4CAB213ED5144001C7763 /* News.m */,
 				19D4CAB313ED5144001C7763 /* News.xib */,
@@ -795,23 +682,8 @@
 				19D4CABD13ED5144001C7763 /* Pagamento2.h */,
 				19D4CABE13ED5144001C7763 /* Pagamento2.m */,
 				19D4CABF13ED5144001C7763 /* Pagamento2.xib */,
-				19D4CAC013ED5145001C7763 /* Parchi.h */,
-				19D4CAC113ED5145001C7763 /* Parchi.m */,
-				19D4CAC213ED5145001C7763 /* Parchi.xib */,
 				19D4CAC313ED5145001C7763 /* PerDueCItyCardAppDelegate.h */,
 				19D4CAC413ED5145001C7763 /* PerDueCItyCardAppDelegate.m */,
-				19D4CAC513ED5145001C7763 /* Pubsebar.h */,
-				19D4CAC613ED5145001C7763 /* Pubsebar.m */,
-				19D4CAC713ED5145001C7763 /* Pubsebar.xib */,
-				19D4CAC813ED5145001C7763 /* Ristoranti.h */,
-				19D4CAC913ED5145001C7763 /* Ristoranti.m */,
-				19D4CACA13ED5145001C7763 /* Ristoranti.xib */,
-				19D4CACB13ED5145001C7763 /* Teatri.h */,
-				19D4CACC13ED5145001C7763 /* Teatri.m */,
-				19D4CACD13ED5145001C7763 /* Teatri.xib */,
-				19D4CACE13ED5145001C7763 /* Viaggi.h */,
-				19D4CACF13ED5145001C7763 /* Viaggi.m */,
-				19D4CAD013ED5145001C7763 /* Viaggi.xib */,
 				19BF9AB913FAB87500F00730 /* AsyncImageView.h */,
 				19BF9ABA13FAB87500F00730 /* AsyncImageView.m */,
 				190BC5E61430E11E004D2705 /* Contatti.h */,
@@ -860,41 +732,24 @@
 			isa = PBXGroup;
 			children = (
 				19186625139A49D800172698 /* img */,
-				19D09D741366A3A700A3484D /* Altro.xib */,
-				19D09D651366A38100A3484D /* Benessere.xib */,
 				19A494D0139CE42C00ECFA7E /* cellacredits.xib */,
 				19A0B3981384FF0E004C5DEA /* CellaDettaglio1.xib */,
-				19BE719A1361D516003ABA7D /* CellaElencoAltriEsercenti.xib */,
-				19A0B76C138610F2004C5DEA /* CellaFinale.xib */,
-				198CFF98136EE8230094F13C /* CellaHome.xib */,
 				19959339139657EE00E4064B /* cellaindirizzo.xib */,
 				19990D29138EC0D8003DB0D2 /* CellaNews.xib */,
-				19C98555135395E70010774E /* CellaRistoPub.xib */,
 				199593CE1396745D00E4064B /* CellaValidita.xib */,
 				1995949A1396974800E4064B /* CellaValidita2.xib */,
-				193706BF1354BF98008A07AF /* Cinema.xib */,
 				199910B6138FDE35003DB0D2 /* Commenti.xib */,
 				1999400F13902345006950F1 /* Commento.xib */,
 				1937063E13548957008A07AF /* Coupon.xib */,
 				19EAE46E136C299C0068B2F1 /* DettaglioEsercenti.xib */,
 				19F4829713694B3E00F28694 /* DettaglioRistoPub.xib */,
-				19C9850A13538A0F0010774E /* Header.xib */,
-				19CB7DF1134F9FAF008FD9DE /* Home.xib */,
 				196CD27B136EDC4900879122 /* Info.xib */,
 				1971C69813B7186F0032553A /* infocoupon.xib */,
 				ACBEB024150BC16100F7B5F7 /* descrizioneOfferta.xib */,
-				199951991362AD380023C7EF /* Librerie.xib */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
-				199951941362AD270023C7EF /* Musei.xib */,
 				193706261354886F008A07AF /* News.xib */,
 				19990D50138EC6AB003DB0D2 /* Notizia.xib */,
-				19A843BA136DCF4B00B6C89F /* Opzioni.xib */,
-				19D09D6A1366A38B00A3484D /* Parchi.xib */,
 				1953EBBA137596EC00CEE3CD /* provacella.xib */,
-				19CB7E29134FAAF0008FD9DE /* Pubsebar.xib */,
-				193704FF1354600C008A07AF /* Ristoranti.xib */,
-				1999518F1362AD0B0023C7EF /* Teatri.xib */,
-				19D09D6F1366A39F00A3484D /* Viaggi.xib */,
 				8D1107310486CEB800E47090 /* PerDueCItyCard-Info.plist */,
 				191D6AB613B472570039A725 /* CellaCoupon.xib */,
 				1967109613C0C537007A4C22 /* cellaofferte.xib */,
@@ -1104,6 +959,9 @@
 				19D4CA9913ED5144001C7763 /* DettaglioEsercenti.h */,
 				19D4CA9A13ED5144001C7763 /* DettaglioEsercenti.m */,
 				19D4CA9B13ED5144001C7763 /* DettaglioEsercenti.xib */,
+				19D4CA9F13ED5144001C7763 /* DettaglioRistoPub.h */,
+				19D4CAA013ED5144001C7763 /* DettaglioRistoPub.m */,
+				19D4CAA113ED5144001C7763 /* DettaglioRistoPub.xib */,
 				19D4CABA13ED5144001C7763 /* Opzioni.h */,
 				19D4CABB13ED5144001C7763 /* Opzioni.m */,
 				19D4CABC13ED5144001C7763 /* Opzioni.xib */,
@@ -1161,30 +1019,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
-				19CB7DF3134F9FAF008FD9DE /* Home.xib in Resources */,
-				19CB7E2B134FAAF0008FD9DE /* Pubsebar.xib in Resources */,
-				19C9850B13538A0F0010774E /* Header.xib in Resources */,
-				19C98556135395E70010774E /* CellaRistoPub.xib in Resources */,
-				193705011354600C008A07AF /* Ristoranti.xib in Resources */,
 				193706281354886F008A07AF /* News.xib in Resources */,
 				1937064013548957008A07AF /* Coupon.xib in Resources */,
-				193706C11354BF98008A07AF /* Cinema.xib in Resources */,
-				19BE719B1361D516003ABA7D /* CellaElencoAltriEsercenti.xib in Resources */,
-				199951911362AD0B0023C7EF /* Teatri.xib in Resources */,
-				199951961362AD270023C7EF /* Musei.xib in Resources */,
-				1999519B1362AD380023C7EF /* Librerie.xib in Resources */,
-				19D09D671366A38100A3484D /* Benessere.xib in Resources */,
-				19D09D6C1366A38B00A3484D /* Parchi.xib in Resources */,
-				19D09D711366A39F00A3484D /* Viaggi.xib in Resources */,
-				19D09D761366A3A700A3484D /* Altro.xib in Resources */,
 				19F4829913694B3E00F28694 /* DettaglioRistoPub.xib in Resources */,
 				19EAE470136C299C0068B2F1 /* DettaglioEsercenti.xib in Resources */,
-				19A843BC136DCF4B00B6C89F /* Opzioni.xib in Resources */,
 				196CD27D136EDC4900879122 /* Info.xib in Resources */,
-				198CFF99136EE8230094F13C /* CellaHome.xib in Resources */,
 				1953EBBB137596EC00CEE3CD /* provacella.xib in Resources */,
 				19A0B3991384FF0E004C5DEA /* CellaDettaglio1.xib in Resources */,
-				19A0B76D138610F2004C5DEA /* CellaFinale.xib in Resources */,
 				19990D2A138EC0D8003DB0D2 /* CellaNews.xib in Resources */,
 				19990D52138EC6AB003DB0D2 /* Notizia.xib in Resources */,
 				199910B8138FDE35003DB0D2 /* Commenti.xib in Resources */,
@@ -1234,9 +1075,6 @@
 				1947FDAD13D5DA1D00C3489B /* riepilogodatipersonali.xib in Resources */,
 				1947FDEA13D5E4E600C3489B /* riepilogocartadicredito.xib in Resources */,
 				19D4CAD213ED5145001C7763 /* AltreOfferte.xib in Resources */,
-				19D4CAD413ED5145001C7763 /* Altro.xib in Resources */,
-				19D4CAD613ED5145001C7763 /* Benessere.xib in Resources */,
-				19D4CAD913ED5145001C7763 /* Cinema.xib in Resources */,
 				19D4CADB13ED5145001C7763 /* Commenti.xib in Resources */,
 				19D4CADD13ED5145001C7763 /* Commento.xib in Resources */,
 				19D4CADF13ED5145001C7763 /* Coupon.xib in Resources */,
@@ -1248,21 +1086,12 @@
 				19D4CAEA13ED5145001C7763 /* DettaglioEsercenti.xib in Resources */,
 				19D4CAEC13ED5145001C7763 /* DettaglioRistoCoupon.xib in Resources */,
 				19D4CAEE13ED5145001C7763 /* DettaglioRistoPub.xib in Resources */,
-				19D4CAF013ED5145001C7763 /* Header.xib in Resources */,
-				19D4CAF213ED5145001C7763 /* Home.xib in Resources */,
 				19D4CAF413ED5145001C7763 /* Info.xib in Resources */,
-				19D4CAF613ED5145001C7763 /* Librerie.xib in Resources */,
-				19D4CAF813ED5145001C7763 /* Musei.xib in Resources */,
 				19D4CAFA13ED5145001C7763 /* News.xib in Resources */,
 				19D4CAFC13ED5145001C7763 /* Notizia.xib in Resources */,
 				19D4CAFE13ED5145001C7763 /* Offerta.xib in Resources */,
 				19D4CB0013ED5145001C7763 /* Opzioni.xib in Resources */,
 				19D4CB0213ED5145001C7763 /* Pagamento2.xib in Resources */,
-				19D4CB0413ED5145001C7763 /* Parchi.xib in Resources */,
-				19D4CB0713ED5145001C7763 /* Pubsebar.xib in Resources */,
-				19D4CB0913ED5145001C7763 /* Ristoranti.xib in Resources */,
-				19D4CB0B13ED5145001C7763 /* Teatri.xib in Resources */,
-				19D4CB0D13ED5145001C7763 /* Viaggi.xib in Resources */,
 				1923D88D13F81648005A9815 /* OpzioniCoupon.xib in Resources */,
 				19F2B070140FA1A600B10A9A /* PerDueCItyCard_2.xcclassmodel in Resources */,
 				1960C1C7142A5EE400213D4C /* yellow3.jpg in Resources */,
@@ -1322,10 +1151,7 @@
 				19990B44138D8C97003DB0D2 /* CSerializedJSONData.m in Sources */,
 				19DA381413A9FFFE007B5D38 /* Reachability.m in Sources */,
 				19D4CAD113ED5145001C7763 /* AltreOfferte.m in Sources */,
-				19D4CAD313ED5145001C7763 /* Altro.m in Sources */,
-				19D4CAD513ED5145001C7763 /* Benessere.m in Sources */,
 				19D4CAD713ED5145001C7763 /* Celladati.m in Sources */,
-				19D4CAD813ED5145001C7763 /* Cinema.m in Sources */,
 				19D4CADA13ED5145001C7763 /* Commenti.m in Sources */,
 				19D4CADC13ED5145001C7763 /* Commento.m in Sources */,
 				19D4CADE13ED5145001C7763 /* Coupon.m in Sources */,
@@ -1337,22 +1163,14 @@
 				19D4CAEB13ED5145001C7763 /* DettaglioRistoCoupon.m in Sources */,
 				19D4CAED13ED5145001C7763 /* DettaglioRistoPub.m in Sources */,
 				19D4CAEF13ED5145001C7763 /* GoogleHQAnnotation.m in Sources */,
-				19D4CAF113ED5145001C7763 /* Home.m in Sources */,
 				19D4CAF313ED5145001C7763 /* Info.m in Sources */,
-				19D4CAF513ED5145001C7763 /* Librerie.m in Sources */,
-				19D4CAF713ED5145001C7763 /* Musei.m in Sources */,
 				19D4CAF913ED5145001C7763 /* News.m in Sources */,
 				19D4CAFB13ED5145001C7763 /* Notizia.m in Sources */,
 				19D4CAFD13ED5145001C7763 /* Offerta.m in Sources */,
 				19D4CAFF13ED5145001C7763 /* Opzioni.m in Sources */,
 				19D4CB0113ED5145001C7763 /* Pagamento2.m in Sources */,
-				19D4CB0313ED5145001C7763 /* Parchi.m in Sources */,
 				19D4CB0513ED5145001C7763 /* PerDueCItyCardAppDelegate.m in Sources */,
 				D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */,
-				19D4CB0613ED5145001C7763 /* Pubsebar.m in Sources */,
-				19D4CB0813ED5145001C7763 /* Ristoranti.m in Sources */,
-				19D4CB0A13ED5145001C7763 /* Teatri.m in Sources */,
-				19D4CB0C13ED5145001C7763 /* Viaggi.m in Sources */,
 				1923D88C13F81648005A9815 /* OpzioniCoupon.m in Sources */,
 				19BF9ABB13FAB87500F00730 /* AsyncImageView.m in Sources */,
 				190BC5E91430E11E004D2705 /* Contatti.m in Sources */,
