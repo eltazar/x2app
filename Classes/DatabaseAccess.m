@@ -278,7 +278,7 @@ NSString* key(NSURLConnection* con)
     
     
     NSURLRequest *request =
-    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/offerta.php?id=%d",idCoupon]]];
+    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/offerta2.php?id=%d",idCoupon]]];
     
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
