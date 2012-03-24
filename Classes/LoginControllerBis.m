@@ -70,6 +70,7 @@
                          @"E-mail",         @"label",
                          //@"Scegli...",             @"detailLabel",
                          @"E-email di registrazione",  @"placeholder",
+                         [NSString stringWithFormat:@"%d", NO], @"isSecret",
                          @"",                 @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
                          [NSString stringWithFormat:@"%d", UIKeyboardTypeDefault], @"keyboardType",
@@ -80,6 +81,7 @@
                          @"TextFieldCell",    @"kind",
                          @"Password",         @"label",
                          @"La tua password",  @"placeholder",
+                         [NSString stringWithFormat:@"%d", YES], @"isSecret",
                          //numeroCarta,                 @"detailLabel",
                          @"",                 @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
@@ -97,7 +99,7 @@
     [secG insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"register",            @"DataKey",
                          @"ActionCell",    @"kind",
-                         @"Registrami",         @"label",
+                         @"Registrati",         @"label",
                          //numeroCarta,                 @"detailLabel",
                          @"",                 @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",                         nil] autorelease ]  atIndex: 0];
@@ -194,7 +196,7 @@
         }
         else{
             NSLog(@"PSW SBAGLIATA ");
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Spiacenti" message:@"L'utente o la password non esiste, riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Spiacenti" message:@"L'utente o la password non esistono. Inserisci i dati login corretti e riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
             [alert show];
             [alert release];
         }
@@ -340,7 +342,9 @@
 #pragma mark - Table view delegate
 - (CGFloat)tableView:(UITableView *)tableView   heightForHeaderInSection:(NSInteger)section {
     
-    return 30;
+    if(section == 1)
+        return 60;
+    else return 30;
 }
 
 
@@ -385,27 +389,8 @@
         lbl.numberOfLines = 0;
         lbl.font = [UIFont boldSystemFontOfSize:18];
         
-        
-        
         lbl.text = [sectionDescription objectAtIndex:section];
-        
-        //	if (section == 0)
-        //	{
-        //		lbl.text = [sectionDescripition objectAtIndex:section];
-        //	}
-        //	if (section == 1){
-        //        
-        //        //queste due qui sotto settarle dopo...
-        //		lbl.text = @"Operazioni";
-        //		
-        //	}
-        //	
-        //	if (section == 2){
-        //		lbl.text = @"Contatti";	
-        //        
-        //    }
-        
-        
+
         UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
         CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
         CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
@@ -421,7 +406,7 @@
 }
 
 -(void)loginBtnClicked:(id)sender{
-    //dismette la tastiera e prende i salva i dati nelle variabili quando si preme il button
+    //dismette la tastiera e salva i dati nelle variabili quando si preme il button
     [self.view endEditing:TRUE];
     
     if(! [Utilita isStringEmptyOrWhite:self.user] || ![Utilita isStringEmptyOrWhite:self.psw]){
@@ -442,8 +427,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  
-    if(indexPath.section == 3 && indexPath.row == 0){
+    if(indexPath.section == 0){
+        TextFieldCell *cell = (TextFieldCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell.textField becomeFirstResponder];
+    }
+    else if(indexPath.section == 3 && indexPath.row == 0){
         RegistrazioneController *regController = [[RegistrazioneController alloc] initWithNibName:@"RegistrazioneController" bundle:nil];
         [self.navigationController pushViewController:regController animated:YES];
         [regController release];
@@ -454,6 +442,8 @@
 
 - (void)dealloc {
     
+    dbAccess.delegate = nil;
+    [dbAccess release];
     [sectionData release];
     [sectionDescription release];
     self.user = nil;
