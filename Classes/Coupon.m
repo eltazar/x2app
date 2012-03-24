@@ -14,7 +14,6 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import "DatabaseAccess.h"
 #import "Utilita.h"
-#import "LoginController.h"
 #import "LoginControllerBis.h"
 
 @implementation Coupon
@@ -492,7 +491,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             
             if(!idUtente){
                 //lancio view modale per il login
-                // LoginController *loginController = [[LoginController alloc] initWithNibName:@"LoginController" bundle:nil];
                     
                 LoginControllerBis *loginController = [[LoginControllerBis alloc] initWithNibName:@"LoginControllerBis" bundle:nil];
                 
