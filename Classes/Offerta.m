@@ -673,7 +673,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if( ! [Utilita networkReachable]){
         NSLog(@"INTERNET ASSENTE");
         
-        titolo.text = @" Internet assente!";
+        titolo.text = @" Connessione non disponibile!";
         [compra setHidden:YES];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
@@ -1015,7 +1015,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	r=nil;
 	
 	if([rows count]==0){ //niente coupon 
-		titolo.text=@"";
+		titolo.text=@"Nessuna offerta disponibile!";
 		
 		[compra setHidden:YES];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Spiacenti" message:@"In questo momento non ci sono offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
@@ -1036,9 +1036,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         myLabel.lineBreakMode = UILineBreakModeWordWrap;
         myLabel.text = [dict objectForKey:@"offerta_titolo_breve"];
         [myLabel sizeToFit];
-        CGSize labelSize = [myLabel.text sizeWithFont:myLabel.font 
-                                    constrainedToSize:myLabel.frame.size 
-                                        lineBreakMode:UILineBreakModeWordWrap];
+        
         NSLog(@"ALTEZZA = %f",myLabel.frame.size.height);
         
         if(myLabel.frame.size.height <=21)
