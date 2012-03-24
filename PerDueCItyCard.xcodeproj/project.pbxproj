@@ -149,7 +149,6 @@
 		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
 		AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = AC365D62150B6BB7006CF120 /* DatabaseAccess.m */; };
-		AC3AC15A151DCA4100C8164D /* grayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3AC159151DCA4000C8164D /* grayButton.png */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CarteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CarteViewController.m */; };
 		AC85A22914FB9CA900DD91F6 /* CarteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A22714FB9CA900DD91F6 /* CarteViewController.xib */; };
@@ -173,8 +172,6 @@
 		ACC313C1151A7F16008DBEBA /* CellProdottoListino.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C0151A7F16008DBEBA /* CellProdottoListino.xib */; };
 		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
 		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
-		ACC3192A151CD815008229B0 /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
-		ACC3192B151CD815008229B0 /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
 		ACC747901517CDAE0049085F /* DatiUtenteLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACD939F0150E083B008D5C7B /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD939EE150E083B008D5C7B /* LoginController.m */; };
@@ -205,6 +202,7 @@
 		D924E635151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E634151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
+		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1209,6 +1207,7 @@
 				ACF7656E151A4CF000914BDD /* IAPHelper.m in Sources */,
 				ACF76572151A4D1000914BDD /* MBProgressHUD.m in Sources */,
 				ACB207F1151BE5EC0033B060 /* DataLoginController.m in Sources */,
+				D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */,
 				D924E61A151CA49800AD4C07 /* DoveUsarla.m in Sources */,
 				D924E626151CBC4900AD4C07 /* CategoriaCommerciale.m in Sources */,
 				D924E62A151CEB6F00AD4C07 /* UserDefaults.m in Sources */,
