@@ -291,8 +291,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[insintesi setTitle:@"Dettagli offerta"];
 		NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
 		titololabel.text=tit;
-		sintesitxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[dict objectForKey:@"offerta_descrizione_breve"]];
-		[insintesitext loadHTMLString:sintesitxt baseURL:nil];
+		//sintesitxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\"><b>%@</b> <br> %@</body>",[dict objectForKey:@"offerta_title"],[dict objectForKey:@"offerta_descrizione_breve"]];   
+        sintesitxt = [NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><div style=\"background-color:white; font-style:Helvetica regular;text-align:center;color:#4d4d4d;font-weight:bold;\"><p style=\"font-size:60px;\">%@</p></div> <div style=\"background-color:#8b1800; font-style:Helvetica regular;font-size:55px; color:white;\">%@</div></body>", [dict objectForKey:@"offerta_title"],[dict objectForKey:@"offerta_descrizione_breve"]];
+        
+        [insintesitext loadHTMLString:sintesitxt baseURL:nil];
 //		[comprasintesi setTitle: [NSString stringWithFormat:@"Compra subito! Solo %@€",[dict objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
 //		[[comprasintesi layer] setCornerRadius:8.0f];
 //		[[comprasintesi layer] setMasksToBounds:YES];
