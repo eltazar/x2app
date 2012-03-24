@@ -23,11 +23,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Coupon.m"
-         timestampString = "354213321.132266"
+         timestampString = "354272483.475907"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "450"
-         endingLineNumber = "450"
+         startingLineNumber = "449"
+         endingLineNumber = "449"
          landmarkName = "-didLogin:"
          landmarkType = "5">
       </FileBreakpoint>

@@ -189,6 +189,7 @@
 		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
 		AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = AC365D62150B6BB7006CF120 /* DatabaseAccess.m */; };
+		AC3AC15A151DCA4100C8164D /* grayButton.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3AC159151DCA4000C8164D /* grayButton.png */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CarteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CarteViewController.m */; };
 		AC85A22914FB9CA900DD91F6 /* CarteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A22714FB9CA900DD91F6 /* CarteViewController.xib */; };
@@ -201,9 +202,7 @@
 		AC85A24214FBF87B00DD91F6 /* AbbinaCartaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */; };
 		AC9B69291507AFAA00BE6A30 /* ControlloCartaController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9B69271507AFAA00BE6A30 /* ControlloCartaController.m */; };
 		AC9B692A1507AFAA00BE6A30 /* ControlloCartaController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC9B69281507AFAA00BE6A30 /* ControlloCartaController.xib */; };
-		AC9B692C1507B1D900BE6A30 /* backGroundPattern.png in Resources */ = {isa = PBXBuildFile; fileRef = AC9B692B1507B1D900BE6A30 /* backGroundPattern.png */; };
 		AC9B692E1507D84A00BE6A30 /* scadutaImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AC9B692D1507D84A00BE6A30 /* scadutaImg.png */; };
-		ACA2FBE01507846700E3921B /* newBackGroundColor2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2FBDF1507846700E3921B /* newBackGroundColor2.png */; };
 		ACA2FBE81507969100E3921B /* RichiediCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA2FBE61507969000E3921B /* RichiediCardViewController.m */; };
 		ACA2FBE91507969100E3921B /* RichiediCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA2FBE71507969100E3921B /* RichiediCardViewController.xib */; };
 		ACA2FBEB15079F1700E3921B /* yellowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2FBEA15079F1700E3921B /* yellowButton.png */; };
@@ -488,6 +487,7 @@
 		AC27879C15194A5C00747542 /* GeoDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoDecoder.m; sourceTree = "<group>"; };
 		AC365D61150B6BB7006CF120 /* DatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseAccess.h; sourceTree = "<group>"; };
 		AC365D62150B6BB7006CF120 /* DatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseAccess.m; sourceTree = "<group>"; };
+		AC3AC159151DCA4000C8164D /* grayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton.png; sourceTree = "<group>"; };
 		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AC85A22514FB9CA900DD91F6 /* CarteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarteViewController.h; sourceTree = "<group>"; };
 		AC85A22614FB9CA900DD91F6 /* CarteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarteViewController.m; sourceTree = "<group>"; };
@@ -507,9 +507,7 @@
 		AC9B69261507AFAA00BE6A30 /* ControlloCartaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlloCartaController.h; sourceTree = "<group>"; };
 		AC9B69271507AFAA00BE6A30 /* ControlloCartaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlloCartaController.m; sourceTree = "<group>"; };
 		AC9B69281507AFAA00BE6A30 /* ControlloCartaController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlloCartaController.xib; sourceTree = "<group>"; };
-		AC9B692B1507B1D900BE6A30 /* backGroundPattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backGroundPattern.png; sourceTree = "<group>"; };
 		AC9B692D1507D84A00BE6A30 /* scadutaImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scadutaImg.png; sourceTree = "<group>"; };
-		ACA2FBDF1507846700E3921B /* newBackGroundColor2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newBackGroundColor2.png; sourceTree = "<group>"; };
 		ACA2FBE51507969000E3921B /* RichiediCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichiediCardViewController.h; sourceTree = "<group>"; };
 		ACA2FBE61507969000E3921B /* RichiediCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichiediCardViewController.m; sourceTree = "<group>"; };
 		ACA2FBE71507969100E3921B /* RichiediCardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RichiediCardViewController.xib; sourceTree = "<group>"; };
@@ -584,17 +582,16 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				AC3AC159151DCA4000C8164D /* grayButton.png */,
 				ACC313C7151A9507008DBEBA /* greenButton.png */,
-				ACA2FBDF1507846700E3921B /* newBackGroundColor2.png */,
 				AC9B692D1507D84A00BE6A30 /* scadutaImg.png */,
-				AC9B692B1507B1D900BE6A30 /* backGroundPattern.png */,
 				ACA2FBEA15079F1700E3921B /* yellowButton.png */,
 				AC0C66441505185600B4F971 /* cartaGrande.png */,
 				AC0C66401505053700B4F971 /* DoneDown3.png */,
 				AC0C66411505053700B4F971 /* DoneUp3.png */,
-				ACDD14881500481500ACEEB0 /* buttonGrayPattern.png */,
 				ACCCDE6315041A3100035479 /* cancelButton.png */,
 				AC85A23C14FBF04800DD91F6 /* colorPattern.png */,
+				ACDD14881500481500ACEEB0 /* buttonGrayPattern.png */,
 				1960C1C6142A5EE400213D4C /* yellow3.jpg */,
 				19A495D4139D03D000ECFA7E /* logo.png */,
 				19A495D5139D03D000ECFA7E /* logo@2x.png */,
@@ -1229,11 +1226,9 @@
 				AC0C66421505053700B4F971 /* DoneDown3.png in Resources */,
 				AC0C66431505053700B4F971 /* DoneUp3.png in Resources */,
 				AC0C66451505185600B4F971 /* cartaGrande.png in Resources */,
-				ACA2FBE01507846700E3921B /* newBackGroundColor2.png in Resources */,
 				ACA2FBE91507969100E3921B /* RichiediCardViewController.xib in Resources */,
 				ACA2FBEB15079F1700E3921B /* yellowButton.png in Resources */,
 				AC9B692A1507AFAA00BE6A30 /* ControlloCartaController.xib in Resources */,
-				AC9B692C1507B1D900BE6A30 /* backGroundPattern.png in Resources */,
 				AC9B692E1507D84A00BE6A30 /* scadutaImg.png in Resources */,
 				AC067E9C150821CB00F4DF12 /* FBDialog.bundle in Resources */,
 				AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */,
@@ -1245,6 +1240,7 @@
 				ACC313C8151A9507008DBEBA /* greenButton.png in Resources */,
 				ACB207F2151BE5EC0033B060 /* DataLoginController.xib in Resources */,
 				ACC3192B151CD815008229B0 /* LoginControllerBis.xib in Resources */,
+				AC3AC15A151DCA4100C8164D /* grayButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
