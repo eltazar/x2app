@@ -714,7 +714,7 @@ if ([rows count]>0) {//coupon disponibile
 	if( ! [Utilita networkReachable]){
         NSLog(@"INTERNET ASSENTE");
         
-        titolo.text = @" Internet assente!";
+        titolo.text = @" Connessione non disponibile!";
         [compra setHidden:YES];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
