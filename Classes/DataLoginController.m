@@ -8,6 +8,7 @@
 
 #import "DataLoginController.h"
 #import "BaseCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation DataLoginController
 @synthesize delegate;
@@ -247,7 +248,7 @@
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"buttonGrayPattern.png"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
@@ -262,6 +263,8 @@
         
         // this sets up the callback for when the user hits the button
         [b addTarget:self action:@selector(logoutBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        b.layer.cornerRadius = 8.0f;
+        b.layer.masksToBounds = YES;
         
         // add the button to the parent view
         [v addSubview:b];
