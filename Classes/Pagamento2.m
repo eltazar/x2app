@@ -531,6 +531,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     isQtField = FALSE;
     idUtente = -1;
     
+    quant = 1;
+    totale = quant * valore;
+    
     
 	[[compra layer] setCornerRadius:8.0f];
 	[[compra layer] setMasksToBounds:YES];
