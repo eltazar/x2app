@@ -10,6 +10,7 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import "CJSONDeserializer.h"
 #import "GoogleHQAnnotation.h"
+#import "Utilita.h"
 
 
 @implementation DettaglioEsercenti
@@ -20,19 +21,6 @@
 // IBOutlets
 @synthesize mappa, condizioni, cond, tipoMappa, map, cellavalidita, sito;
 
-
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
 	// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
  - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -594,14 +582,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 -(void)viewWillAppear:(BOOL)animated {
-	int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
+
+    if(! [Utilita networkReachable]){
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
@@ -610,10 +592,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[wifiReach release];
-    wifiReach = nil;
-	[internetReach release];
-    wifiReach = nil;
+
     [super viewWillDisappear:animated];
 }
 
@@ -641,11 +620,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 - (void)dealloc {
+#warning inserire il release degli iboutlet ecc?
     self.dict = nil;
-    [internetReach release];
-    internetReach = nil;
-    [wifiReach release];
-    wifiReach = nil;
     [super dealloc];
 }
 

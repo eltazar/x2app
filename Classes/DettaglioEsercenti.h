@@ -11,15 +11,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
 
-#import "Reachability.h"
-
-
 @interface DettaglioEsercenti : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
 	IBOutlet UITableViewCell *provacella;
 	IBOutlet UITableViewCell *cellaindirizzo;
 	IBOutlet UITableViewCell *CellaDettaglio1;
-    Reachability* internetReach;
-	Reachability* wifiReach;
 }
 
 
@@ -40,7 +35,6 @@
 
 - (void)spinTheSpinner;
 - (void)doneSpinning;
-- (int)check:(Reachability*) curReach;
 
 - (IBAction)mostraTipoMappa:(id)sender;
 
