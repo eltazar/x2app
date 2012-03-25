@@ -131,7 +131,7 @@
 	[super viewDidLoad];
     
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-	[infoButton addTarget:self action:@selector(OpenInfo:) forControlEvents:UIControlEventTouchUpInside];
+	[infoButton addTarget:self action:@selector(openInfo:) forControlEvents:UIControlEventTouchUpInside];
 	UIBarButtonItem *modalButton = [[[UIBarButtonItem alloc] initWithCustomView:infoButton] autorelease];
 	[self.navigationItem setRightBarButtonItem:modalButton animated:YES];
     
