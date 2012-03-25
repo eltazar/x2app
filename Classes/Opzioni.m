@@ -127,6 +127,7 @@
 
 
 - (void)dealloc {
+    [optPicker release];
     self.giorni = nil;
     self.provinceattive = nil;
     [super dealloc];
