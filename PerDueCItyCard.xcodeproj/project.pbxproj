@@ -82,11 +82,8 @@
 		19D4CAD213ED5145001C7763 /* AltreOfferte.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA7713ED5144001C7763 /* AltreOfferte.xib */; };
 		19D4CAD713ED5145001C7763 /* Celladati.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA7F13ED5144001C7763 /* Celladati.m */; };
 		19D4CADA13ED5145001C7763 /* Commenti.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8413ED5144001C7763 /* Commenti.m */; };
-		19D4CADB13ED5145001C7763 /* Commenti.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8513ED5144001C7763 /* Commenti.xib */; };
 		19D4CADC13ED5145001C7763 /* Commento.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8713ED5144001C7763 /* Commento.m */; };
-		19D4CADD13ED5145001C7763 /* Commento.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8813ED5144001C7763 /* Commento.xib */; };
 		19D4CADE13ED5145001C7763 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8A13ED5144001C7763 /* Coupon.m */; };
-		19D4CADF13ED5145001C7763 /* Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8B13ED5144001C7763 /* Coupon.xib */; };
 		19D4CAE013ED5145001C7763 /* Credits.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8C13ED5144001C7763 /* Credits.xib */; };
 		19D4CAE113ED5145001C7763 /* DatiPag.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8E13ED5144001C7763 /* DatiPag.m */; };
 		19D4CAE213ED5145001C7763 /* DatiPag.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8F13ED5144001C7763 /* DatiPag.xib */; };
@@ -97,17 +94,13 @@
 		19D4CAE713ED5145001C7763 /* DettaglioEsercenteGenerico.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA9713ED5144001C7763 /* DettaglioEsercenteGenerico.m */; };
 		19D4CAE813ED5145001C7763 /* DettaglioEsercenteGenerico.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA9813ED5144001C7763 /* DettaglioEsercenteGenerico.xib */; };
 		19D4CAE913ED5145001C7763 /* DettaglioEsercenti.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA9A13ED5144001C7763 /* DettaglioEsercenti.m */; };
-		19D4CAEA13ED5145001C7763 /* DettaglioEsercenti.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA9B13ED5144001C7763 /* DettaglioEsercenti.xib */; };
 		19D4CAEB13ED5145001C7763 /* DettaglioRistoCoupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA9D13ED5144001C7763 /* DettaglioRistoCoupon.m */; };
 		19D4CAEC13ED5145001C7763 /* DettaglioRistoCoupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA9E13ED5144001C7763 /* DettaglioRistoCoupon.xib */; };
 		19D4CAED13ED5145001C7763 /* DettaglioRistoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA013ED5144001C7763 /* DettaglioRistoPub.m */; };
-		19D4CAEE13ED5145001C7763 /* DettaglioRistoPub.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAA113ED5144001C7763 /* DettaglioRistoPub.xib */; };
 		19D4CAEF13ED5145001C7763 /* GoogleHQAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA313ED5144001C7763 /* GoogleHQAnnotation.m */; };
 		19D4CAF313ED5145001C7763 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA913ED5144001C7763 /* Info.m */; };
-		19D4CAF413ED5145001C7763 /* Info.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAAA13ED5144001C7763 /* Info.xib */; };
 		19D4CAF913ED5145001C7763 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB213ED5144001C7763 /* News.m */; };
 		19D4CAFB13ED5145001C7763 /* Notizia.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB513ED5144001C7763 /* Notizia.m */; };
-		19D4CAFC13ED5145001C7763 /* Notizia.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAB613ED5144001C7763 /* Notizia.xib */; };
 		19D4CAFD13ED5145001C7763 /* Offerta.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB813ED5144001C7763 /* Offerta.m */; };
 		19D4CAFE13ED5145001C7763 /* Offerta.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAB913ED5144001C7763 /* Offerta.xib */; };
 		19D4CAFF13ED5145001C7763 /* Opzioni.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CABB13ED5144001C7763 /* Opzioni.m */; };
@@ -148,8 +141,8 @@
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
 		AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = AC365D62150B6BB7006CF120 /* DatabaseAccess.m */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
-		AC85A22814FB9CA900DD91F6 /* CarteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CarteViewController.m */; };
-		AC85A22914FB9CA900DD91F6 /* CarteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A22714FB9CA900DD91F6 /* CarteViewController.xib */; };
+		AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CardsViewController.m */; };
+		AC85A22914FB9CA900DD91F6 /* CardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A22714FB9CA900DD91F6 /* CardsViewController.xib */; };
 		AC85A22D14FBA37300DD91F6 /* BaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22C14FBA37300DD91F6 /* BaseCell.m */; };
 		AC85A23014FBA38000DD91F6 /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22F14FBA38000DD91F6 /* ActionCell.m */; };
 		AC85A23514FBB59400DD91F6 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A23414FBB59400DD91F6 /* InfoCell.m */; };
@@ -405,9 +398,9 @@
 		AC365D62150B6BB7006CF120 /* DatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseAccess.m; sourceTree = "<group>"; };
 		AC3AC159151DCA4000C8164D /* grayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton.png; sourceTree = "<group>"; };
 		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		AC85A22514FB9CA900DD91F6 /* CarteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarteViewController.h; sourceTree = "<group>"; };
-		AC85A22614FB9CA900DD91F6 /* CarteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarteViewController.m; sourceTree = "<group>"; };
-		AC85A22714FB9CA900DD91F6 /* CarteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarteViewController.xib; sourceTree = "<group>"; };
+		AC85A22514FB9CA900DD91F6 /* CardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
+		AC85A22614FB9CA900DD91F6 /* CardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
+		AC85A22714FB9CA900DD91F6 /* CardsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardsViewController.xib; sourceTree = "<group>"; };
 		AC85A22B14FBA37300DD91F6 /* BaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCell.h; sourceTree = "<group>"; };
 		AC85A22C14FBA37300DD91F6 /* BaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCell.m; sourceTree = "<group>"; };
 		AC85A22E14FBA38000DD91F6 /* ActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCell.h; sourceTree = "<group>"; };
@@ -862,10 +855,8 @@
 				AC365D5F150B6B9B006CF120 /* Networking */,
 				ACBAA16D14FF968100F7B347 /* Utilities */,
 				AC13B700150964E600E54106 /* Controller per acquisto coupon */,
+				D93C796E151F4B7F006FD19E /* Carte */,
 				AC85A22A14FBA31800DD91F6 /* Celle personalizzate */,
-				AC85A22514FB9CA900DD91F6 /* CarteViewController.h */,
-				AC85A22614FB9CA900DD91F6 /* CarteViewController.m */,
-				AC85A22714FB9CA900DD91F6 /* CarteViewController.xib */,
 				AC85A23E14FBF87800DD91F6 /* AbbinaCartaViewController.h */,
 				AC85A23F14FBF87900DD91F6 /* AbbinaCartaViewController.m */,
 				AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */,
@@ -915,6 +906,16 @@
 				ACA2FBED1507A22000E3921B /* Utilita.m */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		D93C796E151F4B7F006FD19E /* Carte */ = {
+			isa = PBXGroup;
+			children = (
+				AC85A22514FB9CA900DD91F6 /* CardsViewController.h */,
+				AC85A22614FB9CA900DD91F6 /* CardsViewController.m */,
+				AC85A22714FB9CA900DD91F6 /* CardsViewController.xib */,
+			);
+			name = Carte;
 			sourceTree = "<group>";
 		};
 		D99378B81519463700DFC410 /* PHP */ = {
@@ -987,6 +988,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PerDueCItyCard" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -1011,20 +1015,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
-				1937064013548957008A07AF /* Coupon.xib in Resources */,
-				19F4829913694B3E00F28694 /* DettaglioRistoPub.xib in Resources */,
-				19EAE470136C299C0068B2F1 /* DettaglioEsercenti.xib in Resources */,
-				196CD27D136EDC4900879122 /* Info.xib in Resources */,
-				1953EBBB137596EC00CEE3CD /* provacella.xib in Resources */,
 				19A0B3991384FF0E004C5DEA /* CellaDettaglio1.xib in Resources */,
-				19990D2A138EC0D8003DB0D2 /* CellaNews.xib in Resources */,
-				19990D52138EC6AB003DB0D2 /* Notizia.xib in Resources */,
-				199910B8138FDE35003DB0D2 /* Commenti.xib in Resources */,
-				1999401113902345006950F1 /* Commento.xib in Resources */,
 				1995933A139657EE00E4064B /* cellaindirizzo.xib in Resources */,
+				19990D2A138EC0D8003DB0D2 /* CellaNews.xib in Resources */,
 				199593CF1396745D00E4064B /* CellaValidita.xib in Resources */,
 				1995949B1396974800E4064B /* CellaValidita2.xib in Resources */,
+				199910B8138FDE35003DB0D2 /* Commenti.xib in Resources */,
+				1999401113902345006950F1 /* Commento.xib in Resources */,
+				1937064013548957008A07AF /* Coupon.xib in Resources */,
+				19EAE470136C299C0068B2F1 /* DettaglioEsercenti.xib in Resources */,
+				19F4829913694B3E00F28694 /* DettaglioRistoPub.xib in Resources */,
+				196CD27D136EDC4900879122 /* Info.xib in Resources */,
+				D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */,
+				28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */,
+				19990D52138EC6AB003DB0D2 /* Notizia.xib in Resources */,
+				1953EBBB137596EC00CEE3CD /* provacella.xib in Resources */,
 				19186648139A49D800172698 /* Altro....png in Resources */,
 				19186649139A49D800172698 /* Altro...@2x.png in Resources */,
 				1918664A139A49D800172698 /* Benessere.png in Resources */,
@@ -1048,13 +1053,11 @@
 				19186662139A49D800172698 /* Pubs e Bar.png in Resources */,
 				19186663139A49D800172698 /* Pubs e Bar@2x.png in Resources */,
 				19186664139A49D800172698 /* Ristoranti.png in Resources */,
-				D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */,
 				19186665139A49D800172698 /* Ristoranti@2x.png in Resources */,
 				19186666139A49D800172698 /* Teatri.png in Resources */,
 				19186667139A49D800172698 /* Teatri@2x.png in Resources */,
 				19186668139A49D800172698 /* Viaggi.png in Resources */,
 				19186669139A49D800172698 /* Viaggi@2x.png in Resources */,
-				19A494D1139CE42C00ECFA7E /* cellacredits.xib in Resources */,
 				19A495D6139D03D000ECFA7E /* logo.png in Resources */,
 				19A495D7139D03D000ECFA7E /* logo@2x.png in Resources */,
 				19A4960F139D0CE200ECFA7E /* footer.png in Resources */,
@@ -1065,22 +1068,16 @@
 				198C6A8213C843AE001E9399 /* cellatotalepagamento.xib in Resources */,
 				199FEAC213C871F70030CDD8 /* celladatipersonali.xib in Resources */,
 				19472FFD13CCB58D0009BFB6 /* CellaCouponesercente.xib in Resources */,
+				19A494D1139CE42C00ECFA7E /* cellacredits.xib in Resources */,
 				1947FDAD13D5DA1D00C3489B /* riepilogodatipersonali.xib in Resources */,
 				1947FDEA13D5E4E600C3489B /* riepilogocartadicredito.xib in Resources */,
 				19D4CAD213ED5145001C7763 /* AltreOfferte.xib in Resources */,
-				19D4CADB13ED5145001C7763 /* Commenti.xib in Resources */,
-				19D4CADD13ED5145001C7763 /* Commento.xib in Resources */,
-				19D4CADF13ED5145001C7763 /* Coupon.xib in Resources */,
 				19D4CAE013ED5145001C7763 /* Credits.xib in Resources */,
 				19D4CAE213ED5145001C7763 /* DatiPag.xib in Resources */,
 				19D4CAE413ED5145001C7763 /* DatiPers.xib in Resources */,
 				19D4CAE613ED5145001C7763 /* DettaglioEsercenteCoupon.xib in Resources */,
 				19D4CAE813ED5145001C7763 /* DettaglioEsercenteGenerico.xib in Resources */,
-				19D4CAEA13ED5145001C7763 /* DettaglioEsercenti.xib in Resources */,
 				19D4CAEC13ED5145001C7763 /* DettaglioRistoCoupon.xib in Resources */,
-				19D4CAEE13ED5145001C7763 /* DettaglioRistoPub.xib in Resources */,
-				19D4CAF413ED5145001C7763 /* Info.xib in Resources */,
-				19D4CAFC13ED5145001C7763 /* Notizia.xib in Resources */,
 				19D4CAFE13ED5145001C7763 /* Offerta.xib in Resources */,
 				19D4CB0013ED5145001C7763 /* Opzioni.xib in Resources */,
 				19D4CB0213ED5145001C7763 /* Pagamento2.xib in Resources */,
@@ -1089,7 +1086,7 @@
 				1960C1C7142A5EE400213D4C /* yellow3.jpg in Resources */,
 				190BC5D11430DF9F004D2705 /* cellacontatti.xib in Resources */,
 				190BC5EA1430E11E004D2705 /* Contatti.xib in Resources */,
-				AC85A22914FB9CA900DD91F6 /* CarteViewController.xib in Resources */,
+				AC85A22914FB9CA900DD91F6 /* CardsViewController.xib in Resources */,
 				AC85A23D14FBF04800DD91F6 /* colorPattern.png in Resources */,
 				AC85A24214FBF87B00DD91F6 /* AbbinaCartaViewController.xib in Resources */,
 				ACDE7C9A14FDA988000F6890 /* DatiPagamentoController.xib in Resources */,
@@ -1166,7 +1163,7 @@
 				1923D88C13F81648005A9815 /* OpzioniCoupon.m in Sources */,
 				19BF9ABB13FAB87500F00730 /* AsyncImageView.m in Sources */,
 				190BC5E91430E11E004D2705 /* Contatti.m in Sources */,
-				AC85A22814FB9CA900DD91F6 /* CarteViewController.m in Sources */,
+				AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */,
 				AC85A22D14FBA37300DD91F6 /* BaseCell.m in Sources */,
 				AC85A23014FBA38000DD91F6 /* ActionCell.m in Sources */,
 				AC85A23514FBB59400DD91F6 /* InfoCell.m in Sources */,
