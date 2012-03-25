@@ -12,6 +12,7 @@
 #import "PickerViewController.h"
 #import "TextFieldCell.h"
 #import "ActionCell.h"
+#import "Contatti.h"
 
 #define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
 
@@ -228,6 +229,11 @@
         [myActionSheet release];
         
     }
+    else if(section == 0 && (row == 1 || row == 2 || row == 4)){
+        TextFieldCell *cell = (TextFieldCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+        [cell.textField becomeFirstResponder];
+
+    }
     else if(section == 0 && row == 3){
         
         //creo actionSheet con un solo tasto custom
@@ -253,13 +259,17 @@
         
         [myActionSheet release];
     }
-    
+    if(section == 1 && row == 0){
+        Contatti *contact = [[Contatti alloc] initWithNibName:@"Contatti" bundle:nil];
+        [self.navigationController presentModalViewController:contact animated:YES];
+        [contact release];
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    if(section == 1){
+    if(section == 2){
         // create the parent view that will hold 1 or more buttons
         UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 37)];
         
@@ -293,16 +303,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView   heightForHeaderInSection:(NSInteger)section {
     
-    if(section == 3)
-        return 46;
-    else return 40;
+    if(section == 2)
+        return 30;
+    else return 2;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if(section == 1)
+        return 30;
+    else return  [super tableView:tableView heightForFooterInSection:section];
+}
 
 //setta il colore delle label dell'header BIANCHE
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    if (section == 1) {
+    if (section == 2) {
         
         UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
         [customView setBackgroundColor:[UIColor clearColor]];
@@ -317,7 +332,7 @@
         lbl.font = [UIFont systemFontOfSize:14];       
         
         
-        lbl.text = @"Premendo \"Cancella dati\" verranno rimossi i dati relativi alla tua carta di credito";
+        lbl.text = @"Premendo \"Cancella dati\" verranno rimossi dal tuo dispositivo i dati relativi alla tua carta di credito";
         
         UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
         CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
@@ -466,7 +481,7 @@
     
     prefs = [NSUserDefaults standardUserDefaults];
     
-    self.title = @"Dati pagamento";
+    self.title = @"Carta di credito";
     
     
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:139.0/255 green:29.0/255 blue:0.0 alpha:1]];
@@ -501,10 +516,11 @@
         self.scadenza = [prefs objectForKey:@"_scadenza"];
     else self.scadenza = @"";
     
-    sectionDescripition = [[NSArray alloc] initWithObjects:@"",@"", nil];
+    sectionDescripition = [[NSArray alloc] initWithObjects:@"",@"",@"", nil];
     
     NSMutableArray *secC = [[NSMutableArray alloc] initWithCapacity:5];
     NSMutableArray *secD = [[NSMutableArray alloc] init];
+    NSMutableArray *secE = [[NSMutableArray alloc] init];
     
     [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"type",            @"DataKey",
@@ -531,7 +547,7 @@
                          @"cvv",            @"DataKey",
                          @"TextFieldCell",    @"kind",
                          @"CVV",           @"label",
-                         @"123", @"placeholder",
+                         @"3 cifre sul retro della tua carta; 4 cifre per AE", @"placeholder",
                          @"",                 @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
                          [NSString stringWithFormat:@"%d", UIKeyboardTypeNumbersAndPunctuation], @"keyboardType",
@@ -558,10 +574,19 @@
                          [NSString stringWithFormat:@"%d", UIKeyboardTypeDefault], @"keyboardType",
                          nil] autorelease] atIndex: 4];
     
+    [secD insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                         @"info",            @"DataKey",
+                         @"ActionCell",    @"kind",
+                         @"I tuoi dati sono al sicuro! Come?", @"label",
+                         //titolare,             @"detailLabel",
+                         @"",                 @"img",
+                         [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
+                         nil] autorelease] atIndex: 0];
     
-    sectionData = [[NSArray alloc] initWithObjects: secC, secD, nil];
     
-    NSArray *payCards = [[NSArray alloc] initWithObjects:@"--",@"Visa",@"Mastercard",@"Maestro", nil];
+    sectionData = [[NSArray alloc] initWithObjects: secC, secD, secE, nil];
+    
+    NSArray *payCards = [[NSArray alloc] initWithObjects:@"--",@"Amerian Express",@"Maestro",@"Mastercard",@"PostePay",@"Visa", nil];
     pickerCards = [[PickerViewController alloc] initWithArray:[NSArray arrayWithObjects:payCards,nil] andNumber:1];
     [payCards release];
     
@@ -574,6 +599,7 @@
     
     [secC release];
     [secD release];
+    [secE release];
 }
 
 
