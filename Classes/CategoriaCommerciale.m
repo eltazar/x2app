@@ -277,8 +277,13 @@
 # pragma mark - Memory Management
 
 - (void)dealloc {
+
+    self.rows = nil;
+    self.phpFile = nil, 
+    self.phpSearchFile = nil;
     geoDec.delegate = nil;
     [geoDec release];
+    geoDec = nil;
     [super dealloc];
 }
 - (void)didReceiveMemoryWarning
