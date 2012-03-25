@@ -7,50 +7,42 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CJSONDeserializer.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "GoogleHQAnnotation.h"
 #import <MessageUI/MessageUI.h>
-#import "PerDueCItyCardAppDelegate.h"
+
 #import "Reachability.h"
 
-@interface DettaglioEsercenti : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
-	NSArray *rows;
-	UITableView *tableview;
-	NSInteger identificativo;
-	NSDictionary *dict;
-	IBOutlet UIViewController *mappa;
-	IBOutlet UISegmentedControl *tipoMappa;
-	IBOutlet MKMapView *map;
-	IBOutlet UITableViewCell *provacella;
-	IBOutlet UITableViewCell *cellaindirizzo;
-	IBOutlet UITableViewCell *cellavalidita;
-	IBOutlet UITableViewCell *CellaDettaglio1;
-	IBOutlet UIViewController *sito;
-	IBOutlet UIViewController *condizioni;
-	IBOutlet UITextView *cond;
-	IBOutlet UIWebView *webView;
-	Reachability* internetReach;
-	Reachability* wifiReach;
-	
-}
-@property (retain,nonatomic) NSArray *rows;
-@property (retain,nonatomic) UITableView *tableview;
-@property (nonatomic, readwrite) NSInteger identificativo; 
-@property (retain,nonatomic) NSDictionary *dict;
-@property (retain,nonatomic) IBOutlet UIViewController *mappa;
-@property (nonatomic, retain) UIViewController *condizioni;
-@property (nonatomic, retain) IBOutlet UITextView *cond;
 
-@property (nonatomic, retain) UIViewController *sito;
+@interface DettaglioEsercenti : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
+	//IBOutlet UITableViewCell *provacella;
+	//IBOutlet UITableViewCell *cellaindirizzo;
+	//IBOutlet UITableViewCell *CellaDettaglio1;
+    Reachability* internetReach;
+	Reachability* wifiReach;
+}
+
+
+@property (nonatomic, assign) NSInteger identificativo; 
+@property (nonatomic, retain) NSDictionary *dict;
 @property (nonatomic, retain) UIWebView *webView;
 
 
+//@property (retain,nonatomic) UITableView *tableview;
+@property (nonatomic, retain) IBOutlet UIViewController *mappa;
+@property (nonatomic, retain) IBOutlet UIViewController *condizioni;
+@property (nonatomic, retain) IBOutlet UITextView *cond;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *tipoMappa;
+@property (nonatomic, retain) IBOutlet MKMapView *map;
+@property (nonatomic, retain) IBOutlet UITableViewCell *cellavalidita;
+@property (nonatomic, retain) IBOutlet UIViewController *sito;
+
+
+- (void)spinTheSpinner;
+- (void)doneSpinning;
+- (int)check:(Reachability*) curReach;
+
 - (IBAction)mostraTipoMappa:(id)sender;
-- (void) spinTheSpinner;
-- (void) doneSpinning;
--(int)check:(Reachability*) curReach;
 
 
 @end

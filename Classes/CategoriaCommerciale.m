@@ -11,6 +11,8 @@
 #import "CategoriaCommerciale.h"
 #import "DettaglioEsercenti.h"
 #import "UserDefaults.h"
+#import "GoogleHQAnnotation.h"
+#import "CJSONDeserializer.h"
 
 //Metodi privati
 @interface CategoriaCommerciale () {
@@ -25,6 +27,7 @@
 @property (nonatomic, retain) NSString *phpFile;
 @property (nonatomic, retain) NSString *phpSearchFile;
 @end
+
 
 @implementation CategoriaCommerciale
 
@@ -66,8 +69,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	if ([rows count] < 6){
 		return 1;
-	}	
-	else {
+	} else {
 		return 2;
 	}
 }
@@ -83,7 +85,6 @@
 			return 0;
 	}
 }
-
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -327,13 +328,25 @@
 - (void)viewDidUnload {
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-	[rows release];
-	[mapView release];
-    [tableview release];
-	[searchBar release];
-	[mapTypeSegCtrl release];
-	[footerView release];
+	self.mapView = nil;
+    self.tableview = nil;
+	self.searchBar = nil;
+	self.mapTypeSegCtrl = nil;
+    self.searchSegCtrl = nil;
+	self.footerView = nil;
 }
+
+
+- (void)dealloc {
+    self.rows = nil;
+    self.phpFile = nil, 
+    self.phpSearchFile = nil;
+    geoDec.delegate = nil;
+    [geoDec release];
+    geoDec = nil;
+    [super dealloc];
+}
+
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -447,6 +460,26 @@
 }
 
 
+#pragma mark - CategoriaCommerciale (IBActions)
+
+
+- (IBAction)didChangeSearchSegCtrlState:(id)sender {
+    [self fetchRows];
+}
+
+
+- (IBAction)didChangeMapTypeSegCtrlState:(id)sender {
+    NSInteger selection = [self.mapTypeSegCtrl selectedSegmentIndex];
+	if (selection == 2) {
+		self.mapView.mapType = MKMapTypeHybrid;
+	} else if (selection == 1) {
+		self.mapView.mapType = MKMapTypeSatellite;
+	} else  {
+		self.mapView.mapType = MKMapTypeStandard;
+	}
+}
+
+
 #pragma mark - CategoriaCommerciale (private methods)
 
 
@@ -482,23 +515,6 @@
 }
 
 
-- (IBAction)didChangeSearchSegCtrlState:(id)sender {
-    [self fetchRows];
-}
-
-
-- (IBAction)didChangeMapTypeSegCtrlState:(id)sender {
-    NSInteger selection = [self.mapTypeSegCtrl selectedSegmentIndex];
-	if (selection == 2) {
-		self.mapView.mapType = MKMapTypeHybrid;
-	} else if (selection == 1) {
-		self.mapView.mapType = MKMapTypeSatellite;
-	} else  {
-		self.mapView.mapType = MKMapTypeStandard;
-	}
-}
-
-
 # pragma mark - Net Reachability
 
 
@@ -507,10 +523,9 @@
 	NetworkStatus netStatus = [curReach currentReachabilityStatus];
 	
 	switch (netStatus){
-		case NotReachable:{
+		case NotReachable:
 			return -1;
 			break;
-		}
 		default:
 			return 0;
 	}

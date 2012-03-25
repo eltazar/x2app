@@ -22,25 +22,25 @@
     NSString *dayFromDefaults = [NSString stringWithFormat:@"%@", [defaults objectForKey:@"giorno"]];
     
     if ([dayFromDefaults isEqualToString:@"Lunedì"]){
-        return [[[NSString alloc] initWithString:@"Lunedi"] autorelease];
+        return @"Lunedi";
     }
     if ([dayFromDefaults isEqualToString:@"Martedì"]){
-        return [[[NSString alloc] initWithString:@"Martedi"] autorelease];
+        return @"Martedi";
     }
     if ([dayFromDefaults isEqualToString:@"Mercoledì"]){
-        return [[[NSString alloc] initWithString:@"Mercoledi"] autorelease];
+        return @"Mercoledi";
     }
     if ([dayFromDefaults isEqualToString:@"Giovedì"]){
-        return [[[NSString alloc] initWithString:@"Giovedi"] autorelease];
+        return @"Giovedi";
     }
     if ([dayFromDefaults isEqualToString:@"Venerdì"]){
-        return [[[NSString alloc] initWithString:@"Venerdi"] autorelease];
+        return @"Venerdi";
     }
     if ([dayFromDefaults isEqualToString:@"Sabato"]){
-        return [[[NSString alloc] initWithString:@"Sabato"] autorelease];
+        return @"Sabato";
     }
     if ([dayFromDefaults isEqualToString:@"Domenica"]){
-        return [[[NSString alloc] initWithString:@"Domenica"] autorelease];
+        return @"Domenica";
     }
     if ([dayFromDefaults isEqualToString:@"Oggi"]){
         NSDate *data = [NSDate date];
@@ -49,31 +49,31 @@
         
         switch (weekDay) {
             case 1:
-                return [[[NSString alloc] initWithString:@"Domenica"] autorelease];
+                return @"Domenica";
                 break;
                 
             case 2:
-                return [[[NSString alloc] initWithString:@"Lunedi"] autorelease];
+                return @"Lunedi";
                 break;
                 
             case 3:
-                return [[[NSString alloc] initWithString:@"Martedi"] autorelease];
+                return @"Martedi";
                 break;
                 
             case 4:
-                return [[[NSString alloc] initWithString:@"Mercoledi"] autorelease];
+                return @"Mercoledi";
                 break;
                 
             case 5:
-                return [[[NSString alloc] initWithString:@"Giovedi"] autorelease];
+                return @"Giovedi";
                 break;
                 
             case 6:
-                return [[[NSString alloc] initWithString:@"Venerdi"] autorelease];
+                return @"Venerdi";
                 break;
                 
             case 7:
-                return [[[NSString alloc] initWithString:@"Sabato"] autorelease];
+                return @"Sabato";
                 break;
                 
             default:
@@ -81,7 +81,7 @@
                 
         }
     }
-    return [[[NSString alloc] init] autorelease];
+    return @"";
 }
 
 

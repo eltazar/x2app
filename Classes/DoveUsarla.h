@@ -10,26 +10,17 @@
 #import <CoreLocation/CoreLocation.h>
 #import "Reachability.h"
 
+
 @interface DoveUsarla : UITableViewController<CLLocationManagerDelegate,UIAlertViewDelegate>  {
-	NSArray *dataModel;
-	UILabel *giornoscelto;
-	//UIViewController *detail;
-	NSString* citta;
-	//UIView *myheader;
-	NSString *giorno;
 	CLLocationManager *locationManager;	
-	//IBOutlet UILabel *head;
 	Reachability* internetReach;
 	Reachability* wifiReach;
 
 }
 
-@property (nonatomic, retain) UITableView *myTable;
-@property (nonatomic, retain) NSArray *dataModel;
-@property (nonatomic, retain) NSString *citta;
-@property (nonatomic, retain) NSString *giorno;
 
-//@property (nonatomic, retain) IBOutlet UIView *tableHeader;
+@property (nonatomic, retain) NSArray *dataModel;
+
 @property (nonatomic, retain) IBOutlet UILabel *tableHeaderLabel;
 
 

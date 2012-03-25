@@ -21,10 +21,12 @@
 - (int)checkNetReachability:(Reachability*) curReach;
 @end
 
+
 @implementation DoveUsarla
 
  
-@synthesize dataModel, myTable, giorno, citta, locationManager;
+@synthesize dataModel, locationManager;
+
 // IBOutlets:
 @synthesize tableHeaderLabel;
 
@@ -34,7 +36,7 @@
 // ritorna il numero di righe della tabella
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0)
-        return [dataModel count];
+        return [self.dataModel count];
     else
         return 0;
 }
@@ -42,10 +44,9 @@
 
 //settiamo il contenuto delle varie celle
 - (UITableViewCell *)tableView:(UITableView *)tableView	cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	// TODO: Sta riga è nel posto sbagliato
-	[tableHeaderLabel setText:[defaults objectForKey:@"giorno"]];
+	[tableHeaderLabel setText:[UserDefaults weekDay]];
 	
 	UITableViewCell *cell = [tableView
 							 dequeueReusableCellWithIdentifier:@"cellID"];
@@ -119,10 +120,7 @@
 #pragma mark - Memory management
 
 - (void)didReceiveMemoryWarning {
-		// Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-		// Relinquish ownership any cached data, images, etc. that aren't in use.
 }
 
 
@@ -143,8 +141,6 @@
 	self.locationManager.delegate = self;
 	[self.locationManager startUpdatingLocation];
 	
-	
-    
 	self.dataModel = [[[NSArray alloc] initWithObjects:
                       [[[NSDictionary alloc] initWithObjectsAndKeys:
                        @"Ristoranti", @"title",
@@ -225,7 +221,6 @@
 	NSLog(@"Ho salvato i valori: %d e %d\n",[[defaults objectForKey:@"idcity"]integerValue],[[defaults objectForKey:@"idday"]integerValue]);
     
     
-	
     if ([[UserDefaults city] isEqualToString:@"Qui"]) {
 		self.navigationItem.title = @"Qui vicino";
 	} else {
@@ -252,6 +247,7 @@
     }
     
     // TODO: Me pare un po' 'na zozzata fare ste cose qui... ma vabbè
+    // TODO: codice duplicato in viewDidAppear
     if ([[UserDefaults city] isEqualToString:@"Qui"]){
 		self.navigationItem.title = @"Qui vicino";
 	} else {
@@ -263,18 +259,30 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[wifiReach release];
+    wifiReach = nil;
 	[internetReach release];
+    internetReach = nil;
     [super viewWillDisappear:animated];
 }
 
 
 - (void)viewDidUnload {
-		// Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-		// For example: self.myOutlet = nil;
+    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand
+    // For example: self.myOutlet = nil;
+    self.tableHeaderLabel = nil;
 }
 
 
 - (void)dealloc {
+    // Properties
+    self.dataModel = nil;
+    self.locationManager = nil;
+    // Attributi
+    [wifiReach release];
+    wifiReach = nil;
+    [internetReach release];
+    internetReach = nil;
+    // Super
     [super dealloc];
 }
 
