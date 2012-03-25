@@ -18,6 +18,7 @@
     int idUtente;
     DatabaseAccess *dbAccess;
     
+    UIAlertView *rememberPswAlert;
 
 }
 

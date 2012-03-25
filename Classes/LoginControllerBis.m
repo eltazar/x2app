@@ -113,6 +113,34 @@
     [secE release];
     [secG release];
     
+    rememberPswAlert = [[UIAlertView alloc] initWithTitle:@"Recupera password" message:@"\n\n\n" delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Invia", nil];
+    
+    UILabel *lblPassword = [[UILabel alloc] initWithFrame:CGRectMake(12,40,260,25)];
+    lblPassword.backgroundColor = [UIColor clearColor];
+    lblPassword.font = [UIFont systemFontOfSize:15.0];
+    lblPassword.textColor = [UIColor whiteColor];
+    lblPassword.shadowColor = [UIColor blackColor];
+    lblPassword.shadowOffset = CGSizeMake(0,-1);
+    lblPassword.textAlignment = UITextAlignmentCenter;
+    lblPassword.text = @"Inserisci l'indirizzo email con il quale ti sei registrato e premi Invia:";
+    lblPassword.numberOfLines = 0;
+    [lblPassword sizeToFit];
+    [rememberPswAlert addSubview:lblPassword];
+    
+    
+    UITextField *emailTextField = [[UITextField alloc] initWithFrame:CGRectMake(12, 80, 260, 27)];
+//    CGAffineTransform myTransform = CGAffineTransformMakeTranslation(0, 60);
+//    [rememberPswAlert setTransform:myTransform];
+    emailTextField.layer.cornerRadius = 6;
+    emailTextField.tag = 120;
+    emailTextField.placeholder = @"E-mail di registrazione";
+    [emailTextField setBackgroundColor:[UIColor whiteColor]];
+    emailTextField.borderStyle = UITextBorderStyleRoundedRect;
+    [rememberPswAlert addSubview:emailTextField];
+    [emailTextField becomeFirstResponder];
+    [emailTextField release];
+
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -161,6 +189,24 @@
     
 }
 
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 1){
+        UITextField* textField = (UITextField*)[alertView viewWithTag:120];
+        NSLog(@"textfield = %@",textField.text);
+        if(![Utilita isStringEmptyOrWhite: textField.text] || ![Utilita isEmailValid:textField.text]){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail non valida" message:@"Inserisci un indirizzo e-mail valido" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
+        }
+        else{
+            [dbAccess sendRetrievePswForUser:textField.text];
+        }
+    }
+        
+}
+
 
 #pragma mark - DBAccessDelegate
 
@@ -171,8 +217,13 @@
     NSArray *array;//= [[coupon objectForKey:@"checkEmail"] retain];
     
     // NSLog(@"DIMENSIONE ARRAY = %d",[array count]);
-    
-    if([coupon objectForKey:@"login"]){
+    if ([coupon objectForKey:@"recuperoPsw"]) {
+        array = [[coupon objectForKey:@"recuperoPsw"] retain];
+        
+        NSLog(@"recupero psw = %@",array);
+        
+    }
+    else if([coupon objectForKey:@"login"]){
         array = [[coupon objectForKey:@"login"] retain];
         if(array.count == 2){
             NSLog(@"UTENTE ESISTE");
@@ -360,7 +411,7 @@
         lbl.font = [UIFont systemFontOfSize:13];       
         
         
-        lbl.text = @"Devi effettuare il login per poter acquistare i coupon ed usufruire dei vantaggi offerti";
+        lbl.text = @"Per acquistare devi effettuare il login od essere registrato a perdue.it";
         
         UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
         CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
@@ -475,12 +526,16 @@
         [self.navigationController pushViewController:regController animated:YES];
         [regController release];
     }
+    else if(indexPath.section == 2){
+        [rememberPswAlert show];
+    }
 }
 
 #pragma mark - MemoryManagement
 
 - (void)dealloc {
     
+    [rememberPswAlert release];
     dbAccess.delegate = nil;
     [dbAccess release];
     [sectionData release];
