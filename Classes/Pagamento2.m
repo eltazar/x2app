@@ -18,6 +18,11 @@ static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
+@interface Pagamento2() {
+    UIAlertView *buyAlert;
+}
+@end
+
 
 @implementation Pagamento2
 @synthesize titolo,valore,identificativo,tablegenerale,totale,datopersonale,vistadatipagamento,vistadatipersonali,info, titololabel, idUtente,utente,email;
@@ -85,11 +90,13 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
     }
     else{
-        PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
-        UIActionSheet *aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Vuoi comprare il coupon?"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Compra", nil];
+//        PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication]delegate];
+//        UIActionSheet *aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Vuoi comprare il coupon?"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Compra", nil];
+//        
+//        [aSheet showInView:appDelegate.window];
+//        [aSheet release];
         
-        [aSheet showInView:appDelegate.window];
-        [aSheet release];
+        [buyAlert show];
     }
 	
 	
@@ -184,6 +191,48 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     if([alertView.title isEqualToString:@"Complimenti"]){
         [self.navigationController popViewControllerAnimated:YES];
     }
+    
+    //alert view di conferma acquiso coupon
+    if([alertView.title isEqualToString:@"Vuoi comprare il coupon?"]){
+        if(buttonIndex == 1){
+            NSString *tipocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
+            tipocarta=[tipocarta stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino spazi
+            NSString *numerocarta = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
+            
+            NSString *scadenza = [[NSUserDefaults standardUserDefaults] objectForKey:@"_scadenza"];
+            NSArray *componentiScadenza = [scadenza componentsSeparatedByString:@"/"];
+            NSString *mesescadenza = [componentiScadenza objectAtIndex:0];
+            NSString *annoscadenza = [componentiScadenza objectAtIndex:1];
+            //NSLog(@"scadenza = %@, mese = %@, anno %@",scadenza,mesescadenza, annoscadenza);
+            
+            NSString *cvv = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cvv"];
+            NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nome"];	
+            
+            //mario: perchè deve eliminare gli spazi :| ???
+            //intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
+            
+            NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
+            
+            NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
+            
+            NSLog(@"PAGAMENTO: ID UTENTE da server = %d",idUtente);
+            
+            //se il controller è stato richiamato senza login idutente lo devo recuperare dall'iphone
+            if(idUtente == -1){
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+                
+                idUtente = [[prefs objectForKey:@"_idUtente"] intValue];
+                NSLog(@"PAGAMENTO: ID UTENTE da prefs = %d",idUtente);
+            }
+            
+            
+            //identificativo è relativo all'offerta, cioè è id coupon
+            
+            [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
+            
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
+        }
+    }
 }  
   
 
@@ -260,7 +309,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 		}
 		if (section == 2)
 		{
-			lbl.text = @"Dati Pagamento";
+			lbl.text = @"Inserisci la tua carta di credito";
 		}
 	
 		//UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
@@ -525,6 +574,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    buyAlert = [[UIAlertView alloc] initWithTitle:@"Vuoi comprare il coupon?" message:@"L'importo sarà effettivamente addebitato sulla tua carta di credito solamente se il processo di acquisto sarà completato e confermato" delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Compra", nil];
+    
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
     
@@ -601,12 +652,12 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     NSLog(@"DATI RICEVUTI DAL SERVER ACQUISTO COUPON = %@", receivedData);
     if([receivedData isEqualToString:@"Ok"]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Complimenti" message:@"La tua richiesta di acquisto verrà processata in breve tempo, riceverai una mail con tutti i dettagli" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Complimenti" message:@"La tua richiesta verrà processata dai nostri sistemi e a breve riceverai una mail di conferma.\n Condividi subito questa offerta!" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
     }
     else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Non è stato possibile processare la tua richiesta, riprovare!" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Non è stato possibile processare la tua richiesta, riprovare!" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
     }
@@ -679,6 +730,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)dealloc {
 		
+    [buyAlert release];
     self.utente = nil;
     self.email = nil;
     
