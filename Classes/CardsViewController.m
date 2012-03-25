@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "CarteViewController.h"
+#define MAX_CARD 6
+
+#import "CardsViewController.h"
 #import "BaseCell.h"
 #import "CartaTableViewCell.h"
 #import "PerDueCItyCardAppDelegate.h"
@@ -18,12 +20,23 @@
 #import "Utilita.h"
 #import "LocalDatabaseAccess.h"
 
-#define MAX_CARD 6
 
-@implementation CarteViewController
+@interface CardsViewController()
+- (NSMutableArray*)creaDataContent;
+- (void)didMatchNewCard;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
+@end
+
+
+@implementation CardsViewController
+
+
+NSMutableArray *sectionDescription;
+NSMutableArray *sectionData;
+NSInteger nAssociatedCards;
+
+
+- (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
@@ -32,32 +45,27 @@
 }
 
 
+#pragma mark - UITableViewDataSource protocol
 
-#pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return sectionDescription.count;
 }
 
-//setta gli header delle sezioni
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section 
-{  
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {  
     return [sectionDescription objectAtIndex:section];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section
-{   
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{   
     if(sectionData){
         return [[sectionData objectAtIndex: section] count];
     } 
-
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *sec = [sectionData objectAtIndex:indexPath.section];
     NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
     NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
@@ -70,13 +78,13 @@
     
     //se non è recuperata creo una nuova cella
 	if (cell == nil) {
-//        if([kind isEqualToString:@"CartaTableViewCell"]){
-//            
-//            cell = (CartaTableViewCell *)[CartaTableViewCell cellFromNibNamed:@"CartaTableViewCell" andDictionary:rowDesc];            
-//        }
-//        else {
-//            cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
-//        }
+    //        if([kind isEqualToString:@"CartaTableViewCell"]){
+    //            
+    //            cell = (CartaTableViewCell *)[CartaTableViewCell cellFromNibNamed:@"CartaTableViewCell" andDictionary:rowDesc];            
+    //        }
+    //        else {
+    //            cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
+    //        }
         
         cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
         
@@ -99,20 +107,18 @@
         cell.detailTextLabel.text = [rowDesc objectForKey:@"subtitle"];
     }
     
-    if(indexPath.section == 1 && numCarteAbbinate >= MAX_CARD){
+    if(indexPath.section == 1 && nAssociatedCards >= MAX_CARD){
         cell.backgroundColor = [UIColor lightGrayColor];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    
     
     return cell;
 }
 
 
-#pragma mark - Table view delegate
+#pragma mark - UITableViewDelegate
 
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	return 30.0;
 }
 
@@ -122,15 +128,11 @@
     [customView setBackgroundColor:[UIColor clearColor]];
     
     UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
-    
     lbl.backgroundColor = [UIColor clearColor];
     lbl.textColor = [UIColor whiteColor];
     lbl.lineBreakMode = UILineBreakModeWordWrap;
     lbl.numberOfLines = 0;
     lbl.font = [UIFont boldSystemFontOfSize:20];
-    
-	
-    
     lbl.text = [sectionDescription objectAtIndex:section];
     
     //	if (section == 0)
@@ -149,7 +151,6 @@
     //        
     //    }
     
-    
     UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
     CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
     CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
@@ -161,13 +162,12 @@
     return customView;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{    
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {    
     // "Navigo" il model fino alla cella selezionata
     NSArray *sec = [sectionData objectAtIndex:indexPath.section];
     NSDictionary *row = [sec objectAtIndex:indexPath.row];
     NSString *dataKey = [row objectForKey:@"DataKey"];
-    
     
     // Click su una carta
     if ([dataKey isEqualToString:@"card"]){
@@ -179,7 +179,7 @@
     
     // Click su un tasto relativo all'aggiunta / acquisto IAP / richiesta d'acquisto di una tessera
     // nel caso in cui abbiamo già abbinato il numero massimo di tessere consentito
-    else if (numCarteAbbinate >= MAX_CARD) {
+    else if (nAssociatedCards >= MAX_CARD) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Azione non permesssa" message:@"Hai raggiunto il numero massimo di carte associabili al dispositivo" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
@@ -213,58 +213,20 @@
 }
 
 
+#pragma mark - Memory Management
 
--(NSMutableArray*)creaDataContent{
-    NSError *error;
-    NSArray *cardsArray = [[LocalDatabaseAccess getInstance]fetchStoredCardsAndWriteErrorIn:&error];
-    NSMutableArray *dataContent = [[NSMutableArray alloc] init];
-    
-    // TODO: controllare errori
-    for(int i = 0; i < cardsArray.count ; i++){
-        //creo l'array di dizionari per le righe della sezione "carte"            
-        CartaPerDue *card = [cardsArray objectAtIndex:i];
-        
-        NSMutableDictionary *tempDict = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                @"card",               @"DataKey",
-                @"CartaTableViewCell", @"kind",
-                card,                  @"card",
-                [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                nil] autorelease];
 
-        [dataContent insertObject: tempDict atIndex: i];
-    }
-    return [dataContent autorelease];
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc that aren't in use.
 }
 
--(void)didMatchNewCard{
-    
-    NSLog(@" quiiiiiiiiiii");
-    
-    if(sectionData.count == 1){
-        [sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
-        [sectionDescription insertObject:@"Gestione" atIndex:1];
-        
-        NSArray *tempA = [[sectionData objectAtIndex:0]retain];
-        
-        [sectionData removeObjectAtIndex:0];
-        [sectionData insertObject:[self creaDataContent] atIndex:0];
-        [sectionData insertObject:tempA atIndex:1];
-        
-        [tempA release];
-    }
-    else if(sectionData.count > 1){
-        
-        [sectionData replaceObjectAtIndex:0 withObject:[self creaDataContent]];
-    }
-    
-    numCarteAbbinate = [[sectionData objectAtIndex:0] count];
-
- }
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+
+- (void)viewDidLoad {
     [super viewDidLoad];
     [self setTitle:@"Gestione carte"];
     
@@ -303,14 +265,13 @@
 
     
     // se la sezione "Carte" è vuota, non la aggiungo al model, così da nasconderla
-    if(cardsSection && cardsSection.count > 0){
+    if (cardsSection && cardsSection.count > 0) {
         [sectionDescription insertObject:@"Carte" atIndex:0];
         [sectionDescription insertObject:@"Gestione" atIndex:1];
         
         sectionData = [[NSMutableArray alloc] initWithObjects:cardsSection, manageSection, nil];
-        numCarteAbbinate = cardsSection.count;
-    }
-    else{
+        nAssociatedCards = cardsSection.count;
+    } else {
         [sectionDescription insertObject:@"Gestione" atIndex:0];
         sectionData = [[NSMutableArray alloc] initWithObjects:manageSection, nil];
     }
@@ -320,58 +281,97 @@
 
 }
 
-- (void)viewDidUnload
-{
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];    
+    [self.tableView reloadData];
+    NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueIdentifier]);
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
+
+
+- (void)viewDidUnload {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];    
-    [self.tableView reloadData];
-    NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueIdentifier]);
 
+- (void)dealloc {
+    [sectionData release];
+    [sectionDescription release];
+    [super dealloc];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Memory Management
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
+
+# pragma mark - CardsViewController (private methods)
+
+
+- (NSMutableArray*)creaDataContent {
+    NSError *error;
+    NSArray *cardsArray = [[LocalDatabaseAccess getInstance]fetchStoredCardsAndWriteErrorIn:&error];
+    NSMutableArray *dataContent = [[NSMutableArray alloc] init];
     
-    // Release any cached data, images, etc that aren't in use.
+    // TODO: controllare errori
+    for(int i = 0; i < cardsArray.count ; i++){
+        //creo l'array di dizionari per le righe della sezione "carte"            
+        CartaPerDue *card = [cardsArray objectAtIndex:i];
+        
+        NSMutableDictionary *tempDict = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                          @"card",               @"DataKey",
+                                          @"CartaTableViewCell", @"kind",
+                                          card,                  @"card",
+                                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                          nil] autorelease];
+        
+        [dataContent insertObject: tempDict atIndex: i];
+    }
+    return [dataContent autorelease];
 }
 
--(void)dealloc{
+
+- (void)didMatchNewCard {
     
-    [sectionData release];
-    [sectionDescription release];
+    NSLog(@" quiiiiiiiiiii");
     
+    if (sectionData.count == 1) {
+        [sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
+        [sectionDescription insertObject:@"Gestione" atIndex:1];
+        
+        NSArray *tempA = [[sectionData objectAtIndex:0]retain];
+        
+        [sectionData removeObjectAtIndex:0];
+        [sectionData insertObject:[self creaDataContent] atIndex:0];
+        [sectionData insertObject:tempA atIndex:1];
+        
+        [tempA release];
+    } else if(sectionData.count > 1){
+        
+        [sectionData replaceObjectAtIndex:0 withObject:[self creaDataContent]];
+    }
     
-    [super dealloc];
+    nAssociatedCards = [[sectionData objectAtIndex:0] count];
+    
 }
 
 

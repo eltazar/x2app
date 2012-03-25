@@ -9,14 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "AbbinaCartaViewController.h"
 
-@interface CarteViewController : UITableViewController <AbbinaCartaDelegate>
-{
-    NSMutableArray *sectionDescription;
-    NSMutableArray *sectionData;
-    BOOL temp;
-    
-    int numCarteAbbinate;
-    
-        
+@interface CardsViewController : UITableViewController <AbbinaCartaDelegate>
+{ 
 }
+
 @end
