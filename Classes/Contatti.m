@@ -7,6 +7,7 @@
 //
 
 #import "Contatti.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @implementation Contatti
@@ -60,7 +61,13 @@
 	// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {	
 
-	
+	UITextView *infoTextView = [[UITextView alloc] init];
+    infoTextView.frame = CGRectMake(10, 10, 300,100);
+    infoTextView.text = @"I tuoi dati e quelli della tua carta di credito sono archiviati esclusivamente sul tuo smartphone per facilitarti i prossimi acquisti. I dati della carta di credito non vengono conservati sul server. La trasmissione delle informazioni  per ogni signolo acquisto avviene utilizzando le più recenti e sicure tecnologie disponibili per assicurare la massima sicurezza, su una connessione cifrata SSL (Secure Socket Layer), e i dati non vengono conservati sul server." ;
+    infoTextView.editable = NO;
+    infoTextView.layer.cornerRadius = 6;
+    [self.tableview addSubview:infoTextView];
+    [infoTextView release];
     [super viewDidLoad];
 }
 
@@ -74,12 +81,27 @@
  */
 
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if(section == 0)
+        return 110;
+    else return 5;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 3;
+	switch (section) {
+        case 0:
+            return 0;
+            break;
+        case 1:
+            return 3;
+        default:
+            return 0;
+            break;
+    }
 }
 
 
