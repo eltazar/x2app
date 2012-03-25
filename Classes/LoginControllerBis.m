@@ -342,10 +342,44 @@
  */
 
 #pragma mark - Table view delegate
+//setta il colore delle label dell'header BIANCHE
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        
+        UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
+        [customView setBackgroundColor:[UIColor clearColor]];
+        
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
+        
+        lbl.backgroundColor = [UIColor clearColor];
+        lbl.textColor = [UIColor whiteColor];
+        lbl.lineBreakMode = UILineBreakModeWordWrap;
+        lbl.numberOfLines = 0;
+        lbl.textAlignment =  UITextAlignmentCenter;
+        lbl.font = [UIFont systemFontOfSize:13];       
+        
+        
+        lbl.text = @"Devi effettuare il login per poter acquistare i coupon ed usufruire dei vantaggi offerti";
+        
+        UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
+        CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
+        CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+        
+        lbl.frame = CGRectMake(10, 30, tableView.bounds.size.width-20, labelSize.height+6);
+        
+        [customView addSubview:lbl];
+        
+        return customView;
+    }
+    
+    return nil;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView   heightForHeaderInSection:(NSInteger)section {
     
     if(section == 1)
-        return 60;
+        return 75;
     else return 30;
 }
 
