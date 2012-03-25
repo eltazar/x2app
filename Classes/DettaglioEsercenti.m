@@ -88,11 +88,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
 	if( (cell == nil) && (indexPath.section==0) && (indexPath.row==0) ) {
-		cell = [[[NSBundle mainBundle] loadNibNamed:@"cellaindirizzo" owner:self options:NULL] objectAtIndex:0];
+		//cell = [[[NSBundle mainBundle] loadNibNamed:@"cellaindirizzo" owner:self options:NULL] objectAtIndex:0];
+        [[NSBundle mainBundle] loadNibNamed:@"cellaindirizzo" owner:self options:NULL];
+        cell = cellaindirizzo;
+        
 	}
 	else {
 		if(  ((cell == nil) && (indexPath.section==0) && (indexPath.row==1) && ([tableView numberOfRowsInSection:0]==3) ) ) {
-			cell = [[[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL] objectAtIndex:0];
+			//cell = [[[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL] objectAtIndex:0];
+            [[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL] ;
+            cell = CellaDettaglio1;
 		}
 		else {
 			if( ((cell == nil) && (indexPath.section==0) && (indexPath.row==2))  ||  ((cell == nil) && (indexPath.section==0) && (indexPath.row==1) && ([tableView numberOfRowsInSection:0]==2))  ) {
@@ -102,7 +107,9 @@
 			else {	
 				
 				if( (cell == nil) && (indexPath.section==1) ){
-					cell = [[[NSBundle mainBundle] loadNibNamed:@"provacella" owner:self options:NULL] objectAtIndex:0];
+					//cell = [[[NSBundle mainBundle] loadNibNamed:@"provacella" owner:self options:NULL] objectAtIndex:0];
+                    [[NSBundle mainBundle] loadNibNamed:@"provacella" owner:self options:NULL] ;
+                    cell = provacella;
 				}
 			
 			}

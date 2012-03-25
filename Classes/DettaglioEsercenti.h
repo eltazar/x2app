@@ -15,9 +15,9 @@
 
 
 @interface DettaglioEsercenti : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
-	//IBOutlet UITableViewCell *provacella;
-	//IBOutlet UITableViewCell *cellaindirizzo;
-	//IBOutlet UITableViewCell *CellaDettaglio1;
+	IBOutlet UITableViewCell *provacella;
+	IBOutlet UITableViewCell *cellaindirizzo;
+	IBOutlet UITableViewCell *CellaDettaglio1;
     Reachability* internetReach;
 	Reachability* wifiReach;
 }
