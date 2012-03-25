@@ -38,7 +38,7 @@
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:139.0/255 green:29.0/255 blue:0.0 alpha:1]];
 
     prefs = [NSUserDefaults standardUserDefaults];
-    self.title = @"Dati login";
+    self.title = @"Profilo utente";
     
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithTitle:@"Annulla" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
     
