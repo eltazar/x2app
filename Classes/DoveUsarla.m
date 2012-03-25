@@ -104,13 +104,13 @@
 #pragma mark - IBActions
 
 
-- (IBAction)SelectCity:(id)sender {
+- (IBAction)openCitySelector:(id)sender {
 	Opzioni *opt = [[[Opzioni alloc] init] autorelease];
     [self presentModalViewController:opt animated:YES];
 }
 
 
-- (IBAction)OpenInfo:(id)sender {
+- (IBAction)openInfo:(id)sender {
 	Info *info = [[[Info alloc] init] autorelease];
 	[self presentModalViewController:info animated:YES];
 }

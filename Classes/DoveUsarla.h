@@ -35,8 +35,8 @@
 
 
 // TODO: non rispettano naming convention, correggere!
-- (IBAction)SelectCity:(id)sender;
-- (IBAction)OpenInfo:(id)sender;
+- (IBAction)openCitySelector:(id)sender;
+- (IBAction)openInfo:(id)sender;
 - (void)spinTheSpinner;
 - (void)doneSpinning;
 
