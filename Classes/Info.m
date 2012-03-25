@@ -106,21 +106,11 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	switch (section) {
-		case 0:
-			return 1;	
-		case 1:
-			return 1;
-		case 2:
-			return 3;
-		default:
-			return 1;
-	}
-	
+	return 3;
 }
 
 
@@ -137,17 +127,17 @@
     lbl.numberOfLines = 0;
     lbl.font = [UIFont boldSystemFontOfSize:20];
     
-	
-	if (section == 0)
-	{
-		lbl.text =@"Supervision";
-	}
-	if (section == 1){
-		lbl.text = @"Developer";
-		
-	}
-	
-	if (section == 2){
+//	
+//	if (section == 0)
+//	{
+//		lbl.text =@"Supervision";
+//	}
+//	if (section == 1){
+//		lbl.text = @"Developer";
+//		
+//	}
+//	
+	if (section == 0){
 		lbl.text = @"Contatti";	
 
 		}
@@ -166,16 +156,8 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	NSString *lblText;
-	
-	if (section == 0)
-	{
-		lblText = @"Supervision";
-	}
-	if (section == 1){
-		lblText = @"Developer";
-		
-	}	
-	if (section == 2){
+
+	if (section == 0){
 			lblText = @"Contatti";	
 		}
 
@@ -198,23 +180,23 @@
 		cell= cellacredits ;
 	}
 		
-	if ((indexPath.row==0) && (indexPath.section==0) ){	
-		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-		lbl.text = @"Prof. Emanuele Panizzi"; 
-		UILabel *etc = (UILabel *)[cell viewWithTag:2];
-		etc.text = @"Dipartimento di Informatica \"La Sapienza\" di Roma";
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-	}
-	if ((indexPath.row==0) && (indexPath.section==1)) {	
-		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-		lbl.text = @"Giuseppe Lisanti"; 
-		UILabel *etc = (UILabel *)[cell viewWithTag:2];
-		etc.text = @"";
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-	}
-	if ((indexPath.row==0) && (indexPath.section==2)) {	
+//	if ((indexPath.row==0) && (indexPath.section==0) ){	
+//		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+//		lbl.text = @"Prof. Emanuele Panizzi"; 
+//		UILabel *etc = (UILabel *)[cell viewWithTag:2];
+//		etc.text = @"Dipartimento di Informatica \"La Sapienza\" di Roma";
+//		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//
+//	}
+//	if ((indexPath.row==0) && (indexPath.section==1)) {	
+//		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+//		lbl.text = @"Giuseppe Lisanti"; 
+//		UILabel *etc = (UILabel *)[cell viewWithTag:2];
+//		etc.text = @"";
+//		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//
+//	}
+	if ((indexPath.row==0) && (indexPath.section==0)) {	
 		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
 		lbl.text = @"800737383"; 
 		UILabel *etc = (UILabel *)[cell viewWithTag:2];
@@ -222,7 +204,7 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
 	}
-	if ((indexPath.row==1) && (indexPath.section==2)) {	
+	if ((indexPath.row==1) && (indexPath.section==0)) {	
 		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
 		lbl.text = @"redazione@cartaperdue.it"; 
 		UILabel *etc = (UILabel *)[cell viewWithTag:2];
@@ -230,7 +212,7 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		
 	}
-	if ((indexPath.row==2) && (indexPath.section==2)) {	
+	if ((indexPath.row==2) && (indexPath.section==0)) {	
 		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
 		lbl.text = @"www.cartaperdue.it"; 
 		UILabel *etc = (UILabel *)[cell viewWithTag:2];
@@ -245,16 +227,14 @@
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if ( (indexPath.row == 0)&&(indexPath.section==2) ){ //telefona
+	if ( (indexPath.row == 0)&&(indexPath.section==0) ){ //telefona
 		UIActionSheet *aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Vuoi chiamare\nCarta PerDue?"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Chiama", nil];
 		[aSheet showInView:self.view];
 		//[aSheet setBackgroundColor:[UIColor colorWithRed:142/255.0 green:21/255.0 blue:7/255.0 alpha:1.0]];
 		
 		[aSheet release];			
-		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];		
-		}
-	if ( (indexPath.row == 1)&&(indexPath.section==2) ){ //mail
+    }
+	if ( (indexPath.row == 1)&&(indexPath.section==0) ){ //mail
 		MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
 		[[controller navigationBar] setTintColor:[UIColor colorWithRed:142/255.0 green:21/255.0 blue:7/255.0 alpha:1.0]];
 		NSArray *to = [NSArray arrayWithObject:[NSString stringWithFormat:@"info@cartaperdue.it"]];
@@ -263,9 +243,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[controller setMessageBody:@"" isHTML:NO];
 		[self presentModalViewController:controller animated:YES];
 		[controller release];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
-	if ( (indexPath.row == 2)&&(indexPath.section==2) ){ //sito
+	if ( (indexPath.row == 2)&&(indexPath.section==0) ){ //sito
 		NSURL *url = [NSURL URLWithString:@"http://www.cartaperdue.it"];
 		NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 		[webView loadRequest:requestObj];		
@@ -281,11 +260,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		
 		[[self view] addSubview:sito];
 
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		[webView release];
 		webView=nil;
 	
 	}
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 }
 
