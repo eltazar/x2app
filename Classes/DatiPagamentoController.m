@@ -275,7 +275,7 @@
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"grayButton.png"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"grayButton"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
@@ -586,7 +586,7 @@
     
     sectionData = [[NSArray alloc] initWithObjects: secC, secD, secE, nil];
     
-    NSArray *payCards = [[NSArray alloc] initWithObjects:@"--",@"Amerian Express",@"Maestro",@"Mastercard",@"PostePay",@"Visa", nil];
+    NSArray *payCards = [[NSArray alloc] initWithObjects:@"--",@"American Express",@"Maestro",@"Mastercard",@"PostePay",@"Visa", nil];
     pickerCards = [[PickerViewController alloc] initWithArray:[NSArray arrayWithObjects:payCards,nil] andNumber:1];
     [payCards release];
     
