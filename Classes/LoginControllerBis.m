@@ -201,7 +201,7 @@
             [alert release];
         }
         else{
-            [dbAccess sendRetrievePswForUser:textField.text];
+            //[dbAccess sendRetrievePswForUser:textField.text];
         }
     }
         
@@ -443,7 +443,7 @@
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"grayButton.png"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"grayButton"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
