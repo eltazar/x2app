@@ -338,6 +338,7 @@
 
 
 - (void)dealloc {
+    self.mapView.delegate = nil;
     self.rows = nil;
     self.phpFile = nil, 
     self.phpSearchFile = nil;
