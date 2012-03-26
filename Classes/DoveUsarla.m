@@ -11,6 +11,7 @@
 #import "UserDefaults.h"
 #import "Opzioni.h"
 #import "Info.h"
+#import "Utilita.h"
 
 
 @interface DoveUsarla () {
@@ -233,14 +234,14 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    int wifi = 0;
-    int internet = 0;
-    internetReach = [[Reachability reachabilityForInternetConnection] retain];
-    wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-    internet = [self checkNetReachability:internetReach];
-    wifi = [self checkNetReachability:wifiReach];	
+//    int wifi = 0;
+//    int internet = 0;
+//    internetReach = [[Reachability reachabilityForInternetConnection] retain];
+//    wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+//    internet = [self checkNetReachability:internetReach];
+//    wifi = [self checkNetReachability:wifiReach];	
     
-    if( (internet == -1) &&( wifi == -1) ){
+    if( ! [Utilita networkReachable]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert show];
         [alert release];
@@ -258,10 +259,10 @@
 
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[wifiReach release];
-    wifiReach = nil;
-	[internetReach release];
-    internetReach = nil;
+//	[wifiReach release];
+//    wifiReach = nil;
+//	[internetReach release];
+//    internetReach = nil;
     [super viewWillDisappear:animated];
 }
 
@@ -278,10 +279,10 @@
     self.dataModel = nil;
     self.locationManager = nil;
     // Attributi
-    [wifiReach release];
-    wifiReach = nil;
-    [internetReach release];
-    internetReach = nil;
+//    [wifiReach release];
+//    wifiReach = nil;
+//    [internetReach release];
+//    internetReach = nil;
     // Super
     [super dealloc];
 }
@@ -301,18 +302,18 @@
 
 
 // TODO: Mi lascia perplesso
-- (int)checkNetReachability:(Reachability*) curReach {
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
+//- (int)checkNetReachability:(Reachability*) curReach {
+//	NetworkStatus netStatus = [curReach currentReachabilityStatus];
+//	
+//	switch (netStatus){
+//		case NotReachable:{
+//			return -1;
+//			break;
+//		}
+//		default:
+//			return 0;
+//	}
+//}
 
 
 

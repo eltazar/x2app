@@ -13,8 +13,8 @@
 
 @interface DoveUsarla : UITableViewController<CLLocationManagerDelegate,UIAlertViewDelegate>  {
 	CLLocationManager *locationManager;	
-	Reachability* internetReach;
-	Reachability* wifiReach;
+//	Reachability* internetReach;
+//	Reachability* wifiReach;
 
 }
 
