@@ -213,6 +213,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             
             NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
             
+            NSString *provinciaSelezionata = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"cittacoupon"]];
+            
             NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
             
             NSLog(@"PAGAMENTO: ID UTENTE da server = %d",idUtente);
@@ -228,7 +230,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             
             //identificativo è relativo all'offerta, cioè è id coupon
             
-            [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
+            [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@&prov=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv,provinciaSelezionata]];
             
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
         }
