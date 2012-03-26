@@ -17,6 +17,7 @@
     
 }
 
+
 + (NSString *)weekDay {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *dayFromDefaults = [NSString stringWithFormat:@"%@", [defaults objectForKey:@"giorno"]];
@@ -78,7 +79,6 @@
                 
             default:
                 break;
-                
         }
     }
     return @"";

@@ -12,23 +12,22 @@
 
 
 @interface DoveUsarla : UITableViewController<CLLocationManagerDelegate,UIAlertViewDelegate>  {
-	CLLocationManager *locationManager;	
-//	Reachability* internetReach;
-//	Reachability* wifiReach;
-
+    // Properties' ivars:
+    NSArray *dataModel;
+    // IBOutlet properties' ivars:
+    IBOutlet UILabel *tableHeaderLabel;
 }
-
 
 @property (nonatomic, retain) NSArray *dataModel;
 
 @property (nonatomic, retain) IBOutlet UILabel *tableHeaderLabel;
 
 
-
-// TODO: non rispettano naming convention, correggere!
-- (IBAction)openCitySelector:(id)sender;
-- (IBAction)openInfo:(id)sender;
 - (void)spinTheSpinner;
 - (void)doneSpinning;
+
+- (IBAction)openCitySelector:(id)sender;
+- (IBAction)openInfo:(id)sender;
+
 
 @end
