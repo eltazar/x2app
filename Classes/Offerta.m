@@ -194,7 +194,7 @@
 						cell=cellacoupon;
 					}
 					UILabel *t2 = (UILabel *)[cell viewWithTag:1];
-					t2.text = @"Termini e condizioni";
+					t2.text = @"Condizioni";
 					break;
 				case 2:
 					if (cell == nil){	
