@@ -621,8 +621,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 }
 
 - (IBAction)OpenContatti:(id)sender {
-	Contatti *cnt = [[[Contatti alloc] init] autorelease];
+	Contatti *cnt = [[Contatti alloc] initWithNibName:@"Contatti" bundle:nil];
 	[self presentModalViewController:cnt animated:YES];
+    [cnt release];
 	
 }
 - (IBAction)chiudi:(id)sender {
