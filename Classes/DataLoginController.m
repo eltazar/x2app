@@ -248,7 +248,6 @@
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"grayButton.png"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
@@ -257,6 +256,7 @@
         [b setTitle:@"Logout" forState:UIControlStateNormal];
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [b setBackgroundImage:[UIImage imageNamed:@"grayButton.png"] forState:UIControlStateNormal];
         
         // give it a tag in case you need it later
         //b.tag = 1;
