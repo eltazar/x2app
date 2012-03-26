@@ -9,13 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-#import "Reachability.h"
 #import "GeoDecoder.h"
 
 
 @interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, MKAnnotation, UIAlertViewDelegate, GeoDecoderDelegate> {
-	Reachability* internetReach;
-	Reachability* wifiReach;
+
 }
 
 

@@ -13,6 +13,8 @@
 #import "UserDefaults.h"
 #import "GoogleHQAnnotation.h"
 #import "CJSONDeserializer.h"
+#import "Utilita.h"
+
 
 //Metodi privati
 @interface CategoriaCommerciale () {
@@ -23,7 +25,7 @@
 }
 - (NSString *)searchMethod;
 - (NSArray *)fetchRowsFromUrlString:(NSString*) urlString;
-- (int)checkNetReachability:(Reachability*) curReach;
+//- (int)checkNetReachability:(Reachability*) curReach;
 @property (nonatomic, retain) NSString *phpFile;
 @property (nonatomic, retain) NSString *phpSearchFile;
 @end
@@ -306,16 +308,20 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-	int wifi =0;
-	int internet = 0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-    internet = [self checkNetReachability:internetReach];
-	wifi = [self checkNetReachability:wifiReach];	
-    
-	if( (internet == -1) &&( wifi == -1) ){
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-		[alert show];
+//	int wifi =0;
+//	int internet = 0;
+//	internetReach = [[Reachability reachabilityForInternetConnection] retain];
+//	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+//    internet = [self checkNetReachability:internetReach];
+//	wifi = [self checkNetReachability:wifiReach];	
+//    
+//	if( (internet == -1) &&( wifi == -1) ){
+//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+//		[alert show];
+//        [alert release];
+    if( ![Utilita networkReachable]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert show];
         [alert release];
 	} else {
         if(! [[UserDefaults city] isEqualToString:@"Qui"]) {
@@ -519,18 +525,18 @@
 # pragma mark - Net Reachability
 
 
-// TODO: Mi lascia perplesso
-- (int)checkNetReachability:(Reachability*) curReach {
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:
-			return -1;
-			break;
-		default:
-			return 0;
-	}
-}
+//// TODO: Mi lascia perplesso
+//- (int)checkNetReachability:(Reachability*) curReach {
+//	NetworkStatus netStatus = [curReach currentReachabilityStatus];
+//	
+//	switch (netStatus){
+//		case NotReachable:
+//			return -1;
+//			break;
+//		default:
+//			return 0;
+//	}
+//}
 
 
 @end
