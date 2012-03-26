@@ -41,7 +41,6 @@
 				<string key="NSFrameSize">{207, 30}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBSegmentControlStyle">2</int>
@@ -87,7 +86,6 @@
 						<string key="NSFrameSize">{320, 65}</string>
 						<reference key="NSSuperview" ref="311165442"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:567</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -121,7 +119,6 @@
 						<string key="NSFrameSize">{320, 460}</string>
 						<reference key="NSSuperview" ref="490262057"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:800</string>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -212,7 +209,6 @@
 						<string key="NSFrame">{{0, 80}, {320, 456}}</string>
 						<reference key="NSSuperview" ref="771859489"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:418</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -261,14 +257,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">tableview</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="61445597"/>
-					</object>
-					<int key="connectionID">19</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">footerView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="605257400"/>
@@ -298,6 +286,14 @@
 						<reference key="destination" ref="771859489"/>
 					</object>
 					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">tableView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="61445597"/>
+					</object>
+					<int key="connectionID">27</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -447,7 +443,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">25</int>
+			<int key="maxID">27</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -474,7 +470,7 @@
 						<string key="mapView">MKMapView</string>
 						<string key="searchBar">UISearchBar</string>
 						<string key="searchSegCtrl">UISegmentedControl</string>
-						<string key="tableview">UITableView</string>
+						<string key="tableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="footerView">
@@ -497,8 +493,8 @@
 							<string key="name">searchSegCtrl</string>
 							<string key="candidateClassName">UISegmentedControl</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="tableview">
-							<string key="name">tableview</string>
+						<object class="IBToOneOutletInfo" key="tableView">
+							<string key="name">tableView</string>
 							<string key="candidateClassName">UITableView</string>
 						</object>
 					</dictionary>

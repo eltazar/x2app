@@ -25,9 +25,14 @@
 }
 - (NSString *)searchMethod;
 - (NSArray *)fetchRowsFromUrlString:(NSString*) urlString;
-//- (int)checkNetReachability:(Reachability*) curReach;
+- (void)fetchRows;
+- (NSInteger)fetchMoreRows;
+- (void)fetchRowsBySearchKey:(NSString *)searchkey;
+- (void)showMap:(id)sender;
+- (void)hideMap:(id)sender;
 @property (nonatomic, retain) NSString *phpFile;
 @property (nonatomic, retain) NSString *phpSearchFile;
+@property (nonatomic, retain) GeoDecoder *geoDec;
 @end
 
 
@@ -38,14 +43,13 @@
 @synthesize rows;
 
 // IBOutlets
-@synthesize searchBar, tableview, mapView, footerView, searchSegCtrl, mapTypeSegCtrl;
+@synthesize searchBar, tableView, mapView, footerView, searchSegCtrl, mapTypeSegCtrl;
 
 // Properties private
-@synthesize phpFile, phpSearchFile;
+@synthesize phpFile, phpSearchFile, geoDec;
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -62,6 +66,110 @@
     latitude = la;
     longitude = lo;
     return self;
+}
+
+
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+}
+
+
+#pragma mark - View lifecycle
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.rows = [[[NSMutableArray alloc] init] autorelease];
+    lastFetchWasASearch = NO;
+	//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+	UIBarButtonItem *mapButton = [[[UIBarButtonItem alloc]
+                                   initWithTitle:@"Mappa"
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self
+                                   action:@selector(showMap:)] autorelease];
+    self.navigationItem.rightBarButtonItem = mapButton;
+    self.geoDec = [[GeoDecoder alloc] init];
+    self.geoDec.delegate = self;
+	[self fetchRows];
+}
+
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    //	int wifi =0;
+    //	int internet = 0;
+    //	internetReach = [[Reachability reachabilityForInternetConnection] retain];
+    //	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+    //    internet = [self checkNetReachability:internetReach];
+    //	wifi = [self checkNetReachability:wifiReach];	
+    //    
+    //	if( (internet == -1) &&( wifi == -1) ){
+    //		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+    //		[alert show];
+    //        [alert release];
+    if( ![Utilita networkReachable]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert show];
+        [alert release];
+	} else {
+        if(! [[UserDefaults city] isEqualToString:@"Qui"]) {
+            [self.geoDec searchCoordinatesForAddress:[UserDefaults city]];
+        }
+    }
+}
+
+
+- (void)viewDidUnload {
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+    
+    // Roba ri-creata in viewDidLoad:
+    self.rows = nil;
+    self.navigationItem.rightBarButtonItem = nil;
+    self.geoDec.delegate = nil;
+    self.geoDec = nil;
+    
+    // IBOutlets:
+    self.mapView.delegate = nil;
+	self.mapView = nil;
+    self.tableView.delegate = nil; //perché non erditiamo UITableViewController, quindi super non lo fa.
+    self.tableView = nil;
+    self.searchBar.delegate = nil;
+	self.searchBar = nil;
+	self.mapTypeSegCtrl = nil;
+    self.searchSegCtrl = nil;
+	self.footerView = nil;
+    [super viewDidUnload];
+}
+
+
+- (void)dealloc {
+    self.rows = nil;
+    
+    self.mapView.delegate = nil;
+    self.mapView = nil;
+    self.tableView.delegate = nil;
+    self.tableView = nil;
+    self.searchBar.delegate = nil;
+	self.searchBar = nil;
+	self.mapTypeSegCtrl = nil;
+    self.searchSegCtrl = nil;
+	self.footerView = nil;
+    
+    self.phpFile = nil, 
+    self.phpSearchFile = nil;
+    self.geoDec.delegate = nil;
+    self.geoDec = nil;
+    [super dealloc];
+}
+
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
@@ -172,7 +280,6 @@
 			altri2.text = @"Non ci sono altri esercenti da mostrare";
 		}
 	}
-    
 }
 
 
@@ -219,7 +326,8 @@
 }
 
 
-#pragma mark - UISearBarDelegate
+#pragma mark - UISearchBarDelegate
+
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
 	self.searchBar.showsCancelButton = YES;
@@ -269,101 +377,34 @@
     [self.mapView setRegion:region animated:YES];
 }
 
+
 - (void)didReceiveErrorGeoDecoder:(NSError *)error{
     NSLog(@"errore geodecoder = %@",[error description]);
 }
 
 
+#pragma mark - CategoriaCommerciale (IBActions)
 
 
-# pragma mark - Memory Management
-
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
+- (IBAction)didChangeSearchSegCtrlState:(id)sender {
+    [self fetchRows];
 }
 
 
-#pragma mark - View lifecycle
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.rows = [[[NSMutableArray alloc] init] autorelease];
-    lastFetchWasASearch = NO;
-	//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-	UIBarButtonItem *mapButton = [[[UIBarButtonItem alloc]
-								  initWithTitle:@"Mappa"
-								  style:UIBarButtonItemStyleBordered
-								  target:self
-								  action:@selector(showMap:)] autorelease];
-    self.navigationItem.rightBarButtonItem = mapButton;
-    geoDec = [[GeoDecoder alloc] init];
-    geoDec.delegate = self;
-	[self fetchRows];
+- (IBAction)didChangeMapTypeSegCtrlState:(id)sender {
+    NSInteger selection = [self.mapTypeSegCtrl selectedSegmentIndex];
+	if (selection == 2) {
+		self.mapView.mapType = MKMapTypeHybrid;
+	} else if (selection == 1) {
+		self.mapView.mapType = MKMapTypeSatellite;
+	} else  {
+		self.mapView.mapType = MKMapTypeStandard;
+	}
 }
 
 
+#pragma mark - CategoriaCommerciale (metodi privati)
 
-- (void)viewWillAppear:(BOOL)animated {
-//	int wifi =0;
-//	int internet = 0;
-//	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-//	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-//    internet = [self checkNetReachability:internetReach];
-//	wifi = [self checkNetReachability:wifiReach];	
-//    
-//	if( (internet == -1) &&( wifi == -1) ){
-//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-//		[alert show];
-//        [alert release];
-    if( ![Utilita networkReachable]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-        [alert show];
-        [alert release];
-	} else {
-        if(! [[UserDefaults city] isEqualToString:@"Qui"]) {
-            [geoDec searchCoordinatesForAddress:[UserDefaults city]];
-        }
-    }
-}
-
-
-- (void)viewDidUnload {
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-	self.mapView = nil;
-    self.tableview = nil;
-	self.searchBar = nil;
-	self.mapTypeSegCtrl = nil;
-    self.searchSegCtrl = nil;
-	self.footerView = nil;
-}
-
-
-- (void)dealloc {
-    self.mapView.delegate = nil;
-    self.rows = nil;
-    self.phpFile = nil, 
-    self.phpSearchFile = nil;
-    geoDec.delegate = nil;
-    [geoDec release];
-    geoDec = nil;
-    [super dealloc];
-}
-
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-
-#pragma mark - CategoriaCommerciale
 
 - (void) fetchRows{
     lastFetchWasASearch = NO;
@@ -375,7 +416,7 @@
     NSArray *newRows = [self fetchRowsFromUrlString: urlString];
     [self.rows removeAllObjects];
     [self.rows addObjectsFromArray:newRows];
-    [self.tableview reloadData];
+    [self.tableView reloadData];
 }
 
 
@@ -388,9 +429,10 @@
                            [UserDefaults weekDay], [self searchMethod], self.rows.count];
     NSArray *newRows = [self fetchRowsFromUrlString: urlString];
     [self.rows addObjectsFromArray:newRows];
-    [self.tableview reloadData];
+    [self.tableView reloadData];
     return newRows.count;
 }
+
 
 - (void) fetchRowsBySearchKey:(NSString *)searchKey {
     lastFetchWasASearch = YES;
@@ -403,7 +445,7 @@
     NSArray *newRows = [self fetchRowsFromUrlString: urlString];
     [self.rows removeAllObjects];
     [self.rows addObjectsFromArray:newRows];
-    [self.tableview reloadData];
+    [self.tableView reloadData];
 }
 
 
@@ -467,29 +509,6 @@
 }
 
 
-#pragma mark - CategoriaCommerciale (IBActions)
-
-
-- (IBAction)didChangeSearchSegCtrlState:(id)sender {
-    [self fetchRows];
-}
-
-
-- (IBAction)didChangeMapTypeSegCtrlState:(id)sender {
-    NSInteger selection = [self.mapTypeSegCtrl selectedSegmentIndex];
-	if (selection == 2) {
-		self.mapView.mapType = MKMapTypeHybrid;
-	} else if (selection == 1) {
-		self.mapView.mapType = MKMapTypeSatellite;
-	} else  {
-		self.mapView.mapType = MKMapTypeStandard;
-	}
-}
-
-
-#pragma mark - CategoriaCommerciale (private methods)
-
-
 - (NSArray *)fetchRowsFromUrlString:(NSString*) urlString {
     NSLog(@"%@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
@@ -520,23 +539,6 @@
         return @"";
     }
 }
-
-
-# pragma mark - Net Reachability
-
-
-//// TODO: Mi lascia perplesso
-//- (int)checkNetReachability:(Reachability*) curReach {
-//	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-//	
-//	switch (netStatus){
-//		case NotReachable:
-//			return -1;
-//			break;
-//		default:
-//			return 0;
-//	}
-//}
 
 
 @end
