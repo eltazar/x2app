@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
-#import "Reachability.h"
 
 
 @interface Contatti : UIViewController <UITableViewDelegate,UITableViewDataSource,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>  {
@@ -18,8 +17,6 @@
 	IBOutlet UIView *sito;
 	IBOutlet UIWebView *webView;
 	IBOutlet UIWebView *infocarta;
-	Reachability* internetReach;
-	Reachability* wifiReach;
 	
 }
 @property (nonatomic, retain) IBOutlet UIButton *close;
@@ -31,7 +28,5 @@
 
 - (IBAction)chiudi:(id)sender;
 - (IBAction)chiudisito:(id)sender;
-
--(int)check:(Reachability*) curReach;
 
 @end

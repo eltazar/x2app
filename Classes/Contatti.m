@@ -8,27 +8,11 @@
 
 #import "Contatti.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "Utilita.h"
 
 @implementation Contatti
 
 @synthesize close,tableview,sito,webView;
-
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
-
-
-
 
 - (IBAction)chiudi:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
@@ -62,9 +46,10 @@
 - (void)viewDidLoad {	
 
 	UITextView *infoTextView = [[UITextView alloc] init];
-    infoTextView.frame = CGRectMake(10, 10, 300,100);
+    infoTextView.frame = CGRectMake(10, 10, 300,130);
     infoTextView.text = @"I tuoi dati e quelli della tua carta di credito sono archiviati esclusivamente sul tuo smartphone per facilitarti i prossimi acquisti. I dati della carta di credito non vengono conservati sul server. La trasmissione delle informazioni  per ogni signolo acquisto avviene utilizzando le più recenti e sicure tecnologie disponibili per assicurare la massima sicurezza, su una connessione cifrata SSL (Secure Socket Layer), e i dati non vengono conservati sul server." ;
     infoTextView.editable = NO;
+    infoTextView.font = [UIFont fontWithName:@"Helvetica" size:15];
     infoTextView.layer.cornerRadius = 6;
     [self.tableview addSubview:infoTextView];
     [infoTextView release];
@@ -83,7 +68,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if(section == 0)
-        return 110;
+        return 150;
     else return 5;
 }
 
@@ -201,26 +186,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 -(void)viewWillAppear:(BOOL)animated {
-	int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        if( ![Utilita networkReachable]){
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
 		[alert show];
         [alert release];
-		
 	}
 	
 	
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[wifiReach release];
-	[internetReach release];
     [super viewWillDisappear:animated];
 	
 	
