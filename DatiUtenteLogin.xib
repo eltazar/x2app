@@ -42,9 +42,9 @@
 							<object class="IBUILabel" id="488606015">
 								<reference key="NSNextResponder" ref="827304937"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{11, 11}, {236, 21}}</string>
+								<string key="NSFrame">{{13, 7}, {236, 25}}</string>
 								<reference key="NSSuperview" ref="827304937"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -73,7 +73,7 @@
 						</array>
 						<string key="NSFrameSize">{300, 43}</string>
 						<reference key="NSSuperview" ref="589195265"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:395</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -88,6 +88,7 @@
 				</array>
 				<string key="NSFrameSize">{320, 44}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="827304937"/>
 				<string key="NSReuseIdentifierKey">_NS:384</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -155,7 +156,106 @@
 			<nil key="sourceID"/>
 			<int key="maxID">8</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">Pagamento2</string>
+					<string key="superclassName">UIViewController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="OpenInfo:">id</string>
+						<string key="chiudi:">id</string>
+						<string key="compra:">id</string>
+						<string key="editingEnded:">id</string>
+						<string key="logoutBtnClicked:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="OpenInfo:">
+							<string key="name">OpenInfo:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="chiudi:">
+							<string key="name">chiudi:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="compra:">
+							<string key="name">compra:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="editingEnded:">
+							<string key="name">editingEnded:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="logoutBtnClicked:">
+							<string key="name">logoutBtnClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="celladaticarta">UITableViewCell</string>
+						<string key="celladatipagamento">UITableViewCell</string>
+						<string key="celladato">UITableViewCell</string>
+						<string key="cellamail">UITableViewCell</string>
+						<string key="cellapag">UITableViewCell</string>
+						<string key="compra">UIButton</string>
+						<string key="datopersonale">UILabel</string>
+						<string key="tablegenerale">UITableView</string>
+						<string key="titololabel">UILabel</string>
+						<string key="vistadatipagamento">UIViewController</string>
+						<string key="vistadatipersonali">UIViewController</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="celladaticarta">
+							<string key="name">celladaticarta</string>
+							<string key="candidateClassName">UITableViewCell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="celladatipagamento">
+							<string key="name">celladatipagamento</string>
+							<string key="candidateClassName">UITableViewCell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="celladato">
+							<string key="name">celladato</string>
+							<string key="candidateClassName">UITableViewCell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cellamail">
+							<string key="name">cellamail</string>
+							<string key="candidateClassName">UITableViewCell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cellapag">
+							<string key="name">cellapag</string>
+							<string key="candidateClassName">UITableViewCell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="compra">
+							<string key="name">compra</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="datopersonale">
+							<string key="name">datopersonale</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="tablegenerale">
+							<string key="name">tablegenerale</string>
+							<string key="candidateClassName">UITableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="titololabel">
+							<string key="name">titololabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="vistadatipagamento">
+							<string key="name">vistadatipagamento</string>
+							<string key="candidateClassName">UIViewController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="vistadatipersonali">
+							<string key="name">vistadatipersonali</string>
+							<string key="candidateClassName">UIViewController</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/Pagamento2.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

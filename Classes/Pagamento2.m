@@ -265,9 +265,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 		case 0:
 			return 55;
 		case 1:
-			return 45;
+			return 40;
 		case 2:
-			return 50;
+			return 45;
 		default:
 			return 50;
 	}
@@ -292,7 +292,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-		UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tablegenerale.bounds.size.width, 45.0)] autorelease];
+		UIView *customView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 		[customView setBackgroundColor:[UIColor clearColor]];
     
 		UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -315,8 +315,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 		//UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
 		//CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
 		//	CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-    
-		lbl.frame = CGRectMake(10, -10, tablegenerale.bounds.size.width, 30);
+		lbl.frame = CGRectMake(10, -5, tablegenerale.bounds.size.width, 30);
 
 		[customView addSubview:lbl];
     
