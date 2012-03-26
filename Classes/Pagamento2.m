@@ -77,7 +77,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     if( /*! [self validaDatiUtente] ||*/ ! [self validaDatiCartaCredito]){
 
         NSLog(@"dati utenti mancanti");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inserire tutti i dati" message:@"Devi inserire i della carta di credito per effettuare l'acquisto" delegate:self cancelButtonTitle:@"Non ora" otherButtonTitles:@"Inserisci",nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inserire tutti i dati" message:@"Devi inserire tutti i dati della carta di credito per effettuare l'acquisto" delegate:self cancelButtonTitle:@"Non ora" otherButtonTitles:@"Inserisci",nil];
         [alert show];
         [alert release];
 	}
@@ -316,9 +316,11 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 		//CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
 		//	CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     
-		lbl.frame = CGRectMake(10, 0, tablegenerale.bounds.size.width, 30);
+		lbl.frame = CGRectMake(10, -10, tablegenerale.bounds.size.width, 30);
 
 		[customView addSubview:lbl];
+    
+#warning FAR SALIRE LE CELLE RELATIVE AI NOMI SEZIONE!
     
 		return customView;
 }
