@@ -374,8 +374,7 @@
 		
 		
 		if (cell == nil){
-			[[NSBundle mainBundle] loadNibNamed:@"CellaFinale" owner:self options:NULL];
-			cell=cellafinale;
+			cell = [[[NSBundle mainBundle] loadNibNamed:@"LastCell" owner:self options:NULL] objectAtIndex:0];
 			
 		}
 		UILabel *altri = (UILabel *)[cell viewWithTag:1];
