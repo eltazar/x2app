@@ -106,7 +106,7 @@
         nAssociatedCards = cardsSection.count;
     } else {
         [self.sectionDescription insertObject:@"Gestione" atIndex:0];
-        self.sectionData = [[NSMutableArray alloc] initWithObjects:manageSection, nil];
+        self.sectionData = [[[NSMutableArray alloc] initWithObjects:manageSection, nil] autorelease];
     }
     
     [cardsSection release];
@@ -241,7 +241,7 @@
     UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
     [customView setBackgroundColor:[UIColor clearColor]];
     
-    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
+    UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     lbl.backgroundColor = [UIColor clearColor];
     lbl.textColor = [UIColor whiteColor];
     lbl.lineBreakMode = UILineBreakModeWordWrap;
