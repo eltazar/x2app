@@ -129,9 +129,6 @@
     [prefs removeObjectForKey:@"_email"];
     [prefs synchronize];
     
-    if(delegate && [delegate respondsToSelector:@selector(didLogout)])
-        [delegate didLogout];
-    
     //[self.navigationController popViewControllerAnimated:YES];
     if(delegate && [delegate respondsToSelector:@selector(didLogout)])
         [self.delegate didLogout];
