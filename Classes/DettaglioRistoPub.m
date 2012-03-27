@@ -7,24 +7,24 @@
 //
 
 #import "DettaglioRistoPub.h"
-
+#import "Utilita.h"
 
 @implementation DettaglioRistoPub
 @synthesize rows, identificativo,mappa;
 @synthesize dict,tableview,sito,webView,condizioni,cond;
 
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
+//-(int)check:(Reachability*) curReach{
+//	NetworkStatus netStatus = [curReach currentReachabilityStatus];
+//	
+//	switch (netStatus){
+//		case NotReachable:{
+//			return -1;
+//			break;
+//		}
+//		default:
+//			return 0;
+//	}
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
@@ -989,14 +989,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 */
 
 -(void)viewWillAppear:(BOOL)animated {
-	int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
+//	int wifi=0;
+//	int internet=0;
+//	internetReach = [[Reachability reachabilityForInternetConnection] retain];
+//	internet= [self check:internetReach];
+//	
+//	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+//	wifi=[self check:wifiReach];	
+//	if( (internet==-1) &&( wifi==-1) ){
+    if(! [Utilita networkReachable]){
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
@@ -1007,8 +1008,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[wifiReach release];
-	[internetReach release];
+//	[wifiReach release];
+//	[internetReach release];
     [super viewWillDisappear:animated];
 	
 	

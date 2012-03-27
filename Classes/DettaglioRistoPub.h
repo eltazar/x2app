@@ -14,7 +14,7 @@
 #import <MessageUI/MessageUI.h>
 #import "Commenti.h"
 #import "PerDueCItyCardAppDelegate.h"
-#import "Reachability.h"
+//#import "Reachability.h"
 
 @interface DettaglioRistoPub : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
 	NSArray *rows;
@@ -34,8 +34,8 @@
 
 	IBOutlet UIWebView *webView;
 	UIViewController *detail;
-	Reachability* internetReach;
-	Reachability* wifiReach;
+//	Reachability* internetReach;
+//	Reachability* wifiReach;
 }
 
 @property (retain,nonatomic) NSArray *rows;
@@ -52,6 +52,6 @@
 - (IBAction)mostraTipoMappa:(id)sender;
 - (void) spinTheSpinner;
 - (void) doneSpinning;
--(int)check:(Reachability*) curReach;
+//-(int)check:(Reachability*) curReach;
 
 @end
