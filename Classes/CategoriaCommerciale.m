@@ -83,7 +83,6 @@
     [super viewDidLoad];
     self.rows = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
-	//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 	UIBarButtonItem *mapButton = [[[UIBarButtonItem alloc]
                                    initWithTitle:@"Mappa"
                                    style:UIBarButtonItemStyleBordered
@@ -260,7 +259,6 @@
 
 - (void)tableView:(UITableView *)tView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
-		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		NSDictionary* r = [rows objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
@@ -512,6 +510,7 @@
 
 
 - (NSArray *)fetchRowsFromUrlString:(NSString*) urlString {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSLog(@"%@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
     NSError *error = nil;
@@ -527,7 +526,7 @@
     } else {
         return [[[NSArray alloc] init] autorelease];
     }
-    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 

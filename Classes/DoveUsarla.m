@@ -21,7 +21,7 @@
     CLLocationManager *locationManager;
 }
 @property (nonatomic, retain) CLLocationManager *locationManager;
-- (int)checkNetReachability:(Reachability*) curReach;
+//- (int)checkNetReachability:(Reachability*) curReach;
 @end
 
 
@@ -145,7 +145,6 @@
 		self.navigationItem.title = [UserDefaults city];
 	}
 	[self.tableHeaderLabel setText:[UserDefaults weekDay]];
-    [self.tableView reloadData];
 }
 
 
@@ -252,8 +251,6 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-	
     NSDictionary *rowData = [self.dataModel objectAtIndex:indexPath.row];
     
     Class ViewController = NSClassFromString([rowData objectForKey:@"class"]);
@@ -267,26 +264,6 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	//Facciamo visualizzare la vista con i dettagli
 	[self.navigationController pushViewController:viewController animated:YES];
-}
-
-
-# pragma mark - DoveUsarla
-
-
-- (void)spinTheSpinner {
-    NSLog(@"Spin The Spinner");
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [self performSelectorOnMainThread:@selector(doneSpinning) withObject:nil waitUntilDone:YES];
-	
-    [pool release]; 
-}
-
-
-- (void)doneSpinning {
-    NSLog(@"done spinning");
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 

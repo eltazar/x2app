@@ -35,8 +35,6 @@
 
 
 - (id)initWithTitle:(NSString *)title phpFile:(NSString *)phpFile phpSearchFile:(NSString *)phpSearchFile latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude;
-- (void)spinTheSpinner;
-- (void)doneSpinning;
 
 - (IBAction)didChangeSearchSegCtrlState:(id)sender;
 - (IBAction)didChangeMapTypeSegCtrlState:(id)sender;

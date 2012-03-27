@@ -23,9 +23,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *tableHeaderLabel;
 
 
-- (void)spinTheSpinner;
-- (void)doneSpinning;
-
 - (IBAction)openCitySelector:(id)sender;
 - (IBAction)openInfo:(id)sender;
 
