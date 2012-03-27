@@ -56,11 +56,12 @@
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
 		[tView deselectRowAtIndexPath:indexPath animated:YES];
-		DettaglioRistoPub *detail = [[[DettaglioRistoPub alloc] initWithNibName:@"DettaglioRistoPub" bundle:[NSBundle mainBundle]] autorelease];
+		DettaglioRistoPub *detail = [[DettaglioRistoPub alloc] initWithNibName:@"DettaglioRistoPub" bundle:[NSBundle mainBundle]]; //autorelease];
 		[detail setIdentificativo:i];
 		[detail setTitle:@"Esercente"];
         //Facciamo visualizzare la vista con i dettagli
 		[self.navigationController pushViewController:detail animated:YES];
+        [detail release];
 	} else {
         [super tableView:(UITableView *)tView didSelectRowAtIndexPath:indexPath];
 	}
