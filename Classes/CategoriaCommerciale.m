@@ -90,7 +90,7 @@
                                    target:self
                                    action:@selector(showMap:)] autorelease];
     self.navigationItem.rightBarButtonItem = mapButton;
-    self.geoDec = [[GeoDecoder alloc] init];
+    self.geoDec = [[[GeoDecoder alloc] init] autorelease];
     self.geoDec.delegate = self;
 	[self fetchRows];
 }
