@@ -21,19 +21,23 @@
 #import "LocalDatabaseAccess.h"
 
 
-@interface CardsViewController()
+@interface CardsViewController() {
+    NSInteger nAssociatedCards;
+
+    NSMutableArray *sectionDescription;
+    NSMutableArray *sectionData;
+}
+@property (nonatomic, retain) NSMutableArray *sectionDescription;
+@property (nonatomic, retain) NSMutableArray *sectionData;
 - (NSMutableArray*)creaDataContent;
 - (void)didMatchNewCard;
-
 @end
 
 
 @implementation CardsViewController
 
 
-NSMutableArray *sectionDescription;
-NSMutableArray *sectionData;
-NSInteger nAssociatedCards;
+@synthesize sectionData, sectionDescription;
 
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -45,28 +49,137 @@ NSInteger nAssociatedCards;
 }
 
 
-#pragma mark - UITableViewDataSource protocol
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc that aren't in use.
+}
+
+
+#pragma mark - View lifecycle
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setTitle:@"Gestione carte"];
+    
+    // Allocazione strutture dati del Data Model
+    self.sectionDescription = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *cardsSection  = [[self creaDataContent] retain];
+    NSMutableArray *manageSection = [[NSMutableArray alloc] init];
+    
+    // Inizializzazione struttura dati della sezione di gestione
+    [manageSection insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                  @"abbina",                @"DataKey",
+                                  @"ActionCell",            @"kind",
+                                  @"Abbina la tua carta",   @"label",
+                                  @"",                      @"detailLabel",
+                                  @"Per abbinare la tua carta reale all'iPhone", @"subtitle",
+                                  @"",                      @"img",
+                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
+                                  nil] autorelease] atIndex: 0];
+    
+    [manageSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                                  @"acquista",              @"DataKey",
+                                  @"ActionCell",            @"kind",
+                                  @"Acquista carta",        @"label",
+                                  @"Per acquistare la carta PerDue online", @"subtitle",
+                                  @"",                      @"img",
+                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
+                                  nil] autorelease] atIndex: 1];
+    [manageSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                                  @"richiedi",              @"DataKey",
+                                  @"ActionCell",            @"kind",
+                                  @"Richiedi carta",        @"label",
+                                  @"Sarai ricontattato da PerDue", @"subtitle",
+                                  @"",                      @"img",
+                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
+                                  nil] autorelease] atIndex: 2];
+    
+    
+    // se la sezione "Carte" è vuota, non la aggiungo al model, così da nasconderla
+    if (cardsSection && cardsSection.count > 0) {
+        [self.sectionDescription insertObject:@"Carte" atIndex:0];
+        [self.sectionDescription insertObject:@"Gestione" atIndex:1];
+        
+        self.sectionData = [[[NSMutableArray alloc] initWithObjects:cardsSection, manageSection, nil] autorelease];
+        nAssociatedCards = cardsSection.count;
+    } else {
+        [self.sectionDescription insertObject:@"Gestione" atIndex:0];
+        self.sectionData = [[NSMutableArray alloc] initWithObjects:manageSection, nil];
+    }
+    
+    [cardsSection release];
+    [manageSection release];
+    
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];    
+    [self.tableView reloadData];
+    NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueIdentifier]);
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
+
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    self.sectionData = nil;
+    self.sectionDescription = nil;
+}
+
+
+- (void)dealloc {
+    self.sectionData = nil;
+    self.sectionDescription =nil;
+    [super dealloc];
+}
+
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+#pragma mark - UITableViewDataSource
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return sectionDescription.count;
+    return self.sectionDescription.count;
 }
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {  
-    return [sectionDescription objectAtIndex:section];
+    return [self.sectionDescription objectAtIndex:section];
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{   
-    if(sectionData){
-        return [[sectionData objectAtIndex: section] count];
+    if(self.sectionData){
+        return [[self.sectionData objectAtIndex: section] count];
     } 
     return 0;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *sec = [sectionData objectAtIndex:indexPath.section];
+    NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
     NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
     NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
     NSString *kind = [rowDesc objectForKey:@"kind"];
@@ -118,6 +231,7 @@ NSInteger nAssociatedCards;
 
 #pragma mark - UITableViewDelegate
 
+
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	return 30.0;
 }
@@ -133,11 +247,11 @@ NSInteger nAssociatedCards;
     lbl.lineBreakMode = UILineBreakModeWordWrap;
     lbl.numberOfLines = 0;
     lbl.font = [UIFont boldSystemFontOfSize:20];
-    lbl.text = [sectionDescription objectAtIndex:section];
+    lbl.text = [self.sectionDescription objectAtIndex:section];
     
     //	if (section == 0)
     //	{
-    //		lbl.text = [sectionDescripition objectAtIndex:section];
+    //		lbl.text = [self.sectionDescripition objectAtIndex:section];
     //	}
     //	if (section == 1){
     //        
@@ -165,7 +279,7 @@ NSInteger nAssociatedCards;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {    
     // "Navigo" il model fino alla cella selezionata
-    NSArray *sec = [sectionData objectAtIndex:indexPath.section];
+    NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
     NSDictionary *row = [sec objectAtIndex:indexPath.row];
     NSString *dataKey = [row objectForKey:@"DataKey"];
     
@@ -213,117 +327,6 @@ NSInteger nAssociatedCards;
 }
 
 
-#pragma mark - Memory Management
-
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
-
-
-#pragma mark - View lifecycle
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self setTitle:@"Gestione carte"];
-    
-    // Allocazione strutture dati del Data Model
-    sectionDescription = [[NSMutableArray alloc] init];
-    NSMutableArray *cardsSection  = [[self creaDataContent] retain];
-    NSMutableArray *manageSection = [[NSMutableArray alloc] init];
-    
-    // Inizializzazione struttura dati della sezione di gestione
-    [manageSection insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                  @"abbina",                @"DataKey",
-                                  @"ActionCell",            @"kind",
-                                  @"Abbina la tua carta",   @"label",
-                                  @"",                      @"detailLabel",
-                                  @"Per abbinare la tua carta reale all'iPhone", @"subtitle",
-                                  @"",                      @"img",
-                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
-                                  nil] autorelease] atIndex: 0];
-    
-    [manageSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
-                                  @"acquista",              @"DataKey",
-                                  @"ActionCell",            @"kind",
-                                  @"Acquista carta",        @"label",
-                                  @"Per acquistare la carta PerDue online", @"subtitle",
-                                  @"",                      @"img",
-                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
-                                  nil] autorelease] atIndex: 1];
-    [manageSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
-                                  @"richiedi",              @"DataKey",
-                                  @"ActionCell",            @"kind",
-                                  @"Richiedi carta",        @"label",
-                                  @"Sarai ricontattato da PerDue", @"subtitle",
-                                  @"",                      @"img",
-                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
-                                  nil] autorelease] atIndex: 2];
-
-    
-    // se la sezione "Carte" è vuota, non la aggiungo al model, così da nasconderla
-    if (cardsSection && cardsSection.count > 0) {
-        [sectionDescription insertObject:@"Carte" atIndex:0];
-        [sectionDescription insertObject:@"Gestione" atIndex:1];
-        
-        sectionData = [[NSMutableArray alloc] initWithObjects:cardsSection, manageSection, nil];
-        nAssociatedCards = cardsSection.count;
-    } else {
-        [sectionDescription insertObject:@"Gestione" atIndex:0];
-        sectionData = [[NSMutableArray alloc] initWithObjects:manageSection, nil];
-    }
-    
-    [cardsSection release];
-    [manageSection release];
-
-}
-
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];    
-    [self.tableView reloadData];
-    NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueIdentifier]);
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-
-- (void)dealloc {
-    [sectionData release];
-    [sectionDescription release];
-    [super dealloc];
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-
 # pragma mark - CardsViewController (private methods)
 
 
@@ -354,24 +357,23 @@ NSInteger nAssociatedCards;
     
     NSLog(@" quiiiiiiiiiii");
     
-    if (sectionData.count == 1) {
-        [sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
-        [sectionDescription insertObject:@"Gestione" atIndex:1];
+    if (self.sectionData.count == 1) {
+        [self.sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
+        [self.sectionDescription insertObject:@"Gestione" atIndex:1];
         
-        NSArray *tempA = [[sectionData objectAtIndex:0]retain];
+        NSArray *tempA = [[self.sectionData objectAtIndex:0]retain];
         
-        [sectionData removeObjectAtIndex:0];
-        [sectionData insertObject:[self creaDataContent] atIndex:0];
-        [sectionData insertObject:tempA atIndex:1];
+        [self.sectionData removeObjectAtIndex:0];
+        [self.sectionData insertObject:[self creaDataContent] atIndex:0];
+        [self.sectionData insertObject:tempA atIndex:1];
         
         [tempA release];
-    } else if(sectionData.count > 1){
+    } else if(self.sectionData.count > 1){
         
-        [sectionData replaceObjectAtIndex:0 withObject:[self creaDataContent]];
+        [self.sectionData replaceObjectAtIndex:0 withObject:[self creaDataContent]];
     }
     
-    nAssociatedCards = [[sectionData objectAtIndex:0] count];
-    
+    nAssociatedCards = [[self.sectionData objectAtIndex:0] count];
 }
 
 
