@@ -176,7 +176,7 @@
 #pragma mark - UITableViewDataSource
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tView {
 	if ([rows count] < 6){
 		return 1;
 	} else {
@@ -185,7 +185,7 @@
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tView numberOfRowsInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
 			return [self.rows count];
@@ -197,11 +197,11 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1) {
         // Stiamo mostrando la cella che suggerisce la visualizzazione di ulteriori esercenti
 		static NSString *CellIdentifier = @"Cell";
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
 		
 		if (cell == nil){
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"LastCell" owner:self options:NULL] objectAtIndex:0];
@@ -214,7 +214,7 @@
 	} else {
         // Stiamo mostrando la cella relativa ad un esercente
 		static NSString *CellIdentifier = @"Cell";
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
 		
 		if (cell == nil){
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"CategoriaCommercialeCell" owner:self options:NULL] objectAtIndex:0];
@@ -241,12 +241,12 @@
 #pragma mark - UITableViewDelegate
 
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tView viewForFooterInSection:(NSInteger)section {
     return self.footerView;
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tView heightForFooterInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
 			return 0;	
@@ -258,13 +258,13 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
 		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		NSDictionary* r = [rows objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		[tView deselectRowAtIndexPath:indexPath animated:YES];
 		DettaglioEsercenti *detail = [[[DettaglioEsercenti alloc] initWithNibName:@"DettaglioEsercenti" bundle:[NSBundle mainBundle]] autorelease];
 		[(DettaglioEsercenti*)detail setIdentificativo:i];
 		[detail setTitle:@"Esercente"];
@@ -275,7 +275,7 @@
         //riga mostra altri
 		int i = [self fetchMoreRows];
 		if (i < 20) { // non ci sono alri esercenti
-			UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+			UITableViewCell *cell = [tView cellForRowAtIndexPath:indexPath];
 			UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
 			altri2.text = @"Non ci sono altri esercenti da mostrare";
 		}
@@ -473,7 +473,8 @@
                              [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString],
                              [[r objectForKey:@"Citta_Esercente"] capitalizedString]] autorelease];
 		
-		[self.mapView addAnnotation:[[[GoogleHQAnnotation alloc] init:lati:longi:name:address:Id] autorelease]];
+		GoogleHQAnnotation *newAnnotation = [[[GoogleHQAnnotation alloc] init:lati:longi:name:address:Id] autorelease];
+        [self.mapView addAnnotation:newAnnotation];
 		NSLog(@"Latitudine:  %f\n", lati);
 		NSLog(@"Longitudine: %f\n", longi);
 		NSLog(@"ID: %d\n", Id);

@@ -11,11 +11,11 @@
 
 @implementation CategoriaCommercialeWithPrice
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
         // Stiamo mostrando la cella relativa ad un esercente
 		static NSString *CellIdentifier = @"Cell";
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
 		
 		if (cell == nil){
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"CategoriaCommercialeWithPriceCell" owner:self options:NULL] objectAtIndex:0];
@@ -44,25 +44,25 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
 	} else {
-        return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+        return [super tableView:tView cellForRowAtIndexPath:indexPath];
     }
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
 		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		NSDictionary* r = [super.rows objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		[tView deselectRowAtIndexPath:indexPath animated:YES];
 		DettaglioRistoPub *detail = [[[DettaglioRistoPub alloc] initWithNibName:@"DettaglioRistoPub" bundle:[NSBundle mainBundle]] autorelease];
 		[detail setIdentificativo:i];
 		[detail setTitle:@"Esercente"];
         //Facciamo visualizzare la vista con i dettagli
 		[self.navigationController pushViewController:detail animated:YES];
 	} else {
-        [super tableView:(UITableView *)tableView didSelectRowAtIndexPath:indexPath];
+        [super tableView:(UITableView *)tView didSelectRowAtIndexPath:indexPath];
 	}
 }
 
