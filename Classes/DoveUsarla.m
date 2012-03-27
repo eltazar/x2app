@@ -145,6 +145,7 @@
 		self.navigationItem.title = [UserDefaults city];
 	}
 	[self.tableHeaderLabel setText:[UserDefaults weekDay]];
+    [self.tableView reloadData];
 }
 
 
@@ -183,7 +184,7 @@
     // For example: self.myOutlet = nil;
     // Stuff re-created in viewDidAppear:
     [self.navigationItem setRightBarButtonItem:nil animated:YES];
-	self.tableView.tableHeaderView = nil;
+	//self.tableView.tableHeaderView = nil;
     self.tableHeaderLabel = nil;
 	[self.locationManager stopUpdatingLocation];
 	self.locationManager.delegate = nil;

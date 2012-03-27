@@ -42,8 +42,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "762"
          endingLineNumber = "762"
-         landmarkName = "-connection:didReceiveResponse:"
-         landmarkType = "5">
+         landmarkName = "@implementation DatabaseAccess"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -56,22 +56,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "771"
          endingLineNumber = "771"
-         landmarkName = "-connection:didReceiveData:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Classes/DatabaseAccess.m"
-         timestampString = "354152280.847394"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "800"
-         endingLineNumber = "800"
-         landmarkName = "-connectionDidFinishLoading:"
-         landmarkType = "5">
+         landmarkName = "@implementation DatabaseAccess"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
