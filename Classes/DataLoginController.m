@@ -43,6 +43,7 @@
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithTitle:@"Annulla" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
     
     self.navigationItem.leftBarButtonItem = cancelBtn;
+    [cancelBtn release];
     
     sectionDescripition = [[NSArray alloc] initWithObjects:@"",@"", nil];
     
