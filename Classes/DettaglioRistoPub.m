@@ -1032,6 +1032,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 - (void)dealloc {
+    map.delegate = nil;
+    [map release];
+    self.dict = nil;
     [super dealloc];
 }
 

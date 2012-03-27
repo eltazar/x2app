@@ -621,6 +621,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)dealloc {
 #warning inserire il release degli iboutlet ecc?
+    map.delegate = nil;
+    self.map = nil;
     self.dict = nil;
     [super dealloc];
 }
