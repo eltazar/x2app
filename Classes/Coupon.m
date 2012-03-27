@@ -796,7 +796,7 @@ if ([rows count]>0) {//coupon disponibile
 	[compra setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
     
     UIBarButtonItem *altreOfferteBtn = [[UIBarButtonItem alloc] initWithTitle:@"Altre offerte" style:UIBarButtonItemStyleBordered target:self action:@selector(AltreOfferte:)];
-    self.navigationItem.rightBarButtonItem = altreOfferteBtn;
+    self.navigationItem.leftBarButtonItem = altreOfferteBtn;
     [altreOfferteBtn release];
     
 //    UIBarButtonItem *cittaBtn = [[UIBarButtonItem alloc] initWithTitle:@"Città" style:UIBarButtonItemStyleBordered target:self action:@selector(Opzioni:)];
