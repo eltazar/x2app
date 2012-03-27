@@ -148,18 +148,18 @@
     [self.dbAccess setDelegate:self];
     
     [calendar release];
-    
-    
-    // Do any additional setup after loading the view from its nib.
 }
 
 
 - (void)viewDidUnload {
+    // Roba ricreata in viewDidLoad:
+    self.pickerDate = nil;
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
+    // IBOutlets:    
     self.abbinaButton = nil;
     
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 
@@ -170,13 +170,15 @@
 
 
 - (void)dealloc {
+    [_delegate release];
+    [_pickerDate release];
+    [_abbinaButton release];
+    
     [_nome release];
     [_cognome release];
     [_numeroCarta release];
     [_scadenza release];
-    
-    [_abbinaButton release];
-    
+    self.dbAccess.delegate = nil;
     [_dbAccess release];
     
     [super dealloc];
