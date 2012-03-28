@@ -738,6 +738,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     self.utente = nil;
     self.email = nil;
     
+    dbAccess.delegate = nil;
     [dbAccess release];
     
     [compra release];
@@ -745,6 +746,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	[titolo release];
 	
 	//[url release];
+    tablegenerale.delegate = nil;
+    tablegenerale.dataSource = nil;
 	[tablegenerale release];
 	
 	
