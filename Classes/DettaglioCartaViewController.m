@@ -12,10 +12,14 @@
 #import "Utilita.h"
 
 @implementation DettaglioCartaViewController
-@synthesize cercaButton, card, acquistaButton, richiediButton, cercaLabel, scadutaLabel;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+
+@synthesize card=_card;
+
+@synthesize cercaLabel=_cercaLabel, cercaButton=_cercaButton, scadutaLabel=_scadutaLabel, acquistaButton=_acquistaButton, richiediButton=_richiediButton;
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -23,55 +27,31 @@
     return self;
 }
 
--(id)initWithCard:(CartaPerDue *)aCard{
-    
-    self = [super initWithNibName:@"ControlloCartaController" bundle:nil];
-    
+
+- (id)initWithCard:(CartaPerDue *)aCard {
+    // Dato che nibName è nil, e non abbiamo fatto override di loadView, allora initwithNibName cerca di caricare nell'ordine: DettaglioCartaView.xib, DettaglioCartaViewController.xib.
+    self = [super initWithNibName:nil bundle:nil];
     if(self){
         self.card = aCard;
     }
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+
+- (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark - Pulsanti  view
-
--(IBAction)cercaButtonClicked:(id)sender{
-    
-    NSLog(@"pulsante cerca premuto");
-}
-
--(IBAction)acquistaButtonClicked:(id)sender{
-    NSLog(@"pulsante acquista premuto");
-    
-    //carica sezione acquisti
-}
-
--(IBAction)richiediButtonClicked:(id)sender{
-    NSLog(@"pulsante richiedi premuto");
-    
-    //caricare come modal?
-    
-    RichiediCardViewController *richiediController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
-    
-    [self.navigationController pushViewController:richiediController animated:YES];
-    [richiediController release];
-
-}
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+
+- (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSLog(@"self.cercaLabel.shadowColor : %@", self.cercaLabel.shadowColor);
     //query su db per verificare se carta è stata abbinata ad altro dispositivo
     //se si viene mostrato avviso e rimuovere "cerca esercizi commerciali ...."
     //al suo posto mostare tasto "riabbina"
@@ -79,9 +59,9 @@
     
     // Do any additional setup after loading the view from its nib.
     
-    [scadutaLabel setHidden:YES];
-    [acquistaButton setHidden:YES];
-    [richiediButton setHidden:YES];
+    [self.scadutaLabel setHidden:YES];
+    [self.acquistaButton setHidden:YES];
+    [self.richiediButton setHidden:YES];
     
     //[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backGroundPattern.png"]]];
     
@@ -101,10 +81,10 @@
     titolareLabel.font = [UIFont systemFontOfSize:15];
     titolareLabel.text = [NSString stringWithFormat:@"%@ %@", self.card.name, self.card.surname];
     //titolareLabel.tag = 5;
-
+    
     
     UITextField *numeroCartaLabel = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + titolareLabel.frame.size.height+20, 160, 28)];
-        numeroCartaLabel.font = [UIFont systemFontOfSize:15];
+    numeroCartaLabel.font = [UIFont systemFontOfSize:15];
     numeroCartaLabel.text = self.card.number;
     //numeroCartaLabel.tag = 4;
     
@@ -123,9 +103,9 @@
     [numeroCartaLabel release];
     [titolareLabel release];
     [scadenzaLabel release];
-
+    
 # warning TODO: rimuovere isDateExpired
-    if([Utilita isDateExpired:self.card.expiryString]){
+    if ([Utilita isDateExpired:self.card.expiryString]) {
         //attacco adesivo "scaduta"
         UIImageView *scadutaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scadutaImg.png"]];
         [scadutaView setFrame:CGRectMake(11, 20, 300, 180)];
@@ -133,43 +113,66 @@
         [scadutaView release];
         
         //[viewPulsante removeFromSuperview];
-        [cercaLabel setHidden:YES];
-        [cercaButton setHidden:YES];
-        [acquistaButton setHidden:NO];
-        [richiediButton setHidden:NO];
-        [scadutaLabel setHidden:NO];
+        [self.cercaLabel setHidden:YES];
+        [self.cercaButton setHidden:YES];
+        [self.acquistaButton setHidden:NO];
+        [self.richiediButton setHidden:NO];
+        [self.scadutaLabel setHidden:NO];
     }
-
 }
 
-- (void)viewDidUnload
-{
-    self.richiediButton = nil;
-    self.acquistaButton = nil;
+
+- (void)viewDidUnload {
+    self.cercaLabel = nil;
     self.cercaButton = nil;
     self.scadutaLabel = nil;
-    self.cercaLabel = nil;
+    self.acquistaButton = nil;
+    self.richiediButton = nil;
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+
 - (void)dealloc {
-    [cercaButton release];
-    [scadutaLabel release];
-    [cercaLabel release];
-    [richiediButton release];
-    [acquistaButton release];
+    [_cercaLabel release];
+    [_cercaButton release];
+    [_scadutaLabel release];
+    [_acquistaButton release];    
+    [_richiediButton release];
     
     self.card = nil;
     
     [super dealloc];
 }
+
+
+#pragma mark - DettaglioCartaViewController
+
+
+- (IBAction)cercaButtonClicked:(id)sender {
+    NSLog(@"pulsante cerca premuto");
+}
+
+
+- (IBAction)acquistaButtonClicked:(id)sender {
+    NSLog(@"pulsante acquista premuto");
+}
+
+
+- (IBAction)richiediButtonClicked:(id)sender {
+    NSLog(@"pulsante richiedi premuto");
+    // Caricare come modal?
+    RichiediCardViewController *richiediController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:richiediController animated:YES];
+    [richiediController release];
+
+}
+
 
 @end

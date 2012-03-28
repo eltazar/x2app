@@ -9,20 +9,31 @@
 #import "CartaPerDue.h"
 
 
+@interface DettaglioCartaViewController : UIViewController {
+    CartaPerDue *_card;
+    
+    UILabel *_cercaLabel;
+    UIButton *_cercaButton;
+    UILabel *_scadutaLabel;
+    UIButton *_acquistaButton;
+    UIButton *_richiediButton;
+}
 
-@interface DettaglioCartaViewController : UIViewController
 
-@property(nonatomic,retain) IBOutlet UIButton *cercaButton;
 @property(nonatomic,retain) CartaPerDue *card;
+
 @property(nonatomic,retain) IBOutlet UILabel *cercaLabel;
+@property(nonatomic,retain) IBOutlet UIButton *cercaButton;
 @property(nonatomic,retain) IBOutlet UILabel *scadutaLabel;
 @property(nonatomic,retain) IBOutlet UIButton *acquistaButton;
 @property(nonatomic,retain) IBOutlet UIButton *richiediButton;
 
--(IBAction)cercaButtonClicked:(id)sender;
--(IBAction)acquistaButtonClicked:(id)sender;
--(IBAction)richiediButtonClicked:(id)sender;
 
--(id)initWithCard:(CartaPerDue *)card;
+- (id)initWithCard:(CartaPerDue *)card;
+
+- (IBAction)cercaButtonClicked:(id)sender;
+- (IBAction)acquistaButtonClicked:(id)sender;
+- (IBAction)richiediButtonClicked:(id)sender;
+
 
 @end
