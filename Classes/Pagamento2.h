@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "DatiPers.h"
-#import "DatiPag.h"
 #import "Contatti.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "DatiPagamentoController.h"
