@@ -176,6 +176,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		webView=nil;
 		
 	}
+    if(indexPath.row == 3){
+        //facebook
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.facebook.com/perdue.roma"]];
+    }
 	
 }
 

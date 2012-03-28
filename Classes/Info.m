@@ -110,7 +110,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 3;
+	return 4;
 }
 
 
@@ -220,6 +220,14 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		
 	}
+    if ((indexPath.row==3) && (indexPath.section==0)) {	
+		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+		lbl.text = @"Seguici su Facebook"; 
+		UILabel *etc = (UILabel *)[cell viewWithTag:2];
+		etc.text = @"";
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		
+	}
 	
 	return cell;
 	
@@ -263,6 +271,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[webView release];
 		webView=nil;
 	
+	}
+    if ( (indexPath.row == 3)&&(indexPath.section==0) ){ //facebook
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.facebook.com/perdue.roma"]];
 	}
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
