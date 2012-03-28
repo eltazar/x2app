@@ -473,43 +473,49 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //}
 
 
+-(IBAction)refreshView:(id)sender
+{
+    [self viewDidAppear:YES];
+}
 
 -(void)Paga:(id)sender{
     
-    if ([rows count]>0) {//coupon disponibile
-        if(secondsLeft>0) {     
-            
-            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-            
-            NSNumber *idUtente = [prefs objectForKey:@"_idUtente"];
-            
-            if(!idUtente){
-                //lancio view modale per il login
-                LoginControllerBis *loginController = [[LoginControllerBis alloc] initWithNibName:@"LoginControllerBis" bundle:nil];
+    if([Utilita networkReachable]){
+        if ([rows count]>0) {//coupon disponibile
+            if(secondsLeft>0) {     
                 
-                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
-                loginController.delegate = self;
-                [loginController release];
+                NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                 
+                NSNumber *idUtente = [prefs objectForKey:@"_idUtente"];
                 
-                navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-                
-                [self presentModalViewController:navController animated:YES];
-                
-                [navController release];
-            }
-            else{
-                Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
-                [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-                NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
-                //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
-                [pagamentoController setIdentificativo:identificativo];
-                NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-                NSLog(@"%@",tit);
-                pagamentoController.titolo = tit;
-                [pagamentoController setTitle:@"Acquisto"];
-                [self.navigationController pushViewController:pagamentoController animated:YES];
-                [pagamentoController release];
+                if(!idUtente){
+                    //lancio view modale per il login
+                    LoginControllerBis *loginController = [[LoginControllerBis alloc] initWithNibName:@"LoginControllerBis" bundle:nil];
+                    
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+                    loginController.delegate = self;
+                    [loginController release];
+                    
+                    
+                    navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+                    
+                    [self presentModalViewController:navController animated:YES];
+                    
+                    [navController release];
+                }
+                else{
+                    Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
+                    [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
+                    NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+                    //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
+                    [pagamentoController setIdentificativo:identificativo];
+                    NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
+                    NSLog(@"%@",tit);
+                    pagamentoController.titolo = tit;
+                    [pagamentoController setTitle:@"Acquisto"];
+                    [self.navigationController pushViewController:pagamentoController animated:YES];
+                    [pagamentoController release];
+                }
             }
         }
     }
@@ -657,7 +663,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [super viewDidAppear:animated];
     
     [reloadBtn setHidden:YES];
-    [compra setHidden:YES];
+    [compra setHidden:NO];
+    [compra setEnabled:NO];
     
     //	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
     
@@ -674,6 +681,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
         titolo.text = @" Connessione non disponibile!";
         [compra setHidden:YES];
+        [reloadBtn setHidden:NO];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
@@ -737,8 +745,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     self.navigationItem.title = @"Coupon";
     
-    [compra setHidden:YES];
+    //[compra setHidden:YES];
+    [compra setEnabled:NO];
+    
     [reloadBtn setHidden:YES];
+    [compra setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     
     altezzaCella = 44.0;
     
@@ -987,7 +998,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)didReceiveCoupon:(NSDictionary *)coupon;
 {
     [caricamentoSpinner stopAnimating];
-    [compra setHidden:NO];
+    //[compra setHidden:NO];
+    [compra setEnabled:YES];
     
     dict = [coupon retain];
     
@@ -1016,14 +1028,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if([rows count]==0){ //niente coupon 
 		titolo.text=@"Nessuna offerta disponibile!";
 		
-		[compra setHidden:YES];
+//		[compra setHidden:YES];
+        [compra setEnabled:NO];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Spiacenti" message:@"In questo momento non ci sono offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
 		[alert show];
 		[alert release];
 	}
 	
 	else { //offerta esite
-		[compra setHidden:NO];
+//		[compra setHidden:NO];
+        [compra setEnabled:YES];
 		dict = [rows objectAtIndex: 0];
 		titolo.text=[NSString stringWithFormat:@"  Solo %@€, sconto %@%",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"offerta_sconto_per"]];
         //identificativo è relativo all'offerta
@@ -1046,7 +1060,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             altezzaCella = 67;
         else if(myLabel.frame.size.height <= 84)
             altezzaCella = 90;
-        else altezzaCella = 100;
+        else if(myLabel.frame.size.height <= 105)
+            altezzaCella = 110;
         
         [myLabel release];
         
