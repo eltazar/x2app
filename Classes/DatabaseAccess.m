@@ -42,13 +42,13 @@ NSString* key(NSURLConnection* con)
     [userData retain];
     NSLog(@"DBACCESS REGISTER  --> user = %@",userData);
     
-    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://cartaperdue.it/coupon/test_registrazione_utente_app.jsp"];
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://cartaperdue.it/coupon/registrazione_utente_app_exe.jsp"];
     
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSString *postFormatString = @"nome=%@&cognome=%@&email=%@&telefono=%d";
+    NSString *postFormatString = @"mail=%@&telefono=%d&nome=%@&cognome=%@";
     NSString *postString = [NSString stringWithFormat:postFormatString, [userData objectAtIndex:0],[userData objectAtIndex:1],[userData objectAtIndex:2],[userData objectAtIndex:3]];
     
     NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
@@ -59,7 +59,10 @@ NSString* key(NSURLConnection* con)
     
     [request setHTTPBody:postData];
     
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];  
+    
+    
+    
     if(connection){
         //NSLog(@"IS CONNECTION TRUE");
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
