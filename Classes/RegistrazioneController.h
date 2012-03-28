@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "DatabaseAccess.h"
+@class MBProgressHUD;
 
-@interface RegistrazioneController : UITableViewController{
+@interface RegistrazioneController : UITableViewController<DatabaseAccessDelegate>{
         
-        NSMutableArray *sectionData;
-        NSMutableArray *sectionDescription;      
+    NSMutableArray *sectionData;
+    NSMutableArray *sectionDescription;      
+    DatabaseAccess *dbAccess;
 }
+@property (retain) MBProgressHUD *hud;
 @end
 

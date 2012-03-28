@@ -10,6 +10,8 @@
 #import "BaseCell.h"
 #import "TextFieldCell.h"
 #import "Utilita.h"
+#import <QuartzCore/QuartzCore.h>
+#import "MBProgressHUD.h"
 
 //metodi e variabili private
 @interface RegistrazioneController ()
@@ -24,6 +26,7 @@
 
 @implementation RegistrazioneController
 @synthesize nome,cognome,telefono,email;
+@synthesize hud = _hud;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -149,14 +152,14 @@
 //setta il colore delle label dell'header BIANCHE
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    /*
+    
     if(section == 1){
         // create the parent view that will hold 1 or more buttons
         UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 37)];
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"yellowButton.png"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
@@ -165,7 +168,8 @@
         [b setTitle:@"Invia richiesta" forState:UIControlStateNormal];
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        
+        b.layer.cornerRadius = 8.0f;
+        b.layer.masksToBounds = YES;
         
         // give it a tag in case you need it later
         //b.tag = 1;
@@ -182,7 +186,7 @@
         
     }
     else{
-        */
+        
         
         UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
         [customView setBackgroundColor:[UIColor clearColor]];
@@ -208,7 +212,7 @@
         [customView addSubview:lbl];
         
         return customView;
-    /*}*/
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -315,7 +319,6 @@
     
 }
 
--(void)selectedTime:(id)sender{
 #pragma mark - DatabaseDelegate
 
 -(void)didReceiveResponsFromServer:(NSString *)receivedData{
@@ -407,11 +410,6 @@
     
     //[saveBtn release];
     [cancelBtn release];
-    
-    UIBarButtonItem *regBtn = [[UIBarButtonItem alloc] initWithTitle:@"Registrati" style:UIBarButtonItemStyleBordered target:self action:@selector(sendRequestClicked:)];
-    
-    self.navigationItem.rightBarButtonItem = regBtn;
-    [regBtn release];
 
     
     sectionDescription = [[NSMutableArray alloc] initWithObjects:@"Inserisci i dati",@"", nil];  
@@ -490,6 +488,8 @@
 }
 
 - (void)dealloc {
+    [_hud release];
+    _hud = nil;
     
     dbAccess.delegate = nil;
     [dbAccess release];
