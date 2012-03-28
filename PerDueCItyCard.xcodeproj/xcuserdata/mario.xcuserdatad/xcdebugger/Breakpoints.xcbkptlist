@@ -9,11 +9,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Pagamento2.m"
-         timestampString = "354489819.657425"
+         timestampString = "354666611.856401"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "240"
-         endingLineNumber = "240"
+         startingLineNumber = "252"
+         endingLineNumber = "252"
          landmarkName = "@implementation Pagamento2"
          landmarkType = "3">
       </FileBreakpoint>
