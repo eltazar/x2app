@@ -522,6 +522,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             }
         }
     }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert show];
+        [alert release];
+    }
 }
 
 
