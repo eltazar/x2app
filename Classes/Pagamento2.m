@@ -11,6 +11,8 @@
 //#import "DatiUtenteController.h"
 #import "DatabaseAccess.h"
 #import "DataLoginController.h"
+#import "MBProgressHUD.h"
+#import "Utilita.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -230,8 +232,18 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             
             //identificativo è relativo all'offerta, cioè è id coupon
             
-            [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@&prov=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv,provinciaSelezionata]];
+            if([Utilita networkReachable]){
             
+                [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@&prov=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv,provinciaSelezionata]];
+                
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.labelText = @"Acquisto...";
+            }
+            else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+                [alert show];
+                [alert release];  
+            }
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
         }
     }
@@ -645,6 +657,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 -(void)didReceiveError:(NSError *)error{
     
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
     NSLog(@"ERRORE SERVER NELL'ACQUISTO DEL COUPON = %@",error);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Ci sono stati problemi nell'invio della richiesta di acquisto, Riprovare!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
     [alert show];
@@ -653,6 +667,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 }
 
 -(void)didReceiveResponsFromServer:(NSString *)receivedData{
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+
     
     NSLog(@"DATI RICEVUTI DAL SERVER ACQUISTO COUPON = %@", receivedData);
     if([receivedData isEqualToString:@"Ok"]){
