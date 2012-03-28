@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface CartaPerDue : NSObject {
-    NSString *name;
-    NSString *surname;
-    NSInteger expiryMonth;
-    NSInteger expiryYear;
-    NSString *number;
+    NSString *_name;
+    NSString *_surname;
+    NSInteger _expiryMonth;
+    NSInteger _expiryYear;
+    NSString *_number;
 }
 
 @property (nonatomic, retain) NSString* name;
@@ -25,7 +25,6 @@
 @property (nonatomic, assign) NSString *expiryString;
 
 
-- (BOOL)isValid;
-- (void)queryAssociationToThisDevice;
+- (BOOL)isExpired;
 
 @end

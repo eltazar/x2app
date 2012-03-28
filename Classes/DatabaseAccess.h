@@ -43,7 +43,7 @@ NSString* key(NSURLConnection* con);
 
 //metodi per controllo associazione carte
 - (void)checkCardExistence:(CartaPerDue *)card;
-- (void)checkThisDeviceAssociatedWithCard:(NSString *)cardNumber;
+- (void)cardDeviceAssociation:(NSString *)cardNumber request:(NSString *)r;
 
 //-(void)jobDelRequest:(Job*)job;
 //-(void)jobModRequest:(Job*)job;

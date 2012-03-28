@@ -193,6 +193,8 @@
 		D924E635151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E634151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
+		D9B362581521BDFC003725D4 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B362551521BDFC003725D4 /* NSString+MD5Addition.m */; };
+		D9B362591521BDFC003725D4 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B362571521BDFC003725D4 /* UIDevice+IdentifierAddition.m */; };
 		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
 		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
 /* End PBXBuildFile section */
@@ -478,9 +480,13 @@
 		D924E630151D50F900AD4C07 /* CategoriaCommercialeWithPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriaCommercialeWithPrice.m; sourceTree = "<group>"; };
 		D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriaCommercialeWithPrice.xib; sourceTree = "<group>"; };
 		D924E634151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriaCommercialeWithPriceCell.xib; sourceTree = SOURCE_ROOT; };
-		D9861EB3151BE2540017A16E /* CardExists.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = CardExists.php; path = "php server/PHP APPv2/CardExists.php"; sourceTree = SOURCE_ROOT; };
+		D9861EB3151BE2540017A16E /* Card.php */ = {isa = PBXFileReference; name = Card.php; path = "php server/PHP APPv2/Card.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
 		D99378B11519368200DFC410 /* CartaPerDue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaPerDue.m; sourceTree = "<group>"; };
+		D9B362541521BDFC003725D4 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
+		D9B362551521BDFC003725D4 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
+		D9B362561521BDFC003725D4 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
+		D9B362571521BDFC003725D4 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -694,6 +700,7 @@
 			isa = PBXGroup;
 			children = (
 				19D4CA7413ED5144001C7763 /* Classes */,
+				D9B362531521BDFC003725D4 /* UIDeviceAdditions */,
 				AC067E79150821CB00F4DF12 /* facebook */,
 				19DA381113A9FFFE007B5D38 /* Reachbility */,
 				19990B24138D8C97003DB0D2 /* JsonTouch */,
@@ -857,9 +864,6 @@
 				AC13B700150964E600E54106 /* Controller per acquisto coupon */,
 				D93C796E151F4B7F006FD19E /* Carte */,
 				AC85A22A14FBA31800DD91F6 /* Celle personalizzate */,
-				AC85A23E14FBF87800DD91F6 /* AbbinaCartaViewController.h */,
-				AC85A23F14FBF87900DD91F6 /* AbbinaCartaViewController.m */,
-				AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */,
 				AC9B69261507AFAA00BE6A30 /* ControlloCartaController.h */,
 				AC9B69271507AFAA00BE6A30 /* ControlloCartaController.m */,
 				AC9B69281507AFAA00BE6A30 /* ControlloCartaController.xib */,
@@ -914,6 +918,9 @@
 				AC85A22514FB9CA900DD91F6 /* CardsViewController.h */,
 				AC85A22614FB9CA900DD91F6 /* CardsViewController.m */,
 				AC85A22714FB9CA900DD91F6 /* CardsViewController.xib */,
+				AC85A23E14FBF87800DD91F6 /* AbbinaCartaViewController.h */,
+				AC85A23F14FBF87900DD91F6 /* AbbinaCartaViewController.m */,
+				AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */,
 			);
 			name = Carte;
 			sourceTree = "<group>";
@@ -926,7 +933,7 @@
 				D91D431C151A3D6F001D9033 /* login.php */,
 				D91D431D151A3D6F001D9033 /* provamario.php */,
 				D91D431E151A3D6F001D9033 /* QueryHelper.php */,
-				D9861EB3151BE2540017A16E /* CardExists.php */,
+				D9861EB3151BE2540017A16E /* Card.php */,
 			);
 			name = PHP;
 			sourceTree = "<group>";
@@ -962,6 +969,17 @@
 			);
 			name = "Dove Usarla V2";
 			sourceTree = "<group>";
+		};
+		D9B362531521BDFC003725D4 /* UIDeviceAdditions */ = {
+			isa = PBXGroup;
+			children = (
+				D9B362541521BDFC003725D4 /* NSString+MD5Addition.h */,
+				D9B362551521BDFC003725D4 /* NSString+MD5Addition.m */,
+				D9B362561521BDFC003725D4 /* UIDevice+IdentifierAddition.h */,
+				D9B362571521BDFC003725D4 /* UIDevice+IdentifierAddition.m */,
+			);
+			path = UIDeviceAdditions;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -1163,7 +1181,6 @@
 				1923D88C13F81648005A9815 /* OpzioniCoupon.m in Sources */,
 				19BF9ABB13FAB87500F00730 /* AsyncImageView.m in Sources */,
 				190BC5E91430E11E004D2705 /* Contatti.m in Sources */,
-				AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */,
 				AC85A22D14FBA37300DD91F6 /* BaseCell.m in Sources */,
 				AC85A23014FBA38000DD91F6 /* ActionCell.m in Sources */,
 				AC85A23514FBB59400DD91F6 /* InfoCell.m in Sources */,
@@ -1203,6 +1220,9 @@
 				D924E626151CBC4900AD4C07 /* CategoriaCommerciale.m in Sources */,
 				D924E62A151CEB6F00AD4C07 /* UserDefaults.m in Sources */,
 				D924E632151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.m in Sources */,
+				D9B362581521BDFC003725D4 /* NSString+MD5Addition.m in Sources */,
+				D9B362591521BDFC003725D4 /* UIDevice+IdentifierAddition.m in Sources */,
+				AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

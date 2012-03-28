@@ -14,10 +14,9 @@
 
 
 + (LocalDatabaseAccess *) getInstance;
-// Valutare se alcuni devono essere metodi di istanza invece che di classe
 - (NSArray *) fetchStoredCardsAndWriteErrorIn:(NSError **)error;
 - (BOOL) storeCard:(CartaPerDue *)card AndWriteErrorIn:(NSError **)error; 
-//+ (void) storeCard:(CartaPerDue *) card;
-//+ (void) removeStoredCard:(CartaPerDue *) card;
+//- (void) removeStoredCard:(CartaPerDue *) card;
+
 
 @end

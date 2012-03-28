@@ -15,19 +15,18 @@
 static LocalDatabaseAccess *__instance = nil;
 NSManagedObjectContext *context;
 
-+ (LocalDatabaseAccess *) getInstance {
++ (LocalDatabaseAccess *)getInstance {
     @synchronized([LocalDatabaseAccess class])
 	{
 		if (!__instance)
 			[[self alloc] init];
-        
 		return __instance;
 	}
-    
 	return nil;
 }
 
-+(id)alloc
+
++ (id)alloc
 {
 	@synchronized([LocalDatabaseAccess class])
 	{
@@ -35,23 +34,30 @@ NSManagedObjectContext *context;
 		__instance = [super alloc];
 		return __instance;
 	}
-    
 	return nil;
 }
 
--(id)init {
+
+- (id)init {
 	self = [super init];
 	if (self != nil) {
 		PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate *)[[UIApplication sharedApplication] delegate];
-        
         context = [appDelegate managedObjectContext];
         [context retain];
 	}
-    
 	return self;
 }
 
-- (NSArray *) fetchStoredCardsAndWriteErrorIn:(NSError **)error{
+
+- (void) dealloc {
+    [context release];
+}
+
+
+# pragma mark - LocalDatabaseAccess
+
+
+- (NSArray *)fetchStoredCardsAndWriteErrorIn:(NSError **)error{
     //istanziamo la classe NSFetchRequest
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init]; 
     
@@ -91,7 +97,17 @@ NSManagedObjectContext *context;
     
 }
 
-- (BOOL) storeCard:(CartaPerDue *)card AndWriteErrorIn:(NSError **)error{
+
+- (BOOL)storeCard:(CartaPerDue *)card AndWriteErrorIn:(NSError **)error{
+    //Controlliamo prima che non sia già memorizzata la carta, in tal caso, nn facciamo nulla
+    NSError *e;
+    NSArray *storedCards = [self fetchStoredCardsAndWriteErrorIn:&e];
+    for (CartaPerDue *c in storedCards) {
+        if ([c.number isEqualToString:card.number]) {
+            return TRUE;
+        }
+    }
+    
     //Creiamo un'istanza di NSManagedObject per l'Entità che ci interessa
     NSManagedObject *cartaPD = [NSEntityDescription
                                 insertNewObjectForEntityForName:@"CartaPerDue" 
@@ -107,8 +123,5 @@ NSManagedObjectContext *context;
     return [context save:error];
 }
 
-- (void) dealloc {
-    [context release];
-}
 
 @end

@@ -385,7 +385,7 @@ NSString* key(NSURLConnection* con)
 - (void)checkCardExistence:(CartaPerDue *)card {
     // Inizializzazione della URLRequest
     NSLog(@"DatabaseAccess::checkCardExistence");
-    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/CardExists.php"];
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/Card.php"];
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
@@ -432,9 +432,10 @@ NSString* key(NSURLConnection* con)
 
 
 
-- (void)checkThisDeviceAssociatedWithCard:(NSString *)cardNumber{
+- (void)cardDeviceAssociation:(NSString *)cardNumber request:(NSString *)r {
     
     // Inizializzazione della URLRequest
+    NSLog(@"DatabaseAccess::checkCardExistence [%@]", r);
     NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/CardDeviceAssociation.php"];
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     
@@ -443,10 +444,11 @@ NSString* key(NSURLConnection* con)
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
     // Costruzione POST
-    NSString *postFormatString = @"card_number=%@&device_udid=%@";
+    NSString *postFormatString = @"request=%@&card_number=%@&device_udid=%@";
     NSString *postString = [NSString stringWithFormat:postFormatString,
+                            r,
                             cardNumber,
-                            [[UIDevice currentDevice] uniqueIdentifier]];
+                            [[UIDevice currentDevice] uniqueDeviceIdentifier]];
                                 
     NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     
@@ -847,7 +849,7 @@ NSString* key(NSURLConnection* con)
 
     //NSLog(@"DONE. Received Bytes: %d", [receivedData length]);
     NSString *json = [[NSString alloc] initWithBytes: [receivedData mutableBytes] length:[receivedData length] encoding:NSUTF8StringEncoding];
-    //NSLog(@"JSON  %@", json);
+    NSLog(@"JSON  %@", json);
     
     
     

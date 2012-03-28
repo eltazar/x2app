@@ -19,6 +19,7 @@
 #import "AcquistoOnlineController.h"
 #import "Utilita.h"
 #import "LocalDatabaseAccess.h"
+#import "DatabaseAccess.h"
 
 
 @interface CardsViewController() {
@@ -26,18 +27,19 @@
 
     NSMutableArray *sectionDescription;
     NSMutableArray *sectionData;
+    DatabaseAccess *_dbAccess;
 }
 @property (nonatomic, retain) NSMutableArray *sectionDescription;
 @property (nonatomic, retain) NSMutableArray *sectionData;
+@property (nonatomic, retain) DatabaseAccess *dbAccess;
 - (NSMutableArray*)creaDataContent;
-- (void)didMatchNewCard;
 @end
 
 
 @implementation CardsViewController
 
 
-@synthesize sectionData, sectionDescription;
+@synthesize sectionData, sectionDescription, dbAccess=_dbAccess;
 
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -109,16 +111,19 @@
         self.sectionData = [[[NSMutableArray alloc] initWithObjects:manageSection, nil] autorelease];
     }
     
+    self.dbAccess = [[DatabaseAccess alloc] init];
+    self.dbAccess.delegate = self;
+    
+// TODO: trovare un modo per far sparire le carte associate con altri devices    
     [cardsSection release];
     [manageSection release];
-    
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];    
     [self.tableView reloadData];
-    NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueIdentifier]);
+    NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
 }
 
 
@@ -141,12 +146,16 @@
     [super viewDidUnload];
     self.sectionData = nil;
     self.sectionDescription = nil;
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
 }
 
 
 - (void)dealloc {
     self.sectionData = nil;
-    self.sectionDescription =nil;
+    self.sectionDescription = nil;
+    self.dbAccess.delegate = nil;
+    [_dbAccess release];
     [super dealloc];
 }
 
@@ -327,6 +336,34 @@
 }
 
 
+# pragma mark - AbbinaCartaDelegate
+
+
+- (void)didAssociateNewCard {
+    
+    NSLog(@" quiiiiiiiiiii");
+    
+    if (self.sectionData.count == 1) {
+        [self.sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
+        [self.sectionDescription insertObject:@"Gestione" atIndex:1];
+        
+        NSArray *tempA = [[self.sectionData objectAtIndex:0]retain];
+        
+        [self.sectionData removeObjectAtIndex:0];
+        [self.sectionData insertObject:[self creaDataContent] atIndex:0];
+        [self.sectionData insertObject:tempA atIndex:1];
+        
+        [tempA release];
+    } else if(self.sectionData.count > 1){
+        
+        [self.sectionData replaceObjectAtIndex:0 withObject:[self creaDataContent]];
+    }
+    
+    nAssociatedCards = [[self.sectionData objectAtIndex:0] count];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 # pragma mark - CardsViewController (private methods)
 
 
@@ -350,30 +387,6 @@
         [dataContent insertObject: tempDict atIndex: i];
     }
     return [dataContent autorelease];
-}
-
-
-- (void)didMatchNewCard {
-    
-    NSLog(@" quiiiiiiiiiii");
-    
-    if (self.sectionData.count == 1) {
-        [self.sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
-        [self.sectionDescription insertObject:@"Gestione" atIndex:1];
-        
-        NSArray *tempA = [[self.sectionData objectAtIndex:0]retain];
-        
-        [self.sectionData removeObjectAtIndex:0];
-        [self.sectionData insertObject:[self creaDataContent] atIndex:0];
-        [self.sectionData insertObject:tempA atIndex:1];
-        
-        [tempA release];
-    } else if(self.sectionData.count > 1){
-        
-        [self.sectionData replaceObjectAtIndex:0 withObject:[self creaDataContent]];
-    }
-    
-    nAssociatedCards = [[self.sectionData objectAtIndex:0] count];
 }
 
 

@@ -12,7 +12,7 @@
 
 @implementation CartaPerDue
 
-@synthesize name, surname, number;
+@synthesize name = _name, surname = _surname, number =_number;
 
 
 - (id) init
@@ -26,7 +26,7 @@
 }
 
 
-- (BOOL)isValid {
+- (BOOL)isExpired {
     NSDate *now = [NSDate date];
     NSInteger currentMonth;
     NSInteger currentYear;
@@ -36,35 +36,39 @@
     currentMonth = [dateComp month];
     
     if (self.expiryYear > currentYear)
-        return YES;
-    else if (self.expiryYear == currentYear)
-        return (self.expiryMonth >= currentMonth);
-    else 
         return NO;
+    else if (self.expiryYear == currentYear)
+        if (self.expiryMonth > currentMonth)
+            return NO;
+        else
+            return YES;
+    else 
+        return YES;
 }
 
-- (void)queryAssociationToThisDevice {
-    DatabaseAccess*  dbAccess = [[DatabaseAccess init] autorelease]; 
-    [dbAccess checkThisDeviceAssociatedWithCard:self.number];
-
-}
 
 #pragma mark - Implementazione properties scadenza
-- (void) setExpiryMonth:(NSInteger)newExpiryMonth{
+
+
+- (void)setExpiryMonth:(NSInteger)newExpiryMonth{
     if (newExpiryMonth > 0 && newExpiryMonth < 13)
-        expiryMonth = newExpiryMonth;
+        _expiryMonth = newExpiryMonth;
 }
 
-- (void) setExpiryYear:(NSInteger)newExpiryYear{
+
+- (void)setExpiryYear:(NSInteger)newExpiryYear{
     if (newExpiryYear > 2000 && newExpiryYear < 9999)
-        expiryYear = newExpiryYear;
+        _expiryYear = newExpiryYear;
 }
 
-- (NSInteger) expiryMonth {return expiryMonth;}
-- (NSInteger) expiryYear  {return expiryYear;}
+
+- (NSInteger)expiryMonth {return _expiryMonth;}
 
 
-- (void) setExpiryString:(NSString *)expiryString {
+- (NSInteger)expiryYear  {return _expiryYear;}
+
+
+- (void)setExpiryString:(NSString *)expiryString {
     NSArray *tokens = [expiryString componentsSeparatedByString:@"/"];
     if (tokens.count == 2) {
         self.expiryMonth = [[tokens objectAtIndex:0] integerValue];
@@ -72,22 +76,10 @@
     }
 }
 
-- (NSString*) expiryString {
+
+- (NSString*)expiryString {
     return [NSString stringWithFormat: @"%2d/%4d", self.expiryMonth, self.expiryYear];
 }
-
-#pragma mark - DatabaseAccessDelegate
-// Ma va dichiarato da qualche parte che implemento sto delegato?
-
--(void)didReceiveCoupon:(NSDictionary *)dic{
-    //Chiamare un metodo di un futuro delegato
-}
-
-
-//PALESE LEAK / DEALLOCAZIONE PREMATURA di dbAccess !! (pure senza debug se capisce)
-//SISTEMARE ***SUBITO***
-
-
 
 
 @end

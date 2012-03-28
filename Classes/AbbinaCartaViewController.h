@@ -12,7 +12,7 @@
 @class PickerViewController;
 @protocol AbbinaCartaDelegate;
 
-@interface AbbinaCartaViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate, DatabaseAccessDelegate> {
+@interface AbbinaCartaViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate, UIAlertViewDelegate, DatabaseAccessDelegate> {
     id<AbbinaCartaDelegate> _delegate;
     PickerViewController *_pickerDate;
     IBOutlet UIButton *_abbinaButton;
@@ -36,6 +36,6 @@
 
 @protocol AbbinaCartaDelegate <NSObject>
 
--(void)didMatchNewCard;
+-(void)didAssociateNewCard;
 
 @end

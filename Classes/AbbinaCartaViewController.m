@@ -12,23 +12,21 @@
 #import "PickerViewController.h"
 #import "LocalDatabaseAccess.h"
 #import "Utilita.h"
+#import "MBProgressHUD.h"
 
 //metodi e ivar private
 
 @interface AbbinaCartaViewController() {
     BOOL isViewUp;
     DatabaseAccess *_dbAccess; 
-    NSString *_nome;
-    NSString *_cognome;
-    NSString *_numeroCarta;
-    NSString *_scadenza;
+    CartaPerDue *_card;
 }
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
-@property (nonatomic, retain) NSString *nome;
-@property (nonatomic, retain) NSString *cognome;
-@property (nonatomic, retain) NSString *numeroCarta;
-@property (nonatomic, retain) NSString *scadenza;
--(BOOL)isValidFields;
+@property (nonatomic, retain) CartaPerDue *card;
+- (BOOL)isValidFields;
+- (void)didReceiveCardExistence:(NSArray *)existence;
+- (void)didReceiveCardAssociationStatus:(NSString *)status;
+- (void)didAssociateCard:(NSString *)response;
 @end
 
 
@@ -39,7 +37,7 @@
 // IBOutlets
 @synthesize abbinaButton = _abbinaButton;
 // Properties private:
-@synthesize dbAccess = _dbAccess, nome = _nome, cognome = _cognome, numeroCarta = _numeroCarta, scadenza = _scadenza;
+@synthesize dbAccess = _dbAccess, card = _card;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -70,6 +68,7 @@
     //[self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"backGroundPattern.png"]]];
     
     isViewUp = FALSE;
+    self.card = [[[CartaPerDue alloc] init] autorelease];
     
     self.abbinaButton.layer.cornerRadius = 6;    
     
@@ -147,6 +146,13 @@
     self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     [self.dbAccess setDelegate:self];
     
+    //DEBUG:
+    nomeField.text = @"MARIO";
+    cognomeField.text = @"GRECO";
+    numeroCartaField.text = @"0P12 P141 5035";
+    self.card.name = @"MARIO";
+    self.card.surname = @"GRECO";
+    self.card.number = @"0P12 P141 5035";
     [calendar release];
 }
 
@@ -174,10 +180,7 @@
     [_pickerDate release];
     [_abbinaButton release];
     
-    [_nome release];
-    [_cognome release];
-    [_numeroCarta release];
-    [_scadenza release];
+    [_card release];
     self.dbAccess.delegate = nil;
     [_dbAccess release];
     
@@ -191,16 +194,16 @@
 - (void)textFieldDidEndEditing:(UITextField *)txtField {   
     NSLog(@"editing finito");
     if (txtField.tag == 6) {
-        self.nome = txtField.text;
+        self.card.name = txtField.text;
     }
     else if (txtField.tag == 5) {
-        self.cognome = txtField.text;
+        self.card.surname = txtField.text;
     }
     else if (txtField.tag == 4) {
-        self.numeroCarta = txtField.text;
+        self.card.number = txtField.text;
     }
     else if (txtField.tag == 3) {
-        self.scadenza = txtField.text;
+        self.card.expiryString = txtField.text;
     }
     
 }
@@ -285,15 +288,36 @@
             }
         }
     }
-    self.scadenza = date;
+    self.card.expiryString = date;
 }
 
 
 #pragma mark - DatabaseAccessDelegate
 
+
 - (void)didReceiveCoupon:(NSDictionary *)receivedData {
-    NSLog(@"AbbinaCartaViewController received from server: %@", [receivedData objectForKey:@"response"]);
+    NSLog(@"AbbinaCartaViewController received from server: %@", receivedData);
+    NSArray *receivedArray = [receivedData objectForKey:@"Card"];
+    if (receivedArray) {
+        [self didReceiveCardExistence:receivedArray];
+        return;
+    }
+    
+    NSString *receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Check"];
+    if (receivedString) {
+        [self didReceiveCardAssociationStatus:receivedString];
+        return;
+    }
+    
+    receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Set"];
+    if (receivedString) {
+        [self didAssociateCard:receivedArray];
+        return;
+    }
+    return;
+    //[MBProgressHUD hideHUDForView:self.view animated:YES];
 }
+
 
 - (void)didReceiveError:(NSError *)error {
     NSLog(@"AbbinaCartaViewController received connection error: \n\t%@\n\t%@\n\t%@", 
@@ -302,38 +326,32 @@
 }
 
 
+# pragma mark - UIAlertViewDelegate
+
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"Ok"]) {
+        [self didReceiveCardAssociationStatus:@"Associated:No"];
+    } else if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"Annulla"]) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }
+    
+}
+
+
 # pragma mark - AbbinaCartaViewController (IBActions)
 
 
-- (IBAction)abbinaButtonClicked:(id)sender {
-    // TODO: creare oggetto cartaPerDue e darlo in pasto a LocalDatabaseAccess
-    
-    //validare i campi inseriti
-    if([self isValidFields]){
-        
-        CartaPerDue *card = [[[CartaPerDue alloc] init] autorelease];
-        card.name = self.nome;
-        card.surname = self.cognome;
-        card.number = self.numeroCarta;
-        card.expiryString = self.scadenza;
-        
+- (IBAction)abbinaButtonClicked:(id)sender {    
+    if(TRUE) {//[self isValidFields]){
         NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
-        [self.dbAccess checkCardExistence:card];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Attendere...";
+        hud.detailsLabelText = @"Controllo carta in corso...";
+        [self.dbAccess checkCardExistence:self.card];
         
-        //TODO: mostrare ProgressHUD
-        
-        //poi se esiste salvo i dati in core data
-        NSLog(@"abbina premuto = %@, %@, %@, %@", self.nome, self.cognome, self.numeroCarta,self.scadenza);
-        
-        //Effettuiamo il salvataggio gestendo eventuali errori
-        NSError *error;
-        if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {
-            NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
-        }
-        else{
-            if(self.delegate && [self.delegate respondsToSelector:@selector(didMatchNewCard)])
-                [self.delegate didMatchNewCard];
-        }
+        // se esiste salvo i dati in core data
+        NSLog(@"abbina premuto = %@, %@, %@, %@", self.card.name, self.card.surname, self.card.number, self.card.expiryString);
     }
 }
 
@@ -341,15 +359,73 @@
 
 #pragma mark - AbbinaCartaViewController (metodi privati)
 
+
+- (void)didReceiveCardExistence:(NSArray *)existence {
+    NSLog(@"didReceiveCardExistence");
+    // RICORDA: l'array contiene uno zero come ultimo elemento.
+    if (existence.count != 2) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Siamo spiacenti" message:@"La carta inserita non esiste" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    } else {
+        NSDictionary *cardDic = [existence objectAtIndex:0];
+        // la card viene ri-settata affinché ci sia un match perfetto tra la carta remota e la locale (le carte infatti vengono riconosciute come esistenti  a prescindere da spazi bianche e maiuscole/minuscole)
+        self.card.name = [cardDic objectForKey:@"name"];
+        self.card.surname = [cardDic objectForKey:@"surname"];
+        self.card.number = [cardDic objectForKey:@"number"];
+        // TODO: sistemare expiryString!!!
+        // self.card.expiryString = [cardDic objectForKey:@"expiryString"];
+        NSLog(@"didReciveCardExistence: received expiryString is \"%@\"", [cardDic objectForKey:@"expiryString"]);
+        [self.dbAccess cardDeviceAssociation:self.card.number request:@"Check"];
+    }    
+}
+
+
+- (void)didReceiveCardAssociationStatus:(NSString *)status {
+    NSLog(@"didReceiveCardAssociationStatus");
+    if ([status isEqualToString:@"Associated:This"]) {
+        [self didAssociateCard:@"Success"];
+    } else if ([status isEqualToString:@"Associated:No"]) {
+        [self.dbAccess cardDeviceAssociation:self.card.number request:@"Set"];
+    } else if ([status isEqualToString:@"Associated:Another"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Carta associata ad un altro dispositivo" message:@"Continuando rimuoverai l'associazione con l'altro dispositivo" delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Ok", nil];
+        [alert show];
+        [alert release];
+    }
+}
+
+
+- (void)didAssociateCard:(NSString *)response {
+    NSLog(@"didAssociateCard");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    if ([response isEqualToString:@"Success"]) {
+        NSLog(@"SUCCESS");
+        //Effettuiamo il salvataggio gestendo eventuali errori
+        NSError *error;
+        if (![[LocalDatabaseAccess getInstance]storeCard:self.card AndWriteErrorIn:&error]) {
+            NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
+        } else if (self.delegate && [self.delegate respondsToSelector:@selector(didAssociateNewCard)]) {
+            [self.delegate didAssociateNewCard];
+        }
+
+    } else if ([response isEqualToString:@"Fail"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore di rete" message:@"Riprova più tardi" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+    }
+}
+
+
 - (BOOL)isValidFields{
-    if(! [Utilita isDateFormatValid:self.scadenza]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data errata" message:@"Inserisci una data di scadenza valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    if(! [Utilita isDateFormatValid:self.card.expiryString]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data errata" message:@"Inserisci una data di scadenza valida" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
     }
-    if(! [Utilita isStringEmptyOrWhite:self.nome] || ! [Utilita isStringEmptyOrWhite:self.cognome] || ! [Utilita isStringEmptyOrWhite:self.numeroCarta]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati incompleti" message:@"Inserisci tutti i dati richiesti" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    if(! [Utilita isStringEmptyOrWhite:self.card.name] || ! [Utilita isStringEmptyOrWhite:self.card.surname] || ! [Utilita isStringEmptyOrWhite:self.card.number]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati incompleti" message:@"Inserisci tutti i dati richiesti" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
