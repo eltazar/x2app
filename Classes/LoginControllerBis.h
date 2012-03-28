@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DatabaseAccess.h"
+@class MBProgressHUD;
 
 @protocol LoginControllerBisDelegate;
 @interface LoginControllerBis : UITableViewController<UITextFieldDelegate,DatabaseAccessDelegate>
@@ -21,7 +22,7 @@
     UIAlertView *rememberPswAlert;
 
 }
-
+@property (retain) MBProgressHUD *hud;
 @property(nonatomic,assign)id<LoginControllerBisDelegate> delegate;
 @end
 

@@ -13,6 +13,7 @@
 #import "RegistrazioneController.h"
 #import "Utilita.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MBProgressHUD.h"
 
 
 @interface LoginControllerBis() {
@@ -24,6 +25,7 @@
 
 @implementation LoginControllerBis
 @synthesize user,psw,delegate;
+@synthesize hud = _hud;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -214,6 +216,9 @@
     
     NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@",coupon);
     
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    self.hud = nil;
+
     NSArray *array;//= [[coupon objectForKey:@"checkEmail"] retain];
     
     // NSLog(@"DIMENSIONE ARRAY = %d",[array count]);
@@ -260,6 +265,9 @@
 }
 
 -(void)didReceiveError:(NSError *)error{
+    
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    self.hud = nil;
     
     NSLog(@"ERRORE CHECK EMAIL SU SERVER = %@",[error description]);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore rete" message:@"Non è stato possibile effettuare la richiesta, riprovare" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
@@ -511,8 +519,13 @@
         [alert release];
     }
     else{
-        NSArray *data = [NSArray arrayWithObjects:self.user, self.psw,nil];
-        [dbAccess checkUserFields:data];
+        if([Utilita networkReachable]){
+            NSArray *data = [NSArray arrayWithObjects:self.user, self.psw,nil];
+            [dbAccess checkUserFields:data];
+            self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            _hud.labelText = @"Login...";  
+        }
+        
     }
 }
 
@@ -536,6 +549,8 @@
 
 - (void)dealloc {
     
+    [_hud release];
+    _hud = nil;
     [rememberPswAlert release];
     dbAccess.delegate = nil;
     [dbAccess release];
