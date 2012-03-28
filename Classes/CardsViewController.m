@@ -219,9 +219,8 @@
         CartaPerDue *card = [rowDesc objectForKey:@"card"];
         cardCell.nome.text    =  [NSString stringWithFormat:@"%@ %@",card.name, card.surname];
         cardCell.tessera.text =  card.number;
-# warning TODO: rimuovere isDateExpired
-        if([Utilita isDateExpired:card.expiryString])
-            cardCell.data.text = @"Scaduta";
+        if (card.isExpired)
+            cardCell.data.text = [NSString stringWithFormat:@"Scaduta il %@", card.expiryString];
         else cardCell.data.text =  card.expiryString;
     }
     else if([kind isEqualToString:@"ActionCell"]){

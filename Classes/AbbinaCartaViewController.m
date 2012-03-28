@@ -203,7 +203,8 @@
         self.card.number = txtField.text;
     }
     else if (txtField.tag == 3) {
-        self.card.expiryString = txtField.text;
+        // TODO: decidere cosa fare con ciò
+        //self.card.expiryString = txtField.text;
     }
     
 }
@@ -311,7 +312,7 @@
     
     receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Set"];
     if (receivedString) {
-        [self didAssociateCard:receivedArray];
+        [self didAssociateCard:receivedString];
         return;
     }
     return;
@@ -331,11 +332,11 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"Ok"]) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [self didReceiveCardAssociationStatus:@"Associated:No"];
     } else if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"Annulla"]) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }
-    
 }
 
 
@@ -343,15 +344,12 @@
 
 
 - (IBAction)abbinaButtonClicked:(id)sender {    
-    if(TRUE) {//[self isValidFields]){
+    if ([self isValidFields]){
         NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"Attendere...";
         hud.detailsLabelText = @"Controllo carta in corso...";
         [self.dbAccess checkCardExistence:self.card];
-        
-        // se esiste salvo i dati in core data
-        NSLog(@"abbina premuto = %@, %@, %@, %@", self.card.name, self.card.surname, self.card.number, self.card.expiryString);
     }
 }
 
@@ -374,8 +372,7 @@
         self.card.name = [cardDic objectForKey:@"name"];
         self.card.surname = [cardDic objectForKey:@"surname"];
         self.card.number = [cardDic objectForKey:@"number"];
-        // TODO: sistemare expiryString!!!
-        // self.card.expiryString = [cardDic objectForKey:@"expiryString"];
+        self.card.expiryString = [cardDic objectForKey:@"expiryString"];
         NSLog(@"didReciveCardExistence: received expiryString is \"%@\"", [cardDic objectForKey:@"expiryString"]);
         [self.dbAccess cardDeviceAssociation:self.card.number request:@"Check"];
     }    
@@ -389,6 +386,7 @@
     } else if ([status isEqualToString:@"Associated:No"]) {
         [self.dbAccess cardDeviceAssociation:self.card.number request:@"Set"];
     } else if ([status isEqualToString:@"Associated:Another"]) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Carta associata ad un altro dispositivo" message:@"Continuando rimuoverai l'associazione con l'altro dispositivo" delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Ok", nil];
         [alert show];
         [alert release];
@@ -418,12 +416,13 @@
 
 
 - (BOOL)isValidFields{
-    if(! [Utilita isDateFormatValid:self.card.expiryString]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data errata" message:@"Inserisci una data di scadenza valida" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
-        return FALSE;
-    }
+    // TODO: decidere cosa fare con ciò
+//    if(! [Utilita isDateFormatValid:self.card.expiryString]){
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data errata" message:@"Inserisci una data di scadenza valida" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+//        [alert show];
+//        [alert release];
+//        return FALSE;
+//    }
     if(! [Utilita isStringEmptyOrWhite:self.card.name] || ! [Utilita isStringEmptyOrWhite:self.card.surname] || ! [Utilita isStringEmptyOrWhite:self.card.number]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati incompleti" message:@"Inserisci tutti i dati richiesti" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];

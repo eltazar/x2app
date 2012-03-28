@@ -60,16 +60,20 @@
         nome.textAlignment = UITextAlignmentLeft;
         nome.font = [UIFont  boldSystemFontOfSize:18];
         nome.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"colorPattern.png"]];
+        nome.backgroundColor = [UIColor clearColor];
 
         tessera = [[UILabel alloc] init];
         tessera.text = [dictionary objectForKey:@"tessera"];
         tessera.textAlignment = UITextAlignmentLeft;
         tessera.font = [UIFont systemFontOfSize:13];
+        tessera.backgroundColor = [UIColor clearColor];
         
         data = [[UILabel alloc] init];
         data.text = [dictionary objectForKey:@"data"];
         data.textAlignment = UITextAlignmentRight;
         data.font = [UIFont systemFontOfSize:13.0];
+        data.textColor = [UIColor lightGrayColor];
+        data.backgroundColor = [UIColor clearColor];
         
         [self.contentView addSubview:data];
         [self.contentView addSubview:nome];
@@ -91,15 +95,18 @@
     [super layoutSubviews];
     CGRect contentRect = self.contentView.bounds;
     CGFloat boundsX = contentRect.origin.x;
+    CGFloat boundsWidth = contentRect.size.width;
+    CGFloat padding = 10;
     CGRect frame;
  
-    frame= CGRectMake(boundsX+10,0, 200,25);
+    frame= CGRectMake(boundsX+padding, 0, boundsWidth-2*padding, 25);
     nome.frame = frame;
     
-    frame= CGRectMake(boundsX+10 ,25, 200, 15);
+    frame= CGRectMake(boundsX+padding ,25, boundsWidth-2*padding, 15);
     tessera.frame = frame;
     
-    frame = CGRectMake(boundsX+170, 25, 100, 15);
+    CGFloat dataFrameWidth = 200;
+    frame = CGRectMake(boundsX+padding, 25, boundsWidth-2*padding, 15);
     data.frame = frame;
 }
 

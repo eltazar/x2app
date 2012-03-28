@@ -76,21 +76,27 @@
     //    [self.view addSubview:titolareTextField];
     //    [self.view addSubview:cartaView];
     
+    CGFloat padding = 10;
+    CGFloat boundsWidth = cartaView.frame.size.width;
     
-    UITextField *titolareLabel = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + 10, 191, 28)];
+    UITextField *titolareLabel = [[UITextField alloc] initWithFrame:CGRectMake(padding, cartaView.frame.size.height/2 + padding, boundsWidth-2*padding, 28)];
     titolareLabel.font = [UIFont systemFontOfSize:15];
     titolareLabel.text = [NSString stringWithFormat:@"%@ %@", self.card.name, self.card.surname];
+    titolareLabel.backgroundColor = [UIColor clearColor];
     //titolareLabel.tag = 5;
     
     
-    UITextField *numeroCartaLabel = [[UITextField alloc] initWithFrame:CGRectMake(10, cartaView.frame.size.height/2 + titolareLabel.frame.size.height+20, 160, 28)];
+    UITextField *numeroCartaLabel = [[UITextField alloc] initWithFrame:CGRectMake(padding, cartaView.frame.size.height/2 + titolareLabel.frame.size.height+2*padding, boundsWidth-2*padding, 28)];
     numeroCartaLabel.font = [UIFont systemFontOfSize:15];
     numeroCartaLabel.text = self.card.number;
+    numeroCartaLabel.backgroundColor = [UIColor clearColor];
     //numeroCartaLabel.tag = 4;
     
-    UITextField *scadenzaLabel = [[UITextField alloc] initWithFrame:CGRectMake(numeroCartaLabel.frame.origin.x+numeroCartaLabel.frame.size.width+50, cartaView.frame.size.height/2 + titolareLabel.frame.size.height+20, 100, 28)];
+    UITextField *scadenzaLabel = [[UITextField alloc] initWithFrame:CGRectMake(padding, cartaView.frame.size.height/2 + titolareLabel.frame.size.height+2*padding, boundsWidth-2*padding, 28)];
     scadenzaLabel.font = [UIFont systemFontOfSize:15];
     scadenzaLabel.text = self.card.expiryString;
+    scadenzaLabel.textAlignment = UITextAlignmentRight;
+    scadenzaLabel.backgroundColor = [UIColor clearColor];
     //scadenzaLabel.tag = 3;
     
     [cartaView addSubview:scadenzaLabel];
@@ -104,8 +110,7 @@
     [titolareLabel release];
     [scadenzaLabel release];
     
-# warning TODO: rimuovere isDateExpired
-    if ([Utilita isDateExpired:self.card.expiryString]) {
+    if (self.card.isExpired) {
         //attacco adesivo "scaduta"
         UIImageView *scadutaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scadutaImg.png"]];
         [scadutaView setFrame:CGRectMake(11, 20, 300, 180)];

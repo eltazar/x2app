@@ -10,11 +10,9 @@
 
 @interface Utilita : NSObject
 
-+(BOOL)isNumeric:(NSString*)inputString;
-+(BOOL)isStringEmptyOrWhite:(NSString*)string;
-+(BOOL)isEmailValid:(NSString*)email;
-+(BOOL)isDateFormatValid:(NSString*)data;
-# warning TODO: rimuovere isDateExpired
-+(BOOL)isDateExpired:(NSString*)data;
-+(BOOL)networkReachable;
++ (BOOL)isNumeric:(NSString*)inputString;
++ (BOOL)isStringEmptyOrWhite:(NSString*)string;
++ (BOOL)isEmailValid:(NSString*)email;
++ (BOOL)isDateFormatValid:(NSString*)data;
++ (BOOL)networkReachable;
 @end
