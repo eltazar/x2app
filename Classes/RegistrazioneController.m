@@ -274,15 +274,85 @@
     //fa si che il testo inserito nei texfield sia preso anche se non è stata dismessa la keyboard
     [self.view endEditing:TRUE];
     
-    if([self validateFields])
-        NSLog(@"tutti campi sono validi!");
+  
+    
+    if ( ! [Utilita isStringEmptyOrWhite:self.nome] || ![Utilita isStringEmptyOrWhite:self.email] || ! [Utilita isStringEmptyOrWhite:self.telefono] || ! [Utilita isStringEmptyOrWhite:self.cognome]){
+        NSLog(@"ERRORE ->qualche campo è vuoto");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Inserire tutti i dati richiesti" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else if( [Utilita isNumeric:self.nome] || [Utilita isNumeric:self.cognome]){
+        NSLog(@" ERRORE -> nome o cognome  sono numeri");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"I campi Nome e Cognome non possono contenere  numeri" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else if(! [Utilita isNumeric:self.telefono]){
+        NSLog(@"ERRORE ->telefo nn è un numero");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero di telefono formalmente non valido" message:@"Il numero di telefono deve contenere solo numeri" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else if( ! [ Utilita isEmailValid:self.email]){
+        NSLog(@"ERRORE ->email nn valida");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail formamente non valida" message:@"Controlla l'indirizzo inserito" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else{
+        if([Utilita networkReachable]){
+            [dbAccess registerUserOnServer:[NSArray arrayWithObjects:self.email,self.telefono,self.nome,self.cognome, nil]];
+            self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            _hud.labelText = @"Registrazione...";  
+        }
+        else{
+            NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
+        }
+    }
     
     //inviare email alla PerDue o salvare richiesta sul DB
     
 }
 
 -(void)selectedTime:(id)sender{
+#pragma mark - DatabaseDelegate
+
+-(void)didReceiveResponsFromServer:(NSString *)receivedData{
+    NSLog(@"RISPOSTA SERVER DOP REGISTRAZIONE: %@",receivedData);
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    self.hud = nil;
     
+    NSString *trimmedString = [receivedData stringByTrimmingCharactersInSet:
+                                                   [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if([trimmedString isEqualToString:@"utente registrato in precendenza"]){
+        NSLog(@"UTENTE GIà REGISTRATO");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Utente già registrato" message:@"Risutli già registrato a perdue.it" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else if([trimmedString isEqualToString:@"registrazione ok"]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Complimenti" message:@"Registrazione avvenuta con successo, riceverai a breve un'e-mail con i dettagli di registrazione e la password" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else if([trimmedString isEqualToString:@"errore parametri in ingresso non corretti"]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"I parametri in ingresso non sono corretti, riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"errore nel processo  di registrazione, riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    
+}
+
+-(void)didReceiveError:(NSError *)error{
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    self.hud = nil;
+    NSLog(@"ERRORE SERVER = %@", [error description]);
 }
 
 #pragma mark - TextField and TextView Delegate
@@ -393,6 +463,8 @@
     self.telefono = @"";
     self.email = @"";
     
+    dbAccess = [[DatabaseAccess alloc] init];
+    dbAccess.delegate = self;
 }
 
 - (void)viewDidUnload
@@ -419,6 +491,8 @@
 
 - (void)dealloc {
     
+    dbAccess.delegate = nil;
+    [dbAccess release];
     self.nome = nil;
     self.cognome = nil;
     self.telefono = nil;
