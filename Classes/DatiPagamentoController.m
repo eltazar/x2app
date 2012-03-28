@@ -303,7 +303,7 @@
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"grayButton"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"grayButton2.png"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
