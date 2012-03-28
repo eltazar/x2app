@@ -254,7 +254,7 @@
         [b setTitle:@"Logout" forState:UIControlStateNormal];
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [b setBackgroundImage:[UIImage imageNamed:@"grayButton.png"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"grayButton2.png"] forState:UIControlStateNormal];
         
         // give it a tag in case you need it later
         //b.tag = 1;
