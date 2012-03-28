@@ -443,11 +443,12 @@
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"grayButton"] forState:UIControlStateNormal];
+        b.frame = CGRectMake(21.0, 0.0, 280.0, 37);
+        [b addTarget:self action:@selector(loginBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [b setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
-        b.frame = CGRectMake(21.0, 0.0, 280.0, 37);
         b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
         [b setTitle:@"Login" forState:UIControlStateNormal];
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -457,7 +458,7 @@
         //b.tag = 1;
         
         // this sets up the callback for when the user hits the button
-        [b addTarget:self action:@selector(loginBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+        
         
         b.layer.cornerRadius = 8.0f;
         b.layer.masksToBounds = YES;
