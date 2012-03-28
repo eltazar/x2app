@@ -82,7 +82,7 @@
             return 0;
             break;
         case 1:
-            return 3;
+            return 4;
         default:
             return 0;
             break;
@@ -119,6 +119,13 @@
 	if (indexPath.row==2) {	
 		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
 		lbl.text = @"www.cartaperdue.it"; 
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		
+	}
+    
+    if (indexPath.row==3) {	
+		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+		lbl.text = @"Seguici su Facebook"; 
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		
 	}
