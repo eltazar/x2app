@@ -204,6 +204,8 @@
         }
         else{
             [dbAccess sendRetrievePswForUser:textField.text];
+             UITextField* textField = (UITextField*)[alertView viewWithTag:120];
+            textField.text = @"";
         }
     }
         
@@ -543,6 +545,8 @@
     else if(indexPath.section == 2){
         [rememberPswAlert show];
     }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - MemoryManagement
