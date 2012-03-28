@@ -2,12 +2,12 @@ TODO:
 
 pre-release:
 
+- search bar -> problema cancellazione lista quando si preme annulla
 - controllo numeri carta di credito
 - controllo inserimento numero telefonico con prefisso internazionale
 - taste refresh view -> mettere imagine
 - mbhud nel processo di acquisto dopo aver confermato acquisto
 - controllare presenza rete quando si cliccano pulsanti che caricano view importanti (es compra, registra, loggati ecc…)
-- 
 
 
 - controllo validità email in: coupon->pagamento->dati utente
