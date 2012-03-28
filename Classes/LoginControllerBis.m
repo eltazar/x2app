@@ -203,7 +203,7 @@
             [alert release];
         }
         else{
-            //[dbAccess sendRetrievePswForUser:textField.text];
+            [dbAccess sendRetrievePswForUser:textField.text];
         }
     }
         
