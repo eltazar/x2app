@@ -6,12 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "ControlloCartaController.h"
+#import "DettaglioCartaViewController.h"
 #import "RichiediCardViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Utilita.h"
 
-@implementation ControlloCartaController
+@implementation DettaglioCartaViewController
 @synthesize cercaButton, card, acquistaButton, richiediButton, cercaLabel, scadutaLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

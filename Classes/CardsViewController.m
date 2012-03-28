@@ -15,7 +15,7 @@
 #import "AbbinaCartaViewController.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "RichiediCardViewController.h"
-#import "ControlloCartaController.h"
+#import "DettaglioCartaViewController.h"
 #import "AcquistoOnlineController.h"
 #import "Utilita.h"
 #import "LocalDatabaseAccess.h"
@@ -295,7 +295,7 @@
     // Click su una carta
     if ([dataKey isEqualToString:@"card"]){
         CartaPerDue *card = [row objectForKey:@"card"];
-        ControlloCartaController *controllaCartaCtrl = [[ControlloCartaController alloc] initWithCard:card];
+        DettaglioCartaViewController *controllaCartaCtrl = [[DettaglioCartaViewController alloc] initWithCard:card];
         [self.navigationController pushViewController:controllaCartaCtrl animated:YES];
         [controllaCartaCtrl release];
     }

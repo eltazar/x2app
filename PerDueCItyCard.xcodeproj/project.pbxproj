@@ -150,8 +150,8 @@
 		AC85A23D14FBF04800DD91F6 /* colorPattern.png in Resources */ = {isa = PBXBuildFile; fileRef = AC85A23C14FBF04800DD91F6 /* colorPattern.png */; };
 		AC85A24114FBF87B00DD91F6 /* AbbinaCartaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A23F14FBF87900DD91F6 /* AbbinaCartaViewController.m */; };
 		AC85A24214FBF87B00DD91F6 /* AbbinaCartaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */; };
-		AC9B69291507AFAA00BE6A30 /* ControlloCartaController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9B69271507AFAA00BE6A30 /* ControlloCartaController.m */; };
-		AC9B692A1507AFAA00BE6A30 /* ControlloCartaController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC9B69281507AFAA00BE6A30 /* ControlloCartaController.xib */; };
+		AC9B69291507AFAA00BE6A30 /* DettaglioCartaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9B69271507AFAA00BE6A30 /* DettaglioCartaViewController.m */; };
+		AC9B692A1507AFAA00BE6A30 /* DettaglioCartaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC9B69281507AFAA00BE6A30 /* DettaglioCartaViewController.xib */; };
 		AC9B692E1507D84A00BE6A30 /* scadutaImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AC9B692D1507D84A00BE6A30 /* scadutaImg.png */; };
 		ACA2FBE81507969100E3921B /* RichiediCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA2FBE61507969000E3921B /* RichiediCardViewController.m */; };
 		ACA2FBE91507969100E3921B /* RichiediCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA2FBE71507969100E3921B /* RichiediCardViewController.xib */; };
@@ -416,9 +416,9 @@
 		AC85A23E14FBF87800DD91F6 /* AbbinaCartaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbinaCartaViewController.h; sourceTree = "<group>"; };
 		AC85A23F14FBF87900DD91F6 /* AbbinaCartaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbinaCartaViewController.m; sourceTree = "<group>"; };
 		AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbinaCartaViewController.xib; sourceTree = "<group>"; };
-		AC9B69261507AFAA00BE6A30 /* ControlloCartaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlloCartaController.h; sourceTree = "<group>"; };
-		AC9B69271507AFAA00BE6A30 /* ControlloCartaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlloCartaController.m; sourceTree = "<group>"; };
-		AC9B69281507AFAA00BE6A30 /* ControlloCartaController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlloCartaController.xib; sourceTree = "<group>"; };
+		AC9B69261507AFAA00BE6A30 /* DettaglioCartaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DettaglioCartaViewController.h; sourceTree = "<group>"; };
+		AC9B69271507AFAA00BE6A30 /* DettaglioCartaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioCartaViewController.m; sourceTree = "<group>"; };
+		AC9B69281507AFAA00BE6A30 /* DettaglioCartaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettaglioCartaViewController.xib; sourceTree = "<group>"; };
 		AC9B692D1507D84A00BE6A30 /* scadutaImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scadutaImg.png; sourceTree = "<group>"; };
 		ACA2FBE51507969000E3921B /* RichiediCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichiediCardViewController.h; sourceTree = "<group>"; };
 		ACA2FBE61507969000E3921B /* RichiediCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichiediCardViewController.m; sourceTree = "<group>"; };
@@ -482,7 +482,7 @@
 		D924E630151D50F900AD4C07 /* CategoriaCommercialeWithPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriaCommercialeWithPrice.m; sourceTree = "<group>"; };
 		D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriaCommercialeWithPrice.xib; sourceTree = "<group>"; };
 		D924E634151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriaCommercialeWithPriceCell.xib; sourceTree = SOURCE_ROOT; };
-		D9861EB3151BE2540017A16E /* Card.php */ = {isa = PBXFileReference; name = Card.php; path = "php server/PHP APPv2/Card.php"; sourceTree = SOURCE_ROOT; };
+		D9861EB3151BE2540017A16E /* Card.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = Card.php; path = "php server/PHP APPv2/Card.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
 		D99378B11519368200DFC410 /* CartaPerDue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaPerDue.m; sourceTree = "<group>"; };
 		D9B362541521BDFC003725D4 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
@@ -867,9 +867,6 @@
 				AC13B700150964E600E54106 /* Controller per acquisto coupon */,
 				D93C796E151F4B7F006FD19E /* Carte */,
 				AC85A22A14FBA31800DD91F6 /* Celle personalizzate */,
-				AC9B69261507AFAA00BE6A30 /* ControlloCartaController.h */,
-				AC9B69271507AFAA00BE6A30 /* ControlloCartaController.m */,
-				AC9B69281507AFAA00BE6A30 /* ControlloCartaController.xib */,
 				ACA2FBE51507969000E3921B /* RichiediCardViewController.h */,
 				ACA2FBE61507969000E3921B /* RichiediCardViewController.m */,
 				ACA2FBE71507969100E3921B /* RichiediCardViewController.xib */,
@@ -924,6 +921,9 @@
 				AC85A23E14FBF87800DD91F6 /* AbbinaCartaViewController.h */,
 				AC85A23F14FBF87900DD91F6 /* AbbinaCartaViewController.m */,
 				AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */,
+				AC9B69261507AFAA00BE6A30 /* DettaglioCartaViewController.h */,
+				AC9B69271507AFAA00BE6A30 /* DettaglioCartaViewController.m */,
+				AC9B69281507AFAA00BE6A30 /* DettaglioCartaViewController.xib */,
 			);
 			name = Carte;
 			sourceTree = "<group>";
@@ -1119,7 +1119,7 @@
 				AC0C66451505185600B4F971 /* cartaGrande.png in Resources */,
 				ACA2FBE91507969100E3921B /* RichiediCardViewController.xib in Resources */,
 				ACA2FBEB15079F1700E3921B /* yellowButton.png in Resources */,
-				AC9B692A1507AFAA00BE6A30 /* ControlloCartaController.xib in Resources */,
+				AC9B692A1507AFAA00BE6A30 /* DettaglioCartaViewController.xib in Resources */,
 				AC9B692E1507D84A00BE6A30 /* scadutaImg.png in Resources */,
 				AC067E9C150821CB00F4DF12 /* FBDialog.bundle in Resources */,
 				AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */,
@@ -1197,7 +1197,7 @@
 				ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */,
 				ACA2FBE81507969100E3921B /* RichiediCardViewController.m in Sources */,
 				ACA2FBEE1507A22000E3921B /* Utilita.m in Sources */,
-				AC9B69291507AFAA00BE6A30 /* ControlloCartaController.m in Sources */,
+				AC9B69291507AFAA00BE6A30 /* DettaglioCartaViewController.m in Sources */,
 				AC067E9B150821CB00F4DF12 /* Facebook.m in Sources */,
 				AC067E9D150821CB00F4DF12 /* FBDialog.m in Sources */,
 				AC067E9E150821CB00F4DF12 /* FBFrictionlessRequestSettings.m in Sources */,

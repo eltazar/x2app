@@ -10,7 +10,7 @@
 
 
 
-@interface ControlloCartaController : UIViewController
+@interface DettaglioCartaViewController : UIViewController
 
 @property(nonatomic,retain) IBOutlet UIButton *cercaButton;
 @property(nonatomic,retain) CartaPerDue *card;
