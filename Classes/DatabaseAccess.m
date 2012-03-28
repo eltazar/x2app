@@ -145,8 +145,9 @@ NSString* key(NSURLConnection* con)
     
     NSLog(@"DBACCESS RECUPERA PASSWORD");
     
+    [usr retain];
     
-    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/recuperaPassword.php"];
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/recuperaPsw.php"];
     
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
@@ -190,7 +191,7 @@ NSString* key(NSURLConnection* con)
 
 -(void)buyCouponRequest:(NSString*)string{
     
-    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/provamario.php"];
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"https://cartaperdue.it/partner/acquistoCoupon.php"];
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     
     
