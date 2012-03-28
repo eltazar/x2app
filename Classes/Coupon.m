@@ -698,7 +698,8 @@ if ([rows count]>0) {//coupon disponibile
     [super viewDidAppear:animated];
     
     [reloadBtn setHidden:YES];
-    [compra setHidden:YES];
+    //[compra setHidden:YES];
+    [compra setEnabled:NO];
 //	timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
     
 //    int wifi=0;
@@ -713,7 +714,8 @@ if ([rows count]>0) {//coupon disponibile
         NSLog(@"INTERNET ASSENTE");
         
         titolo.text = @" Connessione non disponibile!";
-        [compra setHidden:YES];
+        //[compra setHidden:YES];
+        [compra setEnabled:NO];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
@@ -783,7 +785,8 @@ if ([rows count]>0) {//coupon disponibile
     
     self.navigationItem.title = @"Coupon del giorno";
     
-    [compra setHidden:YES];
+    //[compra setHidden:YES];
+    [compra setEnabled:NO];
     
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
@@ -1029,7 +1032,8 @@ if ([rows count]>0) {//coupon disponibile
 {
         
     [caricamentoSpinner stopAnimating];
-    [compra setHidden:NO];
+    //[compra setHidden:NO];
+    [compra setEnabled:YES];
     
     dict = [coupon retain];
     
@@ -1058,14 +1062,16 @@ if ([rows count]>0) {//coupon disponibile
 	if([rows count]==0){ //niente coupon 
 		titolo.text=@"";
 		
-		[compra setHidden:YES];
+		//[compra setHidden:YES];
+        [compra setEnabled:NO];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Spiacenti" message:@"In questo momento non ci sono offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
 		[alert show];
 		[alert release];
 	}
 	
 	else { //offerta esite
-		[compra setHidden:NO];
+		//[compra setHidden:NO];
+        [compra setEnabled:YES];
 		dict = [rows objectAtIndex: 0];
 		titolo.text=[NSString stringWithFormat:@"  Solo %@€, sconto %@%",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"offerta_sconto_per"]];
         //identificativo è relativo all'offerta
