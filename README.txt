@@ -4,6 +4,7 @@ pre-release:
 
 - search bar -> problema cancellazione lista quando si preme annulla
 - controllo numeri carta di credito
+- controllo cvv 3 o 4 
 - controllo inserimento numero telefonico con prefisso internazionale
 - taste refresh view -> mettere imagine
 - mbhud nel processo di acquisto dopo aver confermato acquisto
