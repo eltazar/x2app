@@ -164,6 +164,7 @@
 		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
 		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
 		ACC747901517CDAE0049085F /* DatiUtenteLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */; };
+		ACC808541521F678006DF894 /* grayButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC808531521F678006DF894 /* grayButton2.png */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACD939F0150E083B008D5C7B /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD939EE150E083B008D5C7B /* LoginController.m */; };
 		ACD939F1150E083B008D5C7B /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD939EF150E083B008D5C7B /* LoginController.xib */; };
@@ -436,6 +437,7 @@
 		ACC31928151CD815008229B0 /* LoginControllerBis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginControllerBis.m; sourceTree = "<group>"; };
 		ACC31929151CD815008229B0 /* LoginControllerBis.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginControllerBis.xib; sourceTree = "<group>"; };
 		ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatiUtenteLogin.xib; sourceTree = "<group>"; };
+		ACC808531521F678006DF894 /* grayButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton2.png; sourceTree = "<group>"; };
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
 		ACD939ED150E083B008D5C7B /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		ACD939EE150E083B008D5C7B /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				ACC808531521F678006DF894 /* grayButton2.png */,
 				AC3AC159151DCA4000C8164D /* grayButton.png */,
 				ACC313C7151A9507008DBEBA /* greenButton.png */,
 				AC9B692D1507D84A00BE6A30 /* scadutaImg.png */,
@@ -1135,6 +1138,7 @@
 				D924E62E151D26AC00AD4C07 /* LastCell.xib in Resources */,
 				D924E633151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.xib in Resources */,
 				D924E635151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib in Resources */,
+				ACC808541521F678006DF894 /* grayButton2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
