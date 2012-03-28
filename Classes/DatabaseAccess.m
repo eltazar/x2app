@@ -42,7 +42,7 @@ NSString* key(NSURLConnection* con)
     [userData retain];
     NSLog(@"DBACCESS REGISTER  --> user = %@",userData);
     
-    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/registra.php"];
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://cartaperdue.it/coupon/test_registrazione_utente_app.jsp"];
     
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
