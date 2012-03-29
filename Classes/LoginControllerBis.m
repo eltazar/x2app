@@ -330,6 +330,23 @@
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
     NSLog(@"DATI RICEVUTO DA RECUPERP PSW = %@",receivedData);
+    
+    UIAlertView *alert = [[UIAlertView alloc] init];
+    alert.delegate = self;
+    [alert addButtonWithTitle:@"Chiudi"];
+    
+    if([receivedData isEqualToString:@"psw_ok"]){
+        [alert setTitle:@"E-mail inviata"];
+        [alert setMessage:@"A breve riceverai un'e-mail per recuperare la tua password"];
+        [alert show];
+        [alert release];
+    }
+    else{
+        [alert setTitle:@"Spiacenti"];
+        [alert setMessage:@"L'e-mail inserita non risulta registrata, riprova"];
+        [alert show];
+        [alert release];
+    }
 }
 
 #pragma mark - TextField and TextView Delegate
