@@ -139,6 +139,7 @@
     [emailTextField setBackgroundColor:[UIColor whiteColor]];
     emailTextField.borderStyle = UITextBorderStyleRoundedRect;
     emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     [rememberPswAlert addSubview:emailTextField];
     [emailTextField becomeFirstResponder];
     [emailTextField release];
@@ -196,24 +197,32 @@
     //dismette la tastiera e salva i dati nelle variabili quando si preme il button
     [self.view endEditing:TRUE];
     
-    if(! [Utilita isStringEmptyOrWhite:self.user] || ![Utilita isStringEmptyOrWhite:self.psw]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati mancanti" message:@"Devono esser inseriti entrambi i dati richiesti, riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
-    }
-    else if(![Utilita isEmailValid:self.user]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Formato email errato" message:@"Inserisci un indirizzo e-mail valido e riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
+    if([Utilita networkReachable]){
+    
+        if(! [Utilita isStringEmptyOrWhite:self.user] || ![Utilita isStringEmptyOrWhite:self.psw]){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati mancanti" message:@"Devono esser inseriti entrambi i dati richiesti, riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
+        }
+        else if(![Utilita isEmailValid:self.user]){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Formato email errato" message:@"Inserisci un indirizzo e-mail valido e riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
+        }
+        else{
+            if([Utilita networkReachable]){
+                NSArray *data = [NSArray arrayWithObjects:self.user, self.psw,nil];
+                [dbAccess checkUserFields:data];
+                self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+                _hud.labelText = @"Login...";  
+            }
+            
+        }
     }
     else{
-        if([Utilita networkReachable]){
-            NSArray *data = [NSArray arrayWithObjects:self.user, self.psw,nil];
-            [dbAccess checkUserFields:data];
-            self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-            _hud.labelText = @"Login...";  
-        }
-        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+		[alert show];
+        [alert release];
     }
 }
 
@@ -221,20 +230,28 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex == 1){
-        UITextField* textField = (UITextField*)[alertView viewWithTag:120];
-        NSLog(@"textfield = %@",textField.text);
-        if(![Utilita isStringEmptyOrWhite: textField.text] || ![Utilita isEmailValid:textField.text]){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail non valida" message:@"Inserisci un indirizzo e-mail valido" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
-            [alert show];
-            [alert release];
+        if([Utilita networkReachable]){
+            UITextField* textField = (UITextField*)[alertView viewWithTag:120];
+            NSLog(@"textfield = %@",textField.text);
+            
+            if(![Utilita isStringEmptyOrWhite: textField.text] || ![Utilita isEmailValid:textField.text]){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail non valida" message:@"Inserisci un indirizzo e-mail valido" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+                [alert show];
+                [alert release];
+            }
+            else{
+                
+                [dbAccess sendRetrievePswForUser:textField.text];
+                self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+                _hud.labelText = @"Recupero password...";
+                 UITextField* textField = (UITextField*)[alertView viewWithTag:120];
+                textField.text = @"";
+            }
         }
         else{
-            
-            [dbAccess sendRetrievePswForUser:textField.text];
-            self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-            _hud.labelText = @"Recupero password...";
-             UITextField* textField = (UITextField*)[alertView viewWithTag:120];
-            textField.text = @"";
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+            [alert show];
+            [alert release];
         }
     }
 }
