@@ -48,7 +48,7 @@ NSString* key(NSURLConnection* con)
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSString *postFormatString = @"mail=%@&telefono=%d&nome=%@&cognome=%@";
+    NSString *postFormatString = @"mail=%@&telefono=%@&nome=%@&cognome=%@";
     NSString *postString = [NSString stringWithFormat:postFormatString, [userData objectAtIndex:0],[userData objectAtIndex:1],[userData objectAtIndex:2],[userData objectAtIndex:3]];
     
     NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
