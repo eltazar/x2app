@@ -57,6 +57,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
 	//[UIApplication sharedApplication].networkActivityIndicatorVisible = YES; 
 
     [super viewWillAppear:animated];
@@ -225,7 +226,6 @@
             dict = [rows objectAtIndex: indexPath.row];
             NSInteger i=[[dict objectForKey:@"ID"]integerValue];
             NSLog(@"L'id della news da visualizzare è %d",i);
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
             detail = [[Notizia alloc] initWithNibName:@"Notizia" bundle:[NSBundle mainBundle]];
             [(Notizia*)detail setIdentificativo:i];
             [detail setTitle:@"News"];
@@ -234,7 +234,6 @@
                 //rilascio controller
             [detail release];
             detail = nil; 
-            //[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
         }
         else {
@@ -247,7 +246,6 @@
                 altri2.text = @"Non ci sono altre news da mostrare";
                 
             }
-            //[tableView deselectRowAtIndexPath:indexPath animated:YES];
 
             
         }
@@ -258,8 +256,9 @@
         [alert release];
 
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
 -(void)spinTheSpinner {
     NSLog(@"Spin The Spinner");
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];

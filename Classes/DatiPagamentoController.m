@@ -264,7 +264,6 @@
         [self.navigationController presentModalViewController:contact animated:YES];
         [contact release];
     }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -676,6 +675,12 @@
     [secD release];
     [secE release];
     [secG release];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
 }
 
 

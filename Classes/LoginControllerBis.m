@@ -161,6 +161,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
     [super viewWillAppear:animated];
 }
 
@@ -253,6 +254,9 @@
             [alert show];
             [alert release];
         }
+    } else {
+        // Ho premuto annulla
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     }
 }
 
@@ -562,6 +566,7 @@
     if(indexPath.section == 0){
         TextFieldCell *cell = (TextFieldCell*)[self.tableView cellForRowAtIndexPath:indexPath];
         [cell.textField becomeFirstResponder];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     else if(indexPath.section == 3 && indexPath.row == 0){
         RegistrazioneController *regController = [[RegistrazioneController alloc] initWithNibName:@"RegistrazioneController" bundle:nil];
@@ -572,7 +577,7 @@
         [rememberPswAlert show];
     }
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
 #pragma mark - MemoryManagement

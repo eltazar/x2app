@@ -155,7 +155,7 @@
     //    wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
     //    internet = [self checkNetReachability:internetReach];
     //    wifi = [self checkNetReachability:wifiReach];	
-    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
     if( ! [Utilita networkReachable]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert show];
@@ -261,8 +261,7 @@
                                              latitude:latitude
                                              longitude:longitude] autorelease];
     
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	//Facciamo visualizzare la vista con i dettagli
+    //Facciamo visualizzare la vista con i dettagli
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

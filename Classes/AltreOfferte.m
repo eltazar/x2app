@@ -161,7 +161,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [couponSelezionatoController setIdentificativo:identificativoOfferta];
     [self.navigationController pushViewController:couponSelezionatoController animated:YES];
     
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
     [couponSelezionatoController release];
 
 }
@@ -265,6 +264,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)viewWillAppear:(BOOL)animated {
     
     NSLog(@"ALTRE OFFERTE VIEW WILL APPEAR");
+
 //	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 //	int wifi=0;
 //	int internet=0;
@@ -333,6 +333,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //            r=nil;	
 //        }
     }
+    // FIXME: non si riesce ad animare sta deselezione... per ora disattivo l'animazione e amen
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:NO];
 }
 
 

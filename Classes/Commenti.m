@@ -110,7 +110,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			dict = [rows objectAtIndex: indexPath.row];
 			NSInteger i=[[dict objectForKey:@"comment_ID"]integerValue];
 			NSLog(@"L'id del commento da visualizzare è %d",i);
-			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			detail = [[Commento alloc] initWithNibName:@"Commento" bundle:[NSBundle mainBundle]];
 			NSDictionary *diz = [rows objectAtIndex: indexPath.row];
 			
@@ -294,6 +293,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
 	int wifi=0;
 	int internet=0;
 	internetReach = [[Reachability reachabilityForInternetConnection] retain];

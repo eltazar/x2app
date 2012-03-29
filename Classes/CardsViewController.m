@@ -121,7 +121,9 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    // FIXME: Il reloadData rompe l'animazione. bisogna usare come cristo comanda i metodi per l'inserimento delle righe nelle tabelle.
     [super viewWillAppear:animated];    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
     [self.tableView reloadData];
     NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
 }
@@ -329,9 +331,6 @@
         [self.navigationController pushViewController:acquistaController animated:YES];
         [acquistaController release];
     }
-    
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

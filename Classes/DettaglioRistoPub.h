@@ -39,7 +39,7 @@
 }
 
 @property (retain,nonatomic) NSArray *rows;
-@property (retain,nonatomic) UITableView *tableview;
+@property (retain,nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic, readwrite) NSInteger identificativo; 
 @property (retain,nonatomic) NSDictionary *dict;
 @property (retain,nonatomic) IBOutlet UIViewController *mappa;

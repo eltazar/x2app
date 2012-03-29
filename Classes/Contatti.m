@@ -138,12 +138,11 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if  (indexPath.row == 0){ //telefona
 		UIActionSheet *aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Vuoi chiamare\nCarta PerDue?"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Chiama", nil];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
 		[aSheet showInView:self.view];
 			//[aSheet setBackgroundColor:[UIColor colorWithRed:142/255.0 green:21/255.0 blue:7/255.0 alpha:1.0]];
 		
 		[aSheet release];			
-		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];		
 	}
 	if (indexPath.row == 1){ //mail
 		MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
@@ -154,24 +153,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[controller setMessageBody:@"" isHTML:NO];
 		[self presentModalViewController:controller animated:YES];
 		[controller release];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
 	if  (indexPath.row == 2) { //sito
 		NSURL *url = [NSURL URLWithString:@"http://www.cartaperdue.it"];
 		NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 		[webView loadRequest:requestObj];		
 			//[self.navigationController pushViewController:sito animated:YES];
-		[UIView beginAnimations:nil context:nil];
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:1.0];
 		[UIView setAnimationTransition:UIViewAnimationTransitionCurlUp
 							   forView:[self view]
 								 cache:YES];
-		
 		[UIView commitAnimations];
 		
 		[[self view] addSubview:sito];
 		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		[webView release];
 		webView=nil;
 		
@@ -197,9 +194,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 -(void)viewWillAppear:(BOOL)animated {
-        if( ![Utilita networkReachable]){
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-		[alert show];
+    NSLog(@"Contatti::viewWillAppear");
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
+    if( ![Utilita networkReachable]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+        [alert show];
         [alert release];
 	}
 	

@@ -456,7 +456,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 //			detail = [[DatiPers alloc] initWithNibName:@"DatiPers" bundle:[NSBundle mainBundle]];
 //			detail.title = [NSString stringWithFormat:@"Dati Cliente"];
 //			[self.navigationController pushViewController:detail animated:YES];
-//			[tableView deselectRowAtIndexPath:indexPath animated:YES];
             
             DatiUtenteController *userDetail = [[DatiUtenteController alloc] initWithNibName:@"DatiUtenteController" bundle:nil];
             
@@ -473,7 +472,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             
             //[self.navigationController pushViewController:detail animated:YES];
             //[self.navigationController presentModalViewController:detail animated:YES];
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
 		}
     */
@@ -481,7 +479,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 //			detail = [[DatiPag alloc] initWithNibName:@"DatiPag" bundle:[NSBundle mainBundle]];
 //			detail.title = [NSString stringWithFormat:@"Dati Pagamento"];
 //			[self.navigationController pushViewController:detail animated:YES];
-//			[tableView deselectRowAtIndexPath:indexPath animated:YES];
             
             DatiPagamentoController *paymentDetail = [[DatiPagamentoController alloc] initWithNibName:@"DatiPagamentoController" bundle:nil];
             
@@ -498,7 +495,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             
             //[self.navigationController pushViewController:detail animated:YES];
             //[self.navigationController presentModalViewController:detail animated:YES];
-            [tableView deselectRowAtIndexPath:indexPath animated:YES];
 		}			
 	
 }
@@ -723,6 +719,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    [self.tablegenerale deselectRowAtIndexPath:[self.tablegenerale indexPathForSelectedRow]  animated:YES];
 	[tablegenerale reloadData];
 	
 }

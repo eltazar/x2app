@@ -110,6 +110,7 @@
     //		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
     //		[alert show];
     //        [alert release];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
     if( ![Utilita networkReachable]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert show];
@@ -266,7 +267,6 @@
 		NSDictionary* r = [rows objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
-		[tView deselectRowAtIndexPath:indexPath animated:YES];
 		DettaglioEsercenti *detail = [[DettaglioEsercenti alloc] initWithNibName:@"DettaglioEsercenti" bundle:[NSBundle mainBundle]];//] autorelease];
 		[(DettaglioEsercenti*)detail setIdentificativo:i];
 		[detail setTitle:@"Esercente"];

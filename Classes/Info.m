@@ -46,7 +46,7 @@
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
 						   forView:[self view]
 							 cache:YES];
-	
+	[self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
 	[UIView commitAnimations];	
 	[cred removeFromSuperview];
 	self.title = @"Info";
@@ -66,10 +66,9 @@
 	[UIView setAnimationTransition:UIViewAnimationTransitionCurlDown						   
 						   forView:[self view]
 							 cache:YES];
-	
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
+    [sito removeFromSuperview];
 	[UIView commitAnimations];	
-	[sito removeFromSuperview];
-
 }
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -240,7 +239,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[aSheet showInView:self.view];
 		//[aSheet setBackgroundColor:[UIColor colorWithRed:142/255.0 green:21/255.0 blue:7/255.0 alpha:1.0]];
 		
-		[aSheet release];			
+		[aSheet release];	
     }
 	if ( (indexPath.row == 1)&&(indexPath.section==0) ){ //mail
 		MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
@@ -270,12 +269,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 		[webView release];
 		webView=nil;
-	
+        [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
 	}
     if ( (indexPath.row == 3)&&(indexPath.section==0) ){ //facebook
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.facebook.com/perdue.roma"]];
 	}
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 }
 
@@ -283,7 +281,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (buttonIndex == 0) {
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel:800737383"]];
 		[[UIApplication sharedApplication] openURL:url];
-	} 
+	} else {
+        [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
+    }
 }
 					  
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
@@ -293,6 +293,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 -(void)viewWillAppear:(BOOL)animated {
+    NSLog(@"Info::viewWillAppear");
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
 	int wifi=0;
 	int internet=0;
 	internetReach = [[Reachability reachabilityForInternetConnection] retain];

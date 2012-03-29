@@ -19,7 +19,7 @@
 @synthesize identificativo, dict, webView;
 
 // IBOutlets
-@synthesize mappa, condizioni, cond, tipoMappa, map, cellavalidita, sito;
+@synthesize tableView, mappa, condizioni, cond, tipoMappa, map, cellavalidita, sito;
 
 	// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -382,18 +382,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		int ident=d;
 		
 		[self.map addAnnotation:[[[GoogleHQAnnotation alloc] init:lati:longi:nome:address:ident] autorelease]];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-
-
-
 	}	
 	
 	if ( ((indexPath.row == 2)&&(indexPath.section==0)) || ((indexPath.row == 1)&&(indexPath.section==0)&& ([tableView numberOfRowsInSection:0]==2)) ) { //condizioni
 		self.condizioni.title = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Insegna_Esercente"]];
 		[self.navigationController pushViewController:self.condizioni animated:YES];
 		self.cond.text=[NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Note_Varie_CE"]];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
 	
 	
@@ -403,9 +397,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			UIActionSheet *aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Vuoi chiamare\n%@?",[self.dict objectForKey:@"Insegna_Esercente"]] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Chiama", nil];
 
 			[aSheet showInView:appDelegate.window];
-			[aSheet release];			
-			
-			[tableView deselectRowAtIndexPath:indexPath animated:YES];		
+			[aSheet release];						
 		}
 		else {
 			if(!( [ [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Email_Esercente"]] isEqualToString:@"<null>"]) ){ //la cella esprime un indirizzo email
@@ -417,7 +409,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 				[controller setMessageBody:@"" isHTML:NO];
 				[self presentModalViewController:controller animated:YES];
 				[controller release];
-				[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			}
 			else { //la cella esprime un url
                 NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[self.dict objectForKey:@"Url_Esercente"]]];
@@ -425,7 +416,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 				[webView loadRequest:requestObj];		
 				[self.navigationController pushViewController:self.sito animated:YES];
 				self.sito.title = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Insegna_Esercente"]];
-				[tableView deselectRowAtIndexPath:indexPath animated:YES];
 				[webView release];
 				webView=nil;
 
@@ -445,7 +435,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			[controller setMessageBody:@"" isHTML:NO];
 			[self presentModalViewController:controller animated:YES];
 			[controller release];
-			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		}
 		else { //sito web
 			NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[self.dict objectForKey:@"Url_Esercente"]]];
@@ -453,13 +442,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			[webView loadRequest:requestObj];		
 			[self.navigationController pushViewController:self.sito animated:YES];
 			self.sito.title = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Insegna_Esercente"]];
-			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			[webView release];
 			webView=nil;
-
-
 		}
-		
 	}	
 	
 	if ( (indexPath.row == 2)&&(indexPath.section==1) ){ // sito web
@@ -468,13 +453,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[webView loadRequest:requestObj];		
 		[self.navigationController pushViewController:self.sito animated:YES];
 		self.sito.title = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Insegna_Esercente"]];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		[webView release];
 		webView=nil;
-		
-		
 	}
-	
 }
 
 
@@ -483,7 +464,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (buttonIndex == 0) {
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",[self.dict objectForKey:@"Telefono_Esercente"]]];
 		[[UIApplication sharedApplication] openURL:url];
-	} 
+	} else {
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    }
 }
 
 
@@ -565,7 +548,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 -(void)viewWillAppear:(BOOL)animated {
-
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
     if(! [Utilita networkReachable]){
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];

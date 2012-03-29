@@ -283,11 +283,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		int ident=d;
 		
 		[map addAnnotation:[[[GoogleHQAnnotation alloc] init:lati:longi:nome:address:ident] autorelease]];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-		
-		
-		
-		
 	}	
 	
 	
@@ -299,7 +294,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			[aSheet showInView:appDelegate.window];
 			[aSheet release];			
 			
-			[tableView deselectRowAtIndexPath:indexPath animated:YES];		
 		}
 		else {
 			if(!( [ [NSString stringWithFormat:@"%@",[dict objectForKey:@"Email_Esercente"]] isEqualToString:@"<null>"]) ){ //la cella esprime un indirizzo email
@@ -311,7 +305,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 				[controller setMessageBody:@"" isHTML:NO];
 				[self presentModalViewController:controller animated:YES];
 				[controller release];
-				[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			}
 			else { //la cella esprime un url
 				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
@@ -320,7 +313,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 				[webView loadRequest:requestObj];		
 				[self.navigationController pushViewController:sito animated:YES];
 				sito.title = [NSString stringWithFormat:@"%@",[dict objectForKey:@"Insegna_Esercente"]];
-				[tableView deselectRowAtIndexPath:indexPath animated:YES];
 				[webView release];
 				webView=nil;
 				
@@ -340,7 +332,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			[controller setMessageBody:@"" isHTML:NO];
 			[self presentModalViewController:controller animated:YES];
 			[controller release];
-			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		}
 		else { //sito web
 			[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
@@ -349,7 +340,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			[webView loadRequest:requestObj];		
 			[self.navigationController pushViewController:sito animated:YES];
 			sito.title = [NSString stringWithFormat:@"%@",[dict objectForKey:@"Insegna_Esercente"]];
-			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			[webView release];
 			webView=nil;
 			
@@ -365,7 +355,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[webView loadRequest:requestObj];		
 		[self.navigationController pushViewController:sito animated:YES];
 		sito.title = [NSString stringWithFormat:@"%@",[dict objectForKey:@"Insegna_Esercente"]];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		[webView release];
 		webView=nil;
 		
@@ -486,6 +475,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
  */
 
 -(void)viewWillAppear:(BOOL)animated {
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
 	int wifi=0;
 	int internet=0;
 	internetReach = [[Reachability reachabilityForInternetConnection] retain];

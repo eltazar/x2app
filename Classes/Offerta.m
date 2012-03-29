@@ -300,7 +300,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
 		
 		[self.navigationController pushViewController:insintesi animated:YES];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
         
 	}
     
@@ -317,7 +316,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		
 		[self.navigationController pushViewController:termini animated:YES];
 		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
     
     
@@ -369,7 +367,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 [self.navigationController pushViewController:dettaglioEseGen animated:YES];
 		}
         
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
     
 	if ( (indexPath.section==1) && (indexPath.row == 3)){
@@ -383,7 +380,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         //		[compradipiu setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
 		
 		[self.navigationController pushViewController:dipiu animated:YES];
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
 	}
 	if ( (indexPath.section==2) && (indexPath.row == 0)){
@@ -404,7 +400,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[aSheet showInView:appDelegate.window];
 		[aSheet release];			
 		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
         
 	}
 	if ( (indexPath.section==2) && (indexPath.row == 1)){
@@ -414,7 +409,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[aSheet2 showInView:appDelegate.window];
 		[aSheet2 release];			
 		
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
 	}
 	if ( (indexPath.section==2) && (indexPath.row == 2)){
@@ -425,7 +419,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[faqwebview loadRequest:requestObj];		
 		[faqwebview release];
 		faqwebview=nil;
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		
 	}
 	
@@ -592,6 +585,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - ActionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
 	if(actionSheet==aSheet) {
 		
         NSLog(@" numero di bottoni = %d", actionSheet.numberOfButtons);
@@ -808,7 +802,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
     //[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
     
     

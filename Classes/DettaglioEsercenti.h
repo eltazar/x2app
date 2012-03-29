@@ -22,7 +22,7 @@
 @property (nonatomic, retain) NSDictionary *dict;
 @property (nonatomic, retain) UIWebView *webView;
 
-//@property (retain,nonatomic) UITableView *tableview;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet UIViewController *mappa;
 @property (nonatomic, retain) IBOutlet UIViewController *condizioni;
 @property (nonatomic, retain) IBOutlet UITextView *cond;
