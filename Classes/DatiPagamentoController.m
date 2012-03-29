@@ -462,6 +462,52 @@
     
     //controlla che i dati inseriti nel titolare siano solo caratteri
     
+    
+    //controllo lunghezza carte di credito
+    NSString *trimmedCard = [numeroCarta stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    trimmedCard = [trimmedCard stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSString *trimmedCVV = [cvv stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    trimmedCVV = [trimmedCVV stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    if([tipoCarta isEqualToString:@"American Express"]){
+       
+        if([trimmedCard length] != 15){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore formato carta" message:@"Devi inserire 15 cifre per la carta di credito seleziona" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
+            return FALSE;
+        }
+    }
+    else{
+        if([trimmedCard length] != 16){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero carta errato" message:@"Devi inserire 16 cifre per la carta di credito selezionata" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
+            return FALSE;
+        }
+    }
+    
+    //controllo cvv
+    if([tipoCarta isEqualToString:@"American Express"]){
+        
+        if([trimmedCVV length] != 4){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"CVV errato" message:@"Il CVV deve essere di 4 cifre" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
+            return FALSE;
+        }
+    }
+    else{
+        if([trimmedCVV length] != 3){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"CVV errato" message:@"Il CVV deve essere di 3 cifre" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
+            return FALSE;
+        }
+    }
+    
     return TRUE;
     
     
