@@ -251,7 +251,7 @@
     
     //controlla che i dati inseriti siano solo numerici per il numero di telefono
     if(![Utilita isNumeric:telefono]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero di telefono formalmente non valido" message:@"Il numero deve esser composto da soli numeri" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero di telefono non valido" message:@"Il numero deve esser composto da soli numeri" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
@@ -261,7 +261,7 @@
     
     //controllare formato email
     if( ! [Utilita isEmailValid:email]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail formalmente non valida" message:@"Controlla l'indirizzo inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail non valida" message:@"Controlla l'indirizzo inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
@@ -300,7 +300,7 @@
 //    }
     else if( ! [ Utilita isEmailValid:self.email]){
         NSLog(@"ERRORE ->email nn valida");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail formamente non valida" message:@"Controlla l'indirizzo inserito" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail non valida" message:@"Controlla l'indirizzo inserito" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
     }
@@ -308,7 +308,7 @@
         //controllo presenza rete
         if([Utilita networkReachable]){
             //lancio chiamata a server
-            [dbAccess registerUserOnServer:[NSArray arrayWithObjects:self.email,[Utilita checkPhoneNumber:self.telefono],self.nome,self.cognome, nil]];
+            [dbAccess registerUserOnServer:[NSArray arrayWithObjects:self.email,[NSString stringWithFormat:@"%d",[Utilita checkPhoneNumber:self.telefono]],self.nome,self.cognome, nil]];
             self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
             _hud.labelText = @"Registrazione...";  
         }
