@@ -308,7 +308,7 @@
         //controllo presenza rete
         if([Utilita networkReachable]){
             //lancio chiamata a server
-            [dbAccess registerUserOnServer:[NSArray arrayWithObjects:self.email,[NSString stringWithFormat:@"%@",[Utilita checkPhoneNumber:self.telefono]],self.nome,self.cognome, nil]];
+            [dbAccess registerUserOnServer:[NSArray arrayWithObjects:self.email,[Utilita checkPhoneNumber:self.telefono],self.nome,self.cognome, nil]];
             self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
             _hud.labelText = @"Registrazione...";  
         }
