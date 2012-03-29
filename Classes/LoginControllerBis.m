@@ -335,14 +335,13 @@
         [alert setTitle:@"E-mail inviata"];
         [alert setMessage:@"A breve riceverai un'e-mail per recuperare la tua password"];
         [alert show];
-        [alert release];
     }
     else{
         [alert setTitle:@"Spiacenti"];
         [alert setMessage:@"L'e-mail inserita non risulta registrata, riprova"];
         [alert show];
-        [alert release];
     }
+    [alert release];
 }
 
 #pragma mark - TextField and TextView Delegate
