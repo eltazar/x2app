@@ -138,6 +138,7 @@
     emailTextField.placeholder = @"E-mail di registrazione";
     [emailTextField setBackgroundColor:[UIColor whiteColor]];
     emailTextField.borderStyle = UITextBorderStyleRoundedRect;
+    emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     [rememberPswAlert addSubview:emailTextField];
     [emailTextField becomeFirstResponder];
     [emailTextField release];
@@ -191,6 +192,31 @@
     
 }
 
+-(void)loginBtnClicked:(id)sender{
+    //dismette la tastiera e salva i dati nelle variabili quando si preme il button
+    [self.view endEditing:TRUE];
+    
+    if(! [Utilita isStringEmptyOrWhite:self.user] || ![Utilita isStringEmptyOrWhite:self.psw]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati mancanti" message:@"Devono esser inseriti entrambi i dati richiesti, riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else if(![Utilita isEmailValid:self.user]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Formato email errato" message:@"Inserisci un indirizzo e-mail valido e riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    else{
+        if([Utilita networkReachable]){
+            NSArray *data = [NSArray arrayWithObjects:self.user, self.psw,nil];
+            [dbAccess checkUserFields:data];
+            self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            _hud.labelText = @"Login...";  
+        }
+        
+    }
+}
+
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -203,12 +229,14 @@
             [alert release];
         }
         else{
+            
             [dbAccess sendRetrievePswForUser:textField.text];
+            self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            _hud.labelText = @"Recupero password...";
              UITextField* textField = (UITextField*)[alertView viewWithTag:120];
             textField.text = @"";
         }
     }
-        
 }
 
 
@@ -277,6 +305,11 @@
     [alert release];
 }
 
+-(void)didReceiveResponsFromServer:(NSString *)receivedData{
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    self.hud = nil;
+    NSLog(@"DATI RICEVUTO DA RECUPERP PSW = %@",receivedData);
+}
 
 #pragma mark - TextField and TextView Delegate
 
@@ -506,30 +539,6 @@
     return nil;
 }
 
--(void)loginBtnClicked:(id)sender{
-    //dismette la tastiera e salva i dati nelle variabili quando si preme il button
-    [self.view endEditing:TRUE];
-    
-    if(! [Utilita isStringEmptyOrWhite:self.user] || ![Utilita isStringEmptyOrWhite:self.psw]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Dati mancanti" message:@"Devono esser inseriti entrambi i dati richiesti, riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
-    }
-    else if(![Utilita isEmailValid:self.user]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Formato email errato" message:@"Inserisci un indirizzo e-mail valido e riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
-    }
-    else{
-        if([Utilita networkReachable]){
-            NSArray *data = [NSArray arrayWithObjects:self.user, self.psw,nil];
-            [dbAccess checkUserFields:data];
-            self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-            _hud.labelText = @"Login...";  
-        }
-        
-    }
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
