@@ -75,6 +75,16 @@
     NSLog(@"STRIPPED STRING = %@",strippedString);
 
     return strippedString;
+    
+    /*
+     if(![job.phone isEqualToString:@""] && [[job.phone substringWithRange:NSMakeRange(0,1)] isEqualToString:@"+"]){
+     phoneTmp = [NSMutableString stringWithFormat:@"%@",job.phone];
+     [phoneTmp setString:[phoneTmp stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"]];
+     }
+     else{
+     phoneTmp = [NSMutableString stringWithFormat:@"%@",job.phone];
+     }
+     */
 
 }
 
