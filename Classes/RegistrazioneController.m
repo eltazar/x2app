@@ -292,12 +292,12 @@
         [alert show];
         [alert release];
     }
-    else if(! [Utilita isNumeric:self.telefono]){
-        NSLog(@"ERRORE ->telefo nn è un numero");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero di telefono formalmente non valido" message:@"Il numero di telefono deve contenere solo numeri" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
-        [alert show];
-        [alert release];
-    }
+//    else if(! [Utilita isNumeric:self.telefono]){
+//        NSLog(@"ERRORE ->telefo nn è un numero");
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero di telefono formalmente non valido" message:@"Il numero di telefono deve contenere solo numeri" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+//        [alert show];
+//        [alert release];
+//    }
     else if( ! [ Utilita isEmailValid:self.email]){
         NSLog(@"ERRORE ->email nn valida");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail formamente non valida" message:@"Controlla l'indirizzo inserito" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
