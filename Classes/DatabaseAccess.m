@@ -171,7 +171,7 @@ NSString* key(NSURLConnection* con)
         //NSLog(@"IS CONNECTION TRUE");
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         
-        [readConnections addObject:connection];
+        [writeConnections addObject:connection];
         
         NSMutableData *receivedData = [[NSMutableData data] retain];
         //[connectionDictionary setObject:connection forKey:key(connection)];
