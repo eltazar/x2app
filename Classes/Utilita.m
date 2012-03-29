@@ -38,6 +38,45 @@
     return  result;
 }
 
++(NSString*)checkPhoneNumber:(NSString*) _phone{
+    
+    BOOL isPlus = FALSE;
+    
+    //NSLog(@"_PHONE = %@",_phone);
+    
+    //se il numero di telefono ha il prefisso internazionale che comincia con +
+    if([[_phone substringWithRange:NSMakeRange(0,1)] isEqualToString:@"+"])
+        isPlus = TRUE;
+    
+    NSMutableString *strippedString = [NSMutableString 
+                                       stringWithCapacity:_phone.length+1];
+    
+    NSScanner *scanner = [NSScanner scannerWithString:_phone];
+    NSCharacterSet *numbers = [NSCharacterSet 
+                               characterSetWithCharactersInString:@"0123456789"];
+    
+    while ([scanner isAtEnd] == NO) {
+        NSString *buffer;
+        if ([scanner scanCharactersFromSet:numbers intoString:&buffer]) {
+            
+            //reinserisco il + ad inizio stringa
+            if(isPlus){
+                strippedString = [NSMutableString stringWithFormat:@"%@",@"+"];
+                isPlus = FALSE;
+            }
+            
+            [strippedString appendString:buffer];
+            
+        } else {
+            [scanner setScanLocation:([scanner scanLocation] + 1)];
+        }
+    }
+    
+    NSLog(@"STRIPPED STRING = %@",strippedString);
+
+    return strippedString;
+
+}
 
 +(BOOL)isNumeric:(NSString*)inputString{
     BOOL isValid = NO;

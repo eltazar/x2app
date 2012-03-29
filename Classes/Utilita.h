@@ -15,4 +15,5 @@
 + (BOOL)isEmailValid:(NSString*)email;
 + (BOOL)isDateFormatValid:(NSString*)data;
 + (BOOL)networkReachable;
++(NSString*)checkPhoneNumber:(NSString*) _phone;
 @end
