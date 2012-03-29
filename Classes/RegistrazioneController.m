@@ -165,7 +165,7 @@
         
         b.frame = CGRectMake(21.0, 0, 280.0, 37);
         b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-        [b setTitle:@"Invia richiesta" forState:UIControlStateNormal];
+        [b setTitle:@"Registrati" forState:UIControlStateNormal];
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         b.layer.cornerRadius = 8.0f;
@@ -279,7 +279,7 @@
     [self.view endEditing:TRUE];
     
   
-    
+    //controllo i vari campi
     if ( ! [Utilita isStringEmptyOrWhite:self.nome] || ![Utilita isStringEmptyOrWhite:self.email] || ! [Utilita isStringEmptyOrWhite:self.telefono] || ! [Utilita isStringEmptyOrWhite:self.cognome]){
         NSLog(@"ERRORE ->qualche campo è vuoto");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Inserire tutti i dati richiesti" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
@@ -305,13 +305,17 @@
         [alert release];
     }
     else{
+        //controllo presenza rete
         if([Utilita networkReachable]){
-            [dbAccess registerUserOnServer:[NSArray arrayWithObjects:self.email,self.telefono,self.nome,self.cognome, nil]];
+            //lancio chiamata a server
+            [dbAccess registerUserOnServer:[NSArray arrayWithObjects:self.email,[Utilita checkPhoneNumber:self.telefono],self.nome,self.cognome, nil]];
             self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
             _hud.labelText = @"Registrazione...";  
         }
         else{
-            NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+            [alert show];
+            [alert release];
         }
     }
     
@@ -425,6 +429,7 @@
                          @"",                   @"detailLabel",
                          @"",               @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UIKeyboardTypeDefault], @"keyboardType",
                          nil] autorelease] atIndex: 0];
     
     [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
@@ -433,6 +438,7 @@
                          @"Cognome",   @"label",
                          @"",       @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UIKeyboardTypeDefault], @"keyboardType",
                          nil] autorelease] atIndex: 1];
     [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"email",           @"DataKey",
@@ -440,6 +446,7 @@
                          @"E-mail",   @"label",
                          @"",       @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UIKeyboardTypeEmailAddress], @"keyboardType",
                          nil] autorelease] atIndex: 2];
     
     [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
@@ -448,6 +455,7 @@
                          @"Telefono",   @"label",
                          @"",       @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UIKeyboardTypeNumbersAndPunctuation], @"keyboardType",
                          nil] autorelease] atIndex: 2];
     
     [sectionData insertObject:secB atIndex:0];
