@@ -19,6 +19,7 @@
     IBOutlet UITableView *tableView;
     IBOutlet MKMapView *mapView;
     IBOutlet UIView *footerView;
+    /*IBOutlet UIView *searchSegCtrlView;*/
     IBOutlet UISegmentedControl *searchSegCtrl;
     IBOutlet UISegmentedControl *mapTypeSegCtrl;
 }
@@ -30,6 +31,7 @@
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) IBOutlet UIView *footerView;
+/*@property (nonatomic, retain) IBOutlet UIView *searchSegCtrlView;*/
 @property (nonatomic, retain) IBOutlet UISegmentedControl *searchSegCtrl;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *mapTypeSegCtrl;
 

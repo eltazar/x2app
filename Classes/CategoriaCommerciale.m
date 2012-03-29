@@ -19,6 +19,7 @@
 //Metodi privati
 @interface CategoriaCommerciale () {
     BOOL lastFetchWasASearch;
+    BOOL inSearchUI;
     CLLocationDegrees latitude;
     CLLocationDegrees longitude;
     GeoDecoder *geoDec;
@@ -43,7 +44,7 @@
 @synthesize rows;
 
 // IBOutlets
-@synthesize searchBar, tableView, mapView, footerView, searchSegCtrl, mapTypeSegCtrl;
+@synthesize searchBar, tableView, mapView, footerView, /*searchSegCtrlView,*/ searchSegCtrl, mapTypeSegCtrl;
 
 // Properties private
 @synthesize phpFile, phpSearchFile, geoDec;
@@ -59,7 +60,7 @@
 
 
 - (id)initWithTitle:(NSString *)title phpFile:(NSString *)pf phpSearchFile:(NSString *)psf latitude:(CLLocationDegrees)la longitude:(CLLocationDegrees)lo {
-    self = [super init];
+    self = [self initWithNibName:nil bundle:nil];
     self.title = title;
     self.phpFile = pf;
     self.phpSearchFile = psf;
@@ -83,6 +84,7 @@
     [super viewDidLoad];
     self.rows = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
+    inSearchUI = NO;
 	UIBarButtonItem *mapButton = [[[UIBarButtonItem alloc]
                                    initWithTitle:@"Mappa"
                                    style:UIBarButtonItemStyleBordered
@@ -117,6 +119,8 @@
             [self.geoDec searchCoordinatesForAddress:[UserDefaults city]];
         }
     }
+    if (inSearchUI)
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 
@@ -267,6 +271,8 @@
 		[(DettaglioEsercenti*)detail setIdentificativo:i];
 		[detail setTitle:@"Esercente"];
         //Facciamo visualizzare la vista con i dettagli
+//        if (inSearchUI)
+//            [self.navigationController setNavigationBarHidden:NO animated:YES];
 		[self.navigationController pushViewController:detail animated:YES];
         [detail release];
 	}
@@ -329,33 +335,66 @@
 
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
-	self.searchBar.showsCancelButton = YES;
+    NSLog(@"searchBarTextDidBeginEditing");
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    /*CGFloat DeltaTableHeight = self.navigationController.navigationBar.bounds.size.height + self.searchSegCtrlView.bounds.size.height;*/
+    if (!inSearchUI)
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.searchSegCtrl.enabled = NO;
+    self.searchSegCtrl.alpha = 0.5;
+    //NSLog(@"tableView.frame.origin.y = %f -> %f", self.tableView.frame.origin.y, self.searchBar.frame.size.height);
+    //self.searchSegCtrlView.frame = CGRectMake(
+                                        //0, 
+                                        //self.searchSegCtrlView.frame.origin.y,
+                                        //self.searchSegCtrlView.bounds.size.width,
+                                        //0);
+    //self.tableView.frame = CGRectMake(0, self.tableView.frame.origin.y - 36, self.tableView.bounds.size.width, self.tableView.bounds.size.height + DeltaTableHeight);
+    //self.view.bounds = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+	[self.searchBar setShowsCancelButton:YES animated:YES];//showsCancelButton = YES;
     // disattiviamo la possibilità di modificare le celle della tabella
 	self.navigationItem.rightBarButtonItem.enabled = FALSE;
+    [UIView commitAnimations];
+    inSearchUI = YES;
 }
 
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-	self.searchBar.showsCancelButton = NO;
+    NSLog(@"searchBarTextDidEndEditing");
+    [self.searchBar resignFirstResponder];
 }
 
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    NSLog(@"searchBarCancelButtonClicked");
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
     //se l'utente esegue una ricerca valida, ma poi la annulla
     // dobbiamo inserire i valori originali nella tabella*/
-	[self.searchBar resignFirstResponder];
-	self.searchBar.text = @"";
+    [self.searchBar resignFirstResponder];
+	[self.navigationController setNavigationBarHidden:NO animated:YES]; 
+    self.searchSegCtrl.enabled = YES;
+    self.searchSegCtrl.alpha = 1;
+    //self.searchSegCtrlView.frame = CGRectMake(0, self.searchSegCtrlView.frame.origin.y, self.searchSegCtrlView.bounds.size.width, 36);
+    self.searchBar.text = @"";
+    [self.searchBar setShowsCancelButton:NO animated:YES];
 	self.navigationItem.rightBarButtonItem.enabled = TRUE;
+    [UIView commitAnimations];
+    inSearchUI = NO;
+    [self fetchRows];
 }
 
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-	[self fetchRowsBySearchKey:searchText];
+	NSLog(@"searchBar:textDidChange");
+    [self fetchRowsBySearchKey:searchText];
 }
 
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{ 
-	[self.searchBar resignFirstResponder];
-	self.searchBar.text = @"";
+	NSLog(@"searchBarSearchButtonClicked");
+    [self.searchBar resignFirstResponder];
+	//self.searchBar.text = @"";
 	self.navigationItem.rightBarButtonItem.enabled = TRUE;
 }
 

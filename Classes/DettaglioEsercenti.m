@@ -570,7 +570,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[jsonreturn release];
 	jsonreturn=nil;
 	self.dict = [rows objectAtIndex: 0];		
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
+
 
 /*
  // Override to allow orientations other than the default portrait orientation.

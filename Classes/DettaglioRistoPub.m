@@ -976,6 +976,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		//[jsonreturn release];
 		//jsonreturn=nil;
 	dict = [rows objectAtIndex: 0];	
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 
 
 }
