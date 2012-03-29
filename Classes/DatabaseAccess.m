@@ -42,7 +42,7 @@ NSString* key(NSURLConnection* con)
     [userData retain];
     NSLog(@"DBACCESS REGISTER  --> user = %@",userData);
     
-    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://cartaperdue.it/coupon/registrazione_utente_app_exe.jsp"];
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"https://cartaperdue.it/coupon/registrazione_utente_app_exe.jsp"];
     
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
@@ -93,9 +93,9 @@ NSString* key(NSURLConnection* con)
     NSMutableString *urlString = [NSMutableString stringWithFormat:@""];
     
     if(usr.count == 1)
-        urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/checkEmail.php"];
+        urlString = [NSMutableString stringWithFormat:@"https://cartaperdue.it/partner/checkEmail.php"];
     else if(usr.count == 2)
-        urlString  = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/login.php"];
+        urlString  = [NSMutableString stringWithFormat:@"https://cartaperdue.it/partner/login.php"];
     
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
