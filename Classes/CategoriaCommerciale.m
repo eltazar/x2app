@@ -560,12 +560,12 @@
 	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];	
     // TODO: gestire errori
     
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if (dict) {
         return [dict objectForKey:@"Esercente"];
     } else {
         return [[[NSArray alloc] init] autorelease];
     }
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 

@@ -740,8 +740,6 @@
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 	if ( (indexPath.row == 0)&&(indexPath.section==0) ){ //apri mappa
-		
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		mappa.navigationItem.titleView = tipoMappa;
 		[self.navigationController pushViewController:mappa animated:YES];
 		
@@ -778,7 +776,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	}
 	
 	if( (indexPath.section==1) && ([tableView numberOfRowsInSection:1] == indexPath.row+1) ) { //commenti
-		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		detail = [[Commenti alloc] initWithNibName:@"Commenti" bundle:[NSBundle mainBundle]];
 		[(Commenti*)detail setIdentificativo:identificativo];
@@ -817,7 +814,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 				
 			}
 			else { //la cella esprime un url
-				   //[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 				NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[dict objectForKey:@"Url_Esercente"]]];
 				NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 				[webView loadRequest:requestObj];		
@@ -849,7 +845,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			
 		}
 		else { //sito web
-			[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 			NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[dict objectForKey:@"Url_Esercente"]]];
 			NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 			[webView loadRequest:requestObj];		
@@ -864,7 +859,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	}	
 	
 	if ( (indexPath.row == 2)&&(indexPath.section==2) ){ // sito web	
-		//[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[dict objectForKey:@"Url_Esercente"]]];
 		NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 		[webView loadRequest:requestObj];		
@@ -887,20 +881,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 
--(void)spinTheSpinner {
-    NSLog(@"Spin The Spinner");
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [self performSelectorOnMainThread:@selector(doneSpinning) withObject:nil waitUntilDone:YES];
-	
-    [pool release]; 
-}
-
--(void)doneSpinning {
-    NSLog(@"done spinning");
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[self becomeFirstResponder];
@@ -948,7 +928,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioRistorantePub.php?id=%d",identificativo]];
 	NSLog(@"Url: %@", url);
 	

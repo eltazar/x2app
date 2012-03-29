@@ -22,7 +22,6 @@
 @property (nonatomic, retain) NSDictionary *dict;
 @property (nonatomic, retain) UIWebView *webView;
 
-
 //@property (retain,nonatomic) UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIViewController *mappa;
 @property (nonatomic, retain) IBOutlet UIViewController *condizioni;
@@ -33,8 +32,6 @@
 @property (nonatomic, retain) IBOutlet UIViewController *sito;
 
 
-- (void)spinTheSpinner;
-- (void)doneSpinning;
 
 - (IBAction)mostraTipoMappa:(id)sender;
 

@@ -50,8 +50,6 @@
 @property (nonatomic, retain) UIWebView *webView;
 
 - (IBAction)mostraTipoMappa:(id)sender;
-- (void) spinTheSpinner;
-- (void) doneSpinning;
 //-(int)check:(Reachability*) curReach;
 
 @end
