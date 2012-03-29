@@ -414,9 +414,11 @@
 
 -(BOOL)isNumeric:(NSString*)inputString{
     BOOL isValid = NO;
+    NSString *newString = [inputString stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSCharacterSet *alphaNumbersSet = [NSCharacterSet decimalDigitCharacterSet];
-    NSCharacterSet *stringSet = [NSCharacterSet characterSetWithCharactersInString:inputString];
+    NSCharacterSet *stringSet = [NSCharacterSet characterSetWithCharactersInString:newString];
     isValid = [alphaNumbersSet isSupersetOfSet:stringSet];
+    NSLog(@"carta di credito trimmed = %@",newString);
     return isValid;
 }
 
@@ -446,14 +448,14 @@
     
     //controlla che i dati inseriti siano solo numerici per il numero carta e cvv
     if(![self isNumeric:numeroCarta]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero carta di credito formalmente non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero carta di credito non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
     }
     
     if(![self isNumeric:cvv]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Codice CVV formalmente non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Codice CVV non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
