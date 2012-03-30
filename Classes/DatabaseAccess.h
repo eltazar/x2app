@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CartaPerDue.h"
 
 NSString* key(NSURLConnection* con);
 
@@ -42,7 +41,6 @@ NSString* key(NSURLConnection* con);
 - (void)getCatalogIAP;
 
 //metodi per controllo associazione carte
-- (void)checkCardExistence:(CartaPerDue *)card;
 - (void)cardDeviceAssociation:(NSString *)cardNumber request:(NSString *)r;
 
 //-(void)jobDelRequest:(Job*)job;
