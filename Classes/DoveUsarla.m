@@ -18,23 +18,22 @@
     CLLocationDegrees latitude;
     CLLocationDegrees longitude;
     
-    CLLocationManager *locationManager;
+    CLLocationManager *_locationManager;
 }
 @property (nonatomic, retain) CLLocationManager *locationManager;
-//- (int)checkNetReachability:(Reachability*) curReach;
 @end
 
 
 @implementation DoveUsarla
 
 // Properties: 
-@synthesize dataModel;
+@synthesize dataModel = _dataModel;
 
 // IBOutlets:
-@synthesize tableHeaderLabel;
+@synthesize tableHeaderLabel = _tableHeaderLabel;
 
 // Private Properties:
-@synthesize locationManager;
+@synthesize locationManager = _locationManager;
 
 
 - (void)didReceiveMemoryWarning {
@@ -149,12 +148,6 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    //    int wifi = 0;
-    //    int internet = 0;
-    //    internetReach = [[Reachability reachabilityForInternetConnection] retain];
-    //    wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-    //    internet = [self checkNetReachability:internetReach];
-    //    wifi = [self checkNetReachability:wifiReach];	
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
     if( ! [Utilita networkReachable]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
@@ -215,6 +208,10 @@
 
 # pragma mark - UITableViewDataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0)
@@ -227,17 +224,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView	cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 	
 	// TODO: Sta riga è nel posto sbagliato
-	[tableHeaderLabel setText:[UserDefaults weekDay]];
+	[self.tableHeaderLabel setText:[UserDefaults weekDay]];
 	
 	UITableViewCell *cell = [tableView
-							 dequeueReusableCellWithIdentifier:@"cellID"];
-	if (cell == nil){
+							 dequeueReusableCellWithIdentifier:@"DoveUsarlaCell"];
+	if (!cell) {
         // TODO: controllare il reuse identifier di CellaHome.
 		cell = [[[NSBundle mainBundle] loadNibNamed:@"DoveUsarlaCell" owner:self options:NULL] objectAtIndex:0];
 	}
 	
 	UILabel *cat = (UILabel *)[cell viewWithTag:1];
-	cat.text = [[dataModel objectAtIndex:indexPath.row] objectForKey:@"title"];
+	cat.text = [[self.dataModel objectAtIndex:indexPath.row] objectForKey:@"title"];
 	UIImageView *img = (UIImageView*) [cell viewWithTag:2];
 	img.image = [UIImage imageNamed:cat.text];
 	
@@ -279,24 +276,6 @@
 	Info *info = [[[Info alloc] init] autorelease];
 	[self presentModalViewController:info animated:YES];
 }
-
-
-# pragma mark - DoveUsarla (private methods)
-
-
-// TODO: Mi lascia perplesso
-//- (int)checkNetReachability:(Reachability*) curReach {
-//	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-//	
-//	switch (netStatus){
-//		case NotReachable:{
-//			return -1;
-//			break;
-//		}
-//		default:
-//			return 0;
-//	}
-//}
 
 
 @end 

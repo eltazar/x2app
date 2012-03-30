@@ -13,9 +13,9 @@
 
 @interface DoveUsarla : UITableViewController<CLLocationManagerDelegate,UIAlertViewDelegate>  {
     // Properties' ivars:
-    NSArray *dataModel;
+    NSArray *_dataModel;
     // IBOutlet properties' ivars:
-    IBOutlet UILabel *tableHeaderLabel;
+    IBOutlet UILabel *_tableHeaderLabel;
 }
 
 @property (nonatomic, retain) NSArray *dataModel;
