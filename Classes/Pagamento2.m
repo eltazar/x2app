@@ -134,8 +134,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         
        //mario: perchè deve eliminare gli spazi :| ???
         //intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
-		
-        NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
         
         NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
       
@@ -152,7 +150,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
         //identificativo è relativo all'offerta, cioè è id coupon
         
-        [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
+        [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
         
@@ -213,8 +211,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             //mario: perchè deve eliminare gli spazi :| ???
             //intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
             
-            NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
-            
             NSString *provinciaSelezionata = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"cittacoupon"]];
             
             NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
@@ -234,7 +230,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             
             if([Utilita networkReachable]){
             
-                [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@&prov=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv,provinciaSelezionata]];
+                [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@&prov=%@",identificativo,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv,provinciaSelezionata]];
                 
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.labelText = @"Acquisto...";
