@@ -53,7 +53,7 @@
     if (indexPath.section == 0) {
 		NSDictionary* r = [super.rows objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
-		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
+		//NSLog(@"L'id dell'esercente da visualizzare è %d",i );
 		[tView deselectRowAtIndexPath:indexPath animated:YES];
 		DettaglioRistoPub *detail = [[DettaglioRistoPub alloc] initWithNibName:@"DettaglioRistoPub" bundle:[NSBundle mainBundle]]; //autorelease];
 		[detail setIdentificativo:i];

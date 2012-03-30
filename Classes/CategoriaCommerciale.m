@@ -265,7 +265,7 @@
 	if (indexPath.section == 0) {
 		NSDictionary* r = [rows objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
-		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
+//		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
 		[tView deselectRowAtIndexPath:indexPath animated:YES];
 		DettaglioEsercenti *detail = [[DettaglioEsercenti alloc] initWithNibName:@"DettaglioEsercenti" bundle:[NSBundle mainBundle]];//] autorelease];
 		[(DettaglioEsercenti*)detail setIdentificativo:i];
@@ -403,13 +403,13 @@
 
 
 - (void)didReceivedGeoDecoderData:(NSDictionary *) geoData {
-    NSLog(@"DICTIONARY IS: %@", geoData);
+    //NSLog(@"DICTIONARY IS: %@", geoData);
     NSArray *resultsArray = [geoData objectForKey:@"results"];
     NSDictionary *result = [resultsArray objectAtIndex:0];
     //NSString *addressString = [ result objectForKey:@"formatted_address"];
     latitude = [[[[result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
     longitude = [[[[result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
-    NSLog(@"LAT = %f LONG = %f",latitude,longitude);
+    //NSLog(@"LAT = %f LONG = %f",latitude,longitude);
     MKCoordinateSpan span = MKCoordinateSpanMake(0.15,0.15);
     MKCoordinateRegion region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(latitude, longitude), span);
     [self.mapView setRegion:region animated:YES];
@@ -417,7 +417,7 @@
 
 
 - (void)didReceiveErrorGeoDecoder:(NSError *)error{
-    NSLog(@"errore geodecoder = %@",[error description]);
+    //NSLog(@"errore geodecoder = %@",[error description]);
 }
 
 
@@ -499,9 +499,9 @@
 	self.navigationItem.titleView = self.mapTypeSegCtrl;
 	self.mapView.showsUserLocation = YES;
 	
-	NSLog(@"Ci sono  %d esercenti da inserire in mappa", [rows count]);
+	//NSLog(@"Ci sono  %d esercenti da inserire in mappa", [rows count]);
 	for (NSDictionary *r in rows) {
-		NSLog(@"%@",[r objectForKey:@"Insegna_Esercente"]);
+		//NSLog(@"%@",[r objectForKey:@"Insegna_Esercente"]);
         
 		double lati    = [[r objectForKey:@"Latitudine"]  doubleValue];
 		double longi   = [[r objectForKey:@"Longitudine"] doubleValue];
@@ -513,9 +513,9 @@
 		
 		GoogleHQAnnotation *newAnnotation = [[[GoogleHQAnnotation alloc] init:lati:longi:name:address:Id] autorelease];
         [self.mapView addAnnotation:newAnnotation];
-		NSLog(@"Latitudine:  %f\n", lati);
-		NSLog(@"Longitudine: %f\n", longi);
-		NSLog(@"ID: %d\n", Id);
+//		NSLog(@"Latitudine:  %f\n", lati);
+//		NSLog(@"Longitudine: %f\n", longi);
+//		NSLog(@"ID: %d\n", Id);
 		
 		
 	} 	
@@ -550,7 +550,7 @@
 
 - (NSArray *)fetchRowsFromUrlString:(NSString*) urlString {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSLog(@"%@", urlString);
+    //NSLog(@"%@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
     NSError *error = nil;
     NSString *jsonResponse = [[[NSString alloc] initWithContentsOfURL:url encoding:NSStringEncodingConversionAllowLossy error:&error] autorelease];

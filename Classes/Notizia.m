@@ -42,10 +42,10 @@
 	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 
 	url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Notizia.php?id=%d",identificativo]];
-	NSLog(@"Url: %@", url);
+	//NSLog(@"Url: %@", url);
 	
 	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+	//NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
 	
 	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
 	NSError *error = nil;	
@@ -58,7 +58,7 @@
 		
 	}
 	
-	NSLog(@"Array: %@",r);
+	//NSLog(@"Array: %@",r);
 	
 	rows=[[NSMutableArray alloc] init];
 	
@@ -84,7 +84,7 @@
 	[formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 	NSDate *d1=[formatodb dateFromString:datadb];
 	NSString *dataapp = [formatoapp stringFromDate:d1];
-	NSLog(@"%@",dataapp);
+	//NSLog(@"%@",dataapp);
 	self.title=[NSString stringWithFormat:@"%@",dataapp];
 
 

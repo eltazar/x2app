@@ -68,7 +68,7 @@
     NSString *kind = [rowDesc objectForKey:@"kind"];
     int cellStyle = UITableViewCellStyleDefault;
     
-    NSLog(@"dataKey = %@, kind = %@",dataKey,kind);
+   // NSLog(@"dataKey = %@, kind = %@",dataKey,kind);
     
     BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier: dataKey];
     
@@ -281,13 +281,13 @@
   
     //controllo i vari campi
     if ( ! [Utilita isStringEmptyOrWhite:self.nome] || ![Utilita isStringEmptyOrWhite:self.email] || ! [Utilita isStringEmptyOrWhite:self.telefono] || ! [Utilita isStringEmptyOrWhite:self.cognome]){
-        NSLog(@"ERRORE ->qualche campo è vuoto");
+        //NSLog(@"ERRORE ->qualche campo è vuoto");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Inserire tutti i dati richiesti" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
     }
     else if( [Utilita isNumeric:self.nome] || [Utilita isNumeric:self.cognome]){
-        NSLog(@" ERRORE -> nome o cognome  sono numeri");
+        //NSLog(@" ERRORE -> nome o cognome  sono numeri");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"I campi Nome e Cognome non possono contenere  numeri" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
@@ -299,7 +299,7 @@
 //        [alert release];
 //    }
     else if( ! [ Utilita isEmailValid:self.email]){
-        NSLog(@"ERRORE ->email nn valida");
+        // NSLog(@"ERRORE ->email nn valida");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail non valida" message:@"Controlla l'indirizzo inserito" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
@@ -326,14 +326,14 @@
 #pragma mark - DatabaseDelegate
 
 -(void)didReceiveResponsFromServer:(NSString *)receivedData{
-    NSLog(@"RISPOSTA SERVER DOP REGISTRAZIONE: %@",receivedData);
+    // NSLog(@"RISPOSTA SERVER DOP REGISTRAZIONE: %@",receivedData);
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
     
     NSString *trimmedString = [receivedData stringByTrimmingCharactersInSet:
                                                    [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if([trimmedString isEqualToString:@"utente registrato in precendenza"]){
-        NSLog(@"UTENTE GIà REGISTRATO");
+        // NSLog(@"UTENTE GIà REGISTRATO");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Utente già registrato" message:@"Risutli già registrato a perdue.it" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
@@ -359,7 +359,7 @@
 -(void)didReceiveError:(NSError *)error{
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
-    NSLog(@"ERRORE SERVER = %@", [error description]);
+    //NSLog(@"ERRORE SERVER = %@", [error description]);
 }
 
 #pragma mark - TextField and TextView Delegate

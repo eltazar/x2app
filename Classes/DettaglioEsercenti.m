@@ -134,10 +134,10 @@
 			NSDictionary *diz;
 			int idcontr=[[self.dict objectForKey:@"IDcontratto_Contresercente"]intValue];
 			NSURL *link = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d",idcontr]];
-			NSLog(@"Url: %@", link);
+			//NSLog(@"Url: %@", link);
 			
 			NSString *jsonret = [[[NSString alloc] initWithContentsOfURL:link] autorelease];
-            NSLog(@"%@",jsonret); // Look at the console and you can see what the restults are
+           // NSLog(@"%@",jsonret); // Look at the console and you can see what the restults are
 			
 			NSData *jsonRet = [jsonret dataUsingEncoding:NSUTF8StringEncoding];
 			NSError *error = nil;
@@ -154,7 +154,7 @@
 			}
 			else { //costruisco la strinaga condizioni
 				
-				NSLog(@"La tessera vale per %d giorni settimanali", [righe count]);
+				//NSLog(@"La tessera vale per %d giorni settimanali", [righe count]);
 				NSString *giorni=[NSString stringWithFormat:@""];
 				for (int i=0;i<[righe count];i++) {
 					diz = [righe objectAtIndex: i];
@@ -191,10 +191,10 @@
 		NSDictionary *diz;
 		int idcontr=[[self.dict objectForKey:@"IDcontratto_Contresercente"]intValue];
 		NSURL *link = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d",idcontr]];
-		NSLog(@"Url: %@", link);
+		//NSLog(@"Url: %@", link);
 		
 		NSString *jsonret = [[[NSString alloc] initWithContentsOfURL:link] autorelease];
-        NSLog(@"%@",jsonret); // Look at the console and you can see what the restults are
+        //NSLog(@"%@",jsonret); // Look at the console and you can see what the restults are
 		
 		NSData *jsonRet = [jsonret dataUsingEncoding:NSUTF8StringEncoding];
 		NSError *error = nil;
@@ -209,7 +209,7 @@
 			validita.text=[NSString stringWithFormat:@"Non disponibile"];
 		}
 		else {
-			NSLog(@"La tessera vale per %d giorni settimanali", [righe count]);
+			//NSLog(@"La tessera vale per %d giorni settimanali", [righe count]);
 			NSString *giorni=[NSString stringWithFormat:@""];
 			for (int i=0;i<[righe count];i++) {
 				diz = [righe objectAtIndex: i];
@@ -555,10 +555,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",identificativo]];
-	NSLog(@"Url: %@", url);
+	//NSLog(@"Url: %@", url);
 	
 	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+	//NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
 	
 	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
 	NSError *error = nil;
@@ -566,7 +566,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //In "real" code you should surround this with try and catch
 	NSArray *rows = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] objectForKey:@"Esercente"];
 	
-	NSLog(@"Array: %@", rows);
+	//NSLog(@"Array: %@", rows);
 	[jsonreturn release];
 	jsonreturn=nil;
 	self.dict = [rows objectAtIndex: 0];		

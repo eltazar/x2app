@@ -224,7 +224,7 @@
         if (indexPath.section==0) {
             dict = [rows objectAtIndex: indexPath.row];
             NSInteger i=[[dict objectForKey:@"ID"]integerValue];
-            NSLog(@"L'id della news da visualizzare è %d",i);
+            //NSLog(@"L'id della news da visualizzare è %d",i);
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             detail = [[Notizia alloc] initWithNibName:@"Notizia" bundle:[NSBundle mainBundle]];
             [(Notizia*)detail setIdentificativo:i];
@@ -239,7 +239,7 @@
         }
         else {
             
-            NSLog(@"PREMUTOAGGIORNA");
+            //NSLog(@"PREMUTOAGGIORNA");
             int i=[self aggiorna];
             if(i<10){ // non ci sono alri esercenti
                 UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -282,10 +282,10 @@
 	}
 	else {
 		url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner//news.php?from=%d&to=10",indice]];
-		NSLog(@"Url: %@", url);
+		//NSLog(@"Url: %@", url);
 	
 		NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-        NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+        //NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
 	
 		NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
 		NSError *error = nil;	

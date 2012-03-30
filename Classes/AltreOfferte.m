@@ -222,7 +222,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 -(void)didReceiveError:(NSError *)error{
-    NSLog(@"ALTRE OFFERTE ERRORE SERVER = %@",[error description]);
+    //NSLog(@"ALTRE OFFERTE ERRORE SERVER = %@",[error description]);
     [spinnerView stopAnimating];
 }
 
@@ -234,7 +234,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSMutableArray *r=[[NSMutableArray alloc] init];
     
-    NSLog(@"MARIO DICT \n %@",dict);
+    //NSLog(@"MARIO DICT \n %@",dict);
     
     if (dict)
     {
@@ -247,7 +247,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [rows removeAllObjects];
     [rows addObjectsFromArray: r];
     
-    NSLog(@"Numero totale:%d",[rows count]);
+    //NSLog(@"Numero totale:%d",[rows count]);
     if([rows count]==0){ //tabella vuota
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"In questo momento non ci sono altre offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
         [alert show];

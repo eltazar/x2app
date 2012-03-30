@@ -110,7 +110,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 			dict = [rows objectAtIndex: indexPath.row];
 			NSInteger i=[[dict objectForKey:@"comment_ID"]integerValue];
-			NSLog(@"L'id del commento da visualizzare è %d",i);
+			//NSLog(@"L'id del commento da visualizzare è %d",i);
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			detail = [[Commento alloc] initWithNibName:@"Commento" bundle:[NSBundle mainBundle]];
 			NSDictionary *diz = [rows objectAtIndex: indexPath.row];
@@ -187,10 +187,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSLog(@"Il nome dell'esercente è %@",Nome);
 	titolo.text=Nome;
 	url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10",identificativo,indice]];
-	NSLog(@"Url: %@", url);
+	//NSLog(@"Url: %@", url);
 	
 	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+	//NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
 	
 	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
 	NSError *error = nil;
@@ -204,11 +204,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		
 	}
 	
-	NSLog(@"Array: %@",r);	
+	//NSLog(@"Array: %@",r);	
 	rows= [[NSMutableArray alloc]init];
 	[rows addObjectsFromArray: r];
 	
-	NSLog(@"Numero totale:%d",[rows count]);
+	//NSLog(@"Numero totale:%d",[rows count]);
 
 	[jsonreturn release];
 	jsonreturn=nil;
@@ -224,9 +224,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (int)aggiorna {
 		indice+=10;
 		url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10",identificativo,indice]];
-		NSLog(@"Url: %@", url);
+		//NSLog(@"Url: %@", url);
 		NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-        NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+        //NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
             
 		NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
 		NSError *error = nil;	
@@ -238,7 +238,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			
 		}
 		
-		NSLog(@"Array: %@",r);
+		//NSLog(@"Array: %@",r);
 		
 		[rows addObjectsFromArray: r];
 		

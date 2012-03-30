@@ -1063,7 +1063,7 @@ if ([rows count]>0) {//coupon disponibile
 	rows= [[NSMutableArray alloc]init];
 	[rows addObjectsFromArray: r];
 	
-	NSLog(@"Numero totale di rows:%d",[rows count]);
+	//NSLog(@"Numero totale di rows:%d",[rows count]);
 	
 //	[jsonreturn release];
 //	jsonreturn=nil;
@@ -1115,9 +1115,9 @@ if ([rows count]>0) {//coupon disponibile
         //MARIO: da qui recupero dati dell'esercente per la cella di informazioni relative ad esso(nuova view con dentro tutto, luogo, commenti ecc..)
         //MARIO: fa richiesta bloccante, quindi renderla asincrona  e soprattutto farla DOPO che si apre la pagina relativa all'esercente
         
-        NSLog(@"L'id del ristorante da visualizzare è %d",identificativoesercente);
+        //NSLog(@"L'id del ristorante da visualizzare è %d",identificativoesercente);
 		url2 = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/tipoesercente.php?id=%d",identificativoesercente]];
-		NSLog(@"Url2: %@", url2);
+		//NSLog(@"Url2: %@", url2);
 		
 		NSString *jsonreturn2 = [[NSString alloc] initWithContentsOfURL:url2];
 		//NSLog(@"%@",jsonreturn2); // Look at the console and you can see what the restults are
@@ -1135,14 +1135,14 @@ if ([rows count]>0) {//coupon disponibile
 			
 		}
 		
-		NSLog(@"Array2: %@",r2);
+		//NSLog(@"Array2: %@",r2);
 		if ([r2 count]==0){ //l'eserncente non ha contratto nel db, il suo dettaglio sarà una view più semplice (senza condizioni, commenti ecc..)
 			tipodettaglio=3;
 		}
 		if ([r2 count]!=0){
 			dict2 = [r2 objectAtIndex: 0];	
 			NSInteger tipo=[[dict2 objectForKey:@"IdTipologia_Esercente"]integerValue];
-			NSLog(@"Tipologia: %d",tipo);
+			//NSLog(@"Tipologia: %d",tipo);
 			
 			if( (tipo==2) || (tipo==5) || (tipo==6) || (tipo==9) || (tipo==59) || (tipo==60) || (tipo==61) || (tipo==27)){ //per dettaglio ristopub
 				tipodettaglio=1;
@@ -1162,10 +1162,10 @@ if ([rows count]>0) {//coupon disponibile
 	[tableview reloadData];
     
     if(self.view.window){
-        NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",timer);
+        //NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",timer);
         [timer invalidate];
         timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-        NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",timer);
+        //NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",timer);
     }
     [coupon release];
 //    int static a=1;
@@ -1176,7 +1176,7 @@ if ([rows count]>0) {//coupon disponibile
 }
 
 -(void)didReceiveError:(NSError *)error{
-    NSLog(@"coupon: errore connessione: %@",[error description]);
+    //NSLog(@"coupon: errore connessione: %@",[error description]);
     [caricamentoSpinner stopAnimating];
     [compra setHidden:YES];
     titolo.text = @" Errore caricamento, riprovare.";
@@ -1240,7 +1240,7 @@ if ([rows count]>0) {//coupon disponibile
 
 - (void)dialogCompleteWithUrl:(NSURL *)url{
     
-    NSLog(@"DIALOG COMPLETE WITH URL : %@", [url absoluteString]);
+    //NSLog(@"DIALOG COMPLETE WITH URL : %@", [url absoluteString]);
     
     if ([[url absoluteString] rangeOfString:@"?post_id="].location == NSNotFound )
     {
@@ -1255,12 +1255,12 @@ if ([rows count]>0) {//coupon disponibile
 }
 
 - (void) dialogDidNotCompleteWithUrl:(NSURL *)url{
-    NSLog(@"DIALOG NOT COMPLETE WITH URL : %@", [url absoluteString]);
+    //NSLog(@"DIALOG NOT COMPLETE WITH URL : %@", [url absoluteString]);
 }
 
 - (void)dialog:(FBDialog*)dialog didFailWithError:(NSError *)error{
     
-    NSLog(@"DIALOG FAIL WITH ERROR: %@", error);
+    //NSLog(@"DIALOG FAIL WITH ERROR: %@", error);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Non è stato possibile condividere questo contenuto su facebook, riprova" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     [alert show];
     [alert release];

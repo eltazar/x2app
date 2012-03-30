@@ -40,7 +40,7 @@ NSString* key(NSURLConnection* con)
 -(void)registerUserOnServer:(NSArray*)userData{
     
     [userData retain];
-    NSLog(@"DBACCESS REGISTER  --> user = %@",userData);
+   // NSLog(@"DBACCESS REGISTER  --> user = %@",userData);
     
     NSMutableString *urlString = [NSMutableString stringWithFormat:@"https://cartaperdue.it/coupon/registrazione_utente_app_exe.jsp"];
     
@@ -86,7 +86,7 @@ NSString* key(NSURLConnection* con)
 
 -(void)checkUserFields:(NSArray*)usr{
     
-    NSLog(@"DBACCESS CHECK  EMAIL --> user = %@",usr);
+    //NSLog(@"DBACCESS CHECK  EMAIL --> user = %@",usr);
     
     [usr retain];
     
@@ -143,7 +143,7 @@ NSString* key(NSURLConnection* con)
 
 -(void)sendRetrievePswForUser:(NSString*)usr{
     
-    NSLog(@"DBACCESS RECUPERA PASSWORD");
+   // NSLog(@"DBACCESS RECUPERA PASSWORD");
     
     [usr retain];
     
@@ -231,7 +231,7 @@ NSString* key(NSURLConnection* con)
 
 -(void)getAltreOfferteFromServer:(NSString*)prov{
     
-    NSLog(@"QUERY: altre offerte");
+    //NSLog(@"QUERY: altre offerte");
     
     NSURLRequest *request =
     [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/altreofferte.php?prov=%@",prov]]];
@@ -290,7 +290,7 @@ NSString* key(NSURLConnection* con)
 
 -(void)getNewsFromServer:(int)indice{
     
-    NSLog(@"QUERY: get news");
+  //  NSLog(@"QUERY: get news");
     
     NSURLRequest *request =
     [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner//news.php?from=%d&to=10",indice]]];
@@ -321,7 +321,7 @@ NSString* key(NSURLConnection* con)
 }
 
 -(void)getCouponFromServerWithId:(NSInteger)idCoupon{
-    NSLog(@"QUERY PER COUPON CON ID");
+    //NSLog(@"QUERY PER COUPON CON ID");
     
 	//url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];   
     
@@ -354,7 +354,7 @@ NSString* key(NSURLConnection* con)
 
 -(void)getCouponFromServer:(NSString*)prov{
 	
-    NSLog(@"QUERY PER COUPON");
+    //NSLog(@"QUERY PER COUPON");
     
 	//url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];   
     
@@ -392,7 +392,7 @@ NSString* key(NSURLConnection* con)
 - (void)cardDeviceAssociation:(NSString *)cardNumber request:(NSString *)r {
     
     // Inizializzazione della URLRequest
-    NSLog(@"DatabaseAccess::checkCardExistence [%@]", r);
+    //NSLog(@"DatabaseAccess::checkCardExistence [%@]", r);
     NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/CardDeviceAssociation.php"];
     [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
     

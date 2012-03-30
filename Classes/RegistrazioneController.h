@@ -10,7 +10,7 @@
 #import "DatabaseAccess.h"
 @class MBProgressHUD;
 
-@interface RegistrazioneController : UITableViewController<DatabaseAccessDelegate>{
+@interface RegistrazioneController : UITableViewController<DatabaseAccessDelegate, UIAlertViewDelegate>{
         
     NSMutableArray *sectionData;
     NSMutableArray *sectionDescription;      

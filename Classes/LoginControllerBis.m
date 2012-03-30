@@ -233,7 +233,7 @@
     if(buttonIndex == 1){
         if([Utilita networkReachable]){
             UITextField* textField = (UITextField*)[alertView viewWithTag:120];
-            NSLog(@"textfield = %@",textField.text);
+            //NSLog(@"textfield = %@",textField.text);
             
             if(![Utilita isStringEmptyOrWhite: textField.text] || ![Utilita isEmailValid:textField.text]){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail non valida" message:@"Inserisci un indirizzo e-mail valido" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
@@ -262,7 +262,7 @@
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
-    NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@",coupon);
+    //NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@",coupon);
     
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
@@ -273,15 +273,15 @@
     if ([coupon objectForKey:@"recuperoPsw"]) {
         array = [[coupon objectForKey:@"recuperoPsw"] retain];
         
-        NSLog(@"recupero psw = %@",array);
+        //NSLog(@"recupero psw = %@",array);
         
     }
     else if([coupon objectForKey:@"login"]){
         array = [[coupon objectForKey:@"login"] retain];
         if(array.count == 2){
-            NSLog(@"UTENTE ESISTE");
+           // NSLog(@"UTENTE ESISTE");
             idUtente = [[[array objectAtIndex:0] objectForKey:@"idcustomer"] intValue];
-            NSLog(@" ID CUSTOMER LOGIN = %d",idUtente);
+            //NSLog(@" ID CUSTOMER LOGIN = %d",idUtente);
             
             //salvo i dati per il login
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -301,7 +301,7 @@
             
         }
         else{
-            NSLog(@"PSW SBAGLIATA ");
+           // NSLog(@"PSW SBAGLIATA ");
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Spiacenti" message:@"L'utente o la password non esistono. Inserisci i dati login corretti e riprova" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
             [alert show];
             [alert release];
@@ -317,7 +317,7 @@
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
     
-    NSLog(@"ERRORE CHECK EMAIL SU SERVER = %@",[error description]);
+    //NSLog(@"ERRORE CHECK EMAIL SU SERVER = %@",[error description]);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore rete" message:@"Non è stato possibile effettuare la richiesta, riprovare" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     [alert show];
     [alert release];
@@ -326,7 +326,7 @@
 -(void)didReceiveResponsFromServer:(NSString *)receivedData{
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
-    NSLog(@"DATI RICEVUTO DA RECUPERP PSW = %@",receivedData);
+   // NSLog(@"DATI RICEVUTO DA RECUPERP PSW = %@",receivedData);
     
     UIAlertView *alert = [[UIAlertView alloc] init];
     alert.delegate = self;

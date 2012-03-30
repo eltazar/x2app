@@ -334,7 +334,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             //			//Facciamo visualizzare la vista con i dettagli
             //			[self.navigationController pushViewController:detail animated:YES];
             
-            NSLog(@" OFFERTA: ESERCENTE RISTOPUB");
+           // NSLog(@" OFFERTA: ESERCENTE RISTOPUB");
             
             DettaglioRistoCoupon *dettaglioRistoCoup = [[DettaglioRistoCoupon alloc] initWithNibName:@"DettaglioRistoCoupon" bundle:[NSBundle mainBundle]];
             [dettaglioRistoCoup setIdentificativo:identificativoesercente];
@@ -343,7 +343,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		}	
 		else if (tipodettaglio==2) {
                 //esercente generico
-                NSLog(@"OFFERTA: ESERCENTE GENERICO");
+               // NSLog(@"OFFERTA: ESERCENTE GENERICO");
                 //				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
                 //				detail = [[DettaglioEsercenteCoupon alloc] initWithNibName:@"DettaglioEsercenteCoupon" bundle:[NSBundle mainBundle]];
                 //				[(DettaglioEsercenteCoupon*)detail setIdentificativo:identificativoesercente];
@@ -356,7 +356,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 [self.navigationController pushViewController:dettaglioEseCoup animated:YES];
         }
 		else { 
-            NSLog(@"OFFERTA: ESERCENTE GENERICO SENZA CONTRATTO");
+           // NSLog(@"OFFERTA: ESERCENTE GENERICO SENZA CONTRATTO");
                 //esercente generico senza contratto
                 //				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
                 //				detail = [[DettaglioEsercenteGenerico alloc] initWithNibName:@"DettaglioEsercenteGenerico" bundle:[NSBundle mainBundle]];
@@ -436,7 +436,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark - LoginControllerDelegate
 
 -(void)didLogin:(int)idUtente{
-    NSLog(@"IN COUPON DOPO LOGIN id = %d",idUtente);
+    // NSLog(@"IN COUPON DOPO LOGIN id = %d",idUtente);
     [self dismissModalViewControllerAnimated:YES];
     
     //identificativo è relativo all'offerta
@@ -444,11 +444,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
     pagamentoController.idUtente = idUtente;
     [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-    NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+    //NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
     //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
     [pagamentoController setIdentificativo:identificativo];
     NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-    NSLog(@"%@",tit);
+   // NSLog(@"%@",tit);
     pagamentoController.titolo = tit;
     [pagamentoController setTitle:@"Acquisto"];
     [self.navigationController pushViewController:pagamentoController animated:YES];
@@ -457,7 +457,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 -(void)didAbortLogin{
-    NSLog(@"Abortito login da parte dell'utente");
+   // NSLog(@"Abortito login da parte dell'utente");
     [self dismissModalViewControllerAnimated:YES];
 }
 
@@ -507,11 +507,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 else{
                     Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:@"Pagamento2" bundle:[NSBundle mainBundle]];
                     [pagamentoController setValore:[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-                    NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+                   // NSLog(@"Valore:%f",[[dict objectForKey:@"coupon_valore_acquisto"]doubleValue]);
                     //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
                     [pagamentoController setIdentificativo:identificativo];
                     NSString *tit=[NSString stringWithFormat:@"%@",[dict objectForKey:@"offerta_titolo_breve"]];
-                    NSLog(@"%@",tit);
+                    //NSLog(@"%@",tit);
                     pagamentoController.titolo = tit;
                     [pagamentoController setTitle:@"Acquisto"];
                     [self.navigationController pushViewController:pagamentoController animated:YES];
@@ -595,12 +595,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if(actionSheet==aSheet) {
 		
-        NSLog(@" numero di bottoni = %d", actionSheet.numberOfButtons);
+        //NSLog(@" numero di bottoni = %d", actionSheet.numberOfButtons);
         
         
         if(actionSheet.numberOfButtons == 4){
             if(buttonIndex == 0){
-                NSLog(@"richiamo logout facebook");
+               // NSLog(@"richiamo logout facebook");
                 [self logoutFromFB];
                 return;
                 
@@ -697,7 +697,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
         NSLog(@"INTERNET PRESENTE");
         
-        NSLog(@"VIEW DID APPEAR TIMER prima dell'invalidazione = %@",timer);
+        //NSLog(@"VIEW DID APPEAR TIMER prima dell'invalidazione = %@",timer);
         [timer invalidate];
         timer = nil;
         
@@ -930,10 +930,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(void)viewDidDisappear:(BOOL)animated{
     
-    NSLog(@"WIEW WILL DISAPPEAR TIMER prima di invalidazione = %@",timer);
+    //NSLog(@"WIEW WILL DISAPPEAR TIMER prima di invalidazione = %@",timer);
     [timer invalidate];
     timer = nil;
-    NSLog(@"WIEW WILL DISAPPEAR TIMER dopo di invalidazione = %@", timer);
+    //NSLog(@"WIEW WILL DISAPPEAR TIMER dopo di invalidazione = %@", timer);
     [super viewDidDisappear:animated];
 }
 
@@ -1076,9 +1076,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         //MARIO: da qui recupero dati dell'esercente per la cella di informazioni relative ad esso(nuova view con dentro tutto, luogo, commenti ecc..)
         //MARIO: fa richiesta bloccante, quindi renderla asincrona  e soprattutto farla DOPO che si apre la pagina relativa all'esercente
         
-        NSLog(@"L'id del ristorante da visualizzare è %d",identificativoesercente);
+        //NSLog(@"L'id del ristorante da visualizzare è %d",identificativoesercente);
 		NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/tipoesercente.php?id=%d",identificativoesercente]];
-		NSLog(@"Url2: %@", url2);
+		//NSLog(@"Url2: %@", url2);
 		
 		NSString *jsonreturn2 = [[NSString alloc] initWithContentsOfURL:url2];
 		//NSLog(@"%@",jsonreturn2); // Look at the console and you can see what the restults are
@@ -1096,14 +1096,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			
 		}
 		
-		NSLog(@"Array2: %@",r2);
+		//NSLog(@"Array2: %@",r2);
 		if ([r2 count]==0){ //l'eserncente non ha contratto nel db, il suo dettaglio sarà una view più semplice (senza condizioni, commenti ecc..)
 			tipodettaglio=3;
 		}
 		if ([r2 count]!=0){
 			dict2 = [r2 objectAtIndex: 0];	
 			NSInteger tipo=[[dict2 objectForKey:@"IdTipologia_Esercente"]integerValue];
-			NSLog(@"Tipologia: %d",tipo);
+			//NSLog(@"Tipologia: %d",tipo);
 			
 			if( (tipo==2) || (tipo==5) || (tipo==6) || (tipo==9) || (tipo==59) || (tipo==60) || (tipo==61) || (tipo==27)){ //per dettaglio ristopub
 				tipodettaglio=1;
@@ -1123,10 +1123,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableview reloadData];
     
     if(self.view.window){
-        NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",timer);
+       // NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",timer);
         [timer invalidate];
         timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-        NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",timer);
+       // NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",timer);
     }
     
     [coupon release];
@@ -1134,7 +1134,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 -(void)didReceiveError:(NSError *)error{
-    NSLog(@"OFFERTA: errore connessione: %@",[error description]);
+    //NSLog(@"OFFERTA: errore connessione: %@",[error description]);
     [caricamentoSpinner stopAnimating];
     [compra setHidden:YES];
     titolo.text = @" Errore caricamento, riprovare.";
@@ -1198,7 +1198,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)dialogCompleteWithUrl:(NSURL *)url{
     
-    NSLog(@"DIALOG COMPLETE WITH URL : %@", [url absoluteString]);
+   // NSLog(@"DIALOG COMPLETE WITH URL : %@", [url absoluteString]);
     
     if ([[url absoluteString] rangeOfString:@"?post_id="].location == NSNotFound )
     {
@@ -1213,12 +1213,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void) dialogDidNotCompleteWithUrl:(NSURL *)url{
-    NSLog(@"DIALOG NOT COMPLETE WITH URL : %@", [url absoluteString]);
+    //NSLog(@"DIALOG NOT COMPLETE WITH URL : %@", [url absoluteString]);
 }
 
 - (void)dialog:(FBDialog*)dialog didFailWithError:(NSError *)error{
     
-    NSLog(@"DIALOG FAIL WITH ERROR: %@", error);
+   // NSLog(@"DIALOG FAIL WITH ERROR: %@", error);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Non è stato possibile condividere questo contenuto su facebook, riprova" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     [alert show];
     [alert release];

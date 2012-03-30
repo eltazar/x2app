@@ -448,10 +448,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 	
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",identificativo]];
-	NSLog(@"Url: %@", url);
+	//NSLog(@"Url: %@", url);
 	
 	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+	//NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
 	
 	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
 	NSError *error = nil;
@@ -470,7 +470,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	}
 	
 	
-	NSLog(@"Array: %@",rows);
+	//NSLog(@"Array: %@",rows);
 	[jsonreturn release];
 	jsonreturn=nil;
 	dict = [rows objectAtIndex: 0];		

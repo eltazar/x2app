@@ -58,11 +58,11 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     NSArray *componentiScadenza = [scadenza componentsSeparatedByString:@"/"];
     NSString *mesescadenza = [componentiScadenza objectAtIndex:0];
     NSString *annoscadenza = [componentiScadenza objectAtIndex:1];
-    NSLog(@"scadenza = %@, mese = %@, anno %@",scadenza,mesescadenza, annoscadenza);
+    //NSLog(@"scadenza = %@, mese = %@, anno %@",scadenza,mesescadenza, annoscadenza);
 	NSString *cvv = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cvv"];
 	NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nome"];
     
-    NSLog(@"tipo carta = %@, numero = %@, mese  = %@, anno = %@, cvv = %@, intestatario = %@", tipocarta, numerocarta, mesescadenza, annoscadenza, cvv, intestatario);
+    //NSLog(@"tipo carta = %@, numero = %@, mese  = %@, anno = %@, cvv = %@, intestatario = %@", tipocarta, numerocarta, mesescadenza, annoscadenza, cvv, intestatario);
     
     if( (tipocarta && tipocarta.length > 0) && (numerocarta && numerocarta.length > 0) &&
        (mesescadenza && mesescadenza.length >0) && (annoscadenza && annoscadenza.length > 0) &&
@@ -78,7 +78,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
     if( /*! [self validaDatiUtente] ||*/ ! [self validaDatiCartaCredito]){
 
-        NSLog(@"dati utenti mancanti");
+        //NSLog(@"dati utenti mancanti");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inserire tutti i dati" message:@"Devi inserire tutti i dati della carta di credito per effettuare l'acquisto" delegate:self cancelButtonTitle:@"Non ora" otherButtonTitles:@"Inserisci",nil];
         [alert show];
         [alert release];
@@ -135,16 +135,16 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
        //mario: perchè deve eliminare gli spazi :| ???
         //intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
         
-        NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
+       // NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
       
-        NSLog(@"PAGAMENTO: ID UTENTE da server = %d",idUtente);
+        //NSLog(@"PAGAMENTO: ID UTENTE da server = %d",idUtente);
         
         //se il controller è stato richiamato senza login idutente lo devo recuperare dall'iphone
         if(idUtente == -1){
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 
             idUtente = [[prefs objectForKey:@"_idUtente"] intValue];
-             NSLog(@"PAGAMENTO: ID UTENTE da prefs = %d",idUtente);
+             //NSLog(@"PAGAMENTO: ID UTENTE da prefs = %d",idUtente);
         }
        
 
@@ -213,16 +213,16 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             
             NSString *provinciaSelezionata = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"cittacoupon"]];
             
-            NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
+            //NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
             
-            NSLog(@"PAGAMENTO: ID UTENTE da server = %d",idUtente);
+           // NSLog(@"PAGAMENTO: ID UTENTE da server = %d",idUtente);
             
             //se il controller è stato richiamato senza login idutente lo devo recuperare dall'iphone
             if(idUtente == -1){
                 NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
                 
                 idUtente = [[prefs objectForKey:@"_idUtente"] intValue];
-                NSLog(@"PAGAMENTO: ID UTENTE da prefs = %d",idUtente);
+                //NSLog(@"PAGAMENTO: ID UTENTE da prefs = %d",idUtente);
             }
             
             
@@ -349,7 +349,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 			[prezzo setText:[NSString stringWithFormat:@"%.2f€", valore]];
             
 			UITextField *quantita= (UITextField *)[cell viewWithTag:2];
-        NSLog(@"QUANTITA = %d", quant);
+       // NSLog(@"QUANTITA = %d", quant);
             quantita.text = [NSString stringWithFormat:@"%d", quant];
             //[quantita setInputView:myActionSheet];
 				
@@ -432,7 +432,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
-        NSLog(@"########## = %@", [cell.accessoryView viewWithTag:2]);
+       // NSLog(@"########## = %@", [cell.accessoryView viewWithTag:2]);
     }
     else if(indexPath.section == 1 && indexPath.row == 0){
         
@@ -655,7 +655,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     
-    NSLog(@"ERRORE SERVER NELL'ACQUISTO DEL COUPON = %@",error);
+    //NSLog(@"ERRORE SERVER NELL'ACQUISTO DEL COUPON = %@",error);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Ci sono stati problemi nell'invio della richiesta di acquisto, Riprovare!" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
     [alert show];
     [alert release];
@@ -667,7 +667,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 
     
-    NSLog(@"DATI RICEVUTI DAL SERVER ACQUISTO COUPON = %@", receivedData);
+    //NSLog(@"DATI RICEVUTI DAL SERVER ACQUISTO COUPON = %@", receivedData);
     if([receivedData isEqualToString:@"Ok"]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Complimenti" message:@"La tua richiesta verrà processata dai nostri sistemi e a breve riceverai una mail di conferma.\n Condividi subito questa offerta!" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
         [alert show];
