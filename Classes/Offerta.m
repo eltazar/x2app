@@ -9,6 +9,7 @@
 
 // OFFERTA = COUPON --> ma perchè nn ha fatto una classe astratta? vabbè se si ha tempo astrarre il tutto
 
+#import <QuartzCore/QuartzCore.h>
 #import "Offerta.h"
 #import "FBConnect.h"
 #import "FBDialog.h"
@@ -744,6 +745,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     self.navigationItem.title = @"Coupon";
     
+    reloadBtn.layer.cornerRadius = 6;
+    reloadBtn.layer.masksToBounds = YES;
     //[compra setHidden:YES];
     [compra setEnabled:NO];
     

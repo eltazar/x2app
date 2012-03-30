@@ -777,6 +777,8 @@ if ([rows count]>0) {//coupon disponibile
     altezzaCella = 44.0;
     
     self.prezzoCoupon.layer.cornerRadius = 6;
+    reloadBtn.layer.cornerRadius = 6;
+    reloadBtn.layer.masksToBounds = YES;
     [reloadBtn setHidden:YES];
     
     NSLog(@"CLASSE COUPON DID LOAD");

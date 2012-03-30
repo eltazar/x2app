@@ -158,7 +158,7 @@
 					<object class="IBUIButton" id="827525937">
 						<reference key="NSNextResponder" ref="21044560"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{267, 5}, {43, 37}}</string>
+						<string key="NSFrame">{{275, 5}, {35, 35}}</string>
 						<reference key="NSSuperview" ref="21044560"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
@@ -166,13 +166,16 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<int key="IBUIButtonType">1</int>
 						<reference key="IBUIHighlightedTitleColor" ref="118232372"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="1009134908"/>
+						<object class="NSCustomResource" key="IBUINormalImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">refreshBtn.png</string>
+						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<int key="type">2</int>
 							<double key="pointSize">15</double>
@@ -1328,11 +1331,13 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>logo.png</string>
+				<string>refreshBtn.png</string>
 				<string>yellow3.jpg</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{176, 45}</string>
+				<string>{76, 77}</string>
 				<string>{39, 20}</string>
 			</object>
 		</object>
