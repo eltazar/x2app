@@ -293,7 +293,7 @@ NSString* key(NSURLConnection* con)
   //  NSLog(@"QUERY: get news");
     
     NSURLRequest *request =
-    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner//news.php?from=%d&to=10",indice]]];
+    [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/news.php?from=%d&to=10",indice]]];
     
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
@@ -382,60 +382,6 @@ NSString* key(NSURLConnection* con)
         //mostrare alert all'utente che la connessione è fallita??
     }
     
-    
-}
-
-
-
-
-
-- (void)cardDeviceAssociation:(NSString *)cardNumber request:(NSString *)r {
-    
-    // Inizializzazione della URLRequest
-    //NSLog(@"DatabaseAccess::checkCardExistence [%@]", r);
-    NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://www.cartaperdue.it/partner/CardDeviceAssociation.php"];
-    [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
-    
-    NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
-    // Costruzione POST
-    NSString *postFormatString = @"request=%@&card_number=%@&device_udid=%@";
-    NSString *postString = [NSString stringWithFormat:postFormatString,
-                            r,
-                            cardNumber,
-                            [[UIDevice currentDevice] uniqueDeviceIdentifier]];
-                                
-    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
-    
-    // Ulteriori impostazioni della URLRequest
-    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
-    [request addValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:postData];
-    
-    // Lancio della connessione
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-    
-    
-    // Accodamento della connessione e impostazione del buffer in cui ricevere i dati
-    if(connection){
-        //NSLog(@"IS CONNECTION TRUE");
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-        
-        // TODO: Ri-approfondire lo scopo di st'oggetto, che lo ricordo solo vagamente
-        [readConnections addObject:connection];
-        
-        NSMutableData *receivedData = [[NSMutableData data] retain];
-        //[connectionDictionary setObject:connection forKey:key(connection)];
-        [dataDictionary setObject:receivedData forKey:key(connection)];
-        //NSLog(@"RECEIVED DATA FROM DICTIONARY : %p",[dataDictionary objectForKey:connection]);
-    }
-    else{
-        NSLog(@"theConnection is NULL");
-        //mostrare alert all'utente che la connessione è fallita??
-    }
     
 }
 

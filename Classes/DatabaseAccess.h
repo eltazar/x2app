@@ -40,9 +40,6 @@ NSString* key(NSURLConnection* con);
 //metodi per in-app purchase
 - (void)getCatalogIAP;
 
-//metodi per controllo associazione carte
-- (void)cardDeviceAssociation:(NSString *)cardNumber request:(NSString *)r;
-
 //-(void)jobDelRequest:(Job*)job;
 //-(void)jobModRequest:(Job*)job;
 //-(void)jobWriteRequest:(Job*)job;
