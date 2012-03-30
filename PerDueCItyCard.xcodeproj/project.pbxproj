@@ -163,8 +163,6 @@
 		ACC747901517CDAE0049085F /* DatiUtenteLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */; };
 		ACC808541521F678006DF894 /* grayButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC808531521F678006DF894 /* grayButton2.png */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
-		ACD939F0150E083B008D5C7B /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACD939EE150E083B008D5C7B /* LoginController.m */; };
-		ACD939F1150E083B008D5C7B /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACD939EF150E083B008D5C7B /* LoginController.xib */; };
 		ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDBD982151755490079A966 /* RegistrazioneController.m */; };
 		ACDBD985151755490079A966 /* RegistrazioneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDBD983151755490079A966 /* RegistrazioneController.xib */; };
 		ACDD14891500481500ACEEB0 /* buttonGrayPattern.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD14881500481500ACEEB0 /* buttonGrayPattern.png */; };
@@ -431,9 +429,6 @@
 		ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatiUtenteLogin.xib; sourceTree = "<group>"; };
 		ACC808531521F678006DF894 /* grayButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton2.png; sourceTree = "<group>"; };
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
-		ACD939ED150E083B008D5C7B /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
-		ACD939EE150E083B008D5C7B /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
-		ACD939EF150E083B008D5C7B /* LoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginController.xib; sourceTree = "<group>"; };
 		ACDBD981151755490079A966 /* RegistrazioneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrazioneController.h; sourceTree = "<group>"; };
 		ACDBD982151755490079A966 /* RegistrazioneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrazioneController.m; sourceTree = "<group>"; };
 		ACDBD983151755490079A966 /* RegistrazioneController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrazioneController.xib; sourceTree = "<group>"; };
@@ -628,9 +623,6 @@
 				19D4CA8A13ED5144001C7763 /* Coupon.m */,
 				19D4CA8B13ED5144001C7763 /* Coupon.xib */,
 				19D4CA8C13ED5144001C7763 /* Credits.xib */,
-				ACD939ED150E083B008D5C7B /* LoginController.h */,
-				ACD939EE150E083B008D5C7B /* LoginController.m */,
-				ACD939EF150E083B008D5C7B /* LoginController.xib */,
 				ACDBD981151755490079A966 /* RegistrazioneController.h */,
 				ACDBD982151755490079A966 /* RegistrazioneController.m */,
 				ACDBD983151755490079A966 /* RegistrazioneController.xib */,
@@ -1109,7 +1101,6 @@
 				AC067E9C150821CB00F4DF12 /* FBDialog.bundle in Resources */,
 				AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */,
 				ACBEB025150BC16100F7B5F7 /* descrizioneOfferta.xib in Resources */,
-				ACD939F1150E083B008D5C7B /* LoginController.xib in Resources */,
 				ACDBD985151755490079A966 /* RegistrazioneController.xib in Resources */,
 				ACC747901517CDAE0049085F /* DatiUtenteLogin.xib in Resources */,
 				ACC313C1151A7F16008DBEBA /* CellProdottoListino.xib in Resources */,
@@ -1196,7 +1187,6 @@
 				AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */,
 				AC13B7091509691500E54106 /* BuyCell.m in Sources */,
 				AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */,
-				ACD939F0150E083B008D5C7B /* LoginController.m in Sources */,
 				ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */,
 				D99378B21519368200DFC410 /* CartaPerDue.m in Sources */,
 				D91D43041519CD50001D9033 /* LocalDatabaseAccess.m in Sources */,
@@ -1253,13 +1243,17 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /Users/peppelisanti/Desktop/PerDueCItyCard/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "055E6D9E-8BA9-430E-AEE7-4A4BF8AEDE12";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "055E6D9E-8BA9-430E-AEE7-4A4BF8AEDE12";
@@ -1270,13 +1264,17 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				CODE_SIGN_IDENTITY = "Don't Code Sign";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /Users/peppelisanti/Desktop/PerDueCItyCard/src;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				PROVISIONING_PROFILE = "";
