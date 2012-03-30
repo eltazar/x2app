@@ -394,7 +394,12 @@
 }
 
 
-
+#pragma mark - UIAlertViewDelegate
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if(buttonIndex == 0 && [[alertView title] isEqualToString:@"Complimenti"])
+        [self.navigationController dismissModalViewControllerAnimated:YES];
+    
+}
 
 #pragma mark - View lifecycle
 
