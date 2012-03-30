@@ -77,7 +77,7 @@
                          [NSString stringWithFormat:@"%d", NO], @"isSecret",
                          @"",                 @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
-                         [NSString stringWithFormat:@"%d", UIKeyboardTypeDefault], @"keyboardType",
+                         [NSString stringWithFormat:@"%d", UIKeyboardTypeEmailAddress], @"keyboardType",
                          nil] autorelease ]  atIndex: 0];
     
     [secC insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
@@ -136,6 +136,7 @@
     emailTextField.layer.cornerRadius = 6;
     emailTextField.tag = 120;
     emailTextField.placeholder = @"E-mail di registrazione";
+    emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
     [emailTextField setBackgroundColor:[UIColor whiteColor]];
     emailTextField.borderStyle = UITextBorderStyleRoundedRect;
     emailTextField.autocorrectionType = UITextAutocorrectionTypeNo;
