@@ -61,7 +61,7 @@
             
             //reinserisco il + ad inizio stringa
             if(isPlus){
-                strippedString = [NSMutableString stringWithFormat:@"%@",@"+"];
+                strippedString = [NSMutableString stringWithFormat:@"%@",@"%2B"];
                 isPlus = FALSE;
             }
             
