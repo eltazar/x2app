@@ -13,15 +13,15 @@
 
 
 @interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, MKAnnotation, UIAlertViewDelegate, GeoDecoderDelegate> {
-    NSMutableArray *rows;
+    NSMutableArray *_rows;
     
-    IBOutlet UISearchBar *searchBar;
-    IBOutlet UITableView *tableView;
-    IBOutlet MKMapView *mapView;
-    IBOutlet UIView *footerView;
+    IBOutlet UISearchBar *_searchBar;
+    IBOutlet UITableView *_tableView;
+    IBOutlet MKMapView *_mapView;
+    IBOutlet UIView *_footerView;
     /*IBOutlet UIView *searchSegCtrlView;*/
-    IBOutlet UISegmentedControl *searchSegCtrl;
-    IBOutlet UISegmentedControl *mapTypeSegCtrl;
+    IBOutlet UISegmentedControl *_searchSegCtrl;
+    IBOutlet UISegmentedControl *_mapTypeSegCtrl;
 }
 
 

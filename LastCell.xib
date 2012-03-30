@@ -85,7 +85,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{23, 20}, {274, 24}}</string>
 								<reference key="NSSuperview" ref="422827293"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -137,6 +136,7 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<reference key="IBUIContentView" ref="422827293"/>
+				<string key="IBUIReuseIdentifier">LastCell</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">

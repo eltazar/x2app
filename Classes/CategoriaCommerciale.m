@@ -22,7 +22,9 @@
     BOOL inSearchUI;
     CLLocationDegrees latitude;
     CLLocationDegrees longitude;
-    GeoDecoder *geoDec;
+    NSString *_phpFile;
+    NSString *_phpSearchFile;
+    GeoDecoder *_geoDec;
 }
 - (NSString *)searchMethod;
 - (NSArray *)fetchRowsFromUrlString:(NSString*) urlString;
@@ -41,13 +43,13 @@
 
 
 // Properties
-@synthesize rows;
+@synthesize rows = _rows;
 
 // IBOutlets
-@synthesize searchBar, tableView, mapView, footerView, /*searchSegCtrlView,*/ searchSegCtrl, mapTypeSegCtrl;
+@synthesize searchBar = _searchBar, tableView = _tableView, mapView = _mapView, footerView = _footerView, /*searchSegCtrlView,*/ searchSegCtrl = _searchSegCtrl, mapTypeSegCtrl = _mapTypeSegCtrl;
 
 // Properties private
-@synthesize phpFile, phpSearchFile, geoDec;
+@synthesize phpFile = _phpFile, phpSearchFile = _phpSearchFile, geoDec = _geoDec;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -99,19 +101,8 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
-    //	int wifi =0;
-    //	int internet = 0;
-    //	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-    //	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-    //    internet = [self checkNetReachability:internetReach];
-    //	wifi = [self checkNetReachability:wifiReach];	
-    //    
-    //	if( (internet == -1) &&( wifi == -1) ){
-    //		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-    //		[alert show];
-    //        [alert release];
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
-    if( ![Utilita networkReachable]){
+    if( ![Utilita networkReachable]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert show];
         [alert release];
@@ -181,7 +172,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tView {
-	if ([rows count] < 6){
+	if ([self.rows count] < 6) {
 		return 1;
 	} else {
 		return 2;
@@ -204,7 +195,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1) {
         // Stiamo mostrando la cella che suggerisce la visualizzazione di ulteriori esercenti
-		static NSString *CellIdentifier = @"Cell";
+		static NSString *CellIdentifier = @"LastCell";
 		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
 		
 		if (cell == nil){
@@ -217,14 +208,14 @@
 		return cell;		
 	} else {
         // Stiamo mostrando la cella relativa ad un esercente
-		static NSString *CellIdentifier = @"Cell";
+		static NSString *CellIdentifier = @"CategoriaCommercialeCell";
 		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
 		
 		if (cell == nil){
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"CategoriaCommercialeCell" owner:self options:NULL] objectAtIndex:0];
 		}
 		
-		NSDictionary *r  = [rows objectAtIndex:indexPath.row];
+		NSDictionary *r  = [self.rows objectAtIndex:indexPath.row];
 		
 		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
 		esercente.text = [r objectForKey:@"Insegna_Esercente"];
@@ -264,7 +255,7 @@
 
 - (void)tableView:(UITableView *)tView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
-		NSDictionary* r = [rows objectAtIndex: indexPath.row];
+		NSDictionary* r = [self.rows objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
 		DettaglioEsercenti *detail = [[DettaglioEsercenti alloc] initWithNibName:@"DettaglioEsercenti" bundle:[NSBundle mainBundle]];//] autorelease];
@@ -508,8 +499,8 @@
 	self.navigationItem.titleView = self.mapTypeSegCtrl;
 	self.mapView.showsUserLocation = YES;
 	
-	NSLog(@"Ci sono  %d esercenti da inserire in mappa", [rows count]);
-	for (NSDictionary *r in rows) {
+	NSLog(@"Ci sono  %d esercenti da inserire in mappa", [self.rows count]);
+	for (NSDictionary *r in self.rows) {
 		NSLog(@"%@",[r objectForKey:@"Insegna_Esercente"]);
         
 		double lati    = [[r objectForKey:@"Latitudine"]  doubleValue];
