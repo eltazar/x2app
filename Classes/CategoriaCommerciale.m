@@ -466,8 +466,17 @@
                            latitude, longitude,
                            [UserDefaults weekDay], [self searchMethod], self.rows.count];
     NSArray *newRows = [self fetchRowsFromUrlString: urlString];
+    
+    NSMutableArray *indexPaths = [[NSMutableArray alloc]initWithCapacity:newRows.count]; 
+    for (int i = self.rows.count; i < self.rows.count + newRows.count; i++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    
+    [self.tableView beginUpdates];
     [self.rows addObjectsFromArray:newRows];
-    [self.tableView reloadData];
+    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+    
     return newRows.count;
 }
 
