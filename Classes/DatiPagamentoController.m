@@ -331,7 +331,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView   heightForHeaderInSection:(NSInteger)section {
     if(section == 1)
-        return 10;
+        return 1;
     else if(section == 2)
         return 40;
     else if(section == 3)
@@ -348,44 +348,45 @@
 //}
 
 //setta il colore delle label dell'header BIANCHE
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//    
-//    if (section == 3) {
-//        
-//        UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
-//        [customView setBackgroundColor:[UIColor clearColor]];
-//        
-//        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
-//        
-//        lbl.backgroundColor = [UIColor clearColor];
-//        lbl.textColor = [UIColor whiteColor];
-//        lbl.lineBreakMode = UILineBreakModeWordWrap;
-//        lbl.numberOfLines = 0;
-//        lbl.textAlignment =  UITextAlignmentCenter;
-//        lbl.font = [UIFont systemFontOfSize:14];       
-//        
-//        
-//        lbl.text = @"Premendo \"Cancella dati\" verranno rimossi dal tuo dispositivo i dati relativi alla tua carta di credito";
-//        
-//        UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
-//        CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
-//        CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-//        
-//        lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
-//        
-//        [customView addSubview:lbl];
-//        
-//        return customView;
-//    }
-//    
-//    else return nil;
-//}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (section == 3) {
+        
+        UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
+        [customView setBackgroundColor:[UIColor clearColor]];
+        
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
+        
+        lbl.backgroundColor = [UIColor clearColor];
+        lbl.textColor = [UIColor whiteColor];
+        lbl.lineBreakMode = UILineBreakModeWordWrap;
+        lbl.numberOfLines = 0;
+        lbl.textAlignment =  UITextAlignmentCenter;
+        lbl.font = [UIFont systemFontOfSize:14];       
+        
+        
+        lbl.text = @"Premendo \"Cancella dati\" verranno rimossi dal tuo dispositivo i dati relativi alla tua carta di credito";
+        
+        UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
+        CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
+        CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+        
+        lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
+        
+        [customView addSubview:lbl];
+        
+        return customView;
+    }
+    
+    else return nil;
+}
 
 //setto altezza celle
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    return cell.frame.size.height;
+//    UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
+//    return cell.frame.size.height;
+    return 42;
 }
 
 #pragma mark - Gestione Bottoni view
