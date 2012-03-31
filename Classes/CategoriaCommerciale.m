@@ -48,16 +48,13 @@
 
 
 // Properties
-@synthesize rows = _rows;
+@synthesize urlString = _urlString, rows = _rows;
 
 // IBOutlets
-@synthesize searchBar = _searchBar, tableView = _tableView, mapView = _mapView,
-footerView = _footerView, /*searchSegCtrlView,*/ searchSegCtrl = _searchSegCtrl,
-mapTypeSegCtrl = _mapTypeSegCtrl;
+@synthesize searchBar = _searchBar, tableView = _tableView, mapView = _mapView, footerView = _footerView, /*searchSegCtrlView,*/ searchSegCtrl = _searchSegCtrl, mapTypeSegCtrl = _mapTypeSegCtrl;
 
 // Properties private
-@synthesize phpFile = _phpFile, phpSearchFile = _phpSearchFile, geoDec = _geoDec,
-dbAccess = _dbAccess, tempBuff = _tempBuff;
+@synthesize phpFile = _phpFile, phpSearchFile = _phpSearchFile,  geoDec = _geoDec, dbAccess = _dbAccess, tempBuff = _tempBuff;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -92,6 +89,7 @@ dbAccess = _dbAccess, tempBuff = _tempBuff;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/Esercenti.php";
     self.rows = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
     inSearchUI = NO;
@@ -105,7 +103,6 @@ dbAccess = _dbAccess, tempBuff = _tempBuff;
     self.geoDec.delegate = self;
     self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
-	[self fetchRows];
 }
 
 
@@ -132,6 +129,7 @@ dbAccess = _dbAccess, tempBuff = _tempBuff;
     // e.g. self.myOutlet = nil;
     
     // Roba ri-creata in viewDidLoad:
+    self.urlString = nil;
     self.rows = nil;
     self.navigationItem.rightBarButtonItem = nil;
     self.geoDec.delegate = nil;
@@ -154,6 +152,7 @@ dbAccess = _dbAccess, tempBuff = _tempBuff;
 
 
 - (void)dealloc {
+    self.urlString = nil;
     self.rows = nil;
     
     self.mapView.delegate = nil;
@@ -502,13 +501,15 @@ dbAccess = _dbAccess, tempBuff = _tempBuff;
                             self.phpFile, [UserDefaults city],
                             latitude, longitude,
                             [UserDefaults weekDay], [self searchMethod], 0];
-    NSString *urlStringV2 = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/v2.0/Esercenti.php"];
+
     NSString *postString = [NSString stringWithFormat:
-                            @"categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
+                            @"request=fetch&categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
                             self.phpFile, [UserDefaults city],
                             latitude, longitude, [UserDefaults weekDay],
                             [self searchMethod], 0];
-    [self.dbAccess postConnectionToURL:urlStringV2 withData:postString];
+    NSLog(@"urlString is: [%@]", self.urlString);
+    NSLog(@"postString is: [%@]", postString);
+    [self.dbAccess postConnectionToURL:self.urlString withData:postString];
     
     NSArray *newRows = [self fetchRowsFromUrlString: urlStringV1];
     [self.rows removeAllObjects];
@@ -525,13 +526,12 @@ dbAccess = _dbAccess, tempBuff = _tempBuff;
                            latitude, longitude,
                            [UserDefaults weekDay], [self searchMethod], self.rows.count];
     
-    NSString *urlStringV2 = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/v2.0/Esercenti.php"];
     NSString *postString = [NSString stringWithFormat:
-                            @"categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
+                            @"request=fetch&categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
                             self.phpFile, [UserDefaults city],
                             latitude, longitude, [UserDefaults weekDay],
                             [self searchMethod], self.rows.count];
-    [self.dbAccess postConnectionToURL:urlStringV2 withData:postString];
+    [self.dbAccess postConnectionToURL:self.urlString withData:postString];
     
     NSArray *newRows = [self fetchRowsFromUrlString: urlString];
     NSMutableArray *indexPaths = [[NSMutableArray alloc]initWithCapacity:newRows.count]; 
@@ -558,13 +558,12 @@ dbAccess = _dbAccess, tempBuff = _tempBuff;
                  self.phpSearchFile, searchKey, 
                  latitude, longitude];
     
-    NSString *urlStringV2 = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/v2.0/Esercenti.php"];
     NSString *postString = [NSString stringWithFormat:
-                            @"categ=%@&chiave=%@&lat=%f&long=%f&ordina=distanza&from=0",
+                            @"request=search&categ=%@&chiave=%@&lat=%f&long=%f&ordina=distanza&from=0",
                             self.phpFile, searchKey,
                             latitude, longitude, [UserDefaults weekDay],
                             [self searchMethod], 0];
-    [self.dbAccess postConnectionToURL:urlStringV2 withData:postString];
+    [self.dbAccess postConnectionToURL:self.urlString withData:postString];
     
     NSArray *newRows = [self fetchRowsFromUrlString: urlString];
     [self.rows removeAllObjects];

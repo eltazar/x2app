@@ -14,6 +14,7 @@
 
 
 @interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, MKAnnotation, UIAlertViewDelegate, GeoDecoderDelegate, DatabaseAccessDelegate> {
+    NSString *_urlString;
     NSMutableArray *_rows;
     
     IBOutlet UISearchBar *_searchBar;
@@ -26,6 +27,7 @@
 }
 
 
+@property (nonatomic, retain) NSString *urlString;
 @property (nonatomic, retain) NSMutableArray *rows;
 
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
