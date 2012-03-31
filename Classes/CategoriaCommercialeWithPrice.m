@@ -11,6 +11,20 @@
 
 @implementation CategoriaCommercialeWithPrice
 
+
+# pragma mark - View lifecycle
+
+
+- (void) viewDidLoad {
+    [super viewDidLoad];
+    NSLog (@"sto cambiando il valore di urlString");
+    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione.php";
+}
+
+
+# pragma mark - UITableViewDataSource
+
+
 - (UITableViewCell *)tableView:(UITableView *)tView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
         // Stiamo mostrando la cella relativa ad un esercente
@@ -47,6 +61,9 @@
         return [super tableView:tView cellForRowAtIndexPath:indexPath];
     }
 }
+
+
+#pragma mark - UITableViewDelegate
 
 
 - (void)tableView:(UITableView *)tView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
