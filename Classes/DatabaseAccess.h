@@ -27,7 +27,8 @@ NSString* key(NSURLConnection* con);
 
 @property(nonatomic,assign) id<DatabaseAccessDelegate> delegate;
 
-- (void) postConnectionToURL:(NSString *)urlString withData:(NSString *)postString;
+- (void)getConnectionToURL:(NSString *)urlString;
+- (void)postConnectionToURL:(NSString *)urlString withData:(NSString *)postString;
 - (void)sendRetrievePswForUser:(NSString*)usr;
 - (void)buyCouponRequest:(NSString*)string;
 - (void)getCouponFromServerWithId:(NSInteger)idCoupon;

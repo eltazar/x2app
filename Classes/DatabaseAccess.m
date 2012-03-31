@@ -37,7 +37,38 @@ NSString* key(NSURLConnection* con)
     return [NSString stringWithFormat:@"%p",con];
 }
 
-- (void) postConnectionToURL:(NSString *)urlString withData:(NSString *)postString {
+
+- (void)getConnectionToURL:(NSString *)urlString {
+    NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    // Lancio della connessione
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    
+    
+    // Accodamento della connessione e impostazione del buffer in cui ricevere i dati
+    if(connection){
+        NSLog(@"IS CONNECTION TRUE");
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        // TODO: Ri-approfondire lo scopo di st'oggetto, che lo ricordo solo vagamente
+        [readConnections addObject:connection];
+        
+        NSMutableData *receivedData = [[NSMutableData data] retain];
+        //[connectionDictionary setObject:connection forKey:key(connection)];
+        [dataDictionary setObject:receivedData forKey:key(connection)];
+        //NSLog(@"RECEIVED DATA FROM DICTIONARY : %p",[dataDictionary objectForKey:connection]);
+    }
+    else{
+        NSLog(@"theConnection is NULL");
+        //mostrare alert all'utente che la connessione è fallita??
+    }
+
+}
+
+
+- (void)postConnectionToURL:(NSString *)urlString withData:(NSString *)postString {
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
