@@ -892,7 +892,7 @@ NSString* key(NSURLConnection* con)
 
     //NSLog(@"DONE. Received Bytes: %d", [receivedData length]);
     NSString *json = [[NSString alloc] initWithBytes: [receivedData mutableBytes] length:[receivedData length] encoding:NSUTF8StringEncoding];
-    //NSLog(@"JSON  %@", json);
+    NSLog(@"JSON  %@", json);
     
     
     
@@ -912,6 +912,8 @@ NSString* key(NSURLConnection* con)
             if(delegate &&[delegate respondsToSelector:@selector(didReceiveCoupon:)])
                 [delegate didReceiveCoupon:dic];
         }
+        
+        if (theError) NSLog(@"DatabaseAccess, JSONError: reason[%@] desc[%@,%@]", [theError localizedFailureReason], [theError description], [theError localizedDescription]);
         
 //        if(dictionary != nil){
 //            NSMutableArray *jobsArray = [[NSMutableArray alloc]initWithCapacity:dictionary.count];

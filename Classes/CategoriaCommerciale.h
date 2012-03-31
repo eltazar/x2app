@@ -10,9 +10,10 @@
 #import <MapKit/MapKit.h>
 
 #import "GeoDecoder.h"
+#import "DatabaseAccess.h"
 
 
-@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, MKAnnotation, UIAlertViewDelegate, GeoDecoderDelegate> {
+@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, MKAnnotation, UIAlertViewDelegate, GeoDecoderDelegate, DatabaseAccessDelegate> {
     NSMutableArray *_rows;
     
     IBOutlet UISearchBar *_searchBar;

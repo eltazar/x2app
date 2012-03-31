@@ -14,6 +14,7 @@
 #import "GoogleHQAnnotation.h"
 #import "CJSONDeserializer.h"
 #import "Utilita.h"
+#import "DatabaseAccess.h"
 
 
 //Metodi privati
@@ -25,6 +26,8 @@
     NSString *_phpFile;
     NSString *_phpSearchFile;
     GeoDecoder *_geoDec;
+    DatabaseAccess *_dbAccess;
+    NSArray* _tempBuff;
 }
 - (NSString *)searchMethod;
 - (NSArray *)fetchRowsFromUrlString:(NSString*) urlString;
@@ -36,6 +39,8 @@
 @property (nonatomic, retain) NSString *phpFile;
 @property (nonatomic, retain) NSString *phpSearchFile;
 @property (nonatomic, retain) GeoDecoder *geoDec;
+@property (nonatomic, retain) DatabaseAccess *dbAccess;
+@property (nonatomic, retain) NSArray *tempBuff;
 @end
 
 
@@ -46,10 +51,13 @@
 @synthesize rows = _rows;
 
 // IBOutlets
-@synthesize searchBar = _searchBar, tableView = _tableView, mapView = _mapView, footerView = _footerView, /*searchSegCtrlView,*/ searchSegCtrl = _searchSegCtrl, mapTypeSegCtrl = _mapTypeSegCtrl;
+@synthesize searchBar = _searchBar, tableView = _tableView, mapView = _mapView,
+footerView = _footerView, /*searchSegCtrlView,*/ searchSegCtrl = _searchSegCtrl,
+mapTypeSegCtrl = _mapTypeSegCtrl;
 
 // Properties private
-@synthesize phpFile = _phpFile, phpSearchFile = _phpSearchFile, geoDec = _geoDec;
+@synthesize phpFile = _phpFile, phpSearchFile = _phpSearchFile, geoDec = _geoDec,
+dbAccess = _dbAccess, tempBuff = _tempBuff;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -95,6 +103,8 @@
     self.navigationItem.rightBarButtonItem = mapButton;
     self.geoDec = [[[GeoDecoder alloc] init] autorelease];
     self.geoDec.delegate = self;
+    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
+    self.dbAccess.delegate = self;
 	[self fetchRows];
 }
 
@@ -125,6 +135,8 @@
     self.navigationItem.rightBarButtonItem = nil;
     self.geoDec.delegate = nil;
     self.geoDec = nil;
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
     
     // IBOutlets:
     self.mapView.delegate = nil;
@@ -157,6 +169,8 @@
     self.phpSearchFile = nil;
     self.geoDec.delegate = nil;
     self.geoDec = nil;
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
     [super dealloc];
 }
 
@@ -412,6 +426,29 @@
 }
 
 
+#pragma mark - DatabaseAccessDelegate
+
+
+- (void)didReceiveCoupon:(NSDictionary *)dataDict {
+    NSString *type = [[dataDict allKeys] objectAtIndex:0];
+    NSArray *rows = [dataDict objectForKey:type];
+    
+    // Ci aspettiamo che rows sia effettivamente un array, se non lo è
+    // si ignora.
+    if (![rows isKindOfClass:[NSArray class]]) return;
+    
+    if ([type isEqualToString:@"Esercenti:FirstRows"]) {
+        //
+    } else if ([type isEqualToString:@"Esercenti:MoreRows"]) {
+        //
+    } else if ([type isEqualToString:@"Esercenti:Search"]) {
+        //
+    } 
+    
+    [self compare:rows];
+}
+
+
 #pragma mark - CategoriaCommerciale (IBActions)
 
 
@@ -435,14 +472,44 @@
 #pragma mark - CategoriaCommerciale (metodi privati)
 
 
+- (NSArray *)fetchRowsFromUrlString:(NSString*) urlString {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    NSLog(@"DoveUsarla: Fetching from url:\n\t%@", urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSError *error = nil;
+    NSString *jsonResponse = [[[NSString alloc] initWithContentsOfURL:url encoding:NSStringEncodingConversionAllowLossy error:&error] autorelease];
+    // TODO: gestire errori
+	NSData *jsonData = [jsonResponse dataUsingEncoding:NSUTF8StringEncoding];
+	error = nil;
+	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];	
+    // TODO: gestire errori
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    if (dict) {
+        self.tempBuff = [dict objectForKey:@"Esercente"];
+        return [dict objectForKey:@"Esercente"];
+    } else {
+        return [[[NSArray alloc] init] autorelease];
+    }
+}
+
+
 - (void) fetchRows{
     lastFetchWasASearch = NO;
-	NSString *urlString = [NSString stringWithFormat: 
+	NSString *urlStringV1 = [NSString stringWithFormat: 
                            @"http://www.cartaperdue.it/partner/%@.php?prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d&to=20", 
                             self.phpFile, [UserDefaults city],
                             latitude, longitude,
                             [UserDefaults weekDay], [self searchMethod], 0];
-    NSArray *newRows = [self fetchRowsFromUrlString: urlString];
+    NSString *urlStringV2 = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/v2.0/Esercenti.php"];
+    NSString *postString = [NSString stringWithFormat:
+                            @"categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
+                            self.phpFile, [UserDefaults city],
+                            latitude, longitude, [UserDefaults weekDay],
+                            [self searchMethod], 0];
+    [self.dbAccess postConnectionToURL:urlStringV2 withData:postString];
+    
+    NSArray *newRows = [self fetchRowsFromUrlString: urlStringV1];
     [self.rows removeAllObjects];
     [self.rows addObjectsFromArray:newRows];
     [self.tableView reloadData];
@@ -456,8 +523,16 @@
                            self.phpFile, [UserDefaults city],
                            latitude, longitude,
                            [UserDefaults weekDay], [self searchMethod], self.rows.count];
-    NSArray *newRows = [self fetchRowsFromUrlString: urlString];
     
+    NSString *urlStringV2 = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/v2.0/Esercenti.php"];
+    NSString *postString = [NSString stringWithFormat:
+                            @"categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
+                            self.phpFile, [UserDefaults city],
+                            latitude, longitude, [UserDefaults weekDay],
+                            [self searchMethod], self.rows.count];
+    [self.dbAccess postConnectionToURL:urlStringV2 withData:postString];
+    
+    NSArray *newRows = [self fetchRowsFromUrlString: urlString];
     NSMutableArray *indexPaths = [[NSMutableArray alloc]initWithCapacity:newRows.count]; 
     for (int i = self.rows.count; i < self.rows.count + newRows.count; i++) {
         [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
@@ -468,6 +543,7 @@
     [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView endUpdates];
     
+    [indexPaths release];
     return newRows.count;
 }
 
@@ -480,6 +556,15 @@
                  @"http://www.cartaperdue.it/partner/%@.php?chiave=%@&&lat=%f&long=%f",
                  self.phpSearchFile, searchKey, 
                  latitude, longitude];
+    
+    NSString *urlStringV2 = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/v2.0/Esercenti.php"];
+    NSString *postString = [NSString stringWithFormat:
+                            @"categ=%@&chiave=%@&lat=%f&long=%f&ordina=distanza&from=0",
+                            self.phpFile, searchKey,
+                            latitude, longitude, [UserDefaults weekDay],
+                            [self searchMethod], 0];
+    [self.dbAccess postConnectionToURL:urlStringV2 withData:postString];
+    
     NSArray *newRows = [self fetchRowsFromUrlString: urlString];
     [self.rows removeAllObjects];
     [self.rows addObjectsFromArray:newRows];
@@ -528,7 +613,7 @@
 }
 
 
--(void)hideMap:(id)sender {
+- (void)hideMap:(id)sender {
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:1.0];
 	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft
@@ -548,27 +633,6 @@
 }
 
 
-- (NSArray *)fetchRowsFromUrlString:(NSString*) urlString {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSLog(@"%@", urlString);
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSError *error = nil;
-    NSString *jsonResponse = [[[NSString alloc] initWithContentsOfURL:url encoding:NSStringEncodingConversionAllowLossy error:&error] autorelease];
-    // TODO: gestire errori
-	NSData *jsonData = [jsonResponse dataUsingEncoding:NSUTF8StringEncoding];
-	error = nil;
-	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];	
-    // TODO: gestire errori
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    if (dict) {
-        return [dict objectForKey:@"Esercente"];
-    } else {
-        return [[[NSArray alloc] init] autorelease];
-    }
-}
-
-
 - (NSString *)searchMethod {
     NSInteger selection = [self.searchSegCtrl selectedSegmentIndex];
     if (selection == 0) {
@@ -578,6 +642,37 @@
     } else {
         return @"";
     }
+}
+
+
+- (void) compare:(NSArray *)rows {
+    // N.B. è opportuno ricordare che rows contiene un FALSE finale, 
+    // come tutti gli array ritornati dalle nostre query php.
+    BOOL success = TRUE;
+    
+    if (self.tempBuff.count != (rows.count - 1)) {
+        success = FALSE;
+    }
+    
+    
+    
+    printf("\n");
+    for (int i = 0; i < rows.count-1; i++) {
+        NSInteger r1id = [[[self.tempBuff objectAtIndex:i] objectForKey:@"IDesercente"] intValue];
+        NSInteger r2id = [[[rows objectAtIndex:i] objectForKey:@"IDesercente"] intValue];
+        if ( r1id != r2id ) {
+            success = FALSE;
+            printf("X[%d/%d]", r1id, r2id);
+        } else {
+            printf("O");
+        }
+    }
+    printf("\n");
+    
+    if (success) 
+        NSLog(@"CategoriaCommerciale compare: ** SUCCESS");
+    else
+        NSLog(@"CategoriaCommerciale compare: ** FAIL");
 }
 
 
