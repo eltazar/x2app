@@ -16,10 +16,10 @@
 @implementation DettaglioEsercenti
 
 // Properties
-@synthesize identificativo, dataModel = _dataModel, webView;
+@synthesize identificativo = _identificativo, dataModel = _dataModel, webView = _webView;
 
 // IBOutlets
-@synthesize tableView, mappa, condizioni, cond, tipoMappa, map, cellavalidita, sito;
+@synthesize tableView = _tableView, mappa = _mappa, condizioni = _condizioni, cond = _cond, tipoMappa = _tipoMappa, map = _map, cellavalidita = _cellavalidita, sito = _sito;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -31,13 +31,20 @@
 }
 
 
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc. that aren't in use.
+}
+
+
 #pragma mark - View lifecycle
 
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",identificativo]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo]];
 	NSLog(@"Url: %@", url);
 	
 	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
@@ -89,7 +96,7 @@
 
 - (void)dealloc {
 #warning inserire il release degli iboutlet ecc?
-    map.delegate = nil;
+    self.map.delegate = nil;
     self.map = nil;
     self.dataModel = nil;
     [super dealloc];
@@ -484,11 +491,11 @@
 			else { //la cella esprime un url
                 NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[self.dataModel objectForKey:@"Url_Esercente"]]];
 				NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-				[webView loadRequest:requestObj];		
+				[self.webView loadRequest:requestObj];		
 				[self.navigationController pushViewController:self.sito animated:YES];
 				self.sito.title = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"Insegna_Esercente"]];
-				[webView release];
-				webView=nil;
+				[self.webView release];
+				self.webView=nil;
 
 			}
 			
@@ -510,22 +517,22 @@
 		else { //sito web
 			NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[self.dataModel objectForKey:@"Url_Esercente"]]];
 			NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-			[webView loadRequest:requestObj];		
+			[self.webView loadRequest:requestObj];		
 			[self.navigationController pushViewController:self.sito animated:YES];
 			self.sito.title = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"Insegna_Esercente"]];
-			[webView release];
-			webView=nil;
+			[self.webView release];
+			self.webView=nil;
 		}
 	}	
 	
 	if ( (indexPath.row == 2)&&(indexPath.section==1) ){ // sito web
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[self.dataModel objectForKey:@"Url_Esercente"]]];
 		NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-		[webView loadRequest:requestObj];		
+		[self.webView loadRequest:requestObj];		
 		[self.navigationController pushViewController:self.sito animated:YES];
 		self.sito.title = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"Insegna_Esercente"]];
-		[webView release];
-		webView=nil;
+		[self.webView release];
+		self.webView=nil;
 	}
 }
 
@@ -591,26 +598,6 @@
 		self.map.mapType=MKMapTypeHybrid;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc. that aren't in use.
-}
-
-
-
-
-
 
 
 @end

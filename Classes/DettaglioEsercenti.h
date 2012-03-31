@@ -12,10 +12,22 @@
 #import <MessageUI/MessageUI.h>
 
 @interface DettaglioEsercenti : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
+    NSInteger _identificativo;
     NSDictionary *_dataModel;
-	IBOutlet UITableViewCell *provacella;
-	IBOutlet UITableViewCell *cellaindirizzo;
-	IBOutlet UITableViewCell *CellaDettaglio1;
+    UIWebView *_webView;
+    
+    UITableView *_tableView;
+    UIViewController *_mappa;
+    UIViewController *_condizioni;
+    UITextView *_cond;
+    UISegmentedControl *_tipoMappa;
+    MKMapView *_map;
+    UITableViewCell *_cellavalidita;
+    UIViewController *_sito;
+
+	//IBOutlet UITableViewCell *provacella;
+	//IBOutlet UITableViewCell *cellaindirizzo;
+	//IBOutlet UITableViewCell *CellaDettaglio1;
 }
 
 
