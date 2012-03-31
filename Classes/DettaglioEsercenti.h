@@ -12,6 +12,7 @@
 #import <MessageUI/MessageUI.h>
 
 @interface DettaglioEsercenti : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
+    NSDictionary *_dataModel;
 	IBOutlet UITableViewCell *provacella;
 	IBOutlet UITableViewCell *cellaindirizzo;
 	IBOutlet UITableViewCell *CellaDettaglio1;
@@ -19,7 +20,7 @@
 
 
 @property (nonatomic, assign) NSInteger identificativo; 
-@property (nonatomic, retain) NSDictionary *dict;
+@property (nonatomic, retain) NSDictionary *dataModel;
 @property (nonatomic, retain) UIWebView *webView;
 
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
