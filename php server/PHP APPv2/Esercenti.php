@@ -7,7 +7,7 @@
      *
      **/
     
-    include 'QueryHelper.php'
+    include '../QueryHelper.php';
 	
 	$categ  = $_POST['categ'];
     $lat    = $_POST['lat'];
@@ -20,6 +20,15 @@
     
 	$nome = str_replace("-", " ", $nome);
 	$nome = addslashes($nome);
+    
+    /*echo "categ: ".$categ."\n";
+    echo "lat: ".$lat."\n";  
+    echo "long: ".$long."\n";  
+    echo "nome: ".$nome."\n";   
+    echo "citta: ".$citta."\n"; 
+    echo "giorno: ".$giorno."\n"; 
+    echo "ordina: ".$ordina."\n"; 
+    echo "from : ".$from."\n";  */
     
 	 
 	
@@ -53,6 +62,8 @@
         $categ = "IN ('50', '39')";
     } else if (!strcmp($categ, "parchi")) {
         $categ = "= '44'";
+    } else if (!strcmp($categ, "viaggi")){
+        $categ = "IN ('48', '56')";
     } else if (!strcmp($categ, "altro")) {
         $categ = "IN ('31', '36', '47', '49', '55', '56', '57')";
     }
@@ -72,7 +83,7 @@
         AND attivita_esercente.IdTipologia_Esercente $categ	  			  					  
         AND Latitudine <> '0'
         AND Longitudine <> '0' 
-    WHE;
+WHE;
     
     $where_day_clause = " AND t_orari_spettacoli.giorno_della_settimana LIKE '{$giorno}%' ";
     
@@ -80,13 +91,13 @@
     
     $where_city_clause = " AND (esercente.Provincia_Esercente=wrp_province.sigla AND wrp_province.provincia='$citta') ";
     
-    $limit_clause = "LIMIT $from, 20";
+    $limit_clause = "LIMIT $from, 20;";
     
     
 	// costruzione query
     $query = $select_clause.$from_clause.$where_clause;
     
-    if (strcmp($citta, "")) {   // se città NON è vuoto.
+    if (strcmp($citta, "Qui")) {   // se città NON è "Qui".
         $query = $query.$where_city_clause;
     }
     
@@ -110,7 +121,29 @@
     // esecuzione query    
     $qh = new QueryHelper();
 	
+    
+    // TODO: zozzata, sistemare.
+    mysql_select_db("cartaperdue");
+    
     $json_result = $qh->query($query);
+    
+    if ($json_result == '"ERROR"') {
+        /*echo $qh->lastError();
+        echo "<br/>\n";
+        echo str_replace("\n", "<br/>\n", $query);
+        echo $categ."<br/>\n";
+        echo $lat."<br/>\n";  
+        echo $long."<br/>\n";  
+        echo $nome."<br/>\n";   
+        echo $citta."<br/>\n"; 
+        echo $giorno."<br/>\n"; 
+        echo $ordina."<br/>\n"; 
+        echo $from."<br/>\n"; */  
+
+    }
+    
+    /*echo $query;*/
+    
 	
     if ( strcmp($nome, "")) {    // è una ricerca
         $response = '{"Esercente:Search":'.$json_result.'}';

@@ -7,7 +7,7 @@
      *
      **/
     
-    include 'QueryHelper.php'
+    include '../QueryHelper.php';
 	
 	$categ  = $_POST['categ'];
     $lat    = $_POST['lat'];
@@ -52,7 +52,7 @@
         AND attivita_esercente.IdTipologia_Esercente $categ
         AND esercente.Insegna_Esercente IS NOT NULL
         AND esercente.Indirizzo_Esercente IS NOT NULL
-    WHE;
+WHE;
     
     $where_day_clause = " AND ($mat='1' OR $sera='1')";
     
@@ -62,11 +62,13 @@
     
     $where_price_clause = "AND esercente.Fasciaprezzo_Esercente IS NOT NULL";
     
+    $limit_clause = "LIMIT $from, 20;";
+    
     
     // costruzione query
     $query = $select_clause.$from_clause.$where_clause;
     
-    if (strcmp($citta, "")) {   // se città NON è vuoto.
+    if (strcmp($citta, "Qui")) {   // se città NON è "Qui".
         $query = $query.$where_city_clause;
     }
     
@@ -94,6 +96,10 @@
     $qh = new QueryHelper();
 	
     $json_result = $qh->query($query);
+    
+    if ($json_result == '"ERROR"') {
+        echo $qh->lastError();
+    }
 	
     if ( strcmp($nome, "")) {    // è una ricerca
         $response = '{"Esercente:Search":'.$json_result.'}';
