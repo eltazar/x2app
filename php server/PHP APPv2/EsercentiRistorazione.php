@@ -9,37 +9,51 @@
     
     include '../QueryHelper.php';
 	
-	$categ  = $_POST['categ'];
-    $lat    = $_POST['lat'];
-	$long   = $_POST['long'];
-	$nome   = $_POST['chiave'];
-	$citta  = $_POST['prov'];
-	$giorno = $_POST['giorno'];
-    $ordina = $_POST['ordina'];
-    $from   = $_POST['from'];
+	$request = $_POST['request'];
+    $categ   = $_POST['categ'];
+    $lat     = $_POST['lat'];
+	$long    = $_POST['long'];
+	$chiave  = $_POST['chiave'];
+	$citta   = $_POST['prov'];
+	$giorno  = $_POST['giorno'];
+    $ordina  = $_POST['ordina'];
+    $from    = $_POST['from'];
     
-	$nome = str_replace("-", " ", $nome);
-	$nome = addslashes($nome);
+	$chiave = str_replace("-", " ", $chiave);
+	$chiave = addslashes($chiave);
     
+    // Lo script termina se il valore di request non è interpretabile.
+    if ($request !== "fetch" && $request !== "search") {
+        die("Invalid value for parameter 'request'");
+    }
+    
+    if ($ordina !== "nome" && $ordina !== "distanza" && $ordina !== "prezzo") {
+        die("Invalid value for parameter 'ordina'");
+    }
+
     
 	
     //imposto il giorno per la query
-	$mat = "contratto_esercente.$giorno_mat_CE";
-    $mat = "contratto_esercente.$giorno_sera_CE";
+	$mat = "contratto_esercente.{$giorno}_mat_CE";
+    $sera = "contratto_esercente.{$giorno}_sera_CE";
 
 
     //imposto la categoria
-    if (!strcmp($categ, "ristoranti")) {
-        $categ = "IN ('5', '6', '59', '60', 61')";
-    } else if (!strcmp($categ, "pubsebar")) {
+    if ($categ === "ristoranti") {
+        $categ = "IN ('5', '6', '59', '60', '61')";
+    } else if ($categ === "pubsebar") {
         $categ = "IN('2', '9', '27', '61')";
-    } 
+    } else {
+        die ("Invalid value for parameter 'categ'");
+    }
 
     
     //impostazione mattoni query:
-    $select_clause = "SELECT DISTINCT(esercente.IDesercente),esercente.Indirizzo_Esercente,esercente.Citta_Esercente,esercente.Insegna_Esercente,Tipo_Teser,esercente.Fasciaprezzo_Esercente,Latitudine,Longitudine, (ACOS(SIN(RADIANS('$lat'))*SIN(RADIANS(Latitudine))+COS(RADIANS(Latitudine))*COS(RADIANS('$lat'))*COS(ABS(RADIANS('$long')-RADIANS(Longitudine))))*6371) as Distanza";
+    $select_clause = "SELECT DISTINCT(esercente.IDesercente),esercente.Indirizzo_Esercente,esercente.Citta_Esercente,esercente.Insegna_Esercente,Tipo_Teser,esercente.Fasciaprezzo_Esercente,Latitudine,Longitudine, (ACOS(SIN(RADIANS('$lat'))*SIN(RADIANS(Latitudine))+COS(RADIANS(Latitudine))*COS(RADIANS('$lat'))*COS(ABS(RADIANS('$long')-RADIANS(Longitudine))))*6371) as Distanza ";
     
-    $from_clause = "FROM esercente, attivita_esercente,contratto_esercente, tipologia_esercente, wrp_province";
+    $from_clause = " FROM esercente, attivita_esercente,contratto_esercente, tipologia_esercente ";
+    
+    $from_city_clause = ", wrp_province ";
     
     $where_clause = <<<WHE
         WHERE esercente.Attivo_Esercente='1'
@@ -54,54 +68,72 @@
         AND esercente.Indirizzo_Esercente IS NOT NULL
 WHE;
     
-    $where_day_clause = " AND ($mat='1' OR $sera='1')";
+    $where_day_clause = " AND ($mat='1' OR $sera='1') ";
     
-    $where_name_clause = " AND ((esercente.Insegna_Esercente LIKE '%{$nome}%')OR (esercente.Indirizzo_Esercente LIKE '%{$nome}%') OR (esercente.Zona_Esercente LIKE '%{$nome}%') )";
+    $where_name_clause = " AND ((esercente.Insegna_Esercente LIKE '%{$chiave}%')OR (esercente.Indirizzo_Esercente LIKE '%{$chiave}%') OR (esercente.Zona_Esercente LIKE '%{$chiave}%') ) ";
     
-    $where_city_clause = "AND (esercente.Provincia_Esercente=wrp_province.sigla AND wrp_province.provincia='$citta')";
+    $where_city_clause = " AND (esercente.Provincia_Esercente=wrp_province.sigla AND wrp_province.provincia='$citta') ";
     
-    $where_price_clause = "AND esercente.Fasciaprezzo_Esercente IS NOT NULL";
+    $where_price_clause = " AND esercente.Fasciaprezzo_Esercente IS NOT NULL ";
     
-    $limit_clause = "LIMIT $from, 20;";
+    $limit_clause = " LIMIT $from, 20; ";
     
     
     // costruzione query
-    $query = $select_clause.$from_clause.$where_clause;
+    $query = $select_clause.$from_clause;
     
-    if (strcmp($citta, "Qui")) {   // se città NON è "Qui".
-        $query = $query.$where_city_clause;
-    }
-    
-    if (strcmp($nome, "")) {    // se nome NON è vuoto.
-        $query = $query.$where_name_clause;
-    }
-    
-    if (strcmp($giorno, "")) {  // se giorno NON è vuoto.
-        $query = $query.$where_day_clause;
-    }    
+    if ($request === "search") {
+        $query .= $where_clause;
+        $query .= $where_name_clause;
         
-    
-    if (!strcmp($ordina, "prezzo")) {
-        $query = $query.$where_price_clause."ORDER BY esercente.Fasciaprezzo_Esercente";
-    } else if (!strcmp($ordina, "distanza")) {
-        $query = $query."ORDER BY Distanza "; 
-    } else if (!strcmp($ordina, "nome")) {
-        $uery = $query."ORDER BY esercente.Insegna_Esercente ";
+        
+    } else if ($request === "fetch") {
+        if ($citta === "Qui" || $citta === "") {
+            $query .= $where_clause;
+            if ($giorno !== "") $query .= $where_day_clause;
+        } else { // $citta contiene qualcosa di valido
+            $query .= $from_city_clause.$where_clause.$where_city_clause;
+            if ($giorno !== "") $query .= $where_day_clause;
+        }
     }
     
-    $query = $query.$limit_clause;
+    if ($ordina === "nome") {
+        $query .= "ORDER BY esercente.Insegna_Esercente ";
+    } else if ($ordina === "distanza") {
+        $query .= "ORDER BY Distanza "; 
+    } else if ($ordina === "prezzo") {
+        $query .= $where_price_clause;
+        $query .= "ORDER BY esercente.Fasciaprezzo_Esercente ";
+    }
+    
+    $query .= $limit_clause;
         
     
     // esecuzione query    
     $qh = new QueryHelper();
+    
+    // TODO: zozzata, sistemare.
+    mysql_select_db("cartaperdue");
 	
     $json_result = $qh->query($query);
     
     if ($json_result == '"ERROR"') {
         echo $qh->lastError();
+        echo "<br/>\n";
+        echo str_replace("\n", "<br/>", $query);
+        echo "categ: ".$categ."<br/>";
+        echo "lat: ".$lat."<br/>";  
+        echo "long: ".$long."<br/>";  
+        echo "chiave: ".$chiave."<br/>";   
+        echo "citta: ".$citta."<br/>"; 
+        echo "giorno: ".$giorno."<br/>"; 
+        echo "ordina: ".$ordina."<br/>"; 
+        echo "from: ".$from."<br/>";   
+        
     }
+
 	
-    if ( strcmp($nome, "")) {    // è una ricerca
+    if ($request === "search") {    // è una ricerca
         $response = '{"Esercente:Search":'.$json_result.'}';
     } else if ($from == 0) {
         $response = '{"Esercente:FirstRows":'.$json_result.'}';

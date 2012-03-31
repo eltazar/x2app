@@ -9,22 +9,32 @@
     
     include '../QueryHelper.php';
 	
-	$categ  = $_POST['categ'];
-    $lat    = $_POST['lat'];
-	$long   = $_POST['long'];
-	$nome   = $_POST['chiave'];
-	$citta  = $_POST['prov'];
-	$giorno = $_POST['giorno'];
-    $ordina = $_POST['ordina'];
-    $from   = $_POST['from'];
+	$request = $_POST['request'];
+    $categ   = $_POST['categ'];
+    $lat     = $_POST['lat'];
+	$long    = $_POST['long'];
+	$chiave  = $_POST['chiave'];
+	$citta   = $_POST['prov'];
+	$giorno  = $_POST['giorno'];
+    $ordina  = $_POST['ordina'];
+    $from    = $_POST['from'];
     
-	$nome = str_replace("-", " ", $nome);
-	$nome = addslashes($nome);
+	$chiave = str_replace("-", " ", $chiave);
+	$chiave = addslashes($chiave);
+    
+    // Lo script termina se il valore di request non è interpretabile.
+    if ($request !== "fetch" && $request !== "search") {
+        die("Invalid value for parameter 'request'");
+    }
+    
+    if ($ordina !== "nome" && $ordina !== "distanza") {
+        die("Invalid value for parameter 'ordina'");
+    }
     
     /*echo "categ: ".$categ."\n";
     echo "lat: ".$lat."\n";  
     echo "long: ".$long."\n";  
-    echo "nome: ".$nome."\n";   
+    echo "chiave: ".$chiave."\n";   
     echo "citta: ".$citta."\n"; 
     echo "giorno: ".$giorno."\n"; 
     echo "ordina: ".$ordina."\n"; 
@@ -33,39 +43,41 @@
 	 
 	
     //imposto il giorno per la query
-	if (!strcmp($giorno, "Lunedi")) {
+	if ($giorno === "Lunedi") {
 		$giorno = "luned";
-	} else if (!strcmp($giorno, "Martedi")) {
+	} else if ($giorno === "Martedi") {
         $giorno = "marted";
-    } else if (!strcmp($giorno, "Mercoledi")) {
+    } else if ($giorno === "Mercoledi") {
         $giorno = "mercoled";
-    } else if (!strcmp($giorno, "Giovedi")) {
+    } else if ($giorno === "Giovedi") {
         $giorno = "gioved";
-    } else if (!strcmp($giorno, "Venerdi")) {
+    } else if ($giorno === "Venerdi") {
         $giorno = "venerd";
-    } else if (!strcmp($giorno, "Sabato")) {
+    } else if ($giorno === "Sabato") {
         $giorno = "sabato";
-    } else if (!strcmp($giorno, "Domenica")) {
+    } else if ($giorno === "Domenica") {
         $giorno = "domenica";	
-    }
+    } 
     
     //imposto la categoria
-    if (!strcmp($categ, "cinema")) {
+    if ($categ === "cinema") {
         $categ = "= '25'";
-    } else if (!strcmp($categ, "teatri")) {
+    } else if ($categ === "teatri") {
         $categ = "= '24'";
-    } else if (!strcmp($categ, "musei")) {
+    } else if ($categ === "musei") {
         $categ = "= '54'";
-    } else if (!strcmp($categ, "librerie")) {
+    } else if ($categ === "librerie") {
         $categ = "= '51'";
-    } else if (!strcmp($categ, "benessere")) {
+    } else if ($categ === "benessere") {
         $categ = "IN ('50', '39')";
-    } else if (!strcmp($categ, "parchi")) {
+    } else if ($categ === "parchi") {
         $categ = "= '44'";
-    } else if (!strcmp($categ, "viaggi")){
+    } else if ($categ === "viaggi"){
         $categ = "IN ('48', '56')";
-    } else if (!strcmp($categ, "altro")) {
+    } else if ($categ === "altro") {
         $categ = "IN ('31', '36', '47', '49', '55', '56', '57')";
+    } else {
+        die ("Invalid value for parameter 'categ'");
     }
     
     
@@ -73,6 +85,8 @@
     $select_clause = "SELECT DISTINCT(esercente.IDesercente), Indirizzo_Esercente, esercente.Insegna_Esercente,Citta_Esercente, Latitudine, Longitudine,(ACOS(SIN(RADIANS('$lat'))*SIN(RADIANS(Latitudine))+COS(RADIANS(Latitudine))*COS(RADIANS('$lat'))*COS(ABS(RADIANS('$long')-RADIANS(Longitudine))))*6371) as Distanza ";
     
     $from_clause = "FROM esercente,contratto_esercente, attivita_esercente, t_orari_spettacoli ";
+    
+    $from_city_clause = ", wrp_province ";
     
     $where_clause = <<<WHE
         WHERE esercente.Attivo_Esercente = '1'
@@ -87,65 +101,68 @@ WHE;
     
     $where_day_clause = " AND t_orari_spettacoli.giorno_della_settimana LIKE '{$giorno}%' ";
     
-    $where_name_clause = " AND ( (esercente.Insegna_Esercente LIKE '%{$nome}%') OR (esercente.Indirizzo_Esercente LIKE '%{$nome}%') OR (esercente.Zona_Esercente LIKE '%{$nome}%') )";
+    $where_name_clause = " AND ( (esercente.Insegna_Esercente LIKE '%{$chiave}%') OR (esercente.Indirizzo_Esercente LIKE '%{$chiave}%') OR (esercente.Zona_Esercente LIKE '%{$chiave}%') )";
     
     $where_city_clause = " AND (esercente.Provincia_Esercente=wrp_province.sigla AND wrp_province.provincia='$citta') ";
     
     $limit_clause = "LIMIT $from, 20;";
     
     
-	// costruzione query
-    $query = $select_clause.$from_clause.$where_clause;
+	
+    // costruzione query
+    $query = $select_clause.$from_clause;
     
-    if (strcmp($citta, "Qui")) {   // se città NON è "Qui".
-        $query = $query.$where_city_clause;
+    if ($request === "search") {
+        $query .= $where_clause;
+        $query .= $where_name_clause;
+        
+        
+    } else if ($request === "fetch") {
+        if ($citta === "Qui" || $citta === "") {
+            $query .= $where_clause;
+            if ($giorno !== "") $query .= $where_day_clause;
+        } else { // $citta contiene qualcosa di valido
+            $query .= $from_city_clause.$where_clause.$where_city_clause;
+            if ($giorno !== "") $query .= $where_day_clause;
+        }
     }
-    
-    if (strcmp($nome, "")) {    // se nome NON è vuoto.
-        $query = $query.$where_name_clause;
+
+    if ($ordina === "nome") {
+        $query .= "ORDER BY esercente.Insegna_Esercente ";
+    } else if ($ordina === "distanza") {
+        $query .= "ORDER BY Distanza "; 
     }
+
+    $query .= $limit_clause;
     
-    if (strcmp($giorno, "")) {  // se giorno NON è vuoto.
-        $query = $query.$where_day_clause;
-    }
-    
-    if (!strcmp($ordina, "distanza")) {
-        $query = $query."ORDER BY Distanza "; 
-    } else if (!strcmp($ordina, "nome")) {
-        $uery = $query."ORDER BY esercente.Insegna_Esercente ";
-    }
-    
-    $query = $query.$limit_clause;
-    
-    
+        
     // esecuzione query    
     $qh = new QueryHelper();
 	
-    
     // TODO: zozzata, sistemare.
     mysql_select_db("cartaperdue");
     
     $json_result = $qh->query($query);
     
     if ($json_result == '"ERROR"') {
-        /*echo $qh->lastError();
+        echo $qh->lastError();
         echo "<br/>\n";
-        echo str_replace("\n", "<br/>\n", $query);
-        echo $categ."<br/>\n";
-        echo $lat."<br/>\n";  
-        echo $long."<br/>\n";  
-        echo $nome."<br/>\n";   
-        echo $citta."<br/>\n"; 
-        echo $giorno."<br/>\n"; 
-        echo $ordina."<br/>\n"; 
-        echo $from."<br/>\n"; */  
+        echo str_replace("\n", "<br/>", $query);
+        echo "categ: ".$categ."<br/>";
+        echo "lat: ".$lat."<br/>";  
+        echo "long: ".$long."<br/>";  
+        echo "chiave: ".$chiave."<br/>";   
+        echo "citta: ".$citta."<br/>"; 
+        echo "giorno: ".$giorno."<br/>"; 
+        echo "ordina: ".$ordina."<br/>"; 
+        echo "from: ".$from."<br/>";   
 
     }
     
     /*echo $query;*/
     
 	
-    if ( strcmp($nome, "")) {    // è una ricerca
+    if ($request === "search") {    // è una ricerca
         $response = '{"Esercente:Search":'.$json_result.'}';
     } else if ($from == 0) {
         $response = '{"Esercente:FirstRows":'.$json_result.'}';
