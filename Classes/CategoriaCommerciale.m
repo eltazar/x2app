@@ -117,6 +117,7 @@ dbAccess = _dbAccess, tempBuff = _tempBuff;
         [alert show];
         [alert release];
 	} else {
+        [self fetchRows];
         if(! [[UserDefaults city] isEqualToString:@"Qui"]) {
             [self.geoDec searchCoordinatesForAddress:[UserDefaults city]];
         }
