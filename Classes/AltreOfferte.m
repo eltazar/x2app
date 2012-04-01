@@ -160,7 +160,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //Offerta *couponSelezionatoController = [[Offerta alloc] initWithNibName:@"Offerta" bundle:[NSBundle mainBundle]];
     Coupon *couponSelezionatoController = [[Coupon alloc] initWithNibName:nil bundle:nil isOffertaDelGiorno:NO];
     NSInteger identificativoOfferta=[[dict objectForKey:@"idofferta"]integerValue];
-    [couponSelezionatoController setIdentificativo:identificativoOfferta];
+    [couponSelezionatoController setIdCoupon:identificativoOfferta];
     [self.navigationController pushViewController:couponSelezionatoController animated:YES];
     
     [couponSelezionatoController release];

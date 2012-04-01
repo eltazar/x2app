@@ -18,7 +18,6 @@
 #import "Pagamento2.h"
 #import "OpzioniCoupon.h"
 #import "AsyncImageView.h"
-#import "Reachability.h"
 #import "FBConnect.h"
 #import "Facebook.h"
 
@@ -27,113 +26,80 @@
 
 @interface Coupon : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, DatabaseAccessDelegate,LoginControllerBisDelegate>{
         
-	NSInteger identificativoesercente;
-	IBOutlet UIViewController *insintesi;
-	IBOutlet UIViewController *termini;
-	IBOutlet UIViewController *dipiu;
-	IBOutlet UIViewController *contatti;
-
-	NSMutableArray *rows;
-	NSDictionary *dict2;
-	//NSURL *url;
-	NSURL *url2;
-	NSDictionary *dict;
-	UIViewController *detail;
-
-	IBOutlet UILabel *titolo;
-	IBOutlet UILabel *prezzoCoupon;
+	NSDictionary *_dataModel;
+    NSInteger _idCoupon;
     
-	IBOutlet UILabel *sconto;
-	IBOutlet UILabel *risparmio;
-    IBOutlet UILabel *prezzoOrig;
+    // InfoCoupon.xib
+    IBOutlet UILabel *_prezzoCouponLbl;
+	IBOutlet UILabel *_scontoLbl;
+	IBOutlet UILabel *_risparmioLbl;
+    IBOutlet UILabel *_prezzoOrigLbl;
+    IBOutlet UIActivityIndicatorView *_caricamentoImmagineSpinner;
+    //
+    IBOutlet UILabel *_titoloOffertaLbl; // è il testo a sx del tasto compra
+    IBOutlet UIButton *_compraBtn;
+    IBOutlet UIButton *_reloadBtn;
+    IBOutlet UIActivityIndicatorView *_caricamentoSpinner;
+    IBOutlet UILabel *_tempoLbl;    
+    IBOutlet UITableView *_tableview;
+    IBOutlet UIViewController *_FotoIngranditaViewController;
+	IBOutlet UIImageView *_FotoIngranditaImageView;
+    IBOutlet UIViewController *_dettagliOffertaViewContr;
+	IBOutlet UIViewController *_terminiViewContr;
+	IBOutlet UIViewController *_diPiuViewContr;
+	IBOutlet UIViewController *_contattiViewContr;
+    IBOutlet UIViewController *_faqViewController;
+    IBOutlet UIWebView *_dettagliOffertaWebView;
+	IBOutlet UIWebView *_condizioniWebView;
+	IBOutlet UIWebView *_diPiuWebView;
+    IBOutlet UIWebView *_faqWebView;
 
-	IBOutlet UIButton *compra;
-	IBOutlet UIButton *compratermini;
-	IBOutlet UIButton *comprasintesi;
-	IBOutlet UIButton *compradipiu;
-
-	IBOutlet UIActivityIndicatorView *CellSpinner;
-    IBOutlet UIActivityIndicatorView *caricamentoSpinner;
-	
-	UITableView *tableview;
-	IBOutlet UITableViewCell *cellacoupon;
-	IBOutlet UITableViewCell *cellainfocoupon;
-	IBOutlet UITableViewCell *cellanomesercente;
-    IBOutlet UITableViewCell *cellaDescrizioneOfferta;
-
-	NSString *sintesitxt;
-	IBOutlet UIWebView *insintesitext;
-	
-
-	
-	NSString *condizionitext;
-	IBOutlet UIWebView *condizionitxt;
-	
-	NSString *dipiutxt;
-	IBOutlet UIWebView *dipiutext;
-	NSInteger identificativo;
-	int tipodettaglio;
-	
-	IBOutlet UILabel *tempo;
-	NSTimer *timer;
-	int secondsLeft;
-	
-	/*facebook*/
-    NSArray *permissions;    
-	UIAlertView *facebookAlert;
-	NSString *username;
-	BOOL post;
-    PerDueCItyCardAppDelegate *appDelegate;	
-//	Reachability* internetReach;
-//	Reachability* wifiReach;
-	UIActionSheet *aSheet;
-	UIActionSheet *aSheet2;
-	IBOutlet UIViewController *fotoingrandita;
-	IBOutlet UIImageView *photobig;
-	IBOutlet UIViewController *faq;
-	IBOutlet UIWebView *faqwebview;
-	IBOutlet UILabel *titololabel; //nella view "In sintesi"
-    BOOL waitingForFacebook;
-    
-    float altezzaCella;
-    
-    DatabaseAccess *dbAccess;
-    
-    IBOutlet UIButton *reloadBtn;
+	IBOutlet UITableViewCell *_cellacoupon;
+	IBOutlet UITableViewCell *_cellainfocoupon; //D
+	IBOutlet UITableViewCell *_cellanomesercente; //D -> è identica a un'altra! O_O
+    IBOutlet UITableViewCell *_cellaDescrizioneOfferta; //D
+    IBOutlet UILabel *_cellaDescrizioneOffertaLbl;
 }
 
-@property (nonatomic, readwrite) NSInteger identificativo; 
-@property (nonatomic,retain) IBOutlet UILabel *titolo;
-@property (nonatomic,retain) IBOutlet UILabel *titololabel;
 
-@property(nonatomic,retain) IBOutlet UILabel *prezzoCoupon;
-@property(nonatomic,retain) IBOutlet UILabel *prezzoOrig;
-//@property (nonatomic,retain) IBOutlet UILabel *riepilogo;
-@property (nonatomic,retain) IBOutlet UILabel *tempo;
+@property (nonatomic, retain) NSDictionary *dataModel;
+@property (nonatomic, assign) NSInteger idCoupon;
 
-@property(nonatomic, retain) IBOutlet UILabel *offerta;
-@property (nonatomic,retain) IBOutlet UILabel *sconto;
-@property (nonatomic,retain) IBOutlet UILabel *risparmio;
-@property (nonatomic, retain) IBOutlet UIButton *compra;
-@property (nonatomic, retain) IBOutlet UIButton *compratermini;
-@property (nonatomic, retain) IBOutlet UIButton *comprasintesi;
-@property (nonatomic, retain) IBOutlet UIButton *compradipiu;
+// InfoCoupon.xib
+@property (nonatomic, retain) IBOutlet UILabel *prezzoCouponLbl;
+@property (nonatomic, retain) IBOutlet UILabel *scontoLbl;
+@property (nonatomic, retain) IBOutlet UILabel *risparmioLbl;
+@property (nonatomic, retain) IBOutlet UILabel *prezzoOrigLbl;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *caricamentoImmagineSpinner;
+//
+@property (nonatomic, retain) IBOutlet UILabel *titoloOffertaLbl; // è il testo a sx del tasto compra
+@property (nonatomic, retain) IBOutlet UIButton *compraBtn;
+@property (nonatomic, retain) IBOutlet UIButton *reloadBtn;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *caricamentoSpinner;
+@property (nonatomic, retain) IBOutlet UILabel *tempoLbl;    
+@property (nonatomic, retain) IBOutlet UITableView *tableview;
+@property (nonatomic, retain) IBOutlet UIViewController *FotoIngranditaViewController;
+@property (nonatomic, retain) IBOutlet UIImageView *FotoIngranditaImageView;
+@property (nonatomic, retain) IBOutlet UIViewController *dettagliOffertaViewContr;
+@property (nonatomic, retain) IBOutlet UIViewController *terminiViewContr;
+@property (nonatomic, retain) IBOutlet UIViewController *diPiuViewContr;
+@property (nonatomic, retain) IBOutlet UIViewController *contattiViewContr;
+@property (nonatomic, retain) IBOutlet UIViewController *faqViewController;
+@property (nonatomic, retain) IBOutlet UIWebView *dettagliOffertaWebView;
+@property (nonatomic, retain) IBOutlet UIWebView *condizioniWebView;
+@property (nonatomic, retain) IBOutlet UIWebView *diPiuWebView;
+@property (nonatomic, retain) IBOutlet UIWebView *faqWebView;
 
-@property (nonatomic,retain) IBOutlet UIActivityIndicatorView *CellSpinner;
-@property (nonatomic,retain) UIViewController *fotoingrandita;
-@property (nonatomic,retain) UIViewController *faq;
-
-@property (nonatomic,retain) IBOutlet UIImageView *photobig;
-
-@property(nonatomic,retain) NSTimer *timer;
-@property (nonatomic,retain) IBOutlet UITableView *tableview;
-@property (nonatomic, retain) UIWebView *faqwebview;
+@property (nonatomic, retain) IBOutlet UITableViewCell *cellacoupon;
+@property (nonatomic, retain) IBOutlet UITableViewCell *cellainfocoupon; //D
+@property (nonatomic, retain) IBOutlet UITableViewCell *cellanomesercente; //D -> è identica a un'altra! O_O
+@property (nonatomic, retain) IBOutlet UITableViewCell *cellaDescrizioneOfferta; //D
+@property (nonatomic, retain) IBOutlet UILabel *cellaDescrizioneOffertaLbl; //D
 
 
-/*facebook*/
-@property(nonatomic,retain) UIAlertView *facebookAlert;
-@property(nonatomic,retain) NSString *username;
-@property(nonatomic,assign) BOOL post;
+
+
+
 
 /*facebook*/
 -(void)getFacebookName;
@@ -146,7 +112,7 @@
 //- (IBAction)Opzioni:(id)sender;
 - (void)countDown;
 -(void)Paga:(id)sender;
--(int)check:(Reachability*) curReach;
+
 - (void) spinTheSpinner;
 - (void) doneSpinning;
 - (IBAction)chiudi:(id)sender;
