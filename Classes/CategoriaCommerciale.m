@@ -114,7 +114,11 @@
         [alert show];
         [alert release];
 	} else {
-        [self fetchRows];
+        // Quando sto per visualizzare la view eseguo il fetch delle righe,
+        // ma solo se non è stato già fatto. Es: apro la view -> torno alla
+        // springboard -> torno all'app PerDue senza riscaricare i dati.
+        if (!self.rows.count) [self fetchRows];
+        // TODO: se già li ho scaricati non dovrei riscaricarli.
         if(! [[UserDefaults city] isEqualToString:@"Qui"]) {
             [self.geoDec searchCoordinatesForAddress:[UserDefaults city]];
         }

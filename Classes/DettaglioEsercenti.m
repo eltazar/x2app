@@ -57,6 +57,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    self.dataModel = nil;
     self.dbAccess = [[DatabaseAccess alloc] init];
     self.dbAccess.delegate = self;
     isDataReady = NO;
@@ -73,9 +74,14 @@
 		[alert show];
         [alert release];
 	} else {
-        [self.activityIndicator startAnimating];
-        NSString *detailUrlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo];
-        [self.dbAccess getConnectionToURL:detailUrlString];
+        if (!isDataReady) {
+            // Quando sto per visualizzare la view eseguo il fetch dei dettagli,
+            // ma solo se non è stato già fatto. Es: apro la view -> torno alla
+            // springboard -> torno all'app PerDue senza riscaricare i dati.
+            [self.activityIndicator startAnimating];
+            NSString *detailUrlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo];
+            [self.dbAccess getConnectionToURL:detailUrlString];
+        }
     }
 }
 
