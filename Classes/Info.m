@@ -175,7 +175,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"cellacredits" owner:self options:NULL];
+		[[NSBundle mainBundle] loadNibNamed:@"CellaCredits" owner:self options:NULL];
 		cell= cellacredits ;
 	}
 		
