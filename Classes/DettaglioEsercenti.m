@@ -11,6 +11,17 @@
 #import "CJSONDeserializer.h"
 #import "GoogleHQAnnotation.h"
 #import "Utilita.h"
+#import "DatabaseAccess.h"
+
+
+@interface DettaglioEsercenti () {
+@private
+    DatabaseAccess *_dbAccess;
+    BOOL isDataReady;
+    BOOL isValiditaReady;
+}
+@property (nonatomic, retain) DatabaseAccess *dbAccess;
+@end
 
 
 @implementation DettaglioEsercenti
@@ -19,7 +30,10 @@
 @synthesize identificativo = _identificativo, dataModel = _dataModel, webView = _webView;
 
 // IBOutlets
-@synthesize tableView = _tableView, mappa = _mappa, condizioni = _condizioni, cond = _cond, tipoMappa = _tipoMappa, map = _map, cellavalidita = _cellavalidita, sito = _sito;
+@synthesize tableView = _tableView, mappa = _mappa, condizioni = _condizioni, cond = _cond, tipoMappa = _tipoMappa, map = _map, cellavalidita = _cellavalidita, sito = _sito, activityIndicator = _activityIndicator;
+
+// Properties private:
+@synthesize dbAccess = _dbAccess;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -43,23 +57,11 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo]];
-	NSLog(@"Url: %@", url);
-	
-	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-	
-	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-	NSError *error = nil;
-	
-    //In "real" code you should surround this with try and catch
-	NSArray *rows = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] objectForKey:@"Esercente"];
-	
-	NSLog(@"Array: %@", rows);
-	[jsonreturn release];
-	jsonreturn=nil;
-	self.dataModel = [rows objectAtIndex: 0];		
+    self.dbAccess = [[DatabaseAccess alloc] init];
+    self.dbAccess.delegate = self;
+    isDataReady = NO;
+    isValiditaReady = NO;
+   
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -70,7 +72,11 @@
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
-	}
+	} else {
+        [self.activityIndicator startAnimating];
+        NSString *detailUrlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo];
+        [self.dbAccess getConnectionToURL:detailUrlString];
+    }
 }
 
 
@@ -113,7 +119,10 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    if (isDataReady)
+        return 2;
+    else
+        return 0;
 }
 
 
@@ -212,22 +221,16 @@
 			
 			NSArray *righe = nil;
 			NSDictionary *diz;
-			int idcontr=[[self.dataModel objectForKey:@"IDcontratto_Contresercente"]intValue];
-			NSURL *link = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d",idcontr]];
-			NSLog(@"Url: %@", link);
 			
-			NSString *jsonret = [[[NSString alloc] initWithContentsOfURL:link] autorelease];
-            NSLog(@"%@",jsonret); // Look at the console and you can see what the restults are
-			
-			NSData *jsonRet = [jsonret dataUsingEncoding:NSUTF8StringEncoding];
-			NSError *error = nil;
-			
-			diz = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonRet error:&error];
-			
-			if (diz) {
-				righe = [diz objectForKey:@"Giorni"];
-			}
-
+			if (isValiditaReady) {
+                righe = [self.dataModel objectForKey:@"GiorniValidita"];
+            } else {
+                righe = [[[NSArray alloc] initWithObjects:
+                          [[NSDictionary alloc] initWithObjectsAndKeys:@"Caricamento in corso...", @"giorno_della_settimana", nil], nil
+                          ] autorelease];
+            }
+            
+            
 			if ([righe count]==0){ //condizioni assenti
 				validita.text=@"Non disponibile";
 
@@ -269,22 +272,16 @@
 		
 		NSArray *righe = nil;
 		NSDictionary *diz;
-		int idcontr=[[self.dataModel objectForKey:@"IDcontratto_Contresercente"]intValue];
-		NSURL *link = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d",idcontr]];
-		NSLog(@"Url: %@", link);
 		
-		NSString *jsonret = [[[NSString alloc] initWithContentsOfURL:link] autorelease];
-        NSLog(@"%@",jsonret); // Look at the console and you can see what the restults are
-		
-		NSData *jsonRet = [jsonret dataUsingEncoding:NSUTF8StringEncoding];
-		NSError *error = nil;
-		
-		diz = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonRet error:&error];
-		
-		if (diz) {
-			righe = [diz objectForKey:@"Giorni"];
-			}
-		
+		if (isValiditaReady) {
+            righe = [self.dataModel objectForKey:@"GiorniValidita"];
+        } else {
+            righe = [[[NSArray alloc] initWithObjects:
+                      [[NSDictionary alloc] initWithObjectsAndKeys:@"Caricamento in corso...", @"giorno_della_settimana", nil], nil
+                      ] autorelease];
+        }
+
+                
 		if ([righe count]==0){ //condizioni non disponibili
 			validita.text=[NSString stringWithFormat:@"Non disponibile"];
 		}
@@ -585,6 +582,35 @@
 	}
 }
 
+
+#pragma mark - DatabaseAccessDelegate
+
+
+- (void) didReceiveCoupon:(NSDictionary *)data {
+    if (![data isKindOfClass:[NSDictionary class]])
+        return;
+    // Il pacchetto json relativo all'esercente ha formato:
+    // {Esercente=({....});}
+    NSObject *temp = [data objectForKey:@"Esercente"];
+    if (temp) {
+        self.dataModel = [((NSArray *)temp) objectAtIndex:0];
+        isDataReady = YES;
+        // lancio query per la validità:
+        NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d", [[self.dataModel objectForKey:@"IDcontratto_Contresercente"]intValue]];
+        [self.dbAccess getConnectionToURL:urlString];
+        [self.activityIndicator stopAnimating];
+        self.activityIndicator.hidden = YES;
+        [self.tableView reloadData];
+    }
+    
+    temp = [data objectForKey:@"Giorni"];
+    if (temp) {
+        self.dataModel = [[NSMutableDictionary alloc] initWithDictionary:self.dataModel];
+        [((NSMutableDictionary *)self.dataModel) setObject:temp forKey:@"GiorniValidita"];
+        isValiditaReady = YES;
+        [self.tableView reloadData];
+    }
+}
 
 #pragma mark - DettaglioEsercenti (IBActions)
 

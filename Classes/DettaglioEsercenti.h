@@ -10,8 +10,10 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
+#import "DatabaseAccess.h"
 
-@interface DettaglioEsercenti : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
+
+@interface DettaglioEsercenti : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatabaseAccessDelegate> {
     NSInteger _identificativo;
     NSDictionary *_dataModel;
     UIWebView *_webView;
@@ -24,10 +26,11 @@
     MKMapView *_map;
     UITableViewCell *_cellavalidita;
     UIViewController *_sito;
+    UIActivityIndicatorView *_activityIndicator;
 
-	//IBOutlet UITableViewCell *provacella;
-	//IBOutlet UITableViewCell *cellaindirizzo;
-	//IBOutlet UITableViewCell *CellaDettaglio1;
+	IBOutlet UITableViewCell *provacella;
+	IBOutlet UITableViewCell *cellaindirizzo;
+	IBOutlet UITableViewCell *CellaDettaglio1;
 }
 
 
@@ -43,6 +46,7 @@
 @property (nonatomic, retain) IBOutlet MKMapView *map;
 @property (nonatomic, retain) IBOutlet UITableViewCell *cellavalidita;
 @property (nonatomic, retain) IBOutlet UIViewController *sito;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 
 
