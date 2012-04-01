@@ -96,8 +96,6 @@
 		19D4CAF313ED5145001C7763 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA913ED5144001C7763 /* Info.m */; };
 		19D4CAF913ED5145001C7763 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB213ED5144001C7763 /* News.m */; };
 		19D4CAFB13ED5145001C7763 /* Notizia.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB513ED5144001C7763 /* Notizia.m */; };
-		19D4CAFD13ED5145001C7763 /* Offerta.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB813ED5144001C7763 /* Offerta.m */; };
-		19D4CAFE13ED5145001C7763 /* Offerta.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAB913ED5144001C7763 /* Offerta.xib */; };
 		19D4CAFF13ED5145001C7763 /* Opzioni.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CABB13ED5144001C7763 /* Opzioni.m */; };
 		19D4CB0013ED5145001C7763 /* Opzioni.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CABC13ED5144001C7763 /* Opzioni.xib */; };
 		19D4CB0113ED5145001C7763 /* Pagamento2.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CABE13ED5144001C7763 /* Pagamento2.m */; };
@@ -323,9 +321,6 @@
 		19D4CAB413ED5144001C7763 /* Notizia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notizia.h; sourceTree = "<group>"; };
 		19D4CAB513ED5144001C7763 /* Notizia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notizia.m; sourceTree = "<group>"; };
 		19D4CAB613ED5144001C7763 /* Notizia.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Notizia.xib; sourceTree = "<group>"; };
-		19D4CAB713ED5144001C7763 /* Offerta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Offerta.h; sourceTree = "<group>"; };
-		19D4CAB813ED5144001C7763 /* Offerta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Offerta.m; sourceTree = "<group>"; };
-		19D4CAB913ED5144001C7763 /* Offerta.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Offerta.xib; sourceTree = "<group>"; };
 		19D4CABA13ED5144001C7763 /* Opzioni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Opzioni.h; sourceTree = "<group>"; };
 		19D4CABB13ED5144001C7763 /* Opzioni.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Opzioni.m; sourceTree = "<group>"; };
 		19D4CABC13ED5144001C7763 /* Opzioni.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Opzioni.xib; sourceTree = "<group>"; };
@@ -651,9 +646,6 @@
 				19D4CAB413ED5144001C7763 /* Notizia.h */,
 				19D4CAB513ED5144001C7763 /* Notizia.m */,
 				19D4CAB613ED5144001C7763 /* Notizia.xib */,
-				19D4CAB713ED5144001C7763 /* Offerta.h */,
-				19D4CAB813ED5144001C7763 /* Offerta.m */,
-				19D4CAB913ED5144001C7763 /* Offerta.xib */,
 				1923D88913F81648005A9815 /* OpzioniCoupon.h */,
 				1923D88A13F81648005A9815 /* OpzioniCoupon.m */,
 				1923D88B13F81648005A9815 /* OpzioniCoupon.xib */,
@@ -1080,7 +1072,6 @@
 				19D4CAE613ED5145001C7763 /* DettaglioEsercenteCoupon.xib in Resources */,
 				19D4CAE813ED5145001C7763 /* DettaglioEsercenteGenerico.xib in Resources */,
 				19D4CAEC13ED5145001C7763 /* DettaglioRistoCoupon.xib in Resources */,
-				19D4CAFE13ED5145001C7763 /* Offerta.xib in Resources */,
 				19D4CB0013ED5145001C7763 /* Opzioni.xib in Resources */,
 				19D4CB0213ED5145001C7763 /* Pagamento2.xib in Resources */,
 				1923D88D13F81648005A9815 /* OpzioniCoupon.xib in Resources */,
@@ -1160,7 +1151,6 @@
 				19D4CAF313ED5145001C7763 /* Info.m in Sources */,
 				19D4CAF913ED5145001C7763 /* News.m in Sources */,
 				19D4CAFB13ED5145001C7763 /* Notizia.m in Sources */,
-				19D4CAFD13ED5145001C7763 /* Offerta.m in Sources */,
 				19D4CAFF13ED5145001C7763 /* Opzioni.m in Sources */,
 				19D4CB0113ED5145001C7763 /* Pagamento2.m in Sources */,
 				19D4CB0513ED5145001C7763 /* PerDueCItyCardAppDelegate.m in Sources */,

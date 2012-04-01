@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "CJSONDeserializer.h"
-#import "Offerta.h"
+//#import "Offerta.h"
 #import "AsyncImageView.h"
 #import "DatabaseAccess.h"
+#import "Reachability.h"
 
 @interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,DatabaseAccessDelegate> {
 	
@@ -35,7 +36,7 @@
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *CellSpinner;
 
 - (IBAction)Opzioni:(id)sender;
--(int)check:(Reachability*) curReach;
+- (int)check:(Reachability*)curReach;
 - (void) spinTheSpinner;
 - (void) doneSpinning;
 @end

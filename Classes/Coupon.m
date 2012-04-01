@@ -16,6 +16,12 @@
 #import "Utilita.h"
 #import "LoginControllerBis.h"
 
+
+@interface Coupon () {
+    BOOL isOffertaDelGiorno;
+}
+@end
+
 @implementation Coupon
 @synthesize titolo,tempo,prezzoCoupon,prezzoOrig,sconto,risparmio,compra,tableview,timer,compratermini,comprasintesi,compradipiu,CellSpinner,fotoingrandita,photobig,faq,faqwebview,titololabel, offerta,identificativo;
 /*facebook*/
@@ -25,8 +31,42 @@
 #define _APP_KEY @"223476134356120"
 #define _SECRET_KEY @"6d2eaf75967fc247ac45aac716a4dd64"
 
+- (id)init {
+    self = [super init];
+    NSLog(@"Coupon::init");
+    if (self) {
+        isOffertaDelGiorno = TRUE;
+    }
+    return self;
+}
 
 
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        isOffertaDelGiorno = TRUE;
+    }
+    return self;
+}
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    NSLog(@"Coupon::initWithNibName:bundle");
+    if (self) {
+        isOffertaDelGiorno = TRUE;
+    }
+    return self;
+}
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil isOffertaDelGiorno:(BOOL)isODG {
+    self = [self initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        isOffertaDelGiorno = isODG;
+    }
+    return self;
+}
 
 //-(int)check:(Reachability*) curReach{
 //	NetworkStatus netStatus = [curReach currentReachabilityStatus];
@@ -729,41 +769,48 @@ if ([rows count]>0) {//coupon disponibile
         
         
         titolo.text = @" Caricamento...";
-        NSString *citycoupon;	
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        defaults = [NSUserDefaults standardUserDefaults];
-        citycoupon=[defaults objectForKey:@"cittacoupon"];
-        if ( (citycoupon ==nil) || ([citycoupon length]==0)){
-            citycoupon=@"Roma";
-            [defaults setObject:citycoupon forKey:@"cittacoupon"];
-            [defaults setObject:[NSNumber numberWithInt:85] forKey:@"idcitycoupon"];	
-            [defaults synchronize];
-        }
-        
-        NSLog(@"Ho salvato il valore: %d",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
-        //self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
-        
-        
-        
-        NSString *prov= [citycoupon stringByReplacingOccurrencesOfString:@" " withString:@"!"]; //inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
-        
-        //[dbAccess getCouponFromServer:prov];
-        
-        //url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];
-        
-        //NSLog(@"Url: %@", url);
-        
-        //NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-        //NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-        
-        //NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-        //NSError *error = nil;	
-        
-        //dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
-        
-        if(self.view.window){
-            [caricamentoSpinner startAnimating];
-            [dbAccess getCouponFromServer:prov];            
+        if (isOffertaDelGiorno) {
+            NSString *citycoupon;	
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            defaults = [NSUserDefaults standardUserDefaults];
+            citycoupon=[defaults objectForKey:@"cittacoupon"];
+            if ( (citycoupon ==nil) || ([citycoupon length]==0)){
+                citycoupon=@"Roma";
+                [defaults setObject:citycoupon forKey:@"cittacoupon"];
+                [defaults setObject:[NSNumber numberWithInt:85] forKey:@"idcitycoupon"];	
+                [defaults synchronize];
+            }
+            
+            NSLog(@"Ho salvato il valore: %d",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
+            //self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
+            
+            
+            
+            NSString *prov= [citycoupon stringByReplacingOccurrencesOfString:@" " withString:@"!"]; //inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
+            
+            //[dbAccess getCouponFromServer:prov];
+            
+            //url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/coupon.php?prov=%@",prov]];
+            
+            //NSLog(@"Url: %@", url);
+            
+            //NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
+            //NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+            
+            //NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
+            //NSError *error = nil;	
+            
+            //dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
+            
+            if(self.view.window){
+                [caricamentoSpinner startAnimating];
+                [dbAccess getCouponFromServer:prov];
+            }
+        } else { // !isOffertaDelGiorno
+            if(self.view.window){
+                [caricamentoSpinner startAnimating];
+                [dbAccess getCouponFromServerWithId:identificativo];
+            }
         }
     }
 
@@ -774,6 +821,11 @@ if ([rows count]>0) {//coupon disponibile
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (isOffertaDelGiorno)
+        NSLog(@"Coupon::viewWillLoad: questa istanza rappresenta l'offerta del giorno.");
+    else
+        NSLog(@"Coupon::viewWillLoad: questa istanza rappresenta un coupon generico.");
+    
     altezzaCella = 44.0;
     
     self.prezzoCoupon.layer.cornerRadius = 6;
@@ -783,7 +835,11 @@ if ([rows count]>0) {//coupon disponibile
     
     NSLog(@"CLASSE COUPON DID LOAD");
     
-    self.navigationItem.title = @"Coupon del giorno";
+    if (isOffertaDelGiorno) {
+        self.navigationItem.title = @"Coupon del giorno";
+    } else {
+        self.navigationItem.title = @"Coupon";
+    }
     
     //[compra setHidden:YES];
     [compra setEnabled:NO];
@@ -799,9 +855,13 @@ if ([rows count]>0) {//coupon disponibile
 	[[compra layer] setMasksToBounds:YES];
 	[compra setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
     
-    UIBarButtonItem *altreOfferteBtn = [[UIBarButtonItem alloc] initWithTitle:@"Altre offerte" style:UIBarButtonItemStyleBordered target:self action:@selector(AltreOfferte:)];
-    self.navigationItem.leftBarButtonItem = altreOfferteBtn;
-    [altreOfferteBtn release];
+    if (isOffertaDelGiorno) {
+        // Questo fa si che il button sinistro della navigation bar sia quadrato invece
+        // che a freccia verso sx, e che apra la schermata Altre Offerte
+        UIBarButtonItem *altreOfferteBtn = [[UIBarButtonItem alloc] initWithTitle:@"Altre offerte" style:UIBarButtonItemStyleBordered target:self action:@selector(AltreOfferte:)];
+        self.navigationItem.leftBarButtonItem = altreOfferteBtn;
+        [altreOfferteBtn release];
+    }
     
 //    UIBarButtonItem *cittaBtn = [[UIBarButtonItem alloc] initWithTitle:@"Città" style:UIBarButtonItemStyleBordered target:self action:@selector(Opzioni:)];
 //    self.navigationItem.leftBarButtonItem = cittaBtn;
@@ -1106,8 +1166,8 @@ if ([rows count]>0) {//coupon disponibile
         //MARIO: fa richiesta bloccante, quindi renderla asincrona  e soprattutto farla DOPO che si apre la pagina relativa all'esercente
         
         NSLog(@"L'id del ristorante da visualizzare è %d",identificativoesercente);
-		url2 = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/tipoesercente.php?id=%d",identificativoesercente]];
-		NSLog(@"Url2: %@", url2);
+        url2 = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/tipoesercente.php?id=%d",identificativoesercente]];
+        NSLog(@"Url2: %@", url2);
 		
 		NSString *jsonreturn2 = [[NSString alloc] initWithContentsOfURL:url2];
 		//NSLog(@"%@",jsonreturn2); // Look at the console and you can see what the restults are

@@ -11,6 +11,7 @@
 #import "OpzioniCoupon.h"
 #import "DatabaseAccess.h"
 #import "Reachability.h"
+#import "Coupon.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation AltreOfferte
@@ -156,7 +157,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //	[self.navigationController pushViewController:detail animated:YES];
 	
     
-    Offerta *couponSelezionatoController = [[Offerta alloc] initWithNibName:@"Offerta" bundle:[NSBundle mainBundle]];
+    //Offerta *couponSelezionatoController = [[Offerta alloc] initWithNibName:@"Offerta" bundle:[NSBundle mainBundle]];
+    Coupon *couponSelezionatoController = [[Coupon alloc] initWithNibName:nil bundle:nil isOffertaDelGiorno:NO];
     NSInteger identificativoOfferta=[[dict objectForKey:@"idofferta"]integerValue];
     [couponSelezionatoController setIdentificativo:identificativoOfferta];
     [self.navigationController pushViewController:couponSelezionatoController animated:YES];

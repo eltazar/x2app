@@ -139,7 +139,7 @@
 -(void)getFacebookName;
 -(void)postToWall;
 
-
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil isOffertaDelGiorno:(BOOL)isODG;
 
 -(IBAction)refreshView:(id)sender;
 - (IBAction)AltreOfferte:(id)sender;
