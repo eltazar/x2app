@@ -62,8 +62,6 @@
     self.dbAccess.delegate = self;
     isDataReady = NO;
     isValiditaReady = NO;
-   
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 
@@ -83,6 +81,11 @@
             [self.dbAccess getConnectionToURL:detailUrlString];
         }
     }
+    
+    // Forzo la visualizzazione del Navigation Controller perché
+    // nel caso in cui carico questa view dalla schermata di ricerca di 
+    // DettaglioEsercenti esso è nascosto.
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 
