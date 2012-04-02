@@ -30,18 +30,21 @@
     NSDate *now = [NSDate date];
     NSInteger currentMonth;
     NSInteger currentYear;
+    NSInteger currentDay;
     
     NSDateComponents *dateComp = [[NSCalendar currentCalendar]components:(NSYearCalendarUnit | NSMonthCalendarUnit)  fromDate:now];
     currentYear = [dateComp year];
     currentMonth = [dateComp month];
+    currentDay = [dateComp day];
     
     if (self.expiryYear > currentYear)
         return NO;
     else if (self.expiryYear == currentYear)
         if (self.expiryMonth > currentMonth)
             return NO;
-        else
-            return YES;
+        else if (self.expiryMonth == currentMonth)
+            if (self.expiryDay > currentDay)
+                return NO;
     else 
         return YES;
 }
