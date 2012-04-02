@@ -853,6 +853,9 @@ if ([rows count]>0) {//coupon disponibile
 
 - (void)dealloc {
     
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
+    
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.reloadBtn release];
     [self.caricamentoSpinner release];
