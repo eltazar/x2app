@@ -32,7 +32,7 @@
     NSInteger currentYear;
     NSInteger currentDay;
     
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar]components:(NSYearCalendarUnit | NSMonthCalendarUnit)  fromDate:now];
+    NSDateComponents *dateComp = [[NSCalendar currentCalendar]components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit)  fromDate:now];
     currentYear = [dateComp year];
     currentMonth = [dateComp month];
     currentDay = [dateComp day];
