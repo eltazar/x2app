@@ -987,16 +987,7 @@ NSString* key(NSURLConnection* con)
         [readConnections removeObject:connection];
        
     }else{ 
-#warning crash qui sotto
-        /*
-         -04-02 19:31:52.125 PerDue[1424:15b03] QUERY PER COUPON CON ID
-         2012-04-02 19:31:55.015 PerDue[1424:15b03] ALTRE OFFERTE VIEW WILL APPEAR
-         2012-04-02 19:31:55.016 PerDue[1424:15b03] QUERY: altre offerte
-         2012-04-02 19:31:55.371 PerDue[1424:15b03] WIEW WILL DISAPPEAR TIMER prima di invalidazione = (null)
-         2012-04-02 19:31:55.372 PerDue[1424:15b03] WIEW WILL DISAPPEAR TIMER dopo di invalidazione = (null)
-         2012-04-02 19:32:02.076 PerDue[1424:15b03] *** -[Coupon respondsToSelector:]: message sent to deallocated instance 0x1151e960
-         */
-         if(delegate && [delegate respondsToSelector:@selector(didReceiveResponsFromServer:)])
+        if(delegate && [delegate respondsToSelector:@selector(didReceiveResponsFromServer:)])
              [delegate didReceiveResponsFromServer:json];
         [writeConnections removeObject:connection];
     }
