@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "StoreKit/StoreKit.h"
+#import "DatabaseAccess.h"
 
 //notifica per caricamento listino
 #define kProductsLoadedNotification         @"ProductsLoaded"
@@ -15,11 +16,15 @@
 #define kProductPurchasedNotification       @"ProductPurchased"
 #define kProductPurchaseFailedNotification  @"ProductPurchaseFailed"
 
-@interface IAPHelper : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver> {
+@interface IAPHelper : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver, DatabaseAccessDelegate> {
     NSSet * _productIdentifiers;    
     NSArray * _products;
 //    NSMutableSet * _purchasedProducts;
     SKProductsRequest * _request;
+    DatabaseAccess *dbAccess;
+    
+    NSMutableArray *transactions;
+    
 }
 
 @property (retain) NSSet *productIdentifiers;
@@ -31,6 +36,6 @@
 - (id)initWithProductIdentifiers:(NSSet *)productIdentifiers;
 + (IAPHelper *) sharedHelper;
 //metodo per far partire l'acquisto
-- (void)buyProductIdentifier:(NSString *)productIdentifier;
+- (void)buyProductIdentifier:(SKProduct *)product;
 
 @end

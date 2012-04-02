@@ -27,18 +27,32 @@ static IAPHelper * _sharedHelper;
     
 }
 
-- (id)initWithProductIdentifiers:(NSSet *)productIdentifiers {
-    if ((self = [super init])) {
-        
-        // Store product identifiers
-        _productIdentifiers = [productIdentifiers retain];
-        
+- (id)init {
+    
+    
+    self = [super init];
+    if(self){
+        dbAccess = [[DatabaseAccess alloc] init];
+        dbAccess.delegate = self;
+        transactions = [NSMutableArray alloc] init];
     }
     return self;
+    
 }
+
+//- (id)initWithProductIdentifiers:(NSSet *)productIdentifiers {
+//    if ((self = [super init])) {
+//        
+//        // Store product identifiers
+//        _productIdentifiers = [productIdentifiers retain];
+//        
+//    }
+//    return self;
+//}
 
 - (void)requestProducts {
     
+    NSLog(@"_product = %@", _productIdentifiers);
     self.request = [[[SKProductsRequest alloc] initWithProductIdentifiers:_productIdentifiers] autorelease];
     _request.delegate = self;
     [_request start];
@@ -49,16 +63,47 @@ static IAPHelper * _sharedHelper;
     
     NSLog(@"Received products results...");   
     self.products = response.products;
-    //NSLog(@"products = %@",self.products);
+    NSLog(@"products = %@",self.products);
     self.request = nil;    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kProductsLoadedNotification object:_products];    
 }
 
+#pragma mark - DatabaseAccessDelegate
+
+-(void)didReceiveResponsFromServer:(NSString *)receivedData{
+
+    //riceve carta perdue se tutto è stato verificato
+    
+    //recupero e completo la transazione
+    for (SKPaymentTransaction *t in transactions){
+        if (/*transIdRicevuto == t.transactionIdentifier*/ 1==1) {
+            //[[SKPaymentQueue defaultQueue] finishTransaction: t];
+        }
+    }    
+    
+    //aggiungo la carta ricevuta
+    //notifica inviata a cardsViewController -> che aggiorna il model
+}
+
+-(void)didReceiveError:(NSError *)error{
+    
+    //se ricevo errore
+    //mostro pulsante recupera in cardsViewController e blocco lo store
+}
+
+
 #pragma mark - Metodi delegati per l'acquisto
 
 - (void)recordTransaction:(SKPaymentTransaction *)transaction {    
-    // Optional: Record the transaction on the server side...    
+    // Optional: Record the transaction on the server side... 
+    
+    //aggiungo la transaction all'array per poterla recuperare succesivamente
+    [transactions addObject:transaction];
+    
+    //ricevuta da inviare al server
+    //transaction.transactionReceipt.data
+    //[dbAccess sendReceipt:transaction.transactionReceipt.data transactionId:transactionId ];
 }
 
 - (void)provideContent:(NSString *)productIdentifier {
@@ -78,7 +123,7 @@ static IAPHelper * _sharedHelper;
     
     [self recordTransaction: transaction];
     [self provideContent: transaction.payment.productIdentifier];
-    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    //[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
 }
 
@@ -87,8 +132,8 @@ static IAPHelper * _sharedHelper;
     NSLog(@"restoreTransaction...");
     
     [self recordTransaction: transaction];
-    [self provideContent: transaction.originalTransaction.payment.productIdentifier];
-    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    //[self provideContent: transaction.originalTransaction.payment.productIdentifier];
+    //[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
 }
 
@@ -125,17 +170,19 @@ static IAPHelper * _sharedHelper;
     }
 }
 
-- (void)buyProductIdentifier:(NSString *)productIdentifier {
+- (void)buyProductIdentifier:(SKProduct*)product {
     
-    NSLog(@"Buying %@...", productIdentifier);
+    NSLog(@"Buying %@...", product.productIdentifier);
     
-    SKPayment *payment = [SKPayment paymentWithProductIdentifier:productIdentifier];
+    SKPayment *payment = [SKPayment paymentWithProduct:product];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
     
 }
 
 - (void)dealloc
 {
+    dbAccess.delegate = nil;
+    [dbAccess release];
     [_productIdentifiers release];
     _productIdentifiers = nil;
     [_products release];
