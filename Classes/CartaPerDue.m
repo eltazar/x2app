@@ -36,17 +36,19 @@
     currentYear = [dateComp year];
     currentMonth = [dateComp month];
     currentDay = [dateComp day];
-    
+
     if (self.expiryYear > currentYear)
         return NO;
-    else if (self.expiryYear == currentYear)
+    else if (self.expiryYear == currentYear){
         if (self.expiryMonth > currentMonth)
-            return NO;
+            return NO;  
         else if (self.expiryMonth == currentMonth)
             if (self.expiryDay > currentDay)
                 return NO;
-    else 
+    }
+    else {
         return YES;
+    }
 }
 
 
