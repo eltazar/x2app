@@ -1228,12 +1228,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PerDueCItyCard_Prefix.pch;
 				INFOPLIST_FILE = "PerDueCItyCard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = PerDue;
+				PROVISIONING_PROFILE = "A1C84D2E-B3A3-46B5-96E8-B4E6FA927A60";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A1C84D2E-B3A3-46B5-96E8-B4E6FA927A60";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
