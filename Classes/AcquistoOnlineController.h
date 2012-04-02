@@ -16,7 +16,6 @@
     DatabaseAccess *dbAccess;
     NSSet *productsId;
     
-    IAPHelper *iapHelper;
     IBOutlet UITableViewCell *cellProdotto;
 }
 

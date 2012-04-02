@@ -46,7 +46,7 @@
 
 - (void)dismissHUD:(id)arg {
     
-    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.hud = nil;
     
 }
@@ -54,7 +54,7 @@
 - (void)productsLoaded:(NSNotification *)notification {
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.tableView.hidden = FALSE;    
     
     [self.tableView reloadData];
@@ -66,18 +66,17 @@
     
     NSLog(@"bottone premuto numero = %d", ((UIButton*)sender).tag);
     
-   /*
+   
     UIButton *buyButton = (UIButton *)sender;    
-    SKProduct *product = [[InAppRageIAPHelper sharedHelper].products objectAtIndex:buyButton.tag];
+    SKProduct *product = [[IAPHelper sharedHelper].products objectAtIndex:buyButton.tag];
     
     NSLog(@"Buying %@...", product.productIdentifier);
-    [[InAppRageIAPHelper sharedHelper] buyProductIdentifier:product.productIdentifier];
+    [[IAPHelper sharedHelper] buyProductIdentifier:product];
     
     self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    _hud.labelText = @"Buying comic...";
+    _hud.labelText = @"Acquisto carta...";
     [self performSelector:@selector(timeout:) withObject:nil afterDelay:60*5];
-    */
-    
+   
 }
 
 #pragma mark - DatabaseACcessDelegate
@@ -85,7 +84,7 @@
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     
     //NSLog(@"RICEVUTA LISTA ID PRODOUCT = %@, tipo = %@",coupon, [[coupon objectForKey:@"CatalogoIAP"] class]);
     //NSLog(@"oggetto 1 = %@", [[[coupon objectForKey:@"CatalogoIAP"] objectAtIndex:0] class]);
@@ -103,14 +102,18 @@
     
     if([Utilita networkReachable]){
         //recuperati gli id creo istanza del manager in app purchase
-        iapHelper = [[IAPHelper alloc] initWithProductIdentifiers:productsId];
+    
+        NSLog(@"product id = %@", productsId);
+        [IAPHelper sharedHelper].productIdentifiers = productsId;
+        
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        _hud.labelText = @"Caricamento catalogo...";
         
         //lancio richiesta prodotti ai server apple
-        [iapHelper requestProducts];
-        self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        _hud.labelText = @"Caricamento catalogo...";
+        [[IAPHelper sharedHelper] requestProducts];
+
         //dopo 30 secondi di attesa viene lanciato il metodo
-        [self performSelector:@selector(timeout:) withObject:nil afterDelay:30.0];
+        //[self performSelector:@selector(timeout:) withObject:nil afterDelay:30.0];
     }
     else{
         NSLog(@"lancio query prodotti alla apple: internet assente");
@@ -131,6 +134,8 @@
     
     self.title = @"Acquisti";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productsLoaded:) name:kProductsLoadedNotification object:nil];
+    
+    NSLog(@"define = %@",kProductsLoadedNotification);
     
     dbAccess = [[DatabaseAccess alloc] init];
     dbAccess.delegate = self;
@@ -169,10 +174,12 @@
 {
     [super viewWillAppear:animated];
     
+#warning inserire canMakePurchase prima di visualizzare store
+    
     if([Utilita networkReachable]){
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        _hud.labelText = @"Caricamento catalogo...";
         [dbAccess getCatalogIAP];
-        self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        _hud.labelText = @"Caricamento catalogo...";  
     }
     else{
         NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
@@ -266,7 +273,7 @@
     {
         prodotto.text = @"Carta PerDue Semestrale";
         descrizione.text = @"Carta vantaggi valida 6 mesi";
-        prezzo.text = @"prezzo: 19,99€";
+        prezzo.text = @"Prezzo: 19,99€";
         
     }
     
@@ -277,7 +284,7 @@
     buyButton.tag = indexPath.row;
     [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [buyButton setBackgroundImage:[UIImage imageNamed:@"greenButton.png"] forState:UIControlStateNormal];
-    buyButton.layer.cornerRadius = 8.0f;
+    buyButton.layer.cornerRadius = 5.0f;
     buyButton.layer.masksToBounds = YES;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = buyButton;   
