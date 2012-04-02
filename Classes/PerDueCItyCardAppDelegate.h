@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FBConnect.h"
+#import "IAPHelper.h"
 
 @interface PerDueCItyCardAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, FBSessionDelegate> {
     UIWindow *window;
@@ -17,6 +18,8 @@
 
 }
 @property (nonatomic, retain) Facebook *facebook;
+
+@property (nonatomic, retain) IAPHelper *iapHelper;
 
 @property (readonly, retain, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, retain, nonatomic) NSManagedObjectModel *managedObjectModel;

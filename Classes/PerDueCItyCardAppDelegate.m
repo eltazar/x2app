@@ -9,6 +9,7 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import <CoreData/CoreData.h>
 #import "FBConnect.h"
+#import "IAPHelper.h"
 
 @implementation PerDueCItyCardAppDelegate
 
@@ -18,6 +19,7 @@
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize facebook;
+@synthesize iapHelper = _iapHelper;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -29,6 +31,10 @@
     [self.window makeKeyAndVisible];
     
     // Override point for customization after application launch.   
+    
+    self.iapHelper = [IAPHelper sharedHelper];
+    
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self.iapHelper];
     
     facebook = [[Facebook alloc] initWithAppId:@"223476134356120" andDelegate:self];
     
@@ -318,6 +324,9 @@
 
 
 - (void)dealloc {
+    
+    self.iapHelper = nil;
+    
     [tabBarController release];
     [window release];
     
