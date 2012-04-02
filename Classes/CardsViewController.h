@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "AbbinaCartaViewController.h"
-
-@interface CardsViewController : UITableViewController <AbbinaCartaDelegate>
+#import "DatabaseAccess.h"
+@interface CardsViewController : UITableViewController <AbbinaCartaDelegate, DatabaseAccessDelegate>
 { 
 }
 
