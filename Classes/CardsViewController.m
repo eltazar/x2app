@@ -235,6 +235,8 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    [cell setBackgroundColor:[UIColor whiteColor]];
+    
     return cell;
 }
 
