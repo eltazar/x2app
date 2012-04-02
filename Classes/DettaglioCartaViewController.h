@@ -5,29 +5,19 @@
 //  Created by mario greco on 07/03/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
-
+#import <UIKit/UIKit.h>
 #import "CartaPerDue.h"
 
 
-@interface DettaglioCartaViewController : UIViewController {
+@interface DettaglioCartaViewController : UITableViewController {
     CartaPerDue *_card;
     
-    UILabel *_cercaLabel;
-    UIButton *_cercaButton;
-    UILabel *_scadutaLabel;
-    UIButton *_acquistaButton;
-    UIButton *_richiediButton;
+    NSMutableArray *sectionData;
+    NSMutableArray *sectionDescription;
 }
 
-
+@property(nonatomic, retain)IBOutlet UIView *viewForImage;
 @property(nonatomic,retain) CartaPerDue *card;
-
-@property(nonatomic,retain) IBOutlet UILabel *cercaLabel;
-@property(nonatomic,retain) IBOutlet UIButton *cercaButton;
-@property(nonatomic,retain) IBOutlet UILabel *scadutaLabel;
-@property(nonatomic,retain) IBOutlet UIButton *acquistaButton;
-@property(nonatomic,retain) IBOutlet UIButton *richiediButton;
-
 
 - (id)initWithCard:(CartaPerDue *)card;
 
