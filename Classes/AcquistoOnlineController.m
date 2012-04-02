@@ -212,7 +212,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section
 {   
     //return [iapHelper.products count];
-    return 5;
+    return 3;
 }
 
 // Customize the appearance of table view cells.
@@ -250,14 +250,30 @@
     UILabel *descrizione = (UILabel *)[cell viewWithTag:2];
     UILabel *prezzo = (UILabel *)[cell viewWithTag:3];
     
-    prodotto.text = @"prodotto x";
-    descrizione.text = @"12 mesi offerta";
-    prezzo.text = @"prezzo: 12€";
+    if(indexPath.row == 0){
+        prodotto.text = @"Carta PerDue Biennale";
+        descrizione.text = @"Carta vantaggi valida 24 mesi";
+        prezzo.text = @"prezzo: 54,99€";
+    }
+    else if(indexPath.row == 1)
+    {
+        prodotto.text = @"Carta PerDue Annuale";
+        descrizione.text = @"Carta vantaggi valida 12 mesi";
+        prezzo.text = @"prezzo: 35,99€";
+        
+    }
+    else if(indexPath.row == 2)
+    {
+        prodotto.text = @"Carta PerDue Semestrale";
+        descrizione.text = @"Carta vantaggi valida 6 mesi";
+        prezzo.text = @"prezzo: 19,99€";
+        
+    }
     
     UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    buyButton.frame = CGRectMake(0, 0, 79, 38);
+    buyButton.frame = CGRectMake(0, 0, 65, 32);
     [buyButton setTitle:@"Compra" forState:UIControlStateNormal];
-    buyButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0];
+    buyButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
     buyButton.tag = indexPath.row;
     [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [buyButton setBackgroundImage:[UIImage imageNamed:@"greenButton.png"] forState:UIControlStateNormal];
