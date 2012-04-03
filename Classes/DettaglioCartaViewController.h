@@ -10,11 +10,9 @@
 #import "DatabaseAccess.h"
 
 @interface DettaglioCartaViewController : UITableViewController<DatabaseAccessDelegate> {
-    CartaPerDue *_card;
 }
 
 @property (nonatomic, retain) IBOutlet UIView *viewForImage;
-@property (nonatomic, retain) CartaPerDue *card;
 
 - (id)initWithCard:(CartaPerDue *)card;
 

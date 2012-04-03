@@ -15,19 +15,25 @@
 #import "AbbinaCartaViewController.h"
 
 @interface DettaglioCartaViewController(){
-    NSMutableArray *sectionData;
-    NSMutableArray *sectionDescription;
-    DatabaseAccess *dbAccess;
+    CartaPerDue *_card;
+    NSMutableArray *_sectionData;
+    NSMutableArray *_sectionDescription;
+    DatabaseAccess *_dbAccess;
     BOOL isNotBind;
 }
+@property (nonatomic, retain) CartaPerDue *card;
+@property (nonatomic, retain) NSMutableArray *sectionData;
+@property (nonatomic, retain) NSMutableArray *sectionDescription;
+@property (nonatomic, retain) DatabaseAccess *dbAccess;
 - (void)didAssociateCard:(NSString *)response;
 @end
 
 
 @implementation DettaglioCartaViewController
 
-@synthesize card=_card;
-@synthesize viewForImage = _viewForImage;
+
+@synthesize viewForImage=_viewForImage;
+@synthesize card=_card, sectionData=_sectionData, sectionDescription=_sectionDescription, dbAccess=_dbAccess;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -73,7 +79,7 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.labelText = @"Attendere...";
             hud.detailsLabelText = @"Controllo carta in corso...";
-            [dbAccess cardDeviceAssociation:self.card.number request:@"Check"];
+            [self.dbAccess cardDeviceAssociation:self.card.number request:@"Check"];
         }
         else{
             //altrimenti non faccio query sul db  e mostro direttamente i dati
@@ -97,7 +103,7 @@
                                            @"",                      @"img",
                                            [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
                                            nil] autorelease] atIndex: 1];
-                [sectionData insertObject:secExpired atIndex:0];
+                [self.sectionData insertObject:secExpired atIndex:0];
                 [secExpired release];
                 [self.tableView reloadData];
             }
@@ -116,8 +122,8 @@
 
     self.title = @"Carta PerDue";
     
-    dbAccess = [[DatabaseAccess alloc] init];
-    dbAccess.delegate = self;
+    self.dbAccess = [[DatabaseAccess alloc] init];
+    self.dbAccess.delegate = self;
     
     isNotBind = FALSE;
     
@@ -213,14 +219,16 @@
 //    [secExpired release];
 //    [secFind release];
     
-    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"", nil];    
-    sectionData = [[NSMutableArray alloc] init];
+    self.sectionDescription = [[[NSMutableArray alloc] initWithObjects:@"", nil] autorelease];    
+    self.sectionData = [[[NSMutableArray alloc] init] autorelease];
 
 }
 
 
 - (void)viewDidUnload {
     self.viewForImage = nil;
+    self.sectionDescription = nil;
+    self.sectionData = nil;
     [super viewDidUnload];
 }
 
@@ -232,14 +240,13 @@
 
 
 - (void)dealloc {   
-    dbAccess.delegate = nil;
-    [dbAccess release];
-    
-    [_viewForImage release];
-    [sectionDescription release];
-    [sectionData release];
+    self.viewForImage = nil;
     
     self.card = nil;
+    self.sectionData = nil;
+    self.sectionDescription = nil;
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
     
     [super dealloc];
 }
@@ -285,14 +292,14 @@
         //        [sectionDescription removeAllObjects];
         //        [sectionDescription insertObject:@"Carta già abbinata" atIndex:0];
         
-        [sectionData removeAllObjects];
-        [sectionData insertObject:bindSec atIndex:0];
+        [self.sectionData removeAllObjects];
+        [self.sectionData insertObject:bindSec atIndex:0];
         
         [bindSec release];
         
         isNotBind = TRUE;
-    }
-    else{//TODO: considerare altri casi di risposta carta?
+    } else {
+        //TODO: considerare altri casi di risposta carta?
         //altrimenti mostro il tasto "cerca"
         NSLog(@"status della carta = %@",receivedString);
         
@@ -305,7 +312,7 @@
                                 @"",                      @"img",
                                 [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
                                 nil] autorelease] atIndex: 0];
-        [sectionData insertObject:secFind atIndex:0];
+        [self.sectionData insertObject:secFind atIndex:0];
         [secFind release];
     }
     [self.tableView reloadData];
@@ -326,25 +333,25 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return sectionDescription.count;
+    return self.sectionDescription.count;
 }
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {  
-    return [sectionDescription objectAtIndex:section];
+    return [self.sectionDescription objectAtIndex:section];
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{   
-    if(sectionData && sectionData.count >  0){
-        return [[sectionData objectAtIndex: section] count];
+    if(self.sectionData && self.sectionData.count >  0){
+        return [[self.sectionData objectAtIndex: section] count];
     } 
     return 0;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *sec = [sectionData objectAtIndex:indexPath.section];
+    NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
     NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
     NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
     NSString *kind = [rowDesc objectForKey:@"kind"];
@@ -429,7 +436,7 @@
     lbl.lineBreakMode = UILineBreakModeWordWrap;
     lbl.numberOfLines = 0;
     lbl.font = [UIFont boldSystemFontOfSize:20];
-    lbl.text = [sectionDescription objectAtIndex:section];
+    lbl.text = [self.sectionDescription objectAtIndex:section];
 
     
     UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
@@ -446,7 +453,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {    
     // "Navigo" il model fino alla cella selezionata
-    NSArray *sec = [sectionData objectAtIndex:indexPath.section];
+    NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
     NSDictionary *row = [sec objectAtIndex:indexPath.row];
     NSString *dataKey = [row objectForKey:@"DataKey"];
     
@@ -468,7 +475,7 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"Attendere...";
         hud.detailsLabelText = @"Abbinamento in corso...";
-        [dbAccess cardDeviceAssociation:self.card.number request:@"Set"];
+        [self.dbAccess cardDeviceAssociation:self.card.number request:@"Set"];
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
