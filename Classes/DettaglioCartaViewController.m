@@ -20,10 +20,11 @@
     DatabaseAccess *dbAccess;
     BOOL isNotBind;
 }
+- (void)didAssociateCard:(NSString *)response;
 @end
 
-@implementation DettaglioCartaViewController
 
+@implementation DettaglioCartaViewController
 
 @synthesize card=_card;
 @synthesize viewForImage = _viewForImage;
@@ -56,97 +57,9 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark - DettaglioCartaViewController metodi privati
-- (void)didAssociateCard:(NSString *)response {
-    NSLog(@"didAssociateCard");
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    if ([response isEqualToString:@"Success"]) {
-        NSLog(@"CARTA RIABBINATA"); 
-        [self.navigationController popViewControllerAnimated:YES];
-        
-    } else if ([response isEqualToString:@"Fail"]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore di rete" message:@"Riprova più tardi" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
-    }
-}
-
-#pragma mark - DBAccessDelegate
-
--(void)didReceiveCoupon:(NSDictionary *)receivedData{
-
-    NSLog(@"RICEVUTI DATI");
-    
-    NSString *receivedString1 = [receivedData objectForKey:@"CardDeviceAssociation:Set"];
-    if (receivedString1) {
-        [self didAssociateCard:receivedString1];
-        return;
-    }
-    
-    NSString *receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Check"];
-    
-    //se carta è associata ad un altro dispositivo mostro taasti per riabbinamento e cancellazione
-    if (receivedString && [receivedString isEqualToString:@"Associated:Another"]) {
-        NSLog(@"carta associata ad altro dispositivo");
-        
-        NSMutableArray *bindSec = [[NSMutableArray alloc] init];
-        
-        [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                   @"rebind",                @"DataKey",
-                                   @"ActionCell",            @"kind",
-                                   @"Riabbina questa carta",   @"label",
-                                   @"",                      @"detailLabel",
-                                   @"",                      @"img",
-                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                   nil] autorelease] atIndex: 0];
-        [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                   @"remove",                @"DataKey",
-                                   @"ActionCell",            @"kind",
-                                   @"Rimuovi abbinamento",   @"label",
-                                   @"",                      @"detailLabel",
-                                   @"",                      @"img",
-                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                   nil] autorelease] atIndex: 1];
-//        [sectionDescription removeAllObjects];
-//        [sectionDescription insertObject:@"Carta già abbinata" atIndex:0];
-        
-        [sectionData removeAllObjects];
-        [sectionData insertObject:bindSec atIndex:0];
-        
-        [bindSec release];
-        
-        isNotBind = TRUE;
-    }
-    else{//TODO: considerare altri casi di risposta carta?
-        //altrimenti mostro il tasto "cerca"
-        NSLog(@"status della carta = %@",receivedString);
-    
-        NSMutableArray *secFind = [[NSMutableArray alloc] init];
-        [secFind insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                @"find",                @"DataKey",
-                                @"ActionCell",           @"kind",
-                                @"Cerca esercenti vicini",   @"label",
-                                @"",                      @"detailLabel",
-                                @"",                      @"img",
-                                [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                nil] autorelease] atIndex: 0];
-        [sectionData insertObject:secFind atIndex:0];
-        [secFind release];
-    }
-    [self.tableView reloadData];
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-}
-
--(void)didReceiveError:(NSError *)error{
-    
-    NSLog(@"AbbinaCartaViewController received connection error: \n\t%@\n\t%@\n\t%@", 
-          [error localizedDescription], [error localizedFailureReason],
-          [error localizedRecoveryOptions]);
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    
-}
 
 #pragma mark - View lifecycle
+
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -191,6 +104,8 @@
         }
     }
 }
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
    // NSLog(@"self.cercaLabel.shadowColor : %@", self.cercaLabel.shadowColor);
@@ -317,7 +232,6 @@
 
 
 - (void)dealloc {   
-    
     dbAccess.delegate = nil;
     [dbAccess release];
     
@@ -331,27 +245,80 @@
 }
 
 
-#pragma mark - DettaglioCartaViewController
+#pragma mark - DBAccessDelegate
 
 
-- (IBAction)cercaButtonClicked:(id)sender {
-    NSLog(@"pulsante cerca premuto");
-}
-
-
-- (IBAction)acquistaButtonClicked:(id)sender {
-    NSLog(@"pulsante acquista premuto");
-}
-
-
-- (IBAction)richiediButtonClicked:(id)sender {
-    NSLog(@"pulsante richiedi premuto");
-    // Caricare come modal?
-    RichiediCardViewController *richiediController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
+-(void)didReceiveCoupon:(NSDictionary *)receivedData{
     
-    [self.navigationController pushViewController:richiediController animated:YES];
-    [richiediController release];
+    NSLog(@"RICEVUTI DATI");
+    
+    NSString *receivedString1 = [receivedData objectForKey:@"CardDeviceAssociation:Set"];
+    if (receivedString1) {
+        [self didAssociateCard:receivedString1];
+        return;
+    }
+    
+    NSString *receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Check"];
+    
+    //se carta è associata ad un altro dispositivo mostro taasti per riabbinamento e cancellazione
+    if (receivedString && [receivedString isEqualToString:@"Associated:Another"]) {
+        NSLog(@"carta associata ad altro dispositivo");
+        
+        NSMutableArray *bindSec = [[NSMutableArray alloc] init];
+        
+        [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                @"rebind",                @"DataKey",
+                                @"ActionCell",            @"kind",
+                                @"Riabbina questa carta",   @"label",
+                                @"",                      @"detailLabel",
+                                @"",                      @"img",
+                                [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                nil] autorelease] atIndex: 0];
+        [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                @"remove",                @"DataKey",
+                                @"ActionCell",            @"kind",
+                                @"Rimuovi abbinamento",   @"label",
+                                @"",                      @"detailLabel",
+                                @"",                      @"img",
+                                [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                nil] autorelease] atIndex: 1];
+        //        [sectionDescription removeAllObjects];
+        //        [sectionDescription insertObject:@"Carta già abbinata" atIndex:0];
+        
+        [sectionData removeAllObjects];
+        [sectionData insertObject:bindSec atIndex:0];
+        
+        [bindSec release];
+        
+        isNotBind = TRUE;
+    }
+    else{//TODO: considerare altri casi di risposta carta?
+        //altrimenti mostro il tasto "cerca"
+        NSLog(@"status della carta = %@",receivedString);
+        
+        NSMutableArray *secFind = [[NSMutableArray alloc] init];
+        [secFind insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                @"find",                @"DataKey",
+                                @"ActionCell",           @"kind",
+                                @"Cerca esercenti vicini",   @"label",
+                                @"",                      @"detailLabel",
+                                @"",                      @"img",
+                                [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                nil] autorelease] atIndex: 0];
+        [sectionData insertObject:secFind atIndex:0];
+        [secFind release];
+    }
+    [self.tableView reloadData];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
 
+
+-(void)didReceiveError:(NSError *)error{
+    NSLog(@"AbbinaCartaViewController received connection error: \n\t%@\n\t%@\n\t%@", 
+          [error localizedDescription], [error localizedFailureReason],
+          [error localizedRecoveryOptions]);
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
 }
 
 
@@ -404,11 +371,13 @@
 
 #pragma mark - UITableViewDelegate
 
+
 //-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
 //    if(section == 0)
 //        return 5;
 //    else return  [super tableView:tableView heightForFooterInSection:section];
 //}
+
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
@@ -447,6 +416,7 @@
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	return 20;
 }
+
 
 //setta il colore delle label dell'header BIANCHE
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -504,6 +474,47 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
+#pragma mark - DettaglioCartaViewController
+
+
+- (IBAction)cercaButtonClicked:(id)sender {
+    NSLog(@"pulsante cerca premuto");
+}
+
+
+- (IBAction)acquistaButtonClicked:(id)sender {
+    NSLog(@"pulsante acquista premuto");
+}
+
+
+- (IBAction)richiediButtonClicked:(id)sender {
+    NSLog(@"pulsante richiedi premuto");
+    // Caricare come modal?
+    RichiediCardViewController *richiediController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:richiediController animated:YES];
+    [richiediController release];
+    
+}
+
+
+#pragma mark - DettaglioCartaViewController metodi privati
+
+
+- (void)didAssociateCard:(NSString *)response {
+    NSLog(@"didAssociateCard");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    if ([response isEqualToString:@"Success"]) {
+        NSLog(@"CARTA RIABBINATA"); 
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } else if ([response isEqualToString:@"Fail"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore di rete" message:@"Riprova più tardi" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+    }
+}
 
 
 @end
