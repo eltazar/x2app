@@ -16,6 +16,7 @@
 	$chiave  = $_POST['chiave'];
 	$citta   = $_POST['prov'];
 	$giorno  = $_POST['giorno'];
+    $raggio  = $_POST['raggio'];
     $ordina  = $_POST['ordina'];
     $from    = $_POST['from'];
     
@@ -25,6 +26,16 @@
     // Lo script termina se il valore di request non è interpretabile.
     if ($request !== "fetch" && $request !== "search") {
         die("Invalid value for parameter 'request'");
+    }
+    
+    // Se non è gia un numero viene convertito in numero.
+    // Dopodiché se il numero è negativo lo script termina,
+    // se positivo viene ctenuto in considerazione nella query,
+    // se nullo, o come stringa conteneva caratteri non validi, 
+    // viene ignorato nella query. 
+    $raggio = (int)$raggio;
+    if ($raggio < 0) {
+        die("Invalid value for parameter 'raggio'");
     }
     
     if ($ordina !== "nome" && $ordina !== "distanza") {
@@ -76,54 +87,70 @@
         $categ = "IN ('48', '56')";
     } else if ($categ === "altro") {
         $categ = "IN ('31', '36', '47', '49', '55', '56', '57')";
-    } else {
+    } else if ($categ !== "") { 
         die ("Invalid value for parameter 'categ'");
     }
     
     
     // impostazione mattoni base query
-    $select_clause = "SELECT DISTINCT(esercente.IDesercente), Indirizzo_Esercente, esercente.Insegna_Esercente,Citta_Esercente, Latitudine, Longitudine,(ACOS(SIN(RADIANS('$lat'))*SIN(RADIANS(Latitudine))+COS(RADIANS(Latitudine))*COS(RADIANS('$lat'))*COS(ABS(RADIANS('$long')-RADIANS(Longitudine))))*6371) as Distanza ";
+    $select = "SELECT DISTINCT(esercente.IDesercente), Indirizzo_Esercente, esercente.Insegna_Esercente,Citta_Esercente, Latitudine, Longitudine,(ACOS(SIN(RADIANS('$lat'))*SIN(RADIANS(Latitudine))+COS(RADIANS(Latitudine))*COS(RADIANS('$lat'))*COS(ABS(RADIANS('$long')-RADIANS(Longitudine))))*6371) as Distanza ";
     
-    $from_clause = "FROM esercente,contratto_esercente, attivita_esercente, t_orari_spettacoli ";
+    $from_base = " FROM esercente,contratto_esercente, attivita_esercente, t_orari_spettacoli ";
     
-    $from_city_clause = ", wrp_province ";
+    $from_city = ", wrp_province ";
     
-    $where_clause = <<<WHE
+    $where_base = <<<WHE
         WHERE esercente.Attivo_Esercente = '1'
         AND DATEDIFF(contratto_esercente.Data_scadenza_Contresercente, NOW()) >= '0'
         AND contratto_esercente.IDcontratto_Contresercente = t_orari_spettacoli.IDcontratto_Contresercente
         AND contratto_esercente.IDesercente = esercente.IDesercente
         AND esercente.IDesercente = attivita_esercente.IDesercente
-        AND attivita_esercente.IdTipologia_Esercente $categ	  			  					  
         AND Latitudine <> '0'
         AND Longitudine <> '0' 
 WHE;
     
-    $where_day_clause = " AND t_orari_spettacoli.giorno_della_settimana LIKE '{$giorno}%' ";
+    $where_categ = " AND attivita_esercente.IdTipologia_Esercente $categ ";
     
-    $where_name_clause = " AND ( (esercente.Insegna_Esercente LIKE '%{$chiave}%') OR (esercente.Indirizzo_Esercente LIKE '%{$chiave}%') OR (esercente.Zona_Esercente LIKE '%{$chiave}%') )";
+    $where_day = " AND t_orari_spettacoli.giorno_della_settimana LIKE '{$giorno}%' ";
     
-    $where_city_clause = " AND (esercente.Provincia_Esercente=wrp_province.sigla AND wrp_province.provincia='$citta') ";
+    $where_range = " AND Distanza < $raggio ";
     
-    $limit_clause = "LIMIT $from, 20;";
+    $where_name = " AND ( (esercente.Insegna_Esercente LIKE '%{$chiave}%') OR (esercente.Indirizzo_Esercente LIKE '%{$chiave}%') OR (esercente.Zona_Esercente LIKE '%{$chiave}%') ) ";
+    
+    $where_city = " AND (esercente.Provincia_Esercente=wrp_province.sigla AND wrp_province.provincia='$citta') ";
+    
+    $limit = " LIMIT $from, 20; ";
     
     
 	
     // costruzione query
-    $query = $select_clause.$from_clause;
+    $query = $select.$from;
     
     if ($request === "search") {
-        $query .= $where_clause;
-        $query .= $where_name_clause;
+        $query .= $where;
+        $query .= $where_name;
+        if ($categ !== "") {
+            $query .= $where_categ;
+        }
         
         
     } else if ($request === "fetch") {
         if ($citta === "Qui" || $citta === "") {
-            $query .= $where_clause;
-            if ($giorno !== "") $query .= $where_day_clause;
+            $query .= $where;
         } else { // $citta contiene qualcosa di valido
-            $query .= $from_city_clause.$where_clause.$where_city_clause;
-            if ($giorno !== "") $query .= $where_day_clause;
+            $query .= $from_city.$where.$where_city;
+        }
+        
+        if ($giorno !== "") {
+            $query .= $where_day;
+        }
+        
+        if ($categ !== "") {
+            $query .= $where_categ; 
+        }
+        
+        if ($raggio) {
+            $query .= $where_range; 
         }
     }
 
@@ -133,7 +160,7 @@ WHE;
         $query .= "ORDER BY Distanza "; 
     }
 
-    $query .= $limit_clause;
+    $query .= $limit;
     
         
     // esecuzione query    
