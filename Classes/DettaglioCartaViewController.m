@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Utilita.h"
 #import "BaseCell.h"
+#import "MBProgressHUD.h"
 
 @implementation DettaglioCartaViewController
 
@@ -45,11 +46,117 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+#pragma mark - DBAccessDelegate
 
+-(void)didReceiveCoupon:(NSDictionary *)receivedData{
+
+    NSLog(@"RICEVUTI DATI");
+    
+    NSString *receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Check"];
+    
+    if (receivedString && [receivedString isEqualToString:@"Associated:Another"]) {
+        NSLog(@"carta associata ad altro dispositivo");
+        
+        NSMutableArray *bindSec = [[NSMutableArray alloc] init];
+        
+        [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                   @"rebind",                @"DataKey",
+                                   @"ActionCell",            @"kind",
+                                   @"Riabbina questa carta",   @"label",
+                                   @"",                      @"detailLabel",
+                                   @"",                      @"img",
+                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                   nil] autorelease] atIndex: 0];
+        [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                   @"remove",                @"DataKey",
+                                   @"ActionCell",            @"kind",
+                                   @"Rimuovi abbinamento",   @"label",
+                                   @"",                      @"detailLabel",
+                                   @"",                      @"img",
+                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                   nil] autorelease] atIndex: 1];
+//        [sectionDescription removeAllObjects];
+//        [sectionDescription insertObject:@"Carta già abbinata" atIndex:0];
+        
+        [sectionData removeAllObjects];
+        [sectionData insertObject:bindSec atIndex:0];
+        
+        [bindSec release];
+        
+        isNotBind = TRUE;
+    }
+    else{
+        NSLog(@"status della carta = %@",receivedString);
+    
+        NSMutableArray *secFind = [[NSMutableArray alloc] init];
+        [secFind insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                @"find",                @"DataKey",
+                                @"ActionCell",           @"kind",
+                                @"Cerca esercenti vicini",   @"label",
+                                @"",                      @"detailLabel",
+                                @"",                      @"img",
+                                [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                nil] autorelease] atIndex: 0];
+        [sectionData insertObject:secFind atIndex:0];
+        [secFind release];
+    }
+    [self.tableView reloadData];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+-(void)didReceiveError:(NSError *)error{
+    
+    NSLog(@"AbbinaCartaViewController received connection error: \n\t%@\n\t%@\n\t%@", 
+          [error localizedDescription], [error localizedFailureReason],
+          [error localizedRecoveryOptions]);
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+}
 
 #pragma mark - View lifecycle
 
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    if(! [Utilita networkReachable]){
+        NSLog(@"internet assente errore");
+    }
+    else{ 
+        if(! [self.card isExpired]){
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"Attendere...";
+            hud.detailsLabelText = @"Controllo carta in corso...";
+            [dbAccess cardDeviceAssociation:self.card.number request:@"Check"];
+        }
+        else{
+            
+            NSMutableArray *secExpired = [[NSMutableArray alloc] init];
+            
+            if(self.card.isExpired){
+                
+                [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                           @"buyOnline",                @"DataKey",
+                                           @"ActionCell",            @"kind",
+                                           @"Acquista carta online",   @"label",
+                                           @"",                      @"detailLabel",
+                                           @"",                      @"img",
+                                           [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                           nil] autorelease] atIndex: 0];
+                [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                           @"request",                @"DataKey",
+                                           @"ActionCell",            @"kind",
+                                           @"Richiedi carta",   @"label",
+                                           @"",                      @"detailLabel",
+                                           @"",                      @"img",
+                                           [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                           nil] autorelease] atIndex: 1];
+                [sectionData insertObject:secExpired atIndex:0];
+                [secExpired release];
+                [self.tableView reloadData];
+            }
+        }
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
    // NSLog(@"self.cercaLabel.shadowColor : %@", self.cercaLabel.shadowColor);
@@ -58,9 +165,15 @@
     //al suo posto mostare tasto "riabbina"
     //inoltre inserire tasto "rimuovi abbinamento"
 
+    self.title = @"Carta PerDue";
+    
+    dbAccess = [[DatabaseAccess alloc] init];
+    dbAccess.delegate = self;
+    
+    isNotBind = FALSE;
     
     UIImageView *cartaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartaGrande.png"]];
-    [cartaView setFrame:CGRectMake(11, 20, 300, 180)];
+    [cartaView setFrame:CGRectMake(11, 12, 300, 180)];
     
     
     //    
@@ -112,44 +225,48 @@
         [scadutaView release];
     }
     
-    NSMutableArray *secFind = [[NSMutableArray alloc] init];
-    NSMutableArray *secExpired = [[NSMutableArray alloc] init];
+//    NSMutableArray *secFind = [[NSMutableArray alloc] init];
+//    NSMutableArray *secExpired = [[NSMutableArray alloc] init];
+//    
+//    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"", nil];
+//    
+//    if(self.card.isExpired){
+//        
+//        [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+//                                      @"buyOnline",                @"DataKey",
+//                                      @"ActionCell",            @"kind",
+//                                      @"Acquista carta online",   @"label",
+//                                      @"",                      @"detailLabel",
+//                                      @"",                      @"img",
+//                                      [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+//                                      nil] autorelease] atIndex: 0];
+//        [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+//                                   @"request",                @"DataKey",
+//                                   @"ActionCell",            @"kind",
+//                                   @"Richiedi carta",   @"label",
+//                                   @"",                      @"detailLabel",
+//                                   @"",                      @"img",
+//                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+//                                   nil] autorelease] atIndex: 1];
+//        sectionData = [[NSMutableArray alloc] initWithObjects:secExpired, nil];
+//    }
+//    else{
+//        [secFind insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+//                                   @"find",                @"DataKey",
+//                                   @"ActionCell",           @"kind",
+//                                   @"Cerca esercenti vicini",   @"label",
+//                                   @"",                      @"detailLabel",
+//                                   @"",                      @"img",
+//                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+//                                   nil] autorelease] atIndex: 0];
+//        sectionData = [[NSMutableArray alloc] initWithObjects:secFind, nil];
+//    }
+//    [secExpired release];
+//    [secFind release];
     
-    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"", nil];
-    
-    if(self.card.isExpired){
-        
-        [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                      @"buyOnline",                @"DataKey",
-                                      @"ActionCell",            @"kind",
-                                      @"Acquista carta online",   @"label",
-                                      @"",                      @"detailLabel",
-                                      @"",                      @"img",
-                                      [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                      nil] autorelease] atIndex: 0];
-        [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                   @"request",                @"DataKey",
-                                   @"ActionCell",            @"kind",
-                                   @"Richiedi carta",   @"label",
-                                   @"",                      @"detailLabel",
-                                   @"",                      @"img",
-                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                   nil] autorelease] atIndex: 1];
-        sectionData = [[NSMutableArray alloc] initWithObjects:secExpired, nil];
-    }
-    else{
-        [secFind insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                   @"find",                @"DataKey",
-                                   @"ActionCell",           @"kind",
-                                   @"Cerca esercenti vicini",   @"label",
-                                   @"",                      @"detailLabel",
-                                   @"",                      @"img",
-                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                   nil] autorelease] atIndex: 0];
-        sectionData = [[NSMutableArray alloc] initWithObjects:secFind, nil];
-    }
-    [secExpired release];
-    [secFind release];
+    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"", nil];    
+    sectionData = [[NSMutableArray alloc] init];
+
 }
 
 
@@ -165,7 +282,11 @@
 }
 
 
-- (void)dealloc {    
+- (void)dealloc {   
+    
+    dbAccess.delegate = nil;
+    [dbAccess release];
+    
     [_viewForImage release];
     [sectionDescription release];
     [sectionData release];
@@ -214,7 +335,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{   
-    if(sectionData){
+    if(sectionData && sectionData.count >  0){
         return [[sectionData objectAtIndex: section] count];
     } 
     return 0;
@@ -249,9 +370,48 @@
 
 #pragma mark - UITableViewDelegate
 
+//-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    if(section == 0)
+//        return 5;
+//    else return  [super tableView:tableView heightForFooterInSection:section];
+//}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    if (section == 0 && isNotBind) {
+        
+        UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
+        [customView setBackgroundColor:[UIColor clearColor]];
+        
+        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
+        
+        lbl.backgroundColor = [UIColor clearColor];
+        lbl.textColor = [UIColor whiteColor];
+        lbl.lineBreakMode = UILineBreakModeWordWrap;
+        lbl.numberOfLines = 0;
+        lbl.textAlignment =  UITextAlignmentCenter;
+        lbl.font = [UIFont systemFontOfSize:14];       
+        
+        
+        lbl.text = @"La tua carta risulta abbinata ad un altro dispositivo, puoi scegliere se riabbinarla al dispositivo corrente oppure rimuoverla del tutto";
+        
+        UIFont *txtFont = [UIFont boldSystemFontOfSize:17];
+        CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
+        CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+        
+        lbl.frame = CGRectMake(10, -17, tableView.bounds.size.width-20, labelSize.height+6);
+        
+        [customView addSubview:lbl];
+        
+        return customView;
+    }
+    
+    else return nil;
+}
+
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	return 30.0;
+	return 20;
 }
 
 //setta il colore delle label dell'header BIANCHE

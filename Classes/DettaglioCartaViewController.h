@@ -7,13 +7,15 @@
 //
 #import <UIKit/UIKit.h>
 #import "CartaPerDue.h"
+#import "DatabaseAccess.h"
 
-
-@interface DettaglioCartaViewController : UITableViewController {
+@interface DettaglioCartaViewController : UITableViewController<DatabaseAccessDelegate> {
     CartaPerDue *_card;
     
     NSMutableArray *sectionData;
     NSMutableArray *sectionDescription;
+    DatabaseAccess *dbAccess;
+    BOOL isNotBind;
 }
 
 @property(nonatomic, retain)IBOutlet UIView *viewForImage;
