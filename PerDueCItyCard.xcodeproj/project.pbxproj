@@ -168,6 +168,9 @@
 		ACDE7C9A14FDA988000F6890 /* DatiPagamentoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDE7C9814FDA987000F6890 /* DatiPagamentoController.xib */; };
 		ACDE7C9D14FDB0A9000F6890 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */; };
 		ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9F14FDB432000F6890 /* PickerViewController.m */; };
+		ACE86510152AEB90008EBD72 /* FindNearCompanyController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE8650E152AEB90008EBD72 /* FindNearCompanyController.m */; };
+		ACE86511152AEB90008EBD72 /* FindNearCompanyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACE8650F152AEB90008EBD72 /* FindNearCompanyController.xib */; };
+		ACE86514152AF68C008EBD72 /* CellaEsercenteVicino.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACE86513152AF68C008EBD72 /* CellaEsercenteVicino.xib */; };
 		ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */; };
 		ACF7656E151A4CF000914BDD /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF7656D151A4CF000914BDD /* IAPHelper.m */; };
 		ACF76572151A4D1000914BDD /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF76571151A4D1000914BDD /* MBProgressHUD.m */; };
@@ -435,6 +438,10 @@
 		ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
 		ACDE7C9E14FDB432000F6890 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		ACDE7C9F14FDB432000F6890 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
+		ACE8650D152AEB90008EBD72 /* FindNearCompanyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindNearCompanyController.h; sourceTree = "<group>"; };
+		ACE8650E152AEB90008EBD72 /* FindNearCompanyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindNearCompanyController.m; sourceTree = "<group>"; };
+		ACE8650F152AEB90008EBD72 /* FindNearCompanyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindNearCompanyController.xib; sourceTree = "<group>"; };
+		ACE86513152AF68C008EBD72 /* CellaEsercenteVicino.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellaEsercenteVicino.xib; sourceTree = "<group>"; };
 		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
 		ACF7656C151A4CF000914BDD /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
 		ACF7656D151A4CF000914BDD /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
@@ -731,6 +738,7 @@
 				ACC7478F1517CDAE0049085F /* DatiUtenteLogin.xib */,
 				190BC5D01430DF9F004D2705 /* cellacontatti.xib */,
 				ACC313C0151A7F16008DBEBA /* CellProdottoListino.xib */,
+				ACE86513152AF68C008EBD72 /* CellaEsercenteVicino.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -844,6 +852,9 @@
 				ACA2FBE51507969000E3921B /* RichiediCardViewController.h */,
 				ACA2FBE61507969000E3921B /* RichiediCardViewController.m */,
 				ACA2FBE71507969100E3921B /* RichiediCardViewController.xib */,
+				ACE8650D152AEB90008EBD72 /* FindNearCompanyController.h */,
+				ACE8650E152AEB90008EBD72 /* FindNearCompanyController.m */,
+				ACE8650F152AEB90008EBD72 /* FindNearCompanyController.xib */,
 				AC13B7021509658D00E54106 /* AcquistoOnlineController.h */,
 				AC13B7031509658D00E54106 /* AcquistoOnlineController.m */,
 				AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */,
@@ -1113,6 +1124,13 @@
 				AC3C57B41525313500E5457E /* refreshBtn.png in Resources */,
 				AC3A83601525C96A0028E3EA /* Default.png in Resources */,
 				AC3A83611525C96A0028E3EA /* Default@2x.png in Resources */,
+<<<<<<< HEAD
+=======
+				D93F81B715270D1300C9AEA3 /* Esercenti.php in Resources */,
+				D93F81B815270D1300C9AEA3 /* EsercentiRistorazione.php in Resources */,
+				ACE86511152AEB90008EBD72 /* FindNearCompanyController.xib in Resources */,
+				ACE86514152AF68C008EBD72 /* CellaEsercenteVicino.xib in Resources */,
+>>>>>>> 3d27a7f... file xcode
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1197,6 +1215,7 @@
 				D9B362581521BDFC003725D4 /* NSString+MD5Addition.m in Sources */,
 				D9B362591521BDFC003725D4 /* UIDevice+IdentifierAddition.m in Sources */,
 				AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */,
+				ACE86510152AEB90008EBD72 /* FindNearCompanyController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
