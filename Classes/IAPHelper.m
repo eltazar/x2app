@@ -34,7 +34,7 @@ static IAPHelper * _sharedHelper;
     if(self){
         dbAccess = [[DatabaseAccess alloc] init];
         dbAccess.delegate = self;
-        transactions = [NSMutableArray alloc] init];
+        transactions = [[NSMutableArray alloc] init];
     }
     return self;
     
