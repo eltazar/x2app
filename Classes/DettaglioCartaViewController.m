@@ -54,6 +54,7 @@
     
     NSString *receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Check"];
     
+    //se carta è associata ad un altro dispositivo mostro taasti per riabbinamento e cancellazione
     if (receivedString && [receivedString isEqualToString:@"Associated:Another"]) {
         NSLog(@"carta associata ad altro dispositivo");
         
@@ -85,7 +86,8 @@
         
         isNotBind = TRUE;
     }
-    else{
+    else{//TODO: considerare altri casi di risposta carta?
+        //altrimenti mostro il tasto "cerca"
         NSLog(@"status della carta = %@",receivedString);
     
         NSMutableArray *secFind = [[NSMutableArray alloc] init];
@@ -122,6 +124,7 @@
         NSLog(@"internet assente errore");
     }
     else{ 
+        //se la carta non è scaduta controllo se è associata ad un altro dispositivo
         if(! [self.card isExpired]){
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.labelText = @"Attendere...";
@@ -129,7 +132,7 @@
             [dbAccess cardDeviceAssociation:self.card.number request:@"Check"];
         }
         else{
-            
+            //altrimenti non faccio query sul db  e mostro direttamente i dati
             NSMutableArray *secExpired = [[NSMutableArray alloc] init];
             
             if(self.card.isExpired){
