@@ -359,7 +359,7 @@
     
     //NSLog(@"dataKey = %@, kind = %@",dataKey,kind);
     
-    BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier: dataKey];
+    BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier: kind];
     
     //se non è recuperata creo una nuova cella
 	if (cell == nil) {        
