@@ -185,8 +185,6 @@
 		D924E632151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = D924E630151D50F900AD4C07 /* CategoriaCommercialeWithPrice.m */; };
 		D924E633151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */; };
 		D924E635151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E634151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib */; };
-		D93F81B715270D1300C9AEA3 /* EsercentiNonRistorazione.php in Resources */ = {isa = PBXBuildFile; fileRef = D93F81B515270D1300C9AEA3 /* EsercentiNonRistorazione.php */; };
-		D93F81B815270D1300C9AEA3 /* EsercentiRistorazione.php in Resources */ = {isa = PBXBuildFile; fileRef = D93F81B615270D1300C9AEA3 /* EsercentiRistorazione.php */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
 		D9B362581521BDFC003725D4 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B362551521BDFC003725D4 /* NSString+MD5Addition.m */; };
@@ -466,9 +464,10 @@
 		D924E630151D50F900AD4C07 /* CategoriaCommercialeWithPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriaCommercialeWithPrice.m; sourceTree = "<group>"; };
 		D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriaCommercialeWithPrice.xib; sourceTree = "<group>"; };
 		D924E634151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriaCommercialeWithPriceCell.xib; sourceTree = SOURCE_ROOT; };
-		D93F81B515270D1300C9AEA3 /* EsercentiNonRistorazione.php */ = {isa = PBXFileReference; fileEncoding = 4; name = EsercentiNonRistorazione.php; path = "php server/PHP APPv2/EsercentiNonRistorazione.php"; sourceTree = SOURCE_ROOT; };
+		D93F81B515270D1300C9AEA3 /* EsercentiNonRistorazione.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = EsercentiNonRistorazione.php; path = "php server/PHP APPv2/EsercentiNonRistorazione.php"; sourceTree = SOURCE_ROOT; };
 		D93F81B615270D1300C9AEA3 /* EsercentiRistorazione.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = EsercentiRistorazione.php; path = "php server/PHP APPv2/EsercentiRistorazione.php"; sourceTree = SOURCE_ROOT; };
 		D9861EB3151BE2540017A16E /* Card.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = Card.php; path = "php server/PHP APPv2/Card.php"; sourceTree = SOURCE_ROOT; };
+		D992A7D1152B3A6C00703EDC /* Esercenti.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = Esercenti.php; path = "php server/PHP APPv2/Esercenti.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
 		D99378B11519368200DFC410 /* CartaPerDue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaPerDue.m; sourceTree = "<group>"; };
 		D9B362541521BDFC003725D4 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
@@ -914,6 +913,7 @@
 				D9861EB3151BE2540017A16E /* Card.php */,
 				D93F81B515270D1300C9AEA3 /* EsercentiNonRistorazione.php */,
 				D93F81B615270D1300C9AEA3 /* EsercentiRistorazione.php */,
+				D992A7D1152B3A6C00703EDC /* Esercenti.php */,
 			);
 			name = PHP;
 			sourceTree = "<group>";
@@ -1113,8 +1113,6 @@
 				AC3C57B41525313500E5457E /* refreshBtn.png in Resources */,
 				AC3A83601525C96A0028E3EA /* Default.png in Resources */,
 				AC3A83611525C96A0028E3EA /* Default@2x.png in Resources */,
-				D93F81B715270D1300C9AEA3 /* EsercentiNonRistorazione.php in Resources */,
-				D93F81B815270D1300C9AEA3 /* EsercentiRistorazione.php in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
