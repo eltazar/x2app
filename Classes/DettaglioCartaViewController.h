@@ -23,9 +23,5 @@
 
 - (id)initWithCard:(CartaPerDue *)card;
 
-- (IBAction)cercaButtonClicked:(id)sender;
-- (IBAction)acquistaButtonClicked:(id)sender;
-- (IBAction)richiediButtonClicked:(id)sender;
-
 
 @end

@@ -12,6 +12,15 @@
 #import "Utilita.h"
 #import "BaseCell.h"
 #import "MBProgressHUD.h"
+#import "AbbinaCartaViewController.h"
+
+@interface DettaglioCartaViewController(){
+    NSMutableArray *sectionData;
+    NSMutableArray *sectionDescription;
+    DatabaseAccess *dbAccess;
+    BOOL isNotBind;
+}
+@end
 
 @implementation DettaglioCartaViewController
 
@@ -46,11 +55,33 @@
     
     // Release any cached data, images, etc that aren't in use.
 }
+
+#pragma mark - DettaglioCartaViewController metodi privati
+- (void)didAssociateCard:(NSString *)response {
+    NSLog(@"didAssociateCard");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    if ([response isEqualToString:@"Success"]) {
+        NSLog(@"CARTA RIABBINATA"); 
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } else if ([response isEqualToString:@"Fail"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore di rete" message:@"Riprova più tardi" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+    }
+}
+
 #pragma mark - DBAccessDelegate
 
 -(void)didReceiveCoupon:(NSDictionary *)receivedData{
 
     NSLog(@"RICEVUTI DATI");
+    
+    NSString *receivedString1 = [receivedData objectForKey:@"CardDeviceAssociation:Set"];
+    if (receivedString1) {
+        [self didAssociateCard:receivedString1];
+        return;
+    }
     
     NSString *receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Check"];
     
@@ -461,6 +492,13 @@
     }
     else if([dataKey isEqualToString:@"find"]){
         NSLog(@"cerca esercenti");
+    }
+    else if([dataKey isEqualToString:@"rebind"]){
+        //TODO: controllare bene come far avvenire l'associazione , se così semplicemente o come in "abbinaController"
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Attendere...";
+        hud.detailsLabelText = @"Abbinamento in corso...";
+        [dbAccess cardDeviceAssociation:self.card.number request:@"Set"];
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
