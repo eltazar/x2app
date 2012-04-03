@@ -31,15 +31,15 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
-			<object class="IBUITableView" id="1011299900">
+			<object class="IBUITableView" id="279617208">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUIView" id="921191584">
-						<reference key="NSNextResponder" ref="1011299900"/>
+					<object class="IBUIView" id="921873372">
+						<reference key="NSNextResponder" ref="279617208"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{320, 182}</string>
-						<reference key="NSSuperview" ref="1011299900"/>
+						<string key="NSFrameSize">{320, 207}</string>
+						<reference key="NSSuperview" ref="279617208"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:196</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -67,7 +67,7 @@
 				<float key="IBUIRowHeight">44</float>
 				<float key="IBUISectionHeaderHeight">10</float>
 				<float key="IBUISectionFooterHeight">10</float>
-				<reference key="IBUITableHeaderView" ref="921191584"/>
+				<reference key="IBUITableHeaderView" ref="921873372"/>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -76,7 +76,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">view</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1011299900"/>
+						<reference key="destination" ref="279617208"/>
 					</object>
 					<int key="connectionID">20</int>
 				</object>
@@ -84,14 +84,14 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">viewForImage</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="921191584"/>
+						<reference key="destination" ref="921873372"/>
 					</object>
 					<int key="connectionID">22</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">dataSource</string>
-						<reference key="source" ref="1011299900"/>
+						<reference key="source" ref="279617208"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">18</int>
@@ -99,7 +99,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
-						<reference key="source" ref="1011299900"/>
+						<reference key="source" ref="279617208"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">19</int>
@@ -126,16 +126,16 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">17</int>
-						<reference key="object" ref="1011299900"/>
+						<reference key="object" ref="279617208"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="921191584"/>
+							<reference ref="921873372"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">21</int>
-						<reference key="object" ref="921191584"/>
-						<reference key="parent" ref="1011299900"/>
+						<reference key="object" ref="921873372"/>
+						<reference key="parent" ref="279617208"/>
 					</object>
 				</array>
 			</object>
@@ -158,17 +158,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">AbbinaCartaViewController</string>
 					<string key="superclassName">UITableViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">abbinaButtonClicked:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">abbinaButtonClicked:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">abbinaButtonClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">viewForImage</string>
 						<string key="NS.object.0">UIView</string>
