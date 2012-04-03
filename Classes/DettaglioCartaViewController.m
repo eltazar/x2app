@@ -84,29 +84,25 @@
         else{
             //altrimenti non faccio query sul db  e mostro direttamente i dati
             NSMutableArray *secExpired = [[NSMutableArray alloc] init];
-            
-            if(self.card.isExpired){
-                
-                [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                           @"buyOnline",                @"DataKey",
-                                           @"ActionCell",            @"kind",
-                                           @"Acquista carta online",   @"label",
-                                           @"",                      @"detailLabel",
-                                           @"",                      @"img",
-                                           [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                           nil] autorelease] atIndex: 0];
-                [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                           @"request",                @"DataKey",
-                                           @"ActionCell",            @"kind",
-                                           @"Richiedi carta",   @"label",
-                                           @"",                      @"detailLabel",
-                                           @"",                      @"img",
-                                           [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                           nil] autorelease] atIndex: 1];
-                [self.sectionData insertObject:secExpired atIndex:0];
-                [secExpired release];
-                [self.tableView reloadData];
-            }
+            [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                       @"buyOnline",                @"DataKey",
+                                       @"ActionCell",            @"kind",
+                                       @"Acquista carta online",   @"label",
+                                       @"",                      @"detailLabel",
+                                       @"",                      @"img",
+                                       [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                       nil] autorelease] atIndex: 0];
+            [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                       @"request",                @"DataKey",
+                                       @"ActionCell",            @"kind",
+                                       @"Richiedi carta",   @"label",
+                                       @"",                      @"detailLabel",
+                                       @"",                      @"img",
+                                       [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                       nil] autorelease] atIndex: 1];
+            [self.sectionData insertObject:secExpired atIndex:0];
+            [secExpired release];
+            [self.tableView reloadData];
         }
     }
 }
@@ -260,6 +256,7 @@
     NSLog(@"RICEVUTI DATI");
     
     NSString *receivedString1 = [receivedData objectForKey:@"CardDeviceAssociation:Set"];
+    
     if (receivedString1) {
         [self didAssociateCard:receivedString1];
         return;
@@ -294,10 +291,9 @@
         
         [self.sectionData removeAllObjects];
         [self.sectionData insertObject:bindSec atIndex:0];
-        
         [bindSec release];
-        
         isNotBind = TRUE;
+        
     } else {
         //TODO: considerare altri casi di risposta carta?
         //altrimenti mostro il tasto "cerca"
