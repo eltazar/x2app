@@ -10,7 +10,6 @@
     include '../QueryHelper.php';
 	
 	$request = $_POST['request'];
-    $categ   = $_POST['categ'];
     $lat     = $_POST['lat'];
 	$long    = $_POST['long'];
 	$chiave  = $_POST['chiave'];
@@ -42,51 +41,108 @@
         die("Invalid value for parameter 'ordina'");
     }
     
-    /*echo "categ: ".$categ."\n";
-    echo "lat: ".$lat."\n";  
-    echo "long: ".$long."\n";  
-    echo "chiave: ".$chiave."\n";   
-    echo "citta: ".$citta."\n"; 
-    echo "giorno: ".$giorno."\n"; 
-    echo "ordina: ".$ordina."\n"; 
-    echo "from : ".$from."\n";  */
-    
-	 
 	
     //imposto il giorno per la query
-	if ($giorno === "Lunedi") {
-		$giorno = "luned";
-	} else if ($giorno === "Martedi") {
-        $giorno = "marted";
-    } else if ($giorno === "Mercoledi") {
-        $giorno = "mercoled";
-    } else if ($giorno === "Giovedi") {
-        $giorno = "gioved";
-    } else if ($giorno === "Venerdi") {
-        $giorno = "venerd";
-    } else if ($giorno === "Sabato") {
-        $giorno = "sabato";
-    } else if ($giorno === "Domenica") {
-        $giorno = "domenica";	
-    } 
-    
-    //imposto la categoria
-    if ($categ === "cinema") {
-        $categ = "= '25'";
-    } else if ($categ === "teatri") {
-        $categ = "= '24'";
-    } else if ($categ === "musei") {
-        $categ = "= '54'";
-    } else if ($categ === "librerie") {
-        $categ = "= '51'";
-    } else if ($categ === "benessere") {
-        $categ = "IN ('50', '39')";
-    } else if ($categ === "parchi") {
-        $categ = "= '44'";
-    } else if ($categ === "viaggi"){
-        $categ = "IN ('48', '56')";
-    } else if ($categ === "altro") {
-        $categ = "IN ('31', '36', '47', '49', '55', '56', '57')";
-    } else if ($categ !== "") { 
-        die ("Invalid value for parameter 'categ'");
+	if ($giorno !== "Lunedi" &&
+        $giorno !== "Martedi" &&
+        $giorno !== "Mercoledi" &&
+        $giorno !== "Giovedi" &&
+        $giorno !== "Venerdi" &&
+        $giorno !== "Sabato" &&
+        $giorno !== "Domenica") {
+        die("Invalid value for parameter 'giorno'");
     }
+    
+    
+    $url_non_ristorazione = 'http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione.php';
+    $url_ristorazione = 'http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione.php';
+    $post_fields = array(
+                         "request" => urlencode($request),
+                         "lat"     => urlencode($lat),
+                         "long"    => urlencode($long),
+                         "chiave"  => urlencode($chiave),
+                         "citta"   => urlencode($prov),
+                         "giorno"  => urlencode($giorno),
+                         "raggio"  => urlencode($raggio),
+                         "ordina"  => urlencode($ordina),
+                         "from"    => urlencode($from)
+                         );
+    foreach($post_fields as $key=>$value) { $post_string .= $key.'='.$value.'&'; }
+    rtrim($post_string,'&');
+    
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url_non_ristorazione);
+    curl_setopt($ch, CURLOPT_POST, count($post_fields));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $json_non_ristorazione = curl_exec($ch);
+    curl_close($ch);
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url_ristorazione);
+    curl_setopt($ch, CURLOPT_POST, count($post_fields));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_string);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $json_ristorazione = curl_exec($ch);
+    curl_close($ch);
+    
+    /*echo $post_fields."\n";
+    foreach($post_fields as $key=>$value) {
+        echo $key.'=>'.$value."\n";
+    }
+    echo 'A: '.$json_non_ristorazione;
+    echo 'B: '.$json_ristorazione;*/
+    
+    $non_rist = json_decode($json_non_ristorazione, TRUE);
+    $rist = json_decode($json_ristorazione, TRUE);
+    
+    if ($from == 0) {
+        $non_rist = $non_rist["Esercente:FirstRows"];
+        $rist     = $rist["Esercente:FirstRows"];
+    } else {
+        $non_rist = $non_rist["Esercente:MoreRows"];
+        $rist     = $rist["Esercente:MoreRows"];
+    }
+    
+    // Occorre eliminare il [FALSE] finale:
+    array_pop($non_rist);
+    array_pop($rist);
+    
+    
+    $i = 0;  $j = 0;  $k= 0;
+    while ($i < count($non_rist) && $j < count($rist)) { 
+        if ($non_rist[$i]["Distanza"] < $rist[$j]["Distanza"]) { 
+            $merged[$k] = $non_rist[$i];  
+            $i++;
+        } else { 
+            $merged[$k] = $rist[$j];
+            $j++;
+        }
+        $k++;
+    }
+    while ($i < count($non_rist)) {
+        $merged[$k] = $non_rist[$i];
+        $i++;
+        $k++;
+    }
+    while ($j < count($rist)) { 
+        $merged[$k] = $rist[$j];
+        $j++; 
+        $k++;
+    }
+    
+    
+    array_push($merged, FALSE);
+    
+    
+    if ($from == 0) {
+        echo '{"Esercente:FirstRows":'.json_encode($merged).'}';
+    } else {
+        echo '{"Esercente:MoreRows":'.json_encode($merged).'}';
+    }
+    
+    ?>
+
+
+    

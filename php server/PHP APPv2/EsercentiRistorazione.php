@@ -54,7 +54,7 @@
         $categ = "IN ('5', '6', '59', '60', '61')";
     } else if ($categ === "pubsebar") {
         $categ = "IN('2', '9', '27', '61')";
-    } else if ($categ !== "") {
+    } else if ($categ != "") {
         die ("Invalid value for parameter 'categ'");
     }
 
@@ -62,11 +62,11 @@
     //impostazione mattoni query:
     $select = "SELECT DISTINCT(esercente.IDesercente),esercente.Indirizzo_Esercente,esercente.Citta_Esercente,esercente.Insegna_Esercente,Tipo_Teser,esercente.Fasciaprezzo_Esercente,Latitudine,Longitudine, (ACOS(SIN(RADIANS('$lat'))*SIN(RADIANS(Latitudine))+COS(RADIANS(Latitudine))*COS(RADIANS('$lat'))*COS(ABS(RADIANS('$long')-RADIANS(Longitudine))))*6371) as Distanza ";
     
-    $from = " FROM esercente, attivita_esercente,contratto_esercente, tipologia_esercente ";
+    $from_base = " FROM esercente, attivita_esercente,contratto_esercente, tipologia_esercente ";
     
     $from_city = ", wrp_province ";
     
-    $where = <<<WHE
+    $where_base = <<<WHE
         WHERE esercente.Attivo_Esercente='1'
         AND DATEDIFF(contratto_esercente.Data_scadenza_Contresercente,NOW())>='0'
         AND Latitudine <> '0'
@@ -75,7 +75,7 @@
         AND attivita_esercente.IDesercente = esercente.IDesercente
         AND esercente.IDesercente=contratto_esercente.IDesercente
         AND esercente.Insegna_Esercente IS NOT NULL
-        AND esercente.Indirizzo_Esercente IS NOT NULL
+        AND esercente.Indirizzo_Esercente IS NOT NULL 
 WHE;
     
     $where_categ = " AND attivita_esercente.IdTipologia_Esercente $categ ";
@@ -92,10 +92,10 @@ WHE;
     
     
     // costruzione query
-    $query = $select.$frome;
+    $query = $select.$from_base;
     
     if ($request === "search") {
-        $query .= $where;
+        $query .= $where_base;
         $query .= $where_name;
         if ($categ !== "") {
             $query .= $where_categ;
@@ -103,22 +103,23 @@ WHE;
         
         
     } else if ($request === "fetch") {
-        if ($citta === "Qui" || $citta === "") {
-            $query .= $where;
+        if ($citta === "Qui" || $citta == "") {
+            $query .= $where_base;
         } else { // $citta contiene qualcosa di valido
-            $query .= $from_city.$where.$where_city;
+            $query .= $from_city.$where_base.$where_city;
         }
         
-        if ($giorno !== "") {
+        if ($giorno != "") {
             $query .= $where_day;
         }
         
-        if ($categ !== "") {
+        if ($categ != "") {
             $query .= $where_categ; 
         }
         
         if ($raggio) {
             $query .= $where_range; 
+        }
     }
     
     if ($ordina === "nome") {
@@ -167,7 +168,7 @@ WHE;
     
 	echo $response;
     
-    
+    ?>
     
     
     

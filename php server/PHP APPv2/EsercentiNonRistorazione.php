@@ -87,8 +87,8 @@
         $categ = "IN ('48', '56')";
     } else if ($categ === "altro") {
         $categ = "IN ('31', '36', '47', '49', '55', '56', '57')";
-    } else if ($categ !== "") { 
-        die ("Invalid value for parameter 'categ'");
+    } else if ($categ != "") { 
+        die ("Invalid value for parameter 'categ': [$categ]");
     }
     
     
@@ -124,28 +124,28 @@ WHE;
     
 	
     // costruzione query
-    $query = $select.$from;
+    $query = $select.$from_base;
     
     if ($request === "search") {
-        $query .= $where;
+        $query .= $where_base;
         $query .= $where_name;
-        if ($categ !== "") {
+        if ($categ != "") {
             $query .= $where_categ;
         }
         
         
     } else if ($request === "fetch") {
-        if ($citta === "Qui" || $citta === "") {
-            $query .= $where;
+        if ($citta === "Qui" || $citta == "") {
+            $query .= $where_base;
         } else { // $citta contiene qualcosa di valido
-            $query .= $from_city.$where.$where_city;
+            $query .= $from_city.$where_base.$where_city;
         }
         
-        if ($giorno !== "") {
+        if ($giorno != "") {
             $query .= $where_day;
         }
         
-        if ($categ !== "") {
+        if ($categ != "") {
             $query .= $where_categ; 
         }
         
