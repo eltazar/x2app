@@ -89,7 +89,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/Esercenti.php";
+    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione.php";
     self.rows = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
     inSearchUI = NO;
