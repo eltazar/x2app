@@ -13,6 +13,7 @@
 #import "LocalDatabaseAccess.h"
 #import "Utilita.h"
 #import "MBProgressHUD.h"
+#import "BaseCell.h"
 
 //metodi e ivar private
 
@@ -20,7 +21,10 @@
     BOOL isViewUp;
     DatabaseAccess *_dbAccess; 
     CartaPerDue *_card;
+    NSArray *sectionData;
+    NSArray *sectionDescription;
 }
+@property(nonatomic, retain)IBOutlet UIView *viewForImage;
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
 @property (nonatomic, retain) CartaPerDue *card;
 - (BOOL)isValidFields;
@@ -35,13 +39,13 @@
 // Properties
 @synthesize delegate = _delegate, pickerDate = _pickerDate;
 // IBOutlets
-@synthesize abbinaButton = _abbinaButton;
 // Properties private:
 @synthesize dbAccess = _dbAccess, card = _card;
+@synthesize viewForImage = _viewForImage;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:@"AbbinaCartaViewController" bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
@@ -70,7 +74,7 @@
     isViewUp = FALSE;
     self.card = [[[CartaPerDue alloc] init] autorelease];
     
-    self.abbinaButton.layer.cornerRadius = 6;    
+    //self.abbinaButton.layer.cornerRadius = 6;    
     
     UIImageView *cartaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartaGrande.png"]];
     [cartaView setFrame:CGRectMake(11, 20, 300, 180)];
@@ -131,7 +135,17 @@
     [cartaView addSubview:nomeField];
     [cartaView addSubview:cognomeField];
     
-    [self.view addSubview:cartaView];
+    [self.viewForImage addSubview:cartaView];
+    
+    
+    //DEBUG:
+    nomeField.text = @"MARIO";
+    cognomeField.text = @"GRECO";
+    numeroCartaField.text = @"0P12 P141 5035";
+    self.card.name = @"MARIO";
+    self.card.surname = @"GRECO";
+    self.card.number = @"0P12 P141 5035";
+    
     
     [cartaView release];
     [numeroCartaField release];
@@ -146,14 +160,26 @@
     self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     [self.dbAccess setDelegate:self];
     
-    //DEBUG:
-    nomeField.text = @"MARIO";
-    cognomeField.text = @"GRECO";
-    numeroCartaField.text = @"0P12 P141 5035";
-    self.card.name = @"MARIO";
-    self.card.surname = @"GRECO";
-    self.card.number = @"0P12 P141 5035";
     [calendar release];
+
+    
+    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"", nil];
+    
+    NSMutableArray *bindSec = [[NSMutableArray alloc] init];
+    
+    [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                               @"bind",                @"DataKey",
+                               @"ActionCell",            @"kind",
+                               @"Abbina carta",   @"label",
+                               @"",                      @"detailLabel",
+                               @"",                      @"img",
+                               [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                               nil] autorelease] atIndex: 0];
+    
+    sectionData = [[NSMutableArray alloc] initWithObjects:bindSec, nil];
+
+    [bindSec release];
+    
 }
 
 
@@ -163,7 +189,7 @@
     self.dbAccess.delegate = nil;
     self.dbAccess = nil;
     // IBOutlets:    
-    self.abbinaButton = nil;
+    self.viewForImage = nil;
     
     [super viewDidUnload];
 }
@@ -176,9 +202,14 @@
 
 
 - (void)dealloc {
+    
+    [sectionData release];
+    [sectionDescription release];
+    
+    [_viewForImage release];
+    
     [_delegate release];
     [_pickerDate release];
-    [_abbinaButton release];
     
     [_card release];
     self.dbAccess.delegate = nil;
@@ -340,21 +371,6 @@
 }
 
 
-# pragma mark - AbbinaCartaViewController (IBActions)
-
-
-- (IBAction)abbinaButtonClicked:(id)sender {    
-    if ([self isValidFields]){
-        NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"Attendere...";
-        hud.detailsLabelText = @"Controllo carta in corso...";
-        [self.dbAccess checkCardExistence:self.card];
-    }
-}
-
-
-
 #pragma mark - AbbinaCartaViewController (metodi privati)
 
 
@@ -431,6 +447,106 @@
     }
     return TRUE;
 }
+
+#pragma mark - UITableViewDataSource
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return sectionDescription.count;
+}
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {  
+    return [sectionDescription objectAtIndex:section];
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{   
+    if(sectionData){
+        return [[sectionData objectAtIndex: section] count];
+    } 
+    return 0;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSArray *sec = [sectionData objectAtIndex:indexPath.section];
+    NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
+    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
+    NSString *kind = [rowDesc objectForKey:@"kind"];
+    int cellStyle = UITableViewCellStyleDefault;
+    
+    //NSLog(@"dataKey = %@, kind = %@",dataKey,kind);
+    
+    BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier: dataKey];
+    
+    //se non è recuperata creo una nuova cella
+	if (cell == nil) {        
+        cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];
+        
+        //NSLog(@"CELL = %@",cell);
+    }
+    
+    cell.textLabel.text = [rowDesc objectForKey:@"label"];
+    
+    [cell setBackgroundColor:[UIColor whiteColor]];
+    
+    return cell;
+}
+
+
+#pragma mark - UITableViewDelegate
+
+
+- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	return 30.0;
+}
+
+//setta il colore delle label dell'header BIANCHE
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
+    [customView setBackgroundColor:[UIColor clearColor]];
+    
+    UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.textColor = [UIColor whiteColor];
+    lbl.lineBreakMode = UILineBreakModeWordWrap;
+    lbl.numberOfLines = 0;
+    lbl.font = [UIFont boldSystemFontOfSize:20];
+    lbl.text = [sectionDescription objectAtIndex:section];
+    
+    
+    UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
+    CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
+    CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+    
+    lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
+    
+    [customView addSubview:lbl];
+    
+    return customView;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {    
+    // "Navigo" il model fino alla cella selezionata
+    NSArray *sec = [sectionData objectAtIndex:indexPath.section];
+    NSDictionary *row = [sec objectAtIndex:indexPath.row];
+    NSString *dataKey = [row objectForKey:@"DataKey"];
+    
+    if([dataKey isEqualToString:@"bind"]){
+        if ([self isValidFields]){
+            NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"Attendere...";
+            hud.detailsLabelText = @"Controllo carta in corso...";
+            [self.dbAccess checkCardExistence:self.card];
+        }
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 
 @end

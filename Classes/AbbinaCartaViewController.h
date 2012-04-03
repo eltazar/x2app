@@ -12,21 +12,14 @@
 @class PickerViewController;
 @protocol AbbinaCartaDelegate;
 
-@interface AbbinaCartaViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate, UIAlertViewDelegate, DatabaseAccessDelegate> {
+@interface AbbinaCartaViewController : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, UIAlertViewDelegate, DatabaseAccessDelegate> {
     id<AbbinaCartaDelegate> _delegate;
     PickerViewController *_pickerDate;
-    IBOutlet UIButton *_abbinaButton;
 }
 
 
 @property (nonatomic, retain) id<AbbinaCartaDelegate> delegate;
 @property (nonatomic, retain) PickerViewController *pickerDate;
-
-@property (nonatomic, retain) IBOutlet UIButton *abbinaButton;
-
-
--(IBAction)abbinaButtonClicked:(id)sender;
-
 
 @end
 
