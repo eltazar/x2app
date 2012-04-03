@@ -1124,13 +1124,10 @@
 				AC3C57B41525313500E5457E /* refreshBtn.png in Resources */,
 				AC3A83601525C96A0028E3EA /* Default.png in Resources */,
 				AC3A83611525C96A0028E3EA /* Default@2x.png in Resources */,
-<<<<<<< HEAD
-=======
 				D93F81B715270D1300C9AEA3 /* Esercenti.php in Resources */,
 				D93F81B815270D1300C9AEA3 /* EsercentiRistorazione.php in Resources */,
 				ACE86511152AEB90008EBD72 /* FindNearCompanyController.xib in Resources */,
 				ACE86514152AF68C008EBD72 /* CellaEsercenteVicino.xib in Resources */,
->>>>>>> 3d27a7f... file xcode
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
