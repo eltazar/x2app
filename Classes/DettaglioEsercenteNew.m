@@ -665,7 +665,7 @@
 @implementation IndexPathMapper
 
 
-- (id) init {
+- (id)init {
     self = [super init];
     if (self) {
         map = [[NSMutableArray alloc] init];
@@ -674,7 +674,7 @@
 }
 
 
-- (void) setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row {    
+- (void)setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row {    
     NSMutableArray *sectionArray;
     if (section >= map.count) {
         sectionArray = [[[NSMutableArray alloc] init] autorelease];
@@ -693,7 +693,7 @@
 }
 
 
-- (NSString *) keyForSection:(NSInteger)section row:(NSInteger)row {
+- (NSString *)keyForSection:(NSInteger)section row:(NSInteger)row {
     if (section >= map.count) {
         return nil;
     }
@@ -709,7 +709,7 @@
 }
 
 
-- (void) removeKeyAtSection:(NSInteger)section row:(NSInteger)row {
+- (void)removeKeyAtSection:(NSInteger)section row:(NSInteger)row {
     NSMutableArray *sectionArray;
     if (section >= map.count) {
         sectionArray = [[[NSMutableArray alloc] init] autorelease];
@@ -729,12 +729,19 @@
 }
 
 
-- (NSInteger) sections {
+- (void)removeKey:(NSString *)key {
+    for (NSMutableArray *sectionArray in map) {
+        [sectionArray removeObject:key];
+    }
+}
+
+
+- (NSInteger)sections {
     return [map count];
 }
 
 
-- (NSInteger) rowsInSection:(NSInteger)section {
+- (NSInteger)rowsInSection:(NSInteger)section {
     if (section >= map.count) {
         return 0;
     }
@@ -742,21 +749,21 @@
     
 }
 
-- (void) setKey:(NSString *)key forIndexPath:(NSIndexPath *)indexPath {
+- (void)setKey:(NSString *)key forIndexPath:(NSIndexPath *)indexPath {
     [self setKey:key forSection:indexPath.section row:indexPath.row];
 }
 
 
-- (NSString *) keyForIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)keyForIndexPath:(NSIndexPath *)indexPath {
     return [self keyForSection:indexPath.section row:indexPath.row];
 }
 
 
-- (void) removeKeyAtIndexPath:(NSIndexPath *)indexPath {
+- (void)removeKeyAtIndexPath:(NSIndexPath *)indexPath {
     [self removeKeyAtSection:indexPath.section row:indexPath.row];
 }
 
-- (void) dealloc {
+- (void)dealloc {
     [map release];
 }
 @end
