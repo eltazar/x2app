@@ -67,7 +67,7 @@
 						<float key="IBUISectionHeaderHeight">30</float>
 						<float key="IBUISectionFooterHeight">25</float>
 					</object>
-					<object class="IBUIActivityIndicatorView" id="632865185">
+					<object class="IBUIActivityIndicatorView" id="500503104">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{142, 165}, {37, 37}}</string>
@@ -392,9 +392,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">activityIndicator</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="632865185"/>
+						<reference key="destination" ref="500503104"/>
 					</object>
 					<int key="connectionID">48</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">tableview</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="439956906"/>
+					</object>
+					<int key="connectionID">49</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -447,7 +455,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="439956906"/>
-							<reference ref="632865185"/>
+							<reference ref="500503104"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -559,7 +567,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">47</int>
-						<reference key="object" ref="632865185"/>
+						<reference key="object" ref="500503104"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -625,7 +633,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">48</int>
+			<int key="maxID">49</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -658,6 +666,7 @@
 							<string>mappa</string>
 							<string>provacella</string>
 							<string>sito</string>
+							<string>tableview</string>
 							<string>tipoMappa</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -672,6 +681,7 @@
 							<string>UIViewController</string>
 							<string>UITableViewCell</string>
 							<string>UIViewController</string>
+							<string>UITableView</string>
 							<string>UISegmentedControl</string>
 						</object>
 					</object>
@@ -689,6 +699,7 @@
 							<string>mappa</string>
 							<string>provacella</string>
 							<string>sito</string>
+							<string>tableview</string>
 							<string>tipoMappa</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -732,6 +743,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">sito</string>
 								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">tableview</string>
+								<string key="candidateClassName">UITableView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">tipoMappa</string>
