@@ -10,5 +10,11 @@
 #import "DatabaseAccess.h"
 
 @interface FindNearCompanyController : UITableViewController<DatabaseAccessDelegate>
+{
+    NSString *_urlString;
+    NSMutableArray *_rows;
+}
 
+@property (nonatomic, retain) NSString *urlString;
+@property (nonatomic, retain) NSMutableArray *rows;
 @end
