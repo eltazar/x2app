@@ -618,3 +618,56 @@
 
 
 @end
+
+
+
+/*********************************************************************/
+
+
+@interface IndexPathMapper () {
+    NSMutableDictionary *map;
+}
+@end
+
+
+
+
+@implementation IndexPathMapper
+
+
+- (id) init {
+    self = [super init];
+    if (self) {
+        map = [[NSMutableDictionary alloc] init];
+    }
+    return self;
+}
+
+
+- (void) setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row {
+    NSString *idxString = [NSString stringWithFormat:@"%d,%d", section, row];
+    [map setObject:key forKey:idxString];
+}
+
+
+- (NSString *) keyForSection:(NSInteger)section row:(NSInteger)row {
+    NSString *idxString = [NSString stringWithFormat:@"%d,%d", section, row];
+    return [map objectForKey:idxString];
+}
+
+
+- (void) setKey:(NSString *)key forIndexPath:(NSIndexPath *)indexPath {
+    [self setKey:key forSection:indexPath.section row:indexPath.row];
+}
+
+
+- (NSString *) keyForIndexPath:(NSIndexPath *)indexPath {
+    return [self keyForSection:indexPath.section row:indexPath.row];
+}
+
+
+- (void) dealloc {
+    [map release];
+}
+@end
+
