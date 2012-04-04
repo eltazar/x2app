@@ -626,10 +626,9 @@
 
 
 @interface IndexPathMapper () {
-    NSMutableDictionary *map;
+    NSMutableArray *map;
 }
 @end
-
 
 
 
@@ -639,21 +638,64 @@
 - (id) init {
     self = [super init];
     if (self) {
-        map = [[NSMutableDictionary alloc] init];
+        map = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 
-- (void) setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row {
-    NSString *idxString = [NSString stringWithFormat:@"%d,%d", section, row];
-    [map setObject:key forKey:idxString];
+- (void) setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row {    
+    NSMutableArray *sectionArray;
+    if (section >= map.count) {
+        sectionArray = [[[NSMutableArray alloc] init] autorelease];
+        [map addObject:sectionArray];
+    }
+    else {
+        sectionArray = [map objectAtIndex:section];
+    }
+    
+    if (row >= sectionArray.count) {
+        [sectionArray addObject:key];
+    }
+    else {
+        [sectionArray insertObject:key atIndex:row];
+    }
 }
 
 
 - (NSString *) keyForSection:(NSInteger)section row:(NSInteger)row {
-    NSString *idxString = [NSString stringWithFormat:@"%d,%d", section, row];
-    return [map objectForKey:idxString];
+    if (section >= map.count) {
+        return nil;
+    }
+    else {
+        NSArray *sectionArray = [map objectAtIndex:section];
+        if (row >= sectionArray.count) {
+            return nil;
+        }
+        else {
+            return [sectionArray objectAtIndex:row];
+        }
+    }
+}
+
+
+- (void) removeKeyAtSecion:(NSInteger)section row:(NSInteger)row {
+    NSMutableArray *sectionArray;
+    if (section >= map.count) {
+        sectionArray = [[[NSMutableArray alloc] init] autorelease];
+        [map addObject:sectionArray];
+    }
+    else {
+        return;
+    }
+    
+    if (row >= sectionArray.count) {
+        return;
+    }
+    else {
+        [sectionArray removeObjectAtIndex:row];
+    }
+
 }
 
 
@@ -666,6 +708,10 @@
     return [self keyForSection:indexPath.section row:indexPath.row];
 }
 
+
+- (void) removeKeyAtIndexPath:(NSIndexPath *)indexPath {
+    [self removeKeyAtSecion:indexPath.section row:indexPath.row];
+}
 
 - (void) dealloc {
     [map release];

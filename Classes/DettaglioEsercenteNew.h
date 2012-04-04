@@ -57,10 +57,13 @@
 
 @interface IndexPathMapper : NSObject {}
 
-- (void) setKey:(NSString *)key forIndexPath:(NSIndexPath *)indexPath;
 - (void) setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row;
-- (NSString *) keyForIndexPath:(NSIndexPath *)indexPath;
 - (NSString *) keyForSection:(NSInteger)section row:(NSInteger)row; 
+- (void) removeKeyAtSecion:(NSInteger)section row:(NSInteger)row;
+
+- (void) setKey:(NSString *)key forIndexPath:(NSIndexPath *)indexPath;
+- (NSString *) keyForIndexPath:(NSIndexPath *)indexPath;
+- (void) removeKeyAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 
