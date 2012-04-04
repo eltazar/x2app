@@ -1,9 +1,9 @@
 //
-//  DettaglioEsercenti.m
+//  DettaglioEsercente.m
 //  Per Due
 //
-//  Created by Giuseppe Lisanti on 30/04/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by Gabriele "Whisky" Visconti on 04/04/12.
+//  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "DettaglioEsercenteNew.h"
@@ -15,11 +15,12 @@
 
 @implementation DettaglioEsercenteNew
 
-// Properties
-@synthesize identificativo, dict, webView;
 
-// IBOutlets
-@synthesize mappa, condizioni, cond, tipoMappa, map, cellavalidita, sito;
+// Properties:
+@synthesize identificativo=_identificativo, dict=_dict, webView=_webView;
+
+// IBOutlets:
+@synthesize mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -45,7 +46,7 @@
 	[super viewDidLoad];
 	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
     
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",identificativo]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo]];
 	//NSLog(@"Url: %@", url);
 	
 	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
@@ -92,7 +93,7 @@
 
 - (void)dealloc {
 #warning inserire il release degli iboutlet ecc?
-    map.delegate = nil;
+    self.map.delegate = nil;
     self.map = nil;
     self.dict = nil;
     [super dealloc];
@@ -499,12 +500,12 @@
 				[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 				NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[self.dict objectForKey:@"Url_Esercente"]]];
 				NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-				[webView loadRequest:requestObj];		
+				[self.webView loadRequest:requestObj];		
 				[self.navigationController pushViewController:self.sito animated:YES];
 				self.sito.title = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Insegna_Esercente"]];
 				[tableView deselectRowAtIndexPath:indexPath animated:YES];
-				[webView release];
-				webView=nil;
+				[self.webView release];
+				self.webView=nil;
 
 			}
 			
@@ -528,12 +529,12 @@
 			[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 			NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[self.dict objectForKey:@"Url_Esercente"]]];
 			NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-			[webView loadRequest:requestObj];		
+			[self.webView loadRequest:requestObj];		
 			[self.navigationController pushViewController:self.sito animated:YES];
 			self.sito.title = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Insegna_Esercente"]];
 			[tableView deselectRowAtIndexPath:indexPath animated:YES];
-			[webView release];
-			webView=nil;
+			[self.webView release];
+			self.webView=nil;
 
 
 		}
@@ -544,12 +545,12 @@
 		[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@",[self.dict objectForKey:@"Url_Esercente"]]];
 		NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-		[webView loadRequest:requestObj];		
+		[self.webView loadRequest:requestObj];		
 		[self.navigationController pushViewController:self.sito animated:YES];
 		self.sito.title = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Insegna_Esercente"]];
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-		[webView release];
-		webView=nil;
+		[self.webView release];
+		self.webView=nil;
 		
 		
 	}
