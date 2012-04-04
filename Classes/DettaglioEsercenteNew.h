@@ -1,9 +1,9 @@
 //
-//  DettaglioEsercenti.h
+//  DettaglioEsercente.m
 //  Per Due
 //
-//  Created by Giuseppe Lisanti on 30/04/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//  Created by Gabriele "Whisky" Visconti on 04/04/12.
+//  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,7 +11,20 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
 
-@interface DettaglioEsercenti : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
+@interface DettaglioEsercenteNew : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
+    NSInteger _identificativo; 
+    NSDictionary *_dict;
+    UIWebView *_webView;
+    // UITableView *tableview;
+    // IBOutlets:
+    UIViewController *_mappa;
+    UIViewController *_condizioni;
+    UITextView *_cond;
+    UISegmentedControl *_tipoMappa;
+    MKMapView *_map;
+    UITableViewCell *_cellavalidita;
+    UIViewController *_sito;
+
 	IBOutlet UITableViewCell *provacella;
 	IBOutlet UITableViewCell *cellaindirizzo;
 	IBOutlet UITableViewCell *CellaDettaglio1;
@@ -21,8 +34,6 @@
 @property (nonatomic, assign) NSInteger identificativo; 
 @property (nonatomic, retain) NSDictionary *dict;
 @property (nonatomic, retain) UIWebView *webView;
-
-
 //@property (retain,nonatomic) UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIViewController *mappa;
 @property (nonatomic, retain) IBOutlet UIViewController *condizioni;
@@ -37,3 +48,5 @@
 
 
 @end
+
+
