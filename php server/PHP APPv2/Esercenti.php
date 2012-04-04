@@ -64,7 +64,7 @@
                          "citta"   => urlencode($prov),
                          "giorno"  => urlencode($giorno),
                          "raggio"  => urlencode($raggio),
-                         "ordina"  => urlencode($ordina),
+                         "ordina"  => urlencode("distanza"),
                          "from"    => urlencode($from)
                          );
     foreach($post_fields as $key=>$value) { $post_string .= $key.'='.$value.'&'; }
