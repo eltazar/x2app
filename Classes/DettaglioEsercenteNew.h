@@ -68,6 +68,8 @@
 - (void)setKey:(NSString *)key forIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)keyForIndexPath:(NSIndexPath *)indexPath;
 - (void)removeKeyAtIndexPath:(NSIndexPath *)indexPath;
+- (NSIndexPath *)indexPathForKey:(NSString *) key;
+
 
 @end
 
