@@ -169,7 +169,7 @@
     self.searchSegCtrl = nil;
 	self.footerView = nil;
     
-    self.phpFile = nil, 
+    self.phpFile = nil; 
     self.phpSearchFile = nil;
     self.geoDec.delegate = nil;
     self.geoDec = nil;
