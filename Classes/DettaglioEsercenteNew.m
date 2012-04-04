@@ -709,7 +709,7 @@
 }
 
 
-- (void) removeKeyAtSecion:(NSInteger)section row:(NSInteger)row {
+- (void) removeKeyAtSection:(NSInteger)section row:(NSInteger)row {
     NSMutableArray *sectionArray;
     if (section >= map.count) {
         sectionArray = [[[NSMutableArray alloc] init] autorelease];
@@ -729,6 +729,19 @@
 }
 
 
+- (NSInteger) sections {
+    return [map count];
+}
+
+
+- (NSInteger) rowsInSection:(NSInteger)section {
+    if (section >= map.count) {
+        return 0;
+    }
+    return [[map objectAtIndex:section] count];
+    
+}
+
 - (void) setKey:(NSString *)key forIndexPath:(NSIndexPath *)indexPath {
     [self setKey:key forSection:indexPath.section row:indexPath.row];
 }
@@ -740,7 +753,7 @@
 
 
 - (void) removeKeyAtIndexPath:(NSIndexPath *)indexPath {
-    [self removeKeyAtSecion:indexPath.section row:indexPath.row];
+    [self removeKeyAtSection:indexPath.section row:indexPath.row];
 }
 
 - (void) dealloc {
