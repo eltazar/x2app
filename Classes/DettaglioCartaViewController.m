@@ -13,7 +13,7 @@
 #import "BaseCell.h"
 #import "MBProgressHUD.h"
 #import "AbbinaCartaViewController.h"
-
+#import "FindNearCompanyController.h"
 @interface DettaglioCartaViewController(){
     CartaPerDue *_card;
     NSMutableArray *_sectionData;
@@ -465,6 +465,9 @@
     }
     else if([dataKey isEqualToString:@"find"]){
         NSLog(@"cerca esercenti");
+        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithNibName:@"FindNearCompanyController" bundle:nil];
+        [self.navigationController pushViewController:findCtrl animated:YES];
+        [findCtrl release];
     }
     else if([dataKey isEqualToString:@"rebind"]){
         //TODO: controllare bene come far avvenire l'associazione , se così semplicemente o come in "abbinaController"
