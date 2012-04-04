@@ -178,6 +178,8 @@
 		D924E633151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */; };
 		D924E635151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E634151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
+		D9AEA971152C523C00C4756A /* DettaglioEsercenteNew.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA96F152C523C00C4756A /* DettaglioEsercenteNew.m */; };
+		D9AEA972152C523C00C4756A /* DettaglioEsercenteNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AEA970152C523C00C4756A /* DettaglioEsercenteNew.xib */; };
 		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
 		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
 /* End PBXBuildFile section */
@@ -434,6 +436,9 @@
 		D924E630151D50F900AD4C07 /* CategoriaCommercialeWithPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriaCommercialeWithPrice.m; sourceTree = "<group>"; };
 		D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriaCommercialeWithPrice.xib; sourceTree = "<group>"; };
 		D924E634151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriaCommercialeWithPriceCell.xib; sourceTree = SOURCE_ROOT; };
+		D9AEA96E152C523C00C4756A /* DettaglioEsercenteNew.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DettaglioEsercenteNew.h; sourceTree = "<group>"; };
+		D9AEA96F152C523C00C4756A /* DettaglioEsercenteNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioEsercenteNew.m; sourceTree = "<group>"; };
+		D9AEA970152C523C00C4756A /* DettaglioEsercenteNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettaglioEsercenteNew.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -850,6 +855,9 @@
 				19D4CA9913ED5144001C7763 /* DettaglioEsercenti.h */,
 				19D4CA9A13ED5144001C7763 /* DettaglioEsercenti.m */,
 				19D4CA9B13ED5144001C7763 /* DettaglioEsercenti.xib */,
+				D9AEA96E152C523C00C4756A /* DettaglioEsercenteNew.h */,
+				D9AEA96F152C523C00C4756A /* DettaglioEsercenteNew.m */,
+				D9AEA970152C523C00C4756A /* DettaglioEsercenteNew.xib */,
 				19D4CA9F13ED5144001C7763 /* DettaglioRistoPub.h */,
 				19D4CAA013ED5144001C7763 /* DettaglioRistoPub.m */,
 				19D4CAA113ED5144001C7763 /* DettaglioRistoPub.xib */,
@@ -1010,6 +1018,7 @@
 				AC3C57B41525313500E5457E /* refreshBtn.png in Resources */,
 				AC3A83601525C96A0028E3EA /* Default.png in Resources */,
 				AC3A83611525C96A0028E3EA /* Default@2x.png in Resources */,
+				D9AEA972152C523C00C4756A /* DettaglioEsercenteNew.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1085,6 +1094,7 @@
 				D924E626151CBC4900AD4C07 /* CategoriaCommerciale.m in Sources */,
 				D924E62A151CEB6F00AD4C07 /* UserDefaults.m in Sources */,
 				D924E632151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.m in Sources */,
+				D9AEA971152C523C00C4756A /* DettaglioEsercenteNew.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -50,3 +50,20 @@
 @end
 
 
+/*********************************************************************/
+
+
+@interface IndexPathMapper : NSObject {}
+
+- (void) setKey:(NSString *)key forIndexPath:(NSIndexPath *)indexPath;
+- (void) setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row;
+- (NSString *) keyForIndexPath:(NSIndexPath *)indexPath;
+- (NSString *) keyForSection:(NSInteger)section row:(NSInteger)row; 
+
+@end
+
+
+
+
+
+
