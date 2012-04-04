@@ -33,7 +33,7 @@
     // se positivo viene ctenuto in considerazione nella query,
     // se nullo, o come stringa conteneva caratteri non validi, 
     // viene ignorato nella query. 
-    $raggio = (int)$raggio;
+    $raggio = (double)$raggio;
     if ($raggio < 0) {
         die("Invalid value for parameter 'raggio'");
     }
