@@ -68,7 +68,7 @@
     NSString *kind = [rowDesc objectForKey:@"kind"];
     int cellStyle = UITableViewCellStyleDefault;
     
-    NSLog(@"dataKey = %@, kind = %@",dataKey,kind);
+   // NSLog(@"dataKey = %@, kind = %@",dataKey,kind);
     
     BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier: dataKey];
     
