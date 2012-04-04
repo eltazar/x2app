@@ -10,10 +10,11 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
+#import "DatabaseAccess.h"
 
-@interface DettaglioEsercenteNew : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate> {
+
+@interface DettaglioEsercenteNew : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatabaseAccessDelegate> {
     NSInteger _identificativo; 
-    NSDictionary *_dict;
     UIWebView *_webView;
     // UITableView *tableview;
     // IBOutlets:
@@ -33,7 +34,6 @@
 
 
 @property (nonatomic, assign) NSInteger identificativo; 
-@property (nonatomic, retain) NSDictionary *dict;
 @property (nonatomic, retain) UIWebView *webView;
 //@property (retain,nonatomic) UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
