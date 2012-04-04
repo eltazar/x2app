@@ -14,6 +14,7 @@
 @interface FindNearCompanyController(){
     DatabaseAccess *dbAccess;
      NSString *_phpFile;
+    BOOL isEmpty;
 }
 @property (nonatomic, retain) NSString *phpFile;
 @end
@@ -42,42 +43,51 @@
 
 #pragma mark - DatabaseAccessDelegate
 -(void)didReceiveCoupon:(NSDictionary *)dataDict{
-    NSLog(@"ESERCENTI VICINI = %@", dataDict); 
     
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
-    NSArray *newRows = [dataDict objectForKey:type]s;
-    
+    NSArray *newRows = [dataDict objectForKey:type];
+   NSLog(@"esercenti = %@",dataDict);
+    NSLog(@"new rows = %d, rows = %d",newRows.count, self.rows.count);
     // Ci aspettiamo che rows sia effettivamente un array, se non lo è
     // si ignora.
     if (![newRows isKindOfClass:[NSArray class]]) return;
     
     if ([type isEqualToString:@"Esercente:FirstRows"]) {
         //table view begin updates at indexes blah blah 
-        [self.tableView beginUpdates];
+//        [self.tableView beginUpdates];
+//        [self.rows removeAllObjects];
+//        [self.rows addObjectsFromArray:newRows];
+//        [self.tableView endUpdates] ;
         [self.rows removeAllObjects];
         [self.rows addObjectsFromArray:newRows];
-        [self.tableView endUpdates] ;
-
+        //rimuovo 0 finale
+        [self.rows removeObjectAtIndex:self.rows.count-1];
+        [self.tableView reloadData];
+        NSLog(@"rows count = %d",[self.rows count]);
     } 
     else if ([type isEqualToString:@"Esercente:MoreRows"]) {
        
-        //creo i nuovi indexPaths per le righe ricevute
-        NSMutableArray *indexPaths = [[NSMutableArray alloc]initWithCapacity:newRows.count]; 
-        for (int i = self.rows.count; i < self.rows.count + newRows.count; i++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+        if(newRows.count > 1){
+            //creo i nuovi indexPaths per le righe ricevute
+            NSMutableArray *indexPaths = [[NSMutableArray alloc]initWithCapacity:newRows.count]; 
+            for (int i = self.rows.count; i < self.rows.count + newRows.count-1; i++) {
+                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+            }
+            
+            [self.tableView beginUpdates];
+            [self.rows addObjectsFromArray:newRows];
+            [self.rows removeObjectAtIndex:self.rows.count-1];
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
+            [indexPaths release];
         }
-        
-        [self.tableView beginUpdates];
-        [self.rows addObjectsFromArray:newRows];
-        [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView endUpdates];
-        [indexPaths release];
-        
-        //aggiorno la riga "mostra"
-        if(newRows.count < 20){
+        else{
+            isEmpty = TRUE;
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+            NSLog(@"cell = %@",cell);
             UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
-            altri2.text = @"Non ci sono altre news da mostrare";
+            altri2.text = @"Non ci sono altri esercenti da mostrare";
+            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil] withRowAnimation:UITableViewRowAnimationTop];
         }
     }
 
@@ -91,7 +101,7 @@
 - (void) fetchRows{
     
     NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",1,0];
+                            @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",50,0];
     NSLog(@"urlString is: [%@]", self.urlString);
     NSLog(@"postString is: [%@]", postString);
     [dbAccess postConnectionToURL:self.urlString withData:postString];
@@ -103,7 +113,8 @@
 - (void)fetchMoreRows {
     
     NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&lat=%f&long=%f&giorno=%@&raggio=%d&ordina=distanza&from=%d",0.0,0.0,10, self.rows.count];
+                            @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",50, self.rows.count];
+    NSLog(@"post more string  = %@",postString);
     [dbAccess postConnectionToURL:self.urlString withData:postString];
     
 }
@@ -114,6 +125,8 @@
 {
     [super viewDidLoad];
 
+    isEmpty = FALSE;
+    
     self.urlString = @"http://www.cartaperdue.it/partner/v2.0/Esercenti.php";
     self.rows = [[[NSMutableArray alloc] init] autorelease];
     
@@ -218,19 +231,22 @@
 		UILabel *altri = (UILabel *)[cell viewWithTag:1];
 		altri.text = @"Mostra altri...";
 		UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
-		altri2.text = @"";
+        if(isEmpty)
+            altri2.text = @"Non ci sono altri esercenti da mostrare";
+		else altri2.text = @"";
+        
 		return cell;		
 	} else {
         // Stiamo mostrando la cella relativa ad un esercente
-		static NSString *CellIdentifier = @"CategoriaCommercialeCell";
+		static NSString *CellIdentifier = @"CellaEsercenteVicino";
 		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
 		
 		if (cell == nil){
-			cell = [[[NSBundle mainBundle] loadNibNamed:@"CategoriaCommercialeCell" owner:self options:NULL] objectAtIndex:0];
+			cell = [[[NSBundle mainBundle] loadNibNamed:@"CellaEsercenteVicino" owner:self options:NULL] objectAtIndex:0];
 		}
 		
 		NSDictionary *r  = [self.rows objectAtIndex:indexPath.row];
-		
+		//NSLog(@"index path sec = %d, row = %d",indexPath.section,indexPath.row);
 		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
 		esercente.text = [r objectForKey:@"Insegna_Esercente"];
 		
@@ -286,6 +302,11 @@
 
 #pragma mark - UITableViewDelegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.section == 0)
+        return 90;
+    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
+}
 
 //- (UIView *)tableView:(UITableView *)tView viewForFooterInSection:(NSInteger)section {
 //    return self.footerView;
