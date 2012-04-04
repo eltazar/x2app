@@ -89,7 +89,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione.php";
+    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/Esercenti.php";
     self.rows = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
     inSearchUI = NO;
@@ -656,22 +656,20 @@
     
     if (self.tempBuff.count != (rows.count - 1)) {
         success = FALSE;
-    }
-    
-    
-    
-    printf("\n");
-    for (int i = 0; i < rows.count-1; i++) {
-        NSInteger r1id = [[[self.tempBuff objectAtIndex:i] objectForKey:@"IDesercente"] intValue];
-        NSInteger r2id = [[[rows objectAtIndex:i] objectForKey:@"IDesercente"] intValue];
-        if ( r1id != r2id ) {
-            success = FALSE;
-            printf("X[%d/%d]", r1id, r2id);
-        } else {
-            printf("O");
+    } else {
+        printf("\n");
+        for (int i = 0; i < rows.count-1; i++) {
+            NSInteger r1id = [[[self.tempBuff objectAtIndex:i] objectForKey:@"IDesercente"] intValue];
+            NSInteger r2id = [[[rows objectAtIndex:i] objectForKey:@"IDesercente"] intValue];
+            if ( r1id != r2id ) {
+                success = FALSE;
+                printf("X[%d/%d]", r1id, r2id);
+            } else {
+                printf("O");
+            }
         }
+        printf("\n");
     }
-    printf("\n");
     
     if (success) 
         NSLog(@"CategoriaCommerciale compare: ** SUCCESS");
