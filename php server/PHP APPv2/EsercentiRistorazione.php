@@ -82,6 +82,8 @@ WHE;
     
     $where_day = " AND ($mat='1' OR $sera='1') ";
     
+    $where_range = " AND (ACOS(SIN(RADIANS('$lat'))*SIN(RADIANS(Latitudine))+COS(RADIANS(Latitudine))*COS(RADIANS('$lat'))*COS(ABS(RADIANS('$long')-RADIANS(Longitudine))))*6371) < $raggio ";
+    
     $where_name = " AND ((esercente.Insegna_Esercente LIKE '%{$chiave}%')OR (esercente.Indirizzo_Esercente LIKE '%{$chiave}%') OR (esercente.Zona_Esercente LIKE '%{$chiave}%') ) ";
     
     $where_city = " AND (esercente.Provincia_Esercente=wrp_province.sigla AND wrp_province.provincia='$citta') ";

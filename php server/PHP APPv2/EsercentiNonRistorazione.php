@@ -113,7 +113,7 @@ WHE;
     
     $where_day = " AND t_orari_spettacoli.giorno_della_settimana LIKE '{$giorno}%' ";
     
-    $where_range = " AND Distanza < $raggio ";
+    $where_range = " AND (ACOS(SIN(RADIANS('$lat'))*SIN(RADIANS(Latitudine))+COS(RADIANS(Latitudine))*COS(RADIANS('$lat'))*COS(ABS(RADIANS('$long')-RADIANS(Longitudine))))*6371) < $raggio ";
     
     $where_name = " AND ( (esercente.Insegna_Esercente LIKE '%{$chiave}%') OR (esercente.Indirizzo_Esercente LIKE '%{$chiave}%') OR (esercente.Zona_Esercente LIKE '%{$chiave}%') ) ";
     
