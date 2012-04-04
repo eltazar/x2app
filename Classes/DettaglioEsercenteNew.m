@@ -20,7 +20,7 @@
 @synthesize identificativo=_identificativo, dict=_dict, webView=_webView;
 
 // IBOutlets:
-@synthesize mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
+@synthesize activityIndicator=_activityIndicator, mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -79,6 +79,7 @@
 - (void)viewDidUnload {
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.activityIndicator = nil;
     self.mappa = nil;
     self.condizioni = nil;
     self.cond = nil;

@@ -17,6 +17,7 @@
     UIWebView *_webView;
     // UITableView *tableview;
     // IBOutlets:
+    UIActivityIndicatorView *_activityIndicator;
     UIViewController *_mappa;
     UIViewController *_condizioni;
     UITextView *_cond;
@@ -35,6 +36,7 @@
 @property (nonatomic, retain) NSDictionary *dict;
 @property (nonatomic, retain) UIWebView *webView;
 //@property (retain,nonatomic) UITableView *tableview;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) IBOutlet UIViewController *mappa;
 @property (nonatomic, retain) IBOutlet UIViewController *condizioni;
 @property (nonatomic, retain) IBOutlet UITextView *cond;
