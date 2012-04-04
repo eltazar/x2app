@@ -91,8 +91,8 @@
     foreach($post_fields as $key=>$value) {
         echo $key.'=>'.$value."\n";
     }
-    echo 'A: '.$json_non_ristorazione;
-    echo 'B: '.$json_ristorazione;*/
+    echo 'NR: '.$json_non_ristorazione.'\n\n\n\n';
+    echo 'R: '.$json_ristorazione;*/
     
     $non_rist = json_decode($json_non_ristorazione, TRUE);
     $rist = json_decode($json_ristorazione, TRUE);
@@ -109,7 +109,7 @@
     array_pop($non_rist);
     array_pop($rist);
     
-    
+    $merged = Array();
     $i = 0;  $j = 0;  $k= 0;
     while ($i < count($non_rist) && $j < count($rist)) { 
         if ($non_rist[$i]["Distanza"] < $rist[$j]["Distanza"]) { 
