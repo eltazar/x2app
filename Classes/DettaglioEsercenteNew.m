@@ -13,6 +13,15 @@
 #import "Utilita.h"
 
 
+@interface DettaglioEsercenteNew () {
+    IndexPathMapper *_idxMap;
+    BOOL isGenerico;
+    BOOL isCoupon;
+}
+@property (nonatomic, retain) IndexPathMapper *idxMap;
+@end
+
+
 @implementation DettaglioEsercenteNew
 
 
@@ -21,6 +30,9 @@
 
 // IBOutlets:
 @synthesize activityIndicator=_activityIndicator, mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
+
+//Properties private:
+@synthesize idxMap=_idxMap;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -44,9 +56,23 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
     
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo]];
+    self.idxMap = [[[IndexPathMapper alloc] init] autorelease];
+    
+    [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
+    [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
+    [self.idxMap setKey:@"GiornoValidita"   forSection:0 row:2];
+    [self.idxMap setKey:@"Telefono"         forSection:1 row:0];
+    [self.idxMap setKey:@"Email"            forSection:2 row:0];
+    [self.idxMap setKey:@"URL"              forSection:3 row:0];
+    
+    if (isCoupon || isGenerico) {
+        [self.idxMap removeKeyAtSection:0 row:2]; 
+    }
+    
+    
+    #warning implementare DBAccess.
+    /*NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo]];
 	//NSLog(@"Url: %@", url);
 	
 	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
@@ -60,7 +86,7 @@
 	
 	//NSLog(@"Array: %@", rows);
 	[jsonreturn release];
-	jsonreturn=nil;
+	jsonreturn=nil;*/
 	self.dict = [rows objectAtIndex: 0];		
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -88,6 +114,8 @@
     self.map = nil;
     self.cellavalidita = nil;
     self.sito = nil;
+    
+    self.idxMap = nil;
     [super viewDidUnload];
 }
 
@@ -97,6 +125,8 @@
     self.map.delegate = nil;
     self.map = nil;
     self.dict = nil;
+    
+    self.idxMap = nil;
     [super dealloc];
 }
 
