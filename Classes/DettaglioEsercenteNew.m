@@ -15,10 +15,14 @@
 
 @interface DettaglioEsercenteNew () {
     IndexPathMapper *_idxMap;
+    NSDictionary *_dataModel;
+    DatabaseAccess *_dbAccess;
     BOOL isGenerico;
     BOOL isCoupon;
 }
 @property (nonatomic, retain) IndexPathMapper *idxMap;
+@property (nonatomic, retain) NSDictionary *dataModel;
+@property (nonatomic, retain) DatabaseAccess *dbAccess;
 @end
 
 
@@ -26,13 +30,13 @@
 
 
 // Properties:
-@synthesize identificativo=_identificativo, dict=_dict, webView=_webView;
+@synthesize identificativo=_identificativo, webView=_webView;
 
 // IBOutlets:
 @synthesize activityIndicator=_activityIndicator, mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
 
 //Properties private:
-@synthesize idxMap=_idxMap;
+@synthesize idxMap=_idxMap, dataModel=_dataModel, dbAccess=_dbAccess;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -70,6 +74,8 @@
         [self.idxMap removeKey:@"GiornoValidita"]; 
     }
     
+    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
+    self.dbAccess.delegate = self;
     
     #warning implementare DBAccess.
     /*NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo]];
@@ -87,7 +93,7 @@
 	//NSLog(@"Array: %@", rows);
 	[jsonreturn release];
 	jsonreturn=nil;*/
-	self.dict = [rows objectAtIndex: 0];		
+	//self.dict = [rows objectAtIndex: 0];		
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -116,6 +122,8 @@
     self.sito = nil;
     
     self.idxMap = nil;
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
     [super viewDidUnload];
 }
 
@@ -126,10 +134,42 @@
     self.map = nil;
     self.dict = nil;
     
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
     self.idxMap = nil;
+    
     [super dealloc];
 }
 
+
+#pragma mark - DatabaseAccessDelegate
+
+
+- (void) didReceiveCoupon:(NSDictionary *)data {
+    if (![data isKindOfClass:[NSDictionary class]])
+        return;
+    // Il pacchetto json relativo all'esercente ha formato:
+    // {Esercente=({....});}
+    NSObject *temp = [data objectForKey:@"Esercente"];
+    if (temp) {
+        self.dataModel = [((NSArray *)temp) objectAtIndex:0];
+        isDataReady = YES;
+        // lancio query per la validità:
+        NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d", [[self.dataModel objectForKey:@"IDcontratto_Contresercente"]intValue]];
+        [self.dbAccess getConnectionToURL:urlString];
+        [self.activityIndicator stopAnimating];
+        self.activityIndicator.hidden = YES;
+        [self.tableView reloadData];
+    }
+    
+    temp = [data objectForKey:@"Giorni"];
+    if (temp) {
+        self.dataModel = [[NSMutableDictionary alloc] initWithDictionary:self.dataModel];
+        [((NSMutableDictionary *)self.dataModel) setObject:temp forKey:@"GiorniValidita"];
+        isValiditaReady = YES;
+        [self.tableView reloadData];
+    }
+}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -142,7 +182,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return [self.idxMap sections];
 }
 
 
