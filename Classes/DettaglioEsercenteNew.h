@@ -59,7 +59,10 @@
 
 - (void) setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row;
 - (NSString *) keyForSection:(NSInteger)section row:(NSInteger)row; 
-- (void) removeKeyAtSecion:(NSInteger)section row:(NSInteger)row;
+- (void) removeKeyAtSection:(NSInteger)section row:(NSInteger)row;
+
+- (NSInteger) sections;
+- (NSInteger) rowsInSection:(NSInteger)section;
 
 - (void) setKey:(NSString *)key forIndexPath:(NSIndexPath *)indexPath;
 - (NSString *) keyForIndexPath:(NSIndexPath *)indexPath;
