@@ -19,6 +19,7 @@
     DatabaseAccess *_dbAccess;
     BOOL isGenerico;
     BOOL isCoupon;
+    BOOL isDataModelReady;
 }
 @property (nonatomic, retain) IndexPathMapper *idxMap;
 @property (nonatomic, retain) NSDictionary *dataModel;
@@ -33,7 +34,7 @@
 @synthesize identificativo=_identificativo, webView=_webView;
 
 // IBOutlets:
-@synthesize activityIndicator=_activityIndicator, mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
+@synthesize tableview=_tableview, activityIndicator=_activityIndicator, mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
 
 //Properties private:
 @synthesize idxMap=_idxMap, dataModel=_dataModel, dbAccess=_dbAccess;
@@ -77,23 +78,6 @@
     self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
     
-    #warning implementare DBAccess.
-    /*NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo]];
-	//NSLog(@"Url: %@", url);
-	
-	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	//NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-	
-	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-	NSError *error = nil;
-	
-    //In "real" code you should surround this with try and catch
-	NSArray *rows = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] objectForKey:@"Esercente"];
-	
-	//NSLog(@"Array: %@", rows);
-	[jsonreturn release];
-	jsonreturn=nil;*/
-	//self.dict = [rows objectAtIndex: 0];		
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -105,6 +89,14 @@
 		[alert show];
         [alert release];
 	}
+    else if (!isDataModelReady) {
+        // Quando sto per visualizzare la view eseguo il fetch dei dettagli,
+        // ma solo se non è stato già fatto. Es: apro la view -> torno alla
+        // springboard -> torno all'app PerDue senza riscaricare i dati.
+        [self.activityIndicator startAnimating];
+        NSString *detailUrlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d",self.identificativo];
+        [self.dbAccess getConnectionToURL:detailUrlString];
+    }
 }
 
 
@@ -132,7 +124,6 @@
 #warning inserire il release degli iboutlet ecc?
     self.map.delegate = nil;
     self.map = nil;
-    self.dict = nil;
     
     self.dbAccess.delegate = nil;
     self.dbAccess = nil;
@@ -151,9 +142,9 @@
     // Il pacchetto json relativo all'esercente ha formato:
     // {Esercente=({....});}
     NSObject *temp = [data objectForKey:@"Esercente"];
-    if (temp) {
+    if (temp && [temp isKindOfClass:[NSArray class]]) {
         self.dataModel = [((NSArray *)temp) objectAtIndex:0];
-        isDataReady = YES;
+        isDataModelReady = YES;
         // lancio query per la validità:
         NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d", [[self.dataModel objectForKey:@"IDcontratto_Contresercente"]intValue]];
         [self.dbAccess getConnectionToURL:urlString];
@@ -166,7 +157,7 @@
     if (temp) {
         self.dataModel = [[NSMutableDictionary alloc] initWithDictionary:self.dataModel];
         [((NSMutableDictionary *)self.dataModel) setObject:temp forKey:@"GiorniValidita"];
-        isValiditaReady = YES;
+#warning no reload data
         [self.tableView reloadData];
     }
 }
@@ -235,15 +226,15 @@
         UILabel *indirizzo = (UILabel *)[cell viewWithTag:1];
 		UILabel *zona = (UILabel *)[cell viewWithTag:2];
 		indirizzo.text = [NSString stringWithFormat:@"%@, %@",
-                          [self.dict objectForKey:@"Indirizzo_Esercente"],
-                          [self.dict objectForKey:@"Citta_Esercente"]];	
+                          [self.dataModel objectForKey:@"Indirizzo_Esercente"],
+                          [self.dataModel objectForKey:@"Citta_Esercente"]];	
         indirizzo.text = [indirizzo.text capitalizedString];
-        if ([[self.dict objectForKey:@"Zona_Esercente"] isEqualToString:@"<null>"]) {
+        if ([[self.dataModel objectForKey:@"Zona_Esercente"] isEqualToString:@"<null>"]) {
             zona.text = @"";
 		}
         else {
             zona.text = [NSString stringWithFormat:@"Zona: %@",
-                         [self.dict objectForKey:@"Zona_Esercente"]];
+                         [self.dataModel objectForKey:@"Zona_Esercente"]];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
@@ -254,7 +245,7 @@
         UILabel *giorno = (UILabel *)[cell viewWithTag:1];
         UILabel *etich = (UILabel *)[cell viewWithTag:2];
         etich.text = @"Chiusura settimanale";
-        giorno.text = [self.dict objectForKey:@"Giorno_chiusura_Esercente"];
+        giorno.text = [self.dataModel objectForKey:@"Giorno_chiusura_Esercente"];
         giorno.text = [giorno.text capitalizedString];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -267,48 +258,29 @@
         UILabel *validita = (UILabel *)[cell viewWithTag:2];
         etich.text=@"Giorni di validita della Carta PerDue";
         
-        NSArray *righe = nil;
-        NSDictionary *diz;
-        int idcontr=[[self.dict objectForKey:@"IDcontratto_Contresercente"]intValue];
-        NSURL *link = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d",idcontr]];
-        //NSLog(@"Url: %@", link);
-        
-#warning roba da passare a DBAccess
-        /*
-        NSString *jsonret = [[[NSString alloc] initWithContentsOfURL:link] autorelease];
-        // NSLog(@"%@",jsonret); // Look at the console and you can see what the restults are
-        
-        NSData *jsonRet = [jsonret dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *error = nil;
-        
-        diz = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonRet error:&error];
-        
-        if (diz) {
-            righe = [diz objectForKey:@"Giorni"];
-        }
-        
-        if ([righe count]==0){ //condizioni assenti
-            validita.text=@"Non disponibile";
-            
-        }
-        else { //costruisco la strinaga condizioni
-            
-            //NSLog(@"La tessera vale per %d giorni settimanali", [righe count]);
-            NSString *giorni=[NSString stringWithFormat:@""];
-            for (int i=0;i<[righe count];i++) {
-                diz = [righe objectAtIndex: i];
-                giorni=[NSString stringWithFormat:@"%@%@ ", giorni,[diz objectForKey:@"giorno_della_settimana"]];
+        NSArray *righe = [self.dataModel objectForKey:@"GiorniValidita"];
                 
+#warning roba da passare a DBAccess
+        if ([righe count] == 0){ //condizioni assenti
+            validita.text=@"Non disponibile";
+        }
+        else { 
+            //costruisco la strinaga condizioni
+            //NSLog(@"La tessera vale per %d giorni settimanali", [righe count]);
+            NSMutableString *giorni = [[NSMutableString alloc] init];
+            for (int i=0; i<[righe count]; i++) {
+                [giorni appendString: [[righe objectAtIndex:i] objectForKey:@"giorno_della_settimana"]];
             }
-            validita.text=[NSString stringWithFormat:@"%@", giorni];				
+            validita.text = giorni;
+            [giorni release];
             
-            if ( [ [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"Note_Varie_CE"]] isEqualToString:@"<null>"] ){ //non ci sono condizioni
+            if ( [[self.dataModel objectForKey:@"Note_Varie_CE"] isEqualToString:@"<null>"] ){ //non ci sono condizioni
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             else {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
-        }*/
+        }
 
     }
     
@@ -318,7 +290,7 @@
         UILabel *telefono = (UILabel *)[cell viewWithTag:1];
         UILabel *etic = (UILabel *)[cell viewWithTag:2];
         etic.text = @"";
-        telefono.text = [self.dict objectForKey:@"Telefono_Esercente"];
+        telefono.text = [self.dataModel objectForKey:@"Telefono_Esercente"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -328,7 +300,7 @@
         UILabel *email = (UILabel *)[cell viewWithTag:1];
         UILabel *etic = (UILabel *)[cell viewWithTag:2];
         etic.text = @"";
-        email.text = [self.dict objectForKey:@"Email_esercente"];
+        email.text = [self.dataModel objectForKey:@"Email_esercente"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -338,7 +310,7 @@
         UILabel *sitoweb = (UILabel *)[cell viewWithTag:1];
         UILabel *etic = (UILabel *)[cell viewWithTag:2];
         etic.text=@"";
-        sitoweb.text = [self.dict objectForKey:@"Url_Esercente"];
+        sitoweb.text = [self.dataModel objectForKey:@"Url_Esercente"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
