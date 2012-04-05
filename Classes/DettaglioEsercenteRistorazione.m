@@ -20,11 +20,19 @@
 
 @implementation DettaglioEsercenteRistorazione
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        urlString = @"
+        [urlString release];
+        [urlStringCoupon release];
+        [urlStringGenerico release];
+        [urlStringValiditaCarta release];
+        urlString = @"http://www.cartaperdue.it/partner/DettaglioRistorantePub.php?id=%d";
+        urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
+        urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
+        urlStringValiditaCarta = nil;
     }
     return self;
 }

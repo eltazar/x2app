@@ -41,9 +41,10 @@
 @protected
     BOOL isGenerico;
     BOOL isCoupon;
-    NSString *urlStringCoupon;
     NSString *urlString;
+    NSString *urlStringCoupon;
     NSString *urlStringGenerico;
+    NSString *urlStringValiditaCarta;
 }
 
 
