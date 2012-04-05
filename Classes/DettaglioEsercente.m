@@ -6,14 +6,14 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "DettaglioEsercenteNew.h"
+#import "DettaglioEsercente.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "CJSONDeserializer.h"
 #import "GoogleHQAnnotation.h"
 #import "Utilita.h"
 
 
-@interface DettaglioEsercenteNew () {}
+@interface DettaglioEsercente () {}
 @property (nonatomic, retain) IndexPathMapper *idxMap;
 @property (nonatomic, retain) NSDictionary *dataModel;
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
@@ -22,7 +22,7 @@
 @end
 
 
-@implementation DettaglioEsercenteNew
+@implementation DettaglioEsercente
 
 
 // Properties:

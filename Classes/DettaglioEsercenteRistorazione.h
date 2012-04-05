@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "DettaglioEsercenteNew.h"
+#import "DettaglioEsercente.h"
 
-@interface DettaglioEsercenteRistorazione : DettaglioEsercenteNew {
+@interface DettaglioEsercenteRistorazione : DettaglioEsercente {
     IBOutlet UITableViewCell *cellavalidita;
 }
 

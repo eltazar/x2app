@@ -184,8 +184,8 @@
 		D92D1CF5152CF69500008CE3 /* DettaglioEsercenteRistorazione.m in Sources */ = {isa = PBXBuildFile; fileRef = D92D1CF4152CF69500008CE3 /* DettaglioEsercenteRistorazione.m */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
-		D9AEA971152C523C00C4756A /* DettaglioEsercenteNew.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA96F152C523C00C4756A /* DettaglioEsercenteNew.m */; };
-		D9AEA972152C523C00C4756A /* DettaglioEsercenteNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AEA970152C523C00C4756A /* DettaglioEsercenteNew.xib */; };
+		D9AEA971152C523C00C4756A /* DettaglioEsercente.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */; };
+		D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */; };
 		D9B362581521BDFC003725D4 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B362551521BDFC003725D4 /* NSString+MD5Addition.m */; };
 		D9B362591521BDFC003725D4 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B362571521BDFC003725D4 /* UIDevice+IdentifierAddition.m */; };
 		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
@@ -462,9 +462,9 @@
 		D992A7D1152B3A6C00703EDC /* Esercenti.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = Esercenti.php; path = "php server/PHP APPv2/Esercenti.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
 		D99378B11519368200DFC410 /* CartaPerDue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaPerDue.m; sourceTree = "<group>"; };
-		D9AEA96E152C523C00C4756A /* DettaglioEsercenteNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DettaglioEsercenteNew.h; sourceTree = "<group>"; };
-		D9AEA96F152C523C00C4756A /* DettaglioEsercenteNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioEsercenteNew.m; sourceTree = "<group>"; };
-		D9AEA970152C523C00C4756A /* DettaglioEsercenteNew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettaglioEsercenteNew.xib; sourceTree = "<group>"; };
+		D9AEA96E152C523C00C4756A /* DettaglioEsercente.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DettaglioEsercente.h; sourceTree = "<group>"; };
+		D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioEsercente.m; sourceTree = "<group>"; };
+		D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettaglioEsercente.xib; sourceTree = "<group>"; };
 		D9B362541521BDFC003725D4 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
 		D9B362551521BDFC003725D4 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
 		D9B362561521BDFC003725D4 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
@@ -929,9 +929,9 @@
 				D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */,
 				D924E634151D559500AD4C07 /* CategoriaCommercialeWithPriceCell.xib */,
 				D924E62D151D26AC00AD4C07 /* LastCell.xib */,
-				D9AEA96E152C523C00C4756A /* DettaglioEsercenteNew.h */,
-				D9AEA96F152C523C00C4756A /* DettaglioEsercenteNew.m */,
-				D9AEA970152C523C00C4756A /* DettaglioEsercenteNew.xib */,
+				D9AEA96E152C523C00C4756A /* DettaglioEsercente.h */,
+				D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */,
+				D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */,
 				D92D1CF3152CF69500008CE3 /* DettaglioEsercenteRistorazione.h */,
 				D92D1CF4152CF69500008CE3 /* DettaglioEsercenteRistorazione.m */,
 				19D4CABA13ED5144001C7763 /* Opzioni.h */,
@@ -1103,7 +1103,7 @@
 				ACE86511152AEB90008EBD72 /* FindNearCompanyController.xib in Resources */,
 				ACE86514152AF68C008EBD72 /* CellaEsercenteVicino.xib in Resources */,
 				ACDE479C152DA436004772D4 /* ValidateCardController.xib in Resources */,
-				D9AEA972152C523C00C4756A /* DettaglioEsercenteNew.xib in Resources */,
+				D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1185,7 +1185,7 @@
 				AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */,
 				ACE86510152AEB90008EBD72 /* FindNearCompanyController.m in Sources */,
 				ACDE479B152DA436004772D4 /* ValidateCardController.m in Sources */,
-				D9AEA971152C523C00C4756A /* DettaglioEsercenteNew.m in Sources */,
+				D9AEA971152C523C00C4756A /* DettaglioEsercente.m in Sources */,
 				D92D1CF5152CF69500008CE3 /* DettaglioEsercenteRistorazione.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
