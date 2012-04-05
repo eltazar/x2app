@@ -21,7 +21,45 @@
 @implementation DettaglioEsercenteRistorazione
 
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        [urlString release];
+        [urlStringCoupon release];
+        [urlStringGenerico release];
+        [urlStringValiditaCarta release];
+        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
+        urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
+    }
+    return self;
+}
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (!nibNameOrNil) {
+        nibNameOrNil = [NSString stringWithFormat:@"%@", [self superclass]];
+    }
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [urlString release];
+        [urlStringCoupon release];
+        [urlStringGenerico release];
+        [urlStringValiditaCarta release];
+        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
+        urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
+    }
+    return self;
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil couponMode:(BOOL)couponMode genericoMode:(BOOL)genericoMode {
+    if (!nibNameOrNil) {
+        nibNameOrNil = [NSString stringWithFormat:@"%@", [self superclass]];
+    }
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil couponMode:couponMode genericoMode:genericoMode];
     if (self) {
         [urlString release];
