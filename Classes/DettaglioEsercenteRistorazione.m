@@ -13,7 +13,7 @@
 
 @interface DettaglioEsercenteRistorazione () {}
 - (void)removeNullItemsFromModel;
-- (void)setIndexPathMap;
+- (void)populateIndexPathMap;
 @end
 
 
@@ -324,7 +324,7 @@
 }
 
 
-- (void)setIndexPathMap {
+- (void)populateIndexPathMap {
     [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
     [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
     [self.idxMap setKey:@"PastiValidita"    forSection:0 row:2];

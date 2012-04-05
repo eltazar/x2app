@@ -18,7 +18,7 @@
 @property (nonatomic, retain) NSDictionary *dataModel;
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
 - (void)removeNullItemsFromModel;
-- (void)setIndexPathMap; 
+- (void)populateIndexPathMap; 
 @end
 
 
@@ -79,7 +79,7 @@
 	[super viewDidLoad];
     
     self.idxMap = [[[IndexPathMapper alloc] init] autorelease];
-    
+    [self populateIndexPathMap];
         
     self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
@@ -523,7 +523,7 @@
 }
 
 
-- (void)setIndexPathMap {
+- (void)populateIndexPathMap {
     [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
     [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
     [self.idxMap setKey:@"GiornoValidita"   forSection:0 row:2];
