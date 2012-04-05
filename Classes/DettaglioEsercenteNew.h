@@ -64,7 +64,7 @@
 @property (nonatomic, retain, readonly) NSDictionary *dataModel;
 @property (nonatomic, retain, readonly) IndexPathMapper *idxMap;
 
-
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil couponMode:(BOOL)couponMode genericoMode:(BOOL)genericoMode;
 - (IBAction)mostraTipoMappa:(id)sender;
 
 

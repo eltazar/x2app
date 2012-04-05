@@ -21,9 +21,8 @@
 @implementation DettaglioEsercenteRistorazione
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil couponMode:(BOOL)couponMode genericoMode:(BOOL)genericoMode {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil couponMode:couponMode genericoMode:genericoMode];
     if (self) {
         [urlString release];
         [urlStringCoupon release];
