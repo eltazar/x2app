@@ -542,6 +542,9 @@
 		NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",[self.dataModel objectForKey:@"Telefono_Esercente"]]];
 		[[UIApplication sharedApplication] openURL:url];
 	} 
+    else {
+        [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
+    }
 }
 
 
