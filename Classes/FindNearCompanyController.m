@@ -11,6 +11,7 @@
 #import "BaseCell.h"
 #import "DatabaseAccess.h"
 #import "CartaPerDue.h"
+#import "ValidateCardController.h"
 
 @interface FindNearCompanyController(){
     DatabaseAccess *dbAccess;
@@ -99,10 +100,11 @@
         else{
             isEmpty = TRUE;
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
-            NSLog(@"cell = %@",cell);
+            //NSLog(@"cell = %@",cell);
             UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
             altri2.text = @"Non ci sono altri esercenti da mostrare";
-            [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil] withRowAnimation:UITableViewRowAnimationTop];
+            //[self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil] withRowAnimation:UITableViewRowAnimationTop];
+            [self.tableView reloadData];
         }
     }
 
@@ -116,7 +118,7 @@
 - (void) fetchRows{
     
     NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",50,0];
+                            @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",2,0];
     NSLog(@"urlString is: [%@]", self.urlString);
     NSLog(@"postString is: [%@]", postString);
     [dbAccess postConnectionToURL:self.urlString withData:postString];
@@ -128,7 +130,7 @@
 - (void)fetchMoreRows {
     
     NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",50, self.rows.count];
+                            @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",2, self.rows.count];
     NSLog(@"post more string  = %@",postString);
     [dbAccess postConnectionToURL:self.urlString withData:postString];
     
@@ -345,18 +347,12 @@
 
 - (void)tableView:(UITableView *)tView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
-        /*
-		NSDictionary* r = [self.rows objectAtIndex: indexPath.row];
-		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
-		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
-		DettaglioEsercenti *detail = [[DettaglioEsercenti alloc] initWithNibName:@"DettaglioEsercenti" bundle:[NSBundle mainBundle]];//] autorelease];
-		[(DettaglioEsercenti*)detail setIdentificativo:i];
-		[detail setTitle:@"Esercente"];
-        //Facciamo visualizzare la vista con i dettagli
-        //        if (inSearchUI)
-        //            [self.navigationController setNavigationBarHidden:NO animated:YES];
-		[self.navigationController pushViewController:detail animated:YES];
-        [detail release];*/
+            NSLog(@"####### \n tessera numero: %@ \n riga: %d, esercente id: %d \n######",self.card.number, indexPath.row, [[[self.rows objectAtIndex:indexPath.row] objectForKey:@"IDesercente"] intValue]);
+        NSLog(@"ESERCENTE RIGA = %@",[self.rows objectAtIndex:indexPath.row]);
+        ValidateCardController *validateCtr = [[ValidateCardController alloc] initWhitCard:self.card company:[self.rows objectAtIndex:indexPath.row]];
+        [self.navigationController pushViewController:validateCtr animated:YES];
+        [validateCtr release];
+        
 	}
 	else { 
         //riga mostra altri
@@ -367,6 +363,9 @@
 //			altri2.text = @"Non ci sono altri esercenti da mostrare";
 //		}
 	}
+    
+    [tView deselectRowAtIndexPath:indexPath animated:YES];
+
 }
 
 @end
