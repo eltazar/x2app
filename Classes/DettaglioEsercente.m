@@ -29,7 +29,7 @@
 @synthesize idEsercente=_idEsercente;
 
 // IBOutlets:
-@synthesize tableview=_tableview, activityIndicator=_activityIndicator, mapViewController=_mapViewController, mkMapView=_mkMapView, mapTypeSegCtrl=_mapTypeSegCtrl,condizioniViewController=_condizioniViewController, condizioniTextView=_condizioniTextView,  sitoViewController=_sitoViewController, sitoWebView=_sitoWebView, cellavalidita=_cellavalidita;
+@synthesize tableview=_tableview, activityIndicator=_activityIndicator, mapViewController=_mapViewController, mkMapView=_mkMapView, mapTypeSegCtrl=_mapTypeSegCtrl,condizioniViewController=_condizioniViewController, condizioniTextView=_condizioniTextView,  sitoViewController=_sitoViewController, sitoWebView=_sitoWebView;
 
 //Properties private:
 @synthesize idxMap=_idxMap, dataModel=_dataModel, dbAccess=_dbAccess;
@@ -253,18 +253,16 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	static NSString *CellIdentifier = @"Cell";
     NSString *key = [self.idxMap keyForIndexPath:indexPath];
     
-    
-#warning mettere il riuso al posto giusto
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell;
 	
 	
     if ([key isEqualToString:@"Indirizzo"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"cellaindirizzo" owner:self options:NULL];
-        cell = cellaindirizzo;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercAddressCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercAddressCell" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *indirizzo = (UILabel *)[cell viewWithTag:1];
 		UILabel *zona = (UILabel *)[cell viewWithTag:2];
 		indirizzo.text = [NSString stringWithFormat:@"%@, %@",
@@ -282,8 +280,10 @@
     }
     
     else if ([key isEqualToString:@"GiornoChiusura"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL] ;
-        cell = CellaDettaglio1;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCellWithTitle"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *giorno = (UILabel *)[cell viewWithTag:1];
         UILabel *etich = (UILabel *)[cell viewWithTag:2];
         etich.text = @"Chiusura settimanale";
@@ -294,8 +294,10 @@
     }
     
     else if ([key isEqualToString:@"GiornoValidita"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"CellaValidita2" owner:self options:NULL];
-        cell = self.cellavalidita;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercGiorniValiditaCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercGiorniValiditaCell" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *etich = (UILabel *)[cell viewWithTag:1];
         UILabel *validita = (UILabel *)[cell viewWithTag:2];
         etich.text = @"Giorni di validita della Carta PerDue";
@@ -331,8 +333,10 @@
     }
     
     else if ([key isEqualToString:@"Telefono"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"provacella" owner:self options:NULL] ;
-        cell = provacella;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *telefono = (UILabel *)[cell viewWithTag:1];
         UILabel *etic = (UILabel *)[cell viewWithTag:2];
         etic.text = @"";
@@ -341,8 +345,10 @@
     }
     
     else if ([key isEqualToString:@"Email"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"provacella" owner:self options:NULL] ;
-        cell = provacella;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *email = (UILabel *)[cell viewWithTag:1];
         UILabel *etic = (UILabel *)[cell viewWithTag:2];
         etic.text = @"";
@@ -351,8 +357,10 @@
     }
     
     else if ([key isEqualToString:@"URL"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"provacella" owner:self options:NULL] ;
-        cell = provacella;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *sitoweb = (UILabel *)[cell viewWithTag:1];
         UILabel *etic = (UILabel *)[cell viewWithTag:2];
         etic.text=@"";

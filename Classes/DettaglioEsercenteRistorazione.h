@@ -9,7 +9,6 @@
 #import "DettaglioEsercente.h"
 
 @interface DettaglioEsercenteRistorazione : DettaglioEsercente {
-    IBOutlet UITableViewCell *cellavalidita;
 }
 
 @end

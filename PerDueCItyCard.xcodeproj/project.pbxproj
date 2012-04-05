@@ -179,11 +179,11 @@
 		D92D1CF5152CF69500008CE3 /* DettaglioEsercenteRistorazione.m in Sources */ = {isa = PBXBuildFile; fileRef = D92D1CF4152CF69500008CE3 /* DettaglioEsercenteRistorazione.m */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
-		D9AE33A8152E51A8006757FA /* cellaindirizzo.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33A7152E51A8006757FA /* cellaindirizzo.xib */; };
-		D9AE33AA152E51B3006757FA /* CellaDettaglio1.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33A9152E51B3006757FA /* CellaDettaglio1.xib */; };
-		D9AE33AC152E51BB006757FA /* CellaValidita2.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AB152E51BB006757FA /* CellaValidita2.xib */; };
-		D9AE33AE152E51CC006757FA /* provacella.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AD152E51CC006757FA /* provacella.xib */; };
-		D9AE33B0152E51DF006757FA /* CellaValidita.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AF152E51DF006757FA /* CellaValidita.xib */; };
+		D9AE33A8152E51A8006757FA /* DettEsercAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33A7152E51A8006757FA /* DettEsercAddressCell.xib */; };
+		D9AE33AA152E51B3006757FA /* DettEsercCellWithTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33A9152E51B3006757FA /* DettEsercCellWithTitle.xib */; };
+		D9AE33AC152E51BB006757FA /* DettEsercGiorniValiditaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AB152E51BB006757FA /* DettEsercGiorniValiditaCell.xib */; };
+		D9AE33AE152E51CC006757FA /* DettEsercCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AD152E51CC006757FA /* DettEsercCell.xib */; };
+		D9AE33B0152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AF152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib */; };
 		D9AEA971152C523C00C4756A /* DettaglioEsercente.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */; };
 		D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */; };
 		D9B362581521BDFC003725D4 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B362551521BDFC003725D4 /* NSString+MD5Addition.m */; };
@@ -457,11 +457,11 @@
 		D992A7D1152B3A6C00703EDC /* Esercenti.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = Esercenti.php; path = "php server/PHP APPv2/Esercenti.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
 		D99378B11519368200DFC410 /* CartaPerDue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaPerDue.m; sourceTree = "<group>"; };
-		D9AE33A7152E51A8006757FA /* cellaindirizzo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellaindirizzo.xib; sourceTree = "<group>"; };
-		D9AE33A9152E51B3006757FA /* CellaDettaglio1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellaDettaglio1.xib; sourceTree = "<group>"; };
-		D9AE33AB152E51BB006757FA /* CellaValidita2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellaValidita2.xib; sourceTree = "<group>"; };
-		D9AE33AD152E51CC006757FA /* provacella.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = provacella.xib; sourceTree = "<group>"; };
-		D9AE33AF152E51DF006757FA /* CellaValidita.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellaValidita.xib; sourceTree = "<group>"; };
+		D9AE33A7152E51A8006757FA /* DettEsercAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercAddressCell.xib; sourceTree = "<group>"; };
+		D9AE33A9152E51B3006757FA /* DettEsercCellWithTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercCellWithTitle.xib; sourceTree = "<group>"; };
+		D9AE33AB152E51BB006757FA /* DettEsercGiorniValiditaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercGiorniValiditaCell.xib; sourceTree = "<group>"; };
+		D9AE33AD152E51CC006757FA /* DettEsercCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercCell.xib; sourceTree = "<group>"; };
+		D9AE33AF152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercRistorazionePastiValiditaCell.xib; sourceTree = "<group>"; };
 		D9AEA96E152C523C00C4756A /* DettaglioEsercente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DettaglioEsercente.h; sourceTree = "<group>"; };
 		D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioEsercente.m; sourceTree = "<group>"; };
 		D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettaglioEsercente.xib; sourceTree = "<group>"; };
@@ -912,13 +912,13 @@
 				D9AEA96E152C523C00C4756A /* DettaglioEsercente.h */,
 				D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */,
 				D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */,
-				D9AE33A7152E51A8006757FA /* cellaindirizzo.xib */,
-				D9AE33A9152E51B3006757FA /* CellaDettaglio1.xib */,
-				D9AE33AB152E51BB006757FA /* CellaValidita2.xib */,
-				D9AE33AD152E51CC006757FA /* provacella.xib */,
+				D9AE33A7152E51A8006757FA /* DettEsercAddressCell.xib */,
+				D9AE33AB152E51BB006757FA /* DettEsercGiorniValiditaCell.xib */,
+				D9AE33A9152E51B3006757FA /* DettEsercCellWithTitle.xib */,
+				D9AE33AD152E51CC006757FA /* DettEsercCell.xib */,
 				D92D1CF3152CF69500008CE3 /* DettaglioEsercenteRistorazione.h */,
 				D92D1CF4152CF69500008CE3 /* DettaglioEsercenteRistorazione.m */,
-				D9AE33AF152E51DF006757FA /* CellaValidita.xib */,
+				D9AE33AF152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib */,
 			);
 			name = "Dettaglio Esercente V2";
 			sourceTree = "<group>";
@@ -1107,11 +1107,11 @@
 				ACE86514152AF68C008EBD72 /* CellaEsercenteVicino.xib in Resources */,
 				ACDE479C152DA436004772D4 /* ValidateCardController.xib in Resources */,
 				D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */,
-				D9AE33A8152E51A8006757FA /* cellaindirizzo.xib in Resources */,
-				D9AE33AA152E51B3006757FA /* CellaDettaglio1.xib in Resources */,
-				D9AE33AC152E51BB006757FA /* CellaValidita2.xib in Resources */,
-				D9AE33AE152E51CC006757FA /* provacella.xib in Resources */,
-				D9AE33B0152E51DF006757FA /* CellaValidita.xib in Resources */,
+				D9AE33A8152E51A8006757FA /* DettEsercAddressCell.xib in Resources */,
+				D9AE33AA152E51B3006757FA /* DettEsercCellWithTitle.xib in Resources */,
+				D9AE33AC152E51BB006757FA /* DettEsercGiorniValiditaCell.xib in Resources */,
+				D9AE33AE152E51CC006757FA /* DettEsercCell.xib in Resources */,
+				D9AE33B0152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

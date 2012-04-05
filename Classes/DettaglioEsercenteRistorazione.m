@@ -114,18 +114,16 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	static NSString *CellIdentifier = @"Cell";
     NSString *key = [self.idxMap keyForIndexPath:indexPath];
     
-    
-#warning mettere il riuso al posto giusto
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell;
 	
 	
     if ([key isEqualToString:@"PastiValidita"]) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"CellaValidita" owner:self options:NULL] objectAtIndex:0];
-        //cell = cellavalidita;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercRistorazionePastiValiditaCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercRistorazionePastiValiditaCell" owner:self options:NULL] objectAtIndex:0];
+        }
         NSMutableString *pranzo = [[[NSMutableString alloc] init] autorelease];
         NSMutableString *cena   = [[[NSMutableString alloc] init] autorelease];
 			
@@ -191,8 +189,10 @@
     
     
     else if ([key isEqualToString:@"Ambiente"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL];
-        cell=CellaDettaglio1;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCellWithTitle"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *ambiente   = (UILabel *)[cell viewWithTag:1];
         UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
         ambiente.text = [self.dataModel objectForKey:@"Ambiente_Esercente"];
@@ -201,8 +201,10 @@
     }
 		
     else if ([key isEqualToString:@"Subtipo_STeser"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL];
-        cell=CellaDettaglio1;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCellWithTitle"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *cucina     = (UILabel *)[cell viewWithTag:1];
         UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
         cucina.text = [self.dataModel objectForKey:@"Subtipo_STeser"];
@@ -211,8 +213,10 @@
     }
                 
     else if ([key isEqualToString:@"Specialita_CE"] ) {
-        [[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL];
-        cell=CellaDettaglio1;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCellWithTitle"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *specialita = (UILabel *)[cell viewWithTag:1];
         UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
         specialita.text = [self.dataModel objectForKey:@"Specialita_CE"];
@@ -222,8 +226,10 @@
     }
 	
     else if ([key isEqualToString:@"Fasciaprezzo"]) { 
-        [[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL];
-        cell=CellaDettaglio1;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCellWithTitle"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *prezzo     = (UILabel *)[cell viewWithTag:1];
         UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
         prezzo.text = [NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"Fasciaprezzo_Esercente"]]; 
@@ -233,8 +239,10 @@
     }
     
     else if ([key isEqualToString:@"Commenti"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL];
-        cell=CellaDettaglio1;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCellWithTitle"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
+        }
         UILabel *commenti   = (UILabel *)[cell viewWithTag:1]; 
         UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
         commenti.text = @"Commenti";

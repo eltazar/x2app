@@ -24,14 +24,9 @@
     UISegmentedControl *_mapTypeSegCtrl;
     UIViewController *_condizioniViewController;
     UITextView *_condizioniTextView;
-    UITableViewCell *_cellavalidita;
     UIViewController *_sitoViewController;
     UIWebView *_sitoWebView;
 
-
-	IBOutlet UITableViewCell *provacella;
-	IBOutlet UITableViewCell *cellaindirizzo;
-	IBOutlet UITableViewCell *CellaDettaglio1;
     
 @private
     IndexPathMapper *_idxMap;
@@ -60,7 +55,6 @@
 @property (nonatomic, retain) IBOutlet UIViewController *sitoViewController;
 @property (nonatomic, retain) IBOutlet UIWebView *sitoWebView;
 
-@property (nonatomic, retain) IBOutlet UITableViewCell *cellavalidita;
 
 // property "protected" (na mezza specie): nell'interfaccia pubblica non ha l'ivar corrispondente, che è solo nella privata. nella privata viede ridefinita come readwrite.
 @property (nonatomic, retain, readonly) NSDictionary *dataModel;
