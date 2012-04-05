@@ -10,18 +10,33 @@
 #import "Utilita.h"
 #import "BaseCell.h"
 #import "DatabaseAccess.h"
+#import "CartaPerDue.h"
 
 @interface FindNearCompanyController(){
     DatabaseAccess *dbAccess;
      NSString *_phpFile;
     BOOL isEmpty;
+    CartaPerDue *_card;
 }
+@property(nonatomic, retain) CartaPerDue *card;
 @property (nonatomic, retain) NSString *phpFile;
 @end
 
 @implementation FindNearCompanyController
 
 @synthesize urlString = _urlString, rows = _rows, phpFile = _phpFile;
+@synthesize card = _card;
+
+-(id) initWithCard:(CartaPerDue *)aCard{
+    
+    self = [super initWithNibName:@"FindNearCompanyController" bundle:nil];
+    if(self){
+        
+        self.card = aCard;
+    }
+    
+    return self;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -125,6 +140,8 @@
 {
     [super viewDidLoad];
 
+    self.title = @"Esercenti vicini";
+    
     isEmpty = FALSE;
     
     self.urlString = @"http://www.cartaperdue.it/partner/v2.0/Esercenti.php";
@@ -181,6 +198,7 @@
 
 - (void)dealloc {
     
+    self.card = nil;
     self.phpFile = nil;
     self.urlString = nil;
     self.rows = nil;

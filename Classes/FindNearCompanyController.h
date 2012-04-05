@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DatabaseAccess.h"
+@class CartaPerDue;
 
 @interface FindNearCompanyController : UITableViewController<DatabaseAccessDelegate>
 {
@@ -15,6 +16,7 @@
     NSMutableArray *_rows;
 }
 
+-(id) initWithCard:(CartaPerDue*)aCard;
 @property (nonatomic, retain) NSString *urlString;
 @property (nonatomic, retain) NSMutableArray *rows;
 @end
