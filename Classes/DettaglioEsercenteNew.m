@@ -50,11 +50,11 @@
 }
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil couponMode:(BOOL)couponMode genericoMode:(BOOL)genericoMode {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        isGenerico = FALSE;
-        isCoupon = FALSE;
+        isGenerico = genericoMode;
+        isCoupon = couponMode;
         isDataModelReady = FALSE;
         urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
@@ -102,14 +102,14 @@
         // springboard -> torno all'app PerDue senza riscaricare i dati.
         [self.activityIndicator startAnimating];
         NSString *completedUrlString;
-        if (isCoupon) {
+        if (isGenerico) {
+            completedUrlString = [NSString stringWithFormat:urlStringGenerico, self.identificativo];
+        }
+        else if (isCoupon) {
             completedUrlString = [NSString stringWithFormat:urlStringCoupon, self.identificativo];
         }
-        if (isGenerico) {
-            completedUrlString = [NSString stringWithFormat: urlStringGenerico, self.identificativo];
-        }
         else {
-            completedUrlString = [NSString stringWithFormat: urlString, self.identificativo];
+            completedUrlString = [NSString stringWithFormat:urlString, self.identificativo];
         }
         [self.dbAccess getConnectionToURL:completedUrlString];
     }
