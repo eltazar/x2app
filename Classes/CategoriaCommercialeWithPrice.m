@@ -7,7 +7,6 @@
 //
 
 #import "CategoriaCommercialeWithPrice.h"
-#import "DettaglioRistoPub.h"
 
 @implementation CategoriaCommercialeWithPrice
 

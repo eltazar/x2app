@@ -11,9 +11,6 @@
 #import "CJSONDeserializer.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import <MessageUI/MessageUI.h>
-#import "DettaglioRistoCoupon.h"
-#import "DettaglioEsercenteCoupon.h"
-#import "DettaglioEsercenteGenerico.h"
 #import "AltreOfferte.h"
 #import "Pagamento2.h"
 #import "OpzioniCoupon.h"

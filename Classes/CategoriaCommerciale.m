@@ -9,7 +9,6 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "CategoriaCommerciale.h"
-#import "DettaglioEsercenti.h"
 #import "UserDefaults.h"
 #import "GoogleHQAnnotation.h"
 #import "CJSONDeserializer.h"
