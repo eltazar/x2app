@@ -101,7 +101,7 @@
             urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d", self.identificativo];
         }
         else {
-            urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d", self.identificativo];
+            urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d", self.identificativo];
         }
         [self.dbAccess getConnectionToURL:urlString];
     }
@@ -160,6 +160,7 @@
         }
         [self.activityIndicator stopAnimating];
         self.activityIndicator.hidden = YES;
+        [self removeNullItemsFromModel];
         [self.tableview reloadData];
     }
     
@@ -168,11 +169,10 @@
         self.dataModel = [[NSMutableDictionary alloc] initWithDictionary:self.dataModel];
         [self.tableview beginUpdates];
         [((NSMutableDictionary *)self.dataModel) setObject:temp forKey:@"GiorniValidita"];
-        NSArray *idxPaths = [NSArray arrayWithObject:[self.idxMap indexPathForKey:@"GiornoValidità"]];
+        NSArray *idxPaths = [NSArray arrayWithObject:[self.idxMap indexPathForKey:@"GiornoValidita"]];
         [self.tableview reloadRowsAtIndexPaths:idxPaths withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableview endUpdates];
     }
-    [self removeNullItemsFromModel];
 }
 
 
@@ -220,7 +220,7 @@
                           [self.dataModel objectForKey:@"Indirizzo_Esercente"],
                           [self.dataModel objectForKey:@"Citta_Esercente"]];	
         indirizzo.text = [indirizzo.text capitalizedString];
-        if ([[self.dataModel objectForKey:@"Zona_Esercente"] isEqualToString:@"<null>"]) {
+        if ([[self.dataModel objectForKey:@"Zona_Esercente"] isKindOfClass:[NSNull class]]) {
             zona.text = @"";
 		}
         else {
@@ -242,7 +242,7 @@
 
     }
     
-    else if ([key isEqualToString:@"GiornoValidità"]) {
+    else if ([key isEqualToString:@"GiornoValidita"]) {
         [[NSBundle mainBundle] loadNibNamed:@"CellaValidita2" owner:self options:NULL];
         cell = self.cellavalidita;
         UILabel *etich = (UILabel *)[cell viewWithTag:1];
@@ -264,11 +264,12 @@
             NSMutableString *giorni = [[NSMutableString alloc] init];
             for (int i=0; i<[righe count]; i++) {
                 [giorni appendString: [[righe objectAtIndex:i] objectForKey:@"giorno_della_settimana"]];
+                [giorni appendString:@" "];
             }
-            validita.text = giorni;
+            validita.text = [giorni capitalizedString];
             [giorni release];
             
-            if ( [[self.dataModel objectForKey:@"Note_Varie_CE"] isEqualToString:@"<null>"] ){ //non ci sono condizioni
+            if ( [[self.dataModel objectForKey:@"Note_Varie_CE"] isKindOfClass:[NSNull class]] ){ //non ci sono condizioni
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             else {
@@ -294,7 +295,7 @@
         UILabel *email = (UILabel *)[cell viewWithTag:1];
         UILabel *etic = (UILabel *)[cell viewWithTag:2];
         etic.text = @"";
-        email.text = [self.dataModel objectForKey:@"Email_esercente"];
+        email.text = [self.dataModel objectForKey:@"Email_Esercente"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -497,17 +498,18 @@
 
 #pragma mark - DettaglioEsercente (metodi privati)
 
-- (void) removeNullItemsFromModel {
-    if ([[self.dataModel objectForKey:@"Giorno_chiusura_Esercente"] isEqualToString:@"<null>"]){
+- (void)removeNullItemsFromModel {
+    Class null = [NSNull class];
+    if ([[self.dataModel objectForKey:@"Giorno_chiusura_Esercente"] isKindOfClass:null]){
         [self.idxMap removeKey:@"GiornoChiusura"];
     }
-    if ([[self.dataModel objectForKey:@"Telefono_Esercente"] isEqualToString:@"<null>"]) {
+    if ([[self.dataModel objectForKey:@"Telefono_Esercente"] isKindOfClass:null]) {
         [self.idxMap removeKey:@"Telefono"];
     }
-    if ([[self.dataModel objectForKey:@"Email_Esercente"] isEqualToString:@"<null>"]) {
+    if ([[self.dataModel objectForKey:@"Email_Esercente"] isKindOfClass:null]) {
         [self.idxMap removeKey:@"Email"];
     }
-    if ([[self.dataModel objectForKey:@"Url_Esercente"] isEqualToString:@"<null>"]) {
+    if ([[self.dataModel objectForKey:@"Url_Esercente"] isKindOfClass:null]) {
         [self.idxMap removeKey:@"URL"];
     }
     
