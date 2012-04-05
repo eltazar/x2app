@@ -15,9 +15,9 @@
 @class IndexPathMapper;
 
 @interface DettaglioEsercenteNew : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatabaseAccessDelegate> {
-    NSInteger _identificativo; 
-    UIWebView *_webView;
+    NSInteger _identificativo;
     // IBOutlets:
+    UIWebView *_webView;
     UITableView *_tableview;
     UIActivityIndicatorView *_activityIndicator;
     UIViewController *_mappa;
@@ -49,7 +49,7 @@
 
 
 @property (nonatomic, assign) NSInteger identificativo; 
-@property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, retain) IBOutlet UIWebView *webView;
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) IBOutlet UIViewController *mappa;
