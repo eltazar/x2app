@@ -269,10 +269,10 @@
 		lbl.text = [self.dataModel objectForKey:@"Insegna_Esercente"];
 	}
 	else if (section == 1) {
-        lbl.text = @"Contatti";	
+        lbl.text = [self.dataModel objectForKey:@"Tipo_Teser"];	
     } 
     else if (section == 2) {
-        lbl.text = [self.dataModel objectForKey:@"Tipo_Teser"];
+        lbl.text = @"Contatti";
     }
 	else {	
         lbl.text = @"";
@@ -297,10 +297,10 @@
 		lblText = [self.dataModel objectForKey:@"Insegna_Esercente"];
 	}
 	else if (section == 1) {
-        lblText = @"Contatti";	
+        lblText = [self.dataModel objectForKey:@"Tipo_Teser"];
     } 
     else if (section == 2) {
-        lblText = [self.dataModel objectForKey:@"Tipo_Teser"];
+        lblText = @"Contatti";
     }
 	else {	
         lblText = @"";
@@ -392,7 +392,7 @@
     [self.idxMap setKey:@"URL"              forSection:2 row:2];
     
     if (isCoupon || isGenerico) {
-        [self.idxMap removeKey:@"GiornoValidita"]; 
+        [self.idxMap removeKey:@"PastiValidita"]; 
     }
 }
 
