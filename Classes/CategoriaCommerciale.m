@@ -10,7 +10,7 @@
 
 #import "CategoriaCommerciale.h"
 #import "UserDefaults.h"
-#import "GoogleHQAnnotation.h"
+#import "EsercenteMapAnnotation.h"
 #import "CJSONDeserializer.h"
 #import "Utilita.h"
 #import "DatabaseAccess.h"
@@ -314,9 +314,9 @@
 
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-	GoogleHQAnnotation * v =(GoogleHQAnnotation*)view.annotation;	
+	EsercenteMapAnnotation *ann =(EsercenteMapAnnotation *)view.annotation;	
 	DettaglioEsercente *detail = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
-	detail.idEsercente = [v ide];
+	detail.idEsercente = ann.idEsercente;
 	detail.title = @"Esercente";
     //Facciamo visualizzare la vista con i dettagli
 	[self.navigationController pushViewController:detail animated:YES];
@@ -599,7 +599,7 @@
                              [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString],
                              [[r objectForKey:@"Citta_Esercente"] capitalizedString]] autorelease];
 		
-		GoogleHQAnnotation *newAnnotation = [[[GoogleHQAnnotation alloc] init:lati:longi:name:address:Id] autorelease];
+		EsercenteMapAnnotation *newAnnotation = [[[EsercenteMapAnnotation alloc] initWithLatitudine:lati longitudine:longi insegna:name indirizzo:address idEsercente:Id] autorelease];
         [self.mapView addAnnotation:newAnnotation];
 		NSLog(@"Latitudine:  %f\n", lati);
 		NSLog(@"Longitudine: %f\n", longi);

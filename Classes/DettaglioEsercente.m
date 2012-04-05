@@ -9,7 +9,7 @@
 #import "DettaglioEsercente.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "CJSONDeserializer.h"
-#import "GoogleHQAnnotation.h"
+#import "EsercenteMapAnnotation.h"
 #import "Utilita.h"
 
 
@@ -480,12 +480,11 @@
                              (nCampiNonNulli>1)  ? @", " : @"", 
                              citta] capitalizedString];	
         
-		double latitude = [[self.dataModel objectForKey:@"Latitudine"] doubleValue];
-		double longitude =[[self.dataModel objectForKey:@"Longitudine"] doubleValue];
-		NSInteger idEsercente = [[self.dataModel objectForKey:@"IDesercente"] intValue];
+		CLLocationDegrees latitude = [[self.dataModel objectForKey:@"Latitudine"] doubleValue];
+		CLLocationDegrees longitude =[[self.dataModel objectForKey:@"Longitudine"] doubleValue];
 		NSString *nome = [self.dataModel objectForKey:@"Insegna_Esercente"];
         
-        GoogleHQAnnotation *ann = [[[GoogleHQAnnotation alloc] init:latitude :longitude :nome :address :idEsercente] autorelease];
+        EsercenteMapAnnotation *ann = [[[EsercenteMapAnnotation alloc] initWithLatitudine:latitude longitudine:longitude insegna:nome indirizzo:address idEsercente:0] autorelease];
 		[self.mkMapView addAnnotation:ann];
 	}	
 	

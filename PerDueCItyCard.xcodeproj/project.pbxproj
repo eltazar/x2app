@@ -79,7 +79,7 @@
 		19D4CADA13ED5145001C7763 /* Commenti.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8413ED5144001C7763 /* Commenti.m */; };
 		19D4CADC13ED5145001C7763 /* Commento.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8713ED5144001C7763 /* Commento.m */; };
 		19D4CADE13ED5145001C7763 /* Coupon.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CA8A13ED5144001C7763 /* Coupon.m */; };
-		19D4CAEF13ED5145001C7763 /* GoogleHQAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA313ED5144001C7763 /* GoogleHQAnnotation.m */; };
+		19D4CAEF13ED5145001C7763 /* EsercenteMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA313ED5144001C7763 /* EsercenteMapAnnotation.m */; };
 		19D4CAF313ED5145001C7763 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAA913ED5144001C7763 /* Info.m */; };
 		19D4CAF913ED5145001C7763 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB213ED5144001C7763 /* News.m */; };
 		19D4CAFB13ED5145001C7763 /* Notizia.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D4CAB513ED5144001C7763 /* Notizia.m */; };
@@ -288,8 +288,8 @@
 		19D4CA8913ED5144001C7763 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
 		19D4CA8A13ED5144001C7763 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coupon.m; sourceTree = "<group>"; };
 		19D4CA8B13ED5144001C7763 /* Coupon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Coupon.xib; sourceTree = "<group>"; };
-		19D4CAA213ED5144001C7763 /* GoogleHQAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleHQAnnotation.h; sourceTree = "<group>"; };
-		19D4CAA313ED5144001C7763 /* GoogleHQAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleHQAnnotation.m; sourceTree = "<group>"; };
+		19D4CAA213ED5144001C7763 /* EsercenteMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; path = EsercenteMapAnnotation.h; sourceTree = "<group>"; };
+		19D4CAA313ED5144001C7763 /* EsercenteMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EsercenteMapAnnotation.m; sourceTree = "<group>"; };
 		19D4CAA813ED5144001C7763 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = "<group>"; };
 		19D4CAA913ED5144001C7763 /* Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Info.m; sourceTree = "<group>"; };
 		19D4CAAA13ED5144001C7763 /* Info.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Info.xib; sourceTree = "<group>"; };
@@ -622,8 +622,8 @@
 				ACC31927151CD815008229B0 /* LoginControllerBis.h */,
 				ACC31928151CD815008229B0 /* LoginControllerBis.m */,
 				ACC31929151CD815008229B0 /* LoginControllerBis.xib */,
-				19D4CAA213ED5144001C7763 /* GoogleHQAnnotation.h */,
-				19D4CAA313ED5144001C7763 /* GoogleHQAnnotation.m */,
+				19D4CAA213ED5144001C7763 /* EsercenteMapAnnotation.h */,
+				19D4CAA313ED5144001C7763 /* EsercenteMapAnnotation.m */,
 				19D4CAA813ED5144001C7763 /* Info.h */,
 				19D4CAA913ED5144001C7763 /* Info.m */,
 				19D4CAAA13ED5144001C7763 /* Info.xib */,
@@ -1139,7 +1139,7 @@
 				19D4CADA13ED5145001C7763 /* Commenti.m in Sources */,
 				19D4CADC13ED5145001C7763 /* Commento.m in Sources */,
 				19D4CADE13ED5145001C7763 /* Coupon.m in Sources */,
-				19D4CAEF13ED5145001C7763 /* GoogleHQAnnotation.m in Sources */,
+				19D4CAEF13ED5145001C7763 /* EsercenteMapAnnotation.m in Sources */,
 				19D4CAF313ED5145001C7763 /* Info.m in Sources */,
 				19D4CAF913ED5145001C7763 /* News.m in Sources */,
 				19D4CAFB13ED5145001C7763 /* Notizia.m in Sources */,
