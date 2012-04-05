@@ -465,7 +465,8 @@
     }
     else if([dataKey isEqualToString:@"find"]){
         NSLog(@"cerca esercenti");
-        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithNibName:@"FindNearCompanyController" bundle:nil];
+//        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithNibName:@"FindNearCompanyController" bundle:nil];
+        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithCard:self.card];
         [self.navigationController pushViewController:findCtrl animated:YES];
         [findCtrl release];
     }
