@@ -146,7 +146,6 @@
     }
     
     
-    
     else if ([key isEqualToString:@"Ambiente"]) {
         [[NSBundle mainBundle] loadNibNamed:@"CellaDettaglio1" owner:self options:NULL];
         cell=CellaDettaglio1;
@@ -275,7 +274,7 @@
     
     if ([key isEqualToString:@"Commenti"]) {
         Commenti *detail = [[Commenti alloc] initWithNibName:nil bundle:nil];
-        [detail setIdentificativo:identificativo];
+        [detail setIdentificativo:self.identificativo];
         [detail setTitle:@"Commenti"];
         [detail setNome:[self.dataModel objectForKey:@"Insegna_Esercente"]];
         [self.navigationController pushViewController:detail animated:YES];
@@ -297,6 +296,23 @@
     if ([[self.dataModel objectForKey:@"Giorno_chiusura_Esercente"] isKindOfClass:null]){
         [self.idxMap removeKey:@"GiornoChiusura"];
     }
+    
+    if ([[self.dataModel objectForKey:@"Ambiente_Esercente"] isKindOfClass:null]){
+        [self.idxMap removeKey:@"Ambiente"];
+    }
+    if ([[self.dataModel objectForKey:@"Subtipo_STeser"] isKindOfClass:null]){
+        [self.idxMap removeKey:@"Subtipo_STeser"];
+    }
+    if ([[self.dataModel objectForKey:@"Specialita_CE"] isKindOfClass:null]){
+        [self.idxMap removeKey:@"Specialita_CE"];
+    }
+    if ([[self.dataModel objectForKey:@"Fasciaprezzo"] isKindOfClass:null]){
+        [self.idxMap removeKey:@"Fasciaprezzo"];
+    }
+    if ([[self.dataModel objectForKey:@"Commenti"] isKindOfClass:null]){
+        [self.idxMap removeKey:@"Commenti"];
+    }
+    
     if ([[self.dataModel objectForKey:@"Telefono_Esercente"] isKindOfClass:null]) {
         [self.idxMap removeKey:@"Telefono"];
     }
@@ -312,11 +328,11 @@
 - (void)setIndexPathMap {
     [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
     [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
-    [self.idxMap setKey:@"PastiValidita"   forSection:0 row:2];
+    [self.idxMap setKey:@"PastiValidita"    forSection:0 row:2];
     
     [self.idxMap setKey:@"Ambiente"         forSection:1 row:0];
     [self.idxMap setKey:@"Subtipo_STeser"   forSection:1 row:1];
-    [self.idxMap setKey:@"Specialita_CE"     forSection:1 row:2];
+    [self.idxMap setKey:@"Specialita_CE"    forSection:1 row:2];
     [self.idxMap setKey:@"Fasciaprezzo"     forSection:1 row:3];
     [self.idxMap setKey:@"Commenti"         forSection:1 row:4];
     
