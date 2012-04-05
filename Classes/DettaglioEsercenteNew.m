@@ -13,18 +13,12 @@
 #import "Utilita.h"
 
 
-@interface DettaglioEsercenteNew () {
-    IndexPathMapper *_idxMap;
-    NSDictionary *_dataModel;
-    DatabaseAccess *_dbAccess;
-    BOOL isGenerico;
-    BOOL isCoupon;
-    BOOL isDataModelReady;
-}
+@interface DettaglioEsercenteNew () {}
 @property (nonatomic, retain) IndexPathMapper *idxMap;
 @property (nonatomic, retain) NSDictionary *dataModel;
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
 - (void)removeNullItemsFromModel;
+- (void)setIndexPathMap; 
 @end
 
 
@@ -41,10 +35,23 @@
 @synthesize idxMap=_idxMap, dataModel=_dataModel, dbAccess=_dbAccess;
 
 
+- (id)init {
+    self = [super init];
+    if (self) {
+        isGenerico = FALSE;
+        isCoupon = FALSE;
+        isDataModelReady = FALSE;
+    }
+    return self;
+}
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization.
+        isGenerico = FALSE;
+        isCoupon = FALSE;
+        isDataModelReady = FALSE;
     }
     return self;
 }
@@ -65,17 +72,7 @@
     
     self.idxMap = [[[IndexPathMapper alloc] init] autorelease];
     
-    [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
-    [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
-    [self.idxMap setKey:@"GiornoValidita"   forSection:0 row:2];
-    [self.idxMap setKey:@"Telefono"         forSection:1 row:0];
-    [self.idxMap setKey:@"Email"            forSection:2 row:0];
-    [self.idxMap setKey:@"URL"              forSection:3 row:0];
-    
-    if (isCoupon || isGenerico) {
-        [self.idxMap removeKey:@"GiornoValidita"]; 
-    }
-    
+        
     self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
     
@@ -141,6 +138,12 @@
 }
 
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations.
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
 #pragma mark - DatabaseAccessDelegate
 
 
@@ -173,12 +176,6 @@
         [self.tableview reloadRowsAtIndexPaths:idxPaths withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableview endUpdates];
     }
-}
-
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
@@ -512,7 +509,20 @@
     if ([[self.dataModel objectForKey:@"Url_Esercente"] isKindOfClass:null]) {
         [self.idxMap removeKey:@"URL"];
     }
+}
+
+
+- (void)setIndexPathMap {
+    [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
+    [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
+    [self.idxMap setKey:@"GiornoValidita"   forSection:0 row:2];
+    [self.idxMap setKey:@"Telefono"         forSection:1 row:0];
+    [self.idxMap setKey:@"Email"            forSection:1 row:2];
+    [self.idxMap setKey:@"URL"              forSection:1 row:3];
     
+    if (isCoupon || isGenerico) {
+        [self.idxMap removeKey:@"GiornoValidita"]; 
+    }
 }
 
 @end

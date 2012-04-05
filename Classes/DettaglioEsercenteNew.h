@@ -12,6 +12,7 @@
 #import <MessageUI/MessageUI.h>
 #import "DatabaseAccess.h"
 
+@class IndexPathMapper;
 
 @interface DettaglioEsercenteNew : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatabaseAccessDelegate> {
     NSInteger _identificativo; 
@@ -30,6 +31,19 @@
 	IBOutlet UITableViewCell *provacella;
 	IBOutlet UITableViewCell *cellaindirizzo;
 	IBOutlet UITableViewCell *CellaDettaglio1;
+    
+@private
+    IndexPathMapper *_idxMap;
+    NSDictionary *_dataModel;
+    DatabaseAccess *_dbAccess;
+    BOOL isDataModelReady;
+    
+@protected
+    BOOL isGenerico;
+    BOOL isCoupon;
+    NSString *urlStringCoupon;
+    NSString *urlString;
+    NSString *urlStringGenerico;
 }
 
 
@@ -44,6 +58,10 @@
 @property (nonatomic, retain) IBOutlet MKMapView *map;
 @property (nonatomic, retain) IBOutlet UITableViewCell *cellavalidita;
 @property (nonatomic, retain) IBOutlet UIViewController *sito;
+
+// property "protected" (na mezza specie): nell'interfaccia pubblica non ha l'ivar corrispondente, che è solo nella privata. nella privata viede ridefinita come readwrite.
+@property (nonatomic, retain, readonly) NSDictionary *dataModel;
+@property (nonatomic, retain, readonly) IndexPathMapper *idxMap;
 
 
 - (IBAction)mostraTipoMappa:(id)sender;
