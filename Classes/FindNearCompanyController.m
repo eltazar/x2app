@@ -12,6 +12,7 @@
 #import "DatabaseAccess.h"
 #import "CartaPerDue.h"
 #import "ValidateCardController.h"
+#import "MBProgressHUD.h"
 
 @interface FindNearCompanyController(){
     DatabaseAccess *dbAccess;
@@ -59,6 +60,8 @@
 
 #pragma mark - DatabaseAccessDelegate
 -(void)didReceiveCoupon:(NSDictionary *)dataDict{
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
     NSArray *newRows = [dataDict objectForKey:type];
@@ -117,6 +120,9 @@
 #pragma mark - metodi privati
 - (void) fetchRows{
     
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Caricamento...";
+    
     NSString *postString = [NSString stringWithFormat:
                             @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",2,0];
     NSLog(@"urlString is: [%@]", self.urlString);
@@ -128,6 +134,8 @@
 
 
 - (void)fetchMoreRows {
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];    
     
     NSString *postString = [NSString stringWithFormat:
                             @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",2, self.rows.count];
