@@ -190,7 +190,7 @@
     
     temp = [data objectForKey:@"Giorni"];
     if (temp) {
-        self.dataModel = [[NSMutableDictionary alloc] initWithDictionary:self.dataModel];
+        self.dataModel = [[[NSMutableDictionary alloc] initWithDictionary:self.dataModel] autorelease];
         [self.tableview beginUpdates];
         [((NSMutableDictionary *)self.dataModel) setObject:temp forKey:@"GiorniValidita"];
         NSArray *idxPaths = [NSArray arrayWithObject:[self.idxMap indexPathForKey:@"GiornoValidita"]];
