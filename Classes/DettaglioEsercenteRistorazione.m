@@ -116,11 +116,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
 	
-    if ([key isEqualToString:@"GiornoValidita"]) {
-        [[NSBundle mainBundle] loadNibNamed:@"CellaValidita" owner:self options:NULL];
-        cell = cellavalidita;
-        NSMutableString *pranzo;
-        NSMutableString *cena;
+    if ([key isEqualToString:@"PastiValidita"]) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"CellaValidita" owner:self options:NULL] objectAtIndex:0];
+        //cell = cellavalidita;
+        NSMutableString *pranzo = [[[NSMutableString alloc] init] autorelease];
+        NSMutableString *cena   = [[[NSMutableString alloc] init] autorelease];
 			
         UILabel *etic       = (UILabel *)[cell viewWithTag:1];
         UILabel *pranzoLbl  = (UILabel *)[cell viewWithTag:2];
