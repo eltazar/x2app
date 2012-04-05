@@ -351,6 +351,7 @@
 
 
 - (void)removeNullItemsFromModel {
+    NSLog(@"DettaglioEsercenteRistorazione::removeNullItemsFromModel");
     Class null = [NSNull class];
     if ([[self.dataModel objectForKey:@"Giorno_chiusura_Esercente"] isKindOfClass:null]){
         [self.idxMap removeKey:@"GiornoChiusura"];
@@ -365,7 +366,7 @@
     if ([[self.dataModel objectForKey:@"Specialita_CE"] isKindOfClass:null]){
         [self.idxMap removeKey:@"Specialita_CE"];
     }
-    if ([[self.dataModel objectForKey:@"Fasciaprezzo"] isKindOfClass:null]){
+    if ([[self.dataModel objectForKey:@"Fasciaprezzo_Esercente"] isKindOfClass:null]){
         [self.idxMap removeKey:@"Fasciaprezzo"];
     }
     if ([[self.dataModel objectForKey:@"Commenti"] isKindOfClass:null]){
