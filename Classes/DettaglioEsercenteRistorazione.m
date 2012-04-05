@@ -179,8 +179,8 @@
 
         pranzoLbl.text = pranzo;
         cenaLbl.text = cena;
-        etic.text=@"Giorni di validità della Carta PerDue";
-        if ( [[self.dataModel objectForKey:@"Note_Varie_CE"] isKindOfClass:[NSNull class]]) {
+        etic.text = @"Giorni di validità della Carta PerDue";
+        if ([[self.dataModel objectForKey:@"Note_Varie_CE"] isKindOfClass:[NSNull class]]) {
             //non ci sono condizioni
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
@@ -316,7 +316,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSString *key = [self.idxMap keyForIndexPath:indexPath];
     
-    if ([key isEqualToString:@"Commenti"]) {
+    if ([key isEqualToString:@"PastiValidita"]) {
+		self.condizioni.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
+		self.cond.text = [self.dataModel objectForKey:@"Note_Varie_CE"];
+		[self.navigationController pushViewController:self.condizioni animated:YES];
+	}
+
+    
+    else if ([key isEqualToString:@"Commenti"]) {
         Commenti *detail = [[Commenti alloc] initWithNibName:nil bundle:nil];
         [detail setIdentificativo:self.identificativo];
         [detail setTitle:@"Commenti"];
