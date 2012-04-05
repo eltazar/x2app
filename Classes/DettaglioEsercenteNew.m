@@ -26,10 +26,10 @@
 
 
 // Properties:
-@synthesize identificativo=_identificativo, webView=_webView;
+@synthesize identificativo=_identificativo;
 
 // IBOutlets:
-@synthesize tableview=_tableview, activityIndicator=_activityIndicator, mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
+@synthesize webView=_webView, tableview=_tableview, activityIndicator=_activityIndicator, mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
 
 //Properties private:
 @synthesize idxMap=_idxMap, dataModel=_dataModel, dbAccess=_dbAccess;
@@ -129,31 +129,64 @@
 - (void)viewDidUnload {
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    // IBOutlets:
+    self.webView.delegate = nil;
+    self.webView = nil;
+    self.tableview.delegate = nil;
+    self.tableview.dataSource = nil;
+    self.tableview = nil;
     self.activityIndicator = nil;
     self.mappa = nil;
     self.condizioni = nil;
     self.cond = nil;
     self.tipoMappa = nil;
     self.map.delegate = nil;
-    self.map = nil;
-    self.cellavalidita = nil;
+    //UITableViewCell *_cellavalidita;
     self.sito = nil;
     
     self.idxMap = nil;
     self.dbAccess.delegate = nil;
     self.dbAccess = nil;
+    
+    // Questi verranno ricaricati nel viewWillAppear dopo il reload della view.
+    self.dataModel = nil;
+    isDataModelReady = NO;
     [super viewDidUnload];
 }
 
 
 - (void)dealloc {
-#warning inserire il release degli iboutlet ecc?
+    // IBOutlets:
+    self.webView.delegate = nil;
+    self.webView = nil;
+    self.tableview.delegate = nil;
+    self.tableview.dataSource = nil;
+    self.tableview = nil;
+    self.activityIndicator = nil;
+    self.mappa = nil;
+    self.condizioni = nil;
+    self.cond = nil;
+    self.tipoMappa = nil;
     self.map.delegate = nil;
-    self.map = nil;
+    //UITableViewCell *_cellavalidita;
+    self.sito = nil;
     
+	//IBOutlet UITableViewCell *provacella;
+	//IBOutlet UITableViewCell *cellaindirizzo;
+	//IBOutlet UITableViewCell *CellaDettaglio1;
+    
+    //@private
+    self.idxMap = nil;
+    self.dataModel = nil;
     self.dbAccess.delegate = nil;
     self.dbAccess = nil;
-    self.idxMap = nil;
+
+    
+    //@protected
+    [urlString release];
+    [urlStringCoupon release];
+    [urlStringGenerico release];
+    [urlStringValiditaCarta release];
     
     [super dealloc];
 }
@@ -392,9 +425,8 @@
     
     if ([key isEqualToString:@"Indirizzo"]) { 
 		self.mappa.navigationItem.titleView = self.tipoMappa;
-        //TODO: capire se ste righe relative a map.delegate e map.showUserLocation devono
+        //TODO: capire se ste righe relative a map.showUserLocation devono
         //andare qui...
-        self.map.delegate = self;
 		self.map.showsUserLocation = YES;
 		[self.navigationController pushViewController:self.mappa animated:YES];
 		
@@ -676,6 +708,7 @@
 
 - (void)dealloc {
     [map release];
+    [super dealloc];
 }
 @end
 
