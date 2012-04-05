@@ -28,10 +28,10 @@
         [urlStringCoupon release];
         [urlStringGenerico release];
         [urlStringValiditaCarta release];
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
-        urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
-        urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
-        urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
+        urlString = @"http://www.cartaperdue.it/partner/DettaglioRistorantePub.php?id=%d";
+        urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
+        urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
+        urlStringValiditaCarta = nil;
     }
     return self;
 }
@@ -47,10 +47,11 @@
         [urlStringCoupon release];
         [urlStringGenerico release];
         [urlStringValiditaCarta release];
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
-        urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
-        urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
-        urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
+        urlString = @"http://www.cartaperdue.it/partner/DettaglioRistorantePub.php?id=%d";
+        urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
+        urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
+        urlStringValiditaCarta = nil;
+
     }
     return self;
 }
