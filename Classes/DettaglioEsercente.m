@@ -254,30 +254,47 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *key = [self.idxMap keyForIndexPath:indexPath];
-    
+    Class null = [NSNull class];
     UITableViewCell *cell;
 	
 	
     if ([key isEqualToString:@"Indirizzo"]) {
+        // Nel metodo removeNullItemsFromModel non è fatto alcun test di nullità sui
+        // campi acceduti in questo blocco, quindi il test è fatto qui.
         cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercAddressCell"];
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercAddressCell" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *indirizzo = (UILabel *)[cell viewWithTag:1];
-		UILabel *zona = (UILabel *)[cell viewWithTag:2];
-		indirizzo.text = [NSString stringWithFormat:@"%@, %@",
-                          [self.dataModel objectForKey:@"Indirizzo_Esercente"],
-                          [self.dataModel objectForKey:@"Citta_Esercente"]];	
-        indirizzo.text = [indirizzo.text capitalizedString];
-        if ([[self.dataModel objectForKey:@"Zona_Esercente"] isKindOfClass:[NSNull class]]) {
-            zona.text = @"";
+        UILabel *indirizzoLbl   = (UILabel *)[cell viewWithTag:1];
+		UILabel *zonaLbl        = (UILabel *)[cell viewWithTag:2];
+		// Test nullità e costruzione stringa indirizzo
+        NSString *indirizzo = @"";
+        NSString *citta = @"";
+        NSInteger nCampiNonNulli = 0;
+        if (![[self.dataModel objectForKey:@"Indirizzo_Esercente"] isKindOfClass:null]) {
+            indirizzo = [self.dataModel objectForKey:@"Indirizzo_Esercente"];
+            nCampiNonNulli++;
+        }
+        if (![[self.dataModel objectForKey:@"Citta_Esercente"] isKindOfClass:null]) {
+            citta = [self.dataModel objectForKey:@"Citta_Esercente"];
+            nCampiNonNulli++;
+        }
+        indirizzoLbl.text = [NSString stringWithFormat:@"%@%@%@",
+                             indirizzo, 
+                             (nCampiNonNulli>1)  ? @", " : @"", 
+                             citta];	
+        indirizzoLbl.text = [indirizzoLbl.text capitalizedString];
+        // Test nullità e costruzione stringa indirizzo
+        if ([[self.dataModel objectForKey:@"Zona_Esercente"] isKindOfClass:null]) {
+            zonaLbl.text = @"";
 		}
         else {
-            zona.text = [NSString stringWithFormat:@"Zona: %@",
+            zonaLbl.text = [NSString stringWithFormat:@"Zona: %@",
                          [self.dataModel objectForKey:@"Zona_Esercente"]];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    
     
     else if ([key isEqualToString:@"GiornoChiusura"]) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCellWithTitle"];
@@ -301,6 +318,12 @@
         UILabel *etich = (UILabel *)[cell viewWithTag:1];
         UILabel *validita = (UILabel *)[cell viewWithTag:2];
         etich.text = @"Giorni di validita della Carta PerDue";
+        
+        // Questo oggetto del data model viene caricato a posteriori, attraverso una query
+        // specifica (fatta in didReceiveCoupon del DatabaseAccessDelegate.
+        // Se la query non è ancora stata fatta, la chiave non è settata, e objectForKey
+        // ritorna nil. Se la query è stata fatta invece la chiave è settata. Il suo oggetto
+        // non sarà mai un <null> come per gli altri campi, bensì un array vuoto.
         
         NSArray *righe = [self.dataModel objectForKey:@"GiorniValidita"];
         
@@ -431,20 +454,37 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSString *key = [self.idxMap keyForIndexPath:indexPath];
     
-    if ([key isEqualToString:@"Indirizzo"]) { 
+    if ([key isEqualToString:@"Indirizzo"]) {
+        // vedi il commento in cellForRow per il discorso dei check di nullità 
+        // eseguiti qui 
 		self.mapViewController.navigationItem.titleView = self.mapTypeSegCtrl;
         //TODO: capire se ste righe relative a map.showUserLocation devono
         //andare qui...
 		self.mkMapView.showsUserLocation = YES;
 		[self.navigationController pushViewController:self.mapViewController animated:YES];
 		
+        
+        NSString *via = @"";
+        NSString *citta = @"";
+        NSInteger nCampiNonNulli = 0;
+        if (![[self.dataModel objectForKey:@"Indirizzo_Esercente"] isKindOfClass:[NSNull class]]) {
+            via = [self.dataModel objectForKey:@"Indirizzo_Esercente"];
+            nCampiNonNulli++;
+        }
+        if (![[self.dataModel objectForKey:@"Citta_Esercente"] isKindOfClass:[NSNull class]]) {
+            citta = [self.dataModel objectForKey:@"Citta_Esercente"];
+            nCampiNonNulli++;
+        }
+        NSString *address = [[NSString stringWithFormat:@"%@%@%@",
+                             via, 
+                             (nCampiNonNulli>1)  ? @", " : @"", 
+                             citta] capitalizedString];	
+        
 		double latitude = [[self.dataModel objectForKey:@"Latitudine"] doubleValue];
 		double longitude =[[self.dataModel objectForKey:@"Longitudine"] doubleValue];
 		NSInteger idEsercente = [[self.dataModel objectForKey:@"IDesercente"] intValue];
 		NSString *nome = [self.dataModel objectForKey:@"Insegna_Esercente"];
-		NSString *address = [NSString stringWithFormat:@"%@, %@",
-                    [[self.dataModel objectForKey:@"Indirizzo_Esercente"]capitalizedString],
-                    [[self.dataModel objectForKey:@"Citta_Esercente"]capitalizedString]];
+        
         GoogleHQAnnotation *ann = [[[GoogleHQAnnotation alloc] init:latitude :longitude :nome :address :idEsercente] autorelease];
 		[self.mkMapView addAnnotation:ann];
 	}	
