@@ -15,6 +15,9 @@
 #import "DatabaseAccess.h"
 #import "Utilita.h"
 #import "LoginControllerBis.h"
+#import "DettaglioEsercente.h"
+#import "DettaglioEsercenteRistorazione.h"
+
 
 typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenzaContratto} tipoEsercente;
 
@@ -350,19 +353,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
 	} else if ( (indexPath.section == 1) && (indexPath.row == 2) ) {
         [self.contattiViewContr setTitle:@"Info Esercente"];
-        UIViewController *dettaglioEsercente;
+        DettaglioEsercente *dettaglioEsercente;
         NSInteger idEsercente = [[self.dataModel objectForKey:@"idesercente"]integerValue];
         if (tipodettaglio == CouponEsercenteRistorazione) { //dettglio ristopub
             NSLog(@"ESERCENTE RISTOPUB");
-            dettaglioEsercente = [[DettaglioRistoCoupon alloc] initWithNibName:nil bundle:nil];
+            dettaglioEsercente = [[DettaglioEsercenteRistorazione alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:NO];
 		} else if (tipodettaglio == CouponEsercente) { //esercente normale
-            NSLog(@"ESERCENTE GENERICO");
-            dettaglioEsercente = [[DettaglioEsercenteCoupon alloc] initWithNibName:nil bundle:nil];
+            NSLog(@"ESERCENTE NORMALE");
+            dettaglioEsercente = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:NO];
         } else if (tipodettaglio == CouponEsercenteSenzaContratto ){ //esercente senza contratto
-            dettaglioEsercente = [[DettaglioEsercenteGenerico alloc] initWithNibName:nil bundle:nil];
+            dettaglioEsercente = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:YES];
         }
-        [dettaglioEsercente setIdentificativo:idEsercente];
-        [dettaglioEsercente setTitle:@"Esercente"];
+        dettaglioEsercente.idEsercente = idEsercente;
+        dettaglioEsercente.title = @"Esercente";
         [self.navigationController pushViewController:dettaglioEsercente animated:YES];
         
     } else if ( (indexPath.section == 1) && (indexPath.row == 3) ) {

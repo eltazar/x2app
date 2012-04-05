@@ -14,6 +14,7 @@
 #import "CJSONDeserializer.h"
 #import "Utilita.h"
 #import "DatabaseAccess.h"
+#import "DettaglioEsercente.h"
 
 
 //Metodi privati
@@ -275,9 +276,9 @@
 		NSDictionary* r = [self.rows objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
-		DettaglioEsercenti *detail = [[DettaglioEsercenti alloc] initWithNibName:@"DettaglioEsercenti" bundle:[NSBundle mainBundle]];//] autorelease];
-		[(DettaglioEsercenti*)detail setIdentificativo:i];
-		[detail setTitle:@"Esercente"];
+		DettaglioEsercente *detail = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
+		detail.idEsercente = i;
+		detail.title = @"Esercente";
         //Facciamo visualizzare la vista con i dettagli
 //        if (inSearchUI)
 //            [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -314,14 +315,13 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
 	GoogleHQAnnotation * v =(GoogleHQAnnotation*)view.annotation;	
-	DettaglioEsercenti *detail = [[[DettaglioEsercenti alloc] initWithNibName:@"DettaglioEsercenti" bundle:[NSBundle mainBundle]] autorelease];
-	[(DettaglioEsercenti*)detail setIdentificativo:[v ide]];
-	[detail setTitle:@"Esercente"];
+	DettaglioEsercente *detail = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
+	detail.idEsercente = [v ide];
+	detail.title = @"Esercente";
     //Facciamo visualizzare la vista con i dettagli
 	[self.navigationController pushViewController:detail animated:YES];
     //rilascio controller
-    //[detail release];
-    //detail = nil;
+    [detail release];
 	
 }
 

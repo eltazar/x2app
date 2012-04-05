@@ -7,6 +7,7 @@
 //
 
 #import "CategoriaCommercialeWithPrice.h"
+#import "DettaglioEsercenteRistorazione.h"
 
 @implementation CategoriaCommercialeWithPrice
 
@@ -70,9 +71,9 @@
 		NSDictionary* r = [super.rows objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
-        DettaglioRistoPub *detail = [[DettaglioRistoPub alloc] initWithNibName:@"DettaglioRistoPub" bundle:[NSBundle mainBundle]]; //autorelease];
-		[detail setIdentificativo:i];
-		[detail setTitle:@"Esercente"];
+        DettaglioEsercenteRistorazione *detail = [[DettaglioEsercenteRistorazione alloc]initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
+		detail.idEsercente = i;
+		detail.title = @"Esercente";
         //Facciamo visualizzare la vista con i dettagli
 		[self.navigationController pushViewController:detail animated:YES];
         [detail release];
