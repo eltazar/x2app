@@ -41,6 +41,10 @@
         isGenerico = FALSE;
         isCoupon = FALSE;
         isDataModelReady = FALSE;
+        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
+        urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
     }
     return self;
 }
@@ -52,6 +56,10 @@
         isGenerico = FALSE;
         isCoupon = FALSE;
         isDataModelReady = FALSE;
+        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
+        urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
     }
     return self;
 }
@@ -93,14 +101,17 @@
         // ma solo se non è stato già fatto. Es: apro la view -> torno alla
         // springboard -> torno all'app PerDue senza riscaricare i dati.
         [self.activityIndicator startAnimating];
-        NSString *urlString;
+        NSString *completedUrlString;
+        if (isCoupon) {
+            completedUrlString = [NSString stringWithFormat:urlStringCoupon, self.identificativo];
+        }
         if (isGenerico) {
-            urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d", self.identificativo];
+            completedUrlString = [NSString stringWithFormat: urlStringGenerico, self.identificativo];
         }
         else {
-            urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d", self.identificativo];
+            completedUrlString = [NSString stringWithFormat: urlString, self.identificativo];
         }
-        [self.dbAccess getConnectionToURL:urlString];
+        [self.dbAccess getConnectionToURL:completedUrlString];
     }
 }
 
@@ -156,10 +167,10 @@
     if (temp && [temp isKindOfClass:[NSArray class]]) {
         self.dataModel = [((NSArray *)temp) objectAtIndex:0];
         isDataModelReady = YES;
-        // lancio query per la validità:
-        NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d", [[self.dataModel objectForKey:@"IDcontratto_Contresercente"]intValue]];
-        if (!isCoupon && !isGenerico) {
-            [self.dbAccess getConnectionToURL:urlString];
+        if (!isCoupon && !isGenerico && urlStringValiditaCarta) {
+            // lancio query per la validità:
+            NSString *completedUrlString = [NSString stringWithFormat:urlStringValiditaCarta, [[self.dataModel objectForKey:@"IDcontratto_Contresercente"]intValue]];
+            [self.dbAccess getConnectionToURL:completedUrlString];
         }
         [self.activityIndicator stopAnimating];
         self.activityIndicator.hidden = YES;
@@ -253,7 +264,7 @@
         }
         else if ([righe count] == 0){ 
             //condizioni assenti
-            validita.text=@"Non disponibile";
+            validita.text = @"Non disponibile";
         }
         else { 
             //costruisco la strinaga condizioni
