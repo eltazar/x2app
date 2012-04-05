@@ -9,13 +9,13 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/DatabaseAccess.m"
-         timestampString = "354930057.290272"
+         timestampString = "355262783.994266"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "795"
-         endingLineNumber = "795"
-         landmarkName = "@implementation DatabaseAccess"
-         landmarkType = "3">
+         startingLineNumber = "827"
+         endingLineNumber = "827"
+         landmarkName = "-connectionDidFinishLoading:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -23,25 +23,41 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/DatabaseAccess.m"
-         timestampString = "354930057.290272"
+         timestampString = "355262783.994266"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "804"
-         endingLineNumber = "804"
-         landmarkName = "@implementation DatabaseAccess"
-         landmarkType = "3">
+         startingLineNumber = "836"
+         endingLineNumber = "836"
+         landmarkName = "-connectionDidFinishLoading:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
-         filePath = "Classes/CategoriaCommerciale.m"
-         timestampString = "355221763.673751"
+         filePath = "Classes/DettaglioEsercenteNew.m"
+         timestampString = "355322484.472229"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "652"
-         endingLineNumber = "652">
+         startingLineNumber = "664"
+         endingLineNumber = "664"
+         landmarkName = "-indexPathForKey:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/DettaglioEsercenteRistorazione.m"
+         timestampString = "355326144.284686"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "116"
+         endingLineNumber = "116"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>
