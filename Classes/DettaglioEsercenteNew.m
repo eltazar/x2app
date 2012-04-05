@@ -26,10 +26,10 @@
 
 
 // Properties:
-@synthesize identificativo=_identificativo;
+@synthesize idEsercente=_idEsercente;
 
 // IBOutlets:
-@synthesize webView=_webView, tableview=_tableview, activityIndicator=_activityIndicator, mappa=_mappa, condizioni=_condizioni, cond=_cond, tipoMappa=_tipoMappa, map=_map, cellavalidita=_cellavalidita, sito=_sito;
+@synthesize tableview=_tableview, activityIndicator=_activityIndicator, mapViewController=_mapViewController, mkMapView=_mkMapView, mapTypeSegCtrl=_mapTypeSegCtrl,condizioniViewController=_condizioniViewController, condizioniTextView=_condizioniTextView,  sitoViewController=_sitoViewController, sitoWebView=_sitoWebView, cellavalidita=_cellavalidita;
 
 //Properties private:
 @synthesize idxMap=_idxMap, dataModel=_dataModel, dbAccess=_dbAccess;
@@ -113,13 +113,13 @@
         [self.activityIndicator startAnimating];
         NSString *completedUrlString;
         if (isGenerico) {
-            completedUrlString = [NSString stringWithFormat:urlStringGenerico, self.identificativo];
+            completedUrlString = [NSString stringWithFormat:urlStringGenerico, self.idEsercente];
         }
         else if (isCoupon) {
-            completedUrlString = [NSString stringWithFormat:urlStringCoupon, self.identificativo];
+            completedUrlString = [NSString stringWithFormat:urlStringCoupon, self.idEsercente];
         }
         else {
-            completedUrlString = [NSString stringWithFormat:urlString, self.identificativo];
+            completedUrlString = [NSString stringWithFormat:urlString, self.idEsercente];
         }
         [self.dbAccess getConnectionToURL:completedUrlString];
     }
@@ -130,19 +130,19 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     // IBOutlets:
-    self.webView.delegate = nil;
-    self.webView = nil;
+    self.sitoWebView.delegate = nil;
+    self.sitoWebView = nil;
     self.tableview.delegate = nil;
     self.tableview.dataSource = nil;
     self.tableview = nil;
     self.activityIndicator = nil;
-    self.mappa = nil;
-    self.condizioni = nil;
-    self.cond = nil;
-    self.tipoMappa = nil;
-    self.map.delegate = nil;
+    self.mapViewController = nil;
+    self.condizioniViewController = nil;
+    self.condizioniTextView = nil;
+    self.mapTypeSegCtrl = nil;
+    self.mkMapView.delegate = nil;
     //UITableViewCell *_cellavalidita;
-    self.sito = nil;
+    self.sitoViewController = nil;
     
     self.idxMap = nil;
     self.dbAccess.delegate = nil;
@@ -157,19 +157,19 @@
 
 - (void)dealloc {
     // IBOutlets:
-    self.webView.delegate = nil;
-    self.webView = nil;
+    self.sitoWebView.delegate = nil;
+    self.sitoWebView = nil;
     self.tableview.delegate = nil;
     self.tableview.dataSource = nil;
     self.tableview = nil;
     self.activityIndicator = nil;
-    self.mappa = nil;
-    self.condizioni = nil;
-    self.cond = nil;
-    self.tipoMappa = nil;
-    self.map.delegate = nil;
+    self.mapViewController = nil;
+    self.condizioniViewController = nil;
+    self.condizioniTextView = nil;
+    self.mapTypeSegCtrl = nil;
+    self.mkMapView.delegate = nil;
     //UITableViewCell *_cellavalidita;
-    self.sito = nil;
+    self.sitoViewController = nil;
     
 	//IBOutlet UITableViewCell *provacella;
 	//IBOutlet UITableViewCell *cellaindirizzo;
@@ -424,11 +424,11 @@
 	NSString *key = [self.idxMap keyForIndexPath:indexPath];
     
     if ([key isEqualToString:@"Indirizzo"]) { 
-		self.mappa.navigationItem.titleView = self.tipoMappa;
+		self.mapViewController.navigationItem.titleView = self.mapTypeSegCtrl;
         //TODO: capire se ste righe relative a map.showUserLocation devono
         //andare qui...
-		self.map.showsUserLocation = YES;
-		[self.navigationController pushViewController:self.mappa animated:YES];
+		self.mkMapView.showsUserLocation = YES;
+		[self.navigationController pushViewController:self.mapViewController animated:YES];
 		
 		double latitude = [[self.dataModel objectForKey:@"Latitudine"] doubleValue];
 		double longitude =[[self.dataModel objectForKey:@"Longitudine"] doubleValue];
@@ -438,13 +438,13 @@
                     [[self.dataModel objectForKey:@"Indirizzo_Esercente"]capitalizedString],
                     [[self.dataModel objectForKey:@"Citta_Esercente"]capitalizedString]];
         GoogleHQAnnotation *ann = [[[GoogleHQAnnotation alloc] init:latitude :longitude :nome :address :idEsercente] autorelease];
-		[self.map addAnnotation:ann];
+		[self.mkMapView addAnnotation:ann];
 	}	
 	
 	if ([key isEqualToString:@"GiornoValidita"] ) {
-		self.condizioni.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
-		self.cond.text = [self.dataModel objectForKey:@"Note_Varie_CE"];
-        [self.navigationController pushViewController:self.condizioni animated:YES];
+		self.condizioniViewController.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
+		self.condizioniTextView.text = [self.dataModel objectForKey:@"Note_Varie_CE"];
+        [self.navigationController pushViewController:self.condizioniViewController animated:YES];
 	}
 	
 	if ([key isEqualToString:@"Telefono"]) { //telefona o mail o sito
@@ -480,9 +480,9 @@
                               [self.dataModel objectForKey:@"Url_Esercente"]];
         NSURL *url = [NSURL URLWithString:urlString];
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-        [self.webView loadRequest:requestObj];		
-        self.sito.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
-        [self.navigationController pushViewController:self.sito animated:YES];
+        [self.sitoWebView loadRequest:requestObj];		
+        self.sitoViewController.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
+        [self.navigationController pushViewController:self.sitoViewController animated:YES];
     }
 }
 
@@ -536,12 +536,12 @@
 
 
 - (IBAction)mostraTipoMappa:(id)sender{
-	if ([self.tipoMappa selectedSegmentIndex]==0) {
-		self.map.mapType=MKMapTypeStandard;
-	} else if ([self.tipoMappa selectedSegmentIndex]==1) {
-		self.map.mapType=MKMapTypeSatellite;
-	} else if ([self.tipoMappa selectedSegmentIndex]==2) {
-		self.map.mapType=MKMapTypeHybrid;
+	if ([self.mapTypeSegCtrl selectedSegmentIndex]==0) {
+		self.mkMapView.mapType=MKMapTypeStandard;
+	} else if ([self.mapTypeSegCtrl selectedSegmentIndex]==1) {
+		self.mkMapView.mapType=MKMapTypeSatellite;
+	} else if ([self.mapTypeSegCtrl selectedSegmentIndex]==2) {
+		self.mkMapView.mapType=MKMapTypeHybrid;
 	}
 }
 

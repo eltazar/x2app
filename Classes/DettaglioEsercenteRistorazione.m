@@ -317,15 +317,15 @@
 	NSString *key = [self.idxMap keyForIndexPath:indexPath];
     
     if ([key isEqualToString:@"PastiValidita"]) {
-		self.condizioni.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
-		self.cond.text = [self.dataModel objectForKey:@"Note_Varie_CE"];
-		[self.navigationController pushViewController:self.condizioni animated:YES];
+		self.condizioniViewController.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
+		self.condizioniTextView.text = [self.dataModel objectForKey:@"Note_Varie_CE"];
+		[self.navigationController pushViewController:self.condizioniViewController animated:YES];
 	}
 
     
     else if ([key isEqualToString:@"Commenti"]) {
         Commenti *detail = [[Commenti alloc] initWithNibName:nil bundle:nil];
-        [detail setIdentificativo:self.identificativo];
+        [detail setIdentificativo:self.idEsercente];
         [detail setTitle:@"Commenti"];
         [detail setNome:[self.dataModel objectForKey:@"Insegna_Esercente"]];
         [self.navigationController pushViewController:detail animated:YES];

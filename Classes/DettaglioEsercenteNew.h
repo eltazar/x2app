@@ -15,18 +15,19 @@
 @class IndexPathMapper;
 
 @interface DettaglioEsercenteNew : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatabaseAccessDelegate> {
-    NSInteger _identificativo;
+    NSInteger _idEsercente;
     // IBOutlets:
-    UIWebView *_webView;
     UITableView *_tableview;
     UIActivityIndicatorView *_activityIndicator;
-    UIViewController *_mappa;
-    UIViewController *_condizioni;
-    UITextView *_cond;
-    UISegmentedControl *_tipoMappa;
-    MKMapView *_map;
+    UIViewController *_mapViewController;
+    MKMapView *_mkMapView;
+    UISegmentedControl *_mapTypeSegCtrl;
+    UIViewController *_condizioniViewController;
+    UITextView *_condizioniTextView;
     UITableViewCell *_cellavalidita;
-    UIViewController *_sito;
+    UIViewController *_sitoViewController;
+    UIWebView *_sitoWebView;
+
 
 	IBOutlet UITableViewCell *provacella;
 	IBOutlet UITableViewCell *cellaindirizzo;
@@ -48,17 +49,18 @@
 }
 
 
-@property (nonatomic, assign) NSInteger identificativo; 
-@property (nonatomic, retain) IBOutlet UIWebView *webView;
+@property (nonatomic, assign) NSInteger idEsercente; 
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, retain) IBOutlet UIViewController *mappa;
-@property (nonatomic, retain) IBOutlet UIViewController *condizioni;
-@property (nonatomic, retain) IBOutlet UITextView *cond;
-@property (nonatomic, retain) IBOutlet UISegmentedControl *tipoMappa;
-@property (nonatomic, retain) IBOutlet MKMapView *map;
+@property (nonatomic, retain) IBOutlet UIViewController *mapViewController;
+@property (nonatomic, retain) IBOutlet MKMapView *mkMapView;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *mapTypeSegCtrl;
+@property (nonatomic, retain) IBOutlet UIViewController *condizioniViewController;
+@property (nonatomic, retain) IBOutlet UITextView *condizioniTextView;
+@property (nonatomic, retain) IBOutlet UIViewController *sitoViewController;
+@property (nonatomic, retain) IBOutlet UIWebView *sitoWebView;
+
 @property (nonatomic, retain) IBOutlet UITableViewCell *cellavalidita;
-@property (nonatomic, retain) IBOutlet UIViewController *sito;
 
 // property "protected" (na mezza specie): nell'interfaccia pubblica non ha l'ivar corrispondente, che è solo nella privata. nella privata viede ridefinita come readwrite.
 @property (nonatomic, retain, readonly) NSDictionary *dataModel;
