@@ -2,6 +2,93 @@
 //  News.m
 //  Per Due
 //
+//  Created by Gabriele "Whisky" Visconti on 06/04/12.
+//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//
+
+
+#import "News.h"
+#import "Notizia.h"
+
+
+@implementation News
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [urlFormatString release];
+    urlFormatString = @"http://www.cartaperdue.it/partner/news.php?from=%d&to=10";
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+	UITableViewCell *cell;
+    
+	if (indexPath.section == 1) {		
+		return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+	}
+    
+	else if (self.dataModel.count > 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CommentiCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CommentiCell" owner:self options:NULL] objectAtIndex:0];
+        }
+        
+        NSDictionary *notizia = [self.dataModel objectAtIndex: indexPath.row];
+        UILabel *titolo = (UILabel *)[cell viewWithTag:1];
+        UILabel *data   = (UILabel *)[cell viewWithTag:2];
+        
+        titolo.text = [notizia objectForKey:@"post_title"];
+        data.text   = [super dateStringFromMySQLDate:[notizia objectForKey:@"post_date"]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    return cell;
+}
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
+	
+    if (indexPath.section == 1) {
+        [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    }
+    
+    else if (indexPath.section == 0) {
+        NSDictionary *notizia = [self.dataModel objectAtIndex:indexPath.row];
+        NSInteger idNotizia = [[notizia objectForKey:@"ID"] integerValue];
+        NSLog(@"L'id della notizia da visualizzare è %d", idNotizia);
+        Notizia *detail = [[Notizia alloc] initWithNibName:nil bundle:nil];
+        detail.title = @"News";
+        detail.idNotizia = idNotizia;
+        [self.navigationController pushViewController:detail animated:YES];
+        [detail release];
+    }    
+}
+
+
+- (void)prettifyNullValuesForCommentsInArray:(NSArray *)comments {
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"post_title", @"post_date", @"ID", nil];
+    for (NSMutableDictionary *c in comments) {
+        for (NSString *k in keys) {
+            if ([[c objectForKey:k] isKindOfClass: [NSNull class]]) {
+                [c setObject:@"" forKey:k];
+            }
+        }
+    }
+}
+
+
+
+
+
+@end
+
+
+/*//
+//  News.m
+//  Per Due
+//
 //  Created by Giuseppe Lisanti on 12/04/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
@@ -80,7 +167,7 @@
         indice=0;        
         [dbAccess getNewsFromServer:indice];
     }
- */
+ *//*
 
 }
 
@@ -140,7 +227,7 @@
 }
 */
 
-
+/*
 #pragma mark - DatabaseAccess delegate
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
@@ -211,7 +298,7 @@
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+*//*
 
 
 #pragma mark -
@@ -417,4 +504,4 @@
 
 
 @end
-
+*/

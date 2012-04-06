@@ -2,6 +2,23 @@
 //  News.h
 //  Per Due
 //
+//  Created by Gabriele "Whisky" Visconti on 06/04/12.
+//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import "Commenti.h"
+
+@interface News : Commenti {}
+
+
+@end
+
+
+
+/*//
+//  News.h
+//  Per Due
+//
 //  Created by Giuseppe Lisanti on 12/04/11.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
@@ -40,4 +57,4 @@
 - (void) doneSpinning;
 //-(int)check:(Reachability*) curReach;
 
-@end
+@end*/

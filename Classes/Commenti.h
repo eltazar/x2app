@@ -21,11 +21,16 @@
     DatabaseAccess *_dbAccess;
 	NSInteger _idEsercente;
 	NSString *_insegnaEsercente;
+    
+@protected
+    NSString *urlFormatString;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, assign) NSInteger idEsercente; 
 @property (nonatomic, retain) NSString *insegnaEsercente;
+
+@property (nonatomic, retain, readonly) NSMutableArray *dataModel;
 
 
 @end

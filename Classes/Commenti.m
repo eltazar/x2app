@@ -54,6 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    urlFormatString = @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10";
     UILabel *titolo = (UILabel *)[self.view viewWithTag:1];
     titolo.text = self.insegnaEsercente;
     didFetchAllComments = FALSE;
@@ -282,7 +283,7 @@
 
 
 - (void)fetchRowsFromNumber:(NSInteger)n {
-    NSString *urlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.idEsercente, n];
+    NSString *urlString = [NSString stringWithFormat:urlFormatString, self.idEsercente, n];
     [self.dbAccess getConnectionToURL:urlString];
 }
 
