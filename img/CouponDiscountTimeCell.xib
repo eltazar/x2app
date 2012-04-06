@@ -36,7 +36,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUITableViewCell" id="272806206">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -50,6 +50,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{123, 53}, {72, 26}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="723278091"/>
 								<object class="NSColor" key="IBUIBackgroundColor" id="843344923">
 									<int key="NSColorSpace">3</int>
@@ -85,6 +86,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{123, 26}, {73, 27}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="725777864"/>
 								<reference key="IBUIBackgroundColor" ref="843344923"/>
 								<bool key="IBUIOpaque">NO</bool>
@@ -108,6 +110,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{123, 111}, {162, 23}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1062503057"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -142,6 +145,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{46, 65}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="831397301"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -153,6 +157,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{123, 20}, {73, 11}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="386788440"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<reference key="IBUIBackgroundColor" ref="843344923"/>
@@ -184,6 +189,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{123, 47}, {73, 12}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1042722837"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<reference key="IBUIBackgroundColor" ref="843344923"/>
@@ -208,6 +214,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{123, 84}, {73, 19}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="927080000"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<reference key="IBUIBackgroundColor" ref="843344923"/>
@@ -235,6 +242,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{123, 77}, {73, 8}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="741293573"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<reference key="IBUIBackgroundColor" ref="843344923"/>
@@ -259,6 +267,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{123, 108}, {58, 29}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -281,6 +290,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{192, 26}, {93, 77}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="414204648"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -318,6 +328,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{192, 20}, {93, 21}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="671772354"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
@@ -344,6 +355,7 @@
 						</object>
 						<string key="NSFrameSize">{290, 154}</string>
 						<reference key="NSSuperview" ref="272806206"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="217806015"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -357,6 +369,8 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{290, 155}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="785300676"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -369,14 +383,6 @@
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">cellainfocoupon</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="272806206"/>
-					</object>
-					<int key="connectionID">11</int>
-				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">prezzoCouponLbl</string>
@@ -628,61 +634,71 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>CellSpinner</string>
+							<string>FotoIngranditaImageView</string>
+							<string>FotoIngranditaViewController</string>
+							<string>_FotoIngranditaImageView</string>
+							<string>_FotoIngranditaViewController</string>
+							<string>_caricamentoImmagineSpinner</string>
+							<string>_caricamentoSpinner</string>
+							<string>_cellaDescrizioneOffertaLbl</string>
+							<string>_compraBtn</string>
+							<string>_condizioniWebView</string>
+							<string>_contattiViewContr</string>
+							<string>_dettagliOffertaViewContr</string>
+							<string>_dettagliOffertaWebView</string>
+							<string>_diPiuViewContr</string>
+							<string>_diPiuWebView</string>
+							<string>_faqViewController</string>
+							<string>_faqWebView</string>
+							<string>_prezzoCouponLbl</string>
+							<string>_prezzoOrigLbl</string>
+							<string>_reloadBtn</string>
+							<string>_risparmioLbl</string>
+							<string>_scontoLbl</string>
+							<string>_tableview</string>
+							<string>_tempoLbl</string>
+							<string>_terminiViewContr</string>
+							<string>_titoloOffertaLbl</string>
+							<string>caricamentoImmagineSpinner</string>
 							<string>caricamentoSpinner</string>
-							<string>cellaDescrizioneOfferta</string>
-							<string>cellacoupon</string>
-							<string>cellainfocoupon</string>
-							<string>cellanomesercente</string>
-							<string>compra</string>
-							<string>compradipiu</string>
-							<string>comprasintesi</string>
-							<string>compratermini</string>
-							<string>condizionitxt</string>
-							<string>contatti</string>
-							<string>dipiu</string>
-							<string>dipiutext</string>
-							<string>faq</string>
-							<string>faqwebview</string>
-							<string>fotoingrandita</string>
-							<string>insintesi</string>
-							<string>insintesitext</string>
-							<string>offerta</string>
-							<string>photobig</string>
-							<string>prezzoCoupon</string>
-							<string>prezzoOrig</string>
+							<string>cellaDescrizioneOffertaLbl</string>
+							<string>compraBtn</string>
+							<string>condizioniWebView</string>
+							<string>contattiViewContr</string>
+							<string>dettagliOffertaViewContr</string>
+							<string>dettagliOffertaWebView</string>
+							<string>diPiuViewContr</string>
+							<string>diPiuWebView</string>
+							<string>faqViewController</string>
+							<string>faqWebView</string>
+							<string>prezzoCouponLbl</string>
+							<string>prezzoOrigLbl</string>
 							<string>reloadBtn</string>
-							<string>risparmio</string>
-							<string>sconto</string>
+							<string>risparmioLbl</string>
+							<string>scontoLbl</string>
 							<string>tableview</string>
-							<string>tempo</string>
-							<string>termini</string>
-							<string>titolo</string>
-							<string>titololabel</string>
+							<string>tempoLbl</string>
+							<string>terminiViewContr</string>
+							<string>titoloOffertaLbl</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UIActivityIndicatorView</string>
-							<string>UIActivityIndicatorView</string>
-							<string>UITableViewCell</string>
-							<string>UITableViewCell</string>
-							<string>UITableViewCell</string>
-							<string>UITableViewCell</string>
-							<string>UIButton</string>
-							<string>UIButton</string>
-							<string>UIButton</string>
-							<string>UIButton</string>
-							<string>UIWebView</string>
-							<string>UIViewController</string>
-							<string>UIViewController</string>
-							<string>UIWebView</string>
-							<string>UIViewController</string>
-							<string>UIWebView</string>
-							<string>UIViewController</string>
-							<string>UIViewController</string>
-							<string>UIWebView</string>
-							<string>UILabel</string>
 							<string>UIImageView</string>
+							<string>UIViewController</string>
+							<string>UIImageView</string>
+							<string>UIViewController</string>
+							<string>UIActivityIndicatorView</string>
+							<string>UIActivityIndicatorView</string>
+							<string>UILabel</string>
+							<string>UIButton</string>
+							<string>UIWebView</string>
+							<string>UIViewController</string>
+							<string>UIViewController</string>
+							<string>UIWebView</string>
+							<string>UIViewController</string>
+							<string>UIWebView</string>
+							<string>UIViewController</string>
+							<string>UIWebView</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
 							<string>UIButton</string>
@@ -692,6 +708,26 @@
 							<string>UILabel</string>
 							<string>UIViewController</string>
 							<string>UILabel</string>
+							<string>UIActivityIndicatorView</string>
+							<string>UIActivityIndicatorView</string>
+							<string>UILabel</string>
+							<string>UIButton</string>
+							<string>UIWebView</string>
+							<string>UIViewController</string>
+							<string>UIViewController</string>
+							<string>UIWebView</string>
+							<string>UIViewController</string>
+							<string>UIWebView</string>
+							<string>UIViewController</string>
+							<string>UIWebView</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UIButton</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UITableView</string>
+							<string>UILabel</string>
+							<string>UIViewController</string>
 							<string>UILabel</string>
 						</object>
 					</object>
@@ -699,42 +735,157 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>CellSpinner</string>
+							<string>FotoIngranditaImageView</string>
+							<string>FotoIngranditaViewController</string>
+							<string>_FotoIngranditaImageView</string>
+							<string>_FotoIngranditaViewController</string>
+							<string>_caricamentoImmagineSpinner</string>
+							<string>_caricamentoSpinner</string>
+							<string>_cellaDescrizioneOffertaLbl</string>
+							<string>_compraBtn</string>
+							<string>_condizioniWebView</string>
+							<string>_contattiViewContr</string>
+							<string>_dettagliOffertaViewContr</string>
+							<string>_dettagliOffertaWebView</string>
+							<string>_diPiuViewContr</string>
+							<string>_diPiuWebView</string>
+							<string>_faqViewController</string>
+							<string>_faqWebView</string>
+							<string>_prezzoCouponLbl</string>
+							<string>_prezzoOrigLbl</string>
+							<string>_reloadBtn</string>
+							<string>_risparmioLbl</string>
+							<string>_scontoLbl</string>
+							<string>_tableview</string>
+							<string>_tempoLbl</string>
+							<string>_terminiViewContr</string>
+							<string>_titoloOffertaLbl</string>
+							<string>caricamentoImmagineSpinner</string>
 							<string>caricamentoSpinner</string>
-							<string>cellaDescrizioneOfferta</string>
-							<string>cellacoupon</string>
-							<string>cellainfocoupon</string>
-							<string>cellanomesercente</string>
-							<string>compra</string>
-							<string>compradipiu</string>
-							<string>comprasintesi</string>
-							<string>compratermini</string>
-							<string>condizionitxt</string>
-							<string>contatti</string>
-							<string>dipiu</string>
-							<string>dipiutext</string>
-							<string>faq</string>
-							<string>faqwebview</string>
-							<string>fotoingrandita</string>
-							<string>insintesi</string>
-							<string>insintesitext</string>
-							<string>offerta</string>
-							<string>photobig</string>
-							<string>prezzoCoupon</string>
-							<string>prezzoOrig</string>
+							<string>cellaDescrizioneOffertaLbl</string>
+							<string>compraBtn</string>
+							<string>condizioniWebView</string>
+							<string>contattiViewContr</string>
+							<string>dettagliOffertaViewContr</string>
+							<string>dettagliOffertaWebView</string>
+							<string>diPiuViewContr</string>
+							<string>diPiuWebView</string>
+							<string>faqViewController</string>
+							<string>faqWebView</string>
+							<string>prezzoCouponLbl</string>
+							<string>prezzoOrigLbl</string>
 							<string>reloadBtn</string>
-							<string>risparmio</string>
-							<string>sconto</string>
+							<string>risparmioLbl</string>
+							<string>scontoLbl</string>
 							<string>tableview</string>
-							<string>tempo</string>
-							<string>termini</string>
-							<string>titolo</string>
-							<string>titololabel</string>
+							<string>tempoLbl</string>
+							<string>terminiViewContr</string>
+							<string>titoloOffertaLbl</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
-								<string key="name">CellSpinner</string>
+								<string key="name">FotoIngranditaImageView</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">FotoIngranditaViewController</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_FotoIngranditaImageView</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_FotoIngranditaViewController</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_caricamentoImmagineSpinner</string>
+								<string key="candidateClassName">UIActivityIndicatorView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_caricamentoSpinner</string>
+								<string key="candidateClassName">UIActivityIndicatorView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_cellaDescrizioneOffertaLbl</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_compraBtn</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_condizioniWebView</string>
+								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_contattiViewContr</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_dettagliOffertaViewContr</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_dettagliOffertaWebView</string>
+								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_diPiuViewContr</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_diPiuWebView</string>
+								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_faqViewController</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_faqWebView</string>
+								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_prezzoCouponLbl</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_prezzoOrigLbl</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_reloadBtn</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_risparmioLbl</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_scontoLbl</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_tableview</string>
+								<string key="candidateClassName">UITableView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_tempoLbl</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_terminiViewContr</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_titoloOffertaLbl</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">caricamentoImmagineSpinner</string>
 								<string key="candidateClassName">UIActivityIndicatorView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -742,87 +893,51 @@
 								<string key="candidateClassName">UIActivityIndicatorView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">cellaDescrizioneOfferta</string>
-								<string key="candidateClassName">UITableViewCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">cellacoupon</string>
-								<string key="candidateClassName">UITableViewCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">cellainfocoupon</string>
-								<string key="candidateClassName">UITableViewCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">cellanomesercente</string>
-								<string key="candidateClassName">UITableViewCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">compra</string>
-								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">compradipiu</string>
-								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">comprasintesi</string>
-								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">compratermini</string>
-								<string key="candidateClassName">UIButton</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">condizionitxt</string>
-								<string key="candidateClassName">UIWebView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">contatti</string>
-								<string key="candidateClassName">UIViewController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">dipiu</string>
-								<string key="candidateClassName">UIViewController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">dipiutext</string>
-								<string key="candidateClassName">UIWebView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">faq</string>
-								<string key="candidateClassName">UIViewController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">faqwebview</string>
-								<string key="candidateClassName">UIWebView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">fotoingrandita</string>
-								<string key="candidateClassName">UIViewController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">insintesi</string>
-								<string key="candidateClassName">UIViewController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">insintesitext</string>
-								<string key="candidateClassName">UIWebView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">offerta</string>
+								<string key="name">cellaDescrizioneOffertaLbl</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">photobig</string>
-								<string key="candidateClassName">UIImageView</string>
+								<string key="name">compraBtn</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">prezzoCoupon</string>
+								<string key="name">condizioniWebView</string>
+								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">contattiViewContr</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">dettagliOffertaViewContr</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">dettagliOffertaWebView</string>
+								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">diPiuViewContr</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">diPiuWebView</string>
+								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">faqViewController</string>
+								<string key="candidateClassName">UIViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">faqWebView</string>
+								<string key="candidateClassName">UIWebView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">prezzoCouponLbl</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">prezzoOrig</string>
+								<string key="name">prezzoOrigLbl</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -830,11 +945,11 @@
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">risparmio</string>
+								<string key="name">risparmioLbl</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">sconto</string>
+								<string key="name">scontoLbl</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
@@ -842,19 +957,15 @@
 								<string key="candidateClassName">UITableView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">tempo</string>
+								<string key="name">tempoLbl</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">termini</string>
+								<string key="name">terminiViewContr</string>
 								<string key="candidateClassName">UIViewController</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">titolo</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">titololabel</string>
+								<string key="name">titoloOffertaLbl</string>
 								<string key="candidateClassName">UILabel</string>
 							</object>
 						</object>

@@ -51,10 +51,6 @@
 	IBOutlet UIWebView *_diPiuWebView;
     IBOutlet UIWebView *_faqWebView;
 
-	IBOutlet UITableViewCell *_cellacoupon;
-	IBOutlet UITableViewCell *_cellainfocoupon; //D
-	IBOutlet UITableViewCell *_cellanomesercente; //D -> è identica a un'altra! O_O
-    IBOutlet UITableViewCell *_cellaDescrizioneOfferta; //D
     IBOutlet UILabel *_cellaDescrizioneOffertaLbl;
 }
 
@@ -87,10 +83,6 @@
 @property (nonatomic, retain) IBOutlet UIWebView *diPiuWebView;
 @property (nonatomic, retain) IBOutlet UIWebView *faqWebView;
 
-@property (nonatomic, retain) IBOutlet UITableViewCell *cellacoupon;
-@property (nonatomic, retain) IBOutlet UITableViewCell *cellainfocoupon; //D
-@property (nonatomic, retain) IBOutlet UITableViewCell *cellanomesercente; //D -> è identica a un'altra! O_O
-@property (nonatomic, retain) IBOutlet UITableViewCell *cellaDescrizioneOfferta; //D
 @property (nonatomic, retain) IBOutlet UILabel *cellaDescrizioneOffertaLbl; //D
 
 
