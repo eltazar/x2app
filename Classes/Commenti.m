@@ -85,24 +85,25 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+    self.dataModel = nil;
     self.dbAccess.delegate = nil;
     self.dbAccess = nil;
-	/*[rows release];
-	[dict release];
-	
-	[tableview release];
-	[cellanews release];
-	[cellafinale release];
-	[Nome release];
-	[titolo release];
-	[detail release];
-	[url release];*/
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.tableview.dataSource = nil;
+    self.tableview.delegate = nil;
+    self.tableview = nil;
 }
 
 
 - (void)dealloc {
+    self.tableview.dataSource = nil;
+    self.tableview.delegate = nil;
+    self.tableview = nil;
+    self.dataModel = nil; //era: rows
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
+    self.insegnaEsercente = nil;
     [super dealloc];
 }
 
