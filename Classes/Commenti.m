@@ -70,6 +70,9 @@
         [alert release];
         return;
 	}
+    if (!self.dataModel || self.dataModel.count == 0 ) {
+        [self fetchRowsFromNumber:0];
+    }
 }
 
 
