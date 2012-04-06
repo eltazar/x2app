@@ -529,9 +529,9 @@
     }
     
     if ([key isEqualToString:@"URL"]) {
-        NSString *urlString = [NSString stringWithFormat:@"http://%@",
+        NSString *urlEsercString = [NSString stringWithFormat:@"http://%@",
                               [self.dataModel objectForKey:@"Url_Esercente"]];
-        NSURL *url = [NSURL URLWithString:urlString];
+        NSURL *url = [NSURL URLWithString:urlEsercString];
         NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
         [self.sitoWebView loadRequest:requestObj];		
         self.sitoViewController.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
