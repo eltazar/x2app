@@ -9,10 +9,18 @@
 #import "Notizia.h"
 #import "Utilita.h"
 
+@interface Notizia () {}
+@property (nonatomic, retain) NSMutableDictionary *dataModel;
+@property (nonatomic, retain) DatabaseAccess *dbAccess;
+@end
+
 
 @implementation Notizia
 
-@synthesize rows, identificativo,webView, url;
+
+@synthesize idNotizia=_idNotizia;
+
+@synthesize dataModel=_dataModel, dbAccess=_dbAccess;
 
 
 /*
@@ -32,88 +40,45 @@
     // Release any cached data, images, etc. that aren't in use.
 }
 
+
 #pragma mark - View lifecycle
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    /*url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Notizia.php?id=%d",identificativo]];
-	NSLog(@"Url: %@", url);
-	
-	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-	
-	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-	NSError *error = nil;	
-	dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
-	//rows=[[NSMutableArray alloc] initWithObjects:[dict allObjects],nil];
-	NSMutableArray *r=[[NSMutableArray alloc] init];
-	if (dict)
-	{
-		r = [[dict objectForKey:@"Esercente"] retain];
-		
-	}
-	
-	NSLog(@"Array: %@",r);
-	
-	rows=[[NSMutableArray alloc] init];
-	
-	[rows addObjectsFromArray: r];
-	
-
-	
-	NSLog(@"Ho aggiunto %d righe",[r count]);
-	NSLog(@"Rows ha %d righe",[rows count]);
-	dict = [rows objectAtIndex: 0];*/
-	
-	//titolo
-	titolo.text=[NSString stringWithFormat:@"%@",[dict objectForKey:@"post_title"]];
-	titolo.text = [titolo.text stringByReplacingOccurrencesOfString:@"&#39;" withString:@"'"];
-	titolo.text = [titolo.text stringByReplacingOccurrencesOfString:@"&#39" withString:@"'"];
-	titolo.text = [titolo.text stringByReplacingOccurrencesOfString:@"&#146;" withString:@"'"];
-
-	//data news in navigation bar
-    NSString *dataapp = [Utilita dateStringFromMySQLDate:[dict objectForKey:@"post_date"]];
-	NSLog(@"%@",dataapp);
-	self.title=[NSString stringWithFormat:@"%@",dataapp];
-
-
-	//contenuto html
-	//NSString *impostazioniHTML =[[NSString alloc] initWithString:@"<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html xmlns='http://www.w3.org/1999/xhtml' dir='ltr' lang='it-IT'><head profile='http://gmpg.org/xfn/11'><meta http-equiv='Content-Type' content='text/html; charset=UTF-8' /><meta name='generator' content='Bluefish 2.0.0' /> <!-- leave this for stats --><link rel='stylesheet' href='http://cartaperdue.it/blog/wp-content/themes/naruto-strikes-back/style.css' type='text/css' media='screen' /><link rel='alternate' type='application/rss+xml' title='CartaPerDue RSS Feed' href='http://cartaperdue.it/blog/feed/' /><link rel='pingback' href='http://cartaperdue.it/blog/xmlrpc.php' /><link rel='stylesheet' id='wp-postratings-css'  href='http://cartaperdue.it/blog/wp-content/plugins/wp-postratings/postratings-css.css?ver=1.50' type='text/css' media='all' /><script type='text/javascript' src='http://cartaperdue.it/blog/wp-includes/js/jquery/jquery.js?ver=1.4.2'></script><link rel='EditURI' type='application/rsd+xml' title='RSD' href='http://cartaperdue.it/blog/xmlrpc.php?rsd' /><link rel='wlwmanifest' type='application/wlwmanifest+xml' href='http://cartaperdue.it/blog/wp-includes/wlwmanifest.xml' /><link rel='index' title='CartaPerDue' href='http://cartaperdue.it/blog/' />  <meta name='generator' content='WordPress 3.0.4' /></head>"];
-	//NSString * testoHTML =[NSString stringWithFormat:@"%@<body>%@</body></html>",impostazioniHTML, [dict objectForKey:@"post_content"]];
-	
-	NSString * testoHTML =[NSString stringWithFormat:@"%@",[dict objectForKey:@"post_content"]];
-	webView.opaque = NO;
-	webView.backgroundColor = [UIColor whiteColor];
-	[webView loadHTMLString:testoHTML baseURL:nil];
-
-	
+    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
+    self.dbAccess.delegate = self;
 }
 
 
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 	if ([Utilita networkReachable]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
         return;
 	}
-	
-	
+    
+    if (self.dataModel) {
+        // Già ho scaricato i dati, evito di riscaricarli.
+        return;
+    }
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/Notizia.php?id=%d", self.idNotizia];
+	[self.dbAccess getConnectionToURL:urlString];
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated {
-
     [super viewWillDisappear:animated];
-	
-	
 }
+
 
 - (void)viewDidUnload {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-	[url release];
-	[webView release];
 }
 
 
@@ -130,5 +95,48 @@
  }
  */
 
+
+#pragma mark - DatabaseAccessDelegate
+
+
+- (void)didReceiveCoupon:(NSDictionary *)data {
+    NSObject *temp = [data objectForKey:@"Esercente"];
+    if (![temp isKindOfClass:[NSArray class]]) {
+        return;
+    }
+    
+    temp = [((NSArray *)temp) objectAtIndex:0];
+    if (![temp isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    
+    self.dataModel = (NSMutableDictionary *)temp;
+    
+    //titolo
+    UILabel *titoloLbl = (UILabel *)[self.view viewWithTag:1];
+	titoloLbl.text = [self.dataModel objectForKey:@"post_title"];
+	titoloLbl.text = [titoloLbl.text stringByReplacingOccurrencesOfString:@"&#39;"  
+                                                               withString:@"'"];
+	titoloLbl.text = [titoloLbl.text stringByReplacingOccurrencesOfString:@"&#39"   
+                                                               withString:@"'"];
+	titoloLbl.text = [titoloLbl.text stringByReplacingOccurrencesOfString:@"&#146;"
+                                                               withString:@"'"];
+    
+	//data news in navigation bar
+    NSString *dataApp = [Utilita dateStringFromMySQLDate:[self.dataModel objectForKey:@"post_date"]];
+	NSLog(@"%@", dataApp);
+	self.title = dataApp;
+    
+    NSString *testoHTML = [self.dataModel objectForKey:@"post_content"];
+	UIWebView *webView = (UIWebView *)[self.view viewWithTag:2];
+    webView.opaque = NO;
+	webView.backgroundColor = [UIColor whiteColor];
+	[webView loadHTMLString:testoHTML baseURL:nil];
+}
+
+
+- (void)didReceiveError:(NSError *)error {
+#warning implementare!
+}
 
 @end

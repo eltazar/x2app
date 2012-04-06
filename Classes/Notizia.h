@@ -7,22 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CJSONDeserializer.h"
-#import "Reachability.h"
+#import "DatabaseAccess.h"
 
-
-@interface Notizia : UIViewController<UIWebViewDelegate,UIAlertViewDelegate> {
-	NSInteger identificativo;
-	NSMutableArray *rows;
-	NSDictionary *dict;
-	IBOutlet UILabel *titolo;
-	UIWebView *webView;
-	NSURL *url;
+@interface Notizia : UIViewController<UIWebViewDelegate, UIAlertViewDelegate, DatabaseAccessDelegate> {
+    
+@private
+    NSInteger _idNotizia;
+    NSMutableDictionary *_dataModel;
+    DatabaseAccess *_dbAccess;
 }
 
-@property (nonatomic, readwrite) NSInteger identificativo; 
-@property (retain,nonatomic) NSArray *rows;
-@property (nonatomic, retain) IBOutlet UIWebView *webView;
-@property (nonatomic, retain)NSURL *url;
+@property (nonatomic, assign) NSInteger idNotizia;
 
 @end
