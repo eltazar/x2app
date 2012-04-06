@@ -152,7 +152,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         switch(indexPath.row){
             case 0:
                 if (cell == nil){
-                    [[NSBundle mainBundle] loadNibNamed:@"descrizioneOfferta" owner:self options:NULL];
+                    [[NSBundle mainBundle] loadNibNamed:@"CouponDescrOffertaCell" owner:self options:NULL];
                     cell=self.cellaDescrizioneOfferta;                    
                 } 
                 self.cellaDescrizioneOffertaLbl.numberOfLines = 0;
@@ -164,7 +164,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 
             case 1:
                 if (cell == nil) {
-                    [[NSBundle mainBundle] loadNibNamed:@"infocoupon" owner:self options:NULL];
+                    [[NSBundle mainBundle] loadNibNamed:@"CouponDiscountTimeCell" owner:self options:NULL];
                     cell=self.cellainfocoupon;
                     [self.caricamentoImmagineSpinner startAnimating];
                 } else {
@@ -227,7 +227,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         switch (indexPath.row) {
             case 0:
                 if ( cell == nil) {	
-                    [[NSBundle mainBundle] loadNibNamed:@"CellaCoupon" owner:self options:NULL];
+                    [[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL];
                     cell=self.cellacoupon;
                 }
                 UILabel *t1 = (UILabel *)[cell viewWithTag:1];
@@ -236,7 +236,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 
             case 1:
                 if (cell == nil){	
-                    [[NSBundle mainBundle] loadNibNamed:@"CellaCoupon" owner:self options:NULL];
+                    [[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL];
                     cell=self.cellacoupon;
                 }
                 UILabel *t2 = (UILabel *)[cell viewWithTag:1];
@@ -245,7 +245,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 
             case 2:
                 if (cell == nil){	
-                    [[NSBundle mainBundle] loadNibNamed:@"CellaCouponesercente" owner:self options:NULL];
+                    [[NSBundle mainBundle] loadNibNamed:@"CouponEsercCell" owner:self options:NULL];
                     cell=self.cellanomesercente;
                 }
                 UILabel *t3 = (UILabel *)[cell viewWithTag:1];
@@ -256,7 +256,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 
             case 3:
                 if (cell == nil){	
-                    [[NSBundle mainBundle] loadNibNamed:@"CellaCoupon" owner:self options:NULL];
+                    [[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL];
                     cell=self.cellacoupon;
                 }
                 UILabel *t5 = (UILabel *)[cell viewWithTag:1];
@@ -272,7 +272,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         switch (indexPath.row) {
             case 0:
                 if (cell == nil) {	
-                    [[NSBundle mainBundle] loadNibNamed:@"CellaCoupon" owner:self options:NULL];
+                    [[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL];
                     cell=self.cellacoupon;
                 }
                 UILabel *testo = (UILabel *)[cell viewWithTag:1];
@@ -280,7 +280,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 break;
             case 1:
                 if (cell == nil) {	
-                    [[NSBundle mainBundle] loadNibNamed:@"CellaCoupon" owner:self options:NULL];
+                    [[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL];
                     cell=self.cellacoupon;
                 }
                 UILabel *lbl = (UILabel *)[cell viewWithTag:1];
@@ -288,7 +288,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 break;
             case 2:
                 if (cell == nil) {	
-                    [[NSBundle mainBundle] loadNibNamed:@"CellaCoupon" owner:self options:NULL];
+                    [[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL];
                     cell=self.cellacoupon;
                 }
                 UILabel *faq = (UILabel *)[cell viewWithTag:1];

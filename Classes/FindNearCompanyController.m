@@ -270,7 +270,7 @@
 		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
 		
 		if (cell == nil){
-			cell = [[[NSBundle mainBundle] loadNibNamed:@"CellaEsercenteVicino" owner:self options:NULL] objectAtIndex:0];
+			cell = [[[NSBundle mainBundle] loadNibNamed:@"FindNearCompanyCell" owner:self options:NULL] objectAtIndex:0];
 		}
 		
 		NSDictionary *r  = [self.rows objectAtIndex:indexPath.row];

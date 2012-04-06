@@ -100,7 +100,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"cellacontatti" owner:self options:NULL];
+		[[NSBundle mainBundle] loadNibNamed:@"ContattiCell" owner:self options:NULL];
 		cell= cellacontatti ;
 	}
 	
