@@ -36,6 +36,9 @@ NSString* key(NSURLConnection* con);
 - (void)getNewsFromServer:(int)indice;
 - (void)getAltreOfferteFromServer:(NSString*)prov;
 
+//metodi per richiesta validtà tramite push
+-(void)sendValidateRequest:(CartaPerDue*)card companyID:(NSInteger)companyID;
+
 //metodi per login e registrazione
 - (void)checkUserFields:(NSArray*)usr;
 - (void)registerUserOnServer:(NSArray*)userData;

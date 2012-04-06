@@ -37,6 +37,48 @@ NSString* key(NSURLConnection* con)
     return [NSString stringWithFormat:@"%p",con];
 }
 
+-(void)sendValidateRequest:(CartaPerDue*)card companyID:(NSInteger)companyID{
+    NSLog(@"DBACCESS validate request");
+    
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"https://cartaperdue.it/partner/app_esercenti/notify.php"];
+    
+    [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+    NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSString *postFormatString = @"name=%@&surname=%@&number=%@&companyID=%d";
+    NSString *postString = [NSString stringWithFormat:postFormatString, card.name,card.surname,card.number,companyID];
+    
+    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    [request addValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    [request setHTTPMethod:@"POST"];
+    
+    [request setHTTPBody:postData];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];  
+    
+    
+    
+    if(connection){
+        //NSLog(@"IS CONNECTION TRUE");
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        [writeConnections addObject:connection];
+        
+        NSMutableData *receivedData = [[NSMutableData data] retain];
+        //[connectionDictionary setObject:connection forKey:key(connection)];
+        [dataDictionary setObject:receivedData forKey:key(connection)];
+        //NSLog(@"RECEIVED DATA FROM DICTIONARY : %p",[dataDictionary objectForKey:connection]);
+    }
+    else{
+        NSLog(@"theConnection is NULL");
+        //mostrare alert all'utente che la connessione è fallita??
+    }
+
+}
+
 
 - (void)getConnectionToURL:(NSString *)urlString {
     NSURL *url = [[[NSURL alloc] initWithString:urlString] autorelease];
