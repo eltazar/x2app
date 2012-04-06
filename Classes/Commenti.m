@@ -14,7 +14,6 @@
 @property (nonatomic, retain) NSMutableArray *dataModel;
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
 - (void)fetchRowsFromNumber:(NSInteger)n;
-- (NSString *)dateStringFromMySQLDate:(NSString *)mySQLDate;
 - (void)prettifyNullValuesForCommentsInArray:(NSArray *)comments;
 
 @end
@@ -161,7 +160,7 @@
         UILabel *data   = (UILabel *)[cell viewWithTag:2];
         
         titolo.text = [commento objectForKey:@"comment_content"];
-        NSString *dateString = [self dateStringFromMySQLDate:[commento objectForKey:@"comment_date"]];
+        NSString *dateString = [Utilita dateStringFromMySQLDate:[commento objectForKey:@"comment_date"]];
         if ([[commento objectForKey:@"comment_author"] length] == 0 ) {
             data.text = [NSString stringWithFormat:@"Inviato da Anonimo %@ il %@",
                          [commento objectForKey:@"comment_author"],
@@ -191,7 +190,7 @@
         NSDictionary *commento = [self.dataModel objectAtIndex:indexPath.row];
         NSInteger idCommento = [[commento objectForKey:@"comment_ID"] integerValue];
         NSLog(@"L'id del commento da visualizzare è %d", idCommento);
-        NSString *dateStr = [self dateStringFromMySQLDate:[commento objectForKey:@"comment_date"]];
+        NSString *dateStr = [Utilita dateStringFromMySQLDate:[commento objectForKey:@"comment_date"]];
         NSString *autore;
         if([[commento objectForKey:@"comment_author"] length] == 0 ) {
             autore = [NSString stringWithFormat:@"Inviato da Anonimo %@ il %@",
@@ -285,20 +284,6 @@
 - (void)fetchRowsFromNumber:(NSInteger)n {
     NSString *urlString = [NSString stringWithFormat:urlFormatString, self.idEsercente, n];
     [self.dbAccess getConnectionToURL:urlString];
-}
-
-
-- (NSString *)dateStringFromMySQLDate:(NSString *)mySQLDate {
-    NSDateFormatter *mySQLDateFormatter = [[NSDateFormatter alloc] init];
-    [mySQLDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDateFormatter *appPerDueDateFormatter = [[NSDateFormatter alloc] init];
-    [appPerDueDateFormatter setDateFormat:@"dd-MM-YYYY"];
-    
-    NSDate *date = [mySQLDateFormatter dateFromString:mySQLDate];
-    NSString *appPerDueDate = [appPerDueDateFormatter stringFromDate:date];
-    [mySQLDateFormatter release];
-    [appPerDueDateFormatter release];
-    return appPerDueDate;
 }
 
 

@@ -15,5 +15,6 @@
 + (BOOL)isEmailValid:(NSString*)email;
 + (BOOL)isDateFormatValid:(NSString*)data;
 + (BOOL)networkReachable;
-+(NSString*)checkPhoneNumber:(NSString*) _phone;
++ (NSString*)checkPhoneNumber:(NSString*) _phone;
++ (NSString *)dateStringFromMySQLDate:(NSString *)mySQLDate;
 @end

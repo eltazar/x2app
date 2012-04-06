@@ -29,10 +29,10 @@
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
     // Release any cached data, images, etc. that aren't in use.
 }
 
+#pragma mark - View lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,13 +72,7 @@
 	titolo.text = [titolo.text stringByReplacingOccurrencesOfString:@"&#146;" withString:@"'"];
 
 	//data news in navigation bar
-	NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
-	[formatoapp setDateFormat:@"dd-MM-YYYY"];
-	NSString *datadb = [NSString stringWithFormat:@"%@",[dict objectForKey:@"post_date"]];
-	NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
-	[formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-	NSDate *d1=[formatodb dateFromString:datadb];
-	NSString *dataapp = [formatoapp stringFromDate:d1];
+    NSString *dataapp = [Utilita dateStringFromMySQLDate:[dict objectForKey:@"post_date"]];
 	NSLog(@"%@",dataapp);
 	self.title=[NSString stringWithFormat:@"%@",dataapp];
 

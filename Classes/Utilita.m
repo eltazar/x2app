@@ -125,4 +125,18 @@
 }
 
 
++ (NSString *)dateStringFromMySQLDate:(NSString *)mySQLDate {
+    NSDateFormatter *mySQLDateFormatter = [[NSDateFormatter alloc] init];
+    [mySQLDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDateFormatter *appPerDueDateFormatter = [[NSDateFormatter alloc] init];
+    [appPerDueDateFormatter setDateFormat:@"dd-MM-YYYY"];
+    
+    NSDate *date = [mySQLDateFormatter dateFromString:mySQLDate];
+    NSString *appPerDueDate = [appPerDueDateFormatter stringFromDate:date];
+    [mySQLDateFormatter release];
+    [appPerDueDateFormatter release];
+    return appPerDueDate;
+}
+
+
 @end

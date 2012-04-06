@@ -9,6 +9,7 @@
 
 #import "News.h"
 #import "Notizia.h"
+#import "Utilita.h"
 
 
 @implementation News
@@ -40,7 +41,7 @@
         UILabel *data   = (UILabel *)[cell viewWithTag:2];
         
         titolo.text = [notizia objectForKey:@"post_title"];
-        data.text   = [super dateStringFromMySQLDate:[notizia objectForKey:@"post_date"]];
+        data.text   = [Utilita dateStringFromMySQLDate:[notizia objectForKey:@"post_date"]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
