@@ -51,46 +51,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    didFetchAllComments = FALSE;
     self.dbAccess = [[DatabaseAccess alloc] init];
     self.dbAccess.delegate = self;
     [self.dbAccess release];
     
-	indice = 0;
-	NSLog(@"Il nome dell'esercente è %@", self.nome);
-	self.titolo.text = self.nome;
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.identificativo, indice]];
-	NSLog(@"Url: %@", url);
-	
-	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-	
-	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-	NSError *error = nil;
-	self.dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
-	self.rows=[[NSMutableArray alloc] initWithObjects:[self.dict allValues],nil];
-	NSMutableArray *r=[[NSMutableArray alloc] init];
-	
-	if (self.dict)
-	{
-		r = [[self.dict objectForKey:@"Esercente"] retain];
-		
-	}
-	
-	NSLog(@"Array: %@",r);	
-	self.rows= [[NSMutableArray alloc]init];
-	[self.rows addObjectsFromArray: r];
-	
-	NSLog(@"Numero totale:%d",[self.rows count]);
-    
-	[jsonreturn release];
-	jsonreturn = nil;
-	[r release];
-	r = nil;
-	
-	if ([self.rows count] >0) {
-		self.dict = [self.rows objectAtIndex: 0];	
-	}
 }
 
 
@@ -138,7 +103,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if ([self.rows count]<5){
+	if (self.dataModel.count < 5) {
 		return 1;
 	}	
 	else {
@@ -151,7 +116,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return [self.rows count];
+			return self.dataModel.count;
 		case 1:
 			return 1;
 		default:
@@ -277,6 +242,8 @@
 
 
 - (void)didReceiveCoupon:(NSDictionary *)data {
+#warning  stoppare lo spinner quando sarà messo
+
     NSObject *temp = [data objectForKey:@"Esercente"];
     
     if (![temp isKindOfClass:[NSArray class]]) {
@@ -284,24 +251,41 @@
     }
     
     NSArray *fetchedComments = (NSArray *)temp;
+    
+    if (fetchedComments.count == 0) {
+        // Abbiamo già scaricato tutti i commenti
+        didFetchAllComments = TRUE;
+        NSArray *indexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil];
+        [self.tableview beginUpdates];
+        [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableview endUpdates];
+        [indexPaths release]
+        return;
+    }
+
     if (!self.dataModel || self.dataModel.count == 0) {
         self.dataModel = fetchedComments;
         [self.tableview reloadData];
-#warning  stoppare lo spinner quando sarà messo
+        return;
     }
-    else {
-        NSInteger from  = self.dataModel.count;
-        NSInteger to    = from + fetchedComments.count;
-        NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:(to - from)]; 
-        for (int i = from; i < to; i++) {
-            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-        }
-        [self.tableview beginUpdates];
-        [self.dataModel addObjectsFromArray: fetchedComments];
-        [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableview endUpdates];
-        [indexPaths release];
+    
+    NSInteger from  = self.dataModel.count;
+    NSInteger to    = from + fetchedComments.count;
+    NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:(to - from)]; 
+    for (int i = from; i < to; i++) {
+        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
     }
+    [self.tableview beginUpdates];
+    [self.dataModel addObjectsFromArray: fetchedComments];
+    [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableview endUpdates];
+    [indexPaths release];
+    return;
+}
+
+
+-  (void)didReceiveError:(NSError *)error {
+#warning visualizzare alert errore di rete.
 }
 
 
@@ -311,39 +295,6 @@
 }
 
 
-
-- (int)aggiorna {
-		indice+=10;
-		self.url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.identificativo, indice]];
-		NSLog(@"Url: %@", self.url);
-		NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:self.url];
-        NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-            
-		NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-		NSError *error = nil;	
-		self.dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
-		NSMutableArray *r=[[NSMutableArray alloc] init];
-		if (self.dict)
-		{
-			r = [[self.dict objectForKey:@"Esercente"] retain];
-			
-		}
-		
-		NSLog(@"Array: %@",r);
-		
-		[self.rows addObjectsFromArray: r];
-		
-# warning togliere reloadData!!!
-		[self.tableview reloadData];
-		NSLog(@"Ho aggiunto %d righe",[r count]);
-		NSLog(@"La tabella dovrebbe avere %d righe",[self.rows count]);
-		int nuove=[r count];
-		[jsonreturn release];
-		jsonreturn=nil;
-		[r release];
-		r=nil;
-		return nuove;
-}
 
 
 @end

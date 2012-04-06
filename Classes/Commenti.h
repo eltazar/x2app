@@ -20,6 +20,7 @@
     
 @private
     NSMutableArray *_dataModel; //era: rows
+    BOOL didFetchAllComments;
     DatabaseAccess *_dbAccess;
 	IBOutlet UILabel *_titolo;
 	NSInteger _identificativo;
