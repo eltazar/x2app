@@ -107,7 +107,7 @@
 }
 
 
-#pragma mark UITableViewDataSource
+#pragma mark - UITableViewDataSource
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -144,7 +144,7 @@
 		UILabel *altri  = (UILabel *)[cell viewWithTag:1];
         UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
 		altri.text = @"Mostra altri...";
-		altri2.text = @"";
+		altri2.text = (didFetchAllComments) ? @"Non ci sono altri commenti da mostrare" : @"";
 	}
     
 	else if (self.dataModel.count > 0) {
@@ -215,16 +215,15 @@
     }
     
     else if (indexPath.section == 1) {
-        if (didFetchAllComments) { // non ci sono alri commenti
-            UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-            UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
-            altri2.text = @"Non ci sono altri commenti da mostrare";
+        if (!didFetchAllComments) { // non ci sono alri commenti
+            [self fetchRowsFromNumber:self.dataModel.count];
         }
+        [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     }
 }
 
 
-#pragma mark DatabaseAccessDelegate
+#pragma mark - DatabaseAccessDelegate
 
 
 - (void)didReceiveCoupon:(NSDictionary *)data {
@@ -236,7 +235,13 @@
         return;
     }
     
-    NSMutableArray *fetchedComments = (NSMutableArray *)temp;
+    NSMutableArray *fetchedComments;
+    if ([temp isKindOfClass:[NSMutableArray class]]) {
+        fetchedComments = (NSMutableArray *)temp;
+    }
+    else {
+        fetchedComments = [NSMutableArray arrayWithArray:((NSArray *)temp)];
+    }
     [self prettifyNullValuesForCommentsInArray:fetchedComments];
     
     if (fetchedComments.count == 0) {
@@ -244,7 +249,7 @@
         didFetchAllComments = TRUE;
         NSArray *indexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil];
         [self.tableview beginUpdates];
-        [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableview reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableview endUpdates];
         [indexPaths release];
         return;
