@@ -103,7 +103,11 @@
 
 
 - (void)dealloc {
-	
+#warning finire il memory management!!!!!
+    optPicker.dataSource = nil;
+    optPicker.delegate = nil;
+    [optPicker release];
+    optPicker = nil;
     [super dealloc];
 }
 
