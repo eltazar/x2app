@@ -55,6 +55,24 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - databaseAccessDelegate
+
+-(void)didReceiveResponsFromServer:(NSString *)receivedData{
+    NSLog(@"received data = %@",receivedData);
+}
+
+-(void)didReceiveError:(NSError *)error{
+    NSLog(@"error = %@", [error description]);
+}
+
+#pragma mark - bottoni view
+
+-(IBAction)validateRequestBtn:(id)sender{
+    
+    [dbAccess sendValidateRequest:self.card companyID:[[self.company objectForKey:@"IDesercente"]intValue]];
+    
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -71,6 +89,9 @@
     self.validateBtn.layer.masksToBounds = YES;
     
     [self.view addSubview:self.pushView];
+    
+    dbAccess = [[DatabaseAccess alloc] init];
+    dbAccess.delegate = self;
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -89,6 +110,9 @@
 }
 
 - (void)dealloc {
+    
+    dbAccess.delegate = nil;
+    [dbAccess release];
     
     self.validateBtn = nil;
     self.cardLabel = nil;
