@@ -207,8 +207,8 @@
         Commento *detail = [[Commento alloc] initWithNibName:nil bundle:nil];
         detail.title = @"Commento";
         detail.data = autore;
-        detail.nome = self.insegnaEsercente;
-        detail.commento = [commento objectForKey:@"comment_content"];
+        detail.insegnaEsercente = self.insegnaEsercente;
+        detail.testoCommento = [commento objectForKey:@"comment_content"];
         [self.navigationController pushViewController:detail animated:YES];
         [detail release];
         

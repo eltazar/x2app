@@ -11,25 +11,26 @@
 #import "Reachability.h"
 
 
-@interface Commento : UIViewController<UIAlertViewDelegate> {
-	NSString *Nome;
-	IBOutlet UILabel *nomeEsercente;
-	NSString *data;
-	IBOutlet UILabel *datalabel;
-	UIViewController *detail;
-	NSString *commento;
-	IBOutlet UITextView *contenuto;
-	Reachability* internetReach;
-	Reachability* wifiReach;
+@interface Commento : UIViewController {
+@private
+	NSString *_insegnaEsercente;
+    NSString *_data;
+    NSString *_testoCommento;
+    // IBOutlets:
+    UILabel *_insegnaEsercenteLbl;
+	UILabel *_dataLbl;	
+	UITextView *_testoCommentoTextView;
 }
 
-@property (nonatomic, retain) UILabel *titolo;
+@property (nonatomic, retain) NSString *insegnaEsercente;
 @property (nonatomic, retain) NSString *data;
-@property (nonatomic, retain) NSString *commento;
-@property (nonatomic, retain) NSString *Nome;
-@property (nonatomic, retain) IBOutlet UITextView *contenuto;
+@property (nonatomic, retain) NSString *testoCommento;
 
--(int)check:(Reachability*) curReach;
+@property (nonatomic, retain) IBOutlet UILabel *insegnaEsercenteLbl;
+@property (nonatomic, retain) IBOutlet UILabel *dataLbl;
+@property (nonatomic, retain) IBOutlet UITextView *testoCommentoTextView;
+
+
 
 
 @end
