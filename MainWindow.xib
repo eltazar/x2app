@@ -192,7 +192,7 @@
 					<object class="IBUINavigationController" id="716084312">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="61118005">
 							<string key="IBUITitle">Coupon</string>
-							<object class="NSCustomResource" key="IBUIImage" id="218016249">
+							<object class="NSCustomResource" key="IBUIImage" id="514793681">
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">Coupon.png</string>
 							</object>
@@ -241,7 +241,7 @@
 					<object class="IBUINavigationController" id="304568708">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="999825742">
 							<string key="IBUITitle">Gestione Carte</string>
-							<reference key="IBUIImage" ref="218016249"/>
+							<reference key="IBUIImage" ref="514793681"/>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						</object>
 						<reference key="IBUIToolbarItems" ref="0"/>

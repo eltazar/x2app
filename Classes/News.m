@@ -41,6 +41,18 @@
     [super viewDidLoad];
     [urlFormatString release];
     urlFormatString = @"http://www.cartaperdue.it/partner/news.php?from=%d&to=10";
+    
+    // Un po' di magheggi per far sparire la label che nella classe dei commenti
+    // contiene l'insegna esercente: a noi qui non serve.
+    UILabel *titoloLbl = (UILabel *)[self.view viewWithTag:1];
+    NSInteger h = titoloLbl.frame.size.height;
+    CGRect frame = titoloLbl.frame;
+    frame.size = CGSizeMake(frame.size.width, 0);
+    titoloLbl.frame = frame;
+    frame = self.tableview.frame;
+    frame.origin = CGPointMake(frame.origin.x, frame.origin.y - h);
+    frame.size = CGSizeMake(frame.size.width, frame.size.height+h);
+    self.tableview.frame = frame;
 }
 
 
