@@ -7,6 +7,7 @@
 //
 
 #import "Notizia.h"
+#import "Utilita.h"
 
 
 @implementation Notizia
@@ -96,26 +97,18 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
-	int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
+	if ([Utilita networkReachable]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
-
+        return;
 	}
 	
 	
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[wifiReach release];
-	[internetReach release];
+
     [super viewWillDisappear:animated];
 	
 	
