@@ -50,8 +50,6 @@
 	IBOutlet UIWebView *_condizioniWebView;
 	IBOutlet UIWebView *_diPiuWebView;
     IBOutlet UIWebView *_faqWebView;
-
-    IBOutlet UILabel *_cellaDescrizioneOffertaLbl;
 }
 
 
@@ -82,8 +80,6 @@
 @property (nonatomic, retain) IBOutlet UIWebView *condizioniWebView;
 @property (nonatomic, retain) IBOutlet UIWebView *diPiuWebView;
 @property (nonatomic, retain) IBOutlet UIWebView *faqWebView;
-
-@property (nonatomic, retain) IBOutlet UILabel *cellaDescrizioneOffertaLbl; //D
 
 
 

@@ -49,6 +49,7 @@
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
+								<int key="IBUITag">1</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Offerta</string>
@@ -100,16 +101,7 @@
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
-			<array class="NSMutableArray" key="connectionRecords">
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">cellaDescrizioneOffertaLbl</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1030277436"/>
-					</object>
-					<int key="connectionID">8</int>
-				</object>
-			</array>
+			<array class="NSMutableArray" key="connectionRecords"/>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
 					<object class="IBObjectRecord">
@@ -189,7 +181,6 @@
 						<string key="_FotoIngranditaViewController">UIViewController</string>
 						<string key="_caricamentoImmagineSpinner">UIActivityIndicatorView</string>
 						<string key="_caricamentoSpinner">UIActivityIndicatorView</string>
-						<string key="_cellaDescrizioneOffertaLbl">UILabel</string>
 						<string key="_compraBtn">UIButton</string>
 						<string key="_condizioniWebView">UIWebView</string>
 						<string key="_contattiViewContr">UIViewController</string>
@@ -210,7 +201,6 @@
 						<string key="_titoloOffertaLbl">UILabel</string>
 						<string key="caricamentoImmagineSpinner">UIActivityIndicatorView</string>
 						<string key="caricamentoSpinner">UIActivityIndicatorView</string>
-						<string key="cellaDescrizioneOffertaLbl">UILabel</string>
 						<string key="compraBtn">UIButton</string>
 						<string key="condizioniWebView">UIWebView</string>
 						<string key="contattiViewContr">UIViewController</string>
@@ -254,10 +244,6 @@
 						<object class="IBToOneOutletInfo" key="_caricamentoSpinner">
 							<string key="name">_caricamentoSpinner</string>
 							<string key="candidateClassName">UIActivityIndicatorView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="_cellaDescrizioneOffertaLbl">
-							<string key="name">_cellaDescrizioneOffertaLbl</string>
-							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="_compraBtn">
 							<string key="name">_compraBtn</string>
@@ -338,10 +324,6 @@
 						<object class="IBToOneOutletInfo" key="caricamentoSpinner">
 							<string key="name">caricamentoSpinner</string>
 							<string key="candidateClassName">UIActivityIndicatorView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="cellaDescrizioneOffertaLbl">
-							<string key="name">cellaDescrizioneOffertaLbl</string>
-							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="compraBtn">
 							<string key="name">compraBtn</string>

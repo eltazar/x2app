@@ -152,9 +152,10 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 if (cell == nil){
                     cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDescrOffertaCell" owner:self options:NULL] objectAtIndex:0];
                 } 
-                self.cellaDescrizioneOffertaLbl.numberOfLines = 0;
-                self.cellaDescrizioneOffertaLbl.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
-                [self.cellaDescrizioneOffertaLbl sizeToFit];
+                UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+                lbl.numberOfLines = 0;
+                lbl.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
+                [lbl sizeToFit];
 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 break;
