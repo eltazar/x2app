@@ -267,8 +267,8 @@
 		19D4CA7513ED5144001C7763 /* AltreOfferte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AltreOfferte.h; sourceTree = "<group>"; };
 		19D4CA7613ED5144001C7763 /* AltreOfferte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AltreOfferte.m; sourceTree = "<group>"; };
 		19D4CA7713ED5144001C7763 /* AltreOfferte.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AltreOfferte.xib; sourceTree = "<group>"; };
-		19D4CA7E13ED5144001C7763 /* Celladati.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Celladati.h; sourceTree = "<group>"; };
-		19D4CA7F13ED5144001C7763 /* Celladati.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Celladati.m; sourceTree = "<group>"; };
+		19D4CA7E13ED5144001C7763 /* Celladati.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Celladati.h; path = Classes/Celladati.h; sourceTree = "<group>"; };
+		19D4CA7F13ED5144001C7763 /* Celladati.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Celladati.m; path = Classes/Celladati.m; sourceTree = "<group>"; };
 		19D4CA8313ED5144001C7763 /* Commenti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commenti.h; sourceTree = "<group>"; };
 		19D4CA8413ED5144001C7763 /* Commenti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commenti.m; sourceTree = "<group>"; };
 		19D4CA8613ED5144001C7763 /* Commento.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commento.h; sourceTree = "<group>"; };
@@ -599,8 +599,6 @@
 				D9CFDC17152F4F4A004E8755 /* Coupon */,
 				D9CFDC18152F5EA5004E8755 /* Coupon - pagamento */,
 				D9CFDC19152F61CB004E8755 /* Info e Contatti - Eliminare qcs? */,
-				19D4CA7E13ED5144001C7763 /* Celladati.h */,
-				19D4CA7F13ED5144001C7763 /* Celladati.m */,
 				19D4CAA213ED5144001C7763 /* EsercenteMapAnnotation.h */,
 				19D4CAA313ED5144001C7763 /* EsercenteMapAnnotation.m */,
 				19D4CAC313ED5145001C7763 /* PerDueCItyCardAppDelegate.h */,
@@ -656,6 +654,8 @@
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* PerDueCItyCard-Info.plist */,
 				198C6A8113C843AE001E9399 /* cellatotalepagamento.xib */,
+				19D4CA7E13ED5144001C7763 /* Celladati.h */,
+				19D4CA7F13ED5144001C7763 /* Celladati.m */,
 				199FEAC113C871F70030CDD8 /* celladatipersonali.xib */,
 				1947FDAC13D5DA1D00C3489B /* riepilogodatipersonali.xib */,
 				1947FDE913D5E4E600C3489B /* riepilogocartadicredito.xib */,

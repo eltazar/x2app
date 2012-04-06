@@ -175,8 +175,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"InfoCell" owner:self options:NULL];
-		cell= cellacredits ;
+		cell = [[[NSBundle mainBundle] loadNibNamed:@"InfoCell" owner:self options:NULL] objectAtIndex:0];
 	}
 		
 //	if ((indexPath.row==0) && (indexPath.section==0) ){	

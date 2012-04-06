@@ -13,7 +13,6 @@
 @interface Contatti : UIViewController <UITableViewDelegate,UITableViewDataSource,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>  {
 	UIButton *close;
 	UITableView *tableview;
-	IBOutlet UITableViewCell *cellacontatti;
 	IBOutlet UIView *sito;
 	IBOutlet UIWebView *webView;
 	IBOutlet UIWebView *infocarta;

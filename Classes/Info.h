@@ -15,7 +15,6 @@
 	UIButton *close;
 	UIButton *credits;
 	UITableView *tableview;
-	IBOutlet UITableViewCell *cellacredits;
 	IBOutlet UIView *sito;
 	IBOutlet UIWebView *webView;
 	IBOutlet UIWebView *infocarta;
