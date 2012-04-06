@@ -186,6 +186,7 @@
 		D9AEA971152C523C00C4756A /* DettaglioEsercente.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */; };
 		D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */; };
 		D9AFF6DA152F1B3C00A8F346 /* CommentiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AFF6D9152F1B3C00A8F346 /* CommentiCell.xib */; };
+		D9BBBC48152F84B60032B9E3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */; };
 		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
 		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
 /* End PBXBuildFile section */
@@ -462,6 +463,8 @@
 		D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioEsercente.m; sourceTree = "<group>"; };
 		D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettaglioEsercente.xib; sourceTree = "<group>"; };
 		D9AFF6D9152F1B3C00A8F346 /* CommentiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentiCell.xib; sourceTree = "<group>"; };
+		D9BBBC46152F84B60032B9E3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -746,6 +749,7 @@
 		D9463616152F6953000A17CE /* Librerie Esterne */ = {
 			isa = PBXGroup;
 			children = (
+				D9BBBC45152F84B60032B9E3 /* MBProgressHUD */,
 				D9463617152F6A0F000A17CE /* Facebook */,
 				D9463624152F6A0F000A17CE /* JsonTouch */,
 				D946363B152F6A0F000A17CE /* Reachability */,
@@ -937,6 +941,16 @@
 				19D4CABC13ED5144001C7763 /* Opzioni.xib */,
 			);
 			name = "Dove Usarla V2";
+			sourceTree = "<group>";
+		};
+		D9BBBC45152F84B60032B9E3 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				D9BBBC46152F84B60032B9E3 /* MBProgressHUD.h */,
+				D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			path = "Librerie Esterne/MBProgressHUD";
 			sourceTree = "<group>";
 		};
 		D9CFDC17152F4F4A004E8755 /* Coupon */ = {
@@ -1224,6 +1238,7 @@
 				D9463667152F6A33000A17CE /* SBJsonBase.m in Sources */,
 				D9463668152F6A33000A17CE /* SBJsonParser.m in Sources */,
 				D9463669152F6A33000A17CE /* SBJsonWriter.m in Sources */,
+				D9BBBC48152F84B60032B9E3 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
