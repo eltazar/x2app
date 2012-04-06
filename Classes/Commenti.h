@@ -13,32 +13,23 @@
 
 @interface Commenti : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
 	UITableView *_tableview;
-	NSMutableArray *_rows;
-	NSMutableDictionary *_dict;
+	NSMutableArray *_dataModel; //era: rows
 	IBOutlet UILabel *_titolo;
 	NSInteger _identificativo;
 	NSString *_nome;
-	NSURL *_url;
     int indice;
-	UIViewController *detail;
-	Reachability* internetReach;
-	Reachability* wifiReach;
 
 	IBOutlet UITableViewCell *cellanews;
 	IBOutlet UITableViewCell *cellafinale;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
-@property (nonatomic, retain) NSMutableArray *rows;
-@property (nonatomic, retain) NSMutableDictionary *dict;
+@property (nonatomic, retain) NSMutableArray *dataModel;
 @property (nonatomic, retain) UILabel *titolo;
 @property (nonatomic, assign) NSInteger identificativo; 
 @property (nonatomic, retain) NSString *nome;
-@property (nonatomic, retain) NSURL *url;
 
 - (int)aggiorna;
-- (void) spinTheSpinner;
-- (void) doneSpinning;
-- (int)check:(Reachability*) curReach;
+
 
 @end

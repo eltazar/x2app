@@ -7,6 +7,7 @@
 //
 
 #import "Commenti.h"
+#import "Utilita.h"
 
 
 @implementation Commenti
@@ -14,7 +15,7 @@
 
 @synthesize tableview=_tableview;
 
-@synthesize rows=_rows, dict=_dict, titolo=_titolo, identificativo=_identificativo ,nome=_nome,url=_url;
+@synthesize dataModel=_dataModel, titolo=_titolo, identificativo=_identificativo ,nome=_nome;
 
 
 /*
@@ -41,14 +42,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 	indice = 0;
 	NSLog(@"Il nome dell'esercente è %@", self.nome);
 	self.titolo.text = self.nome;
-	self.url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.identificativo, indice]];
-	NSLog(@"Url: %@", self.url);
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.identificativo, indice]];
+	NSLog(@"Url: %@", url);
 	
-	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:self.url];
+	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
 	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
 	
 	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
@@ -80,26 +80,18 @@
 }
 
 
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
-	int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
+    if (![Utilita networkReachable]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
+        return;
 	}
 }
 
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[wifiReach release];
-	[internetReach release];
     [super viewWillDisappear:animated];
 }
 
@@ -213,7 +205,6 @@
 	
 	switch (indexPath.section) {
 		case 0:
-			[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 			self.dict = [self.rows objectAtIndex: indexPath.row];
 			NSInteger i = [[self.dict objectForKey:@"comment_ID"]integerValue];
 			NSLog(@"L'id del commento da visualizzare è %d",i);
@@ -251,7 +242,6 @@
 			detail = nil; 
 			break;
 		case 1: 
-			[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
 			int ret=[self aggiorna];
 			if(ret==0){ // non ci sono alri commenti
 				UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -264,41 +254,6 @@
 		default:
 			break;
 	}
-}
-
-
-
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
-
-	//settiamo il contenuto delle varie celle
-
-
-	
-
--(void)spinTheSpinner {
-    NSLog(@"Spin The Spinner");
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [self performSelectorOnMainThread:@selector(doneSpinning) withObject:nil waitUntilDone:YES];
-	
-    [pool release]; 
-}
-
--(void)doneSpinning {
-    NSLog(@"done spinning");
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 
