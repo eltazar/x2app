@@ -335,8 +335,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 //            r=nil;	
 //        }
     }
-    // FIXME: non si riesce ad animare sta deselezione... per ora disattivo l'animazione e amen
-    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:NO];
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
 }
 
 
