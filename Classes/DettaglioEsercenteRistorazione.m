@@ -333,9 +333,9 @@
     
     else if ([key isEqualToString:@"Commenti"]) {
         Commenti *detail = [[Commenti alloc] initWithNibName:nil bundle:nil];
-        [detail setIdentificativo:self.idEsercente];
+        [detail setIdEsercente:self.idEsercente];
         [detail setTitle:@"Commenti"];
-        [detail setNome:[self.dataModel objectForKey:@"Insegna_Esercente"]];
+        [detail setInsegnaEsercente:[self.dataModel objectForKey:@"Insegna_Esercente"]];
         [self.navigationController pushViewController:detail animated:YES];
         [detail release];
     }

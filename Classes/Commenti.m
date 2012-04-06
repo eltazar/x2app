@@ -13,7 +13,10 @@
 }
 @property (nonatomic, retain) NSMutableArray *dataModel;
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
-- (void) fetchRowsFromNumber:(NSInteger)n;
+- (void)fetchRowsFromNumber:(NSInteger)n;
+- (NSString *)dateStringFromMySQLDate:(NSString *)mySQLDate;
+- (void)prettifyNullValuesForCommentsInArray:(NSArray *)comments;
+
 @end
 
 
@@ -22,7 +25,7 @@
 
 @synthesize tableview=_tableview;
 
-@synthesize titolo=_titolo, identificativo=_identificativo ,nome=_nome;
+@synthesize idEsercente=_idEsercente ,insegnaEsercente=_insegnaEsercente;
 
 @synthesize dataModel=_dataModel, dbAccess=_dbAccess;
 
@@ -139,7 +142,7 @@
 		altri2.text = @"";
 	}
     
-	else if (self.rows.count > 0) {
+	else if (self.dataModel.count > 0) {
 #warning sistemare il riuso
         cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
         if (!cell) {
@@ -147,29 +150,23 @@
             cell=cellanews;
         }
         
-        self.dict = [self.rows objectAtIndex: indexPath.row];
-        self.titolo     = (UILabel *)[cell viewWithTag:1];
+        NSDictionary *commento = [self.dataModel objectAtIndex: indexPath.row];
+        UILabel *titolo = (UILabel *)[cell viewWithTag:1];
         UILabel *data   = (UILabel *)[cell viewWithTag:2];
         
-        self.titolo.text = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"comment_content"]];
-        
-        NSDateFormatter *mySQLDateFormatter = [[NSDateFormatter alloc] init];
-        [mySQLDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        NSDateFormatter *appPerDueDateFormatter = [[NSDateFormatter alloc] init];
-        [appPerDueDateFormatter setDateFormat:@"dd-MM-YYYY"];
-        
-        NSString *mySQLDate = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"comment_date"]];
-        NSDate *date = [mySQLDateFormatter dateFromString:mySQLDate];
-        NSString *appPerDueDate = [appPerDueDateFormatter stringFromDate:date];
-        [mySQLDateFormatter release];
-        [appPerDueDateFormatter release];
-        
-        if ([[NSString stringWithFormat:@"%@", [self.dict objectForKey:@"comment_author"]] length]== 0 ) {
-            data.text = [NSString stringWithFormat:@"Inviato da Anonimo %@ il %@",[self.dict objectForKey:@"comment_author"], appPerDueDate];
+        titolo.text = [commento objectForKey:@"comment_content"];
+        NSString *dateString = [self dateStringFromMySQLDate:[commento objectForKey:@"comment_date"]];
+        if ([[commento objectForKey:@"comment_author"] length] == 0 ) {
+            data.text = [NSString stringWithFormat:@"Inviato da Anonimo %@ il %@",
+                         [commento objectForKey:@"comment_author"],
+                         dateString];
         }
         else {
-            data.text = [NSString stringWithFormat:@"Inviato da %@ il %@",[self.dict objectForKey:@"comment_author"], appPerDueDate];
-            data.text = [data.text stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+            data.text = [NSString stringWithFormat:@"Inviato da %@ il %@", 
+                         [commento objectForKey:@"comment_author"],
+                         dateString];
+            data.text = [data.text stringByReplacingOccurrencesOfString:@"&amp;"
+                                                             withString:@"&"];
         }
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -184,57 +181,41 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
 	
-	switch (indexPath.section) {
-		case 0:
-			self.dict = [self.rows objectAtIndex: indexPath.row];
-			NSInteger i = [[self.dict objectForKey:@"comment_ID"]integerValue];
-			NSLog(@"L'id del commento da visualizzare è %d",i);
-			detail = [[Commento alloc] initWithNibName:@"Commento" bundle:[NSBundle mainBundle]];
-			NSDictionary *diz = [self.rows objectAtIndex: indexPath.row];
-			
-			NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
-			[formatoapp setDateFormat:@"dd-MM-YYYY"];
-			NSString *datadb = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"comment_date"]];
-			NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
-			[formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-			NSDate *d1=[formatodb dateFromString:datadb];
-			NSString *dataapp = [formatoapp stringFromDate:d1];
-			NSString *autore;
-			if([[NSString stringWithFormat:@"%@",[self.dict objectForKey:@"comment_author"]] length]==0 ) {
-				autore = [NSString stringWithFormat:@"Inviato da Anonimo %@ il %@",[diz objectForKey:@"comment_author"],dataapp];
-			}
-			else {
-				autore = [NSString stringWithFormat:@"Inviato da %@ il %@",[diz objectForKey:@"comment_author"],dataapp];
-				autore = [autore stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-                
-			}
+    if (indexPath.section == 0) {
+        NSDictionary *commento = [self.dataModel objectAtIndex:indexPath.row];
+        NSInteger idCommento = [[commento objectForKey:@"comment_ID"] integerValue];
+        NSLog(@"L'id del commento da visualizzare è %d", idCommento);
+        NSString *dateStr = [self dateStringFromMySQLDate:[commento objectForKey:@"comment_date"]];
+        NSString *autore;
+        if([[commento objectForKey:@"comment_author"] length] == 0 ) {
+            autore = [NSString stringWithFormat:@"Inviato da Anonimo %@ il %@",
+                      [commento objectForKey:@"comment_author"],
+                      dateStr];
+        }
+        else {
+            autore = [NSString stringWithFormat:@"Inviato da %@ il %@",
+                      [commento objectForKey:@"comment_author"],
+                      dateStr];
+            autore = [autore stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
             
-			
-			[(Commento*)detail setData:autore];
-			[(Commento*)detail setNome:self.nome];
-			NSString *cm=[NSString stringWithFormat:@"%@",[diz objectForKey:@"comment_content"]];
-			[(Commento*)detail setCommento:cm];
-			
-			[detail setTitle:@"Commento"];
-            //Facciamo visualizzare la vista con i dettagli
-			[self.navigationController pushViewController:detail animated:YES];
-            //rilascio controller
-			[detail release];
-			detail = nil; 
-			break;
-		case 1: 
-			int ret=[self aggiorna];
-			if(ret==0){ // non ci sono alri commenti
-				UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-				UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
-				altri2.text = @"Non ci sono altri commenti da mostrare";
-			}
-			break;
-			
-			
-		default:
-			break;
-	}
+        }
+        Commento *detail = [[Commento alloc] initWithNibName:nil bundle:nil];
+        detail.title = @"Commento";
+        detail.data = autore;
+        detail.nome = self.insegnaEsercente;
+        detail.commento = [commento objectForKey:@"comment_content"];
+        [self.navigationController pushViewController:detail animated:YES];
+        [detail release];
+        
+    }
+    
+    else if (indexPath.section == 1) {
+        if (didFetchAllComments) { // non ci sono alri commenti
+            UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
+            UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
+            altri2.text = @"Non ci sono altri commenti da mostrare";
+        }
+    }
 }
 
 
@@ -250,7 +231,8 @@
         return;
     }
     
-    NSArray *fetchedComments = (NSArray *)temp;
+    NSMutableArray *fetchedComments = (NSMutableArray *)temp;
+    [self prettifyNullValuesForCommentsInArray:fetchedComments];
     
     if (fetchedComments.count == 0) {
         // Abbiamo già scaricato tutti i commenti
@@ -259,7 +241,7 @@
         [self.tableview beginUpdates];
         [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
         [self.tableview endUpdates];
-        [indexPaths release]
+        [indexPaths release];
         return;
     }
 
@@ -290,11 +272,35 @@
 
 
 - (void)fetchRowsFromNumber:(NSInteger)n {
-    NSString urlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.identificativo, n];
+    NSString *urlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.idEsercente, n];
     [self.dbAccess getConnectionToURL:urlString];
 }
 
 
+- (NSString *)dateStringFromMySQLDate:(NSString *)mySQLDate {
+    NSDateFormatter *mySQLDateFormatter = [[NSDateFormatter alloc] init];
+    [mySQLDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDateFormatter *appPerDueDateFormatter = [[NSDateFormatter alloc] init];
+    [appPerDueDateFormatter setDateFormat:@"dd-MM-YYYY"];
+    
+    NSDate *date = [mySQLDateFormatter dateFromString:mySQLDate];
+    NSString *appPerDueDate = [appPerDueDateFormatter stringFromDate:date];
+    [mySQLDateFormatter release];
+    [appPerDueDateFormatter release];
+    return appPerDueDate;
+}
+
+
+- (void)prettifyNullValuesForCommentsInArray:(NSArray *)comments{
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"comment_author", @"comment_content", @"comment_date", @"comment_ID", nil];
+    for (NSMutableDictionary *c in comments) {
+        for (NSString *k in keys) {
+            if ([[c objectForKey:k] isKindOfClass: [NSNull class]]) {
+                [c setObject:@"" forKey:k];
+            }
+        }
+    }
+}
 
 
 @end

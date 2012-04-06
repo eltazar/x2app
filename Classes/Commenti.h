@@ -22,17 +22,13 @@
     NSMutableArray *_dataModel; //era: rows
     BOOL didFetchAllComments;
     DatabaseAccess *_dbAccess;
-	IBOutlet UILabel *_titolo;
-	NSInteger _identificativo;
-	NSString *_nome;
+	NSInteger _idEsercente;
+	NSString *_insegnaEsercente;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
-@property (nonatomic, retain) UILabel *titolo;
-@property (nonatomic, assign) NSInteger identificativo; 
-@property (nonatomic, retain) NSString *nome;
-
-- (int)aggiorna;
+@property (nonatomic, assign) NSInteger idEsercente; 
+@property (nonatomic, retain) NSString *insegnaEsercente;
 
 
 @end
