@@ -9,13 +9,22 @@
 #import "Commenti.h"
 #import "Utilita.h"
 
+@interface Commenti (){
+}
+@property (nonatomic, retain) NSMutableArray *dataModel;
+@property (nonatomic, retain) DatabaseAccess *dbAccess;
+- (void) fetchRowsFromNumber:(NSInteger)n;
+@end
+
 
 @implementation Commenti
 
 
 @synthesize tableview=_tableview;
 
-@synthesize dataModel=_dataModel, titolo=_titolo, identificativo=_identificativo ,nome=_nome;
+@synthesize titolo=_titolo, identificativo=_identificativo ,nome=_nome;
+
+@synthesize dataModel=_dataModel, dbAccess=_dbAccess;
 
 
 /*
@@ -42,6 +51,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.dbAccess = [[DatabaseAccess alloc] init];
+    self.dbAccess.delegate = self;
+    [self.dbAccess release];
+    
 	indice = 0;
 	NSLog(@"Il nome dell'esercente è %@", self.nome);
 	self.titolo.text = self.nome;
@@ -98,6 +112,8 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+    self.dbAccess.delegate = nil;
+    self.dbAccess = nil;
 	/*[rows release];
 	[dict release];
 	
@@ -257,6 +273,43 @@
 }
 
 
+#pragma mark DatabaseAccessDelegate
+
+
+- (void)didReceiveCoupon:(NSDictionary *)data {
+    NSObject *temp = [data objectForKey:@"Esercente"];
+    
+    if (![temp isKindOfClass:[NSArray class]]) {
+        return;
+    }
+    
+    NSArray *fetchedComments = (NSArray *)temp;
+    if (!self.dataModel || self.dataModel.count == 0) {
+        self.dataModel = fetchedComments;
+        [self.tableview reloadData];
+#warning  stoppare lo spinner quando sarà messo
+    }
+    else {
+        NSInteger from  = self.dataModel.count;
+        NSInteger to    = from + fetchedComments.count;
+        NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:(to - from)]; 
+        for (int i = from; i < to; i++) {
+            [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+        }
+        [self.tableview beginUpdates];
+        [self.dataModel addObjectsFromArray: fetchedComments];
+        [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableview endUpdates];
+        [indexPaths release];
+    }
+}
+
+
+- (void)fetchRowsFromNumber:(NSInteger)n {
+    NSString urlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.identificativo, n];
+    [self.dbAccess getConnectionToURL:urlString];
+}
+
 
 
 - (int)aggiorna {
@@ -284,7 +337,6 @@
 		[self.tableview reloadData];
 		NSLog(@"Ho aggiunto %d righe",[r count]);
 		NSLog(@"La tabella dovrebbe avere %d righe",[self.rows count]);
-		[UIApplication sharedApplication].networkActivityIndicatorVisible = NO; 
 		int nuove=[r count];
 		[jsonreturn release];
 		jsonreturn=nil;

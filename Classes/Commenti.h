@@ -10,21 +10,23 @@
 #import "CJSONDeserializer.h"
 #import "Commento.h"
 #import "Reachability.h"
+#import "DatabaseAccess.h"
 
-@interface Commenti : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
+@interface Commenti : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, DatabaseAccessDelegate> {
 	UITableView *_tableview;
-	NSMutableArray *_dataModel; //era: rows
+	
+    IBOutlet UITableViewCell *cellanews;
+	IBOutlet UITableViewCell *cellafinale;
+    
+@private
+    NSMutableArray *_dataModel; //era: rows
+    DatabaseAccess *_dbAccess;
 	IBOutlet UILabel *_titolo;
 	NSInteger _identificativo;
 	NSString *_nome;
-    int indice;
-
-	IBOutlet UITableViewCell *cellanews;
-	IBOutlet UITableViewCell *cellafinale;
 }
 
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
-@property (nonatomic, retain) NSMutableArray *dataModel;
 @property (nonatomic, retain) UILabel *titolo;
 @property (nonatomic, assign) NSInteger identificativo; 
 @property (nonatomic, retain) NSString *nome;
