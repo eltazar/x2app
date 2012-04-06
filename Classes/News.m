@@ -15,11 +15,36 @@
 @implementation News
 
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (!nibNameOrNil) {
+        nibNameOrNil = [NSString stringWithFormat:@"%@", [self superclass]];
+    }
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+            //
+    }
+    return self;
+}
+
+
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Relinquish ownership any cached data, images, etc. that aren't in use.
+}
+
+#pragma mark - View lifecycle
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [urlFormatString release];
     urlFormatString = @"http://www.cartaperdue.it/partner/news.php?from=%d&to=10";
 }
+
+
+#pragma mark - UITableViewDataSource
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -47,6 +72,8 @@
     return cell;
 }
 
+
+#pragma mark - UITableViewDelegate
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
