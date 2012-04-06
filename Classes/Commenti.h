@@ -15,20 +15,23 @@
 @interface Commenti : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, DatabaseAccessDelegate> {
 	
 @private
-    UITableView *_tableview;
     NSMutableArray *_dataModel; //era: rows
     BOOL didFetchAllComments;
     DatabaseAccess *_dbAccess;
 	NSInteger _idEsercente;
 	NSString *_insegnaEsercente;
     
+    UITableView *_tableview;
+    UIActivityIndicatorView *_activityIndicator;
+    
 @protected
     NSString *urlFormatString;
 }
 
-@property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, assign) NSInteger idEsercente; 
 @property (nonatomic, retain) NSString *insegnaEsercente;
+@property (nonatomic, retain) IBOutlet UITableView *tableview;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic, retain, readonly) NSMutableArray *dataModel;
 

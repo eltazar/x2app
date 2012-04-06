@@ -22,9 +22,9 @@
 @implementation Commenti
 
 
-@synthesize tableview=_tableview;
-
 @synthesize idEsercente=_idEsercente ,insegnaEsercente=_insegnaEsercente;
+
+@synthesize tableview=_tableview, activityIndicator=_activityIndicator;
 
 @synthesize dataModel=_dataModel, dbAccess=_dbAccess;
 
@@ -73,6 +73,7 @@
         return;
 	}
     if (!self.dataModel || self.dataModel.count == 0 ) {
+        [self.activityIndicator startAnimating];
         [self fetchRowsFromNumber:0];
     }
 }
@@ -93,17 +94,19 @@
     self.tableview.dataSource = nil;
     self.tableview.delegate = nil;
     self.tableview = nil;
+    self.activityIndicator = nil;
 }
 
 
 - (void)dealloc {
-    self.tableview.dataSource = nil;
-    self.tableview.delegate = nil;
-    self.tableview = nil;
     self.dataModel = nil; //era: rows
     self.dbAccess.delegate = nil;
     self.dbAccess = nil;
     self.insegnaEsercente = nil;
+    self.tableview.dataSource = nil;
+    self.tableview.delegate = nil;
+    self.tableview = nil;
+    self.activityIndicator = nil;
     [super dealloc];
 }
 
@@ -149,7 +152,6 @@
 	}
     
 	else if (self.dataModel.count > 0) {
-#warning sistemare il riuso
         cell = [tableView dequeueReusableCellWithIdentifier:@"CommentiCell"];
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"CommentiCell" owner:self options:NULL] objectAtIndex:0];
@@ -227,8 +229,8 @@
 
 
 - (void)didReceiveCoupon:(NSDictionary *)data {
-#warning  stoppare lo spinner quando sarà messo
-
+    [self.activityIndicator stopAnimating];
+    self.activityIndicator.hidden = YES;
     NSObject *temp = [data objectForKey:@"Esercente"];
     
     if (![temp isKindOfClass:[NSArray class]]) {
@@ -277,6 +279,7 @@
 
 
 -  (void)didReceiveError:(NSError *)error {
+    [self.activityIndicator stopAnimating];
 #warning visualizzare alert errore di rete.
 }
 

@@ -20,6 +20,8 @@
 
 @synthesize idNotizia=_idNotizia;
 
+@synthesize activityIndicator=_activityIndicator;
+
 @synthesize dataModel=_dataModel, dbAccess=_dbAccess;
 
 
@@ -65,6 +67,7 @@
         return;
     }
     
+    [self.activityIndicator startAnimating];
     NSString *urlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/Notizia.php?id=%d", self.idNotizia];
 	[self.dbAccess getConnectionToURL:urlString];
 }
@@ -79,10 +82,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.activityIndicator = nil;
 }
 
 
 - (void)dealloc {
+    self.activityIndicator = nil;
     [super dealloc];
 }
 
@@ -132,6 +137,8 @@
     webView.opaque = NO;
 	webView.backgroundColor = [UIColor whiteColor];
 	[webView loadHTMLString:testoHTML baseURL:nil];
+    [self.activityIndicator stopAnimating];
+    self.activityIndicator.hidden = YES;
 }
 
 

@@ -233,6 +233,12 @@
 }
 
 
+- (void)didReceiveError:(NSError *)error {
+    [self.activityIndicator stopAnimating];
+    self.activityIndicator.hidden = YES;
+}
+   
+
 # pragma mark - UITableViewDataSource
 
 

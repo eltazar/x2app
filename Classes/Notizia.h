@@ -15,8 +15,10 @@
     NSInteger _idNotizia;
     NSMutableDictionary *_dataModel;
     DatabaseAccess *_dbAccess;
+    UIActivityIndicatorView *_activityIndicator;
 }
 
 @property (nonatomic, assign) NSInteger idNotizia;
+@property (nonatomic, assign) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
