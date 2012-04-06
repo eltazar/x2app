@@ -600,6 +600,7 @@
 				D9B05324151C8AED005A2E3D /* Dove Usarla V2 */,
 				D9AE33A6152E4FB7006757FA /* Dettaglio Esercente V2 */,
 				D9AFF6D7152F19AC00A8F346 /* Commenti e News V2 */,
+				D9CFDC17152F4F4A004E8755 /* Coupon */,
 				19D4CA7513ED5144001C7763 /* AltreOfferte.h */,
 				19D4CA7613ED5144001C7763 /* AltreOfferte.m */,
 				19D4CA7713ED5144001C7763 /* AltreOfferte.xib */,
@@ -961,6 +962,13 @@
 			);
 			path = UIDeviceAdditions;
 			sourceTree = SOURCE_ROOT;
+		};
+		D9CFDC17152F4F4A004E8755 /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Coupon;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
