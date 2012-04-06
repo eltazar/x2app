@@ -149,10 +149,9 @@
     
 	else if (self.dataModel.count > 0) {
 #warning sistemare il riuso
-        cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CommentiCell"];
         if (!cell) {
-            [[NSBundle mainBundle] loadNibNamed:@"CellaNews" owner:self options:NULL];
-            cell=cellanews;
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CommentiCell" owner:self options:NULL] objectAtIndex:0];
         }
         
         NSDictionary *commento = [self.dataModel objectAtIndex: indexPath.row];

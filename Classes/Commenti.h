@@ -13,12 +13,9 @@
 #import "DatabaseAccess.h"
 
 @interface Commenti : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, DatabaseAccessDelegate> {
-	UITableView *_tableview;
 	
-    IBOutlet UITableViewCell *cellanews;
-	IBOutlet UITableViewCell *cellafinale;
-    
 @private
+    UITableView *_tableview;
     NSMutableArray *_dataModel; //era: rows
     BOOL didFetchAllComments;
     DatabaseAccess *_dbAccess;
