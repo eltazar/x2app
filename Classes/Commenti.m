@@ -54,6 +54,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UILabel *titolo = (UILabel *)[self.view viewWithTag:1];
+    titolo.text = self.insegnaEsercente;
     didFetchAllComments = FALSE;
     self.dbAccess = [[DatabaseAccess alloc] init];
     self.dbAccess.delegate = self;
