@@ -10,10 +10,13 @@
 
 
 @implementation Commenti
-@synthesize rows, identificativo;
-@synthesize dict,tableview, titolo,Nome,url;
 
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+
+@synthesize tableview=_tableview;
+
+@synthesize rows=_rows, dict=_dict, titolo=_titolo, identificativo=_identificativo ,nome=_nome,url=_url;
+
+
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -25,122 +28,225 @@
 */
 
 
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc. that aren't in use.
+}
+
+
+#pragma mark - View Lifecycle
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
+	indice = 0;
+	NSLog(@"Il nome dell'esercente è %@", self.nome);
+	self.titolo.text = self.nome;
+	self.url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.identificativo, indice]];
+	NSLog(@"Url: %@", self.url);
 	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
+	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:self.url];
+	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
+	
+	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
+	NSError *error = nil;
+	self.dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
+	self.rows=[[NSMutableArray alloc] initWithObjects:[self.dict allValues],nil];
+	NSMutableArray *r=[[NSMutableArray alloc] init];
+	
+	if (self.dict)
+	{
+		r = [[self.dict objectForKey:@"Esercente"] retain];
+		
+	}
+	
+	NSLog(@"Array: %@",r);	
+	self.rows= [[NSMutableArray alloc]init];
+	[self.rows addObjectsFromArray: r];
+	
+	NSLog(@"Numero totale:%d",[self.rows count]);
+    
+	[jsonreturn release];
+	jsonreturn = nil;
+	[r release];
+	r = nil;
+	
+	if ([self.rows count] >0) {
+		self.dict = [self.rows objectAtIndex: 0];	
+	}
+}
+
+
+-(void)viewWillAppear:(BOOL)animated {
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
+	int wifi=0;
+	int internet=0;
+	internetReach = [[Reachability reachabilityForInternetConnection] retain];
+	internet= [self check:internetReach];
+	
+	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+	wifi=[self check:wifiReach];	
+	if( (internet==-1) &&( wifi==-1) ){
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+		[alert show];
+        [alert release];
+	}
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[wifiReach release];
+	[internetReach release];
+    [super viewWillDisappear:animated];
+}
+
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+	/*[rows release];
+	[dict release];
+	
+	[tableview release];
+	[cellanews release];
+	[cellafinale release];
+	[Nome release];
+	[titolo release];
+	[detail release];
+	[url release];*/
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
+}
+
+
+#pragma mark UITableViewDataSource
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	if ([self.rows count]<5){
+		return 1;
+	}	
+	else {
+		return 2;
+		
+	}
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	switch (section) {
+		case 0:
+			return [self.rows count];
+		case 1:
+			return 1;
 		default:
 			return 0;
 	}
 }
 
-	//settiamo il contenuto delle varie celle
-- (UITableViewCell *)tableView:(UITableView *)tableView
-		 cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-	
-	if (indexPath.section==1) {
-		static NSString *CellIdentifier = @"Cell";
-		
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-		
-		
-		if (cell == nil){
-//			[[NSBundle mainBundle] loadNibNamed:@"LastCell" owner:self options:NULL];
-//			cell=cellafinale;
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+	UITableViewCell *cell;
+    
+	if (indexPath.section == 1) {		
+		cell = [tableView dequeueReusableCellWithIdentifier:@"LastCell"];
+		if (!cell){
             cell = [[[NSBundle mainBundle] loadNibNamed:@"LastCell" owner:self options:NULL] objectAtIndex:0];
-			
 		}
-		UILabel *altri = (UILabel *)[cell viewWithTag:1];
+		UILabel *altri  = (UILabel *)[cell viewWithTag:1];
+        UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
 		altri.text = @"Mostra altri...";
-		UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
 		altri2.text = @"";
-		return cell;		
 	}
-	else {
-		if ([rows count] >0){
-		UITableViewCell *cell = [tableView
-							 dequeueReusableCellWithIdentifier:@"cellID"];
-			
-			if (cell == nil){
-				[[NSBundle mainBundle] loadNibNamed:@"CellaNews" owner:self options:NULL];
-				cell=cellanews;
-			}
-	
-			dict = [rows objectAtIndex: indexPath.row];
-			titolo = (UILabel *)[cell viewWithTag:1];
-			titolo.text = [NSString stringWithFormat:@"%@",[dict objectForKey:@"comment_content"]];
-	
-			NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
-			[formatoapp setDateFormat:@"dd-MM-YYYY"];
-			NSString *datadb = [NSString stringWithFormat:@"%@",[dict objectForKey:@"comment_date"]];
-			NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
-			[formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-			NSDate *d1=[formatodb dateFromString:datadb];
-			NSString *dataapp = [formatoapp stringFromDate:d1];
-	
-			UILabel *data = (UILabel *)[cell viewWithTag:2];
-			if([[NSString stringWithFormat:@"%@",[dict objectForKey:@"comment_author"]] length]==0 ) {
-				data.text = [NSString stringWithFormat:@"Inviato da Anonimo %@ il %@",[dict objectForKey:@"comment_author"],dataapp];
-			}
-			else {
-				data.text = [NSString stringWithFormat:@"Inviato da %@ il %@",[dict objectForKey:@"comment_author"],dataapp];
-				data.text = [data.text stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-
-			}
-
-	
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-			return cell;
-		}
-	}
-	
-
+    
+	else if (self.rows.count > 0) {
+#warning sistemare il riuso
+        cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+        if (!cell) {
+            [[NSBundle mainBundle] loadNibNamed:@"CellaNews" owner:self options:NULL];
+            cell=cellanews;
+        }
+        
+        self.dict = [self.rows objectAtIndex: indexPath.row];
+        self.titolo     = (UILabel *)[cell viewWithTag:1];
+        UILabel *data   = (UILabel *)[cell viewWithTag:2];
+        
+        self.titolo.text = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"comment_content"]];
+        
+        NSDateFormatter *mySQLDateFormatter = [[NSDateFormatter alloc] init];
+        [mySQLDateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDateFormatter *appPerDueDateFormatter = [[NSDateFormatter alloc] init];
+        [appPerDueDateFormatter setDateFormat:@"dd-MM-YYYY"];
+        
+        NSString *mySQLDate = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"comment_date"]];
+        NSDate *date = [mySQLDateFormatter dateFromString:mySQLDate];
+        NSString *appPerDueDate = [appPerDueDateFormatter stringFromDate:date];
+        [mySQLDateFormatter release];
+        [appPerDueDateFormatter release];
+        
+        if ([[NSString stringWithFormat:@"%@", [self.dict objectForKey:@"comment_author"]] length]== 0 ) {
+            data.text = [NSString stringWithFormat:@"Inviato da Anonimo %@ il %@",[self.dict objectForKey:@"comment_author"], appPerDueDate];
+        }
+        else {
+            data.text = [NSString stringWithFormat:@"Inviato da %@ il %@",[self.dict objectForKey:@"comment_author"], appPerDueDate];
+            data.text = [data.text stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+        }
+        
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+    return cell;
 }
 
 
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
+#pragma mark - UITableViewDelegate
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {	
 	
 	switch (indexPath.section) {
 		case 0:
 			[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-			dict = [rows objectAtIndex: indexPath.row];
-			NSInteger i=[[dict objectForKey:@"comment_ID"]integerValue];
+			self.dict = [self.rows objectAtIndex: indexPath.row];
+			NSInteger i = [[self.dict objectForKey:@"comment_ID"]integerValue];
 			NSLog(@"L'id del commento da visualizzare è %d",i);
 			detail = [[Commento alloc] initWithNibName:@"Commento" bundle:[NSBundle mainBundle]];
-			NSDictionary *diz = [rows objectAtIndex: indexPath.row];
+			NSDictionary *diz = [self.rows objectAtIndex: indexPath.row];
 			
 			NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
 			[formatoapp setDateFormat:@"dd-MM-YYYY"];
-			NSString *datadb = [NSString stringWithFormat:@"%@",[dict objectForKey:@"comment_date"]];
+			NSString *datadb = [NSString stringWithFormat:@"%@",[self.dict objectForKey:@"comment_date"]];
 			NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
 			[formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
 			NSDate *d1=[formatodb dateFromString:datadb];
 			NSString *dataapp = [formatoapp stringFromDate:d1];
 			NSString *autore;
-			if([[NSString stringWithFormat:@"%@",[dict objectForKey:@"comment_author"]] length]==0 ) {
+			if([[NSString stringWithFormat:@"%@",[self.dict objectForKey:@"comment_author"]] length]==0 ) {
 				autore = [NSString stringWithFormat:@"Inviato da Anonimo %@ il %@",[diz objectForKey:@"comment_author"],dataapp];
 			}
 			else {
 				autore = [NSString stringWithFormat:@"Inviato da %@ il %@",[diz objectForKey:@"comment_author"],dataapp];
 				autore = [autore stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-
+                
 			}
-
+            
 			
 			[(Commento*)detail setData:autore];
-			[(Commento*)detail setNome:Nome];
+			[(Commento*)detail setNome:self.nome];
 			NSString *cm=[NSString stringWithFormat:@"%@",[diz objectForKey:@"comment_content"]];
 			[(Commento*)detail setCommento:cm];
 			
 			[detail setTitle:@"Commento"];
-				//Facciamo visualizzare la vista con i dettagli
+            //Facciamo visualizzare la vista con i dettagli
 			[self.navigationController pushViewController:detail animated:YES];
-				//rilascio controller
+            //rilascio controller
 			[detail release];
 			detail = nil; 
 			break;
@@ -159,6 +265,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 			break;
 	}
 }
+
+
+
+-(int)check:(Reachability*) curReach{
+	NetworkStatus netStatus = [curReach currentReachabilityStatus];
+	
+	switch (netStatus){
+		case NotReachable:{
+			return -1;
+			break;
+		}
+		default:
+			return 0;
+	}
+}
+
+	//settiamo il contenuto delle varie celle
+
+
 	
 
 -(void)spinTheSpinner {
@@ -178,73 +303,32 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-	indice=0;
-	NSLog(@"Il nome dell'esercente è %@",Nome);
-	titolo.text=Nome;
-	url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10",identificativo,indice]];
-	NSLog(@"Url: %@", url);
-	
-	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
-	NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
-	
-	NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
-	NSError *error = nil;
-	dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
-	rows=[[NSMutableArray alloc] initWithObjects:[dict allValues],nil];
-	NSMutableArray *r=[[NSMutableArray alloc] init];
-	
-	if (dict)
-	{
-		r = [[dict objectForKey:@"Esercente"] retain];
-		
-	}
-	
-	NSLog(@"Array: %@",r);	
-	rows= [[NSMutableArray alloc]init];
-	[rows addObjectsFromArray: r];
-	
-	NSLog(@"Numero totale:%d",[rows count]);
-
-	[jsonreturn release];
-	jsonreturn=nil;
-	[r release];
-	r=nil;
-	
-	if ([rows count] >0) {
-		dict = [rows objectAtIndex: 0];	
-	}
-
-}
 
 - (int)aggiorna {
 		indice+=10;
-		url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10",identificativo,indice]];
-		NSLog(@"Url: %@", url);
-		NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
+		self.url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/commenti.php?id=%d&from=%d&to=10", self.identificativo, indice]];
+		NSLog(@"Url: %@", self.url);
+		NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:self.url];
         NSLog(@"%@",jsonreturn); // Look at the console and you can see what the restults are
             
 		NSData *jsonData = [jsonreturn dataUsingEncoding:NSUTF8StringEncoding];
 		NSError *error = nil;	
-		dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
+		self.dict = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error] retain];	
 		NSMutableArray *r=[[NSMutableArray alloc] init];
-		if (dict)
+		if (self.dict)
 		{
-			r = [[dict objectForKey:@"Esercente"] retain];
+			r = [[self.dict objectForKey:@"Esercente"] retain];
 			
 		}
 		
 		NSLog(@"Array: %@",r);
 		
-		[rows addObjectsFromArray: r];
+		[self.rows addObjectsFromArray: r];
 		
-		
-		[tableview reloadData];
+# warning togliere reloadData!!!
+		[self.tableview reloadData];
 		NSLog(@"Ho aggiunto %d righe",[r count]);
-		NSLog(@"La tabella dovrebbe avere %d righe",[rows count]);
+		NSLog(@"La tabella dovrebbe avere %d righe",[self.rows count]);
 		[UIApplication sharedApplication].networkActivityIndicatorVisible = NO; 
 		int nuove=[r count];
 		[jsonreturn release];
@@ -252,92 +336,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[r release];
 		r=nil;
 		return nuove;
-
-}
-
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if ([rows count]<5){
-		return 1;
-	}	
-	else {
-		return 2;
-		
-	}
-}
-
-	// Customize the number of rows in the table view.
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	switch (section) {
-		case 0:
-			return [rows count];
-		case 1:
-			return 1;
-		default:
-			return 0;
-	}
-}
-
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
-	int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-		[alert show];
-        [alert release];
-
-	}
-	
-	
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[wifiReach release];
-	[internetReach release];
-    [super viewWillDisappear:animated];
-	
-	
-}
-- (void)viewDidUnload {
-    [super viewDidUnload];
-	[rows release];
-	[dict release];
-	
-	[tableview release];
-	[cellanews release];
-	[cellafinale release];
-	[Nome release];
-	[titolo release];
-	[detail release];
-	[url release];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-
-- (void)dealloc {
-    [super dealloc];
 }
 
 

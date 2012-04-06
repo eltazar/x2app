@@ -11,35 +11,34 @@
 #import "Commento.h"
 #import "Reachability.h"
 
-@interface Commenti : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate> {
-	UITableView *tableview;
-	NSMutableArray *rows;
-	NSInteger identificativo;
-	NSMutableDictionary *dict;
-	IBOutlet UITableViewCell *cellanews;
-	IBOutlet UITableViewCell *cellafinale;
-	NSString *Nome;
-	IBOutlet UILabel *titolo;
-	int indice;
+@interface Commenti : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
+	UITableView *_tableview;
+	NSMutableArray *_rows;
+	NSMutableDictionary *_dict;
+	IBOutlet UILabel *_titolo;
+	NSInteger _identificativo;
+	NSString *_nome;
+	NSURL *_url;
+    int indice;
 	UIViewController *detail;
-	NSURL *url;
 	Reachability* internetReach;
 	Reachability* wifiReach;
 
-
+	IBOutlet UITableViewCell *cellanews;
+	IBOutlet UITableViewCell *cellafinale;
 }
 
-@property (nonatomic,retain) IBOutlet UITableView *tableview;
+@property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, retain) NSMutableArray *rows;
+@property (nonatomic, retain) NSMutableDictionary *dict;
 @property (nonatomic, retain) UILabel *titolo;
-@property (retain,nonatomic) NSMutableDictionary *dict;
-@property (nonatomic, readwrite) NSInteger identificativo; 
-@property (nonatomic, retain) NSString *Nome;
+@property (nonatomic, assign) NSInteger identificativo; 
+@property (nonatomic, retain) NSString *nome;
 @property (nonatomic, retain) NSURL *url;
 
 - (int)aggiorna;
 - (void) spinTheSpinner;
 - (void) doneSpinning;
--(int)check:(Reachability*) curReach;
+- (int)check:(Reachability*) curReach;
 
 @end
