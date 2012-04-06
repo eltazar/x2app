@@ -8,6 +8,7 @@
 
 #import "CategoriaCommercialeWithPrice.h"
 #import "DettaglioEsercenteRistorazione.h"
+#import "EsercenteMapAnnotation.h"
 
 @implementation CategoriaCommercialeWithPrice
 
@@ -82,6 +83,22 @@
 	}
 }
 
+
+#pragma mark - MKMapViewDelegate
+
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+	EsercenteMapAnnotation *ann = (EsercenteMapAnnotation *)view.annotation;	
+	DettaglioEsercenteRistorazione *detail = [[DettaglioEsercenteRistorazione alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
+	detail.idEsercente = ann.idEsercente;
+	detail.title = @"Esercente";
+	[self.navigationController pushViewController:detail animated:YES];
+    //rilascio controller
+    [detail release];
+}
+
+
+#pragma mark - CategoriaCommercialeWithPrice (metodi privati)
 
 - (NSString *)searchMethod {
     NSInteger selection = [self.searchSegCtrl selectedSegmentIndex];

@@ -314,15 +314,13 @@
 
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-	EsercenteMapAnnotation *ann =(EsercenteMapAnnotation *)view.annotation;	
+	EsercenteMapAnnotation *ann = (EsercenteMapAnnotation *)view.annotation;	
 	DettaglioEsercente *detail = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
 	detail.idEsercente = ann.idEsercente;
 	detail.title = @"Esercente";
-    //Facciamo visualizzare la vista con i dettagli
 	[self.navigationController pushViewController:detail animated:YES];
     //rilascio controller
     [detail release];
-	
 }
 
 //zoom su posizione utente
