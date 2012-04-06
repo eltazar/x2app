@@ -261,10 +261,10 @@
 		19990B38138D8C97003DB0D2 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		19990B39138D8C97003DB0D2 /* CSerializedJSONData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSerializedJSONData.h; sourceTree = "<group>"; };
 		19990B3A138D8C97003DB0D2 /* CSerializedJSONData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSerializedJSONData.m; sourceTree = "<group>"; };
-		19990D29138EC0D8003DB0D2 /* CellaNews.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaNews.xib; sourceTree = "<group>"; };
-		19990D50138EC6AB003DB0D2 /* Notizia.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Notizia.xib; path = Classes/Notizia.xib; sourceTree = "<group>"; };
-		199910B6138FDE35003DB0D2 /* Commenti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Commenti.xib; path = Classes/Commenti.xib; sourceTree = "<group>"; };
-		1999400F13902345006950F1 /* Commento.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Commento.xib; path = Classes/Commento.xib; sourceTree = "<group>"; };
+		19990D29138EC0D8003DB0D2 /* CellaNews.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CellaNews.xib; path = ../CellaNews.xib; sourceTree = "<group>"; };
+		19990D50138EC6AB003DB0D2 /* Notizia.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Notizia.xib; sourceTree = "<group>"; };
+		199910B6138FDE35003DB0D2 /* Commenti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Commenti.xib; sourceTree = "<group>"; };
+		1999400F13902345006950F1 /* Commento.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Commento.xib; sourceTree = "<group>"; };
 		199FEAC113C871F70030CDD8 /* celladatipersonali.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = celladatipersonali.xib; sourceTree = "<group>"; };
 		19A494D0139CE42C00ECFA7E /* CellaCredits.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellaCredits.xib; sourceTree = "<group>"; };
 		19A495D4139D03D000ECFA7E /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
@@ -281,14 +281,12 @@
 		19D4CA7F13ED5144001C7763 /* Celladati.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Celladati.m; sourceTree = "<group>"; };
 		19D4CA8313ED5144001C7763 /* Commenti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commenti.h; sourceTree = "<group>"; };
 		19D4CA8413ED5144001C7763 /* Commenti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commenti.m; sourceTree = "<group>"; };
-		19D4CA8513ED5144001C7763 /* Commenti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Commenti.xib; sourceTree = "<group>"; };
 		19D4CA8613ED5144001C7763 /* Commento.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commento.h; sourceTree = "<group>"; };
 		19D4CA8713ED5144001C7763 /* Commento.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Commento.m; sourceTree = "<group>"; };
-		19D4CA8813ED5144001C7763 /* Commento.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Commento.xib; sourceTree = "<group>"; };
 		19D4CA8913ED5144001C7763 /* Coupon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coupon.h; sourceTree = "<group>"; };
 		19D4CA8A13ED5144001C7763 /* Coupon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coupon.m; sourceTree = "<group>"; };
 		19D4CA8B13ED5144001C7763 /* Coupon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Coupon.xib; sourceTree = "<group>"; };
-		19D4CAA213ED5144001C7763 /* EsercenteMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; path = EsercenteMapAnnotation.h; sourceTree = "<group>"; };
+		19D4CAA213ED5144001C7763 /* EsercenteMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EsercenteMapAnnotation.h; sourceTree = "<group>"; };
 		19D4CAA313ED5144001C7763 /* EsercenteMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EsercenteMapAnnotation.m; sourceTree = "<group>"; };
 		19D4CAA813ED5144001C7763 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = "<group>"; };
 		19D4CAA913ED5144001C7763 /* Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Info.m; sourceTree = "<group>"; };
@@ -297,7 +295,6 @@
 		19D4CAB213ED5144001C7763 /* News.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = News.m; sourceTree = "<group>"; };
 		19D4CAB413ED5144001C7763 /* Notizia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notizia.h; sourceTree = "<group>"; };
 		19D4CAB513ED5144001C7763 /* Notizia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notizia.m; sourceTree = "<group>"; };
-		19D4CAB613ED5144001C7763 /* Notizia.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Notizia.xib; sourceTree = "<group>"; };
 		19D4CABA13ED5144001C7763 /* Opzioni.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Opzioni.h; sourceTree = "<group>"; };
 		19D4CABB13ED5144001C7763 /* Opzioni.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Opzioni.m; sourceTree = "<group>"; };
 		19D4CABC13ED5144001C7763 /* Opzioni.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Opzioni.xib; sourceTree = "<group>"; };
@@ -602,17 +599,12 @@
 			children = (
 				D9B05324151C8AED005A2E3D /* Dove Usarla V2 */,
 				D9AE33A6152E4FB7006757FA /* Dettaglio Esercente V2 */,
+				D9AFF6D7152F19AC00A8F346 /* Commenti e News V2 */,
 				19D4CA7513ED5144001C7763 /* AltreOfferte.h */,
 				19D4CA7613ED5144001C7763 /* AltreOfferte.m */,
 				19D4CA7713ED5144001C7763 /* AltreOfferte.xib */,
 				19D4CA7E13ED5144001C7763 /* Celladati.h */,
 				19D4CA7F13ED5144001C7763 /* Celladati.m */,
-				19D4CA8313ED5144001C7763 /* Commenti.h */,
-				19D4CA8413ED5144001C7763 /* Commenti.m */,
-				19D4CA8513ED5144001C7763 /* Commenti.xib */,
-				19D4CA8613ED5144001C7763 /* Commento.h */,
-				19D4CA8713ED5144001C7763 /* Commento.m */,
-				19D4CA8813ED5144001C7763 /* Commento.xib */,
 				19D4CA8913ED5144001C7763 /* Coupon.h */,
 				19D4CA8A13ED5144001C7763 /* Coupon.m */,
 				19D4CA8B13ED5144001C7763 /* Coupon.xib */,
@@ -629,9 +621,6 @@
 				19D4CAAA13ED5144001C7763 /* Info.xib */,
 				19D4CAB113ED5144001C7763 /* News.h */,
 				19D4CAB213ED5144001C7763 /* News.m */,
-				19D4CAB413ED5144001C7763 /* Notizia.h */,
-				19D4CAB513ED5144001C7763 /* Notizia.m */,
-				19D4CAB613ED5144001C7763 /* Notizia.xib */,
 				1923D88913F81648005A9815 /* OpzioniCoupon.h */,
 				1923D88A13F81648005A9815 /* OpzioniCoupon.m */,
 				1923D88B13F81648005A9815 /* OpzioniCoupon.xib */,
@@ -692,15 +681,11 @@
 			children = (
 				19186625139A49D800172698 /* img */,
 				19A494D0139CE42C00ECFA7E /* CellaCredits.xib */,
-				19990D29138EC0D8003DB0D2 /* CellaNews.xib */,
-				199910B6138FDE35003DB0D2 /* Commenti.xib */,
-				1999400F13902345006950F1 /* Commento.xib */,
 				1937063E13548957008A07AF /* Coupon.xib */,
 				196CD27B136EDC4900879122 /* Info.xib */,
 				1971C69813B7186F0032553A /* infocoupon.xib */,
 				ACBEB024150BC16100F7B5F7 /* descrizioneOfferta.xib */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
-				19990D50138EC6AB003DB0D2 /* Notizia.xib */,
 				8D1107310486CEB800E47090 /* PerDueCItyCard-Info.plist */,
 				191D6AB613B472570039A725 /* CellaCoupon.xib */,
 				1967109613C0C537007A4C22 /* cellaofferte.xib */,
@@ -921,6 +906,23 @@
 				D9AE33AF152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib */,
 			);
 			name = "Dettaglio Esercente V2";
+			sourceTree = "<group>";
+		};
+		D9AFF6D7152F19AC00A8F346 /* Commenti e News V2 */ = {
+			isa = PBXGroup;
+			children = (
+				19D4CA8313ED5144001C7763 /* Commenti.h */,
+				19D4CA8413ED5144001C7763 /* Commenti.m */,
+				199910B6138FDE35003DB0D2 /* Commenti.xib */,
+				19990D29138EC0D8003DB0D2 /* CellaNews.xib */,
+				19D4CA8613ED5144001C7763 /* Commento.h */,
+				19D4CA8713ED5144001C7763 /* Commento.m */,
+				1999400F13902345006950F1 /* Commento.xib */,
+				19D4CAB413ED5144001C7763 /* Notizia.h */,
+				19D4CAB513ED5144001C7763 /* Notizia.m */,
+				19990D50138EC6AB003DB0D2 /* Notizia.xib */,
+			);
+			name = "Commenti e News V2";
 			sourceTree = "<group>";
 		};
 		D9B05324151C8AED005A2E3D /* Dove Usarla V2 */ = {
