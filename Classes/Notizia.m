@@ -10,21 +10,10 @@
 
 
 @implementation Notizia
+
 @synthesize rows, identificativo,webView, url;
 
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
-// The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,12 +25,17 @@
 */
 
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc. that aren't in use.
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-
-	url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Notizia.php?id=%d",identificativo]];
+    /*url = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/Notizia.php?id=%d",identificativo]];
 	NSLog(@"Url: %@", url);
 	
 	NSString *jsonreturn = [[NSString alloc] initWithContentsOfURL:url];
@@ -68,7 +62,7 @@
 	
 	NSLog(@"Ho aggiunto %d righe",[r count]);
 	NSLog(@"Rows ha %d righe",[rows count]);
-	dict = [rows objectAtIndex: 0];
+	dict = [rows objectAtIndex: 0];*/
 	
 	//titolo
 	titolo.text=[NSString stringWithFormat:@"%@",[dict objectForKey:@"post_title"]];
@@ -100,34 +94,6 @@
 	
 }
 
--(void)spinTheSpinner {
-    NSLog(@"Spin The Spinner");
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    [self performSelectorOnMainThread:@selector(doneSpinning) withObject:nil waitUntilDone:YES];
-	
-    [pool release]; 
-}
-
--(void)doneSpinning {
-    NSLog(@"done spinning");
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
-}
 
 -(void)viewWillAppear:(BOOL)animated {
 	int wifi=0;
@@ -167,6 +133,15 @@
 - (void)dealloc {
     [super dealloc];
 }
+
+
+/*
+ // Override to allow orientations other than the default portrait orientation.
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ // Return YES for supported orientations.
+ return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ }
+ */
 
 
 @end
