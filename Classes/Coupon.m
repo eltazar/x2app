@@ -819,10 +819,7 @@ if ([rows count]>0) {//coupon disponibile
     [pool release]; 
 }
 
--(void)doneSpinning {
-    NSLog(@"done spinning");
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}	
+
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.

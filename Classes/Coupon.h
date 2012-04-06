@@ -98,8 +98,7 @@
 - (void)countDown;
 -(void)Paga:(id)sender;
 
-- (void) spinTheSpinner;
-- (void) doneSpinning;
+
 - (IBAction)chiudi:(id)sender;
 - (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer;
 - (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer;
