@@ -89,8 +89,7 @@
 		static NSString *CellIdentifier = @"Cell";
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil){
-			[[NSBundle mainBundle] loadNibNamed:@"cellaofferte" owner:self options:NULL];
-			cell=cellaofferte;
+			cell = [[[NSBundle mainBundle] loadNibNamed:@"AltreOfferteCell" owner:self options:NULL] objectAtIndex:0];
 			[CellSpinner startAnimating];
 		
 		}

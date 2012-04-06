@@ -19,7 +19,6 @@
 	NSMutableArray *rows;
 	UIViewController *detail;
 	NSMutableDictionary *dict;
-	IBOutlet UITableViewCell *cellaofferte;
 	//NSURL *url;
 	IBOutlet UIView* footerView;
 	IBOutlet UIActivityIndicatorView *CellSpinner;
