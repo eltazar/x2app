@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <CoreLocation/CoreLocation.h>
 #import "FindNearCompanyController.h"
 #import "Utilita.h"
 #import "BaseCell.h"
@@ -19,6 +20,7 @@
      NSString *_phpFile;
     BOOL isEmpty;
     CartaPerDue *_card;
+    CLLocationCoordinate2D userCoordinate;
 }
 @property(nonatomic, retain) CartaPerDue *card;
 @property (nonatomic, retain) NSString *phpFile;
@@ -144,6 +146,29 @@
     
 }
 
+#pragma mark - CLLocationManagerDelegate protocol
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    // If it's a relatively recent event, turn off updates to save power
+    NSDate* eventDate = newLocation.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (abs(howRecent) < 15.0)
+    {
+        NSLog(@"latitude %+.6f, longitude %+.6f\n",
+              newLocation.coordinate.latitude,
+              newLocation.coordinate.longitude);
+        userCoordinate = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+    }
+    // else skip the event and process the next one.
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    NSLog(@"location error = %@",[error description]);
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -151,6 +176,11 @@
     [super viewDidLoad];
 
     self.title = @"Esercenti vicini";
+    
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    
+    [locationManager startMonitoringSignificantLocationChanges];
     
     isEmpty = FALSE;
     
@@ -185,6 +215,7 @@
         NSLog(@"ALERT INTERNET ASSENTE");
     }
     else{
+        NSLog(@"USER COORDINATE LAT = %f, LONG = %f",userCoordinate.latitude,userCoordinate.longitude);
         [self fetchRows];
     }
     

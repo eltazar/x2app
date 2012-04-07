@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "DatabaseAccess.h"
+#import <CoreLocation/CoreLocation.h>
+
 @class CartaPerDue;
 
-@interface FindNearCompanyController : UITableViewController<DatabaseAccessDelegate>
+@interface FindNearCompanyController : UITableViewController<DatabaseAccessDelegate,CLLocationManagerDelegate>
 {
     NSString *_urlString;
     NSMutableArray *_rows;
+    CLLocationManager *locationManager;
 }
 
 -(id) initWithCard:(CartaPerDue*)aCard;
