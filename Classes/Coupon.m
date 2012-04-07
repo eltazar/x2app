@@ -57,7 +57,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 
 @synthesize dataModel=_dataModel, idCoupon=_idCoupon;
 
-@synthesize prezzoCouponLbl=_prezzoCouponLbl, scontoLbl=_scontoLbl, risparmioLbl=_risparmioLbl, prezzoOrigLbl=_prezzoOrigLbl, caricamentoImmagineSpinner=_caricamentoImmagineSpinner, titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tempoLbl=_tempoLbl, tableview=_tableview, FotoIngranditaViewController=_FotoIngranditaViewController, FotoIngranditaImageView=_FotoIngranditaImageView, dettagliOffertaViewContr=_dettagliOffertaViewContr, terminiViewContr=_terminiViewContr, diPiuViewContr=_diPiuViewContr, contattiViewContr=_contattiViewContr, faqViewController=_faqViewController, dettagliOffertaWebView=_dettagliOffertaWebView, condizioniWebView=_condizioniWebView, diPiuWebView=_diPiuWebView, faqWebView=_faqWebView;
+@synthesize prezzoCouponLbl=_prezzoCouponLbl, scontoLbl=_scontoLbl, risparmioLbl=_risparmioLbl, prezzoOrigLbl=_prezzoOrigLbl, caricamentoImmagineSpinner=_caricamentoImmagineSpinner, titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tempoLbl=_tempoLbl, tableview=_tableview,  dettagliOffertaViewContr=_dettagliOffertaViewContr, terminiViewContr=_terminiViewContr, diPiuViewContr=_diPiuViewContr, contattiViewContr=_contattiViewContr, faqViewController=_faqViewController, dettagliOffertaWebView=_dettagliOffertaWebView, condizioniWebView=_condizioniWebView, diPiuWebView=_diPiuWebView, faqWebView=_faqWebView;
 
 @synthesize timer=_timer, dbAccess=_dbAccess, appDelegate=_appDelegate;	
 @synthesize aSheet=_aSheet, aSheet2=_aSheet2;
@@ -167,8 +167,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                     [self.caricamentoImmagineSpinner startAnimating];
                 } else {
                     [self.caricamentoImmagineSpinner stopAnimating];
-                    AsyncImageView* oldImage = (AsyncImageView*)
-                    [cell.contentView viewWithTag:999];
+                    AsyncImageView* oldImage = (AsyncImageView*) [cell.contentView viewWithTag:999];
                     [oldImage removeFromSuperview];
                 }
                 
@@ -842,7 +841,6 @@ if ([rows count]>0) {//coupon disponibile
 	[self.timer release];
 //	[wifiReach release];
 //	[internetReach release];
-	[self.FotoIngranditaImageView release];
 	[self.faqViewController release];
 //    [logoutBtn release];
 //    logoutBtn = nil;
