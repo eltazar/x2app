@@ -59,12 +59,12 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 
 @synthesize prezzoCouponLbl=_prezzoCouponLbl, scontoLbl=_scontoLbl, risparmioLbl=_risparmioLbl, prezzoOrigLbl=_prezzoOrigLbl, caricamentoImmagineSpinner=_caricamentoImmagineSpinner, titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tempoLbl=_tempoLbl, tableview=_tableview,  dettagliOffertaViewContr=_dettagliOffertaViewContr, terminiViewContr=_terminiViewContr, diPiuViewContr=_diPiuViewContr, contattiViewContr=_contattiViewContr, faqViewController=_faqViewController, dettagliOffertaWebView=_dettagliOffertaWebView, condizioniWebView=_condizioniWebView, diPiuWebView=_diPiuWebView, faqWebView=_faqWebView;
 
-@synthesize timer=_timer, dbAccess=_dbAccess, appDelegate=_appDelegate;	
+@synthesize timer=_timer, dbAccess=_dbAccess, appDelegate=_appDelegate;
+
 @synthesize aSheet=_aSheet, aSheet2=_aSheet2;
+
 /*facebook*/
 @synthesize permissions=_permissions, facebookAlert=_facebookAlert, username=_username;
-
-
 
 #define _APP_KEY @"223476134356120"
 #define _SECRET_KEY @"6d2eaf75967fc247ac45aac716a4dd64"
@@ -80,7 +80,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 }
 
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         isOffertaDelGiorno = TRUE;
@@ -119,32 +119,35 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!self.dataModel) //coupon non disponibile
+	if (!self.dataModel) {
+        //coupon non disponibile
 		return 0;
-
+    }
+    
     if (section == 0) {
         return 2;
-	} else if (section == 1) {    
+	} 
+    else if (section == 1) {    
         NSString *descEstesa = [self.dataModel objectForKey:@"offerta_descrizione_estesa"];
         if (([descEstesa isEqualToString:@"<null>"]) || 
             ([descEstesa isEqualToString:@""])) {
             return 3;
-        } else {
+        } 
+        else {
             return 4;
         }
-    } else if (section == 2) {
+    } 
+    else if (section == 2) {
         return 3;
-    } else {
+    } 
+    else {
         return 0;
 	}
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-	UITableViewCell *cell = [tableView
-							 dequeueReusableCellWithIdentifier:@"cellID"];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
 	
 	if (indexPath.section==0){
         
@@ -165,23 +168,24 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 if (cell == nil) {
                     cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDiscountTimeCell" owner:self options:NULL] objectAtIndex:0];
                     [self.caricamentoImmagineSpinner startAnimating];
-                } else {
+                } 
+                else {
                     [self.caricamentoImmagineSpinner stopAnimating];
                     AsyncImageView* oldImage = (AsyncImageView*) [cell.contentView viewWithTag:999];
                     [oldImage removeFromSuperview];
                 }
                 
-                [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra",[self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-                self.prezzoCouponLbl.text=[NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"coupon_valore_acquisto"]]; 
-                self.scontoLbl.text=[NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"offerta_sconto_per"]];
-                self.risparmioLbl.text=[NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"offerta_sconto_va"]];
-                self.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"coupon_valore_facciale"]];
+                [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra", [self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+                self.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_acquisto"]]; 
+                self.scontoLbl.text = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_sconto_per"]];
+                self.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"offerta_sconto_va"]];
+                self.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_facciale"]];
                 
                 CGRect frame;
                 frame.size.width=101; frame.size.height=135;
                 frame.origin.x=10; frame.origin.y=10;
                 AsyncImageView* asyncImage = [[[AsyncImageView alloc] initWithFrame:frame] autorelease];
-                NSString *img=[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[self.dataModel objectForKey:@"offerta_foto_big"]];
+                NSString *img = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
                 NSURL *urlfoto = [NSURL URLWithString:img];
                 asyncImage.tag = 999;
                 
@@ -190,29 +194,26 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 
                 UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];  
                 UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];  
-                
                 [doubleTap setNumberOfTapsRequired:2];  
-                
                 [asyncImage addGestureRecognizer:singleTap];  
                 [asyncImage addGestureRecognizer:doubleTap];  
-                
                 
                 //NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
                 //[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
                 //NSString *datadb = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"coupon_periodo_dal"]];
-                NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
+                NSDateFormatter *formatodb = [[NSDateFormatter alloc] init];
                 [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                 NSDate *now = [[NSDate alloc] init];
-                NSString *scad = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"offerta_periodo_al"]];
-                NSDate *datascadenza=[formatodb dateFromString:scad];
+                NSString *scad = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_periodo_al"]];
+                NSDate *datascadenza = [formatodb dateFromString:scad];
                 secondsLeft =[datascadenza timeIntervalSinceDate:now];
                 int days, hours, minutes, seconds;
-                days= secondsLeft/(3600*24);
-                hours = (secondsLeft - (days*24*3600))/3600;
-                minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
+                days = secondsLeft / (3600 * 24);
+                hours = (secondsLeft - (days *24 * 3600)) / 3600;
+                minutes = (secondsLeft - ((hours * 3600) + (days *24 * 3600))) / 60;
                 seconds = secondsLeft % 60;
-                //NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
-                self.tempoLbl.text=[NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
+                //NSLog(@"time =%02d:%02d:%02d:%02d", days, hours, minutes, seconds);
+                self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds", days, hours, minutes, seconds];
                 [formatodb release];
                 [now release];
                 
@@ -222,7 +223,8 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
             default:
                 break;
         }
-    } else if(indexPath.section==1){
+    } 
+    else if(indexPath.section==1){
             
         switch (indexPath.row) {
             case 0:
@@ -264,7 +266,8 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    } else if (indexPath.section==2) {
+    } 
+    else if (indexPath.section==2) {
         switch (indexPath.row) {
             case 0:
                 if (cell == nil) {	
@@ -285,6 +288,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                     cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];                }
                 UILabel *faq = (UILabel *)[cell viewWithTag:1];
                 faq.text = @"F.A.Q.";
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
         }
     }
@@ -314,16 +318,14 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 		return 60;
 	if ((indexPath.section==1) && 
         ( (indexPath.row==0) || (indexPath.row==1) || (indexPath.row==3) ) )
-	return 44;
+        return 44;
 	if (indexPath.section == 2)
 		return 44;
+    return 0;
 }
 
 
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //mostra dettaglio offerta controller, è in questo controller, i dati sono stati già scaricati asincronamente
     if (indexPath.section == 0 && indexPath.row == 0) {
         return;
@@ -331,82 +333,92 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 	if ( (indexPath.section == 1) && (indexPath.row == 0) ) {
 		[self.dettagliOffertaViewContr setTitle:@"Dettagli offerta"];
-		NSString *tit=[NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"offerta_titolo_breve"]];
+		//NSString *tit = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_titolo_breve"]];
         NSString *sintesitxt = [NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><div style=\"background-color:8b1800; font-style:Helvetica regular;text-align:center;color:white;font-weight:bold;\"><p style=\"font-size:60px;\"><b>%@</b></p></div> <div style=\"background-color:#8b1800; font-style:Helvetica regular;font-size:55px; color:white;\">%@</div></body>", [self.dataModel objectForKey:@"offerta_title"],[self.dataModel objectForKey:@"offerta_descrizione_breve"]];
         [self.dettagliOffertaWebView loadHTMLString:sintesitxt baseURL:nil];
 		[self.navigationController pushViewController:self.dettagliOffertaViewContr animated:YES]; 
         
-	} else if ( (indexPath.section == 1) && (indexPath.row == 1) ) {
+	} 
+    else if ( (indexPath.section == 1) && (indexPath.row == 1) ) {
         //stessa filosofia di sopra
 		[self.terminiViewContr setTitle:@"Termini e condizioni"];
-		NSString *condizionitext=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[self.dataModel objectForKey:@"offerta_condizioni_sintetiche"]];
+		NSString *condizionitext = [NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>", [self.dataModel objectForKey:@"offerta_condizioni_sintetiche"]];
         [self.condizioniWebView loadHTMLString:condizionitext baseURL:nil];		
 		[self.navigationController pushViewController:self.terminiViewContr animated:YES];	
         
-	} else if ( (indexPath.section == 1) && (indexPath.row == 2) ) {
+	} 
+    else if ( (indexPath.section == 1) && (indexPath.row == 2) ) {
         [self.contattiViewContr setTitle:@"Info Esercente"];
         DettaglioEsercente *dettaglioEsercente;
         NSInteger idEsercente = [[self.dataModel objectForKey:@"idesercente"]integerValue];
-        if (tipodettaglio == CouponEsercenteRistorazione) { //dettglio ristopub
+        if (tipodettaglio == CouponEsercenteRistorazione) { 
+            //dettglio ristopub
             NSLog(@"ESERCENTE RISTOPUB");
             dettaglioEsercente = [[DettaglioEsercenteRistorazione alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:NO];
-		} else if (tipodettaglio == CouponEsercente) { //esercente normale
+		} else if (tipodettaglio == CouponEsercente) { 
+            //esercente normale
             NSLog(@"ESERCENTE NORMALE");
             dettaglioEsercente = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:NO];
-        } else if (tipodettaglio == CouponEsercenteSenzaContratto ){ //esercente senza contratto
+        } else if (tipodettaglio == CouponEsercenteSenzaContratto ){ 
+            //esercente senza contratto
             dettaglioEsercente = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:YES];
         }
         dettaglioEsercente.idEsercente = idEsercente;
         dettaglioEsercente.title = @"Esercente";
         [self.navigationController pushViewController:dettaglioEsercente animated:YES];
         
-    } else if ( (indexPath.section == 1) && (indexPath.row == 3) ) {
+    } 
+    else if ( (indexPath.section == 1) && (indexPath.row == 3) ) {
 		[self.diPiuViewContr setTitle:@"Per saperne di più..."];
 		NSString *dipiutxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[self.dataModel objectForKey:@"offerta_descrizione_estesa"]];
 		[self.diPiuWebView loadHTMLString:dipiutxt baseURL:nil];
 		[self.navigationController pushViewController:self.diPiuViewContr animated:YES];
 		
-	} else if ( (indexPath.section == 2) && (indexPath.row == 0) ) {
+	} 
+    else if ( (indexPath.section == 2) && (indexPath.row == 0) ) {
         //mostra il tasto per il logout se connesso
-        if([self.appDelegate.facebook isSessionValid]){
+        if ([self.appDelegate.facebook isSessionValid]) {
             NSLog(@"DID LOAD CONNECTED");
             self.aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:@"Logout da Facebook" otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
-        } else {
+        } 
+        else {
             NSLog(@"DID LOAD NOT CONNECTED");
             self.aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
         }
 		[self.aSheet showInView:self.appDelegate.window];
 		[self.aSheet release];			
         
-	} else if ( (indexPath.section == 2) && (indexPath.row == 1) ) {
+	} 
+    else if ( (indexPath.section == 2) && (indexPath.row == 1) ) {
 		self.aSheet2 = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Contatta PerDue"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Telefona", @"Invia mail", nil];
 		[self.aSheet2 showInView:self.appDelegate.window];
 		[self.aSheet2 release];			
 		
-	} else if ( (indexPath.section==2) && (indexPath.row == 2)){
+	} 
+    else if ( (indexPath.section==2) && (indexPath.row == 2)){
 		[self presentModalViewController:self.faqViewController animated:YES];
 		NSURL *infos = [NSURL URLWithString:@"http://www.cartaperdue.it/partner/faq.html"];
 		NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
 		[self.faqWebView loadRequest:requestObj];		
 		[self.faqWebView release];
-		self.faqWebView=nil;		
+		self.faqWebView = nil;		
 	}
 }
 
 #pragma mark - LoginControllerDelegate
 
 - (void)didLogin:(int)idUtente {
-    NSLog(@"IN COUPON DOPO LOGIN id = %d",idUtente);
+    NSLog(@"IN COUPON DOPO LOGIN id = %d", idUtente);
     [self dismissModalViewControllerAnimated:YES];
     
     //identificativo è relativo all'offerta
     Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:nil bundle:nil];
     pagamentoController.idUtente = idUtente;
     [pagamentoController setValore:[[self.dataModel objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-    NSLog(@"Valore:%f",[[self.dataModel objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+    NSLog(@"Valore: %f", [[self.dataModel objectForKey:@"coupon_valore_acquisto"] doubleValue]);
     //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
     [pagamentoController setIdentificativo:self.idCoupon];
-    NSString *tit=[NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"offerta_titolo_breve"]];
+    NSString *tit = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_titolo_breve"]];
     NSLog(@"%@", tit);
     pagamentoController.titolo = tit;
     [pagamentoController setTitle:@"Acquisto"];
@@ -420,6 +432,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self dismissModalViewControllerAnimated:YES];
 }
 
+
 #pragma mark - Gestione view e bottoni
 
 
@@ -428,10 +441,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 
-
 -(void)Paga:(id)sender{
     if (![Utilita networkReachable]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
         [alert show];
         [alert release];
         return;
@@ -446,7 +458,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSNumber *idUtente = [prefs objectForKey:@"_idUtente"];
     
-    if(!idUtente){
+    if (!idUtente) {
         //lancio view modale per il login
         LoginControllerBis *loginController = [[LoginControllerBis alloc] initWithNibName:@"LoginControllerBis" bundle:nil];
         
@@ -459,10 +471,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         [self presentModalViewController:navController animated:YES];
         [navController release];
         
-    } else {
+    } 
+    else {
         Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:nil bundle:nil];
         [pagamentoController setValore:[[self.dataModel objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-        NSLog(@"Valore:%f",[[self.dataModel objectForKey:@"coupon_valore_acquisto"]doubleValue]);
+        NSLog(@"Valore:%f", [[self.dataModel objectForKey:@"coupon_valore_acquisto"] doubleValue]);
         //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
         [pagamentoController setIdentificativo:self.idCoupon];
         NSString *tit=[NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"offerta_titolo_breve"]];
@@ -510,7 +523,7 @@ if ([rows count]>0) {//coupon disponibile
 
 
 - (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {  
-	NSString *imgURLString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[self.dataModel objectForKey:@"offerta_foto_big"]];
+	NSString *imgURLString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
 	FotoIngranditaController *controller = [FotoIngranditaController fotoIngranditaControllerWithImageUrlString:imgURLString delegate:self]; 
     [self presentModalViewController:controller animated:YES];
 }
@@ -530,15 +543,16 @@ if ([rows count]>0) {//coupon disponibile
     //NSLog(@"RICHIAMATO COUNT DOWN");
 	int days, hours, minutes, seconds;
 	if (secondsLeft > 0) {
-		secondsLeft=secondsLeft-1;
-		days= secondsLeft/(3600*24);
-		hours = (secondsLeft - (days*24*3600))/3600;
-		minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
+		secondsLeft = secondsLeft - 1;
+		days= secondsLeft / (3600 * 24);
+		hours = (secondsLeft - (days * 24* 3600)) / 3600;
+		minutes = (secondsLeft - ((hours * 3600) + (days * 24 * 3600))) / 60;
 		seconds = secondsLeft % 60;
-		self.tempoLbl.text=[NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
-	} else {
-		secondsLeft=0;
-		self.tempoLbl.text=[NSString stringWithFormat:@"Offerta scaduta!"];
+		self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
+	} 
+    else {
+		secondsLeft = 0;
+		self.tempoLbl.text = [NSString stringWithFormat:@"Offerta scaduta!"];
 		[self.timer invalidate];
         self.timer = nil;
 	}
@@ -555,7 +569,6 @@ if ([rows count]>0) {//coupon disponibile
 #pragma mark - ActionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	
     if (actionSheet == self.aSheet) {
         NSLog(@" numero di bottoni = %d", actionSheet.numberOfButtons);
         if (actionSheet.numberOfButtons == 4) {
@@ -563,32 +576,36 @@ if ([rows count]>0) {//coupon disponibile
                 NSLog(@"richiamo logout facebook");
                 [self logoutFromFB];
                 return;
-            } else {
+            } 
+            else {
                 buttonIndex -= 1;
             }
         }
         
-        if (buttonIndex == 0) { //mail
+        if (buttonIndex == 0) { 
+            //mail
 			MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
 			[[controller navigationBar] setTintColor:[UIColor colorWithRed:142/255.0 green:21/255.0 blue:7/255.0 alpha:1.0]];
 			controller.mailComposeDelegate = self;
-			[controller setMessageBody:[NSString stringWithFormat:@"Ciao! Guarda questa offerta che ho trovato sul mio Iphone con l'applicazione PerDue:<br/><br/> %@ <br/> %@ <br/> %@",[self.dataModel objectForKey:@"offerta_titolo_breve"],[self.dataModel objectForKey:@"offerta_descrizione_breve"],[self.dataModel objectForKey:@"offerta_condizioni_sintetiche"]] isHTML:YES];
+			[controller setMessageBody:[NSString stringWithFormat:@"Ciao! Guarda questa offerta che ho trovato sul mio Iphone con l'applicazione PerDue:<br/><br/> %@ <br/> %@ <br/> %@", [self.dataModel objectForKey:@"offerta_titolo_breve"], [self.dataModel objectForKey:@"offerta_descrizione_breve"],[ self.dataModel objectForKey:@"offerta_condizioni_sintetiche"]] isHTML:YES];
 			[controller setSubject:@"Coupon PerDue"];
-
 			[self presentModalViewController:controller animated:YES];
 			[controller release];
 		} 
-		if (buttonIndex == 1) { //facebook
-//			if (appDelegate._session.isConnected) {
-//				[self postToWall];
-//			} else {
-//				FBLoginDialog* dialog = [[[FBLoginDialog alloc] initWithSession:appDelegate._session] autorelease];
-//				[dialog show];
-//			}
+        
+		if (buttonIndex == 1) { 
+            //facebook
+			//if (appDelegate._session.isConnected) {
+			//	[self postToWall];
+			//} 
+            //else {
+			//	FBLoginDialog* dialog = [[[FBLoginDialog alloc] initWithSession:appDelegate._session] autorelease];
+			//	[dialog show];
+			//}
             if (![self.appDelegate.facebook isSessionValid]) {
                 [self.appDelegate logIntoFacebook];
                 waitingForFacebook = YES;
-                //                [self postOnFacebookWall];
+                //[self postOnFacebookWall];
             }
             else{
                 [self postToWall];
@@ -596,12 +613,15 @@ if ([rows count]>0) {//coupon disponibile
             
 		}
 	}
+    
 	if(actionSheet==self.aSheet2) {
-		if (buttonIndex == 0) { //telefona
-			NSURL *numtel = [NSURL URLWithString:[NSString stringWithFormat:@"tel:800737383"]];
-			[[UIApplication sharedApplication] openURL:numtel];
+		if (buttonIndex == 0) { 
+            //telefona
+			NSURL *numTel = [NSURL URLWithString:[NSString stringWithFormat:@"tel:800737383"]];
+			[[UIApplication sharedApplication] openURL:numTel];
 		}
-		if (buttonIndex == 1) { //mail
+		if (buttonIndex == 1) { 
+            //mail
 			MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
 			[[controller navigationBar] setTintColor:[UIColor colorWithRed:142/255.0 green:21/255.0 blue:7/255.0 alpha:1.0]];
 			NSArray *to = [NSArray arrayWithObject:[NSString stringWithFormat:@"redazione@cartaperdue.it"]];
@@ -614,16 +634,20 @@ if ([rows count]>0) {//coupon disponibile
 	}	
 }
 
+
 #pragma mark - MailComposerDelegate
+
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[self becomeFirstResponder];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
+
 #pragma mark - View life cycle
+
 	
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self.reloadBtn setHidden:YES];
@@ -643,7 +667,7 @@ if ([rows count]>0) {//coupon disponibile
     }    
 	
     NSLog(@"INTERNET PRESENTE");
-    NSLog(@"VIEW DID APPEAR TIMER prima dell'invalidazione = %@",self.timer);
+    NSLog(@"VIEW DID APPEAR TIMER prima dell'invalidazione = %@", self.timer);
     [self.timer invalidate];
     self.timer = nil;
     
@@ -653,7 +677,7 @@ if ([rows count]>0) {//coupon disponibile
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         defaults = [NSUserDefaults standardUserDefaults];
         citycoupon=[defaults objectForKey:@"cittacoupon"];
-        if ( (citycoupon ==nil) || ([citycoupon length]==0)){
+        if ((citycoupon ==nil) || ([citycoupon length]==0)) {
             citycoupon=@"Roma";
             [defaults setObject:citycoupon forKey:@"cittacoupon"];
             [defaults setObject:[NSNumber numberWithInt:85] forKey:@"idcitycoupon"];	
@@ -669,7 +693,8 @@ if ([rows count]>0) {//coupon disponibile
             [self.dbAccess getCouponFromServer:prov];
         }
         
-    } else { // !isOffertaDelGiorno
+    } 
+    else { // !isOffertaDelGiorno
         if(self.view.window){
             [self.caricamentoSpinner startAnimating];
             [self.dbAccess getCouponFromServerWithId:self.idCoupon];
@@ -679,7 +704,6 @@ if ([rows count]>0) {//coupon disponibile
 
 
 	
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -699,7 +723,8 @@ if ([rows count]>0) {//coupon disponibile
     
     if (isOffertaDelGiorno) {
         self.navigationItem.title = @"Coupon del giorno";
-    } else {
+    } 
+    else {
         self.navigationItem.title = @"Coupon";
     }
     
@@ -726,17 +751,11 @@ if ([rows count]>0) {//coupon disponibile
     }
     
     
-    //FACEBOOK
     //###### FACEBOOK ########
-
-    
     //logoutBtn = [[UIBarButtonItem alloc] initWithCustomView:tmpButton];
-    
     self.appDelegate = (PerDueCItyCardAppDelegate*) [[UIApplication sharedApplication] delegate];
-    
     //controllo se ci sono token e sessione precedenti valide
     [self.appDelegate checkForPreviouslySavedAccessTokenInfo];
-    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(FBdidLogout)
@@ -753,35 +772,28 @@ if ([rows count]>0) {//coupon disponibile
                                                object:nil];
     
     waitingForFacebook = NO;
-
-    
-    
-
 }	
 
 
 
-- (void)viewWillAppear:(BOOL)animated {
-
-    //[NSThread detachNewThreadSelector:@selector(spinTheSpinner) toTarget:self withObject:nil];
-    
+- (void)viewWillAppear:(BOOL)animated {    
     [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
     
-    if(self.dataModel){
+    if (self.dataModel) {
         NSLog(@"VIEW WILL APPEAR: allineo counter");
-        NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
+        NSDateFormatter *formatodb = [[NSDateFormatter alloc] init];
         [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *now = [[NSDate alloc] init];
-        NSString *scad = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"offerta_periodo_al"]];
-        NSDate *datascadenza=[formatodb dateFromString:scad];
-        secondsLeft =[datascadenza timeIntervalSinceDate:now];
+        NSString *scad = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_periodo_al"]];
+        NSDate *datascadenza = [formatodb dateFromString:scad];
+        secondsLeft = [datascadenza timeIntervalSinceDate:now];
         int days, hours, minutes, seconds;
-        days= secondsLeft/(3600*24);
-        hours = (secondsLeft - (days*24*3600))/3600;
-        minutes = (secondsLeft - ((hours*3600)+(days*24*3600) ) ) / 60;
+        days= secondsLeft / (3600*24);
+        hours = (secondsLeft - (days * 24 * 3600)) / 3600;
+        minutes = (secondsLeft - ((hours * 3600) + (days * 24 * 3600))) / 60;
         seconds = secondsLeft % 60;
         //NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
-        self.tempoLbl.text=[NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
+        self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
     }
 }
 
@@ -790,8 +802,8 @@ if ([rows count]>0) {//coupon disponibile
     [super viewWillDisappear:animated];
 }
 
+
 -(void)viewDidDisappear:(BOOL)animated{
-    
     NSLog(@"WIEW WILL DISAPPEAR TIMER prima di invalidazione = %@",self.timer);
     [self.timer invalidate];
     self.timer = nil;
@@ -799,34 +811,19 @@ if ([rows count]>0) {//coupon disponibile
     [super viewDidDisappear:animated];
 }
 
--(void)spinTheSpinner {
-    NSLog(@"Spin The Spinner");
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	[self performSelectorOnMainThread:@selector(doneSpinning) withObject:nil waitUntilDone:YES];
-	
-    [pool release]; 
-}
-
-
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
     // Release any cached data, images, etc. that aren't in use.
 }
 
+
 - (void)viewDidUnload {
-    
     self.compraBtn = nil;
     [self.dataModel release];
     self.dataModel = nil;
     [super viewDidUnload];
-
-
-
 }
 
 
@@ -842,17 +839,18 @@ if ([rows count]>0) {//coupon disponibile
 	[self.dataModel release];
 	[self.tableview release];		
 	[self.timer release];
-//	[wifiReach release];
-//	[internetReach release];
+
 	[self.faqViewController release];
-//    [logoutBtn release];
-//    logoutBtn = nil;
+    //[logoutBtn release];
+    //logoutBtn = nil;
     [super dealloc];
 }
 
+
 #pragma mark - DatabaseAccessDelegate
 
--(void)didReceiveCoupon:(NSDictionary *)coupon;{
+
+-(void)didReceiveCoupon:(NSDictionary *)coupon {
     [self.caricamentoSpinner stopAnimating];
     [self.compraBtn setEnabled:YES];
     
@@ -868,28 +866,28 @@ if ([rows count]>0) {//coupon disponibile
     /**/
     
     	
-	if (!self.dataModel) { //niente coupon 
+	if (!self.dataModel) { 
+        //niente coupon 
 		self.titoloOffertaLbl.text=@"";
         [self.compraBtn setEnabled:NO];
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Spiacenti" message:@"In questo momento non ci sono offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
 		[alert show];
 		[alert release];
         
-	} else { //offerta esite
+	} else { 
+        //offerta esite
 		//[compra setHidden:NO];
         [self.compraBtn setEnabled:YES];
-		self.titoloOffertaLbl.text=[NSString stringWithFormat:@"  Solo %@€, sconto %@%",[self.dataModel objectForKey:@"coupon_valore_acquisto"],[self.dataModel objectForKey:@"offerta_sconto_per"]];
+		self.titoloOffertaLbl.text = [NSString stringWithFormat:@"  Solo %@€, sconto %@%",[self.dataModel objectForKey:@"coupon_valore_acquisto"], [self.dataModel objectForKey:@"offerta_sconto_per"]];
         //identificativo è relativo all'offerta
-		self.idCoupon=[[self.dataModel objectForKey:@"idofferta"]integerValue];
+		self.idCoupon = [[self.dataModel objectForKey:@"idofferta" ]integerValue];
         
         UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(50,50,284,31)];
         myLabel.numberOfLines = 0;
         myLabel.lineBreakMode = UILineBreakModeWordWrap;
         myLabel.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
         [myLabel sizeToFit];
-        CGSize labelSize = [myLabel.text sizeWithFont:myLabel.font 
-                                    constrainedToSize:myLabel.frame.size 
-                                        lineBreakMode:UILineBreakModeWordWrap];
+        
         NSLog(@"ALTEZZA = %f",myLabel.frame.size.height);
         
         if(myLabel.frame.size.height <=21)
@@ -959,7 +957,7 @@ if ([rows count]>0) {//coupon disponibile
 }
 
 
--(void)didReceiveError:(NSError *)error{
+- (void)didReceiveError:(NSError *)error {
     NSLog(@"coupon: errore connessione: %@",[error description]);
     [self.caricamentoSpinner stopAnimating];
     [self.compraBtn setHidden:YES];
@@ -967,9 +965,11 @@ if ([rows count]>0) {//coupon disponibile
     [self.reloadBtn setHidden:NO];
 }
 
+
 #pragma mark - FACEBOOK
 
--(void)logoutFromFB{
+
+- (void)logoutFromFB {
     //eseguo logout e rimuovo token
     [self.appDelegate.facebook logout:self.appDelegate];
     //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -978,30 +978,30 @@ if ([rows count]>0) {//coupon disponibile
     //    [defaults synchronize];
 }
 
--(void)FBdidLogout{
+- (void)FBdidLogout {
     //[self.navigationItem setRightBarButtonItem:nil animated:YES];
     
 }
 
--(void)FBdidLogin{
-    
+- (void)FBdidLogin {
     NSLog(@"fblogin");
-    if(waitingForFacebook){
+    if (waitingForFacebook) {
         [self postToWall];
         waitingForFacebook = NO;
     }
     [self.tableview reloadData];
 }
 
--(void)FBerrLogin{
+
+- (void)FBerrLogin{
     waitingForFacebook = NO;
 }
 
+
 - (void)postToWall {
-	
-    NSString *linkHref = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/dettaglio_affare.jsp?idofferta=%@",[self.dataModel objectForKey:@"idofferta"]];
+    NSString *linkHref = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/dettaglio_affare.jsp?idofferta=%@", [self.dataModel objectForKey:@"idofferta"]];
     
-    NSString *stringCaption = [NSString stringWithFormat:@"<b>Descrizione:</b> %@, <b>Prezzo coupon:</b> %@€, <b>Invece di:</b> %@€, </b>Risparmio: </b>%@€ ",[self.dataModel objectForKey:@"offerta_titolo_breve"],[self.dataModel objectForKey:@"coupon_valore_acquisto"],[self.dataModel objectForKey:@"coupon_valore_facciale"],[self.dataModel objectForKey:@"offerta_sconto_va"]];
+    NSString *stringCaption = [NSString stringWithFormat:@"<b>Descrizione:</b> %@, <b>Prezzo coupon:</b> %@€, <b>Invece di:</b> %@€, </b>Risparmio: </b>%@€ ", [self.dataModel objectForKey:@"offerta_titolo_breve"], [self.dataModel objectForKey:@"coupon_valore_acquisto"], [self.dataModel objectForKey:@"coupon_valore_facciale"],[self.dataModel objectForKey:@"offerta_sconto_va"]];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    @"175161829247160", @"app_id",
@@ -1017,35 +1017,30 @@ if ([rows count]>0) {//coupon disponibile
 
 #pragma mark - FacebookDialogDelegate
 
-- (void) dialogDidNotComplete:(FBDialog *)dialog
-{
-        NSLog(@"DIALOG DID NOT COMPLETE");
+
+- (void)dialogDidNotComplete:(FBDialog *)dialog {
+    NSLog(@"DIALOG DID NOT COMPLETE");
 }
 
 - (void)dialogCompleteWithUrl:(NSURL *)url{
-    
     NSLog(@"DIALOG COMPLETE WITH URL : %@", [url absoluteString]);
-    
-    if ([[url absoluteString] rangeOfString:@"?post_id="].location == NSNotFound )
-    {
+    if ([[url absoluteString] rangeOfString:@"?post_id="].location == NSNotFound ) {
         NSLog(@"post non inserito");
     }
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Messaggio pubblicato sulla tua bacheca" message:nil delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
-        
     }
 }
 
 
-- (void) dialogDidNotCompleteWithUrl:(NSURL *)url{
+- (void)dialogDidNotCompleteWithUrl:(NSURL *)url {
     NSLog(@"DIALOG NOT COMPLETE WITH URL : %@", [url absoluteString]);
 }
 
 
-- (void)dialog:(FBDialog*)dialog didFailWithError:(NSError *)error{
-    
+- (void)dialog:(FBDialog*)dialog didFailWithError:(NSError *)error {
     NSLog(@"DIALOG FAIL WITH ERROR: %@", error);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore" message:@"Non è stato possibile condividere questo contenuto su facebook, riprova" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     [alert show];
