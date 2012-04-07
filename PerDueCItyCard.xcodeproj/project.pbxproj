@@ -188,6 +188,8 @@
 		D9BBBC48152F84B60032B9E3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */; };
 		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
 		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
+		D9ED8BF9152F8FF0002C3D65 /* FotoIngranditaController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */; };
+		D9ED8BFA152F8FF0002C3D65 /* FotoIngranditaController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9ED8BF8152F8FEF002C3D65 /* FotoIngranditaController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -464,6 +466,9 @@
 		D9AFF6D9152F1B3C00A8F346 /* CommentiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentiCell.xib; sourceTree = "<group>"; };
 		D9BBBC46152F84B60032B9E3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		D9ED8BF6152F8FEF002C3D65 /* FotoIngranditaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FotoIngranditaController.h; sourceTree = "<group>"; };
+		D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FotoIngranditaController.m; sourceTree = "<group>"; };
+		D9ED8BF8152F8FEF002C3D65 /* FotoIngranditaController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FotoIngranditaController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -962,6 +967,9 @@
 				D946360A152F645F000A17CE /* CouponDescrOffertaCell.xib */,
 				1971C69813B7186F0032553A /* CouponDiscountTimeCell.xib */,
 				D946360C152F6489000A17CE /* CouponEsercCell.xib */,
+				D9ED8BF6152F8FEF002C3D65 /* FotoIngranditaController.h */,
+				D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */,
+				D9ED8BF8152F8FEF002C3D65 /* FotoIngranditaController.xib */,
 				19D4CA7513ED5144001C7763 /* AltreOfferte.h */,
 				19D4CA7613ED5144001C7763 /* AltreOfferte.m */,
 				19D4CA7713ED5144001C7763 /* AltreOfferte.xib */,
@@ -1154,6 +1162,7 @@
 				D9463613152F64B6000A17CE /* ContattiCell.xib in Resources */,
 				D9463615152F64C6000A17CE /* FindNearCompanyCell.xib in Resources */,
 				D9463643152F6A0F000A17CE /* FBDialog.bundle in Resources */,
+				D9ED8BFA152F8FF0002C3D65 /* FotoIngranditaController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1237,6 +1246,7 @@
 				D9463668152F6A33000A17CE /* SBJsonParser.m in Sources */,
 				D9463669152F6A33000A17CE /* SBJsonWriter.m in Sources */,
 				D9BBBC48152F84B60032B9E3 /* MBProgressHUD.m in Sources */,
+				D9ED8BF9152F8FF0002C3D65 /* FotoIngranditaController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

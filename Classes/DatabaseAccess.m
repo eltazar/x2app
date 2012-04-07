@@ -954,6 +954,9 @@ NSString* key(NSURLConnection* con)
             if(delegate &&[delegate respondsToSelector:@selector(didReceiveCoupon:)])
                 [delegate didReceiveCoupon:dic];
         }
+        else if (delegate && [delegate respondsToSelector:@selector(didReceiveData:)]) {
+            [delegate didReceiveData:receivedData];
+        }
         
         if (theError) NSLog(@"DatabaseAccess, JSONError: reason[%@] desc[%@,%@]", [theError localizedFailureReason], [theError description], [theError localizedDescription]);
         

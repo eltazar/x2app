@@ -17,6 +17,7 @@
 #import "LoginControllerBis.h"
 #import "DettaglioEsercente.h"
 #import "DettaglioEsercenteRistorazione.h"
+#import "FotoIngranditaController.h"
 
 
 typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenzaContratto} tipoEsercente;
@@ -507,27 +508,14 @@ if ([rows count]>0) {//coupon disponibile
 
 
 - (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {  
-	NSString *img=[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[self.dataModel objectForKey:@"offerta_foto_big"]];
-	NSURL *urlfoto = [NSURL URLWithString:img];
-	NSData *data = [[NSData alloc] initWithContentsOfURL:urlfoto];
-	UIImage *tempImage = [[UIImage alloc] initWithData:data];
-	
-	self.FotoIngranditaImageView.image = tempImage;
-	[self presentModalViewController:self.FotoIngranditaViewController animated:YES];
-	[tempImage release];
-	
+	NSString *imgURLString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[self.dataModel objectForKey:@"offerta_foto_big"]];
+	FotoIngranditaController *controller = [FotoIngranditaController fotoIngranditaControllerWithImageUrlString:imgURLString delegate:self]; 
+    [self presentModalViewController:controller animated:YES];
 }
 
 
 - (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {  
-	NSString *img=[NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[self.dataModel objectForKey:@"offerta_foto_big"]];
-	NSURL *urlfoto = [NSURL URLWithString:img];
-	NSData *data = [[NSData alloc] initWithContentsOfURL:urlfoto];
-	UIImage *tempImage = [[UIImage alloc] initWithData:data];
-	
-	self.FotoIngranditaImageView.image = tempImage;
-	[self presentModalViewController:self.FotoIngranditaViewController animated:YES];
-    [tempImage release];
+	[self handleSingleTap:gestureRecognizer];
 }
 
 

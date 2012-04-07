@@ -62,8 +62,10 @@ NSString* key(NSURLConnection* con);
 
 @protocol DatabaseAccessDelegate <NSObject>
 @optional
--(void)didReceiveResponsFromServer:(NSString*) receivedData;
+- (void)didReceiveResponsFromServer:(NSString *)receivedData;
 @optional
--(void)didReceiveCoupon:(NSDictionary*)coupon;
+- (void)didReceiveCoupon:(NSDictionary *)coupon;
+@optional
+- (void)didReceiveData:(NSMutableData *)data;
 -(void)didReceiveError:(NSError*)error;
 @end
