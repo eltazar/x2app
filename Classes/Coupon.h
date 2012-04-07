@@ -40,7 +40,6 @@
     IBOutlet UILabel *_tempoLbl;    
     IBOutlet UITableView *_tableview;
     IBOutlet UIViewController *_webViewController;
-	IBOutlet UIViewController *_contattiViewContr;
     IBOutlet UIViewController *_faqViewController;
     IBOutlet UIWebView *_faqWebView;
 }
@@ -63,7 +62,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *tempoLbl;    
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIViewController *webViewContr;
-@property (nonatomic, retain) IBOutlet UIViewController *contattiViewContr;
 @property (nonatomic, retain) IBOutlet UIViewController *faqViewController;
 @property (nonatomic, retain) IBOutlet UIWebView *faqWebView;
 

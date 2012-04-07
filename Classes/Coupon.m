@@ -57,7 +57,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 
 @synthesize dataModel=_dataModel, idCoupon=_idCoupon;
 
-@synthesize prezzoCouponLbl=_prezzoCouponLbl, scontoLbl=_scontoLbl, risparmioLbl=_risparmioLbl, prezzoOrigLbl=_prezzoOrigLbl, caricamentoImmagineSpinner=_caricamentoImmagineSpinner, titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tempoLbl=_tempoLbl, tableview=_tableview, webViewContr=_webViewController, contattiViewContr=_contattiViewContr, faqViewController=_faqViewController, faqWebView=_faqWebView;
+@synthesize prezzoCouponLbl=_prezzoCouponLbl, scontoLbl=_scontoLbl, risparmioLbl=_risparmioLbl, prezzoOrigLbl=_prezzoOrigLbl, caricamentoImmagineSpinner=_caricamentoImmagineSpinner, titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tempoLbl=_tempoLbl, tableview=_tableview, webViewContr=_webViewController, faqViewController=_faqViewController, faqWebView=_faqWebView;
 
 @synthesize timer=_timer, dbAccess=_dbAccess, appDelegate=_appDelegate;
 
@@ -350,7 +350,6 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         
 	} 
     else if ( (indexPath.section == 1) && (indexPath.row == 2) ) {
-        [self.contattiViewContr setTitle:@"Info Esercente"];
         DettaglioEsercente *dettaglioEsercente;
         NSInteger idEsercente = [[self.dataModel objectForKey:@"idesercente"]integerValue];
         if (tipodettaglio == CouponEsercenteRistorazione) { 
