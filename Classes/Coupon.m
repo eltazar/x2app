@@ -177,12 +177,6 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 self.risparmioLbl.text=[NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"offerta_sconto_va"]];
                 self.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"coupon_valore_facciale"]];
                 
-                NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
-                [formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
-                NSString *datadb = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"coupon_periodo_dal"]];
-                NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
-                [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                
                 CGRect frame;
                 frame.size.width=101; frame.size.height=135;
                 frame.origin.x=10; frame.origin.y=10;
@@ -202,6 +196,12 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 [asyncImage addGestureRecognizer:singleTap];  
                 [asyncImage addGestureRecognizer:doubleTap];  
                 
+                
+                //NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
+                //[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
+                //NSString *datadb = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"coupon_periodo_dal"]];
+                NSDateFormatter *formatodb=[[NSDateFormatter alloc] init];
+                [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                 NSDate *now = [[NSDate alloc] init];
                 NSString *scad = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"offerta_periodo_al"]];
                 NSDate *datascadenza=[formatodb dateFromString:scad];
@@ -213,6 +213,9 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 seconds = secondsLeft % 60;
                 //NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
                 self.tempoLbl.text=[NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
+                [formatodb release];
+                [now release];
+                
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 break;
                 
