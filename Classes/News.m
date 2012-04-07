@@ -61,7 +61,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-	UITableViewCell *cell;
+	UITableViewCell *cell = nil;
     
 	if (indexPath.section == 1) {		
 		return [super tableView:tableView cellForRowAtIndexPath:indexPath];
@@ -116,6 +116,7 @@
             }
         }
     }
+    [keys release];
 }
 
 

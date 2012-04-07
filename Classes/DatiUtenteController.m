@@ -219,6 +219,7 @@
         
         [customView addSubview:lbl];
         
+        [lbl release];
         return customView;
     }
     

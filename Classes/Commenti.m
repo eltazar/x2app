@@ -57,10 +57,8 @@
     UILabel *titolo = (UILabel *)[self.view viewWithTag:1];
     titolo.text = self.insegnaEsercente;
     didFetchAllComments = FALSE;
-    self.dbAccess = [[DatabaseAccess alloc] init];
+    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
-    [self.dbAccess release];
-    
 }
 
 
@@ -138,7 +136,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-	UITableViewCell *cell;
+	UITableViewCell *cell = nil;
     
 	if (indexPath.section == 1) {		
 		cell = [tableView dequeueReusableCellWithIdentifier:@"LastCell"];
@@ -299,6 +297,7 @@
             }
         }
     }
+    [keys release];
 }
 
 

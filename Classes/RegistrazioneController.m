@@ -210,6 +210,7 @@
         lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
         
         [customView addSubview:lbl];
+        [lbl release];
         
         return customView;
     }

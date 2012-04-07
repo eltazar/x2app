@@ -261,7 +261,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *key = [self.idxMap keyForIndexPath:indexPath];
     Class null = [NSNull class];
-    UITableViewCell *cell;
+    UITableViewCell *cell = nil;
 	
 	
     if ([key isEqualToString:@"Indirizzo"]) {

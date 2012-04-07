@@ -197,6 +197,8 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
                 [doubleTap setNumberOfTapsRequired:2];  
                 [asyncImage addGestureRecognizer:singleTap];  
                 [asyncImage addGestureRecognizer:doubleTap];  
+                [singleTap release];
+                [doubleTap release];
                 
                 //NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
                 //[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
@@ -360,13 +362,15 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
             //esercente normale
             NSLog(@"ESERCENTE NORMALE");
             dettaglioEsercente = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:NO];
-        } else if (tipodettaglio == CouponEsercenteSenzaContratto ){ 
-            //esercente senza contratto
+        } else {//if (tipodettaglio == CouponEsercenteSenzaContratto ){ 
+            //esercente senza contratto, l'if è commentato così qualsiasi porcata arriva in 
+            //tipodettaglio, si istanzia questo e amen.
             dettaglioEsercente = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:YES];
         }
         dettaglioEsercente.idEsercente = idEsercente;
         dettaglioEsercente.title = @"Esercente";
         [self.navigationController pushViewController:dettaglioEsercente animated:YES];
+        [dettaglioEsercente release];
         
     } 
     else if ( (indexPath.section == 1) && (indexPath.row == 3) ) {
@@ -381,29 +385,24 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         //mostra il tasto per il logout se connesso
         if ([self.appDelegate.facebook isSessionValid]) {
             NSLog(@"DID LOAD CONNECTED");
-            self.aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:@"Logout da Facebook" otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
+            self.aSheet = [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:@"Logout da Facebook" otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil] autorelease];
         } 
         else {
             NSLog(@"DID LOAD NOT CONNECTED");
-            self.aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil];
+            self.aSheet = [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil] autorelease];
         }
 		[self.aSheet showInView:self.appDelegate.window];
-		[self.aSheet release];			
-        
 	} 
     else if ( (indexPath.section == 2) && (indexPath.row == 1) ) {
-		self.aSheet2 = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Contatta PerDue"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Telefona", @"Invia mail", nil];
-		[self.aSheet2 showInView:self.appDelegate.window];
-		[self.aSheet2 release];			
-		
+		self.aSheet2 = [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Contatta PerDue"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Telefona", @"Invia mail", nil] autorelease];
+		[self.aSheet2 showInView:self.appDelegate.window];		
 	} 
     else if ( (indexPath.section==2) && (indexPath.row == 2)){
 		[self presentModalViewController:self.faqViewController animated:YES];
 		NSURL *infos = [NSURL URLWithString:@"http://www.cartaperdue.it/partner/faq.html"];
 		NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
-		[self.faqWebView loadRequest:requestObj];		
-		[self.faqWebView release];
-		self.faqWebView = nil;		
+#warning TODO: non credo ci serva una property IBOutlet per la webview.
+        [self.faqWebView loadRequest:requestObj];		
 	}
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -679,7 +678,6 @@ if ([rows count]>0) {//coupon disponibile
     if (isOffertaDelGiorno) {
         NSString *citycoupon;	
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        defaults = [NSUserDefaults standardUserDefaults];
         citycoupon=[defaults objectForKey:@"cittacoupon"];
         if ((citycoupon ==nil) || ([citycoupon length]==0)) {
             citycoupon=@"Roma";
@@ -736,7 +734,7 @@ if ([rows count]>0) {//coupon disponibile
     [self.compraBtn setEnabled:NO];
     [self.compraBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
     
-    self.dbAccess = [[DatabaseAccess alloc] init];
+    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
     
     //quando passa da back a foreground rilancia la query per aggiornare la vista
@@ -798,6 +796,8 @@ if ([rows count]>0) {//coupon disponibile
         seconds = secondsLeft % 60;
         //NSLog(@"time =%02d:%02d:%02d:%02d",days,hours, minutes, seconds);
         self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds",days,hours, minutes, seconds];
+        [formatodb release];
+        [now release];
     }
 }
 
@@ -825,7 +825,7 @@ if ([rows count]>0) {//coupon disponibile
 
 - (void)viewDidUnload {
     self.compraBtn = nil;
-    [self.dataModel release];
+    self.dataModel =nil;
     self.dataModel = nil;
     [super viewDidUnload];
 }
@@ -837,14 +837,14 @@ if ([rows count]>0) {//coupon disponibile
     self.dbAccess = nil;
     
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.reloadBtn release];
-    [self.caricamentoSpinner release];
+    self.reloadBtn = nil;
+    self.caricamentoSpinner = nil;
 	//[url release];
-	[self.dataModel release];
-	[self.tableview release];		
-	[self.timer release];
+	self.dataModel = nil;
+	self.tableview = nil;		
+	self.timer = nil;
 
-	[self.faqViewController release];
+	self.faqViewController = nil;
     //[logoutBtn release];
     //logoutBtn = nil;
     [super dealloc];
@@ -931,6 +931,7 @@ if ([rows count]>0) {//coupon disponibile
 		}
 		
 		NSLog(@"Array2: %@",r2);
+#warning TODO: controllare se c'è da qualche parte un check sul fatto che tipodettaglio sia inizializzato o meno, prima di usarlo.
 		if ([r2 count]==0){ //l'eserncente non ha contratto nel db, il suo dettaglio sarà una view più semplice (senza condizioni, commenti ecc..)
 			tipodettaglio=CouponEsercenteSenzaContratto;
 		}

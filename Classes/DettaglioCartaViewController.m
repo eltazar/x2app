@@ -118,7 +118,7 @@
 
     self.title = @"Carta PerDue";
     
-    self.dbAccess = [[DatabaseAccess alloc] init];
+    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
     
     isNotBind = FALSE;
@@ -349,7 +349,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
     NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
-    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
+    //NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
     NSString *kind = [rowDesc objectForKey:@"kind"];
     int cellStyle = UITableViewCellStyleDefault;
     
@@ -408,6 +408,7 @@
         lbl.frame = CGRectMake(10, -17, tableView.bounds.size.width-20, labelSize.height+6);
         
         [customView addSubview:lbl];
+        [lbl release];
         
         return customView;
     }

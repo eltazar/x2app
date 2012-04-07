@@ -65,7 +65,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dbAccess = [[DatabaseAccess alloc] init];
+    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
 }
 
@@ -81,7 +81,7 @@
     if (!self.dbAccess) {
         // Se istanziamo il view controller dal metodo statico (che chiama loadNibNamed) 
         // viewDidLoad non viene chiamato, e il dbAccess non è stato istanziato.
-        self.dbAccess = [[DatabaseAccess alloc] init];
+        self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
         self.dbAccess.delegate = self;
     }
     self.imageView.alpha = 0;

@@ -111,7 +111,7 @@
         self.sectionData = [[[NSMutableArray alloc] initWithObjects:manageSection, nil] autorelease];
     }
     
-    self.dbAccess = [[DatabaseAccess alloc] init];
+    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
     
 // TODO: trovare un modo per far sparire le carte associate con altri devices    

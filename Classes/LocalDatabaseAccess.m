@@ -19,15 +19,14 @@ NSManagedObjectContext *context;
     @synchronized([LocalDatabaseAccess class])
 	{
 		if (!__instance)
-			[[self alloc] init];
+			__instance = [[self alloc] init];
 		return __instance;
 	}
 	return nil;
 }
 
 
-+ (id)alloc
-{
++ (id)alloc {
 	@synchronized([LocalDatabaseAccess class])
 	{
 		NSAssert(__instance == nil, @"Attempted to allocate a second instance of a singleton.");
@@ -57,7 +56,7 @@ NSManagedObjectContext *context;
 # pragma mark - LocalDatabaseAccess
 
 
-- (NSArray *)fetchStoredCardsAndWriteErrorIn:(NSError **)error{
+- (NSArray *)fetchStoredCardsAndWriteErrorIn:(NSError **)error {
     //istanziamo la classe NSFetchRequest
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init]; 
     
@@ -74,7 +73,7 @@ NSManagedObjectContext *context;
     
     
     //se > 0 ci sono righe nella tabella, ovvero carte registrate
-    if(fetchedObjects && fetchedObjects.count > 0){
+    if (fetchedObjects && fetchedObjects.count > 0) {
         
         //        NSLog(@ " --------> FO = %@ \n, fo count = %d, \n titolare = %@, carta = %@, scadenza = %@",tempArray,tempArray.count, [[tempArray objectAtIndex:0] valueForKey:@"titolare"], [[tempArray objectAtIndex:0] valueForKey:@"numero"], [[tempArray objectAtIndex:1] valueForKey:@"scadenza"]);
         NSLog(@"Did fetch this stuff: %@", fetchedObjects);
@@ -88,6 +87,7 @@ NSManagedObjectContext *context;
             carta.number = [fetchedObject valueForKey:@"numero"];
             carta.expiryString = [fetchedObject valueForKey:@"scadenza"];
             [tempCards addObject:carta];
+            [carta release];
         }
         NSArray *cardsArray = [[[NSArray alloc] initWithArray:tempCards] autorelease];
         [tempCards release];
@@ -98,7 +98,7 @@ NSManagedObjectContext *context;
 }
 
 
-- (BOOL)storeCard:(CartaPerDue *)card AndWriteErrorIn:(NSError **)error{
+- (BOOL)storeCard:(CartaPerDue *)card AndWriteErrorIn:(NSError **)error {
     //Controlliamo prima che non sia già memorizzata la carta, in tal caso, nn facciamo nulla
     NSError *e;
     NSArray *storedCards = [self fetchStoredCardsAndWriteErrorIn:&e];

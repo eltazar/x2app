@@ -60,6 +60,7 @@
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithTitle:@"Annulla" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
     
     self.navigationItem.leftBarButtonItem = cancelBtn;
+    [cancelBtn release];
     
     sectionDescription = [[NSArray alloc] initWithObjects:@"Login",@"",@"Non ricordi la password?",@"Non sei registrato?", nil];
     
@@ -128,6 +129,7 @@
     lblPassword.numberOfLines = 0;
     [lblPassword sizeToFit];
     [rememberPswAlert addSubview:lblPassword];
+    [lblPassword release];
     
     
     UITextField *emailTextField = [[UITextField alloc] initWithFrame:CGRectMake(12, 80, 260, 27)];
@@ -271,7 +273,7 @@
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
 
-    NSArray *array;//= [[coupon objectForKey:@"checkEmail"] retain];
+    NSArray *array = nil;//= [[coupon objectForKey:@"checkEmail"] retain];
     
     // NSLog(@"DIMENSIONE ARRAY = %d",[array count]);
     if ([coupon objectForKey:@"recuperoPsw"]) {
@@ -501,6 +503,7 @@
         lbl.frame = CGRectMake(10, 30, tableView.bounds.size.width-20, labelSize.height+6);
         
         [customView addSubview:lbl];
+        [lbl release];
         
         return customView;
     }
@@ -570,6 +573,7 @@
         lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
         
         [customView addSubview:lbl];
+        [lbl release];
         
         return customView;
     }

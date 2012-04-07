@@ -115,32 +115,24 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
+    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)];
     [customView setBackgroundColor:[UIColor clearColor]];
     
     UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
-    
     lbl.backgroundColor = [UIColor clearColor];
     lbl.textColor = [UIColor whiteColor];
     lbl.lineBreakMode = UILineBreakModeWordWrap;
     lbl.numberOfLines = 0;
     lbl.font = [UIFont boldSystemFontOfSize:20];
-    
-//	
-//	if (section == 0)
-//	{
-//		lbl.text =@"Supervision";
-//	}
-//	if (section == 1){
-//		lbl.text = @"Developer";
-//		
-//	}
-//	
-	if (section == 0){
-		lbl.text = @"Contatti";	
-
-		}
-
+    //if (section == 0) {
+    //    lbl.text =@"Supervision";
+    //}
+    //else if (section == 1) {
+    //    lbl.text = @"Developer";
+    //}
+	if (section == 0) {
+        lbl.text = @"Contatti";	
+    }
     
     UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
     CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
@@ -150,23 +142,26 @@
     
     [customView addSubview:lbl];
     
-    return customView;
+    [lbl release];
+    return [customView autorelease];
 }
+
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	NSString *lblText;
 
-	if (section == 0){
-			lblText = @"Contatti";	
-		}
-
-
-    UIFont *txtFont = [UIFont boldSystemFontOfSize:20];
-    CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
-    CGSize labelSize = [lblText sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-    
-    return labelSize.height+6;
+	if (section == 0) {
+        lblText = @"Contatti";	
+        UIFont *txtFont = [UIFont boldSystemFontOfSize:20];
+        CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
+        CGSize labelSize = [lblText sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+        return labelSize.height+6;
+    }
+    else {
+        return 0;
+    }
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	

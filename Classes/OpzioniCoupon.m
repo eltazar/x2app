@@ -59,10 +59,10 @@
 	
 	
 		
-	self.province= arraycitta;
+	self.province = arraycitta;
 	[optPicker  selectRow:[[defaults objectForKey:@"idcitycoupon"]integerValue] inComponent:0 animated:NO];
 	NSLog(@"Indice selezionato: %d\n",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
-	
+	[arraycitta release];
 }
 
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {

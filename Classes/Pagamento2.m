@@ -135,7 +135,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
        //mario: perchè deve eliminare gli spazi :| ???
         //intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
 		
-        NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
+        NSString *idiphone = [NSString stringWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
         
         NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
       
@@ -213,7 +213,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             //mario: perchè deve eliminare gli spazi :| ???
             //intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
             
-            NSString *idiphone=[[NSString alloc ]initWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
+            NSString *idiphone = [NSString stringWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
             
             NSString *provinciaSelezionata = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"cittacoupon"]];
             
@@ -306,36 +306,36 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-		UIView *customView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-		[customView setBackgroundColor:[UIColor clearColor]];
-    
-		UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
-    
-		lbl.backgroundColor = [UIColor clearColor];
-		lbl.textColor = [UIColor whiteColor];
-		lbl.lineBreakMode = UILineBreakModeWordWrap;
-		//lbl.numberOfLines = 0;
-		lbl.font = [UIFont boldSystemFontOfSize:18];
-    
-		if (section == 1)
-		{
-			lbl.text =@"Utente";
-		}
-		if (section == 2)
-		{
-			lbl.text = @"Inserisci la tua carta di credito";
-		}
-	
-		//UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
-		//CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
-		//	CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-		lbl.frame = CGRectMake(10, -5, tablegenerale.bounds.size.width, 30);
+    UIView *customView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+    [customView setBackgroundColor:[UIColor clearColor]];
 
-		[customView addSubview:lbl];
+    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
+
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.textColor = [UIColor whiteColor];
+    lbl.lineBreakMode = UILineBreakModeWordWrap;
+    //lbl.numberOfLines = 0;
+    lbl.font = [UIFont boldSystemFontOfSize:18];
+
+    if (section == 1)
+    {
+        lbl.text =@"Utente";
+    }
+    if (section == 2)
+    {
+        lbl.text = @"Inserisci la tua carta di credito";
+    }
+
+    //UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
+    //CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
+    //	CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+    lbl.frame = CGRectMake(10, -5, tablegenerale.bounds.size.width, 30);
+    
+    [customView addSubview:lbl];
     
 #warning FAR SALIRE LE CELLE RELATIVE AI NOMI SEZIONE!
-    
-		return customView;
+    [lbl release];
+    return customView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -418,11 +418,11 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 				NSString *numerosalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
 				NSString *tiposalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
                 if(numerosalvato)
-                    numero.text = [[NSString alloc] initWithFormat:@"%@", numerosalvato];
+                    numero.text = [NSString stringWithFormat:@"%@", numerosalvato];
                 else numero.text =@"";
             
                 if(tiposalvato)
-                    tipo.text = [[NSString alloc] initWithFormat:@"%@", tiposalvato];
+                    tipo.text = [NSString stringWithFormat:@"%@", tiposalvato];
                 else tipo.text = @"";
 
 				
