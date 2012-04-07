@@ -175,6 +175,7 @@
 		D9463667152F6A33000A17CE /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D946365F152F6A33000A17CE /* SBJsonBase.m */; };
 		D9463668152F6A33000A17CE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9463661152F6A33000A17CE /* SBJsonParser.m */; };
 		D9463669152F6A33000A17CE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D9463663152F6A33000A17CE /* SBJsonWriter.m */; };
+		D95CBF41153067C800D79209 /* Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8B13ED5144001C7763 /* Coupon.xib */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
 		D9AE33A8152E51A8006757FA /* DettEsercAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33A7152E51A8006757FA /* DettEsercAddressCell.xib */; };
@@ -1064,6 +1065,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D95CBF41153067C800D79209 /* Coupon.xib in Resources */,
 				199910B8138FDE35003DB0D2 /* Commenti.xib in Resources */,
 				1999401113902345006950F1 /* Commento.xib in Resources */,
 				D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */,
