@@ -57,7 +57,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 
 @synthesize dataModel=_dataModel, idCoupon=_idCoupon;
 
-@synthesize prezzoCouponLbl=_prezzoCouponLbl, scontoLbl=_scontoLbl, risparmioLbl=_risparmioLbl, prezzoOrigLbl=_prezzoOrigLbl, caricamentoImmagineSpinner=_caricamentoImmagineSpinner, titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tempoLbl=_tempoLbl, tableview=_tableview,  dettagliOffertaViewContr=_dettagliOffertaViewContr, terminiViewContr=_terminiViewContr, diPiuViewContr=_diPiuViewContr, contattiViewContr=_contattiViewContr, faqViewController=_faqViewController, dettagliOffertaWebView=_dettagliOffertaWebView, condizioniWebView=_condizioniWebView, diPiuWebView=_diPiuWebView, faqWebView=_faqWebView;
+@synthesize prezzoCouponLbl=_prezzoCouponLbl, scontoLbl=_scontoLbl, risparmioLbl=_risparmioLbl, prezzoOrigLbl=_prezzoOrigLbl, caricamentoImmagineSpinner=_caricamentoImmagineSpinner, titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tempoLbl=_tempoLbl, tableview=_tableview, webViewContr=_webViewController, contattiViewContr=_contattiViewContr, faqViewController=_faqViewController, faqWebView=_faqWebView;
 
 @synthesize timer=_timer, dbAccess=_dbAccess, appDelegate=_appDelegate;
 
@@ -332,19 +332,21 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
     }
     
 	if ( (indexPath.section == 1) && (indexPath.row == 0) ) {
-		[self.dettagliOffertaViewContr setTitle:@"Dettagli offerta"];
+		[self.webViewContr setTitle:@"Dettagli offerta"];
 		//NSString *tit = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_titolo_breve"]];
         NSString *sintesitxt = [NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><div style=\"background-color:8b1800; font-style:Helvetica regular;text-align:center;color:white;font-weight:bold;\"><p style=\"font-size:60px;\"><b>%@</b></p></div> <div style=\"background-color:#8b1800; font-style:Helvetica regular;font-size:55px; color:white;\">%@</div></body>", [self.dataModel objectForKey:@"offerta_title"],[self.dataModel objectForKey:@"offerta_descrizione_breve"]];
-        [self.dettagliOffertaWebView loadHTMLString:sintesitxt baseURL:nil];
-		[self.navigationController pushViewController:self.dettagliOffertaViewContr animated:YES]; 
+        UIWebView *webView = (UIWebView *)[self.webViewContr.view viewWithTag:1];
+        [webView loadHTMLString:sintesitxt baseURL:nil];
+		[self.navigationController pushViewController:self.webViewContr animated:YES]; 
         
 	} 
     else if ( (indexPath.section == 1) && (indexPath.row == 1) ) {
         //stessa filosofia di sopra
-		[self.terminiViewContr setTitle:@"Termini e condizioni"];
+		[self.webViewContr setTitle:@"Termini e condizioni"];
 		NSString *condizionitext = [NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>", [self.dataModel objectForKey:@"offerta_condizioni_sintetiche"]];
-        [self.condizioniWebView loadHTMLString:condizionitext baseURL:nil];		
-		[self.navigationController pushViewController:self.terminiViewContr animated:YES];	
+        UIWebView *webView = (UIWebView *)[self.webViewContr.view viewWithTag:1];
+        [webView loadHTMLString:condizionitext baseURL:nil];		
+		[self.navigationController pushViewController:self.webViewContr animated:YES];	
         
 	} 
     else if ( (indexPath.section == 1) && (indexPath.row == 2) ) {
@@ -369,10 +371,11 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         
     } 
     else if ( (indexPath.section == 1) && (indexPath.row == 3) ) {
-		[self.diPiuViewContr setTitle:@"Per saperne di più..."];
+		[self.webViewContr setTitle:@"Per saperne di più..."];
 		NSString *dipiutxt=[NSString stringWithFormat:@"<body bgcolor=\"#8E1507\"><font face=\"Helvetica regular\"><span style=\"color: #FFFFFF;\"><span style=\"font-size: 60%;\">%@</body>",[self.dataModel objectForKey:@"offerta_descrizione_estesa"]];
-		[self.diPiuWebView loadHTMLString:dipiutxt baseURL:nil];
-		[self.navigationController pushViewController:self.diPiuViewContr animated:YES];
+		UIWebView *webView = (UIWebView *)[self.webViewContr.view viewWithTag:1];
+        [webView loadHTMLString:dipiutxt baseURL:nil];
+		[self.navigationController pushViewController:self.webViewContr animated:YES];
 		
 	} 
     else if ( (indexPath.section == 2) && (indexPath.row == 0) ) {

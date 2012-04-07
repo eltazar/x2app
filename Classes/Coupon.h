@@ -39,14 +39,9 @@
     IBOutlet UIActivityIndicatorView *_caricamentoSpinner;
     IBOutlet UILabel *_tempoLbl;    
     IBOutlet UITableView *_tableview;
-    IBOutlet UIViewController *_dettagliOffertaViewContr;
-	IBOutlet UIViewController *_terminiViewContr;
-	IBOutlet UIViewController *_diPiuViewContr;
+    IBOutlet UIViewController *_webViewController;
 	IBOutlet UIViewController *_contattiViewContr;
     IBOutlet UIViewController *_faqViewController;
-    IBOutlet UIWebView *_dettagliOffertaWebView;
-	IBOutlet UIWebView *_condizioniWebView;
-	IBOutlet UIWebView *_diPiuWebView;
     IBOutlet UIWebView *_faqWebView;
 }
 
@@ -67,14 +62,9 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *caricamentoSpinner;
 @property (nonatomic, retain) IBOutlet UILabel *tempoLbl;    
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
-@property (nonatomic, retain) IBOutlet UIViewController *dettagliOffertaViewContr;
-@property (nonatomic, retain) IBOutlet UIViewController *terminiViewContr;
-@property (nonatomic, retain) IBOutlet UIViewController *diPiuViewContr;
+@property (nonatomic, retain) IBOutlet UIViewController *webViewContr;
 @property (nonatomic, retain) IBOutlet UIViewController *contattiViewContr;
 @property (nonatomic, retain) IBOutlet UIViewController *faqViewController;
-@property (nonatomic, retain) IBOutlet UIWebView *dettagliOffertaWebView;
-@property (nonatomic, retain) IBOutlet UIWebView *condizioniWebView;
-@property (nonatomic, retain) IBOutlet UIWebView *diPiuWebView;
 @property (nonatomic, retain) IBOutlet UIWebView *faqWebView;
 
 
