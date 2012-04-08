@@ -404,8 +404,6 @@ typedef enum {CouponEsercenteNULL, CouponEsercenteNormale, CouponEsercenteRistor
 #warning TODO: non credo ci serva una property IBOutlet per la webview.
         [self.faqWebView loadRequest:requestObj];		
 	}
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - LoginControllerDelegate
@@ -561,8 +559,13 @@ if ([rows count]>0) {//coupon disponibile
 #pragma mark - ActionSheet delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // Qualsiasi sia l'actionSheet, se premiamo annulla dobbiamo deselezionare la cella della tabella
+    if (buttonIndex == actionSheet.numberOfButtons) {
+        [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
+    }
+    
     if (actionSheet == self.aSheet) {
-        NSLog(@" numero di bottoni = %d", actionSheet.numberOfButtons);
+        NSLog(@" numero di bottoni = %d, tap sul n. %d", actionSheet.numberOfButtons, buttonIndex);
         if (actionSheet.numberOfButtons == 4) {
             if(buttonIndex == 0){
                 NSLog(@"richiamo logout facebook");
