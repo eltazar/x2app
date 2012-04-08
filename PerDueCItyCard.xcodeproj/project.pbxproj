@@ -81,8 +81,6 @@
 		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
 		AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = AC365D62150B6BB7006CF120 /* DatabaseAccess.m */; };
-		AC3A83601525C96A0028E3EA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3A835E1525C96A0028E3EA /* Default.png */; };
-		AC3A83611525C96A0028E3EA /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3A835F1525C96A0028E3EA /* Default@2x.png */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CardsViewController.m */; };
@@ -174,6 +172,8 @@
 		D94C1C3D1532386300697575 /* PagamentoCreditCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C3C1532386200697575 /* PagamentoCreditCardCell.xib */; };
 		D94C1C3F1532388100697575 /* PagamentoDatiLoginCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C3E1532388100697575 /* PagamentoDatiLoginCell.xib */; };
 		D94C1C41153238B800697575 /* PagamentoTotaleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C40153238B800697575 /* PagamentoTotaleCell.xib */; };
+		D94C1C5115323A9F00697575 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5015323A9F00697575 /* Default.png */; };
+		D94C1C5315323AA200697575 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5215323AA200697575 /* Default@2x.png */; };
 		D95CBF41153067C800D79209 /* Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8B13ED5144001C7763 /* Coupon.xib */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
@@ -230,8 +230,6 @@
 		1923D88B13F81648005A9815 /* OpzioniCoupon.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OpzioniCoupon.xib; sourceTree = "<group>"; };
 		1959DAC8135078C100954576 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1960C1C6142A5EE400213D4C /* yellow3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yellow3.jpg; sourceTree = "<group>"; };
-		1965778D13B72B570039DC74 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		1965778E13B72B570039DC74 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		19990D50138EC6AB003DB0D2 /* Notizia.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Notizia.xib; sourceTree = "<group>"; };
 		199910B6138FDE35003DB0D2 /* Commenti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Commenti.xib; sourceTree = "<group>"; };
 		1999400F13902345006950F1 /* Commento.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Commento.xib; sourceTree = "<group>"; };
@@ -295,8 +293,6 @@
 		AC27879C15194A5C00747542 /* GeoDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoDecoder.m; sourceTree = "<group>"; };
 		AC365D61150B6BB7006CF120 /* DatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseAccess.h; sourceTree = "<group>"; };
 		AC365D62150B6BB7006CF120 /* DatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseAccess.m; sourceTree = "<group>"; };
-		AC3A835E1525C96A0028E3EA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		AC3A835F1525C96A0028E3EA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		AC3AC159151DCA4000C8164D /* grayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton.png; sourceTree = "<group>"; };
 		AC3C57B31525313500E5457E /* refreshBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refreshBtn.png; sourceTree = "<group>"; };
 		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -451,6 +447,8 @@
 		D94C1C3C1532386200697575 /* PagamentoCreditCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PagamentoCreditCardCell.xib; sourceTree = "<group>"; };
 		D94C1C3E1532388100697575 /* PagamentoDatiLoginCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PagamentoDatiLoginCell.xib; sourceTree = "<group>"; };
 		D94C1C40153238B800697575 /* PagamentoTotaleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PagamentoTotaleCell.xib; sourceTree = "<group>"; };
+		D94C1C5015323A9F00697575 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		D94C1C5215323AA200697575 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		D9861EB3151BE2540017A16E /* Card.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = Card.php; path = "php server/PHP APPv2/Card.php"; sourceTree = SOURCE_ROOT; };
 		D992A7D1152B3A6C00703EDC /* Esercenti.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = Esercenti.php; path = "php server/PHP APPv2/Esercenti.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
@@ -520,8 +518,8 @@
 				1918662B139A49D800172698 /* Cinema@2x.png */,
 				1918662C139A49D800172698 /* Coupon.png */,
 				1918662D139A49D800172698 /* Coupon@2x.png */,
-				1965778D13B72B570039DC74 /* Default.png */,
-				1965778E13B72B570039DC74 /* Default@2x.png */,
+				D94C1C5215323AA200697575 /* Default@2x.png */,
+				D94C1C5015323A9F00697575 /* Default.png */,
 				19186632139A49D800172698 /* icon.png */,
 				19186633139A49D800172698 /* icon@2x.png */,
 				19186634139A49D800172698 /* Librerie.png */,
@@ -579,8 +577,6 @@
 		29B97314FDCFA39411CA2CEA /* PerDueCItyCard */ = {
 			isa = PBXGroup;
 			children = (
-				AC3A835E1525C96A0028E3EA /* Default.png */,
-				AC3A835F1525C96A0028E3EA /* Default@2x.png */,
 				19D4CA7413ED5144001C7763 /* Classes */,
 				D9463616152F6953000A17CE /* Librerie Esterne */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1137,8 +1133,6 @@
 				D924E633151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.xib in Resources */,
 				ACC808541521F678006DF894 /* grayButton2.png in Resources */,
 				AC3C57B41525313500E5457E /* refreshBtn.png in Resources */,
-				AC3A83601525C96A0028E3EA /* Default.png in Resources */,
-				AC3A83611525C96A0028E3EA /* Default@2x.png in Resources */,
 				ACE86511152AEB90008EBD72 /* FindNearCompanyController.xib in Resources */,
 				ACDE479C152DA436004772D4 /* ValidateCardController.xib in Resources */,
 				D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */,
@@ -1166,6 +1160,8 @@
 				D94C1C3D1532386300697575 /* PagamentoCreditCardCell.xib in Resources */,
 				D94C1C3F1532388100697575 /* PagamentoDatiLoginCell.xib in Resources */,
 				D94C1C41153238B800697575 /* PagamentoTotaleCell.xib in Resources */,
+				D94C1C5115323A9F00697575 /* Default.png in Resources */,
+				D94C1C5315323AA200697575 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
