@@ -171,7 +171,7 @@
     if (self.card.isExpired) {
         //attacco adesivo "scaduta"
         UIImageView *scadutaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scadutaImg.png"]];
-        [scadutaView setFrame:CGRectMake(11, 20, 300, 180)];
+        [scadutaView setFrame:CGRectMake(11, 10, 300, 180)];
         [self.viewForImage addSubview:scadutaView];
         [scadutaView release];
     }
