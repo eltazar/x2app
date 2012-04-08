@@ -20,16 +20,16 @@
     //IBoutlets
     UIImageView *_imageView;
     UIActivityIndicatorView *_activityIndicator;
-    Coupon *_couponViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, retain) IBOutlet Coupon *couponViewController;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil imageUrlString:(NSString *)aUrl;
-+ (FotoIngranditaController *) fotoIngranditaControllerWithImageUrlString:(NSString *)aUrl delegate:(Coupon *)couponViewController;
+
+- (IBAction)chiudi:(id)sender;
+
     
 @end
 

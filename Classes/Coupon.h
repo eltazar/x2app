@@ -26,40 +26,27 @@
 	NSDictionary *_dataModel;
     NSInteger _idCoupon;
     
-    // InfoCoupon.xib
-    IBOutlet UILabel *_prezzoCouponLbl;
-	IBOutlet UILabel *_scontoLbl;
-	IBOutlet UILabel *_risparmioLbl;
-    IBOutlet UILabel *_prezzoOrigLbl;
-    IBOutlet UIActivityIndicatorView *_caricamentoImmagineSpinner;
-    //
-    IBOutlet UILabel *_titoloOffertaLbl; // è il testo a sx del tasto compra
-    IBOutlet UIButton *_compraBtn;
-    IBOutlet UIButton *_reloadBtn;
-    IBOutlet UIActivityIndicatorView *_caricamentoSpinner;
-    IBOutlet UILabel *_tempoLbl;    
-    IBOutlet UITableView *_tableview;
-    IBOutlet UIViewController *_webViewController;
-    IBOutlet UIViewController *_faqViewController;
-    IBOutlet UIWebView *_faqWebView;
+    UILabel *_tempoLbl;
+    // IBOs:
+    UILabel *_titoloOffertaLbl; // è il testo a sx del tasto compra
+    UIButton *_compraBtn;
+    UIButton *_reloadBtn;
+    UIActivityIndicatorView *_caricamentoSpinner;  
+    UITableView *_tableview;
+    UIViewController *_webViewController;
+    UIViewController *_faqViewController;
+    UIWebView *_faqWebView;
 }
 
 
 @property (nonatomic, retain) NSDictionary *dataModel;
 @property (nonatomic, assign) NSInteger idCoupon;
 
-// InfoCoupon.xib
-@property (nonatomic, retain) IBOutlet UILabel *prezzoCouponLbl;
-@property (nonatomic, retain) IBOutlet UILabel *scontoLbl;
-@property (nonatomic, retain) IBOutlet UILabel *risparmioLbl;
-@property (nonatomic, retain) IBOutlet UILabel *prezzoOrigLbl;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *caricamentoImmagineSpinner;
-//
+// IBOs:
 @property (nonatomic, retain) IBOutlet UILabel *titoloOffertaLbl; // è il testo a sx del tasto compra
 @property (nonatomic, retain) IBOutlet UIButton *compraBtn;
 @property (nonatomic, retain) IBOutlet UIButton *reloadBtn;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *caricamentoSpinner;
-@property (nonatomic, retain) IBOutlet UILabel *tempoLbl;    
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIViewController *webViewContr;
 @property (nonatomic, retain) IBOutlet UIViewController *faqViewController;
@@ -84,7 +71,5 @@
 
 
 - (IBAction)chiudi:(id)sender;
-- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer;
-- (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer;
 
 @end

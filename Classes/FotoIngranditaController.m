@@ -18,9 +18,10 @@
 
 @implementation FotoIngranditaController
 
-@synthesize imageView=_imageView, activityIndicator=_activityIndicator, couponViewController=_couponViewController;
+@synthesize imageView=_imageView, activityIndicator=_activityIndicator;
 
 @synthesize imageUrl=_imageUrl, dbAccess=_dbAccess;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -40,18 +41,18 @@
 }
 
 
-+ (FotoIngranditaController *) fotoIngranditaControllerWithImageUrlString:(NSString *)aUrl delegate:(Coupon *)couponViewController {
-    FotoIngranditaController *controller = [[FotoIngranditaController alloc] init];
-    controller.imageUrl = aUrl;
-    
-    NSDictionary *proxies = [NSDictionary dictionaryWithObject:couponViewController forKey:@"delegate"];
-    NSDictionary *options = [NSDictionary dictionaryWithObject:proxies forKey:UINibExternalObjects];
-
-    [[NSBundle mainBundle] loadNibNamed:@"FotoIngranditaController" 
-                                  owner:controller
-                                options:options];
-    return [controller autorelease];
-}
+//+ (FotoIngranditaController *) fotoIngranditaControllerWithImageUrlString:(NSString *)aUrl delegate:(Coupon *)couponViewController {
+//    FotoIngranditaController *controller = [[FotoIngranditaController alloc] init];
+//    controller.imageUrl = aUrl;
+//    
+//    NSDictionary *proxies = [NSDictionary dictionaryWithObject:couponViewController forKey:@"delegate"];
+//    NSDictionary *options = [NSDictionary dictionaryWithObject:proxies forKey:UINibExternalObjects];
+//
+//    [[NSBundle mainBundle] loadNibNamed:@"FotoIngranditaController" 
+//                                  owner:controller
+//                                options:options];
+//    return [controller autorelease];
+//}
 
 
 - (void)didReceiveMemoryWarning {
@@ -98,7 +99,6 @@
     // e.g. self.myOutlet = nil;
     self.imageView = nil;
     self.activityIndicator = nil;
-    self.couponViewController = nil;
 }
 
 
@@ -108,8 +108,8 @@
     self.dbAccess = nil;
     self.imageView = nil;
     self.activityIndicator = nil;
-    self.couponViewController = nil;
 }
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
@@ -135,6 +135,13 @@
 
 - (void)didReceiveError:(NSError *)error {
 #warning implementare
+}
+
+
+#pragma  mark - FotoIngranditaController (IBActions)
+
+- (IBAction)chiudi:(id)sender {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

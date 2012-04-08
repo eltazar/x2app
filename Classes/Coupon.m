@@ -17,6 +17,7 @@
 #import "LoginControllerBis.h"
 #import "DettaglioEsercente.h"
 #import "DettaglioEsercenteRistorazione.h"
+#import "CouponDiscountTimeCell.h"
 #import "FotoIngranditaController.h"
 
 
@@ -42,6 +43,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
     BOOL waitingForFacebook;
 }
 @property (nonatomic, retain) NSTimer *timer;
+@property (nonatomic, retain) UILabel *tempoLbl;
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
 @property (nonatomic, retain) PerDueCItyCardAppDelegate *appDelegate;	
 @property (nonatomic, retain) UIActionSheet *aSheet;   
@@ -57,9 +59,9 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 
 @synthesize dataModel=_dataModel, idCoupon=_idCoupon;
 
-@synthesize prezzoCouponLbl=_prezzoCouponLbl, scontoLbl=_scontoLbl, risparmioLbl=_risparmioLbl, prezzoOrigLbl=_prezzoOrigLbl, caricamentoImmagineSpinner=_caricamentoImmagineSpinner, titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tempoLbl=_tempoLbl, tableview=_tableview, webViewContr=_webViewController, faqViewController=_faqViewController, faqWebView=_faqWebView;
+@synthesize titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tableview=_tableview, webViewContr=_webViewController, faqViewController=_faqViewController, faqWebView=_faqWebView;
 
-@synthesize timer=_timer, dbAccess=_dbAccess, appDelegate=_appDelegate;
+@synthesize timer=_timer, tempoLbl=_tempoLbl, dbAccess=_dbAccess, appDelegate=_appDelegate;
 
 @synthesize aSheet=_aSheet, aSheet2=_aSheet2;
 
@@ -149,150 +151,114 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
 	
-	if (indexPath.section==0){
-        
-        switch(indexPath.row){
-            case 0:
-                if (cell == nil){
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDescrOffertaCell" owner:self options:NULL] objectAtIndex:0];
-                } 
-                UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-                lbl.numberOfLines = 0;
-                lbl.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
-                [lbl sizeToFit];
+	if (indexPath.section == 0 && indexPath.row == 0) {
+        if (cell == nil){
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDescrOffertaCell" owner:self options:NULL] objectAtIndex:0];
+        } 
+        UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+        lbl.numberOfLines = 0;
+        lbl.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
+        [lbl sizeToFit];
 
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                break;
-                
-            case 1:
-                if (cell == nil) {
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDiscountTimeCell" owner:self options:NULL] objectAtIndex:0];
-                    [self.caricamentoImmagineSpinner startAnimating];
-                } 
-                else {
-                    [self.caricamentoImmagineSpinner stopAnimating];
-                    AsyncImageView* oldImage = (AsyncImageView*) [cell.contentView viewWithTag:999];
-                    [oldImage removeFromSuperview];
-                }
-                
-                [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra", [self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-                self.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_acquisto"]]; 
-                self.scontoLbl.text = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_sconto_per"]];
-                self.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"offerta_sconto_va"]];
-                self.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_facciale"]];
-                
-                CGRect frame;
-                frame.size.width=101; frame.size.height=135;
-                frame.origin.x=10; frame.origin.y=10;
-                AsyncImageView* asyncImage = [[[AsyncImageView alloc] initWithFrame:frame] autorelease];
-                NSString *img = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
-                NSURL *urlfoto = [NSURL URLWithString:img];
-                asyncImage.tag = 999;
-                
-                [asyncImage loadImageFromURL:urlfoto];
-                [cell.contentView addSubview:asyncImage];
-                
-                UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];  
-                UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];  
-                [doubleTap setNumberOfTapsRequired:2];  
-                [asyncImage addGestureRecognizer:singleTap];  
-                [asyncImage addGestureRecognizer:doubleTap];  
-                [singleTap release];
-                [doubleTap release];
-                
-                //NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
-                //[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
-                //NSString *datadb = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"coupon_periodo_dal"]];
-                NSDateFormatter *formatodb = [[NSDateFormatter alloc] init];
-                [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                NSDate *now = [[NSDate alloc] init];
-                NSString *scad = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_periodo_al"]];
-                NSDate *datascadenza = [formatodb dateFromString:scad];
-                secondsLeft =[datascadenza timeIntervalSinceDate:now];
-                int days, hours, minutes, seconds;
-                days = secondsLeft / (3600 * 24);
-                hours = (secondsLeft - (days *24 * 3600)) / 3600;
-                minutes = (secondsLeft - ((hours * 3600) + (days *24 * 3600))) / 60;
-                seconds = secondsLeft % 60;
-                //NSLog(@"time =%02d:%02d:%02d:%02d", days, hours, minutes, seconds);
-                self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds", days, hours, minutes, seconds];
-                [formatodb release];
-                [now release];
-                
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                break;
-                
-            default:
-                break;
-        }
-    } 
-    else if(indexPath.section==1){
-            
-        switch (indexPath.row) {
-            case 0:
-                if ( cell == nil) {	
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
-                }
-                UILabel *t1 = (UILabel *)[cell viewWithTag:1];
-                t1.text = @"Dettagli offerta";
-                break;
-                
-            case 1:
-                if (cell == nil){	
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
-                }
-                UILabel *t2 = (UILabel *)[cell viewWithTag:1];
-                t2.text = @"Condizioni";
-                break;
-                
-            case 2:
-                if (cell == nil){	
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponEsercCell" owner:self options:NULL] objectAtIndex:0];
-                }
-                UILabel *t3 = (UILabel *)[cell viewWithTag:1];
-                t3.text = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"esercente_nome"]];
-                UILabel *t4 = (UILabel *)[cell viewWithTag:2];
-                t4.text = [NSString stringWithFormat:@"%@, %@",[self.dataModel objectForKey:@"esercente_indirizzo"],[self.dataModel objectForKey:@"esercente_comune"]];
-                break;
-                
-            case 3:
-                if (cell == nil){	
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
-                }
-                UILabel *t5 = (UILabel *)[cell viewWithTag:1];
-                t5.text = @"Per saperne di più...";
-                break;
-                
-            default:
-                break;
-        }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
     
-    } 
-    else if (indexPath.section==2) {
-        switch (indexPath.row) {
-            case 0:
-                if (cell == nil) {	
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
-                }
-                UILabel *testo = (UILabel *)[cell viewWithTag:1];
-                testo.text = @"Condividi questa offerta";
-                break;
-            case 1:
-                if (cell == nil) {	
-                   cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
-                }
-                UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-                lbl.text = @"Contatta PerDue";
-                break;
-            case 2:
-                if (cell == nil) {	
-                    cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];                }
-                UILabel *faq = (UILabel *)[cell viewWithTag:1];
-                faq.text = @"F.A.Q.";
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                break;
+    else if (indexPath.section == 0 && indexPath.row == 1) {
+        // Qui è necessario accedere alla cella col suo tipo:
+        CouponDiscountTimeCell *cdtCell;
+        if (cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDiscountTimeCell" owner:self options:NULL] objectAtIndex:0];
+        } 
+        
+        cdtCell = (CouponDiscountTimeCell *)cell;
+        self.tempoLbl = cdtCell.tempoLbl;
+        [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra", [self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+        cdtCell.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_acquisto"]]; 
+        cdtCell.scontoLbl.text = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_sconto_per"]];
+        cdtCell.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"offerta_sconto_va"]];
+        cdtCell.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_facciale"]];
+        
+        NSString *imgUrlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
+        [cdtCell loadImageFromUrlString:imgUrlString];
+        cdtCell.viewController = self;
+        //NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
+        //[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
+        //NSString *datadb = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"coupon_periodo_dal"]];
+        NSDateFormatter *formatodb = [[NSDateFormatter alloc] init];
+        [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *now = [[NSDate alloc] init];
+        NSString *scad = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_periodo_al"]];
+        NSDate *datascadenza = [formatodb dateFromString:scad];
+        secondsLeft =[datascadenza timeIntervalSinceDate:now];
+        int days, hours, minutes, seconds;
+        days = secondsLeft / (3600 * 24);
+        hours = (secondsLeft - (days *24 * 3600)) / 3600;
+        minutes = (secondsLeft - ((hours * 3600) + (days *24 * 3600))) / 60;
+        seconds = secondsLeft % 60;
+        //NSLog(@"time =%02d:%02d:%02d:%02d", days, hours, minutes, seconds);
+        self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds", days, hours, minutes, seconds];
+        [formatodb release];
+        [now release];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    else if (indexPath.section == 1 && indexPath.row == 0) {
+        if ( cell == nil) {	
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
         }
+        UILabel *t1 = (UILabel *)[cell viewWithTag:1];
+        t1.text = @"Dettagli offerta";
+    }
+    
+    else if (indexPath.section == 1 && indexPath.row == 1) {
+        if (cell == nil){	
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
+        }
+        UILabel *t2 = (UILabel *)[cell viewWithTag:1];
+        t2.text = @"Condizioni";
+    }
+    
+    else if (indexPath.section == 1 && indexPath.row == 2) {
+        if (cell == nil){	
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponEsercCell" owner:self options:NULL] objectAtIndex:0];
+        }
+        UILabel *t3 = (UILabel *)[cell viewWithTag:1];
+        t3.text = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"esercente_nome"]];
+        UILabel *t4 = (UILabel *)[cell viewWithTag:2];
+        t4.text = [NSString stringWithFormat:@"%@, %@",[self.dataModel objectForKey:@"esercente_indirizzo"],[self.dataModel objectForKey:@"esercente_comune"]];
+    }
+    
+    else if (indexPath.section == 1 && indexPath.row == 3) {
+        if (cell == nil){	
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
+        }
+        UILabel *t5 = (UILabel *)[cell viewWithTag:1];
+        t5.text = @"Per saperne di più...";
+    }
+    
+    else if (indexPath.section == 2 && indexPath.row == 0) {
+        if (cell == nil) {	
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
+        }
+        UILabel *testo = (UILabel *)[cell viewWithTag:1];
+        testo.text = @"Condividi questa offerta";
+    }
+    
+    else if (indexPath.section == 2 && indexPath.row == 1) {
+        if (cell == nil) {	
+           cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
+        }
+        UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+        lbl.text = @"Contatta PerDue";
+    }
+    
+    else if (indexPath.section == 2 && indexPath.row == 2) {
+        if (cell == nil) {	
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];                }
+        UILabel *faq = (UILabel *)[cell viewWithTag:1];
+        faq.text = @"F.A.Q.";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 
 	return cell;
@@ -525,18 +491,6 @@ if ([rows count]>0) {//coupon disponibile
 */
 
 
-- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {  
-	NSString *imgURLString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
-	FotoIngranditaController *controller = [FotoIngranditaController fotoIngranditaControllerWithImageUrlString:imgURLString delegate:self]; 
-    [self presentModalViewController:controller animated:YES];
-}
-
-
-- (void)handleDoubleTap:(UIGestureRecognizer *)gestureRecognizer {  
-	[self handleSingleTap:gestureRecognizer];
-}
-
-
 - (IBAction)chiudi:(id)sender {
 	[self dismissModalViewControllerAnimated:YES];
 }
@@ -568,6 +522,7 @@ if ([rows count]>0) {//coupon disponibile
     [altreOfferteController release];
 	
 }
+
 
 #pragma mark - ActionSheet delegate
 
@@ -716,7 +671,7 @@ if ([rows count]>0) {//coupon disponibile
     
     altezzaCella = 44.0;
     
-    self.prezzoCouponLbl.layer.cornerRadius = 6;
+    //self.prezzoCouponLbl.layer.cornerRadius = 6;
     self.reloadBtn.layer.cornerRadius = 6;
     self.reloadBtn.layer.masksToBounds = YES;
     [self.reloadBtn setHidden:YES];

@@ -11,6 +11,10 @@
 
 @implementation AsyncImageView
 
+
+@synthesize delegate=_delegate;
+
+
 - (void)loadImageFromURL:(NSURL*)url {
     if (connection!=nil) { [connection release]; }
     if (data!=nil) { [data release]; }
@@ -33,7 +37,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection*)theConnection {
-	
+    NSLog(@"%@::connectionDidFinishLoading", [self class]);
     [connection release];
     connection=nil;
 	
@@ -44,14 +48,17 @@
     UIImageView* imageView = [[[UIImageView alloc] initWithImage:[UIImage imageWithData:data]] autorelease];
 	
     imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth || UIViewAutoresizingFlexibleHeight );
+    imageView.autoresizingMask = ( UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight );
 	
     [self addSubview:imageView];
     imageView.frame = self.bounds;
     [imageView setNeedsLayout];
     [self setNeedsLayout];
     [data release];
-    data=nil;
+    data = nil;
+    if (self.delegate) {
+        [self.delegate didLoadImageInAysncImageView:self];
+    }
 }
 
 - (UIImage*) image {
@@ -60,6 +67,7 @@
 }
 
 - (void)dealloc {
+    self.delegate = nil;
     [connection cancel];
     [connection release];
     [data release];
