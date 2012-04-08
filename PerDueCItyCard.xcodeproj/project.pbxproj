@@ -43,7 +43,6 @@
 		1947FDEA13D5E4E600C3489B /* riepilogocartadicredito.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1947FDE913D5E4E600C3489B /* riepilogocartadicredito.xib */; };
 		1959DAC9135078C100954576 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1959DAC8135078C100954576 /* MapKit.framework */; };
 		1960C1C7142A5EE400213D4C /* yellow3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1960C1C6142A5EE400213D4C /* yellow3.jpg */; };
-		1971C69913B718700032553A /* CouponDiscountTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1971C69813B7186F0032553A /* CouponDiscountTimeCell.xib */; };
 		198C6A8213C843AE001E9399 /* cellatotalepagamento.xib in Resources */ = {isa = PBXBuildFile; fileRef = 198C6A8113C843AE001E9399 /* cellatotalepagamento.xib */; };
 		19990D52138EC6AB003DB0D2 /* Notizia.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19990D50138EC6AB003DB0D2 /* Notizia.xib */; };
 		199910B8138FDE35003DB0D2 /* Commenti.xib in Resources */ = {isa = PBXBuildFile; fileRef = 199910B6138FDE35003DB0D2 /* Commenti.xib */; };
@@ -175,6 +174,7 @@
 		D9463667152F6A33000A17CE /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D946365F152F6A33000A17CE /* SBJsonBase.m */; };
 		D9463668152F6A33000A17CE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9463661152F6A33000A17CE /* SBJsonParser.m */; };
 		D9463669152F6A33000A17CE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D9463663152F6A33000A17CE /* SBJsonWriter.m */; };
+		D94C1C0F1531F8EB00697575 /* CouponDiscountTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C0E1531F8EB00697575 /* CouponDiscountTimeCell.xib */; };
 		D95CBF41153067C800D79209 /* Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8B13ED5144001C7763 /* Coupon.xib */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
@@ -235,7 +235,6 @@
 		1960C1C6142A5EE400213D4C /* yellow3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yellow3.jpg; sourceTree = "<group>"; };
 		1965778D13B72B570039DC74 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		1965778E13B72B570039DC74 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		1971C69813B7186F0032553A /* CouponDiscountTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CouponDiscountTimeCell.xib; path = ../img/CouponDiscountTimeCell.xib; sourceTree = "<group>"; };
 		198C6A8113C843AE001E9399 /* cellatotalepagamento.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = cellatotalepagamento.xib; sourceTree = "<group>"; };
 		19990D50138EC6AB003DB0D2 /* Notizia.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Notizia.xib; sourceTree = "<group>"; };
 		199910B6138FDE35003DB0D2 /* Commenti.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Commenti.xib; sourceTree = "<group>"; };
@@ -453,6 +452,7 @@
 		D9463661152F6A33000A17CE /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		D9463662152F6A33000A17CE /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		D9463663152F6A33000A17CE /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		D94C1C0E1531F8EB00697575 /* CouponDiscountTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponDiscountTimeCell.xib; sourceTree = "<group>"; };
 		D9861EB3151BE2540017A16E /* Card.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = Card.php; path = "php server/PHP APPv2/Card.php"; sourceTree = SOURCE_ROOT; };
 		D992A7D1152B3A6C00703EDC /* Esercenti.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = Esercenti.php; path = "php server/PHP APPv2/Esercenti.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
@@ -971,7 +971,7 @@
 				D946360A152F645F000A17CE /* CouponDescrOffertaCell.xib */,
 				D9AB0BBF1531806900B1668F /* CouponDiscountTimeCell.h */,
 				D9AB0BC01531806900B1668F /* CouponDiscountTimeCell.m */,
-				1971C69813B7186F0032553A /* CouponDiscountTimeCell.xib */,
+				D94C1C0E1531F8EB00697575 /* CouponDiscountTimeCell.xib */,
 				D946360C152F6489000A17CE /* CouponEsercCell.xib */,
 				D9ED8BF6152F8FEF002C3D65 /* FotoIngranditaController.h */,
 				D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */,
@@ -1108,7 +1108,6 @@
 				19A495D7139D03D000ECFA7E /* logo@2x.png in Resources */,
 				19A4960F139D0CE200ECFA7E /* footer.png in Resources */,
 				19A49610139D0CE200ECFA7E /* footer@2x.png in Resources */,
-				1971C69913B718700032553A /* CouponDiscountTimeCell.xib in Resources */,
 				198C6A8213C843AE001E9399 /* cellatotalepagamento.xib in Resources */,
 				199FEAC213C871F70030CDD8 /* celladatipersonali.xib in Resources */,
 				1947FDAD13D5DA1D00C3489B /* riepilogodatipersonali.xib in Resources */,
@@ -1170,6 +1169,7 @@
 				D9463615152F64C6000A17CE /* FindNearCompanyCell.xib in Resources */,
 				D9463643152F6A0F000A17CE /* FBDialog.bundle in Resources */,
 				D9ED8BFA152F8FF0002C3D65 /* FotoIngranditaController.xib in Resources */,
+				D94C1C0F1531F8EB00697575 /* CouponDiscountTimeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
