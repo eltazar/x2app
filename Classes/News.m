@@ -103,7 +103,7 @@
         detail.idNotizia = idNotizia;
         [self.navigationController pushViewController:detail animated:YES];
         [detail release];
-    }    
+    }  
 }
 
 

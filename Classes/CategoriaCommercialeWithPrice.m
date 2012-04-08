@@ -29,8 +29,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
         // Stiamo mostrando la cella relativa ad un esercente
-		static NSString *CellIdentifier = @"Cell";
-		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
+		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:@"CategoriaCommercialeWithPrice"];
 		
 		if (cell == nil){
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"CategoriaCommercialeWithPriceCell" owner:self options:NULL] objectAtIndex:0];

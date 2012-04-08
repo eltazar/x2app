@@ -94,10 +94,8 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ContattiCell"];
 	
 	if (cell == nil) {
 		cell = [[[NSBundle mainBundle] loadNibNamed:@"ContattiCell" owner:self options:NULL] objectAtIndex:0];

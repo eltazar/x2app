@@ -85,9 +85,9 @@
 
 	// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if(indexPath.section==0){
-		static NSString *CellIdentifier = @"Cell";
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell;
+	if (indexPath.section == 0) {
+		cell = [tableView dequeueReusableCellWithIdentifier:@"AltreOfferteCell"];
 		if (cell == nil){
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"AltreOfferteCell" owner:self options:NULL] objectAtIndex:0];
 			[CellSpinner startAnimating];
@@ -118,8 +118,6 @@
 		[cell.contentView addSubview:asyncImage];		
 		
 		
-		
-		
 		UILabel *intestazione = (UILabel *)[cell viewWithTag:3];
 		intestazione.text =[NSString stringWithFormat:@"Solo € %@ invece di € %@",[dict objectForKey:@"coupon_valore_acquisto"],[dict objectForKey:@"coupon_valore_facciale"]]; 
 		
@@ -136,8 +134,11 @@
 		foto.image = image;*/
 		
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		return cell;		
-		}
+    }
+    else {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"bogus"];
+    }
+    return cell;
 }
 
 

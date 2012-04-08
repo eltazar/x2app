@@ -472,13 +472,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *sec = [sectionData objectAtIndex:indexPath.section];
     NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
-    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
     NSString *kind = [rowDesc objectForKey:@"kind"];
     int cellStyle = UITableViewCellStyleDefault;
     
     //NSLog(@"dataKey = %@, kind = %@",dataKey,kind);
     
-    BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier: dataKey];
+    BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier: kind];
     
     //se non è recuperata creo una nuova cella
 	if (cell == nil) {        

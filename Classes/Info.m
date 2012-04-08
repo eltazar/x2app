@@ -164,10 +164,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-	static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
 	
 	if (cell == nil) {
 		cell = [[[NSBundle mainBundle] loadNibNamed:@"InfoCell" owner:self options:NULL] objectAtIndex:0];

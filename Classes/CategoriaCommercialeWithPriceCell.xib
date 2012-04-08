@@ -49,6 +49,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{13, 0}, {287, 22}}</string>
 								<reference key="NSSuperview" ref="1043869465"/>
+								<reference key="NSNextKeyView" ref="1048866450"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -83,6 +84,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{13, 40}, {197, 21}}</string>
 								<reference key="NSSuperview" ref="1043869465"/>
+								<reference key="NSNextKeyView" ref="765354013"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -114,6 +116,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{13, 20}, {269, 21}}</string>
 								<reference key="NSSuperview" ref="1043869465"/>
+								<reference key="NSNextKeyView" ref="415906241"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -145,6 +148,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{230, 40}, {70, 21}}</string>
 								<reference key="NSSuperview" ref="1043869465"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
@@ -172,6 +176,7 @@
 						</object>
 						<string key="NSFrameSize">{320, 64}</string>
 						<reference key="NSSuperview" ref="939355586"/>
+						<reference key="NSNextKeyView" ref="218772226"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -185,12 +190,14 @@
 				</object>
 				<string key="NSFrameSize">{320, 65}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSNextKeyView" ref="1043869465"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<reference key="IBUIContentView" ref="1043869465"/>
+				<string key="IBUIReuseIdentifier">CategoriaCommercialeWithPrice</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">

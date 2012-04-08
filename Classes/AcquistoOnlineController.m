@@ -224,13 +224,11 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AcquistoOnlineCell"];
     if (cell == nil) {
        // cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
-        [[NSBundle mainBundle] loadNibNamed:@"CellProdottoListino" owner:self options:nil];
+        [[NSBundle mainBundle] loadNibNamed:@"AcquistoOnlineCell" owner:self options:nil];
 		cell = cellProdotto;
     }
     

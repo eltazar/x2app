@@ -349,7 +349,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
     NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
-    //NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
     NSString *kind = [rowDesc objectForKey:@"kind"];
     int cellStyle = UITableViewCellStyleDefault;
     

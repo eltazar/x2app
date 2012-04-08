@@ -281,8 +281,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1) {
         // Stiamo mostrando la cella che suggerisce la visualizzazione di ulteriori esercenti
-		static NSString *CellIdentifier = @"LastCell";
-		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
+		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:@"LastCell"];
 		
 		if (cell == nil){
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"LastCell" owner:self options:NULL] objectAtIndex:0];
@@ -297,8 +296,7 @@
 		return cell;		
 	} else {
         // Stiamo mostrando la cella relativa ad un esercente
-		static NSString *CellIdentifier = @"CellaEsercenteVicino";
-		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:CellIdentifier];
+		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:@"FindNearCompanyCell"];
 		
 		if (cell == nil){
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"FindNearCompanyCell" owner:self options:NULL] objectAtIndex:0];

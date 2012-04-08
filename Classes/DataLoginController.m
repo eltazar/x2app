@@ -167,11 +167,10 @@
     NSArray *sec = [sectionData objectAtIndex:indexPath.section];
     NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
     NSString *kind = [rowDesc objectForKey:@"kind"];
-    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
     
     int cellStyle = UITableViewCellStyleDefault;
     
-    BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier:dataKey];
+    BaseCell *cell = (BaseCell *)[tableView dequeueReusableCellWithIdentifier:kind];
     
     if (cell == nil) {       
         cell = [[[NSClassFromString(kind) alloc] initWithStyle: cellStyle reuseIdentifier:kind withDictionary:rowDesc] autorelease];

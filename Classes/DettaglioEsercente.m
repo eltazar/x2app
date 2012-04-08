@@ -397,6 +397,10 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
+    else {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"bogus"];
+    }
+    
     return cell;
 }
 

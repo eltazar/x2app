@@ -338,97 +338,100 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     return customView;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-		 cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-	
-	static NSString *CellIdentifier = @"Cell"; 
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];  
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+#warning TODO: levare gli IBO per le celle...
+	UITableViewCell *cell;  
 		
-    if(indexPath.section==0) {
-			if (cell == nil){	
-				[[NSBundle mainBundle] loadNibNamed:@"cellatotalepagamento" owner:self options:NULL];
-				cell=cellapag;	
-			}
-			UILabel *prezzo = (UILabel *)[cell viewWithTag:1];
-			[prezzo setText:[NSString stringWithFormat:@"%.2f€", valore]];
-            
-			UITextField *quantita= (UITextField *)[cell viewWithTag:2];
+    if (indexPath.section == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"PagamentoTotaleCell"];
+        if (cell == nil){	
+            [[NSBundle mainBundle] loadNibNamed:@"PagamentoTotaleCell" owner:self options:NULL];
+            cell=cellapag;	
+        }
+        UILabel *prezzo = (UILabel *)[cell viewWithTag:1];
+        [prezzo setText:[NSString stringWithFormat:@"%.2f€", valore]];
+        
+        UITextField *quantita= (UITextField *)[cell viewWithTag:2];
         NSLog(@"QUANTITA = %d", quant);
-            quantita.text = [NSString stringWithFormat:@"%d", quant];
-            //[quantita setInputView:myActionSheet];
-				
-			//quantita.text=[arrayQuantita objectAtIndex:[quantitaPicker selectedRowInComponent:0]];
-			//quant=[quantita.text integerValue];
-			UILabel *tot = (UILabel *)[cell viewWithTag:3];
-			//totale=quant*valore;
-			[tot setText:[NSString stringWithFormat:@"%.2f€", totale]];
-	
-			
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		}
-    
-		if(indexPath.section==1) {
-			if (cell == nil){	
-				[[NSBundle mainBundle] loadNibNamed:@"DatiUtenteLogin" owner:self options:NULL];
-				cell=celladatipagamento;	
-			}
-			
-				//cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-				UILabel *_nome = (UILabel *)[cell viewWithTag:1];				
-				UILabel *mail = (UILabel *)[cell viewWithTag:2];				
-				
-            _nome.text = self.utente;
-            mail.text = self.email;
+        quantita.text = [NSString stringWithFormat:@"%d", quant];
+        //[quantita setInputView:myActionSheet];
             
-            //[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-//				NSString *nomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
-//				NSString *cognomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
-//				
-//				NSString *mailsalvata = [[NSUserDefaults standardUserDefaults] objectForKey:@"_email"];
-                        
-//                if(nomesalvato && cognomesalvato)
-//                    nome.text = [NSString stringWithFormat:@"%@ %@", nomesalvato, cognomesalvato];
-//                else nome.text = @"";
-//            
-//                if(mailsalvata)
-//                    mail.text = mailsalvata;
-//                else mail.text = @"";
-                    
-//				if ( ([mailsalvata length]==0) ||  (mailsalvata ==nil) )
-//					mailsalvata=@"";
-//				mail.text = [[NSString alloc] initWithFormat:@"%@", mailsalvata];
-//
-//
-//				if(([nomesalvato length]==0) || ([nomesalvato length]==0) ||   ((nomesalvato ==nil) ||  (cognomesalvato ==nil)) )
-//					nome.text = [[NSString alloc] initWithFormat:@""];
-//				else 
-//					nome.text = [[NSString alloc] initWithFormat:@"%@ %@", nomesalvato,cognomesalvato];
-				
-		}
-    
-		if(indexPath.section==2) {
-			if (cell == nil){	
-				[[NSBundle mainBundle] loadNibNamed:@"riepilogocartadicredito" owner:self options:NULL];
-				cell=celladaticarta;	
-		 }
-				cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-				UILabel *numero = (UILabel *)[cell viewWithTag:1];				
-				UILabel *tipo = (UILabel *)[cell viewWithTag:2];	
-            
-				NSString *numerosalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
-				NSString *tiposalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
-                if(numerosalvato)
-                    numero.text = [NSString stringWithFormat:@"%@", numerosalvato];
-                else numero.text =@"";
-            
-                if(tiposalvato)
-                    tipo.text = [NSString stringWithFormat:@"%@", tiposalvato];
-                else tipo.text = @"";
+        //quantita.text=[arrayQuantita objectAtIndex:[quantitaPicker selectedRowInComponent:0]];
+        //quant=[quantita.text integerValue];
+        UILabel *tot = (UILabel *)[cell viewWithTag:3];
+        //totale=quant*valore;
+        [tot setText:[NSString stringWithFormat:@"%.2f€", totale]];
 
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    else if(indexPath.section==1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"PagamentoDatiLoginCell"];
+        if (cell == nil){	
+            [[NSBundle mainBundle] loadNibNamed:@"PagamentoDatiLoginCell" owner:self options:NULL];
+            cell=celladatipagamento;	
+        }
+        
+        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        UILabel *nome = (UILabel *)[cell viewWithTag:1];				
+        UILabel *mail = (UILabel *)[cell viewWithTag:2];				
+            
+        nome.text = self.utente;
+        mail.text = self.email;
+            
+        //[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        //NSString *nomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
+        //NSString *cognomesalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
+        
+        //NSString *mailsalvata = [[NSUserDefaults standardUserDefaults] objectForKey:@"_email"];
+                        
+        //if(nomesalvato && cognomesalvato)
+        //    nome.text = [NSString stringWithFormat:@"%@ %@", nomesalvato, cognomesalvato];
+        //else nome.text = @"";
+        //            
+        //if(mailsalvata)
+        //    mail.text = mailsalvata;
+        //else mail.text = @"";
+                    
+        //if ( ([mailsalvata length]==0) ||  (mailsalvata ==nil) )
+        //    mailsalvata=@"";
+        //mail.text = [[NSString alloc] initWithFormat:@"%@", mailsalvata];
+        //
+        //if(([nomesalvato length]==0) || ([nomesalvato length]==0) ||   ((nomesalvato ==nil) ||  (cognomesalvato ==nil)) )
+        //    nome.text = [[NSString alloc] initWithFormat:@""];
+        //else 
+        //    nome.text = [[NSString alloc] initWithFormat:@"%@ %@", nomesalvato,cognomesalvato];
 				
-		}
-		return cell;
+    }
+    
+    else if (indexPath.section == 2 ) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"PagamentoCreditCardCell"];
+        if (cell == nil){	
+            [[NSBundle mainBundle] loadNibNamed:@"PagamentoCreditCardCell" owner:self options:NULL];
+            cell=celladaticarta;	
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        UILabel *numero = (UILabel *)[cell viewWithTag:1];				
+        UILabel *tipo = (UILabel *)[cell viewWithTag:2];	
+    
+        NSString *numerosalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_numero"];
+        NSString *tiposalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"_tipoCarta"];
+        if(numerosalvato)
+            numero.text = [NSString stringWithFormat:@"%@", numerosalvato];
+        else numero.text =@"";
+    
+        if(tiposalvato)
+            tipo.text = [NSString stringWithFormat:@"%@", tiposalvato];
+        else tipo.text = @"";
+    }
+    
+    else {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"bogus"];
+    }
+    return cell;
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	
