@@ -89,6 +89,7 @@
         FotoIngranditaController *controller = [[FotoIngranditaController alloc] initWithNibName:nil bundle:nil imageUrlString:_imgUrlString];
         NSLog(@"%@::handleSingleTap controller = [%@]", [self class], controller);
         [self.viewController presentModalViewController:controller animated:YES];
+        [controller release];
     }
 }
 
