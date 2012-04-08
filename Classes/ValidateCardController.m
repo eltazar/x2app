@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ValidateCardController.h"
 #import "CartaPerDue.h"
+#import "MBProgressHUD.h"
 
 
 @interface ValidateCardController(){
@@ -59,15 +60,23 @@
 
 -(void)didReceiveResponsFromServer:(NSString *)receivedData{
     NSLog(@"received data = %@",receivedData);
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 -(void)didReceiveError:(NSError *)error{
     NSLog(@"error = %@", [error description]);
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore connessione" message:@"Non è stato possibile eseguire la richiesta, riprovare" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
 }
 
 #pragma mark - bottoni view
 
 -(IBAction)validateRequestBtn:(id)sender{
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Invio richiesta...";
     
     [dbAccess sendValidateRequest:self.card companyID:[[self.company objectForKey:@"IDesercente"]intValue]];
     
