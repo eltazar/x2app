@@ -405,6 +405,8 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 		[self.faqWebView release];
 		self.faqWebView = nil;		
 	}
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - LoginControllerDelegate
