@@ -210,7 +210,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         }
         UILabel *t1 = (UILabel *)[cell viewWithTag:1];
         t1.text = @"Dettagli offerta";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     else if (indexPath.section == 1 && indexPath.row == 1) {
@@ -220,7 +220,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         }
         UILabel *t2 = (UILabel *)[cell viewWithTag:1];
         t2.text = @"Condizioni";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     else if (indexPath.section == 1 && indexPath.row == 2) {
@@ -232,7 +232,6 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         t3.text = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"esercente_nome"]];
         UILabel *t4 = (UILabel *)[cell viewWithTag:2];
         t4.text = [NSString stringWithFormat:@"%@, %@",[self.dataModel objectForKey:@"esercente_indirizzo"],[self.dataModel objectForKey:@"esercente_comune"]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     else if (indexPath.section == 1 && indexPath.row == 3) {
@@ -242,7 +241,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         }
         UILabel *t5 = (UILabel *)[cell viewWithTag:1];
         t5.text = @"Per saperne di più...";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     else if (indexPath.section == 2 && indexPath.row == 0) {
@@ -252,7 +251,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         }
         UILabel *testo = (UILabel *)[cell viewWithTag:1];
         testo.text = @"Condividi questa offerta";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     else if (indexPath.section == 2 && indexPath.row == 1) {
@@ -262,7 +261,7 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         }
         UILabel *lbl = (UILabel *)[cell viewWithTag:1];
         lbl.text = @"Contatta PerDue";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     else if (indexPath.section == 2 && indexPath.row == 2) {
