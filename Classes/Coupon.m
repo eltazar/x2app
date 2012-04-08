@@ -19,9 +19,10 @@
 #import "DettaglioEsercenteRistorazione.h"
 #import "CouponDiscountTimeCell.h"
 #import "FotoIngranditaController.h"
+#import "CouponEsercCell.h"
 
 
-typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenzaContratto} tipoEsercente;
+typedef enum {CouponEsercenteNULL, CouponEsercenteNormale, CouponEsercenteRistorazione, CouponEsercenteSenzaContratto} tipoEsercente;
 
 @interface Coupon () {
     BOOL isOffertaDelGiorno;
@@ -232,6 +233,17 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         t3.text = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"esercente_nome"]];
         UILabel *t4 = (UILabel *)[cell viewWithTag:2];
         t4.text = [NSString stringWithFormat:@"%@, %@",[self.dataModel objectForKey:@"esercente_indirizzo"],[self.dataModel objectForKey:@"esercente_comune"]];
+        if (tipodettaglio == CouponEsercenteNULL) {
+            [((CouponEsercCell *)cell).activityIndicator startAnimating];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        else {
+            [((CouponEsercCell *)cell).activityIndicator stopAnimating];
+            ((CouponEsercCell *)cell).activityIndicator.hidden = YES;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+       
     }
     
     else if (indexPath.section == 1 && indexPath.row == 3) {
@@ -337,15 +349,20 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
     else if ( (indexPath.section == 1) && (indexPath.row == 2) ) {
         DettaglioEsercente *dettaglioEsercente;
         NSInteger idEsercente = [[self.dataModel objectForKey:@"idesercente"]integerValue];
-        if (tipodettaglio == CouponEsercenteRistorazione) { 
+        if (tipodettaglio == CouponEsercenteNULL) {
+            return;
+        }
+        else if (tipodettaglio == CouponEsercenteRistorazione) { 
             //dettglio ristopub
             NSLog(@"ESERCENTE RISTOPUB");
             dettaglioEsercente = [[DettaglioEsercenteRistorazione alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:NO];
-		} else if (tipodettaglio == CouponEsercente) { 
+		} 
+        else if (tipodettaglio == CouponEsercenteNormale) { 
             //esercente normale
             NSLog(@"ESERCENTE NORMALE");
             dettaglioEsercente = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:NO];
-        } else {//if (tipodettaglio == CouponEsercenteSenzaContratto ){ 
+        } 
+        else {//if (tipodettaglio == CouponEsercenteSenzaContratto ){ 
             //esercente senza contratto, l'if è commentato così qualsiasi porcata arriva in 
             //tipodettaglio, si istanzia questo e amen.
             dettaglioEsercente = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:YES genericoMode:YES];
@@ -648,6 +665,8 @@ if ([rows count]>0) {//coupon disponibile
     
     self.titoloOffertaLbl.text = @" Caricamento...";
     if (isOffertaDelGiorno) {
+        // Qui rilanciamo la query al server anche se i dati sono già arrivati, perché potrebbe essere cambiata la città, e il coupon va aggiornato.
+        // TODO: bisognerebbe controllare se EFFETTIVAMENTE la città è cambiata...
         NSString *citycoupon;	
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         citycoupon=[defaults objectForKey:@"cittacoupon"];
@@ -663,13 +682,16 @@ if ([rows count]>0) {//coupon disponibile
         
         NSString *prov = [citycoupon stringByReplacingOccurrencesOfString:@" " withString:@"!"]; //inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
         if(self.view.window){
+            NSLog(@"%@::viewDidAppear - lancio la query (coupon del giorno)", [self class]);
             [self.caricamentoSpinner startAnimating];
             [self.dbAccess getCouponFromServer:prov];
         }
         
     } 
     else { // !isOffertaDelGiorno
-        if(self.view.window){
+        // Se i dati del coupon sono già arrivati, non rilancio la query
+        if(self.view.window && !(self.dataModel)){
+            NSLog(@"%@::viewDidAppear - Rilancio la query (coupon non del giorno)", [self class]);
             [self.caricamentoSpinner startAnimating];
             [self.dbAccess getCouponFromServerWithId:self.idCoupon];
         }
@@ -680,21 +702,24 @@ if ([rows count]>0) {//coupon disponibile
 	
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSLog(@"%@::viewDidLoad", [self class]);
+
     if (isOffertaDelGiorno)
-        NSLog(@"Coupon::viewWillLoad: questa istanza rappresenta l'offerta del giorno.");
+        NSLog(@"Coupon::viewDidLoad: questa istanza rappresenta l'offerta del giorno.");
     else
-        NSLog(@"Coupon::viewWillLoad: questa istanza rappresenta un coupon generico.");
+        NSLog(@"Coupon::viewDidLoad: questa istanza rappresenta un coupon generico.");
     
     altezzaCella = 44.0;
+    tipodettaglio = CouponEsercenteNULL;
     
+    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
+    self.dbAccess.delegate = self;
+
     //self.prezzoCouponLbl.layer.cornerRadius = 6;
     self.reloadBtn.layer.cornerRadius = 6;
     self.reloadBtn.layer.masksToBounds = YES;
     [self.reloadBtn setHidden:YES];
-    
-    NSLog(@"CLASSE COUPON DID LOAD");
-    
+        
     if (isOffertaDelGiorno) {
         self.navigationItem.title = @"Coupon del giorno";
     } 
@@ -705,9 +730,6 @@ if ([rows count]>0) {//coupon disponibile
     //[compra setHidden:YES];
     [self.compraBtn setEnabled:NO];
     [self.compraBtn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-    
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
     
     //quando passa da back a foreground rilancia la query per aggiornare la vista
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidAppear:) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -832,97 +854,103 @@ if ([rows count]>0) {//coupon disponibile
     
     /**/
     
-    NSObject *a = [coupon objectForKey:@"Esercente"];
-    if ((![a isKindOfClass:[NSArray class]])  ||  (((NSArray *) a).count == 0)) {
-        self.dataModel = nil;
+    NSObject *temp;
+    
+    temp = [coupon objectForKey:@"Esercente"];
+    if (temp) {
+        if ((![temp isKindOfClass:[NSArray class]])  ||  (((NSArray *) temp).count == 0)) {
+            self.dataModel = nil;
+            return;
+        }
+        
+        self.dataModel = [((NSArray *)temp) objectAtIndex:0];
+        
+        /**/
+        
+            
+        if (!self.dataModel) { 
+            //niente coupon 
+            self.titoloOffertaLbl.text=@"";
+            [self.compraBtn setEnabled:NO];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Spiacenti" message:@"In questo momento non ci sono offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+            [alert show];
+            [alert release];
+            
+        } 
+        else { 
+            //offerta esite
+            //[compra setHidden:NO];
+            [self.compraBtn setEnabled:YES];
+            self.titoloOffertaLbl.text = [NSString stringWithFormat:@"  Solo %@€, sconto %@%",[self.dataModel objectForKey:@"coupon_valore_acquisto"], [self.dataModel objectForKey:@"offerta_sconto_per"]];
+            //identificativo è relativo all'offerta
+            self.idCoupon = [[self.dataModel objectForKey:@"idofferta"] integerValue];
+            
+            UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(50,50,284,31)];
+            myLabel.numberOfLines = 0;
+            myLabel.lineBreakMode = UILineBreakModeWordWrap;
+            myLabel.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
+            [myLabel sizeToFit];
+            
+            NSLog(@"ALTEZZA = %f",myLabel.frame.size.height);
+            
+            if(myLabel.frame.size.height <=21)
+                altezzaCella = 44;
+            else if(myLabel.frame.size.height <= 42)
+                altezzaCella = 55;
+            else if(myLabel.frame.size.height <= 63)
+                altezzaCella = 67;
+            else if(myLabel.frame.size.height <= 84)
+                altezzaCella = 90;
+            else if(myLabel.frame.size.height <= 105)
+                altezzaCella = 110;
+            
+            [myLabel release];
+            
+            NSInteger idEsercente = [[self.dataModel objectForKey:@"idesercente"] integerValue];
+            NSString *urlString = @"http://www.cartaperdue.it/partner/v2.0/TipoEsercente.php";
+            NSString *postDataString = [NSString stringWithFormat:@"idEsercente=%d", idEsercente];
+            [self.dbAccess postConnectionToURL:urlString withData:postDataString];
+             
+          
+            [self.tableview reloadData];
+        }
     }
     
-    self.dataModel = [((NSArray *)a) objectAtIndex:0];
-    
-    /**/
-    
-    	
-	if (!self.dataModel) { 
-        //niente coupon 
-		self.titoloOffertaLbl.text=@"";
-        [self.compraBtn setEnabled:NO];
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Spiacenti" message:@"In questo momento non ci sono offerte per questa città" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
-		[alert show];
-		[alert release];
-        
-	} else { 
-        //offerta esite
-		//[compra setHidden:NO];
-        [self.compraBtn setEnabled:YES];
-		self.titoloOffertaLbl.text = [NSString stringWithFormat:@"  Solo %@€, sconto %@%",[self.dataModel objectForKey:@"coupon_valore_acquisto"], [self.dataModel objectForKey:@"offerta_sconto_per"]];
-        //identificativo è relativo all'offerta
-		self.idCoupon = [[self.dataModel objectForKey:@"idofferta" ]integerValue];
-        
-        UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(50,50,284,31)];
-        myLabel.numberOfLines = 0;
-        myLabel.lineBreakMode = UILineBreakModeWordWrap;
-        myLabel.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
-        [myLabel sizeToFit];
-        
-        NSLog(@"ALTEZZA = %f",myLabel.frame.size.height);
-        
-        if(myLabel.frame.size.height <=21)
-            altezzaCella = 44;
-        else if(myLabel.frame.size.height <= 42)
-            altezzaCella = 55;
-        else if(myLabel.frame.size.height <= 63)
-            altezzaCella = 67;
-        else if(myLabel.frame.size.height <= 84)
-            altezzaCella = 90;
-        else if(myLabel.frame.size.height <= 105)
-            altezzaCella = 110;
-        
-        [myLabel release];
-         
-        //MARIO: da qui recupero dati dell'esercente per la cella di informazioni relative ad esso(nuova view con dentro tutto, luogo, commenti ecc..)
-        //MARIO: fa richiesta bloccante, quindi renderla asincrona  e soprattutto farla DOPO che si apre la pagina relativa all'esercente
-        
-        NSInteger idEsercente = [[self.dataModel objectForKey:@"idesercente"]integerValue];
-        NSLog(@"L'id del ristorante da visualizzare è %d", idEsercente);
-        NSURL *tipoEsercenteURL = [NSURL URLWithString:[NSString stringWithFormat: @"http://www.cartaperdue.it/partner/tipoesercente.php?id=%d", idEsercente]];
-        NSLog(@"tipoEsercenteURL: %@", tipoEsercenteURL);
-		
-		NSString *jsonreturn2 = [[NSString alloc] initWithContentsOfURL:tipoEsercenteURL];
-		
-		NSData *jsonData2 = [jsonreturn2 dataUsingEncoding:NSUTF8StringEncoding];
-		NSError *error2 = nil;	
-		
-		NSDictionary *dict2 = [[[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData2 error:&error2] retain];	
-		
-		NSMutableArray *r2=[[NSMutableArray alloc] init];
-		
-		if (dict2)
-		{
-			r2 = [[dict2 objectForKey:@"Esercente"] retain];
-			
-		}
-		
-		NSLog(@"Array2: %@",r2);
-#warning TODO: controllare se c'è da qualche parte un check sul fatto che tipodettaglio sia inizializzato o meno, prima di usarlo.
-		if ([r2 count]==0){ //l'eserncente non ha contratto nel db, il suo dettaglio sarà una view più semplice (senza condizioni, commenti ecc..)
-			tipodettaglio=CouponEsercenteSenzaContratto;
-		}
-		if ([r2 count]!=0){
-			dict2 = [r2 objectAtIndex: 0];	
-			NSInteger tipo=[[dict2 objectForKey:@"IdTipologia_Esercente"]integerValue];
-			NSLog(@"Tipologia: %d",tipo);
-			
-			if( (tipo==2) || (tipo==5) || (tipo==6) || (tipo==9) || (tipo==59) || (tipo==60) || (tipo==61) || (tipo==27)){ //per dettaglio ristopub
-				tipodettaglio=CouponEsercenteRistorazione;
-			}
-			else { //per dettaglio esercente generico
-				tipodettaglio=CouponEsercente;
-			}
-		}				
-	}
-    
+    temp = [coupon objectForKey:@"TipologiaEsercente"];
+    if (temp) {
+        NSLog(@"%@::didReceiveCoupon (%@)temp = %@", [self class], [temp class], temp);
+        if (!([temp isKindOfClass:[NSArray class]]) ||  (((NSArray *) temp).count == 0)) {
+            return;
+        }
+        NSArray *arr = (NSArray *)temp;
+        // Query fatta tramite il QueryHelper.php: Ricordiamoci che ha un FALSE finale.
+        if (arr.count == 1) {
+            // c'è solo il FALSE finale, quindi l'esercente non ha contratto.
+            tipodettaglio = CouponEsercenteSenzaContratto;
+        }
+        if (arr.count == 2) {
+            // abbiamo un risultato. Il primo elemento dovrebbe essere un dict, il secondo il false. controlliamo:
+            temp = [arr objectAtIndex:0];
+            if (![temp isKindOfClass:[NSDictionary class]]) {
+                return;
+            }
+            NSDictionary *dict = (NSDictionary *)temp;
+            NSInteger tipologia = [[dict objectForKey:@"IdTipologia_Esercente"] integerValue];
+            if ((tipologia ==  2) || (tipologia ==  5) || (tipologia ==  6) ||
+                (tipologia ==  9) || (tipologia == 59) || (tipologia == 60) ||
+                (tipologia == 61) || (tipologia == 27)) {
+                tipodettaglio = CouponEsercenteRistorazione;
+            }
+            else { //per dettaglio esercente generico
+                tipodettaglio = CouponEsercenteNormale;
+            }
+        }
+        [self.tableview beginUpdates];
+        NSArray *indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:2 inSection:1]];
+        [self.tableview reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableview endUpdates];
+    }
 
-	[self.tableview reloadData];
     
     if(self.view.window){
         NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",self.timer);
@@ -930,7 +958,6 @@ if ([rows count]>0) {//coupon disponibile
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
         NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",self.timer);
     }
-    [coupon release];
 }
 
 

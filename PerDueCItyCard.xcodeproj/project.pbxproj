@@ -175,6 +175,8 @@
 		D9463668152F6A33000A17CE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D9463661152F6A33000A17CE /* SBJsonParser.m */; };
 		D9463669152F6A33000A17CE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D9463663152F6A33000A17CE /* SBJsonWriter.m */; };
 		D94C1C0F1531F8EB00697575 /* CouponDiscountTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C0E1531F8EB00697575 /* CouponDiscountTimeCell.xib */; };
+		D94C1C111531FEF800697575 /* TipoEsercente.php in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C101531FEF800697575 /* TipoEsercente.php */; };
+		D94C1C1415320D5E00697575 /* CouponEsercCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D94C1C1315320D5E00697575 /* CouponEsercCell.m */; };
 		D95CBF41153067C800D79209 /* Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8B13ED5144001C7763 /* Coupon.xib */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
@@ -453,6 +455,9 @@
 		D9463662152F6A33000A17CE /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		D9463663152F6A33000A17CE /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		D94C1C0E1531F8EB00697575 /* CouponDiscountTimeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponDiscountTimeCell.xib; sourceTree = "<group>"; };
+		D94C1C101531FEF800697575 /* TipoEsercente.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = TipoEsercente.php; path = "php server/PHP APPv2/TipoEsercente.php"; sourceTree = SOURCE_ROOT; };
+		D94C1C1215320D5E00697575 /* CouponEsercCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponEsercCell.h; sourceTree = "<group>"; };
+		D94C1C1315320D5E00697575 /* CouponEsercCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponEsercCell.m; sourceTree = "<group>"; };
 		D9861EB3151BE2540017A16E /* Card.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = Card.php; path = "php server/PHP APPv2/Card.php"; sourceTree = SOURCE_ROOT; };
 		D992A7D1152B3A6C00703EDC /* Esercenti.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = Esercenti.php; path = "php server/PHP APPv2/Esercenti.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
@@ -885,6 +890,7 @@
 				D93F81B515270D1300C9AEA3 /* EsercentiNonRistorazione.php */,
 				D93F81B615270D1300C9AEA3 /* EsercentiRistorazione.php */,
 				D992A7D1152B3A6C00703EDC /* Esercenti.php */,
+				D94C1C101531FEF800697575 /* TipoEsercente.php */,
 			);
 			name = PHP;
 			sourceTree = "<group>";
@@ -972,6 +978,8 @@
 				D9AB0BBF1531806900B1668F /* CouponDiscountTimeCell.h */,
 				D9AB0BC01531806900B1668F /* CouponDiscountTimeCell.m */,
 				D94C1C0E1531F8EB00697575 /* CouponDiscountTimeCell.xib */,
+				D94C1C1215320D5E00697575 /* CouponEsercCell.h */,
+				D94C1C1315320D5E00697575 /* CouponEsercCell.m */,
 				D946360C152F6489000A17CE /* CouponEsercCell.xib */,
 				D9ED8BF6152F8FEF002C3D65 /* FotoIngranditaController.h */,
 				D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */,
@@ -1170,6 +1178,7 @@
 				D9463643152F6A0F000A17CE /* FBDialog.bundle in Resources */,
 				D9ED8BFA152F8FF0002C3D65 /* FotoIngranditaController.xib in Resources */,
 				D94C1C0F1531F8EB00697575 /* CouponDiscountTimeCell.xib in Resources */,
+				D94C1C111531FEF800697575 /* TipoEsercente.php in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1255,6 +1264,7 @@
 				D9BBBC48152F84B60032B9E3 /* MBProgressHUD.m in Sources */,
 				D9ED8BF9152F8FF0002C3D65 /* FotoIngranditaController.m in Sources */,
 				D9AB0BC11531806900B1668F /* CouponDiscountTimeCell.m in Sources */,
+				D94C1C1415320D5E00697575 /* CouponEsercCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
