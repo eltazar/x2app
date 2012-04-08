@@ -149,9 +149,9 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
-	
+	UITableViewCell *cell;
 	if (indexPath.section == 0 && indexPath.row == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CouponDescrOffertaCell"];
         if (cell == nil){
             cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDescrOffertaCell" owner:self options:NULL] objectAtIndex:0];
         } 
@@ -164,62 +164,67 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
     }
     
     else if (indexPath.section == 0 && indexPath.row == 1) {
-        // Qui è necessario accedere alla cella col suo tipo:
-        CouponDiscountTimeCell *cdtCell;
-        if (cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDiscountTimeCell" owner:self options:NULL] objectAtIndex:0];
-        } 
-        
-        cdtCell = (CouponDiscountTimeCell *)cell;
-        self.tempoLbl = cdtCell.tempoLbl;
-        [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra", [self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-        cdtCell.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_acquisto"]]; 
-        cdtCell.scontoLbl.text = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_sconto_per"]];
-        cdtCell.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"offerta_sconto_va"]];
-        cdtCell.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_facciale"]];
-        
-        NSString *imgUrlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
-        [cdtCell loadImageFromUrlString:imgUrlString];
-        cdtCell.viewController = self;
-        //NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
-        //[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
-        //NSString *datadb = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"coupon_periodo_dal"]];
-        NSDateFormatter *formatodb = [[NSDateFormatter alloc] init];
-        [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        NSDate *now = [[NSDate alloc] init];
-        NSString *scad = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_periodo_al"]];
-        NSDate *datascadenza = [formatodb dateFromString:scad];
-        secondsLeft =[datascadenza timeIntervalSinceDate:now];
-        int days, hours, minutes, seconds;
-        days = secondsLeft / (3600 * 24);
-        hours = (secondsLeft - (days *24 * 3600)) / 3600;
-        minutes = (secondsLeft - ((hours * 3600) + (days *24 * 3600))) / 60;
-        seconds = secondsLeft % 60;
-        //NSLog(@"time =%02d:%02d:%02d:%02d", days, hours, minutes, seconds);
-        self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds", days, hours, minutes, seconds];
-        [formatodb release];
-        [now release];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        // Qui cambiamo un po' il flusso. Dato che è inutile reinizializzare ogni volta la cella (ogni reinizializzazione causa l'apertura di una connessione http per il download dell'immagine...) se la cella arriva dal dequeue allora (dato che è l'unica con questo reuse identifier) assumiamo che sia già pronta, e non facciamo nulla.    In caso contrario, la allochiamo e inizializziamo. 
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CouponDiscountTimeCell"];
+        if (!cell) {
+            NSLog(@"%@::cellForRow Non stiamo riusando!", [self class]);
+            CouponDiscountTimeCell *cdtCell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDiscountTimeCell" owner:self options:NULL] objectAtIndex:0];
+         
+            self.tempoLbl = cdtCell.tempoLbl;
+            [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra", [self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+            cdtCell.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_acquisto"]]; 
+            cdtCell.scontoLbl.text = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_sconto_per"]];
+            cdtCell.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"offerta_sconto_va"]];
+            cdtCell.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_facciale"]];
+            
+            NSString *imgUrlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
+            [cdtCell loadImageFromUrlString:imgUrlString];
+            cdtCell.viewController = self;
+            //NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
+            //[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
+            //NSString *datadb = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"coupon_periodo_dal"]];
+            NSDateFormatter *formatodb = [[NSDateFormatter alloc] init];
+            [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSDate *now = [[NSDate alloc] init];
+            NSString *scad = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_periodo_al"]];
+            NSDate *datascadenza = [formatodb dateFromString:scad];
+            secondsLeft =[datascadenza timeIntervalSinceDate:now];
+            int days, hours, minutes, seconds;
+            days = secondsLeft / (3600 * 24);
+            hours = (secondsLeft - (days *24 * 3600)) / 3600;
+            minutes = (secondsLeft - ((hours * 3600) + (days *24 * 3600))) / 60;
+            seconds = secondsLeft % 60;
+            //NSLog(@"time =%02d:%02d:%02d:%02d", days, hours, minutes, seconds);
+            self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds", days, hours, minutes, seconds];
+            [formatodb release];
+            [now release];
+            cell = cdtCell;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
     }
     
     else if (indexPath.section == 1 && indexPath.row == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CouponCell"];
         if ( cell == nil) {	
             cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
         }
         UILabel *t1 = (UILabel *)[cell viewWithTag:1];
         t1.text = @"Dettagli offerta";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     else if (indexPath.section == 1 && indexPath.row == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CouponCell"];
         if (cell == nil){	
             cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
         }
         UILabel *t2 = (UILabel *)[cell viewWithTag:1];
         t2.text = @"Condizioni";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     else if (indexPath.section == 1 && indexPath.row == 2) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CouponEsercCell"];
         if (cell == nil){	
             cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponEsercCell" owner:self options:NULL] objectAtIndex:0];
         }
@@ -227,38 +232,51 @@ typedef enum {CouponEsercente, CouponEsercenteRistorazione, CouponEsercenteSenza
         t3.text = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"esercente_nome"]];
         UILabel *t4 = (UILabel *)[cell viewWithTag:2];
         t4.text = [NSString stringWithFormat:@"%@, %@",[self.dataModel objectForKey:@"esercente_indirizzo"],[self.dataModel objectForKey:@"esercente_comune"]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     else if (indexPath.section == 1 && indexPath.row == 3) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CouponCell"];
         if (cell == nil){	
             cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
         }
         UILabel *t5 = (UILabel *)[cell viewWithTag:1];
         t5.text = @"Per saperne di più...";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     else if (indexPath.section == 2 && indexPath.row == 0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CouponCell"];
         if (cell == nil) {	
             cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
         }
         UILabel *testo = (UILabel *)[cell viewWithTag:1];
         testo.text = @"Condividi questa offerta";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     else if (indexPath.section == 2 && indexPath.row == 1) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CouponCell"];
         if (cell == nil) {	
            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];
         }
         UILabel *lbl = (UILabel *)[cell viewWithTag:1];
         lbl.text = @"Contatta PerDue";
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     else if (indexPath.section == 2 && indexPath.row == 2) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"CouponCell"];
         if (cell == nil) {	
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];                }
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"CouponCell" owner:self options:NULL] objectAtIndex:0];                
+        }
         UILabel *faq = (UILabel *)[cell viewWithTag:1];
         faq.text = @"F.A.Q.";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+    else {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"bogus"];
     }
 
 	return cell;

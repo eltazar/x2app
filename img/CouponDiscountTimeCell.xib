@@ -141,7 +141,6 @@
 								<string key="NSFrame">{{123, 111}, {162, 23}}</string>
 								<reference key="NSSuperview" ref="785300676"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC45MDY0NzgxMDIyAA</bytes>
@@ -397,6 +396,7 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<reference key="IBUIContentView" ref="785300676"/>
+				<string key="IBUIReuseIdentifier">CouponDiscountTimeCell</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -768,23 +768,23 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>asyncImageView</string>
 							<string>caricamentoImmagineSpinner</string>
-							<string>couponViewController</string>
 							<string>prezzoCouponLbl</string>
 							<string>prezzoOrigLbl</string>
 							<string>risparmioLbl</string>
 							<string>scontoLbl</string>
 							<string>tempoLbl</string>
+							<string>viewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>AsyncImageView</string>
 							<string>UIActivityIndicatorView</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
 							<string>Coupon</string>
-							<string>UILabel</string>
-							<string>UILabel</string>
-							<string>UILabel</string>
-							<string>UILabel</string>
-							<string>UILabel</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -793,12 +793,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>asyncImageView</string>
 							<string>caricamentoImmagineSpinner</string>
-							<string>couponViewController</string>
 							<string>prezzoCouponLbl</string>
 							<string>prezzoOrigLbl</string>
 							<string>risparmioLbl</string>
 							<string>scontoLbl</string>
 							<string>tempoLbl</string>
+							<string>viewController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -809,10 +809,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">caricamentoImmagineSpinner</string>
 								<string key="candidateClassName">UIActivityIndicatorView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">couponViewController</string>
-								<string key="candidateClassName">Coupon</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">prezzoCouponLbl</string>
@@ -833,6 +829,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">tempoLbl</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">viewController</string>
+								<string key="candidateClassName">Coupon</string>
 							</object>
 						</object>
 					</object>
