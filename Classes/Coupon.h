@@ -58,8 +58,8 @@
 
 
 /*facebook*/
--(void)getFacebookName;
--(void)postToWall;
+- (void)postToWall;
+- (void)logoutFromFB;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil isOffertaDelGiorno:(BOOL)isODG;
 

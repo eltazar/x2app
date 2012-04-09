@@ -8,10 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "CJSONDeserializer.h"
-//#import "Offerta.h"
 #import "AsyncImageView.h"
 #import "DatabaseAccess.h"
-#import "Reachability.h"
 
 @interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,DatabaseAccessDelegate> {
 	
@@ -19,7 +17,6 @@
 	NSMutableArray *rows;
 	UIViewController *detail;
 	NSMutableDictionary *dict;
-	//NSURL *url;
 	IBOutlet UIView* footerView;
 	IBOutlet UIActivityIndicatorView *CellSpinner;
     IBOutlet UILabel *citta;
@@ -35,7 +32,6 @@
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *CellSpinner;
 
 - (IBAction)Opzioni:(id)sender;
-- (int)check:(Reachability*)curReach;
 - (void) spinTheSpinner;
 - (void) doneSpinning;
 @end

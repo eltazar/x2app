@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "CJSONDeserializer.h"
 #import "Commento.h"
-#import "Reachability.h"
 #import "DatabaseAccess.h"
 
 @interface Commenti : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, DatabaseAccessDelegate> {

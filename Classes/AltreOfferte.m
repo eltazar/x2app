@@ -10,25 +10,11 @@
 #import "Utilita.h"
 #import "OpzioniCoupon.h"
 #import "DatabaseAccess.h"
-#import "Reachability.h"
 #import "Coupon.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation AltreOfferte
 @synthesize footerView,CellSpinner,tableview,rows,dict;
-
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

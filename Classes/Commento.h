@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CJSONDeserializer.h"
-#import "Reachability.h"
 
 
 @interface Commento : UIViewController {

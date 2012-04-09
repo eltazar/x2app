@@ -7,23 +7,11 @@
 //
 
 #import "Info.h"
+#import "Utilita.h"
 
 
 @implementation Info
 @synthesize close, credits,tableview,sito,webView,cred;
-
--(int)check:(Reachability*) curReach{
-	NetworkStatus netStatus = [curReach currentReachabilityStatus];
-	
-	switch (netStatus){
-		case NotReachable:{
-			return -1;
-			break;
-		}
-		default:
-			return 0;
-	}
-}
 
 - (IBAction)opencredits:(id)sender {
 
@@ -286,26 +274,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 -(void)viewWillAppear:(BOOL)animated {
     NSLog(@"Info::viewWillAppear");
     [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
-	int wifi=0;
-	int internet=0;
-	internetReach = [[Reachability reachabilityForInternetConnection] retain];
-	internet= [self check:internetReach];
-	
-	wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
-	wifi=[self check:wifiReach];	
-	if( (internet==-1) &&( wifi==-1) ){
+	if (![Utilita networkReachable]) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
 		[alert show];
         [alert release];
-
 	}
-	
-	
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[wifiReach release];
-	[internetReach release];
     [super viewWillDisappear:animated];
 	
 	

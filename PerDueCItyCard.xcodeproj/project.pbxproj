@@ -351,8 +351,6 @@
 		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
 		ACF7656C151A4CF000914BDD /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
 		ACF7656D151A4CF000914BDD /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
-		ACF76570151A4D1000914BDD /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		ACF76571151A4D1000914BDD /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		ACF76573151A4D4900914BDD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D91D43021519CD50001D9033 /* LocalDatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDatabaseAccess.h; sourceTree = "<group>"; };
 		D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDatabaseAccess.m; sourceTree = "<group>"; };
@@ -703,8 +701,6 @@
 		ACBAA16D14FF968100F7B347 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				ACF76570151A4D1000914BDD /* MBProgressHUD.h */,
-				ACF76571151A4D1000914BDD /* MBProgressHUD.m */,
 				ACA2FBEC1507A22000E3921B /* Utilita.h */,
 				ACA2FBED1507A22000E3921B /* Utilita.m */,
 			);
