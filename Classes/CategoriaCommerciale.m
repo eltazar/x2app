@@ -18,43 +18,40 @@
 
 
 //Metodi privati
-@interface CategoriaCommerciale () {
-    BOOL lastFetchWasASearch;
-    BOOL inSearchUI;
-    CLLocationDegrees latitude;
-    CLLocationDegrees longitude;
-    NSString *_phpFile;
-    NSString *_phpSearchFile;
-    GeoDecoder *_geoDec;
-    DatabaseAccess *_dbAccess;
-    NSArray* _tempBuff;
-}
-- (NSString *)searchMethod;
-- (NSArray *)fetchRowsFromUrlString:(NSString*) urlString;
-- (void)fetchRows;
-- (NSInteger)fetchMoreRows;
-- (void)fetchRowsBySearchKey:(NSString *)searchkey;
-- (void)showMap:(id)sender;
-- (void)hideMap:(id)sender;
-@property (nonatomic, retain) NSString *phpFile;
-@property (nonatomic, retain) NSString *phpSearchFile;
+@interface CategoriaCommerciale () {}
+@property (nonatomic, retain) NSString *categoria;
 @property (nonatomic, retain) GeoDecoder *geoDec;
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
 @property (nonatomic, retain) NSArray *tempBuff;
+
+@property (nonatomic, retain) NSString *urlString;
+@property (nonatomic, retain) NSMutableArray *dataModel;
+- (NSString *)searchMethod;
+- (void)fetchRows;
+- (void)fetchMoreRows;
+- (void)fetchRowsBySearchKey:(NSString *)searchkey;
+- (void)showMap:(id)sender;
+- (void)hideMap:(id)sender;
+
 @end
+
+
 
 
 @implementation CategoriaCommerciale
 
 
 // Properties
-@synthesize urlString = _urlString, rows = _rows;
+
 
 // IBOutlets
-@synthesize searchBar = _searchBar, tableView = _tableView, mapView = _mapView, footerView = _footerView, /*searchSegCtrlView,*/ searchSegCtrl = _searchSegCtrl, mapTypeSegCtrl = _mapTypeSegCtrl;
+@synthesize searchBar=_searchBar, tableView=_tableView, mapView=_mapView, footerView=_footerView, searchActivityIndicator=_searchActivityIndicator,  searchSegCtrl=_searchSegCtrl, mapTypeSegCtrl=_mapTypeSegCtrl;
 
 // Properties private
-@synthesize phpFile = _phpFile, phpSearchFile = _phpSearchFile,  geoDec = _geoDec, dbAccess = _dbAccess, tempBuff = _tempBuff;
+@synthesize categoria=_categoria, geoDec=_geoDec, dbAccess=_dbAccess, tempBuff=_tempBuff;
+
+// Properties protected
+@synthesize urlString=_urlString, dataModel=_dataModel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -66,13 +63,11 @@
 }
 
 
-- (id)initWithTitle:(NSString *)title phpFile:(NSString *)pf phpSearchFile:(NSString *)psf latitude:(CLLocationDegrees)la longitude:(CLLocationDegrees)lo {
+- (id)initWithTitle:(NSString *)title categoria:(NSString *)cat location:(CLLocationCoordinate2D)lo {
     self = [self initWithNibName:nil bundle:nil];
     self.title = title;
-    self.phpFile = pf;
-    self.phpSearchFile = psf;
-    latitude = la;
-    longitude = lo;
+    self.categoria = cat;
+    location = lo;
     return self;
 }
 
@@ -89,10 +84,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/Esercenti.php";
-    self.rows = [[[NSMutableArray alloc] init] autorelease];
+    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione.php";
+    self.dataModel = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
     inSearchUI = NO;
+    didFetchAllRows = NO;
 	UIBarButtonItem *mapButton = [[[UIBarButtonItem alloc]
                                    initWithTitle:@"Mappa"
                                    style:UIBarButtonItemStyleBordered
@@ -113,11 +109,14 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
         [alert show];
         [alert release];
-	} else {
+	} 
+    else {
         // Quando sto per visualizzare la view eseguo il fetch delle righe,
         // ma solo se non è stato già fatto. Es: apro la view -> torno alla
         // springboard -> torno all'app PerDue senza riscaricare i dati.
-        if (!self.rows.count) [self fetchRows];
+        if (self.dataModel.count == 0) {
+            [self fetchRows];
+        }
         // TODO: se già li ho scaricati non dovrei riscaricarli.
         if(! [[UserDefaults city] isEqualToString:@"Qui"]) {
             [self.geoDec searchCoordinatesForAddress:[UserDefaults city]];
@@ -134,7 +133,7 @@
     
     // Roba ri-creata in viewDidLoad:
     self.urlString = nil;
-    self.rows = nil;
+    self.dataModel = nil;
     self.navigationItem.rightBarButtonItem = nil;
     self.geoDec.delegate = nil;
     self.geoDec = nil;
@@ -156,9 +155,6 @@
 
 
 - (void)dealloc {
-    self.urlString = nil;
-    self.rows = nil;
-    
     self.mapView.delegate = nil;
     self.mapView = nil;
     self.tableView.delegate = nil;
@@ -169,18 +165,19 @@
     self.searchSegCtrl = nil;
 	self.footerView = nil;
     
-    self.phpFile = nil; 
-    self.phpSearchFile = nil;
+    self.categoria = nil; 
     self.geoDec.delegate = nil;
     self.geoDec = nil;
     self.dbAccess.delegate = nil;
     self.dbAccess = nil;
+    
+    self.urlString = nil;
+    self.dataModel = nil;
     [super dealloc];
 }
 
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
@@ -190,9 +187,10 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tView {
-	if ([self.rows count] < 6) {
+	if ([self.dataModel count] < 6) {
 		return 1;
-	} else {
+	} 
+    else {
 		return 2;
 	}
 }
@@ -201,7 +199,7 @@
 - (NSInteger)tableView:(UITableView *)tView numberOfRowsInSection:(NSInteger)section {
 	switch (section) {
 		case 0:
-			return [self.rows count];
+			return [self.dataModel count];
 		case 1:
 			return 1;
 		default:
@@ -221,9 +219,10 @@
 		UILabel *altri = (UILabel *)[cell viewWithTag:1];
 		altri.text = @"Mostra altri...";
 		UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
-		altri2.text = @"";
+		altri2.text = (didFetchAllRows)? @"Non ci sono altri risultati da mostrare" : @"";
 		return cell;		
-	} else {
+	} 
+    else {
         // Stiamo mostrando la cella relativa ad un esercente
 		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:@"CategoriaCommercialeCell"];
 		
@@ -231,7 +230,7 @@
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"CategoriaCommercialeCell" owner:self options:NULL] objectAtIndex:0];
 		}
 		
-		NSDictionary *r  = [self.rows objectAtIndex:indexPath.row];
+		NSDictionary *r  = [self.dataModel objectAtIndex:indexPath.row];
 		
 		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
 		esercente.text = [r objectForKey:@"Insegna_Esercente"];
@@ -271,7 +270,7 @@
 
 - (void)tableView:(UITableView *)tView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {
-		NSDictionary* r = [self.rows objectAtIndex: indexPath.row];
+		NSDictionary* r = [self.dataModel objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
 		DettaglioEsercente *detail = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
@@ -284,14 +283,11 @@
         [detail release];
 	}
 	else { 
-        //riga mostra altri
-		int i = [self fetchMoreRows];
-		if (i < 20) { // non ci sono alri esercenti
-			UITableViewCell *cell = [tView cellForRowAtIndexPath:indexPath];
-			UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
-			altri2.text = @"Non ci sono altri esercenti da mostrare";
-		}
-	}
+		if (!didFetchAllRows) {
+            [self fetchMoreRows];
+        }
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 
@@ -320,6 +316,7 @@
     //rilascio controller
     [detail release];
 }
+
 
 //zoom su posizione utente
 - (void)mapView:(MKMapView *)m didAddAnnotationViews:(NSArray *)views {
@@ -411,11 +408,11 @@
     NSArray *resultsArray = [geoData objectForKey:@"results"];
     NSDictionary *result = [resultsArray objectAtIndex:0];
     //NSString *addressString = [ result objectForKey:@"formatted_address"];
-    latitude = [[[[result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
-    longitude = [[[[result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
-    NSLog(@"LAT = %f LONG = %f",latitude,longitude);
+    location.latitude = [[[[result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
+    location.longitude = [[[[result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
+    NSLog(@"LAT = %f LONG = %f", location.latitude,location.longitude);
     MKCoordinateSpan span = MKCoordinateSpanMake(0.15,0.15);
-    MKCoordinateRegion region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(latitude, longitude), span);
+    MKCoordinateRegion region = MKCoordinateRegionMake(location, span);
     [self.mapView setRegion:region animated:YES];
 }
 
@@ -430,21 +427,47 @@
 
 - (void)didReceiveCoupon:(NSDictionary *)dataDict {
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
-    NSArray *rows = [dataDict objectForKey:type];
+    NSMutableArray *rows = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
     
     // Ci aspettiamo che rows sia effettivamente un array, se non lo è
     // si ignora.
     if (![rows isKindOfClass:[NSArray class]]) return;
     
-    if ([type isEqualToString:@"Esercenti:FirstRows"]) {
-        //
-    } else if ([type isEqualToString:@"Esercenti:MoreRows"]) {
-        //
-    } else if ([type isEqualToString:@"Esercenti:Search"]) {
-        //
+    [rows removeLastObject];
+    if ([type isEqualToString:@"Esercente:FirstRows"]) {
+        [self.dataModel removeAllObjects];
+        [self.dataModel addObjectsFromArray:rows];
+        [self.tableView reloadData];
     } 
-    
-    [self compare:rows];
+    else if ([type isEqualToString:@"Esercente:MoreRows"]) {
+        if (rows.count == 0) {
+            didFetchAllRows = YES;
+            NSArray *indexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil];
+            [self.tableView beginUpdates];
+            [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
+            [indexPaths release];
+
+        }
+        else {
+            NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:rows.count]; 
+            for (int i = self.dataModel.count; i < self.dataModel.count + rows.count; i++) {
+                [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+            }
+            [self.tableView beginUpdates];
+            [self.dataModel addObjectsFromArray:rows];
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
+            [indexPaths release];
+        }
+    } 
+    else if ([type isEqualToString:@"Esercente:Search"]) {
+        [self.searchActivityIndicator stopAnimating];
+        self.searchActivityIndicator.hidden = YES;
+        [self.dataModel removeAllObjects];
+        [self.dataModel addObjectsFromArray:rows];
+        [self.tableView reloadData];
+    } 
 }
 
 
@@ -471,80 +494,30 @@
 #pragma mark - CategoriaCommerciale (metodi privati)
 
 
-- (NSArray *)fetchRowsFromUrlString:(NSString*) urlString {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSLog(@"DoveUsarla: Fetching from url:\n\t%@", urlString);
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSError *error = nil;
-    NSString *jsonResponse = [[[NSString alloc] initWithContentsOfURL:url encoding:NSStringEncodingConversionAllowLossy error:&error] autorelease];
-    // TODO: gestire errori
-	NSData *jsonData = [jsonResponse dataUsingEncoding:NSUTF8StringEncoding];
-	error = nil;
-	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];	
-    // TODO: gestire errori
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    if (dict) {
-        self.tempBuff = [dict objectForKey:@"Esercente"];
-        return [dict objectForKey:@"Esercente"];
-    } else {
-        return [[[NSArray alloc] init] autorelease];
-    }
-}
-
-
 - (void) fetchRows{
     lastFetchWasASearch = NO;
-	NSString *urlStringV1 = [NSString stringWithFormat: 
-                           @"http://www.cartaperdue.it/partner/%@.php?prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d&to=20", 
-                            self.phpFile, [UserDefaults city],
-                            latitude, longitude,
-                            [UserDefaults weekDay], [self searchMethod], 0];
-
+    didFetchAllRows = NO;
     NSString *postString = [NSString stringWithFormat:
                             @"request=fetch&categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
-                            self.phpFile, [UserDefaults city],
-                            latitude, longitude, [UserDefaults weekDay],
+                            self.categoria, [UserDefaults city],
+                            location.latitude, location.longitude, [UserDefaults weekDay],
                             [self searchMethod], 0];
     NSLog(@"urlString is: [%@]", self.urlString);
     NSLog(@"postString is: [%@]", postString);
     [self.dbAccess postConnectionToURL:self.urlString withData:postString];
-    
-    NSArray *newRows = [self fetchRowsFromUrlString: urlStringV1];
-    [self.rows removeAllObjects];
-    [self.rows addObjectsFromArray:newRows];
-    [self.tableView reloadData];
 }
 
 
-- (NSInteger)fetchMoreRows {
-    if (lastFetchWasASearch) return 0;
-    NSString *urlString = [NSString stringWithFormat: 
-                           @"http://www.cartaperdue.it/partner/%@.php?prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d&to=20", 
-                           self.phpFile, [UserDefaults city],
-                           latitude, longitude,
-                           [UserDefaults weekDay], [self searchMethod], self.rows.count];
-    
+- (void)fetchMoreRows {
+    if (lastFetchWasASearch) {
+        return;
+    }
     NSString *postString = [NSString stringWithFormat:
                             @"request=fetch&categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
-                            self.phpFile, [UserDefaults city],
-                            latitude, longitude, [UserDefaults weekDay],
-                            [self searchMethod], self.rows.count];
+                            self.categoria, [UserDefaults city],
+                            location.latitude, location.longitude, [UserDefaults weekDay],
+                            [self searchMethod], self.dataModel.count];
     [self.dbAccess postConnectionToURL:self.urlString withData:postString];
-    
-    NSArray *newRows = [self fetchRowsFromUrlString: urlString];
-    NSMutableArray *indexPaths = [[NSMutableArray alloc]initWithCapacity:newRows.count]; 
-    for (int i = self.rows.count; i < self.rows.count + newRows.count; i++) {
-        [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-    }
-    
-    [self.tableView beginUpdates];
-    [self.rows addObjectsFromArray:newRows];
-    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView endUpdates];
-    
-    [indexPaths release];
-    return newRows.count;
 }
 
 
@@ -552,22 +525,15 @@
     lastFetchWasASearch = YES;
     // inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
     searchKey = [searchKey stringByReplacingOccurrencesOfString:@" " withString:@"-"]; 
-	NSString *urlString = [NSString stringWithFormat: 
-                 @"http://www.cartaperdue.it/partner/%@.php?chiave=%@&&lat=%f&long=%f",
-                 self.phpSearchFile, searchKey, 
-                 latitude, longitude];
     
     NSString *postString = [NSString stringWithFormat:
                             @"request=search&categ=%@&chiave=%@&lat=%f&long=%f&ordina=distanza&from=0",
-                            self.phpFile, searchKey,
-                            latitude, longitude, [UserDefaults weekDay],
+                            self.categoria, searchKey,
+                            location.latitude, location.longitude, [UserDefaults weekDay],
                             [self searchMethod], 0];
+    self.searchActivityIndicator.hidden = NO;
+    [self.searchActivityIndicator startAnimating];
     [self.dbAccess postConnectionToURL:self.urlString withData:postString];
-    
-    NSArray *newRows = [self fetchRowsFromUrlString: urlString];
-    [self.rows removeAllObjects];
-    [self.rows addObjectsFromArray:newRows];
-    [self.tableView reloadData];
 }
 
 
@@ -583,8 +549,8 @@
 	self.navigationItem.titleView = self.mapTypeSegCtrl;
 	self.mapView.showsUserLocation = YES;
 	
-	NSLog(@"Ci sono  %d esercenti da inserire in mappa", [self.rows count]);
-	for (NSDictionary *r in self.rows) {
+	NSLog(@"Ci sono  %d esercenti da inserire in mappa", [self.dataModel count]);
+	for (NSDictionary *r in self.dataModel) {
 		NSLog(@"%@",[r objectForKey:@"Insegna_Esercente"]);
         
 		double lati    = [[r objectForKey:@"Latitudine"]  doubleValue];
@@ -643,34 +609,6 @@
     }
 }
 
-
-- (void) compare:(NSArray *)rows {
-    // N.B. è opportuno ricordare che rows contiene un FALSE finale, 
-    // come tutti gli array ritornati dalle nostre query php.
-    BOOL success = TRUE;
-    
-    if (self.tempBuff.count != (rows.count - 1)) {
-        success = FALSE;
-    } else {
-        printf("\n");
-        for (int i = 0; i < rows.count-1; i++) {
-            NSInteger r1id = [[[self.tempBuff objectAtIndex:i] objectForKey:@"IDesercente"] intValue];
-            NSInteger r2id = [[[rows objectAtIndex:i] objectForKey:@"IDesercente"] intValue];
-            if ( r1id != r2id ) {
-                success = FALSE;
-                printf("X[%d/%d]", r1id, r2id);
-            } else {
-                printf("O");
-            }
-        }
-        printf("\n");
-    }
-    
-    if (success) 
-        NSLog(@"CategoriaCommerciale compare: ** SUCCESS");
-    else
-        NSLog(@"CategoriaCommerciale compare: ** FAIL");
-}
 
 
 @end

@@ -14,32 +14,42 @@
 
 
 @interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, MKAnnotation, UIAlertViewDelegate, GeoDecoderDelegate, DatabaseAccessDelegate> {
-    NSString *_urlString;
-    NSMutableArray *_rows;
+@private
+    BOOL lastFetchWasASearch;
+    BOOL inSearchUI;
+    BOOL didFetchAllRows;
+    CLLocationCoordinate2D location;
+    NSString *_categoria;
+    GeoDecoder *_geoDec;
+    DatabaseAccess *_dbAccess;
+    NSArray* _tempBuff;
+    // IBOs:
+    UISearchBar *_searchBar;
+    UITableView *_tableView;
+    MKMapView *_mapView;
+    UIView *_footerView;
+    UIActivityIndicatorView *_searchActivityIndicator;
+    UISegmentedControl *_searchSegCtrl;
+    UISegmentedControl *_mapTypeSegCtrl;
     
-    IBOutlet UISearchBar *_searchBar;
-    IBOutlet UITableView *_tableView;
-    IBOutlet MKMapView *_mapView;
-    IBOutlet UIView *_footerView;
-    /*IBOutlet UIView *searchSegCtrlView;*/
-    IBOutlet UISegmentedControl *_searchSegCtrl;
-    IBOutlet UISegmentedControl *_mapTypeSegCtrl;
+@protected
+    NSString *_urlString;
+    NSMutableArray *_dataModel;
 }
 
-
-@property (nonatomic, retain) NSString *urlString;
-@property (nonatomic, retain) NSMutableArray *rows;
 
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) IBOutlet UIView *footerView;
-/*@property (nonatomic, retain) IBOutlet UIView *searchSegCtrlView;*/
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *searchActivityIndicator;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *searchSegCtrl;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *mapTypeSegCtrl;
 
+@property (nonatomic, retain, readonly) NSMutableArray *dataModel;
 
-- (id)initWithTitle:(NSString *)title phpFile:(NSString *)phpFile phpSearchFile:(NSString *)phpSearchFile latitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude;
+
+- (id)initWithTitle:(NSString *)title categoria:(NSString *)cat location:(CLLocationCoordinate2D)lo;
 
 - (IBAction)didChangeSearchSegCtrlState:(id)sender;
 - (IBAction)didChangeMapTypeSegCtrlState:(id)sender;

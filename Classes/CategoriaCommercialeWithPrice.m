@@ -10,6 +10,7 @@
 #import "DettaglioEsercenteRistorazione.h"
 #import "EsercenteMapAnnotation.h"
 
+
 @implementation CategoriaCommercialeWithPrice
 
 
@@ -19,7 +20,8 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     NSLog (@"sto cambiando il valore di urlString");
-    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione.php";
+    [_urlString release];
+    _urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione.php";
 }
 
 
@@ -35,7 +37,7 @@
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"CategoriaCommercialeWithPriceCell" owner:self options:NULL] objectAtIndex:0];
 		}
 		
-		NSDictionary *r  = [super.rows objectAtIndex:indexPath.row];
+		NSDictionary *r  = [super.dataModel objectAtIndex:indexPath.row];
 		
 		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
 		esercente.text = [r objectForKey:@"Insegna_Esercente"];
@@ -68,7 +70,7 @@
 
 - (void)tableView:(UITableView *)tView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-		NSDictionary* r = [super.rows objectAtIndex: indexPath.row];
+		NSDictionary* r = [super.dataModel objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
 		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
         DettaglioEsercenteRistorazione *detail = [[DettaglioEsercenteRistorazione alloc]initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];

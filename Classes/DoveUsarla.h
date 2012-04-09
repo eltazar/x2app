@@ -11,13 +11,13 @@
 
 
 @interface DoveUsarla : UITableViewController<CLLocationManagerDelegate,UIAlertViewDelegate>  {
-    // Properties' ivars:
+@private
+    CLLocationCoordinate2D location;
+    CLLocationManager *_locationManager;
     NSArray *_dataModel;
     // IBOutlet properties' ivars:
     IBOutlet UILabel *_tableHeaderLabel;
 }
-
-@property (nonatomic, retain) NSArray *dataModel;
 
 @property (nonatomic, retain) IBOutlet UILabel *tableHeaderLabel;
 

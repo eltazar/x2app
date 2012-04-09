@@ -14,26 +14,20 @@
 #import "Utilita.h"
 
 
-@interface DoveUsarla () {
-    CLLocationDegrees latitude;
-    CLLocationDegrees longitude;
-    
-    CLLocationManager *_locationManager;
-}
+@interface DoveUsarla () {}
 @property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain) NSArray *dataModel;
 @end
 
 
 @implementation DoveUsarla
 
-// Properties: 
-@synthesize dataModel = _dataModel;
 
 // IBOutlets:
-@synthesize tableHeaderLabel = _tableHeaderLabel;
+@synthesize tableHeaderLabel=_tableHeaderLabel;
 
 // Private Properties:
-@synthesize locationManager = _locationManager;
+@synthesize locationManager=_locationManager, dataModel=_dataModel;
 
 
 - (void)didReceiveMemoryWarning {
@@ -60,64 +54,54 @@
 	
 	self.dataModel = [[[NSArray alloc] initWithObjects:
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Ristoranti", @"title",
-                         @"CategoriaCommercialeWithPrice", @"class",
-                         @"ristoranti", @"phpFile",
-                         @"RicercaRistorante", @"phpSearchFile", 
+                         @"Ristoranti",                     @"title",
+                         @"CategoriaCommercialeWithPrice",  @"class",
+                         @"ristoranti",                     @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Pubs e Bar", @"title",
-                         @"CategoriaCommercialeWithPrice", @"class",
-                         @"pubsebar", @"phpFile",
-                         @"RicercaPubseBar", @"phpSearchFile", 
+                         @"Pubs e Bar",                     @"title",
+                         @"CategoriaCommercialeWithPrice",  @"class",
+                         @"pubsebar",                       @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Cinema", @"title",
-                         @"CategoriaCommerciale", @"class",
-                         @"cinema", @"phpFile",
-                         @"RicercaCinema", @"phpSearchFile", 
+                         @"Cinema",                         @"title",
+                         @"CategoriaCommerciale",           @"class",
+                         @"cinema",                         @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Teatri", @"title",
-                         @"CategoriaCommerciale", @"class",
-                         @"teatri", @"phpFile",
-                         @"RicercaTeatro", @"phpSearchFile", 
+                         @"Teatri",                         @"title",
+                         @"CategoriaCommerciale",           @"class",
+                         @"teatri",                         @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Musei", @"title",
-                         @"CategoriaCommerciale", @"class",
-                         @"musei", @"phpFile",
-                         @"RicercaMuseo", @"phpSearchFile", 
+                         @"Musei",                          @"title",
+                         @"CategoriaCommerciale",           @"class",
+                         @"musei",                          @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Librerie", @"title",
-                         @"CategoriaCommerciale", @"class",
-                         @"librerie", @"phpFile",
-                         @"RicercaLibreria", @"phpSearchFile", 
+                         @"Librerie",                       @"title",
+                         @"CategoriaCommerciale",           @"class",
+                         @"librerie",                       @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Benessere", @"title",
-                         @"CategoriaCommerciale", @"class",
-                         @"benessere", @"phpFile",
-                         @"RicercaBenessere", @"phpSearchFile", 
+                         @"Benessere",                      @"title",
+                         @"CategoriaCommerciale",           @"class",
+                         @"benessere",                      @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Parchi", @"title",
-                         @"CategoriaCommerciale", @"class",
-                         @"parchi", @"phpFile",
-                         @"RicercaParco", @"phpSearchFile", 
+                         @"Parchi",                         @"title",
+                         @"CategoriaCommerciale",           @"class",
+                         @"parchi",                         @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Viaggi", @"title",
-                         @"CategoriaCommerciale", @"class",
-                         @"viaggi", @"phpFile",
-                         @"RicercaViaggio", @"phpSearchFile", 
+                         @"Viaggi",                         @"title",
+                         @"CategoriaCommerciale",           @"class",
+                         @"viaggi",                         @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"Altro...", @"title",
-                         @"CategoriaCommerciale", @"class",
-                         @"altro", @"phpFile",
-                         @"RicercaAltro", @"phpSearchFile", 
+                         @"Altro...",                       @"title",
+                         @"CategoriaCommerciale",           @"class",
+                         @"altro",                          @"categoria",
                          nil] autorelease],
                        nil] autorelease];
     
@@ -201,8 +185,8 @@
 
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-	latitude  = newLocation.coordinate.latitude;
-	longitude = newLocation.coordinate.longitude;
+	location.latitude  = newLocation.coordinate.latitude;
+	location.longitude = newLocation.coordinate.longitude;
 }
 
 
@@ -251,13 +235,10 @@
     NSDictionary *rowData = [self.dataModel objectAtIndex:indexPath.row];
     
     Class ViewController = NSClassFromString([rowData objectForKey:@"class"]);
-    CategoriaCommerciale *viewController = [[[ViewController alloc] 
-                                             initWithTitle:[rowData objectForKey:@"title"]
-                                             phpFile:[rowData objectForKey:@"phpFile"]
-                                             phpSearchFile:[rowData objectForKey:@"phpSearchFile"]
-                                             latitude:latitude
-                                             longitude:longitude] autorelease];
-    
+    CategoriaCommerciale *viewController = [[ViewController alloc]
+                                            initWithTitle:[rowData objectForKey:@"title"]                                            categoria:[rowData objectForKey:@"categoria"]
+                                                 location:location];
+        
     //Facciamo visualizzare la vista con i dettagli
 	[self.navigationController pushViewController:viewController animated:YES];
 }

@@ -934,7 +934,7 @@ NSString* key(NSURLConnection* con)
 
     //NSLog(@"DONE. Received Bytes: %d", [receivedData length]);
     NSString *json = [[NSString alloc] initWithBytes: [receivedData mutableBytes] length:[receivedData length] encoding:NSUTF8StringEncoding];
-    //NSLog(@"JSON  %@", json);
+    NSLog(@"JSON  %@", json);
     
     
     

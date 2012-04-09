@@ -14,6 +14,7 @@
 			<string>IBProxyObject</string>
 			<string>IBUIImageView</string>
 			<string>IBUISearchBar</string>
+			<string>IBUIActivityIndicatorView</string>
 			<string>IBMKMapView</string>
 			<string>IBUITableView</string>
 			<string>IBUISegmentedControl</string>
@@ -224,6 +225,17 @@
 						<float key="IBUISectionHeaderHeight">22</float>
 						<float key="IBUISectionFooterHeight">65</float>
 					</object>
+					<object class="IBUIActivityIndicatorView" id="301026545">
+						<reference key="NSNextResponder" ref="771859489"/>
+						<int key="NSvFlags">-2147483356</int>
+						<string key="NSFrame">{{12, 51}, {20, 20}}</string>
+						<reference key="NSSuperview" ref="771859489"/>
+						<reference key="NSWindow"/>
+						<string key="NSReuseIdentifierKey">_NS:1030</string>
+						<bool key="IBUIOpaque">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<bool key="IBUIHidesWhenStopped">NO</bool>
+					</object>
 				</array>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
@@ -294,6 +306,14 @@
 						<reference key="destination" ref="61445597"/>
 					</object>
 					<int key="connectionID">27</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">searchActivityIndicator</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="301026545"/>
+					</object>
+					<int key="connectionID">29</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -393,6 +413,7 @@
 							<reference ref="885372685"/>
 							<reference ref="975478274"/>
 							<reference ref="61445597"/>
+							<reference ref="301026545"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -421,6 +442,11 @@
 						<reference key="object" ref="605257400"/>
 						<reference key="parent" ref="311165442"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">28</int>
+						<reference key="object" ref="301026545"/>
+						<reference key="parent" ref="771859489"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -431,6 +457,7 @@
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="28.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -443,7 +470,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">27</int>
+			<int key="maxID">29</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -468,6 +495,7 @@
 						<string key="footerView">UIView</string>
 						<string key="mapTypeSegCtrl">UISegmentedControl</string>
 						<string key="mapView">MKMapView</string>
+						<string key="searchActivityIndicator">UIActivityIndicatorView</string>
 						<string key="searchBar">UISearchBar</string>
 						<string key="searchSegCtrl">UISegmentedControl</string>
 						<string key="tableView">UITableView</string>
@@ -484,6 +512,10 @@
 						<object class="IBToOneOutletInfo" key="mapView">
 							<string key="name">mapView</string>
 							<string key="candidateClassName">MKMapView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="searchActivityIndicator">
+							<string key="name">searchActivityIndicator</string>
+							<string key="candidateClassName">UIActivityIndicatorView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="searchBar">
 							<string key="name">searchBar</string>
