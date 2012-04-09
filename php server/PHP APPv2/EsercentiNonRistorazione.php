@@ -86,7 +86,7 @@
     } else if ($categ === "viaggi"){
         $categ = "IN ('48', '56')";
     } else if ($categ === "altro") {
-        $categ = "IN ('31', '36', '47', '49', '55', '56', '57')";
+        $categ = "IN ('31', '36', '46', '47', '49', '55', '56', '57')";
     } else if ($categ != "") { 
         die ("Invalid value for parameter 'categ': [$categ]");
     }
