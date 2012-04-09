@@ -37,18 +37,17 @@
     currentMonth = [dateComp month];
     currentDay = [dateComp day];
 
+    BOOL _isExpired = YES;
     if (self.expiryYear > currentYear)
-        return NO;
+        _isExpired = NO;
     else if (self.expiryYear == currentYear){
         if (self.expiryMonth > currentMonth)
-            return NO;  
+            _isExpired = NO;  
         else if (self.expiryMonth == currentMonth)
             if (self.expiryDay > currentDay)
-                return NO;
+                _isExpired = NO;
     }
-    else {
-        return YES;
-    }
+    return _isExpired;
 }
 
 
