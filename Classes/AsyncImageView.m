@@ -16,6 +16,11 @@
 
 
 - (void)loadImageFromURL:(NSURL*)url {
+    
+    if ([[self subviews] count]>0) {
+        [[[self subviews] objectAtIndex:0] removeFromSuperview];
+    }
+    
     if (connection!=nil) { 
         [connection cancel];
         [connection release];
@@ -46,9 +51,7 @@
     [connection release];
     connection=nil;
 	
-    if ([[self subviews] count]>0) {
-        [[[self subviews] objectAtIndex:0] removeFromSuperview];
-    }
+    
 	
     UIImageView* imageView = [[[UIImageView alloc] initWithImage:[UIImage imageWithData:data]] autorelease];
 	
