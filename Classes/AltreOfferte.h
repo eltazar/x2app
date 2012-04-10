@@ -12,26 +12,26 @@
 #import "DatabaseAccess.h"
 
 @interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,DatabaseAccessDelegate> {
-	
-    UITableView *tableview;
-	NSMutableArray *rows;
-	UIViewController *detail;
-	NSMutableDictionary *dict;
-	IBOutlet UIView* footerView;
-	IBOutlet UIActivityIndicatorView *CellSpinner;
-    IBOutlet UILabel *citta;
-    DatabaseAccess *dbAccess;
-    IBOutlet UIActivityIndicatorView *spinnerView;
+@private
+	NSMutableArray *_dataModel;
+    DatabaseAccess *_dbAccess;
+    // IBOs:
+    UITableView *_tableview;
+	UIView *_footerView;
+	UIActivityIndicatorView *_cellSpinner;
+    UILabel *_citta;
+    UIActivityIndicatorView *_spinnerView;
 }
 
 
-@property (nonatomic,retain) IBOutlet UITableView *tableview;
-@property (nonatomic, retain) NSMutableArray *rows;
-@property (retain,nonatomic) NSMutableDictionary *dict;
+@property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIView *footerView;
-@property (nonatomic,retain) IBOutlet UIActivityIndicatorView *CellSpinner;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *cellSpinner;
+@property (nonatomic, retain) IBOutlet UILabel *citta;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *spinnerView;
 
-- (IBAction)Opzioni:(id)sender;
-- (void) spinTheSpinner;
-- (void) doneSpinning;
+
+- (IBAction)opzioni:(id)sender;
+
+
 @end
