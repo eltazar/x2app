@@ -44,7 +44,7 @@
     UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
 	[infoButton addTarget:self action:@selector(openInfo:) forControlEvents:UIControlEventTouchUpInside];
 	UIBarButtonItem *modalButton = [[[UIBarButtonItem alloc] initWithCustomView:infoButton] autorelease];
-	[self.navigationItem setRightBarButtonItem:modalButton animated:YES];
+	[self.navigationItem setRightBarButtonItem:modalButton animated:NO];
     
 	self.tableView.tableHeaderView = [[[NSBundle mainBundle] loadNibNamed:@"DoveUsarlaTableHeader" owner:self options:NULL] objectAtIndex:0];
 	
