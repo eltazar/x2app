@@ -14,6 +14,7 @@
 #import "CartaPerDue.h"
 #import "ValidateCardController.h"
 #import "MBProgressHUD.h"
+#import "UserDefaults.h"
 
 @interface FindNearCompanyController(){
     DatabaseAccess *dbAccess;
@@ -124,9 +125,9 @@
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Caricamento...";
-    
+        
     NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",2,0];
+                            @"request=fetch&lat=41.890520&long=12.494249&giorno=%@&raggio=%d&ordina=distanza&from=%d",[UserDefaults weekDay],2,0];
     NSLog(@"urlString is: [%@]", self.urlString);
     NSLog(@"postString is: [%@]", postString);
     [dbAccess postConnectionToURL:self.urlString withData:postString];
@@ -140,7 +141,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];    
     
     NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&lat=41.890520&long=12.494249&giorno=Mercoledi&raggio=%d&ordina=distanza&from=%d",2, self.rows.count];
+                            @"request=fetch&lat=41.890520&long=12.494249&giorno=%@&raggio=%d&ordina=distanza&from=%d",[UserDefaults weekDay],2, self.rows.count];
     NSLog(@"post more string  = %@",postString);
     [dbAccess postConnectionToURL:self.urlString withData:postString];
     
@@ -179,6 +180,8 @@
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
+    
+    NSLog(@"Significant Location Change Available: %d", [CLLocationManager significantLocationChangeMonitoringAvailable]);
     
     [locationManager startMonitoringSignificantLocationChanges];
     
