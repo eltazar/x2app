@@ -234,13 +234,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *rowData = [self.dataModel objectAtIndex:indexPath.row];
     
-    Class ViewController = NSClassFromString([rowData objectForKey:@"class"]);
-    CategoriaCommerciale *viewController = [[ViewController alloc]
+    Class ViewControllerClass = NSClassFromString([rowData objectForKey:@"class"]);
+    CategoriaCommerciale *viewController = [[ViewControllerClass alloc]
                                             initWithTitle:[rowData objectForKey:@"title"]                                            categoria:[rowData objectForKey:@"categoria"]
                                                  location:location];
         
     //Facciamo visualizzare la vista con i dettagli
 	[self.navigationController pushViewController:viewController animated:YES];
+    [viewController release];
 }
 
 
