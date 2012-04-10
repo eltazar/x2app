@@ -16,8 +16,13 @@
 
 
 - (void)loadImageFromURL:(NSURL*)url {
-    if (connection!=nil) { [connection release]; }
-    if (data!=nil) { [data release]; }
+    if (connection!=nil) { 
+        [connection cancel];
+        [connection release];
+        connection = nil;
+        [data release]; 
+        data = nil;
+    }
     NSURLRequest* request = [NSURLRequest requestWithURL:url
 											 cachePolicy:NSURLRequestUseProtocolCachePolicy
 										 timeoutInterval:60.0];
