@@ -560,7 +560,8 @@ if ([rows count]>0) {//coupon disponibile
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     // Qualsiasi sia l'actionSheet, se premiamo annulla dobbiamo deselezionare la cella della tabella
-    if (buttonIndex == actionSheet.numberOfButtons) {
+    if (buttonIndex == actionSheet.numberOfButtons - 1) {
+        NSLog (@"buttonIndex == nOfButtons");
         [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
     }
     
