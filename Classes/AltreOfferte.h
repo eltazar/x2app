@@ -13,7 +13,7 @@
 
 @interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,DatabaseAccessDelegate> {
 @private
-	NSMutableArray *_dataModel;
+    NSMutableArray *_dataModel;
     DatabaseAccess *_dbAccess;
     // IBOs:
     UITableView *_tableview;

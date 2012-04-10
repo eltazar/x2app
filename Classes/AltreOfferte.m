@@ -40,7 +40,6 @@
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
     // Release any cached data, images, etc. that aren't in use.
 }
 
@@ -174,35 +173,16 @@
 	if (indexPath.section == 0) {
 		cell = [tableView dequeueReusableCellWithIdentifier:@"AltreOfferteCell"];
 		if (cell == nil) {
-			cell = [[[NSBundle mainBundle] loadNibNamed:@"AltreOfferteCell" owner:self options:NULL] objectAtIndex:0];
-			[self.cellSpinner startAnimating];
-            
-		}
-		else {
-            [self.cellSpinner stopAnimating];
-            AsyncImageView* oldImage = (AsyncImageView*)
-            [cell.contentView viewWithTag:999];
-            [oldImage removeFromSuperview];
+			cell = [[[NSBundle mainBundle] loadNibNamed:@"AltreOfferteCell" owner:self options:NULL] objectAtIndex:0];            
 		}
         
 		NSDictionary *offertaDict = [self.dataModel objectAtIndex: indexPath.row];
 		
-		CGRect frame;
-		frame.size.width=86; frame.size.height=107;
-		frame.origin.x=10; frame.origin.y=10;
-		AsyncImageView* asyncImage = [[[AsyncImageView alloc] initWithFrame:frame] autorelease];
-		asyncImage.tag = 999;
-		
-		NSString *img = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@",[offertaDict objectForKey:@"offerta_foto_big"]];
-		
-		NSURL *urlfoto = [NSURL URLWithString:img];
-		
+        AsyncImageView *asyncImageView = (AsyncImageView *)[cell viewWithTag:1];
+        NSString *imageUrlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [offertaDict objectForKey:@"offerta_foto_big"]];
+            NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
+            [asyncImageView loadImageFromURL:imageUrl];
         
-		[asyncImage loadImageFromURL:urlfoto];
-		
-		[cell.contentView addSubview:asyncImage];		
-		
-		
 		UILabel *intestazione = (UILabel *)[cell viewWithTag:4];
 		intestazione.text =[NSString stringWithFormat:@"Solo € %@ invece di € %@",[offertaDict objectForKey:@"coupon_valore_acquisto"],[offertaDict objectForKey:@"coupon_valore_facciale"]]; 
 		
