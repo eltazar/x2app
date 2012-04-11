@@ -89,7 +89,6 @@
 	[super viewDidLoad];
     
     self.idxMap = [[[IndexPathMapper alloc] init] autorelease];
-    [self populateIndexPathMap];
         
     self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
     self.dbAccess.delegate = self;
@@ -217,6 +216,7 @@
         }
         [self.activityIndicator stopAnimating];
         self.activityIndicator.hidden = YES;
+        [self populateIndexPathMap];
         [self removeNullItemsFromModel];
         [self.tableview reloadData];
     }
@@ -285,11 +285,12 @@
             citta = [self.dataModel objectForKey:@"Citta_Esercente"];
             nCampiNonNulli++;
         }
-        indirizzoLbl.text = [NSString stringWithFormat:@"%@%@%@",
+        NSString *indirizzoCompleto;
+        indirizzoCompleto = [NSString stringWithFormat:@"%@%@%@",
                              indirizzo, 
                              (nCampiNonNulli>1)  ? @", " : @"", 
                              citta];	
-        indirizzoLbl.text = [indirizzoLbl.text capitalizedString];
+        indirizzoLbl.text = (nCampiNonNulli > 0) ? [indirizzoCompleto capitalizedString] : @"Indirizzo non disponibile";
         // Test nullità e costruzione stringa indirizzo
         if ([[self.dataModel objectForKey:@"Zona_Esercente"] isKindOfClass:null]) {
             zonaLbl.text = @"";
@@ -408,6 +409,7 @@
 #pragma mark - UITableViewDelegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSLog(@"[%@ viewForHeader] section:%d title:%@", [self class], section, [self.idxMap titleForSection:section]);
     UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
     [customView setBackgroundColor:[UIColor clearColor]];
     
@@ -417,18 +419,8 @@
     lbl.lineBreakMode = UILineBreakModeWordWrap;
     lbl.numberOfLines = 0;
     lbl.font = [UIFont boldSystemFontOfSize:18];
-    
-	
-	if (section == 0) {
-		lbl.text = [self.dataModel objectForKey:@"Insegna_Esercente"];
-	}
-	else if (section == 1) {
-        lbl.text = @"Contatti";	
-    }
-	else {	
-        lbl.text = @"";
-    }
-    
+    lbl.text = [self.idxMap titleForSection:section];
+	    
     UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
     CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
     CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
@@ -442,17 +434,8 @@
 
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	NSString *lblText;
-	
-	if (section == 0) {
-		lblText = [self.dataModel objectForKey:@"Insegna_Esercente"];
-	} 
-    else if (section == 1) {
-			lblText = @"Contatti";	
-    }
-	else {
-        lblText = @"";
-    }
+    NSLog(@"[%@ heightForHeader] section:%d title:%@", [self class], section, [self.idxMap titleForSection:section]);
+	NSString *lblText = [self.idxMap titleForSection:section];
     UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
     CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
     CGSize labelSize = [lblText sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
@@ -490,8 +473,8 @@
                              (nCampiNonNulli>1)  ? @", " : @"", 
                              citta] capitalizedString];	
         
-		CLLocationDegrees latitude = [[self.dataModel objectForKey:@"Latitudine"] doubleValue];
-		CLLocationDegrees longitude =[[self.dataModel objectForKey:@"Longitudine"] doubleValue];
+		CLLocationDegrees latitude  = [[self.dataModel objectForKey:@"Latitudine"]  doubleValue];
+		CLLocationDegrees longitude = [[self.dataModel objectForKey:@"Longitudine"] doubleValue];
 		NSString *nome = [self.dataModel objectForKey:@"Insegna_Esercente"];
         
         EsercenteMapAnnotation *ann = [[[EsercenteMapAnnotation alloc] initWithLatitudine:latitude longitudine:longitude insegna:nome indirizzo:address idEsercente:0] autorelease];
@@ -626,12 +609,15 @@
 
 
 - (void)populateIndexPathMap {
+    NSString *insegnaEsercente = [self.dataModel objectForKey:@"Insegna_Esercente"];
     [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
     [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
     [self.idxMap setKey:@"GiornoValidita"   forSection:0 row:2];
+    [self.idxMap setTitle:insegnaEsercente  forSection:0];
     [self.idxMap setKey:@"Telefono"         forSection:1 row:0];
     [self.idxMap setKey:@"Email"            forSection:1 row:2];
     [self.idxMap setKey:@"URL"              forSection:1 row:3];
+    [self.idxMap setTitle:@"Contatti"       forSection:1];
     
     if (isCoupon || isGenerico) {
         [self.idxMap removeKey:@"GiornoValidita"]; 
@@ -647,6 +633,7 @@
 
 @interface IndexPathMapper () {
     NSMutableArray *map;
+    NSMutableArray *sectionTitles;
 }
 @end
 
@@ -654,31 +641,53 @@
 
 @implementation IndexPathMapper
 
+static NSString *kTitleKey = @"title";
+static NSString *kElementsKey = @"elements";
 
 - (id)init {
     self = [super init];
     if (self) {
         map = [[NSMutableArray alloc] init];
+        sectionTitles = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 
-- (void)setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row {    
-    NSMutableArray *sectionArray;
+- (void)setTitle:(NSString *)title forSection:(NSInteger)section {
     if (section >= map.count) {
-        sectionArray = [[[NSMutableArray alloc] init] autorelease];
-        [map addObject:sectionArray];
+        return;
+    }
+    [[map objectAtIndex:section] setObject:title forKey:kTitleKey];
+}
+
+
+- (NSString *)titleForSection:(NSInteger)section {
+    if (section >= map.count) {
+        return @"";
+    }
+    return [[map objectAtIndex:section] objectForKey:kTitleKey];
+}
+
+
+- (void)setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row {    
+    NSMutableDictionary *sectionDict;
+    if (section >= map.count) {
+        sectionDict = [NSMutableDictionary dictionary];
+        [sectionDict setObject:@"" forKey:kTitleKey];
+        [sectionDict setObject:[NSMutableArray array] forKey:kElementsKey];
+        [map addObject:sectionDict];
     }
     else {
-        sectionArray = [map objectAtIndex:section];
+        sectionDict = [map objectAtIndex:section];
     }
     
-    if (row >= sectionArray.count) {
-        [sectionArray addObject:key];
+    NSMutableArray *elementsArray = [sectionDict objectForKey:kElementsKey];
+    if (row >= elementsArray.count) {
+        [elementsArray addObject:key];
     }
     else {
-        [sectionArray insertObject:key atIndex:row];
+        [elementsArray insertObject:key atIndex:row];
     }
 }
 
@@ -688,40 +697,46 @@
         return nil;
     }
     else {
-        NSArray *sectionArray = [map objectAtIndex:section];
-        if (row >= sectionArray.count) {
+        NSArray *elementsArray = [[map objectAtIndex:section] objectForKey:kElementsKey];
+        if (row >= elementsArray.count) {
             return nil;
         }
         else {
-            return [sectionArray objectAtIndex:row];
+            return [elementsArray objectAtIndex:row];
         }
     }
 }
 
 
 - (void)removeKeyAtSection:(NSInteger)section row:(NSInteger)row {
-    NSMutableArray *sectionArray;
+    NSMutableArray *elementsArray;
     if (section >= map.count) {
-        sectionArray = [[[NSMutableArray alloc] init] autorelease];
-        [map addObject:sectionArray];
+        return;
     }
     else {
-        return;
+        elementsArray = [[map objectAtIndex:section] objectForKey:kElementsKey];
     }
     
-    if (row >= sectionArray.count) {
+    if (row >= elementsArray.count) {
         return;
     }
     else {
-        [sectionArray removeObjectAtIndex:row];
+        [elementsArray removeObjectAtIndex:row];
+        if (elementsArray.count == 0) {
+            [map removeObjectAtIndex:section];
+        }
     }
 
 }
 
 
 - (void)removeKey:(NSString *)key {
-    for (NSMutableArray *sectionArray in map) {
-        [sectionArray removeObject:key];
+    for (NSMutableDictionary *sectionDict in map) {
+        NSMutableArray *elementsArray = [sectionDict objectForKey:kElementsKey];
+        [elementsArray removeObject:key];
+        if (elementsArray.count == 0) {
+            [map removeObject:sectionDict];
+        }
     }
 }
 
@@ -735,7 +750,7 @@
     if (section >= map.count) {
         return 0;
     }
-    return [[map objectAtIndex:section] count];
+    return [[[map objectAtIndex:section] objectForKey:kElementsKey] count];
     
 }
 
@@ -757,8 +772,8 @@
     NSInteger i = 0;
     NSInteger j = 0;
     for (i=0; i<map.count; i++) {
-        NSArray *sectionArray = [map objectAtIndex:i]; 
-        j = [sectionArray indexOfObject:key];
+        NSArray *elementsArray = [[map objectAtIndex:i] objectForKey:kElementsKey]; 
+        j = [elementsArray indexOfObject:key];
         if (j != NSNotFound) {
             return [NSIndexPath indexPathForRow:j inSection:i]; 
         }

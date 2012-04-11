@@ -72,6 +72,8 @@
 
 @interface IndexPathMapper : NSObject {}
 
+- (void)setTitle:(NSString *)title forSection:(NSInteger)section;
+- (NSString *)titleForSection:(NSInteger)section;
 - (void)setKey:(NSString *)key forSection:(NSInteger)section row:(NSInteger)row;
 - (NSString *)keyForSection:(NSInteger)section row:(NSInteger)row; 
 - (void)removeKeyAtSection:(NSInteger)section row:(NSInteger)row;

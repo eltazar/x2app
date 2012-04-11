@@ -110,6 +110,16 @@
 }
 
 
+#pragma mark - DatabaseAccessDelegate
+
+
+//- (void) didReceiveCoupon:(NSDictionary *)data {
+//    [super didReceiveCoupon:data];
+//    if (self.dataModel) {
+//    }
+//}
+
+
 #pragma  mark - UITableViewDataSource
 
 
@@ -261,65 +271,6 @@
 
 #pragma mark - UITableViewDelegate
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
-    [customView setBackgroundColor:[UIColor clearColor]];
-    
-    UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-    lbl.backgroundColor = [UIColor clearColor];
-    lbl.textColor = [UIColor whiteColor];
-    lbl.lineBreakMode = UILineBreakModeWordWrap;
-    lbl.numberOfLines = 0;
-    lbl.font = [UIFont boldSystemFontOfSize:18];
-    
-	
-	if (section == 0) {
-		lbl.text = [self.dataModel objectForKey:@"Insegna_Esercente"];
-	}
-	else if (section == 1) {
-        lbl.text = [self.dataModel objectForKey:@"Tipo_Teser"];	
-    } 
-    else if (section == 2) {
-        lbl.text = @"Contatti";
-    }
-	else {	
-        lbl.text = @"";
-    }
-    
-    UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
-    CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
-    CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-    
-    lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
-    
-    [customView addSubview:lbl];
-    
-    return customView;
-}
-
-
-- (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	NSString *lblText;
-	
-	if (section == 0) {
-		lblText = [self.dataModel objectForKey:@"Insegna_Esercente"];
-	}
-	else if (section == 1) {
-        lblText = [self.dataModel objectForKey:@"Tipo_Teser"];
-    } 
-    else if (section == 2) {
-        lblText = @"Contatti";
-    }
-	else {	
-        lblText = @"";
-    }
-    UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
-    CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
-    CGSize labelSize = [lblText sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-    
-    return labelSize.height+6;
-}
-
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSString *key = [self.idxMap keyForIndexPath:indexPath];
@@ -386,19 +337,25 @@
 
 
 - (void)populateIndexPathMap {
+    NSString *insegnaEsercente = [self.dataModel objectForKey:@"Insegna_Esercente"];
+    NSString *tipoEsercente    = [self.dataModel objectForKey:@"Tipo_Teser"];
+
     [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
     [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
     [self.idxMap setKey:@"PastiValidita"    forSection:0 row:2];
+    [self.idxMap setTitle:insegnaEsercente  forSection:0];
     
     [self.idxMap setKey:@"Ambiente"         forSection:1 row:0];
     [self.idxMap setKey:@"Subtipo_STeser"   forSection:1 row:1];
     [self.idxMap setKey:@"Specialita_CE"    forSection:1 row:2];
     [self.idxMap setKey:@"Fasciaprezzo"     forSection:1 row:3];
     [self.idxMap setKey:@"Commenti"         forSection:1 row:4];
+    [self.idxMap setTitle:tipoEsercente     forSection:1];
     
     [self.idxMap setKey:@"Telefono"         forSection:2 row:0];
     [self.idxMap setKey:@"Email"            forSection:2 row:1];
     [self.idxMap setKey:@"URL"              forSection:2 row:2];
+    [self.idxMap setTitle:@"Contatti"       forSection:2];
     
     if (isCoupon || isGenerico) {
         [self.idxMap removeKey:@"PastiValidita"]; 
