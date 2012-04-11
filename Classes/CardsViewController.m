@@ -423,7 +423,8 @@
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
-    if([coupon objectForKey:@"CartaRecuperata"]){
+    if([coupon objectForKey:@"CartaRecuperata"] &&
+       [[coupon objectForKey:@"CartaRecuperata"] count] > 1){
         NSLog(@"CARTA RICEVUTA = %@",coupon);
         
         CartaPerDue *card = [[CartaPerDue alloc] init];
@@ -447,6 +448,7 @@
         }       
     }
     else{
+#warning mostrare alert ad utente
         NSLog(@"NO CARTA RECUPERATA");
     }
 }
