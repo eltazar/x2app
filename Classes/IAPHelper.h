@@ -23,8 +23,6 @@
     SKProductsRequest * _request;
     DatabaseAccess *dbAccess;
     
-    NSMutableArray *transactions;
-    
 }
 
 @property (retain) NSSet *productIdentifiers;

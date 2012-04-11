@@ -34,7 +34,6 @@ static IAPHelper * _sharedHelper;
     if(self){
         dbAccess = [[DatabaseAccess alloc] init];
         dbAccess.delegate = self;
-        transactions = [[NSMutableArray alloc] init];
     }
     return self;
     
@@ -64,6 +63,11 @@ static IAPHelper * _sharedHelper;
     NSLog(@"Received products results...");   
     self.products = response.products;
     NSLog(@"products = %@",self.products);
+    
+    for (SKProduct *pd in self.products) {
+        NSLog(@"PRODOTTO = %@, %@, %@", pd.localizedTitle,pd.localizedDescription,pd.price);
+    }
+    
     self.request = nil;    
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kProductsLoadedNotification object:_products];    
@@ -71,16 +75,15 @@ static IAPHelper * _sharedHelper;
 
 #pragma mark - DatabaseAccessDelegate
 
+-(void)didReceiveCoupon:(NSDictionary *)coupon{
+    
+    NSLog(@"RISPOSTA PER LA RECEIPT = %@",coupon);
+}
+
 -(void)didReceiveResponsFromServer:(NSString *)receivedData{
 
     //riceve carta perdue se tutto è stato verificato
-    
-    //recupero e completo la transazione
-    for (SKPaymentTransaction *t in transactions){
-        if (/*transIdRicevuto == t.transactionIdentifier*/ 1==1) {
-            //[[SKPaymentQueue defaultQueue] finishTransaction: t];
-        }
-    }    
+
     
     //aggiungo la carta ricevuta
     //notifica inviata a cardsViewController -> che aggiorna il model
@@ -97,13 +100,11 @@ static IAPHelper * _sharedHelper;
 
 - (void)recordTransaction:(SKPaymentTransaction *)transaction {    
     // Optional: Record the transaction on the server side... 
-    
-    //aggiungo la transaction all'array per poterla recuperare succesivamente
-    [transactions addObject:transaction];
-    
+        
     //ricevuta da inviare al server
     //transaction.transactionReceipt.data
-    //[dbAccess sendReceipt:transaction.transactionReceipt.data transactionId:transactionId ];
+
+    [dbAccess sendReceipt:transaction.transactionReceipt userId: [[[NSUserDefaults standardUserDefaults] objectForKey:@"idcustomer"] intValue] transactionId:transaction.transactionIdentifier udid: [[UIDevice currentDevice] uniqueDeviceIdentifier] ];
 }
 
 - (void)provideContent:(NSString *)productIdentifier {
@@ -119,11 +120,11 @@ static IAPHelper * _sharedHelper;
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
     
-    NSLog(@"completeTransaction...");
+    NSLog(@"completeTransaction id = %@, receipt = %@, state = %d...", transaction.transactionIdentifier, transaction.transactionReceipt,transaction.transactionState);
     
     [self recordTransaction: transaction];
     [self provideContent: transaction.payment.productIdentifier];
-    //[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
 }
 
@@ -133,7 +134,7 @@ static IAPHelper * _sharedHelper;
     
     [self recordTransaction: transaction];
     //[self provideContent: transaction.originalTransaction.payment.productIdentifier];
-    //[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
 }
 
