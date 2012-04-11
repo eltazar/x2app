@@ -428,13 +428,9 @@
         NSLog(@"CARTA RICEVUTA = %@",coupon);
         
         CartaPerDue *card = [[CartaPerDue alloc] init];
-        card.name = @"prova";
-        card.surname = @"ciao";
-        NSLog(@"numero carta = %@",[[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"codice_carta"]);
-
+        card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
+        card.surname = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];     
         card.number = [[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"codice_carta"];
-        
-        NSLog(@"DATA SCADENZA = %@",[[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"data_scadenza"]);
         
         card.expiryString = [[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"data_scadenza"];
         
