@@ -184,7 +184,9 @@
             [asyncImageView loadImageFromURL:imageUrl];
         
 		UILabel *intestazione = (UILabel *)[cell viewWithTag:4];
-		intestazione.text =[NSString stringWithFormat:@"Solo € %@ invece di € %@",[offertaDict objectForKey:@"coupon_valore_acquisto"],[offertaDict objectForKey:@"coupon_valore_facciale"]]; 
+		intestazione.text =[NSString stringWithFormat:@"Solo %@€ invece di %@€",
+                            [Utilita formatPrice:[offertaDict objectForKey:@"coupon_valore_acquisto"]],
+                            [Utilita formatPrice:[offertaDict objectForKey:@"coupon_valore_facciale"]] ]; 
 		
 		UILabel *titolo = (UILabel *)[cell viewWithTag:3];
 		titolo.text = [offertaDict objectForKey:@"offerta_titolo_breve"]; 

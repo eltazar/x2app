@@ -173,10 +173,10 @@ typedef enum {CouponEsercenteNULL, CouponEsercenteNormale, CouponEsercenteRistor
          
             self.tempoLbl = cdtCell.tempoLbl;
             [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra", [self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-            cdtCell.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_acquisto"]]; 
+            cdtCell.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"coupon_valore_acquisto"]] ]; 
             cdtCell.scontoLbl.text = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_sconto_per"]];
-            cdtCell.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"offerta_sconto_va"]];
-            cdtCell.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€", [self.dataModel objectForKey:@"coupon_valore_facciale"]];
+            cdtCell.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"offerta_sconto_va"]]];
+            cdtCell.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"coupon_valore_facciale"]]];
             
             NSString *imgUrlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
             [cdtCell loadImageFromUrlString:imgUrlString];
@@ -885,7 +885,9 @@ if ([rows count]>0) {//coupon disponibile
             //offerta esite
             //[compra setHidden:NO];
             [self.compraBtn setEnabled:YES];
-            self.titoloOffertaLbl.text = [NSString stringWithFormat:@"  Solo %@€, sconto %@%",[self.dataModel objectForKey:@"coupon_valore_acquisto"], [self.dataModel objectForKey:@"offerta_sconto_per"]];
+            self.titoloOffertaLbl.text = [NSString stringWithFormat:@"  Solo %@€, sconto %@%",
+                                          [Utilita formatPrice:[self.dataModel objectForKey:@"coupon_valore_acquisto"]], 
+                                          [self.dataModel objectForKey:@"offerta_sconto_per"]];
             //identificativo è relativo all'offerta
             self.idCoupon = [[self.dataModel objectForKey:@"idofferta"] integerValue];
             

@@ -139,4 +139,16 @@
 }
 
 
++ (NSString *)formatPrice:(NSString *)price {
+    // Oook, lo so, si vede che di base resto sempre un programmatore C...
+    double p = [price doubleValue];
+    if (p / 1.00 == (int)p) {
+        return [NSString stringWithFormat:@"%d", (int)p];
+    } 
+    else {
+        return [NSString stringWithFormat:@"%.2f", p];
+    }
+}
+
+
 @end
