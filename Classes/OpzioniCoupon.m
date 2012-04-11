@@ -44,7 +44,7 @@
                        @"Cagliari", @"Caltanissetta", @"Campobasso", @"Carbonia Iglesias",
                        @"Caserta", @"Catania", @"Catanzaro", @"Chieti", @"Como", 
                        @"Cosenza", @"Cremona", @"Crotone", @"Cuneo", @"Enna", @"Fermo",
-                       @"Ferrara", @"Firenze", @"Foggia", @"Forli' - Cesena", 
+                       @"Ferrara", @"Firenze", @"Foggia", @"Forlì - Cesena", 
                        @"Frosinone", @"Genova", @"Gorizia", @"Grosseto" @"Imperia",
                        @"Isernia", @"L'Aquila", @"La Spezia" ,@"Latina", @"Lecce",
                        @"Lecco", @"Livorno", @"Lodi", @"Lucca", @"Macerata", 
