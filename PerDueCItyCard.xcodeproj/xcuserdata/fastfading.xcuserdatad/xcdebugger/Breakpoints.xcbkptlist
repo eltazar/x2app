@@ -107,11 +107,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/DettaglioEsercente.m"
-         timestampString = "355843422.737629"
+         timestampString = "355847700.489718"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "450"
-         endingLineNumber = "450"
+         startingLineNumber = "457"
+         endingLineNumber = "457"
          landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -233,11 +233,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/DettaglioEsercente.m"
-         timestampString = "355843422.737629"
+         timestampString = "355847700.489718"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "642"
-         endingLineNumber = "642"
+         startingLineNumber = "649"
+         endingLineNumber = "649"
          landmarkName = "@implementation IndexPathMapper"
          landmarkType = "3">
       </FileBreakpoint>
@@ -247,11 +247,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/DettaglioEsercente.m"
-         timestampString = "355843422.737629"
+         timestampString = "355847700.489718"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "611"
-         endingLineNumber = "611"
+         startingLineNumber = "618"
+         endingLineNumber = "618"
          landmarkName = "-populateIndexPathMap"
          landmarkType = "5">
       </FileBreakpoint>

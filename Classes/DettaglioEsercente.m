@@ -408,24 +408,27 @@
 
 #pragma mark - UITableViewDelegate
 
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    NSLog(@"[%@ viewForHeader] section:%d title:%@", [self class], section, [self.idxMap titleForSection:section]);
-    UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
-    [customView setBackgroundColor:[UIColor clearColor]];
+    UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 47)] autorelease];
+    [customView setBackgroundColor: [UIColor clearColor]];
     
     UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
     lbl.backgroundColor = [UIColor clearColor];
     lbl.textColor = [UIColor whiteColor];
+    lbl.shadowColor = [UIColor blackColor];
+    lbl.shadowOffset = CGSizeMake(0, 1);
     lbl.lineBreakMode = UILineBreakModeWordWrap;
     lbl.numberOfLines = 0;
-    lbl.font = [UIFont boldSystemFontOfSize:18];
+    lbl.font = [UIFont boldSystemFontOfSize:17];
     lbl.text = [self.idxMap titleForSection:section];
 	    
-    UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
+    UIFont *txtFont = [UIFont boldSystemFontOfSize:17];
     CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
     CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     
-    lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height+6);
+    NSInteger lblPadding = 20;
+    lbl.frame = CGRectMake(lblPadding, lblPadding-10, tableView.bounds.size.width-2*lblPadding, labelSize.height);
     
     [customView addSubview:lbl];
     
@@ -434,13 +437,11 @@
 
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    NSLog(@"[%@ heightForHeader] section:%d title:%@", [self class], section, [self.idxMap titleForSection:section]);
 	NSString *lblText = [self.idxMap titleForSection:section];
-    UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
+    UIFont *txtFont = [UIFont boldSystemFontOfSize:17];
     CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
     CGSize labelSize = [lblText sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-    
-    return labelSize.height+6;
+    return labelSize.height+10+5;
 }
 
 
