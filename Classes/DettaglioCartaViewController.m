@@ -247,7 +247,7 @@
 #pragma mark - WMHTTPAccessDelegate
 
 
--(void)didReceiveJSON:(NSDictionary *)jsonDict {
+- (void)didReceiveJSON:(NSDictionary *)jsonDict {
     
     NSLog(@"RICEVUTI DATI");
     

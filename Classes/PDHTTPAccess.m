@@ -171,14 +171,14 @@
 
 
 + (void)cardDeviceAssociation:(NSString *)cardNumber request:(NSString *)r delegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSLog(@"DatabaseAccess::checkCardExistence [%@]", r);
+    NSLog(@"DatabaseAccess::checkCardExistence [%@][%@]", r, cardNumber);
     NSString *urlString = @"http://www.cartaperdue.it/partner/CardDeviceAssociation.php";
     
     NSString *udid = [[UIDevice currentDevice] uniqueDeviceIdentifier];
     NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
                               r, @"request",
                               cardNumber, @"card_number",
-                              udid, @"decive_udid",
+                              udid, @"device_udid",
                               nil];
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];
 }
