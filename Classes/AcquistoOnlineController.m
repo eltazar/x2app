@@ -18,7 +18,6 @@
 @end
 
 @implementation AcquistoOnlineController
-@synthesize hud = _hud;
 @synthesize products;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -41,31 +40,54 @@
 #pragma mark - Gestioni caricamenti 
 
 - (void)timeout:(id)arg {
-    
-    _hud.labelText = @"Tempo scaduto!";
-    _hud.detailsLabelText = @"Spiacenti, riprovare più tardi!";
-    _hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] autorelease];
-	_hud.mode = MBProgressHUDModeCustomView;
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Tempo scaduto!";
+    hud.detailsLabelText = @"Spiacenti, riprovare più tardi!";
+    hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] autorelease];
+	hud.mode = MBProgressHUDModeCustomView;
     [self performSelector:@selector(dismissHUD:) withObject:nil afterDelay:3.0];
     
 }
 
 - (void)dismissHUD:(id)arg {
     
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    self.hud = nil;
-    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];    
 }
 
 - (void)productsLoaded:(NSNotification *)notification {
     
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.tableView.hidden = FALSE;    
     
     self.products = [IAPHelper sharedHelper].products;
     
     [self.tableView reloadData];
+    
+}
+
+- (void)productPurchased:(NSNotification *)notification {
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];    
+    
+    NSString *productIdentifier = (NSString *) notification.object;
+    NSLog(@"Purchased: %@", productIdentifier);
+        
+}
+
+- (void)productPurchaseFailed:(NSNotification *)notification {
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    SKPaymentTransaction * transaction = (SKPaymentTransaction *) notification.object;    
+    if (transaction.error.code != SKErrorPaymentCancelled) {    
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Errore!" 
+                                                         message:transaction.error.localizedDescription 
+                                                        delegate:nil 
+                                               cancelButtonTitle:nil 
+                                               otherButtonTitles:@"OK", nil] autorelease];
+        
+        [alert show];
+    }
     
 }
 
@@ -81,8 +103,9 @@
     //NSLog(@"Buying %@...", product.productIdentifier);
     [[IAPHelper sharedHelper] buyProductIdentifier:product];
     
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    _hud.labelText = @"Acquisto carta...";
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Acquisto carta...";
     [self performSelector:@selector(timeout:) withObject:nil afterDelay:60*5];
    
 }
@@ -91,7 +114,6 @@
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     
     //NSLog(@"RICEVUTA LISTA ID PRODOUCT = %@, tipo = %@",coupon, [[coupon objectForKey:@"CatalogoIAP"] class]);
@@ -114,8 +136,8 @@
         NSLog(@"product id = %@", productsId);
         [IAPHelper sharedHelper].productIdentifiers = productsId;
         
-        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        _hud.labelText = @"Caricamento catalogo...";
+        MBProgressHUD  *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Caricamento catalogo...";
         
         //lancio richiesta prodotti ai server apple
         [[IAPHelper sharedHelper] requestProducts];
@@ -142,6 +164,8 @@
     
     self.title = @"Acquisti";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productsLoaded:) name:kProductsLoadedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:kProductPurchasedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(productPurchaseFailed:) name:kProductPurchaseFailedNotification object: nil];
     
     NSLog(@"define = %@",kProductsLoadedNotification);
     
@@ -160,16 +184,12 @@
 
 - (void)viewDidUnload
 {
-    self.hud = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void)dealloc {
-    
-    [_hud release];
-    _hud = nil;
     
     self.products = nil;
     
@@ -187,11 +207,13 @@
 #warning inserire canMakePurchase prima di visualizzare store
     
     if([Utilita networkReachable]){
-        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        _hud.labelText = @"Caricamento catalogo...";
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Caricamento catalogo...";
+        
         [dbAccess getCatalogIAP];
     }
     else{
+#warning inserire alert
         NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
     }
     

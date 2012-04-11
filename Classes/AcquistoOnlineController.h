@@ -22,6 +22,4 @@
     NSArray *products;
 }
 
-@property (retain) MBProgressHUD *hud;
-
 @end
