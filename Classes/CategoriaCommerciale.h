@@ -10,10 +10,10 @@
 #import <MapKit/MapKit.h>
 
 #import "GeoDecoder.h"
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 
 
-@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, MKAnnotation, UIAlertViewDelegate, GeoDecoderDelegate, DatabaseAccessDelegate> {
+@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, MKAnnotation, UIAlertViewDelegate, GeoDecoderDelegate, WMHTTPAccessDelegate> {
 @private
     BOOL lastFetchWasASearch;
     BOOL inSearchUI;
@@ -21,7 +21,6 @@
     CLLocationCoordinate2D location;
     NSString *_categoria;
     GeoDecoder *_geoDec;
-    DatabaseAccess *_dbAccess;
     NSArray* _tempBuff;
     // IBOs:
     UISearchBar *_searchBar;

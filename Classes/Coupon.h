@@ -17,10 +17,10 @@
 #import "FBConnect.h"
 #import "Facebook.h"
 
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 #import "LoginControllerBis.h"
 
-@interface Coupon : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, DatabaseAccessDelegate,LoginControllerBisDelegate>{
+@interface Coupon : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate,  FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, WMHTTPAccessDelegate,LoginControllerBisDelegate>{
         
 	NSDictionary *_dataModel;
     NSInteger _idCoupon;

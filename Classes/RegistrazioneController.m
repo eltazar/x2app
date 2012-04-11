@@ -6,12 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "RegistrazioneController.h"
 #import "BaseCell.h"
 #import "TextFieldCell.h"
 #import "Utilita.h"
-#import <QuartzCore/QuartzCore.h>
 #import "MBProgressHUD.h"
+#import "PDHTTPAccess.h"
 
 //metodi e variabili private
 @interface RegistrazioneController ()
@@ -308,7 +309,7 @@
         //controllo presenza rete
         if([Utilita networkReachable]){
             //lancio chiamata a server
-            [dbAccess registerUserOnServer:[NSArray arrayWithObjects:self.email,[Utilita checkPhoneNumber:self.telefono],self.nome,self.cognome, nil]];
+            [PDHTTPAccess registerUserOnServer:[NSArray arrayWithObjects:self.email,[Utilita checkPhoneNumber:self.telefono],self.nome,self.cognome, nil] delegate:self];
             self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
             _hud.labelText = @"Registrazione...";  
         }
@@ -323,14 +324,14 @@
     
 }
 
-#pragma mark - DatabaseDelegate
+#pragma mark - WMHTTPAccessDelegate
 
--(void)didReceiveResponsFromServer:(NSString *)receivedData{
-    NSLog(@"RISPOSTA SERVER DOP REGISTRAZIONE: %@",receivedData);
+-(void)didReceiveString:(NSString *)receivedString {
+    NSLog(@"RISPOSTA SERVER DOP REGISTRAZIONE: %@",receivedString);
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
     
-    NSString *trimmedString = [receivedData stringByTrimmingCharactersInSet:
+    NSString *trimmedString = [receivedString stringByTrimmingCharactersInSet:
                                                    [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if([trimmedString isEqualToString:@"utente registrato in precendenza"]){
         NSLog(@"UTENTE GIà REGISTRATO");
@@ -473,9 +474,6 @@
     self.cognome = @"";
     self.telefono = @"";
     self.email = @"";
-    
-    dbAccess = [[DatabaseAccess alloc] init];
-    dbAccess.delegate = self;
 }
 
 - (void)viewDidUnload
@@ -504,8 +502,6 @@
     [_hud release];
     _hud = nil;
     
-    dbAccess.delegate = nil;
-    [dbAccess release];
     self.nome = nil;
     self.cognome = nil;
     self.telefono = nil;

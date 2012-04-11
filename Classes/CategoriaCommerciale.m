@@ -13,15 +13,14 @@
 #import "EsercenteMapAnnotation.h"
 #import "CJSONDeserializer.h"
 #import "Utilita.h"
-#import "DatabaseAccess.h"
 #import "DettaglioEsercente.h"
+#import "WMHTTPAccess.h"
 
 
 //Metodi privati
 @interface CategoriaCommerciale () {}
 @property (nonatomic, retain) NSString *categoria;
 @property (nonatomic, retain) GeoDecoder *geoDec;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 @property (nonatomic, retain) NSArray *tempBuff;
 
 @property (nonatomic, retain) NSString *urlString;
@@ -48,7 +47,7 @@
 @synthesize searchBar=_searchBar, tableView=_tableView, mapView=_mapView, footerView=_footerView, searchActivityIndicator=_searchActivityIndicator,  searchSegCtrl=_searchSegCtrl, mapTypeSegCtrl=_mapTypeSegCtrl;
 
 // Properties private
-@synthesize categoria=_categoria, geoDec=_geoDec, dbAccess=_dbAccess, tempBuff=_tempBuff;
+@synthesize categoria=_categoria, geoDec=_geoDec, tempBuff=_tempBuff;
 
 // Properties protected
 @synthesize urlString=_urlString, dataModel=_dataModel;
@@ -97,8 +96,6 @@
     self.navigationItem.rightBarButtonItem = mapButton;
     self.geoDec = [[[GeoDecoder alloc] init] autorelease];
     self.geoDec.delegate = self;
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
 }
 
 
@@ -137,8 +134,6 @@
     self.navigationItem.rightBarButtonItem = nil;
     self.geoDec.delegate = nil;
     self.geoDec = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     
     // IBOutlets:
     self.mapView.delegate = nil;
@@ -168,8 +163,6 @@
     self.categoria = nil; 
     self.geoDec.delegate = nil;
     self.geoDec = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     
     self.urlString = nil;
     self.dataModel = nil;
@@ -422,10 +415,10 @@
 }
 
 
-#pragma mark - DatabaseAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
 
-- (void)didReceiveCoupon:(NSDictionary *)dataDict {
+- (void)didReceiveJSON:(NSDictionary *)dataDict {
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
     NSMutableArray *rows = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
     
@@ -497,14 +490,16 @@
 - (void) fetchRows{
     lastFetchWasASearch = NO;
     didFetchAllRows = NO;
-    NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
-                            self.categoria, [UserDefaults city],
-                            location.latitude, location.longitude, [UserDefaults weekDay],
-                            [self searchMethod], 0];
-    NSLog(@"urlString is: [%@]", self.urlString);
-    NSLog(@"postString is: [%@]", postString);
-    [self.dbAccess postConnectionToURL:self.urlString withData:postString];
+    NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
+    [postDict setObject:@"fetch"                forKey:@"request"];
+    [postDict setObject:self.categoria          forKey:@"categ"];
+    [postDict setObject:[UserDefaults city]     forKey:@"prov"];
+    [postDict setObject:[UserDefaults weekDay]  forKey:@"giorno"];
+    [postDict setObject:[self searchMethod]     forKey:@"ordina"];
+    [postDict setObject:@"0"                    forKey:@"from"];
+    [postDict setObject:[NSString stringWithFormat:@"%f", location.latitude]  forKey:@"lat"];
+    [postDict setObject:[NSString stringWithFormat:@"%f", location.longitude] forKey:@"long"];
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:self.urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
 }
 
 
@@ -512,12 +507,16 @@
     if (lastFetchWasASearch) {
         return;
     }
-    NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&categ=%@&prov=%@&lat=%f&long=%f&giorno=%@&ordina=%@&from=%d",
-                            self.categoria, [UserDefaults city],
-                            location.latitude, location.longitude, [UserDefaults weekDay],
-                            [self searchMethod], self.dataModel.count];
-    [self.dbAccess postConnectionToURL:self.urlString withData:postString];
+    NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
+    [postDict setObject:@"fetch"                forKey:@"request"];
+    [postDict setObject:self.categoria          forKey:@"categ"];
+    [postDict setObject:[UserDefaults city]     forKey:@"prov"];
+    [postDict setObject:[UserDefaults weekDay]  forKey:@"giorno"];
+    [postDict setObject:[self searchMethod]     forKey:@"ordina"];
+    [postDict setObject:[NSString stringWithFormat:@"%d", self.dataModel.count] forKey:@"from"];
+    [postDict setObject:[NSString stringWithFormat:@"%f", location.latitude]    forKey:@"lat"];
+    [postDict setObject:[NSString stringWithFormat:@"%f", location.longitude]   forKey:@"long"];
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:self.urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
 }
 
 
@@ -526,14 +525,19 @@
     // inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
     searchKey = [searchKey stringByReplacingOccurrencesOfString:@" " withString:@"-"]; 
     
-    NSString *postString = [NSString stringWithFormat:
-                            @"request=search&categ=%@&chiave=%@&lat=%f&long=%f&ordina=distanza&from=0",
-                            self.categoria, searchKey,
-                            location.latitude, location.longitude, [UserDefaults weekDay],
-                            [self searchMethod], 0];
     self.searchActivityIndicator.hidden = NO;
     [self.searchActivityIndicator startAnimating];
-    [self.dbAccess postConnectionToURL:self.urlString withData:postString];
+    
+    NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
+    [postDict setObject:@"search"       forKey:@"request"];
+    [postDict setObject:self.categoria  forKey:@"categ"];
+    [postDict setObject:searchKey       forKey:@"chiave"];
+    [postDict setObject:@"distanza"     forKey:@"ordina"];
+    [postDict setObject:@"0" forKey:@"from"];
+    [postDict setObject:[NSString stringWithFormat:@"%f", location.latitude]    forKey:@"lat"];
+    [postDict setObject:[NSString stringWithFormat:@"%f", location.longitude]   forKey:@"long"];
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:self.urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
+
 }
 
 

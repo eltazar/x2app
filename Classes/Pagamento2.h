@@ -12,11 +12,11 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import "DatiPagamentoController.h"
 //#import "DatiUtenteController.h"
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 #import "DataLoginController.h"
 @class PickerViewController;
 
-@interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate, /*DatiUtenteDelegate,*/DatabaseAccessDelegate,DataLoginDelegate> {
+@interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate, /*DatiUtenteDelegate,*/WMHTTPAccessDelegate,DataLoginDelegate> {
 	
     NSInteger identificativo;
 	double valore;
@@ -46,9 +46,6 @@
 	CGFloat animatedDistance;
     	    
     BOOL isQtField;
-    
-    DatabaseAccess *dbAccess;    
-
 }
 
 @property(nonatomic,retain)NSString *utente;

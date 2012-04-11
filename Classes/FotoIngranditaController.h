@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DatabaseAccess.h"
 #import "CachedAsyncImageView.h"
 
 
 @protocol FotoIngranditaDelegate;
 @class Coupon;
 
-@interface FotoIngranditaController : UIViewController <DatabaseAccessDelegate> {
+@interface FotoIngranditaController : UIViewController  {
 @private
     NSString *_imageUrl;
     //IBoutlets

@@ -6,21 +6,25 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "LoginControllerBis.h"
 #import "BaseCell.h"
 #import "TextFieldCell.h"
 #import "ActionCell.h"
 #import "RegistrazioneController.h"
 #import "Utilita.h"
-#import <QuartzCore/QuartzCore.h>
 #import "MBProgressHUD.h"
+#import "PDHTTPAccess.h"
+#import "CJSONDeserializer.h"
 
 
 @interface LoginControllerBis() {
 }
 @property(nonatomic,retain)NSString *user;
 @property(nonatomic, retain)NSString *psw;
--(void)fillCell: (UITableViewCell *)cell rowDesc:(NSDictionary *)rowDesc;
+- (void)fillCell: (UITableViewCell *)cell rowDesc:(NSDictionary *)rowDesc;
+- (void)processJSONServerResponse:(NSDictionary *)jsonDict;
+- (void)processStringServerResponse:(NSString *)responseString;
 @end
 
 @implementation LoginControllerBis
@@ -53,9 +57,6 @@
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:139.0/255 green:29.0/255 blue:0.0 alpha:1]];
     
     self.title = @"Benvenuto";
-    
-    dbAccess = [[DatabaseAccess alloc] init];
-    dbAccess.delegate = self;
     
     UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithTitle:@"Annulla" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel)];
     
@@ -216,7 +217,7 @@
         else{
             if([Utilita networkReachable]){
                 NSArray *data = [NSArray arrayWithObjects:self.user, self.psw,nil];
-                [dbAccess checkUserFields:data];
+                [PDHTTPAccess checkUserFields:data delegate:self];
                 self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
                 _hud.labelText = @"Login...";  
             }
@@ -244,8 +245,7 @@
                 [alert release];
             }
             else{
-                
-                [dbAccess sendRetrievePswForUser:textField.text];
+                [PDHTTPAccess sendRetrievePswForUser:textField.text delegate:self];
                 self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
                 _hud.labelText = @"Recupero password...";
                  UITextField* textField = (UITextField*)[alertView viewWithTag:120];
@@ -264,11 +264,24 @@
 }
 
 
-#pragma mark - DBAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
--(void)didReceiveCoupon:(NSDictionary *)coupon{
-    
-    NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@",coupon);
+- (void) didReceiveData:(NSMutableData *)receivedData {
+    //HACK: dato che con DatabaseAccess questa classe usava due metodi del protocollo DatabaseAccessDelegate, per ripristinare le medesime funzionalità con WMHTTPAccess riceviamo dal server i dati di risposta così come sono, controlliamo se sono un json, e a seconda di quello che otteniamo smistiamo i dati ricevuti verso il metodo opportuno.
+    NSError *error = nil;
+    NSDictionary *jsonDict = [[CJSONDeserializer deserializer] deserializeAsDictionary:receivedData error:&error];
+    if (error) {
+        NSString *responseString = [[[NSString alloc] initWithBytes:[receivedData mutableBytes] length:receivedData.length encoding:NSUTF8StringEncoding] autorelease];
+        [self processStringServerResponse:responseString];
+    }
+    else {
+        [self processJSONServerResponse:jsonDict];
+    }
+}
+
+
+- (void)processJSONServerResponse:(NSDictionary *)jsonDict {    
+    NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@", jsonDict);
     
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
@@ -276,14 +289,14 @@
     NSArray *array = nil;//= [[coupon objectForKey:@"checkEmail"] retain];
     
     // NSLog(@"DIMENSIONE ARRAY = %d",[array count]);
-    if ([coupon objectForKey:@"recuperoPsw"]) {
-        array = [[coupon objectForKey:@"recuperoPsw"] retain];
+    if ([jsonDict objectForKey:@"recuperoPsw"]) {
+        array = [[jsonDict objectForKey:@"recuperoPsw"] retain];
         
         NSLog(@"recupero psw = %@",array);
         
     }
-    else if([coupon objectForKey:@"login"]){
-        array = [[coupon objectForKey:@"login"] retain];
+    else if([jsonDict objectForKey:@"login"]){
+        array = [[jsonDict objectForKey:@"login"] retain];
         if(array.count == 2){
             NSLog(@"UTENTE ESISTE");
             idUtente = [[[array objectAtIndex:0] objectForKey:@"idcustomer"] intValue];
@@ -318,27 +331,17 @@
     
 }
 
--(void)didReceiveError:(NSError *)error{
-    
-    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-    self.hud = nil;
-    
-    NSLog(@"ERRORE CHECK EMAIL SU SERVER = %@",[error description]);
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore rete" message:@"Non è stato possibile effettuare la richiesta, riprovare" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-    [alert show];
-    [alert release];
-}
 
--(void)didReceiveResponsFromServer:(NSString *)receivedData{
+- (void)processStringServerResponse:(NSString *)responseString {
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
-    NSLog(@"DATI RICEVUTO DA RECUPERP PSW = %@",receivedData);
+    NSLog(@"DATI RICEVUTO DA RECUPERP PSW = %@", responseString);
     
     UIAlertView *alert = [[UIAlertView alloc] init];
     alert.delegate = self;
     [alert addButtonWithTitle:@"Chiudi"];
     
-    if([receivedData isEqualToString:@"psw_ok"]){
+    if([responseString isEqualToString:@"psw_ok"]){
         [alert setTitle:@"E-mail inviata"];
         [alert setMessage:@"A breve riceverai un'e-mail per recuperare la tua password"];
         [alert show];
@@ -350,6 +353,19 @@
     }
     [alert release];
 }
+
+
+-(void)didReceiveError:(NSError *)error{
+    
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    self.hud = nil;
+    
+    NSLog(@"ERRORE CHECK EMAIL SU SERVER = %@",[error description]);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore rete" message:@"Non è stato possibile effettuare la richiesta, riprovare" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
+}
+
 
 #pragma mark - TextField and TextView Delegate
 
@@ -607,8 +623,6 @@
     [_hud release];
     _hud = nil;
     [rememberPswAlert release];
-    dbAccess.delegate = nil;
-    [dbAccess release];
     [sectionData release];
     [sectionDescription release];
     self.user = nil;

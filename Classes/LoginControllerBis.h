@@ -7,17 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
+
 @class MBProgressHUD;
 
 @protocol LoginControllerBisDelegate;
-@interface LoginControllerBis : UITableViewController<UITextFieldDelegate,DatabaseAccessDelegate>
-{
+@interface LoginControllerBis : UITableViewController <UITextFieldDelegate, WMHTTPAccessDelegate> {
     
     NSArray *sectionData;
     NSArray *sectionDescription;
     int idUtente;
-    DatabaseAccess *dbAccess;
     
     UIAlertView *rememberPswAlert;
 

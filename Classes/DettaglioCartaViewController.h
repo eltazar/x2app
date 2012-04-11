@@ -7,9 +7,9 @@
 //
 #import <UIKit/UIKit.h>
 #import "CartaPerDue.h"
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 
-@interface DettaglioCartaViewController : UITableViewController<DatabaseAccessDelegate> {
+@interface DettaglioCartaViewController : UITableViewController <WMHTTPAccessDelegate> {
 }
 
 @property (nonatomic, retain) IBOutlet UIView *viewForImage;

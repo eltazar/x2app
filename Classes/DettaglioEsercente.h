@@ -10,11 +10,11 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 
 @class IndexPathMapper;
 
-@interface DettaglioEsercente : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatabaseAccessDelegate> {
+@interface DettaglioEsercente : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, WMHTTPAccessDelegate> {
     NSInteger _idEsercente;
     // IBOutlets:
     UITableView *_tableview;
@@ -31,7 +31,6 @@
 @private
     IndexPathMapper *_idxMap;
     NSDictionary *_dataModel;
-    DatabaseAccess *_dbAccess;
     BOOL isDataModelReady;
     
 @protected

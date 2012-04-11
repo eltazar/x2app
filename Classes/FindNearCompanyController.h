@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DatabaseAccess.h"
 #import <CoreLocation/CoreLocation.h>
+#import "WMHTTPAccess.h"
 
 @class CartaPerDue;
 
-@interface FindNearCompanyController : UITableViewController<DatabaseAccessDelegate,CLLocationManagerDelegate>
+@interface FindNearCompanyController : UITableViewController <WMHTTPAccessDelegate,CLLocationManagerDelegate>
 {
     NSString *_urlString;
     NSMutableArray *_rows;

@@ -9,14 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "CJSONDeserializer.h"
 #import "Commento.h"
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 
-@interface Commenti : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, DatabaseAccessDelegate> {
+@interface Commenti : UIViewController <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate, WMHTTPAccessDelegate> {
 	
 @private
     NSMutableArray *_dataModel; //era: rows
     BOOL didFetchAllComments;
-    DatabaseAccess *_dbAccess;
 	NSInteger _idEsercente;
 	NSString *_insegnaEsercente;
     

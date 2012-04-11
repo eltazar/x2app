@@ -10,6 +10,7 @@
 #import "ValidateCardController.h"
 #import "CartaPerDue.h"
 #import "MBProgressHUD.h"
+#import "PDHTTPAccess.h"
 
 
 @interface ValidateCardController(){
@@ -27,20 +28,16 @@
 @synthesize validateBtn = _validateBtn;
 
 -(id) initWhitCard:(CartaPerDue*)aCard company:(NSDictionary*)aCompany{
-
     self = [super initWithNibName:@"ValidateCardController" bundle:nil];
-    
     if(self){
         self.card = aCard;
         self.company = aCompany;
     }
-    
     return self;
 }
 
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -48,20 +45,21 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
     // Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark - databaseAccessDelegate
 
--(void)didReceiveResponsFromServer:(NSString *)receivedData{
-    NSLog(@"received data = %@",receivedData);
+#pragma mark - WMHTTPAccessDelegate
+
+
+-(void)didReceiveString:(NSString *)receivedString {
+    NSLog(@"received data = %@", receivedString);
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
+
 
 -(void)didReceiveError:(NSError *)error{
     NSLog(@"error = %@", [error description]);
@@ -71,21 +69,22 @@
     [alert release];
 }
 
+
 #pragma mark - bottoni view
+
 
 -(IBAction)validateRequestBtn:(id)sender{
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Invio richiesta...";
-    
-    [dbAccess sendValidateRequest:self.card companyID:[[self.company objectForKey:@"IDesercente"]intValue]];
-    
+    [PDHTTPAccess sendValidateRequest:self.card companyID:[[self.company objectForKey:@"IDesercente"]intValue] delegate:self];
 }
+
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"Verifica carta";
@@ -98,15 +97,10 @@
     self.validateBtn.layer.masksToBounds = YES;
     
     [self.view addSubview:self.pushView];
-    
-    dbAccess = [[DatabaseAccess alloc] init];
-    dbAccess.delegate = self;
-    
-    // Do any additional setup after loading the view from its nib.
 }
 
-- (void)viewDidUnload
-{
+
+- (void)viewDidUnload {
     [super viewDidUnload];
 
     self.validateBtn = nil;
@@ -119,9 +113,7 @@
 }
 
 - (void)dealloc {
-    
-    dbAccess.delegate = nil;
-    [dbAccess release];
+
     
     self.validateBtn = nil;
     self.cardLabel = nil;

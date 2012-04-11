@@ -275,7 +275,7 @@
     if([self validateFields])
         NSLog(@"tutti campi sono validi!");
     
-    //inviare email alla PerDue o salvare richiesta sul DB
+    //TODO: inviare email alla PerDue o salvare richiesta sul DB
     
 }
 

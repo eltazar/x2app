@@ -12,7 +12,6 @@
 @interface Commenti (){
 }
 @property (nonatomic, retain) NSMutableArray *dataModel;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 - (void)fetchRowsFromNumber:(NSInteger)n;
 - (void)prettifyNullValuesForCommentsInArray:(NSArray *)comments;
 
@@ -26,7 +25,7 @@
 
 @synthesize tableview=_tableview, activityIndicator=_activityIndicator;
 
-@synthesize dataModel=_dataModel, dbAccess=_dbAccess;
+@synthesize dataModel=_dataModel;
 
 
 /*
@@ -57,8 +56,6 @@
     UILabel *titolo = (UILabel *)[self.view viewWithTag:1];
     titolo.text = self.insegnaEsercente;
     didFetchAllComments = FALSE;
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
 }
 
 
@@ -85,8 +82,6 @@
 - (void)viewDidUnload {
     [super viewDidUnload];
     self.dataModel = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     self.tableview.dataSource = nil;
@@ -98,8 +93,6 @@
 
 - (void)dealloc {
     self.dataModel = nil; //era: rows
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     self.insegnaEsercente = nil;
     self.tableview.dataSource = nil;
     self.tableview.delegate = nil;
@@ -113,13 +106,13 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (self.dataModel.count < 5) {
-		return 1;
-	}	
-	else {
+	//if (self.dataModel.count < 5) {
+	//	return 1;
+	//}	
+	//else {
 		return 2;
 		
-	}
+	//}
 }
 
 
@@ -223,13 +216,13 @@
 }
 
 
-#pragma mark - DatabaseAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
 
-- (void)didReceiveCoupon:(NSDictionary *)data {
+- (void)didReceiveJSON:(NSDictionary *)jsonDict {
     [self.activityIndicator stopAnimating];
     self.activityIndicator.hidden = YES;
-    NSObject *temp = [data objectForKey:@"Esercente"];
+    NSObject *temp = [jsonDict objectForKey:@"Esercente"];
     
     if (![temp isKindOfClass:[NSArray class]]) {
         return;
@@ -284,7 +277,7 @@
 
 - (void)fetchRowsFromNumber:(NSInteger)n {
     NSString *urlString = [NSString stringWithFormat:urlFormatString, self.idEsercente, n];
-    [self.dbAccess getConnectionToURL:urlString];
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
 }
 
 

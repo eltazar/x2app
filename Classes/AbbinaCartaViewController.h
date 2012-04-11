@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 
 @class PickerViewController;
 @protocol AbbinaCartaDelegate;
 
-@interface AbbinaCartaViewController : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, UIAlertViewDelegate, DatabaseAccessDelegate> {
+@interface AbbinaCartaViewController : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, UIAlertViewDelegate, WMHTTPAccessDelegate> {
     id<AbbinaCartaDelegate> _delegate;
     PickerViewController *_pickerDate;
 }

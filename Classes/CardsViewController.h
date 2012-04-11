@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "AbbinaCartaViewController.h"
-#import "DatabaseAccess.h"
 #import "LoginControllerBis.h"
-@interface CardsViewController : UITableViewController <AbbinaCartaDelegate, DatabaseAccessDelegate,LoginControllerBisDelegate>
-{ 
+#import "WMHTTPAccess.h"
+
+
+@interface CardsViewController : UITableViewController <AbbinaCartaDelegate, LoginControllerBisDelegate, WMHTTPAccessDelegate> { 
 }
 
 @end

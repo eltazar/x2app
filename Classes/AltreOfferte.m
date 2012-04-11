@@ -11,12 +11,11 @@
 #import "CachedAsyncImageView.h"
 #import "Utilita.h"
 #import "OpzioniCoupon.h"
-#import "DatabaseAccess.h"
+#import "PDHTTPAccess.h"
 #import "Coupon.h"
 
 @interface AltreOfferte () {}
 @property (nonatomic, retain) NSMutableArray *dataModel;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 @end
 
 
@@ -26,7 +25,7 @@
 
 @synthesize tableview=_tableview, footerView=_footerView, cellSpinner=_cellSpinner, citta=_citta, spinnerView=_spinnerView;
 
-@synthesize dataModel=_dataModel, dbAccess=_dbAccess;
+@synthesize dataModel=_dataModel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -59,9 +58,6 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _citta.text  = [defaults objectForKey:@"cittacoupon"];
     
-	self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
-    
     self.dataModel = [[[NSMutableArray alloc] init] autorelease];
     
     self.spinnerView.layer.cornerRadius = 6;
@@ -87,7 +83,7 @@
         //inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
         NSString *prov= [citycoupon stringByReplacingOccurrencesOfString:@" " withString:@"!"];       
         [self.spinnerView startAnimating];
-        [self.dbAccess getAltreOfferteFromServer:prov];        
+        [PDHTTPAccess getAltreOfferteFromServer:prov delegate:self];
     }
     [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
 }
@@ -102,8 +98,6 @@
 - (void)viewDidUnload {    
     [super viewDidUnload];
     self.dataModel = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     self.tableview.dataSource = nil;
@@ -118,8 +112,6 @@
 
 - (void)dealloc {
     self.dataModel = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     self.tableview.dataSource = nil;
     self.tableview.delegate = nil;
     self.tableview = nil;
@@ -239,7 +231,7 @@
 }
 
 
-#pragma mark - DatabaseAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
 
 - (void)didReceiveError:(NSError *)error{
@@ -248,10 +240,10 @@
 }
 
 
-- (void)didReceiveCoupon:(NSDictionary *)coupon {
+- (void)didReceiveJSON:(NSDictionary *)jsonDict {
     [self.spinnerView stopAnimating];
     
-    NSObject *temp = [coupon objectForKey:@"Esercente"];
+    NSObject *temp = [jsonDict objectForKey:@"Esercente"];
     if (![temp isKindOfClass:[NSArray class]]) {
         return;
     }

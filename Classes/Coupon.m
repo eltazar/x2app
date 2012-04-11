@@ -12,7 +12,6 @@
 #import "FBDialog.h"
 #import "Facebook.h"
 #import "PerDueCItyCardAppDelegate.h"
-#import "DatabaseAccess.h"
 #import "Utilita.h"
 #import "LoginControllerBis.h"
 #import "DettaglioEsercente.h"
@@ -20,6 +19,7 @@
 #import "CouponDiscountTimeCell.h"
 #import "FotoIngranditaController.h"
 #import "CouponEsercCell.h"
+#import "PDHTTPAccess.h"
 
 
 typedef enum {CouponEsercenteNULL, CouponEsercenteNormale, CouponEsercenteRistorazione, CouponEsercenteSenzaContratto} tipoEsercente;
@@ -30,7 +30,6 @@ typedef enum {CouponEsercenteNULL, CouponEsercenteNormale, CouponEsercenteRistor
     NSTimer *_timer;
     int secondsLeft;
     float altezzaCella;
-    DatabaseAccess *_dbAccess;
     PerDueCItyCardAppDelegate *_appDelegate;	//Ci dovrebbe essere un modo per ottenerlo programmaticamente
 
     UIActionSheet *_aSheet;   //Mario, se passi di qui, dacci dei nomi più significativi :D
@@ -45,7 +44,6 @@ typedef enum {CouponEsercenteNULL, CouponEsercenteNormale, CouponEsercenteRistor
 }
 @property (nonatomic, retain) NSTimer *timer;
 @property (nonatomic, retain) UILabel *tempoLbl;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 @property (nonatomic, retain) PerDueCItyCardAppDelegate *appDelegate;	
 @property (nonatomic, retain) UIActionSheet *aSheet;   
 @property (nonatomic, retain) UIActionSheet *aSheet2;
@@ -62,7 +60,7 @@ typedef enum {CouponEsercenteNULL, CouponEsercenteNormale, CouponEsercenteRistor
 
 @synthesize titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tableview=_tableview, webViewContr=_webViewController, faqViewController=_faqViewController, faqWebView=_faqWebView;
 
-@synthesize timer=_timer, tempoLbl=_tempoLbl, dbAccess=_dbAccess, appDelegate=_appDelegate;
+@synthesize timer=_timer, tempoLbl=_tempoLbl, appDelegate=_appDelegate;
 
 @synthesize aSheet=_aSheet, aSheet2=_aSheet2;
 
@@ -688,7 +686,7 @@ if ([rows count]>0) {//coupon disponibile
         if(self.view.window){
             NSLog(@"%@::viewDidAppear - lancio la query (coupon del giorno)", [self class]);
             [self.caricamentoSpinner startAnimating];
-            [self.dbAccess getCouponFromServer:prov];
+            [PDHTTPAccess getCouponFromServer:prov delegate:self];
         }
         
     } 
@@ -697,7 +695,7 @@ if ([rows count]>0) {//coupon disponibile
         if(self.view.window && !(self.dataModel)){
             NSLog(@"%@::viewDidAppear - Rilancio la query (coupon non del giorno)", [self class]);
             [self.caricamentoSpinner startAnimating];
-            [self.dbAccess getCouponFromServerWithId:self.idCoupon];
+            [PDHTTPAccess getCouponFromServerWithId:self.idCoupon delegate:self];
         }
     }
 }
@@ -715,9 +713,6 @@ if ([rows count]>0) {//coupon disponibile
     
     altezzaCella = 44.0;
     tipodettaglio = CouponEsercenteNULL;
-    
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
 
     //self.prezzoCouponLbl.layer.cornerRadius = 6;
     self.reloadBtn.layer.cornerRadius = 6;
@@ -830,10 +825,6 @@ if ([rows count]>0) {//coupon disponibile
 
 
 - (void)dealloc {
-    
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
-    
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
     self.reloadBtn = nil;
     self.caricamentoSpinner = nil;
@@ -849,10 +840,10 @@ if ([rows count]>0) {//coupon disponibile
 }
 
 
-#pragma mark - DatabaseAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
 
--(void)didReceiveCoupon:(NSDictionary *)coupon {
+-(void)didReceiveJSON:(NSDictionary *)jsonDict {
     [self.caricamentoSpinner stopAnimating];
     [self.compraBtn setEnabled:YES];
     
@@ -860,7 +851,7 @@ if ([rows count]>0) {//coupon disponibile
     
     NSObject *temp;
     
-    temp = [coupon objectForKey:@"Esercente"];
+    temp = [jsonDict objectForKey:@"Esercente"];
     if (temp) {
         if ((![temp isKindOfClass:[NSArray class]])  ||  (((NSArray *) temp).count == 0)) {
             self.dataModel = nil;
@@ -914,15 +905,16 @@ if ([rows count]>0) {//coupon disponibile
             
             NSInteger idEsercente = [[self.dataModel objectForKey:@"idesercente"] integerValue];
             NSString *urlString = @"http://www.cartaperdue.it/partner/v2.0/TipoEsercente.php";
-            NSString *postDataString = [NSString stringWithFormat:@"idEsercente=%d", idEsercente];
-            [self.dbAccess postConnectionToURL:urlString withData:postDataString];
-             
+            NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                      [NSString stringWithFormat:@"%d", idEsercente], @"idEsercente",
+                                      nil];
+            [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];             
           
             [self.tableview reloadData];
         }
     }
     
-    temp = [coupon objectForKey:@"TipologiaEsercente"];
+    temp = [jsonDict objectForKey:@"TipologiaEsercente"];
     if (temp) {
         NSLog(@"%@::didReceiveCoupon (%@)temp = %@", [self class], [temp class], temp);
         if (!([temp isKindOfClass:[NSArray class]]) ||  (((NSArray *) temp).count == 0)) {

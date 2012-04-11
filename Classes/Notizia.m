@@ -11,7 +11,6 @@
 
 @interface Notizia () {}
 @property (nonatomic, retain) NSMutableDictionary *dataModel;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 @end
 
 
@@ -22,7 +21,7 @@
 
 @synthesize activityIndicator=_activityIndicator;
 
-@synthesize dataModel=_dataModel, dbAccess=_dbAccess;
+@synthesize dataModel=_dataModel;
 
 
 /*
@@ -48,8 +47,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
 }
 
 
@@ -69,7 +66,7 @@
     
     [self.activityIndicator startAnimating];
     NSString *urlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/Notizia.php?id=%d", self.idNotizia];
-	[self.dbAccess getConnectionToURL:urlString];
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
 }
 
 
@@ -101,11 +98,11 @@
  */
 
 
-#pragma mark - DatabaseAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
 
-- (void)didReceiveCoupon:(NSDictionary *)data {
-    NSObject *temp = [data objectForKey:@"Esercente"];
+- (void)didReceiveJSON:(NSDictionary *)jsonDict {
+    NSObject *temp = [jsonDict objectForKey:@"Esercente"];
     if (![temp isKindOfClass:[NSArray class]]) {
         return;
     }

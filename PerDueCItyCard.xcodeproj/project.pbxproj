@@ -80,7 +80,6 @@
 		AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7031509658D00E54106 /* AcquistoOnlineController.m */; };
 		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
-		AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = AC365D62150B6BB7006CF120 /* DatabaseAccess.m */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CardsViewController.m */; };
@@ -175,6 +174,9 @@
 		D94C1C5115323A9F00697575 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5015323A9F00697575 /* Default.png */; };
 		D94C1C5315323AA200697575 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5215323AA200697575 /* Default@2x.png */; };
 		D95CBF41153067C800D79209 /* Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8B13ED5144001C7763 /* Coupon.xib */; };
+		D9678C5B1535D95900C86E83 /* WMHTTPAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D9678C5A1535D95900C86E83 /* WMHTTPAccess.m */; };
+		D9678C5F1535F8FF00C86E83 /* PDHTTPAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D9678C5E1535F8FF00C86E83 /* PDHTTPAccess.m */; };
+		D9678C631536219A00C86E83 /* NSString+Base64Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = D9678C621536219A00C86E83 /* NSString+Base64Addition.m */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
 		D9AB0BC11531806900B1668F /* CouponDiscountTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AB0BC01531806900B1668F /* CouponDiscountTimeCell.m */; };
@@ -292,8 +294,6 @@
 		AC13B7081509691500E54106 /* BuyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyCell.m; sourceTree = "<group>"; };
 		AC27879B15194A5C00747542 /* GeoDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoDecoder.h; sourceTree = "<group>"; };
 		AC27879C15194A5C00747542 /* GeoDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoDecoder.m; sourceTree = "<group>"; };
-		AC365D61150B6BB7006CF120 /* DatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseAccess.h; sourceTree = "<group>"; };
-		AC365D62150B6BB7006CF120 /* DatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseAccess.m; sourceTree = "<group>"; };
 		AC3AC159151DCA4000C8164D /* grayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton.png; sourceTree = "<group>"; };
 		AC3C57B31525313500E5457E /* refreshBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refreshBtn.png; sourceTree = "<group>"; };
 		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -448,6 +448,12 @@
 		D94C1C40153238B800697575 /* PagamentoTotaleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PagamentoTotaleCell.xib; sourceTree = "<group>"; };
 		D94C1C5015323A9F00697575 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		D94C1C5215323AA200697575 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		D9678C591535D95900C86E83 /* WMHTTPAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMHTTPAccess.h; sourceTree = "<group>"; };
+		D9678C5A1535D95900C86E83 /* WMHTTPAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMHTTPAccess.m; sourceTree = "<group>"; };
+		D9678C5D1535F8FF00C86E83 /* PDHTTPAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDHTTPAccess.h; sourceTree = "<group>"; };
+		D9678C5E1535F8FF00C86E83 /* PDHTTPAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDHTTPAccess.m; sourceTree = "<group>"; };
+		D9678C611536219A00C86E83 /* NSString+Base64Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Base64Addition.h"; path = "Librerie Esterne/NSStringAdditions/NSString+Base64Addition.h"; sourceTree = "<group>"; };
+		D9678C621536219A00C86E83 /* NSString+Base64Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Base64Addition.m"; path = "Librerie Esterne/NSStringAdditions/NSString+Base64Addition.m"; sourceTree = "<group>"; };
 		D9861EB3151BE2540017A16E /* Card.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = Card.php; path = "php server/PHP APPv2/Card.php"; sourceTree = SOURCE_ROOT; };
 		D992A7D1152B3A6C00703EDC /* Esercenti.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = Esercenti.php; path = "php server/PHP APPv2/Esercenti.php"; sourceTree = SOURCE_ROOT; };
 		D99378B01519368200DFC410 /* CartaPerDue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaPerDue.h; sourceTree = "<group>"; };
@@ -650,8 +656,10 @@
 			children = (
 				AC27879B15194A5C00747542 /* GeoDecoder.h */,
 				AC27879C15194A5C00747542 /* GeoDecoder.m */,
-				AC365D61150B6BB7006CF120 /* DatabaseAccess.h */,
-				AC365D62150B6BB7006CF120 /* DatabaseAccess.m */,
+				D9678C591535D95900C86E83 /* WMHTTPAccess.h */,
+				D9678C5A1535D95900C86E83 /* WMHTTPAccess.m */,
+				D9678C5D1535F8FF00C86E83 /* PDHTTPAccess.h */,
+				D9678C5E1535F8FF00C86E83 /* PDHTTPAccess.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -745,6 +753,7 @@
 		D9463616152F6953000A17CE /* Librerie Esterne */ = {
 			isa = PBXGroup;
 			children = (
+				D9678C601536214100C86E83 /* NSStringAdditions */,
 				D9BBBC45152F84B60032B9E3 /* MBProgressHUD */,
 				D9463617152F6A0F000A17CE /* Facebook */,
 				D9463624152F6A0F000A17CE /* JsonTouch */,
@@ -859,6 +868,15 @@
 				D9463663152F6A33000A17CE /* SBJsonWriter.m */,
 			);
 			path = JSON;
+			sourceTree = "<group>";
+		};
+		D9678C601536214100C86E83 /* NSStringAdditions */ = {
+			isa = PBXGroup;
+			children = (
+				D9678C611536219A00C86E83 /* NSString+Base64Addition.h */,
+				D9678C621536219A00C86E83 /* NSString+Base64Addition.m */,
+			);
+			name = NSStringAdditions;
 			sourceTree = "<group>";
 		};
 		D99378B81519463700DFC410 /* PHP */ = {
@@ -1204,7 +1222,6 @@
 				AC9B69291507AFAA00BE6A30 /* DettaglioCartaViewController.m in Sources */,
 				AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */,
 				AC13B7091509691500E54106 /* BuyCell.m in Sources */,
-				AC365D63150B6BB7006CF120 /* DatabaseAccess.m in Sources */,
 				ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */,
 				D99378B21519368200DFC410 /* CartaPerDue.m in Sources */,
 				D91D43041519CD50001D9033 /* LocalDatabaseAccess.m in Sources */,
@@ -1249,6 +1266,9 @@
 				D9AB0BC11531806900B1668F /* CouponDiscountTimeCell.m in Sources */,
 				D94C1C1415320D5E00697575 /* CouponEsercCell.m in Sources */,
 				D9AC3B331534AA6B006BA6A0 /* CachedAsyncImageView.m in Sources */,
+				D9678C5B1535D95900C86E83 /* WMHTTPAccess.m in Sources */,
+				D9678C5F1535F8FF00C86E83 /* PDHTTPAccess.m in Sources */,
+				D9678C631536219A00C86E83 /* NSString+Base64Addition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

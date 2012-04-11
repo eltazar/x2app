@@ -19,9 +19,9 @@
 #import "AcquistoOnlineController.h"
 #import "Utilita.h"
 #import "LocalDatabaseAccess.h"
-#import "DatabaseAccess.h"
 #import "LoginControllerBis.h"
-#import "LocalDatabaseAccess.h"
+#import "UIDevice+IdentifierAddition.h"
+#import "PDHTTPAccess.h"
 
 
 @interface CardsViewController() {
@@ -29,13 +29,11 @@
 
     NSMutableArray *sectionDescription;
     NSMutableArray *sectionData;
-    DatabaseAccess *_dbAccess;
     NSIndexPath *_selectedRow;
 }
 @property (nonatomic, retain) NSIndexPath *selectedRow;
 @property (nonatomic, retain) NSMutableArray *sectionDescription;
 @property (nonatomic, retain) NSMutableArray *sectionData;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 - (NSMutableArray*)creaDataContent;
 @end
 
@@ -43,7 +41,9 @@
 @implementation CardsViewController
 
 
-@synthesize sectionData, sectionDescription, dbAccess=_dbAccess,selectedRow;
+
+@synthesize sectionData, sectionDescription, selectedRow;
+
 
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -127,8 +127,6 @@
         self.sectionData = [[[NSMutableArray alloc] initWithObjects:manageSection, retrieveSection, nil] autorelease];
     }
     
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
     
 // TODO: trovare un modo per far sparire le carte associate con altri devices    
     [cardsSection release];
@@ -166,8 +164,6 @@
     self.selectedRow = nil;
     self.sectionData = nil;
     self.sectionDescription = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
 }
 
 
@@ -175,8 +171,6 @@
     self.selectedRow = nil;
     self.sectionData = nil;
     self.sectionDescription = nil;
-    self.dbAccess.delegate = nil;
-    [_dbAccess release];
     [super dealloc];
 }
 
@@ -413,26 +407,26 @@
         else{            
             //lancio query per recupero della carta acquistato dall'utente idutente
             NSLog(@"ID UTENTE = %d",[idUtente intValue]);
-            [_dbAccess retrieveCardFromServer:[idUtente intValue]];
+            [PDHTTPAccess retrieveCardFromServer:[idUtente intValue] delegate:self]; 
         }
         
     }
 }
 
-#pragma mark - DBAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
--(void)didReceiveCoupon:(NSDictionary *)coupon{
+-(void)didReceiveJSON:(NSDictionary *)jsonDict {
     
-    if([coupon objectForKey:@"CartaRecuperata"] &&
-       [[coupon objectForKey:@"CartaRecuperata"] count] > 1){
-        NSLog(@"CARTA RICEVUTA = %@",coupon);
+    if([jsonDict objectForKey:@"CartaRecuperata"] &&
+       [[jsonDict objectForKey:@"CartaRecuperata"] count] > 1){
+        NSLog(@"CARTA RICEVUTA = %@", jsonDict);
         
         CartaPerDue *card = [[CartaPerDue alloc] init];
         card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
         card.surname = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];     
-        card.number = [[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"codice_carta"];
+        card.number = [[[jsonDict objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"codice_carta"];
         
-        card.expiryString = [[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"data_scadenza"];
+        card.expiryString = [[[jsonDict objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"data_scadenza"];
         
         NSError *error;
         if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {

@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "CJSONDeserializer.h"
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 
-@interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,DatabaseAccessDelegate> {
+@interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate, WMHTTPAccessDelegate> {
 @private
     NSMutableArray *_dataModel;
-    DatabaseAccess *_dbAccess;
     // IBOs:
     UITableView *_tableview;
 	UIView *_footerView;

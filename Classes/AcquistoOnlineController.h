@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 #import "IAPHelper.h"
 #import "MBProgressHUD.h"
 
-@interface AcquistoOnlineController : UITableViewController <DatabaseAccessDelegate>
+@interface AcquistoOnlineController : UITableViewController <WMHTTPAccessDelegate>
 {
-    DatabaseAccess *dbAccess;
     NSSet *productsId;
     
     IBOutlet UITableViewCell *cellProdotto;

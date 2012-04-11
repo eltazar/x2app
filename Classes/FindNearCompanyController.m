@@ -10,14 +10,12 @@
 #import "FindNearCompanyController.h"
 #import "Utilita.h"
 #import "BaseCell.h"
-#import "DatabaseAccess.h"
 #import "CartaPerDue.h"
 #import "ValidateCardController.h"
 #import "MBProgressHUD.h"
 #import "UserDefaults.h"
 
 @interface FindNearCompanyController(){
-    DatabaseAccess *dbAccess;
      NSString *_phpFile;
     BOOL isEmpty;
     CartaPerDue *_card;
@@ -61,14 +59,15 @@
 }
 
 
-#pragma mark - DatabaseAccessDelegate
--(void)didReceiveCoupon:(NSDictionary *)dataDict{
+#pragma mark - WMHTTPAccessDelegate
+
+-(void)didReceiveJSON:(NSDictionary *)jsonDict {
     
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     
-    NSString *type = [[dataDict allKeys] objectAtIndex:0];
-    NSArray *newRows = [dataDict objectForKey:type];
-   NSLog(@"esercenti = %@",dataDict);
+    NSString *type = [[jsonDict allKeys] objectAtIndex:0];
+    NSArray *newRows = [jsonDict objectForKey:type];
+    NSLog(@"esercenti = %@", jsonDict);
     NSLog(@"new rows = %d, rows = %d",newRows.count, self.rows.count);
     // Ci aspettiamo che rows sia effettivamente un array, se non lo è
     // si ignora.
@@ -122,17 +121,18 @@
 
 #pragma mark - metodi privati
 - (void) fetchRows{
-    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Caricamento...";
-        
-    NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&lat=41.890520&long=12.494249&giorno=%@&raggio=%d&ordina=distanza&from=%d",[UserDefaults weekDay],2,0];
-    NSLog(@"urlString is: [%@]", self.urlString);
-    NSLog(@"postString is: [%@]", postString);
-    [dbAccess postConnectionToURL:self.urlString withData:postString];
 
-    //[self.tableView reloadData];
+    NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
+    [postDict setObject:@"fetch"                forKey:@"request"];
+    [postDict setObject:[UserDefaults weekDay]  forKey:@"giorno"];
+    [postDict setObject:@"2"                    forKey:@"raggio"];
+    [postDict setObject:@"distanza"             forKey:@"ordina"];
+    [postDict setObject:@"0"                    forKey:@"from"];
+    [postDict setObject:@"41.890520"            forKey:@"lat"];
+    [postDict setObject:@"12.494249"            forKey:@"long"];
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:self.urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
 }
 
 
@@ -140,11 +140,16 @@
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];    
     
-    NSString *postString = [NSString stringWithFormat:
-                            @"request=fetch&lat=41.890520&long=12.494249&giorno=%@&raggio=%d&ordina=distanza&from=%d",[UserDefaults weekDay],2, self.rows.count];
-    NSLog(@"post more string  = %@",postString);
-    [dbAccess postConnectionToURL:self.urlString withData:postString];
-    
+    NSString *fromString = [NSString stringWithFormat:@"%d", self.rows.count];
+    NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
+    [postDict setObject:@"fetch"                forKey:@"request"];
+    [postDict setObject:[UserDefaults weekDay]  forKey:@"giorno"];
+    [postDict setObject:@"2"                    forKey:@"raggio"];
+    [postDict setObject:@"distanza"             forKey:@"ordina"];
+    [postDict setObject:fromString              forKey:@"from"];
+    [postDict setObject:@"41.890520"            forKey:@"lat"];
+    [postDict setObject:@"12.494249"            forKey:@"long"];
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:self.urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
 }
 
 #pragma mark - CLLocationManagerDelegate protocol
@@ -189,10 +194,6 @@
     
     self.urlString = @"http://www.cartaperdue.it/partner/v2.0/Esercenti.php";
     self.rows = [[[NSMutableArray alloc] init] autorelease];
-    
-    dbAccess = [[DatabaseAccess alloc]init];
-    dbAccess.delegate = self;
-    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -246,8 +247,6 @@
     self.phpFile = nil;
     self.urlString = nil;
     self.rows = nil;
-    dbAccess.delegate = nil;
-    [dbAccess release];
     [super dealloc];
 }
 

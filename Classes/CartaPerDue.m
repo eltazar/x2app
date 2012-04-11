@@ -7,21 +7,18 @@
 //
 
 #import "CartaPerDue.h"
-#import "DatabaseAccess.h"
 #import "PerDueCItyCardAppDelegate.h"
 
 @implementation CartaPerDue
 
-@synthesize name = _name, surname = _surname, number =_number;
+@synthesize name=_name, surname=_surname, number=_number;
 
 
-- (id) init
-{
+- (id) init {
     self = [super init];
     if (self) {
         // Initialization code here.
     }
-    
     return self;
 }
 

@@ -9,10 +9,10 @@
 #import "Pagamento2.h"
 #import "DatiPagamentoController.h"
 //#import "DatiUtenteController.h"
-#import "DatabaseAccess.h"
 #import "DataLoginController.h"
 #import "MBProgressHUD.h"
 #import "Utilita.h"
+#import "PDHTTPAccess.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -151,9 +151,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
        
 
         //identificativo è relativo all'offerta, cioè è id coupon
-        
-        [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv]];
-        
+        [PDHTTPAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv] delegate:self];        
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
         
 	} 
@@ -234,7 +232,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
             
             if([Utilita networkReachable]){
             
-                [dbAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@&prov=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv,provinciaSelezionata]];
+                [PDHTTPAccess buyCouponRequest:[NSString stringWithFormat: @"identificativo=%d&idiphone=%@&quantita=%d&valore=%.2f&importo=%f&idUtente=%d&tipocarta=%@&numerocarta=%@&mesescadenza=%d&annoscadenza=%d&intestatario=%@&cvv=%@&prov=%@",identificativo,idiphone,quant,valore,totale,idUtente,tipocarta,numerocarta,[mesescadenza integerValue],[annoscadenza integerValue],intestatario,cvv,provinciaSelezionata]  delegate:self];
                 
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.labelText = @"Acquisto...";
@@ -590,9 +588,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     
     buyAlert = [[UIAlertView alloc] initWithTitle:@"Vuoi comprare il coupon?" message:@"L'importo sarà effettivamente addebitato sulla tua carta di credito solamente se il processo di acquisto sarà completato e confermato" delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Compra", nil];
     
-    dbAccess = [[DatabaseAccess alloc] init];
-    dbAccess.delegate = self;
-    
     isQtField = FALSE;
     idUtente = -1;
     
@@ -652,7 +647,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 */
 
 
-#pragma mark - DatabaseAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
 -(void)didReceiveError:(NSError *)error{
     
@@ -665,13 +660,13 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 }
 
--(void)didReceiveResponsFromServer:(NSString *)receivedData{
+-(void)didReceiveString:(NSString *)receivedString {
     
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 
     
-    NSLog(@"DATI RICEVUTI DAL SERVER ACQUISTO COUPON = %@", receivedData);
-    if([receivedData isEqualToString:@"Ok"]){
+    NSLog(@"DATI RICEVUTI DAL SERVER ACQUISTO COUPON = %@", receivedString);
+    if([receivedString isEqualToString:@"Ok"]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Complimenti" message:@"La tua richiesta verrà processata dai nostri sistemi e a breve riceverai una mail di conferma.\n Condividi subito questa offerta!" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
@@ -754,9 +749,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     [buyAlert release];
     self.utente = nil;
     self.email = nil;
-    
-    dbAccess.delegate = nil;
-    [dbAccess release];
     
     [compra release];
     

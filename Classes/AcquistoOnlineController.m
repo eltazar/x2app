@@ -5,12 +5,15 @@
 //  Created by mario greco on 08/03/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
+
+
 #import <QuartzCore/QuartzCore.h>
 #import "AcquistoOnlineController.h"
 #import "BaseCell.h"
 #import "Utilita.h"
 #import "IAPHelper.h"
-//
+#import "PDHTTPAccess.h"
+
 
 @interface AcquistoOnlineController()
 
@@ -118,9 +121,9 @@
    
 }
 
-#pragma mark - DatabaseACcessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
--(void)didReceiveCoupon:(NSDictionary *)coupon{
+-(void)didReceiveJSON:(NSDictionary *)jsonDict {
     
     //sono stati caricati i codici dal catalogo sul nostro server
     [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -130,8 +133,8 @@
     
     
     //recupero gli id dei product dal server aziendale
-    if(coupon){
-        for(NSDictionary *tempDict in [coupon objectForKey:@"CatalogoIAP"]){
+    if (jsonDict) {
+        for(NSDictionary *tempDict in [jsonDict objectForKey:@"CatalogoIAP"]){
             
             [((NSMutableSet*)productsId) addObject: [tempDict objectForKey:@"product_id"]];
         }
@@ -176,9 +179,6 @@
     
     NSLog(@"define = %@",kProductsLoadedNotification);
     
-    dbAccess = [[DatabaseAccess alloc] init];
-    dbAccess.delegate = self;
-    
     productsId = [[NSMutableSet alloc] init];
 
     
@@ -202,12 +202,10 @@
     self.products = nil;
     
     [productsId release];
-    dbAccess.delegate = nil;
-    [dbAccess release];
-
-    
     [super dealloc];
 }
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -218,8 +216,7 @@
         //carico codici da catalogo sul nostro server
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"Caricamento catalogo...";
-        
-        [dbAccess getCatalogIAP];
+        [PDHTTPAccess getIAPCatalogWithDelegate:self];
     }
     else{
 #warning inserire alert

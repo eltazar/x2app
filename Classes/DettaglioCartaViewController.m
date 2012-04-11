@@ -14,17 +14,18 @@
 #import "MBProgressHUD.h"
 #import "AbbinaCartaViewController.h"
 #import "FindNearCompanyController.h"
+#import "PDHTTPAccess.h"
+
+
 @interface DettaglioCartaViewController(){
     CartaPerDue *_card;
     NSMutableArray *_sectionData;
     NSMutableArray *_sectionDescription;
-    DatabaseAccess *_dbAccess;
     BOOL isNotBind;
 }
 @property (nonatomic, retain) CartaPerDue *card;
 @property (nonatomic, retain) NSMutableArray *sectionData;
 @property (nonatomic, retain) NSMutableArray *sectionDescription;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 - (void)didAssociateCard:(NSString *)response;
 @end
 
@@ -33,7 +34,7 @@
 
 
 @synthesize viewForImage=_viewForImage;
-@synthesize card=_card, sectionData=_sectionData, sectionDescription=_sectionDescription, dbAccess=_dbAccess;
+@synthesize card=_card, sectionData=_sectionData, sectionDescription=_sectionDescription;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -79,7 +80,7 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.labelText = @"Attendere...";
             hud.detailsLabelText = @"Controllo carta in corso...";
-            [self.dbAccess cardDeviceAssociation:self.card.number request:@"Check"];
+            [PDHTTPAccess cardDeviceAssociation:self.card.number request:@"Check" delegate:self];
         }
         else{
             //altrimenti non faccio query sul db  e mostro direttamente i dati
@@ -117,9 +118,6 @@
     //inoltre inserire tasto "rimuovi abbinamento"
 
     self.title = @"Carta PerDue";
-    
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
     
     isNotBind = FALSE;
     
@@ -241,28 +239,26 @@
     self.card = nil;
     self.sectionData = nil;
     self.sectionDescription = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     
     [super dealloc];
 }
 
 
-#pragma mark - DBAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
 
--(void)didReceiveCoupon:(NSDictionary *)receivedData{
+-(void)didReceiveJSON:(NSDictionary *)jsonDict {
     
     NSLog(@"RICEVUTI DATI");
     
-    NSString *receivedString1 = [receivedData objectForKey:@"CardDeviceAssociation:Set"];
+    NSString *receivedString1 = [jsonDict objectForKey:@"CardDeviceAssociation:Set"];
     
     if (receivedString1) {
         [self didAssociateCard:receivedString1];
         return;
     }
     
-    NSString *receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Check"];
+    NSString *receivedString = [jsonDict objectForKey:@"CardDeviceAssociation:Check"];
     
     //se carta è associata ad un altro dispositivo mostro taasti per riabbinamento e cancellazione
     if (receivedString && [receivedString isEqualToString:@"Associated:Another"]) {
@@ -475,7 +471,7 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"Attendere...";
         hud.detailsLabelText = @"Abbinamento in corso...";
-        [self.dbAccess cardDeviceAssociation:self.card.number request:@"Set"];
+        [PDHTTPAccess cardDeviceAssociation:self.card.number request:@"Set" delegate:self];
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

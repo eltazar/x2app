@@ -16,7 +16,6 @@
 @interface DettaglioEsercente () {}
 @property (nonatomic, retain) IndexPathMapper *idxMap;
 @property (nonatomic, retain) NSDictionary *dataModel;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 - (void)removeNullItemsFromModel;
 - (void)populateIndexPathMap; 
 @end
@@ -32,7 +31,7 @@
 @synthesize tableview=_tableview, activityIndicator=_activityIndicator, mapViewController=_mapViewController, mkMapView=_mkMapView, mapTypeSegCtrl=_mapTypeSegCtrl,condizioniViewController=_condizioniViewController, condizioniTextView=_condizioniTextView,  sitoViewController=_sitoViewController, sitoWebView=_sitoWebView;
 
 //Properties private:
-@synthesize idxMap=_idxMap, dataModel=_dataModel, dbAccess=_dbAccess;
+@synthesize idxMap=_idxMap, dataModel=_dataModel;
 
 
 - (id)init {
@@ -90,9 +89,6 @@
     
     self.idxMap = [[[IndexPathMapper alloc] init] autorelease];
         
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
-    
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -120,7 +116,7 @@
         else {
             completedUrlString = [NSString stringWithFormat:urlString, self.idEsercente];
         }
-        [self.dbAccess getConnectionToURL:completedUrlString];
+        [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:completedUrlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
     }
 }
 
@@ -144,8 +140,6 @@
     self.sitoViewController = nil;
     
     self.idxMap = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     
     // Questi verranno ricaricati nel viewWillAppear dopo il reload della view.
     self.dataModel = nil;
@@ -167,19 +161,11 @@
     self.condizioniTextView = nil;
     self.mapTypeSegCtrl = nil;
     self.mkMapView.delegate = nil;
-    //UITableViewCell *_cellavalidita;
     self.sitoViewController = nil;
-    
-	//IBOutlet UITableViewCell *provacella;
-	//IBOutlet UITableViewCell *cellaindirizzo;
-	//IBOutlet UITableViewCell *CellaDettaglio1;
     
     //@private
     self.idxMap = nil;
     self.dataModel = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
-
     
     //@protected
     [urlString release];
@@ -197,22 +183,22 @@
 }
 
 
-#pragma mark - DatabaseAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
 
-- (void) didReceiveCoupon:(NSDictionary *)data {
-    if (![data isKindOfClass:[NSDictionary class]])
+- (void) didReceiveJSON:(NSDictionary *)jsonDict {
+    if (![jsonDict isKindOfClass:[NSDictionary class]])
         return;
     // Il pacchetto json relativo all'esercente ha formato:
     // {Esercente=({....});}
-    NSObject *temp = [data objectForKey:@"Esercente"];
+    NSObject *temp = [jsonDict objectForKey:@"Esercente"];
     if (temp && [temp isKindOfClass:[NSArray class]]) {
         self.dataModel = [((NSArray *)temp) objectAtIndex:0];
         isDataModelReady = YES;
         if (!isCoupon && !isGenerico && urlStringValiditaCarta) {
             // lancio query per la validità:
             NSString *completedUrlString = [NSString stringWithFormat:urlStringValiditaCarta, [[self.dataModel objectForKey:@"IDcontratto_Contresercente"]intValue]];
-            [self.dbAccess getConnectionToURL:completedUrlString];
+            [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:completedUrlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
         }
         [self.activityIndicator stopAnimating];
         self.activityIndicator.hidden = YES;
@@ -221,7 +207,7 @@
         [self.tableview reloadData];
     }
     
-    temp = [data objectForKey:@"Giorni"];
+    temp = [jsonDict objectForKey:@"Giorni"];
     if (temp) {
         self.dataModel = [[[NSMutableDictionary alloc] initWithDictionary:self.dataModel] autorelease];
         [self.tableview beginUpdates];
@@ -327,7 +313,7 @@
         etich.text = @"Giorni di validita della Carta PerDue";
         
         // Questo oggetto del data model viene caricato a posteriori, attraverso una query
-        // specifica (fatta in didReceiveCoupon del DatabaseAccessDelegate.
+        // specifica (fatta in didReceiveJSON del WMHTTPAccessDelegate.
         // Se la query non è ancora stata fatta, la chiave non è settata, e objectForKey
         // ritorna nil. Se la query è stata fatta invece la chiave è settata. Il suo oggetto
         // non sarà mai un <null> come per gli altri campi, bensì un array vuoto.

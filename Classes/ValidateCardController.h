@@ -6,16 +6,14 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 @class CartaPerDue;
 
-@interface ValidateCardController : UIViewController<DatabaseAccessDelegate>
-{
+@interface ValidateCardController : UIViewController <WMHTTPAccessDelegate> {
     UIView* _pushView;
     UILabel *_companyLabel;
     UILabel *_cardLabel;
     UIButton *_validateBtn;
-    DatabaseAccess *dbAccess;
 }
 
 @property(nonatomic, retain) IBOutlet UIButton *validateBtn;

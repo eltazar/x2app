@@ -7,14 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DatabaseAccess.h"
+#import "WMHTTPAccess.h"
 
-@interface Notizia : UIViewController<UIWebViewDelegate, UIAlertViewDelegate, DatabaseAccessDelegate> {
+@interface Notizia : UIViewController <UIWebViewDelegate, UIAlertViewDelegate, WMHTTPAccessDelegate> {
     
 @private
     NSInteger _idNotizia;
     NSMutableDictionary *_dataModel;
-    DatabaseAccess *_dbAccess;
     UIActivityIndicatorView *_activityIndicator;
 }
 

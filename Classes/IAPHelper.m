@@ -7,6 +7,7 @@
 //
 
 #import "IAPHelper.h"
+#import "PDHTTPAccess.h"
 
 @implementation IAPHelper
 
@@ -16,6 +17,7 @@
 @synthesize request = _request;
 
 static IAPHelper * _sharedHelper;
+
 
 + (IAPHelper *) sharedHelper {
     
@@ -27,13 +29,11 @@ static IAPHelper * _sharedHelper;
     
 }
 
+
 - (id)init {
-    
-    
     self = [super init];
     if(self){
-        dbAccess = [[DatabaseAccess alloc] init];
-        dbAccess.delegate = self;
+
     }
     return self;
     
@@ -73,21 +73,19 @@ static IAPHelper * _sharedHelper;
     [[NSNotificationCenter defaultCenter] postNotificationName:kProductsLoadedNotification object:_products];    
 }
 
-#pragma mark - DatabaseAccessDelegate
+#pragma mark - WMHTTPAccessDelegate
 
--(void)didReceiveCoupon:(NSDictionary *)coupon{
+-(void)didReceiveJSON:(NSDictionary *)jsonDict {
+    // Nota di Whisky: usare questo metodo per qualsiasi risposta dal server, si distingue ciò che si sta facendo in base alla chiave del dict più esterno.
     
-    NSLog(@"RISPOSTA PER LA RECEIPT = %@",coupon);
-}
-
--(void)didReceiveResponsFromServer:(NSString *)receivedData{
-
+    NSLog(@"RISPOSTA PER LA RECEIPT = %@", jsonDict);
     //riceve carta perdue se tutto è stato verificato
-
+    
     
     //aggiungo la carta ricevuta
     //notifica inviata a cardsViewController -> che aggiorna il model
 }
+
 
 -(void)didReceiveError:(NSError *)error{
     
@@ -103,8 +101,8 @@ static IAPHelper * _sharedHelper;
         
     //ricevuta da inviare al server
     //transaction.transactionReceipt.data
-
-    [dbAccess sendReceipt:transaction.transactionReceipt userId: [[[NSUserDefaults standardUserDefaults] objectForKey:@"idcustomer"] intValue] transactionId:transaction.transactionIdentifier udid: [[UIDevice currentDevice] uniqueDeviceIdentifier] ];
+    
+    [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"idcustomer"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueIdentifier] delegate:self];
 }
 
 - (void)provideContent:(NSString *)productIdentifier {
@@ -183,8 +181,6 @@ static IAPHelper * _sharedHelper;
 
 - (void)dealloc
 {
-    dbAccess.delegate = nil;
-    [dbAccess release];
     [_productIdentifiers release];
     _productIdentifiers = nil;
     [_products release];

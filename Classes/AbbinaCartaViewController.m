@@ -14,18 +14,17 @@
 #import "Utilita.h"
 #import "MBProgressHUD.h"
 #import "BaseCell.h"
+#import "PDHTTPAccess.h"
 
 //metodi e ivar private
 
 @interface AbbinaCartaViewController() {
     BOOL isViewUp;
-    DatabaseAccess *_dbAccess; 
     CartaPerDue *_card;
     NSArray *sectionData;
     NSArray *sectionDescription;
 }
 @property(nonatomic, retain)IBOutlet UIView *viewForImage;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 @property (nonatomic, retain) CartaPerDue *card;
 - (BOOL)isValidFields;
 - (void)didReceiveCardExistence:(NSArray *)existence;
@@ -40,7 +39,7 @@
 @synthesize delegate = _delegate, pickerDate = _pickerDate;
 // IBOutlets
 // Properties private:
-@synthesize dbAccess = _dbAccess, card = _card;
+@synthesize card = _card;
 @synthesize viewForImage = _viewForImage;
 
 
@@ -157,9 +156,6 @@
     
     self.pickerDate = [[[PickerViewController alloc] initWithArray: calendar andNumber:2] autorelease];
     
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    [self.dbAccess setDelegate:self];
-    
     [calendar release];
 
     
@@ -186,8 +182,6 @@
 - (void)viewDidUnload {
     // Roba ricreata in viewDidLoad:
     self.pickerDate = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     // IBOutlets:    
     self.viewForImage = nil;
     
@@ -212,8 +206,6 @@
     [_pickerDate release];
     
     [_card release];
-    self.dbAccess.delegate = nil;
-    [_dbAccess release];
     
     [super dealloc];
 }
@@ -327,21 +319,21 @@
 #pragma mark - DatabaseAccessDelegate
 
 
-- (void)didReceiveCoupon:(NSDictionary *)receivedData {
-    NSLog(@"AbbinaCartaViewController received from server: %@", receivedData);
-    NSArray *receivedArray = [receivedData objectForKey:@"Card"];
+- (void)didReceiveJSON:(NSDictionary *)jsonDict {
+    NSLog(@"AbbinaCartaViewController received from server: %@", jsonDict);
+    NSArray *receivedArray = [jsonDict objectForKey:@"Card"];
     if (receivedArray) {
         [self didReceiveCardExistence:receivedArray];
         return;
     }
     
-    NSString *receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Check"];
+    NSString *receivedString = [jsonDict objectForKey:@"CardDeviceAssociation:Check"];
     if (receivedString) {
         [self didReceiveCardAssociationStatus:receivedString];
         return;
     }
     
-    receivedString = [receivedData objectForKey:@"CardDeviceAssociation:Set"];
+    receivedString = [jsonDict objectForKey:@"CardDeviceAssociation:Set"];
     if (receivedString) {
         [self didAssociateCard:receivedString];
         return;
@@ -390,7 +382,7 @@
         self.card.number = [cardDic objectForKey:@"number"];
         self.card.expiryString = [cardDic objectForKey:@"expiryString"];
         NSLog(@"didReciveCardExistence: received expiryString is \"%@\"", [cardDic objectForKey:@"expiryString"]);
-        [self.dbAccess cardDeviceAssociation:self.card.number request:@"Check"];
+        [PDHTTPAccess cardDeviceAssociation:self.card.number request:@"Check" delegate:self];
     }    
 }
 
@@ -400,7 +392,7 @@
     if ([status isEqualToString:@"Associated:This"]) {
         [self didAssociateCard:@"Success"];
     } else if ([status isEqualToString:@"Associated:No"]) {
-        [self.dbAccess cardDeviceAssociation:self.card.number request:@"Set"];
+        [PDHTTPAccess cardDeviceAssociation:self.card.number request:@"Set" delegate:self];
     } else if ([status isEqualToString:@"Associated:Another"]) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Carta associata ad un altro dispositivo" message:@"Continuando rimuoverai l'associazione con l'altro dispositivo" delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Ok", nil];
@@ -539,7 +531,7 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.labelText = @"Attendere...";
             hud.detailsLabelText = @"Controllo carta in corso...";
-            [self.dbAccess checkCardExistence:self.card];
+            [PDHTTPAccess checkCardExistence:self.card delegate:self];
         }
     }
     
