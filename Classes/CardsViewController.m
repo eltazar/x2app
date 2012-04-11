@@ -29,7 +29,9 @@
     NSMutableArray *sectionDescription;
     NSMutableArray *sectionData;
     DatabaseAccess *_dbAccess;
+    NSIndexPath *_selectedRow;
 }
+@property (nonatomic, retain) NSIndexPath *selectedRow;
 @property (nonatomic, retain) NSMutableArray *sectionDescription;
 @property (nonatomic, retain) NSMutableArray *sectionData;
 @property (nonatomic, retain) DatabaseAccess *dbAccess;
@@ -40,7 +42,7 @@
 @implementation CardsViewController
 
 
-@synthesize sectionData, sectionDescription, dbAccess=_dbAccess;
+@synthesize sectionData, sectionDescription, dbAccess=_dbAccess,selectedRow;
 
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -160,6 +162,7 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+    self.selectedRow = nil;
     self.sectionData = nil;
     self.sectionDescription = nil;
     self.dbAccess.delegate = nil;
@@ -168,6 +171,7 @@
 
 
 - (void)dealloc {
+    self.selectedRow = nil;
     self.sectionData = nil;
     self.sectionDescription = nil;
     self.dbAccess.delegate = nil;
@@ -187,15 +191,8 @@
     NSLog(@"IN CARDS CONTROLLER DOPO LOGIN id = %d", idUtente);
     [self dismissModalViewControllerAnimated:YES];
     
-    int section;
-    if(sectionDescription.count == 1){
-        section = 0;
-    }
-    else if(sectionDescription.count == 2 || sectionDescription.count == 3){
-        section = 1;
-    }
 
-    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:section]];
+    [self tableView:self.tableView didSelectRowAtIndexPath:self.selectedRow];
     
 }
 
@@ -331,6 +328,8 @@
     NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
     NSDictionary *row = [sec objectAtIndex:indexPath.row];
     NSString *dataKey = [row objectForKey:@"DataKey"];
+    
+    self.selectedRow = indexPath;
     
     // Click su una carta
     if ([dataKey isEqualToString:@"card"]){
