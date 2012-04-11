@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "AbbinaCartaViewController.h"
 #import "DatabaseAccess.h"
-@interface CardsViewController : UITableViewController <AbbinaCartaDelegate, DatabaseAccessDelegate>
+#import "LoginControllerBis.h"
+@interface CardsViewController : UITableViewController <AbbinaCartaDelegate, DatabaseAccessDelegate,LoginControllerBisDelegate>
 { 
 }
 

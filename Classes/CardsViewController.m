@@ -20,6 +20,7 @@
 #import "Utilita.h"
 #import "LocalDatabaseAccess.h"
 #import "DatabaseAccess.h"
+#import "LoginControllerBis.h"
 
 
 @interface CardsViewController() {
@@ -165,6 +166,22 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - LoginControllerDelegate
+
+- (void)didLogin:(int)idUtente {
+    NSLog(@"IN COUPON DOPO LOGIN id = %d", idUtente);
+    [self dismissModalViewControllerAnimated:YES];
+    
+    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:sectionDescription.count-1]];
+    
+}
+
+
+-(void)didAbortLogin{
+    NSLog(@"Abortito login da parte dell'utente");
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 
@@ -328,9 +345,29 @@
     
     // Click sul tasto "acquista"
     else if ([dataKey isEqualToString:@"acquista"]){
-        AcquistoOnlineController *acquistaController = [[AcquistoOnlineController alloc] initWithNibName:@"AcquistoOnlineController" bundle:nil];
-        [self.navigationController pushViewController:acquistaController animated:YES];
-        [acquistaController release];
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSNumber *idUtente = [prefs objectForKey:@"_idUtente"];
+        
+        if (!idUtente) {
+            //lancio view modale per il login
+            LoginControllerBis *loginController = [[LoginControllerBis alloc] initWithNibName:@"LoginControllerBis" bundle:nil];
+            
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+            loginController.delegate = self;
+            [loginController release];
+            
+            
+            navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            [self presentModalViewController:navController animated:YES];
+            [navController release];
+            
+        } 
+        else{            
+            AcquistoOnlineController *acquistaController = [[AcquistoOnlineController alloc] initWithNibName:@"AcquistoOnlineController" bundle:nil];
+            [self.navigationController pushViewController:acquistaController animated:YES];
+            [acquistaController release];
+        }
     }
 }
 
