@@ -90,6 +90,9 @@ static WMHTTPAccess *__sharedInstance = nil;
     NSMutableData *data                 = [self.dataDict     objectForKey:k];
     id<WMHTTPAccessDelegate> delegate   = [self.delegateDict objectForKey:k];
     
+    //Debug:
+    NSLog(@"Dal Server è arrivato: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    
     if ([delegate respondsToSelector:@selector(didReceiveJSON:)]) {
         NSError *error = nil;
         NSDictionary *jsonDict = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error];
