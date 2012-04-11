@@ -40,6 +40,8 @@
 #pragma mark - Gestioni caricamenti 
 
 - (void)timeout:(id)arg {
+    
+#warning quando parte questo hud, "acquisto carta" rimane comunque -> risolvere e valutare l'effettiva utilità di questo timeout
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Tempo scaduto!";
     hud.detailsLabelText = @"Spiacenti, riprovare più tardi!";
@@ -73,6 +75,8 @@
     
     NSString *productIdentifier = (NSString *) notification.object;
     NSLog(@"Purchased: %@", productIdentifier);
+    
+    //TODO: creare la carta con i dati ricevuti e nome e cognome presi da userdefault, quindi salvare sul db locale
         
 }
 
@@ -194,6 +198,7 @@
 
 - (void)dealloc {
     
+#warning rimuovere observer per il notification server
     self.products = nil;
     
     [productsId release];
