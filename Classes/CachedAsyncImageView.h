@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class ImageCache;
-
 
 @interface CachedAsyncImageView : UIImageView <NSURLConnectionDelegate> {
 @private
@@ -18,11 +16,11 @@
     NSMutableData *_receivedData;
 @protected
     UIActivityIndicatorView *_activityIndicator;
-    ImageCache *_imageCache;
 }
 
 - (void)loadImageFromURLString:(NSString *)urlString;
 - (void)loadImageFromURL:(NSURL *)url;
 - (void)setActivityIndicatorStyle:(UIActivityIndicatorViewStyle)style;
++ (void)emptyCache;
 
 @end

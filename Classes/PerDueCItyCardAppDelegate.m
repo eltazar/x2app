@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "FBConnect.h"
 #import "IAPHelper.h"
+#import "CachedAsyncImageView.h"
 
 @implementation PerDueCItyCardAppDelegate
 
@@ -321,6 +322,7 @@
     /*
      Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
      */
+    [CachedAsyncImageView emptyCache];
 }
 
 

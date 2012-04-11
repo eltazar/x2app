@@ -17,7 +17,7 @@
 + (ImageCache *)sharedInstance;
 - (UIImage *)imageForURLString:(NSString *)urlString;
 - (void)setImage:(UIImage *)image forURLString:(NSString *)urlString;
-- (void)purgeCache;
+- (void)emptyCache;
 @end
 /***************************************************/
 
@@ -140,6 +140,11 @@
 }
 
 
++ (void)emptyCache {
+    [[ImageCache sharedInstance] emptyCache];
+}
+
+
 # pragma mark - CachedAsyncImageView (metodi privati)
 
 
@@ -207,7 +212,8 @@ static ImageCache *__sharedInstance;
     }
 }
 
-- (void)purgeCache {
+- (void)emptyCache {
+    NSLog(@"[%@]::emptyCache", [self class]);
     [_cache removeAllObjects];
 }
 @end
