@@ -12,7 +12,7 @@
 @implementation OpzioniCoupon
 
 
-@synthesize province=_province, lastIndexPath=_lastIndexPath;
+@synthesize province=_province;
 
 @synthesize doneBtn=_doneBtn, optPicker=_optPicker;
 
@@ -20,7 +20,6 @@
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
     // Release any cached data, images, etc. that aren't in use.
 }
 
@@ -33,35 +32,57 @@
 	[[self.doneBtn layer] setCornerRadius:8.0f];
 	[[self.doneBtn layer] setMasksToBounds:YES];
 	[self.doneBtn setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
-	_defaults = [NSUserDefaults standardUserDefaults];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	NSString *testoSalvato=[[NSUserDefaults standardUserDefaults] objectForKey:@"cittacoupon"];
 	NSLog(@"Testo salvato:%@",testoSalvato);
-	NSArray *arraycitta = [[NSArray alloc] initWithObjects:@"Agrigento",@"Alessandria",@"Ancona",@"Aosta",@"Arezzo",@"Ascoli Piceno",@"Asti",@"Avellino",@"Bari",@"Barletta Andria Trani",@"Belluno",@"Benevento",@"Bergamo",@"Biella",@"Bologna",@"Bolzano",@"Brescia",@"Brindisi",@"Cagliari",@"Caltanissetta",@"Campobasso",@"Carbonia Iglesias",@"Caserta",@"Catania",@"Catanzaro",@"Chieti",@"Como",@"Cosenza",@"Cremona",@"Crotone",@"Cuneo",@"Enna",@"Fermo",@"Ferrara",@"Firenze",@"Foggia",@"Forli' - Cesena",@"Frosinone",@"Genova",@"Gorizia",@"Grosseto",@"Imperia",@"Isernia",@"L'Aquila",@"La Spezia",@"Latina",@"Lecce",@"Lecco",@"Livorno",@"Lodi",@"Lucca",@"Macerata",@"Mantova",@"Massa Carrara",@"Matera",@"Medio Campidano",@"Messina",@"Milano",@"Modena",@"Monza Brianza",@"Napoli",@"Novara",@"Nuoro",@"Ogliastra",@"Olbia Tempio",@"Oristano",@"Padova",@"Palermo",@"Parma",@"Pavia",@"Perugia",@"Pesaro",@"Pescara",@"Piacenza",@"Pisa",@"Pistoia",@"Pordenone",@"Potenza",@"Prato",@"Ragusa",@"Ravenna",@"Reggio Calabria",@"Reggio Emilia",@"Rieti",@"Rimini",@"Roma",@"Rovigo",@"Salerno",@"Sassari",@"Savona",@"Siena",@"Siracusa",@"Sondrio",@"Taranto",
-						   @"Teramo",@"Terni",@"Torino",@"Trapani",@"Trento",@"Treviso",@"Trieste",@"Udine",@"Varese",@"Venezia",@"Verbania",@"Vercelli",@"Verona",@"Vibo Valentia",@"Vicenza",@"Viterbo",nil];
+	self.province = [NSArray arrayWithObjects:
+                       @"Agrigento", @"Alessandria", @"Ancona", @"Aosta", @"Arezzo",
+                       @"Ascoli Piceno", @"Asti", @"Avellino", @"Bari", 
+                       @"Barletta Andria Trani", @"Belluno", @"Benevento", @"Bergamo",
+                       @"Biella", @"Bologna", @"Bolzano", @"Brescia", @"Brindisi",
+                       @"Cagliari", @"Caltanissetta", @"Campobasso", @"Carbonia Iglesias",
+                       @"Caserta", @"Catania", @"Catanzaro", @"Chieti", @"Como", 
+                       @"Cosenza", @"Cremona", @"Crotone", @"Cuneo", @"Enna", @"Fermo",
+                       @"Ferrara", @"Firenze", @"Foggia", @"Forli' - Cesena", 
+                       @"Frosinone", @"Genova", @"Gorizia", @"Grosseto" @"Imperia",
+                       @"Isernia", @"L'Aquila", @"La Spezia" ,@"Latina", @"Lecce",
+                       @"Lecco", @"Livorno", @"Lodi", @"Lucca", @"Macerata", 
+                       @"Mantova", @"Massa Carrara", @"Matera", @"Medio Campidano",
+                       @"Messina", @"Milano", @"Modena", @"Monza Brianza", @"Napoli",
+                       @"Novara", @"Nuoro", @"Ogliastra", @"Olbia Tempio", @"Oristano",
+                       @"Padova", @"Palermo", @"Parma", @"Pavia", @"Perugia", @"Pesaro",
+                       @"Pescara", @"Piacenza", @"Pisa", @"Pistoia", @"Pordenone",
+                       @"Potenza", @"Prato", @"Ragusa", @"Ravenna", @"Reggio Calabria",
+                       @"Reggio Emilia", @"Rieti", @"Rimini", @"Roma", @"Rovigo", 
+                       @"Salerno", @"Sassari", @"Savona", @"Siena", @"Siracusa",
+                       @"Sondrio", @"Taranto", @"Teramo", @"Terni", @"Torino",
+                       @"Trapani", @"Trento", @"Treviso", @"Trieste", @"Udine",
+                       @"Varese", @"Venezia", @"Verbania", @"Vercelli", @"Verona",
+                       @"Vibo Valentia", @"Vicenza", @"Viterbo", nil];
 	
 	
-    
-	self.province = arraycitta;
-	[self.optPicker selectRow:[[_defaults objectForKey:@"idcitycoupon"]integerValue] inComponent:0 animated:NO];
-	NSLog(@"Indice selezionato: %d\n",[[_defaults objectForKey:@"idcitycoupon"]integerValue]);
-	[arraycitta release];
+	[self.optPicker selectRow:[[defaults objectForKey:@"idcitycoupon"] integerValue] inComponent:0 animated:NO];
+	NSLog(@"Indice selezionato: %d\n",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
 }
 
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-	
+	self.province = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.doneBtn = nil;
+    self.optPicker.dataSource = nil;
+    self.optPicker.delegate = nil;
+    self.optPicker = nil;
 }
 
 
 - (void)dealloc {
-#warning finire il memory management!!!!!
+    self.province = nil;
     self.optPicker.dataSource = nil;
     self.optPicker.delegate = nil;
-    [self.optPicker release];
     self.optPicker = nil;
     [super dealloc];
 }
@@ -103,16 +124,15 @@
 
 
 - (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-	_defaults = [NSUserDefaults standardUserDefaults];
-	if (component==0){
-			NSString *citycoupon= [NSString stringWithFormat:@"%@",[self.province objectAtIndex:row]];
-			[_defaults setObject:citycoupon forKey:@"cittacoupon"];
-			[_defaults synchronize];
-			
-		}
-	NSLog(@"Confermo che hai selezioanto la città %@ alla riga %d",[_defaults objectForKey:@"cittacoupon"],row);
-
-	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if (component == 0 ) {
+        NSString *citycoupon = [NSString stringWithFormat:@"%@", 
+                                [self.province objectAtIndex:row]];
+        [defaults setObject:citycoupon forKey:@"cittacoupon"];
+        [defaults synchronize];
+    }
+	NSLog(@"Confermo che hai selezioanto la città %@ alla riga %d", 
+          [defaults objectForKey:@"cittacoupon"], row);
 }
 
 
@@ -120,14 +140,22 @@
 
 
 - (IBAction)chiudi:(id)sender {
-	[_defaults setObject:[NSNumber numberWithInt:[self.optPicker selectedRowInComponent:0]] forKey:@"idcitycoupon"];
-	[_defaults synchronize];
-	NSLog(@"Indice salvato: %d",[[_defaults objectForKey:@"idcitycoupon"]integerValue]);
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *cityIdx = [NSNumber numberWithInteger:[self.optPicker selectedRowInComponent:0]];
+	[defaults setObject:cityIdx forKey:@"idcitycoupon"];
+	[defaults synchronize];
+	NSLog(@"Indice salvato: %d", [[defaults objectForKey:@"idcitycoupon"] integerValue]);
     [self dismissModalViewControllerAnimated:YES];
-	
 }
 
 
 
 
 @end
+
+
+
+
+
+
+

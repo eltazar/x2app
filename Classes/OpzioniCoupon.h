@@ -12,16 +12,13 @@
 
 @interface OpzioniCoupon : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
 @private
-    NSUserDefaults  *_defaults;
+    NSArray      *_province;
     // IBOs:
-	UIButton        *_doneBtn;
-	NSArray         *_province;
-	NSIndexPath     *_lastIndexPath;
-	UIPickerView    *_optPicker;
+	UIButton     *_doneBtn;
+	UIPickerView *_optPicker;
 }
 
 @property (nonatomic, retain)          NSArray      *province;
-@property (nonatomic, retain)          NSIndexPath  *lastIndexPath;
 @property (nonatomic, retain) IBOutlet UIButton     *doneBtn;
 @property (nonatomic, retain) IBOutlet UIPickerView *optPicker;
 
