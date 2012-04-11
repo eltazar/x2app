@@ -184,10 +184,18 @@
 #pragma mark - LoginControllerDelegate
 
 - (void)didLogin:(int)idUtente {
-    NSLog(@"IN COUPON DOPO LOGIN id = %d", idUtente);
+    NSLog(@"IN CARDS CONTROLLER DOPO LOGIN id = %d", idUtente);
     [self dismissModalViewControllerAnimated:YES];
     
-    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:sectionDescription.count-1]];
+    int section;
+    if(sectionDescription.count == 1){
+        section = 0;
+    }
+    else if(sectionDescription.count == 2 || sectionDescription.count == 3){
+        section = 1;
+    }
+
+    [self tableView:self.tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:section]];
     
 }
 
