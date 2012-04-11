@@ -70,6 +70,7 @@
     self.sectionDescription = [[[NSMutableArray alloc] init] autorelease];
     NSMutableArray *cardsSection  = [[self creaDataContent] retain];
     NSMutableArray *manageSection = [[NSMutableArray alloc] init];
+    NSMutableArray *retrieveSection = [[NSMutableArray alloc]init];
     
     // Inizializzazione struttura dati della sezione di gestione
     [manageSection insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
@@ -99,17 +100,28 @@
                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
                                   nil] autorelease] atIndex: 2];
     
+    [retrieveSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                                  @"recupera",              @"DataKey",
+                                  @"ActionCell",            @"kind",
+                                  @"Recupera carta PerDue",        @"label",
+                                  @"Se hai effettuato l'acquisto online", @"subtitle",
+                                  @"",                      @"img",
+                                  [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
+                                  nil] autorelease] atIndex: 0];
+    
     
     // se la sezione "Carte" è vuota, non la aggiungo al model, così da nasconderla
     if (cardsSection && cardsSection.count > 0) {
         [self.sectionDescription insertObject:@"Carte" atIndex:0];
         [self.sectionDescription insertObject:@"Gestione" atIndex:1];
+        [self.sectionDescription insertObject:@"Recupera acquisti" atIndex:2];
         
-        self.sectionData = [[[NSMutableArray alloc] initWithObjects:cardsSection, manageSection, nil] autorelease];
+        self.sectionData = [[[NSMutableArray alloc] initWithObjects:cardsSection, manageSection, retrieveSection, nil] autorelease];
         nAssociatedCards = cardsSection.count;
     } else {
         [self.sectionDescription insertObject:@"Gestione" atIndex:0];
-        self.sectionData = [[[NSMutableArray alloc] initWithObjects:manageSection, nil] autorelease];
+        [self.sectionDescription insertObject:@"Recupera acquisti" atIndex:1];
+        self.sectionData = [[[NSMutableArray alloc] initWithObjects:manageSection, retrieveSection, nil] autorelease];
     }
     
     self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
@@ -118,6 +130,7 @@
 // TODO: trovare un modo per far sparire le carte associate con altri devices    
     [cardsSection release];
     [manageSection release];
+    [retrieveSection release];
 }
 
 
@@ -368,6 +381,31 @@
             [self.navigationController pushViewController:acquistaController animated:YES];
             [acquistaController release];
         }
+    }
+    
+    else if ([dataKey isEqualToString:@"recupera"]){
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSNumber *idUtente = [prefs objectForKey:@"_idUtente"];
+        
+        if (!idUtente) {
+            //lancio view modale per il login
+            LoginControllerBis *loginController = [[LoginControllerBis alloc] initWithNibName:@"LoginControllerBis" bundle:nil];
+            
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:loginController];
+            loginController.delegate = self;
+            [loginController release];
+            
+            
+            navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            [self presentModalViewController:navController animated:YES];
+            [navController release];
+            
+        } 
+        else{            
+            //lancio query per recupero della carta acquistato dall'utente idutente
+        }
+        
     }
 }
 
