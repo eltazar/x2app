@@ -417,7 +417,7 @@
     
     NSLog(@" quiiiiiiiiiii");
     
-    if (self.sectionData.count == 1) {
+    if (self.sectionData.count == 2) {
         [self.sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
         [self.sectionDescription insertObject:@"Gestione" atIndex:1];
         
@@ -428,7 +428,7 @@
         [self.sectionData insertObject:tempA atIndex:1];
         
         [tempA release];
-    } else if(self.sectionData.count > 1){
+    } else if(self.sectionData.count > 2){
         
         [self.sectionData replaceObjectAtIndex:0 withObject:[self creaDataContent]];
     }
