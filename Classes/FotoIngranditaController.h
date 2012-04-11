@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DatabaseAccess.h"
+#import "CachedAsyncImageView.h"
 
 
 @protocol FotoIngranditaDelegate;
@@ -16,14 +17,11 @@
 @interface FotoIngranditaController : UIViewController <DatabaseAccessDelegate> {
 @private
     NSString *_imageUrl;
-    DatabaseAccess *_dbAccess;
     //IBoutlets
-    UIImageView *_imageView;
-    UIActivityIndicatorView *_activityIndicator;
+    CachedAsyncImageView *_imageView;
 }
 
-@property (nonatomic, retain) IBOutlet UIImageView *imageView;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, retain) IBOutlet CachedAsyncImageView *imageView;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil imageUrlString:(NSString *)aUrl;

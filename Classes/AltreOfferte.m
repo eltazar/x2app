@@ -6,12 +6,13 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "AltreOfferte.h"
+#import "CachedAsyncImageView.h"
 #import "Utilita.h"
 #import "OpzioniCoupon.h"
 #import "DatabaseAccess.h"
 #import "Coupon.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface AltreOfferte () {}
 @property (nonatomic, retain) NSMutableArray *dataModel;
@@ -178,10 +179,10 @@
         
 		NSDictionary *offertaDict = [self.dataModel objectAtIndex: indexPath.row];
 		
-        AsyncImageView *asyncImageView = (AsyncImageView *)[cell viewWithTag:1];
+        CachedAsyncImageView *caImageView = (CachedAsyncImageView *)[cell viewWithTag:1];
         NSString *imageUrlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [offertaDict objectForKey:@"offerta_foto_big"]];
             NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
-            [asyncImageView loadImageFromURL:imageUrl];
+            [caImageView loadImageFromURL:imageUrl];
         
 		UILabel *intestazione = (UILabel *)[cell viewWithTag:4];
 		intestazione.text =[NSString stringWithFormat:@"Solo %@€ invece di %@€",

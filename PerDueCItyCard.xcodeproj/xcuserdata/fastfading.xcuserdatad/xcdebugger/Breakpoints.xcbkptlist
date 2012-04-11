@@ -200,18 +200,18 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/FotoIngranditaController.m"
-         timestampString = "355452503.395083"
+         timestampString = "355796954.29991"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "66"
-         endingLineNumber = "66"
-         landmarkName = "-viewDidLoad"
-         landmarkType = "5">
+         startingLineNumber = "51"
+         endingLineNumber = "51"
+         landmarkName = "@implementation FotoIngranditaController"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -219,13 +219,13 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/FotoIngranditaController.m"
-         timestampString = "355452748.379222"
+         timestampString = "355797053.416251"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "73"
-         endingLineNumber = "73"
-         landmarkName = "-viewWillAppear:"
-         landmarkType = "5">
+         startingLineNumber = "58"
+         endingLineNumber = "58"
+         landmarkName = "@implementation FotoIngranditaController"
+         landmarkType = "3">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

@@ -11,16 +11,15 @@
 
 @interface FotoIngranditaController () {}
 @property (nonatomic, retain) NSString *imageUrl;
-@property (nonatomic, retain) DatabaseAccess *dbAccess;
 @end
 
 
 
 @implementation FotoIngranditaController
 
-@synthesize imageView=_imageView, activityIndicator=_activityIndicator;
+@synthesize imageView=_imageView;
 
-@synthesize imageUrl=_imageUrl, dbAccess=_dbAccess;
+@synthesize imageUrl=_imageUrl;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -41,20 +40,6 @@
 }
 
 
-//+ (FotoIngranditaController *) fotoIngranditaControllerWithImageUrlString:(NSString *)aUrl delegate:(Coupon *)couponViewController {
-//    FotoIngranditaController *controller = [[FotoIngranditaController alloc] init];
-//    controller.imageUrl = aUrl;
-//    
-//    NSDictionary *proxies = [NSDictionary dictionaryWithObject:couponViewController forKey:@"delegate"];
-//    NSDictionary *options = [NSDictionary dictionaryWithObject:proxies forKey:UINibExternalObjects];
-//
-//    [[NSBundle mainBundle] loadNibNamed:@"FotoIngranditaController" 
-//                                  owner:controller
-//                                options:options];
-//    return [controller autorelease];
-//}
-
-
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -66,8 +51,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-    self.dbAccess.delegate = self;
+    [self.imageView loadImageFromURLString:self.imageUrl];
+    [self.imageView setActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 }
 
 
@@ -79,62 +64,33 @@
         [alert release];
         return;
     }
-    if (!self.dbAccess) {
-        // Se istanziamo il view controller dal metodo statico (che chiama loadNibNamed) 
-        // viewDidLoad non viene chiamato, e il dbAccess non è stato istanziato.
-        self.dbAccess = [[[DatabaseAccess alloc] init] autorelease];
-        self.dbAccess.delegate = self;
-    }
-    self.imageView.alpha = 0;
-    [self.activityIndicator startAnimating];
-    [self.dbAccess getConnectionToURL:self.imageUrl];
 }
 
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     self.imageView = nil;
-    self.activityIndicator = nil;
 }
 
 
 - (void)dealloc {
     self.imageUrl = nil;
-    self.dbAccess.delegate = nil;
-    self.dbAccess = nil;
     self.imageView = nil;
-    self.activityIndicator = nil;
 }
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-
-#pragma mark - DatabaseAccessDelegate
-
-
-- (void)didReceiveData:(NSMutableData *)data {
-    [self.activityIndicator stopAnimating];
-    self.activityIndicator.hidden = YES;
-    UIImage *image = [[UIImage alloc] initWithData:data];
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:1.0];
-    self.imageView.image = image;
-    self.imageView.alpha = 1;
-    [UIView commitAnimations];
-    [image release];
-}
-
-
-- (void)didReceiveError:(NSError *)error {
-#warning implementare
+    if (interfaceOrientation == UIInterfaceOrientationPortrait       ||
+        interfaceOrientation == UIInterfaceOrientationLandscapeRight ||
+        interfaceOrientation == UIInterfaceOrientationLandscapeLeft    ) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
 }
 
 

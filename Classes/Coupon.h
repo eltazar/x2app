@@ -14,7 +14,6 @@
 #import "AltreOfferte.h"
 #import "Pagamento2.h"
 #import "OpzioniCoupon.h"
-#import "AsyncImageView.h"
 #import "FBConnect.h"
 #import "Facebook.h"
 

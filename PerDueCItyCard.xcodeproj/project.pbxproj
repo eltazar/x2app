@@ -178,6 +178,7 @@
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
 		D9AB0BC11531806900B1668F /* CouponDiscountTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AB0BC01531806900B1668F /* CouponDiscountTimeCell.m */; };
+		D9AC3B331534AA6B006BA6A0 /* CachedAsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC3B321534AA6B006BA6A0 /* CachedAsyncImageView.m */; };
 		D9AE33A8152E51A8006757FA /* DettEsercAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33A7152E51A8006757FA /* DettEsercAddressCell.xib */; };
 		D9AE33AA152E51B3006757FA /* DettEsercCellWithTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33A9152E51B3006757FA /* DettEsercCellWithTitle.xib */; };
 		D9AE33AC152E51BB006757FA /* DettEsercGiorniValiditaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AB152E51BB006757FA /* DettEsercGiorniValiditaCell.xib */; };
@@ -453,6 +454,8 @@
 		D99378B11519368200DFC410 /* CartaPerDue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaPerDue.m; sourceTree = "<group>"; };
 		D9AB0BBF1531806900B1668F /* CouponDiscountTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponDiscountTimeCell.h; sourceTree = "<group>"; };
 		D9AB0BC01531806900B1668F /* CouponDiscountTimeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponDiscountTimeCell.m; sourceTree = "<group>"; };
+		D9AC3B311534AA6A006BA6A0 /* CachedAsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAsyncImageView.h; sourceTree = "<group>"; };
+		D9AC3B321534AA6B006BA6A0 /* CachedAsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAsyncImageView.m; sourceTree = "<group>"; };
 		D9AE33A7152E51A8006757FA /* DettEsercAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercAddressCell.xib; sourceTree = "<group>"; };
 		D9AE33A9152E51B3006757FA /* DettEsercCellWithTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercCellWithTitle.xib; sourceTree = "<group>"; };
 		D9AE33AB152E51BB006757FA /* DettEsercGiorniValiditaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercGiorniValiditaCell.xib; sourceTree = "<group>"; };
@@ -567,6 +570,8 @@
 				19D4CAC413ED5145001C7763 /* PerDueCItyCardAppDelegate.m */,
 				19BF9AB913FAB87500F00730 /* AsyncImageView.h */,
 				19BF9ABA13FAB87500F00730 /* AsyncImageView.m */,
+				D9AC3B311534AA6A006BA6A0 /* CachedAsyncImageView.h */,
+				D9AC3B321534AA6B006BA6A0 /* CachedAsyncImageView.m */,
 				AC85A21B14FB97FC00DD91F6 /* classi x aggiornamento */,
 			);
 			path = Classes;
@@ -1243,6 +1248,7 @@
 				D9ED8BF9152F8FF0002C3D65 /* FotoIngranditaController.m in Sources */,
 				D9AB0BC11531806900B1668F /* CouponDiscountTimeCell.m in Sources */,
 				D94C1C1415320D5E00697575 /* CouponEsercCell.m in Sources */,
+				D9AC3B331534AA6B006BA6A0 /* CachedAsyncImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

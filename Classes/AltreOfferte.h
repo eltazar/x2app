@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CJSONDeserializer.h"
-#import "AsyncImageView.h"
 #import "DatabaseAccess.h"
 
 @interface AltreOfferte : UIViewController <UITableViewDelegate,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,DatabaseAccessDelegate> {
