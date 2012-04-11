@@ -435,7 +435,8 @@
             [self didAssociateNewCard];
             [self.tableView reloadData];
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-        }       
+        }
+        [card release];
     }
     else{
 #warning mostrare alert ad utente
