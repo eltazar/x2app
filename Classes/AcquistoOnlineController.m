@@ -56,6 +56,8 @@
 
 - (void)productsLoaded:(NSNotification *)notification {
     
+    //ho recuperato catalogo da server apple e lo mostro
+    
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.tableView.hidden = FALSE;    
     
@@ -67,7 +69,7 @@
 
 - (void)productPurchased:(NSNotification *)notification {
     
-    [MBProgressHUD hideHUDForView:self.view animated:YES];    
+   [MBProgressHUD hideHUDForView:self.view animated:YES];    
     
     NSString *productIdentifier = (NSString *) notification.object;
     NSLog(@"Purchased: %@", productIdentifier);
@@ -95,17 +97,19 @@
 - (IBAction)buyButtonTapped:(id)sender {
     
     NSLog(@"bottone premuto numero = %d", ((UIButton*)sender).tag);
-    
    
     UIButton *buyButton = (UIButton *)sender;    
     SKProduct *product = [[IAPHelper sharedHelper].products objectAtIndex:buyButton.tag];
     
     //NSLog(@"Buying %@...", product.productIdentifier);
-    [[IAPHelper sharedHelper] buyProductIdentifier:product];
     
-    
+    //lancio hud per processo di acquisto
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Acquisto carta...";
+    
+    //lancio procedura di acquisto
+    [[IAPHelper sharedHelper] buyProductIdentifier:product];
+    
     [self performSelector:@selector(timeout:) withObject:nil afterDelay:60*5];
    
 }
@@ -114,6 +118,7 @@
 
 -(void)didReceiveCoupon:(NSDictionary *)coupon{
     
+    //sono stati caricati i codici dal catalogo sul nostro server
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     
     //NSLog(@"RICEVUTA LISTA ID PRODOUCT = %@, tipo = %@",coupon, [[coupon objectForKey:@"CatalogoIAP"] class]);
@@ -127,15 +132,13 @@
             [((NSMutableSet*)productsId) addObject: [tempDict objectForKey:@"product_id"]];
         }
     }
-    
-    NSLog(@"SET = %@",productsId);
-    
+        
     if([Utilita networkReachable]){
-        //recuperati gli id creo istanza del manager in app purchase
     
         NSLog(@"product id = %@", productsId);
         [IAPHelper sharedHelper].productIdentifiers = productsId;
         
+        //carico catalogo sui server apple
         MBProgressHUD  *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"Caricamento catalogo...";
         
@@ -207,6 +210,7 @@
 #warning inserire canMakePurchase prima di visualizzare store
     
     if([Utilita networkReachable]){
+        //carico codici da catalogo sul nostro server
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"Caricamento catalogo...";
         
