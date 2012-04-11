@@ -10,19 +10,23 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface OpzioniCoupon : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
-{
-	IBOutlet UIButton *fatto;
-	NSArray *province;
-	NSIndexPath    *lastIndexPath;
-	IBOutlet UIPickerView * optPicker;
-	NSUserDefaults *defaults;
-	
+@interface OpzioniCoupon : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate> {
+@private
+    NSUserDefaults  *_defaults;
+    // IBOs:
+	UIButton        *_doneBtn;
+	NSArray         *_province;
+	NSIndexPath     *_lastIndexPath;
+	UIPickerView    *_optPicker;
 }
 
-@property (nonatomic, retain) IBOutlet UIButton *fatto;
-@property (nonatomic, retain) NSArray *province;
-@property (nonatomic, retain) NSIndexPath *lastIndexPath;
+@property (nonatomic, retain)          NSArray      *province;
+@property (nonatomic, retain)          NSIndexPath  *lastIndexPath;
+@property (nonatomic, retain) IBOutlet UIButton     *doneBtn;
+@property (nonatomic, retain) IBOutlet UIPickerView *optPicker;
+
+
 - (IBAction)chiudi:(id)sender;
+
 
 @end

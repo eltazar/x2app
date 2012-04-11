@@ -11,46 +11,29 @@
 
 @implementation OpzioniCoupon
 
-@synthesize province,lastIndexPath,fatto;
+
+@synthesize province=_province, lastIndexPath=_lastIndexPath;
+
+@synthesize doneBtn=_doneBtn, optPicker=_optPicker;
 
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView { // This method needs to be used. It asks how many columns will be used in the UIPickerView
-	return 1; // We only need one column so we will return 1.
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc. that aren't in use.
 }
 
 
-
-- (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component { // This method also needs to be used. This asks how many rows the UIPickerView will have.
-	switch (component) {
-		case 0:
-			return [province count];			
-			break;
-		default:
-			return 0;
-			break;
-	}
-}
-
-- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component { // This method asks for what the title or label of each row will be.
-	switch (component) {
-		case 0:
-			return [province objectAtIndex:row]; // We will set a new row for every string used in the array.
-		default:
-			return 0;
-			break;
-	}
-	
-}
+#pragma mark View lifecycle
 
 
-
-	// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[[fatto layer] setCornerRadius:8.0f];
-	[[fatto layer] setMasksToBounds:YES];
-	[fatto setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
-	defaults = [NSUserDefaults standardUserDefaults];
+	[[self.doneBtn layer] setCornerRadius:8.0f];
+	[[self.doneBtn layer] setMasksToBounds:YES];
+	[self.doneBtn setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
+	_defaults = [NSUserDefaults standardUserDefaults];
 	
 	NSString *testoSalvato=[[NSUserDefaults standardUserDefaults] objectForKey:@"cittacoupon"];
 	NSLog(@"Testo salvato:%@",testoSalvato);
@@ -58,58 +41,93 @@
 						   @"Teramo",@"Terni",@"Torino",@"Trapani",@"Trento",@"Treviso",@"Trieste",@"Udine",@"Varese",@"Venezia",@"Verbania",@"Vercelli",@"Verona",@"Vibo Valentia",@"Vicenza",@"Viterbo",nil];
 	
 	
-		
+    
 	self.province = arraycitta;
-	[optPicker  selectRow:[[defaults objectForKey:@"idcitycoupon"]integerValue] inComponent:0 animated:NO];
-	NSLog(@"Indice selezionato: %d\n",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
+	[self.optPicker selectRow:[[_defaults objectForKey:@"idcitycoupon"]integerValue] inComponent:0 animated:NO];
+	NSLog(@"Indice selezionato: %d\n",[[_defaults objectForKey:@"idcitycoupon"]integerValue]);
 	[arraycitta release];
 }
 
-- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-	defaults = [NSUserDefaults standardUserDefaults];
-	if (component==0){
-			NSString *citycoupon= [NSString stringWithFormat:@"%@",[province objectAtIndex:row]];
-			[defaults setObject:citycoupon forKey:@"cittacoupon"];
-			[defaults synchronize];
-			
-		}
-	NSLog(@"Confermo che hai selezioanto la città %@ alla riga %d",[defaults objectForKey:@"cittacoupon"],row);
-
-	
-}
-
-
-- (IBAction)chiudi:(id)sender {
-	[defaults setObject:[NSNumber numberWithInt:[optPicker selectedRowInComponent:0]] forKey:@"idcitycoupon"];
-	[defaults synchronize];
-	NSLog(@"Indice salvato: %d",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
-    [self dismissModalViewControllerAnimated:YES];
-	
-}
-
-- (void)didReceiveMemoryWarning {
-		// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-		// Release any cached data, images, etc. that aren't in use.
-}
 
 - (void)viewDidUnload {
     [super viewDidUnload];
 	
-		// Release any retained subviews of the main view.
-		// e.g. self.myOutlet = nil;
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
 
 
 - (void)dealloc {
 #warning finire il memory management!!!!!
-    optPicker.dataSource = nil;
-    optPicker.delegate = nil;
-    [optPicker release];
-    optPicker = nil;
+    self.optPicker.dataSource = nil;
+    self.optPicker.delegate = nil;
+    [self.optPicker release];
+    self.optPicker = nil;
     [super dealloc];
 }
+
+
+#pragma mark - UIPickerViewDataSource
+
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
+	return 1;
+}
+
+
+- (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component { 
+	switch (component) {
+		case 0:
+			return [self.province count];			
+			break;
+		default:
+			return 0;
+			break;
+	}
+}
+
+
+#pragma mark - UIPickerViewDelegate
+
+
+- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	switch (component) {
+		case 0:
+			return [self.province objectAtIndex:row]; 
+		default:
+			return 0;
+			break;
+	}
+	
+}
+
+
+- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+	_defaults = [NSUserDefaults standardUserDefaults];
+	if (component==0){
+			NSString *citycoupon= [NSString stringWithFormat:@"%@",[self.province objectAtIndex:row]];
+			[_defaults setObject:citycoupon forKey:@"cittacoupon"];
+			[_defaults synchronize];
+			
+		}
+	NSLog(@"Confermo che hai selezioanto la città %@ alla riga %d",[_defaults objectForKey:@"cittacoupon"],row);
+
+	
+}
+
+
+#pragma mark OpzioniCoupon (IBActions)
+
+
+- (IBAction)chiudi:(id)sender {
+	[_defaults setObject:[NSNumber numberWithInt:[self.optPicker selectedRowInComponent:0]] forKey:@"idcitycoupon"];
+	[_defaults synchronize];
+	NSLog(@"Indice salvato: %d",[[_defaults objectForKey:@"idcitycoupon"]integerValue]);
+    [self dismissModalViewControllerAnimated:YES];
+	
+}
+
+
 
 
 @end
