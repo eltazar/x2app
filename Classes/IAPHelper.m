@@ -143,6 +143,7 @@ static IAPHelper * _sharedHelper;
     if (transaction.error.code != SKErrorPaymentCancelled)
     {
         NSLog(@"Transaction error: %@", transaction.error.localizedDescription);
+        NSLog(@"transaction error 2: %@",transaction.error);
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchaseFailedNotification object:transaction];
