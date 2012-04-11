@@ -17,6 +17,9 @@
     NSSet *productsId;
     
     IBOutlet UITableViewCell *cellProdotto;
+
+    @private
+    NSArray *products;
 }
 
 @property (retain) MBProgressHUD *hud;

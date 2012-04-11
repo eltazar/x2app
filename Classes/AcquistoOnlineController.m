@@ -12,8 +12,14 @@
 #import "IAPHelper.h"
 //
 
+@interface AcquistoOnlineController()
+
+@property(nonatomic, retain) NSArray *products;
+@end
+
 @implementation AcquistoOnlineController
 @synthesize hud = _hud;
+@synthesize products;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -57,6 +63,8 @@
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.tableView.hidden = FALSE;    
     
+    self.products = [IAPHelper sharedHelper].products;
+    
     [self.tableView reloadData];
     
 }
@@ -70,10 +78,10 @@
     UIButton *buyButton = (UIButton *)sender;    
     SKProduct *product = [[IAPHelper sharedHelper].products objectAtIndex:buyButton.tag];
     
-    NSLog(@"Buying %@...", product.productIdentifier);
+    //NSLog(@"Buying %@...", product.productIdentifier);
     [[IAPHelper sharedHelper] buyProductIdentifier:product];
     
-    self.hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     _hud.labelText = @"Acquisto carta...";
     [self performSelector:@selector(timeout:) withObject:nil afterDelay:60*5];
    
@@ -163,6 +171,8 @@
     [_hud release];
     _hud = nil;
     
+    self.products = nil;
+    
     [productsId release];
     dbAccess.delegate = nil;
     [dbAccess release];
@@ -219,7 +229,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section
 {   
     //return [iapHelper.products count];
-    return 3;
+    return self.products.count;
 }
 
 // Customize the appearance of table view cells.
@@ -255,25 +265,11 @@
     UILabel *descrizione = (UILabel *)[cell viewWithTag:2];
     UILabel *prezzo = (UILabel *)[cell viewWithTag:3];
     
-    if(indexPath.row == 0){
-        prodotto.text = @"Carta PerDue Biennale";
-        descrizione.text = @"Carta vantaggi valida 24 mesi";
-        prezzo.text = @"prezzo: 54,99€";
-    }
-    else if(indexPath.row == 1)
-    {
-        prodotto.text = @"Carta PerDue Annuale";
-        descrizione.text = @"Carta vantaggi valida 12 mesi";
-        prezzo.text = @"prezzo: 35,99€";
-        
-    }
-    else if(indexPath.row == 2)
-    {
-        prodotto.text = @"Carta PerDue Semestrale";
-        descrizione.text = @"Carta vantaggi valida 6 mesi";
-        prezzo.text = @"Prezzo: 19,99€";
-        
-    }
+    SKProduct *pd = (SKProduct*)[self.products objectAtIndex:indexPath.row];
+    
+    prodotto.text = pd.localizedTitle;
+    descrizione.text = pd.localizedDescription;
+    prezzo.text = [NSString stringWithFormat:@"%@€",pd.price];
     
     UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     buyButton.frame = CGRectMake(0, 0, 65, 32);
