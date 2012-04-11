@@ -10,6 +10,9 @@
 #import "NSDictionary_JSONExtensions.h"
 #import "CJSONDeserializer.h"
 
+@interface NSString (NSStringAdditions)
++ (NSString *)base64StringFromData:(NSData *)data length:(int)length;
+@end
 
 @implementation DatabaseAccess
 @synthesize delegate;
@@ -36,6 +39,52 @@ NSString* key(NSURLConnection* con)
 {
     return [NSString stringWithFormat:@"%p",con];
 }
+
+//[dbAccess sendReceipt:transaction.transactionReceipt.data transactionId:transactionId ];
+
+- (void)sendReceipt:(NSData *)receipt userId:(NSInteger)userId transactionId:(NSString *)transactionId udid:(NSString *)udid {
+    // TODO: togliere udid dai parametri?
+    NSLog(@"DBACCESS sendReceipt");
+    
+    NSMutableString *urlString = [NSMutableString stringWithFormat:@"https://cartaperdue.it/partner/v2.0/InAppPurchase.php"];
+    
+    [urlString setString:[urlString stringByReplacingOccurrencesOfString:@" " withString:@"+"]];
+    NSURL *url = [NSURL URLWithString:urlString]; 
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSString *postFormatString = @"receipt=%@&userId=%d&transactionId=%@&udid=%@";
+    NSString *postString = [NSString stringWithFormat:postFormatString, [NSString base64StringFromData:receipt length:[receipt length]], userId, transactionId, udid];
+    
+    NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+    [request addValue:postLength forHTTPHeaderField:@"Content-Length"];
+    
+    [request setHTTPMethod:@"POST"];
+    
+    [request setHTTPBody:postData];
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];  
+    
+    
+    
+    if(connection){
+        //NSLog(@"IS CONNECTION TRUE");
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+        
+        [readConnections addObject:connection];
+        
+        NSMutableData *receivedData = [[NSMutableData data] retain];
+        //[connectionDictionary setObject:connection forKey:key(connection)];
+        [dataDictionary setObject:receivedData forKey:key(connection)];
+        //NSLog(@"RECEIVED DATA FROM DICTIONARY : %p",[dataDictionary objectForKey:connection]);
+    }
+    else{
+        NSLog(@"theConnection is NULL");
+        //mostrare alert all'utente che la connessione è fallita??
+    }
+    
+}
+
 
 -(void)sendValidateRequest:(CartaPerDue*)card companyID:(NSInteger)companyID{
     NSLog(@"DBACCESS validate request");
@@ -1024,6 +1073,82 @@ NSString* key(NSURLConnection* con)
     [writeConnections release];
     [dataDictionary release];
     [super dealloc];
+}
+
+@end
+
+
+
+
+
+
+
+
+
+
+
+static char base64EncodingTable[64] = {
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+    'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+    'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'
+};
+
+@implementation NSString (NSStringAdditions)
+
++ (NSString *)base64StringFromData: (NSData *)data length: (int)length {
+    unsigned long ixtext, lentext;
+    long ctremaining;
+    unsigned char input[3], output[4];
+    short i, charsonline = 0, ctcopy;
+    const unsigned char *raw;
+    NSMutableString *result;
+    
+    lentext = [data length]; 
+    if (lentext < 1)
+        return @"";
+    result = [NSMutableString stringWithCapacity: lentext];
+    raw = [data bytes];
+    ixtext = 0; 
+    
+    while (true) {
+        ctremaining = lentext - ixtext;
+        if (ctremaining <= 0) 
+            break;        
+        for (i = 0; i < 3; i++) { 
+            unsigned long ix = ixtext + i;
+            if (ix < lentext)
+                input[i] = raw[ix];
+            else
+                input[i] = 0;
+        }
+        output[0] = (input[0] & 0xFC) >> 2;
+        output[1] = ((input[0] & 0x03) << 4) | ((input[1] & 0xF0) >> 4);
+        output[2] = ((input[1] & 0x0F) << 2) | ((input[2] & 0xC0) >> 6);
+        output[3] = input[2] & 0x3F;
+        ctcopy = 4;
+        switch (ctremaining) {
+            case 1: 
+                ctcopy = 2; 
+                break;
+            case 2: 
+                ctcopy = 3; 
+                break;
+        }
+        
+        for (i = 0; i < ctcopy; i++)
+            [result appendString: [NSString stringWithFormat: @"%c", base64EncodingTable[output[i]]]];
+        
+        for (i = ctcopy; i < 4; i++)
+            [result appendString: @"="];
+        
+        ixtext += 3;
+        charsonline += 4;
+        
+        if ((length > 0) && (charsonline >= length))
+            charsonline = 0;
+    }     
+    return result;
 }
 
 @end

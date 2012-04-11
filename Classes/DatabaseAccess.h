@@ -36,6 +36,9 @@ NSString* key(NSURLConnection* con);
 - (void)getNewsFromServer:(int)indice;
 - (void)getAltreOfferteFromServer:(NSString*)prov;
 
+//metodi inapp purchase
+- (void)sendReceipt:(NSData *)receipt userId:(NSInteger)userId transactionId:(NSString *)transactionId udid:(NSString *)udid;
+
 //metodi per richiesta validtà tramite push
 -(void)sendValidateRequest:(CartaPerDue*)card companyID:(NSInteger)companyID;
 
