@@ -21,6 +21,7 @@
 #import "LocalDatabaseAccess.h"
 #import "DatabaseAccess.h"
 #import "LoginControllerBis.h"
+#import "LocalDatabaseAccess.h"
 
 
 @interface CardsViewController() {
@@ -411,9 +412,47 @@
         } 
         else{            
             //lancio query per recupero della carta acquistato dall'utente idutente
+            NSLog(@"ID UTENTE = %d",[idUtente intValue]);
+            [_dbAccess retrieveCardFromServer:[idUtente intValue]];
         }
         
     }
+}
+
+#pragma mark - DBAccessDelegate
+
+-(void)didReceiveCoupon:(NSDictionary *)coupon{
+    
+    if([coupon objectForKey:@"CartaRecuperata"]){
+        NSLog(@"CARTA RICEVUTA = %@",coupon);
+        
+        CartaPerDue *card = [[CartaPerDue alloc] init];
+        card.name = @"prova";
+        card.surname = @"ciao";
+        NSLog(@"numero carta = %@",[[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"codice_carta"]);
+
+        card.number = [[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"codice_carta"];
+        
+        NSLog(@"DATA SCADENZA = %@",[[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"data_scadenza"]);
+        
+        card.expiryString = [[[coupon objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"data_scadenza"];
+        
+        NSError *error;
+        if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {
+            NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
+        } else if (self && [self respondsToSelector:@selector(didAssociateNewCard)]) {
+            [self didAssociateNewCard];
+            [self.tableView reloadData];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        }       
+    }
+    else{
+        NSLog(@"NO CARTA RECUPERATA");
+    }
+}
+
+-(void)didReceiveError:(NSError *)error{
+    NSLog(@"ERRORE = %@", error.description);
 }
 
 
