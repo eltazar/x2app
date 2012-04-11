@@ -38,6 +38,7 @@ NSString* key(NSURLConnection* con);
 
 //metodi inapp purchase
 - (void)sendReceipt:(NSData *)receipt userId:(NSInteger)userId transactionId:(NSString *)transactionId udid:(NSString *)udid;
+-(void)retrieveCardFromServer:(NSInteger)userId;
 
 //metodi per richiesta validtà tramite push
 -(void)sendValidateRequest:(CartaPerDue*)card companyID:(NSInteger)companyID;
