@@ -139,6 +139,30 @@
     // FIXME: Il reloadData rompe l'animazione. bisogna usare come cristo comanda i metodi per l'inserimento delle righe nelle tabelle.
     [super viewWillAppear:animated];    
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *idUtente = [prefs objectForKey:@"_idUtente"];
+    
+    //se utente è loggato aggiorno model con nuova riga
+    if (idUtente && [[self.sectionData objectAtIndex:self.sectionData.count - 1]count] == 1 ){
+//        [self.sectionDescription insertObject:@"" atIndex:self.sectionDescription.count];
+        
+        NSMutableArray *logoutSection = [self.sectionData objectAtIndex:self.sectionData.count-1];
+        NSLog(@"section = %@",logoutSection);
+        [logoutSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                                       @"logout",              @"DataKey",
+                                       @"ActionCell",            @"kind",
+                                       @"Logout",               @"label",
+                                       @"tizio caio",  @"detailLabel",
+                                       @"",                      @"img",
+                                       [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                       nil] autorelease] atIndex: 1] ;
+        
+//        [self.sectionData replaceObjectAtIndex:self.sectionData.count-1 withObject:logoutSection];
+//        [logoutSection release];
+    }
+    
+    
     [self.tableView reloadData];
     NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
 }
@@ -213,6 +237,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger) section{   
     if(self.sectionData){
+        NSLog(@"section n = %d",section);
         return [[self.sectionData objectAtIndex: section] count];
     } 
     return 0;
@@ -411,6 +436,33 @@
         }
         
     }
+    else if([dataKey isEqualToString:@"logout"]){
+        
+        DataLoginController *dataLogin = [[DataLoginController alloc] initWithNibName:@"DataLoginController" bundle:nil];
+        dataLogin.delegate = self;        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dataLogin];
+        [dataLogin release];
+        
+        navController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        
+        [self presentModalViewController:navController animated:YES];
+        
+        [navController release];        
+    }
+}
+
+#pragma mark - DataLoginDelegate
+
+-(void)didLogout{
+    
+    //rimuovo dal model riga relativa al tasto logout
+    [[self.sectionData objectAtIndex:self.sectionData.count - 1] removeObjectAtIndex:1];
+    [self.tableView reloadData];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+}
+
+-(void)didAbortLogout{    
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - WMHTTPAccessDelegate

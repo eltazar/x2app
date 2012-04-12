@@ -10,9 +10,9 @@
 #import "AbbinaCartaViewController.h"
 #import "LoginControllerBis.h"
 #import "WMHTTPAccess.h"
+#import "DataLoginController.h"
 
-
-@interface CardsViewController : UITableViewController <AbbinaCartaDelegate, LoginControllerBisDelegate, WMHTTPAccessDelegate> { 
+@interface CardsViewController : UITableViewController <AbbinaCartaDelegate, LoginControllerBisDelegate, WMHTTPAccessDelegate,DataLoginDelegate> { 
 }
 
 @end
