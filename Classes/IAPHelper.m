@@ -7,7 +7,9 @@
 //
 
 #import "IAPHelper.h"
+
 #import "PDHTTPAccess.h"
+#import "Utilita.h"
 
 @implementation IAPHelper
 
@@ -81,9 +83,7 @@ static IAPHelper * _sharedHelper;
     NSLog(@"RISPOSTA PER LA RECEIPT = %@", jsonDict);
     //riceve carta perdue se tutto è stato verificato
     
-    
-    //aggiungo la carta ricevuta
-    //notifica inviata a cardsViewController -> che aggiorna il model
+    [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchasedNotification object:data];
 }
 
 
@@ -96,13 +96,19 @@ static IAPHelper * _sharedHelper;
 
 #pragma mark - Metodi delegati per l'acquisto
 
-- (void)recordTransaction:(SKPaymentTransaction *)transaction {    
-    // Optional: Record the transaction on the server side... 
-        
+- (void)recordTransaction:(SKPaymentTransaction *)transaction {            
     //ricevuta da inviare al server
     //transaction.transactionReceipt.data
     
-    [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"idcustomer"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueIdentifier] delegate:self];
+    NSLog(@"iapHelper userId = %d, transId = %@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue],transaction.transactionIdentifier);
+    
+    if([Utilita networkReachable]){
+        [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueIdentifier] delegate:self];
+    }
+    else{
+#warning alert per errore rete
+        NSLog(@"connessione assente");
+    }
 }
 
 - (void)provideContent:(NSString *)productIdentifier {
@@ -118,10 +124,14 @@ static IAPHelper * _sharedHelper;
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
     
-    NSLog(@"completeTransaction id = %@, receipt = %@, state = %d...", transaction.transactionIdentifier, transaction.transactionReceipt,transaction.transactionState);
+    //NSLog(@"completeTransaction id = %@, receipt = %@, state = %d...", transaction.transactionIdentifier, transaction.transactionReceipt,transaction.transactionState);
+    
+    NSLog(@"completeTransaction...");
+    
+    //se interrotto a questo punto, la transazione viene recuperata all'avvio dell'app e viene chiesta la psw, dopo di che viene richiamato [self recordTransaction:] e quindi la chiamata al db ecc ---> GESTIRE STA COSA
     
     [self recordTransaction: transaction];
-    [self provideContent: transaction.payment.productIdentifier];
+    //[self provideContent: transaction.payment.productIdentifier];
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
 }
