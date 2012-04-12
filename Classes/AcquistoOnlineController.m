@@ -14,6 +14,8 @@
 #import "IAPHelper.h"
 #import "PDHTTPAccess.h"
 
+#warning quando l'utente procede all'acquisto e quindi c'è 
+// la schermata "acquisto..." bloccare l'intera view, e non dare all'utente la possibilità di tornare indietro o cambiare tab? VALUTARE STA COSA!!!!!
 
 @interface AcquistoOnlineController()
 
