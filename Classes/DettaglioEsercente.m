@@ -620,7 +620,6 @@
 
 @interface IndexPathMapper () {
     NSMutableArray *map;
-    NSMutableArray *sectionTitles;
 }
 @end
 
@@ -635,7 +634,6 @@ static NSString *kElementsKey = @"elements";
     self = [super init];
     if (self) {
         map = [[NSMutableArray alloc] init];
-        sectionTitles = [[NSMutableArray alloc] init];
     }
     return self;
 }
