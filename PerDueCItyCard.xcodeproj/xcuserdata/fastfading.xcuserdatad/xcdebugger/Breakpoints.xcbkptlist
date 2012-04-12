@@ -219,11 +219,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/DettaglioEsercente.m"
-         timestampString = "355857922.04342"
+         timestampString = "355928209.437289"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "629"
-         endingLineNumber = "629"
+         startingLineNumber = "628"
+         endingLineNumber = "628"
          landmarkName = "@implementation IndexPathMapper"
          landmarkType = "3">
       </FileBreakpoint>
