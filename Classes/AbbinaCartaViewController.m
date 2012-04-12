@@ -526,12 +526,19 @@
     NSString *dataKey = [row objectForKey:@"DataKey"];
     
     if([dataKey isEqualToString:@"bind"]){
-        if ([self isValidFields]){
-            NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.labelText = @"Attendere...";
-            hud.detailsLabelText = @"Controllo carta in corso...";
-            [PDHTTPAccess checkCardExistence:self.card delegate:self];
+        if([Utilita networkReachable]){
+            if ([self isValidFields]){
+                NSLog(@"CHIAMATA AL DB PER INTERROGARLO SU ESISTENZA CARTA");
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.labelText = @"Attendere...";
+                hud.detailsLabelText = @"Controllo carta in corso...";
+                [PDHTTPAccess checkCardExistence:self.card delegate:self];
+            }
+        }
+        else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Connessione assente, riprovare" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
         }
     }
     
