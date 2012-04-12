@@ -150,13 +150,13 @@
         NSMutableArray *logoutSection = [self.sectionData objectAtIndex:self.sectionData.count-1];
         NSLog(@"section = %@",logoutSection);
         [logoutSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
-                                       @"logout",              @"DataKey",
-                                       @"ActionCell",            @"kind",
-                                       @"Logout",               @"label",
-                                       @"tizio caio",  @"detailLabel",
-                                       @"",                      @"img",
-                                       [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                       nil] autorelease] atIndex: 1] ;
+                                      @"logout",              @"DataKey",
+                                      @"ActionCell",            @"kind",
+                                      @"Logout",        @"label",
+                                      @"Per effettuare il logout da perdue.it", @"subtitle",
+                                      @"",                      @"img",
+                                      [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
+                                      nil] autorelease] atIndex: 1];
         
 //        [self.sectionData replaceObjectAtIndex:self.sectionData.count-1 withObject:logoutSection];
 //        [logoutSection release];
