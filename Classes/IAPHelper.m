@@ -92,6 +92,24 @@ static IAPHelper * _sharedHelper;
     //se ricevo errore
     //mostro pulsante recupera in cardsViewController e blocco lo store
     //NO : riprovare tipo 3 volte a scaricare la carta, magari con un avviso e un pulsante "riprova" per rifare la query che mi deve ritornare la carta x2 acquistata dalla transaction -> quindi in teoria ripassare l'id utente e l'id della transaction e recuperare dal db il relativo record
+
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Errore Connessione" message:@"Errore di connessione, premi Riprova per scaricare l'acquisto effettuato"  delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Riprova", nil]autorelease];
+    [alert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+        
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
+            [PDHTTPAccess retrieveCardFromServer:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] delegate:self];
+            
+        default:
+            break;
+    }
 }
 
 
@@ -107,7 +125,7 @@ static IAPHelper * _sharedHelper;
         [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueIdentifier] delegate:self];
     }
     else{
-#warning alert per errore rete
+#warning alert per errore rete e per riprovare a fare la scrittura sul db
         NSLog(@"connessione assente");
     }
 }
@@ -131,7 +149,7 @@ static IAPHelper * _sharedHelper;
     
     //se interrotto a questo punto, la transazione viene recuperata all'avvio dell'app e viene chiesta la psw, dopo di che viene richiamato [self recordTransaction:] e quindi la chiamata al db ecc ---> GESTIRE STA COSA
     //IDEA: A questo punto mostrare un avviso tipo: "acquisto effettuato, a breve riceverai la carta" e intanto scaricare in background la tessera dal nostro server. Salvare qualcosa che indichi il fatto che la TRANSAZIONE è andata a buon fine: se durante il download c'è qlc errore poi da qualche interfaccia (cardsViewController?) reperire questo tipo di stato e fare in modo di recuperare l'acquisto fatto, ovvero la carta x2.
-    
+        
     [self recordTransaction: transaction];
     //[self provideContent: transaction.payment.productIdentifier];
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
@@ -141,7 +159,7 @@ static IAPHelper * _sharedHelper;
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction {
     
     NSLog(@"restoreTransaction...");
-    
+        
     [self recordTransaction: transaction];
     //[self provideContent: transaction.originalTransaction.payment.productIdentifier];
     [[SKPaymentQueue defaultQueue] finishTransaction: transaction];

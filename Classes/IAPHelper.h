@@ -16,11 +16,11 @@
 #define kProductPurchasedNotification       @"ProductPurchased"
 #define kProductPurchaseFailedNotification  @"ProductPurchaseFailed"
 
-@interface IAPHelper : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver, WMHTTPAccessDelegate> {
+@interface IAPHelper : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver, WMHTTPAccessDelegate,UIAlertViewDelegate> {
     NSSet * _productIdentifiers;    
     NSArray * _products;
 //    NSMutableSet * _purchasedProducts;
-    SKProductsRequest * _request;    
+    SKProductsRequest * _request;   
 }
 
 @property (retain) NSSet *productIdentifiers;
