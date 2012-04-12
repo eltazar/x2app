@@ -83,7 +83,7 @@ static IAPHelper * _sharedHelper;
     NSLog(@"RISPOSTA PER LA RECEIPT = %@", jsonDict);
     //riceve carta perdue se tutto è stato verificato
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchasedNotification object:data];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchasedNotification object:jsonDict];
 }
 
 
@@ -91,6 +91,7 @@ static IAPHelper * _sharedHelper;
     
     //se ricevo errore
     //mostro pulsante recupera in cardsViewController e blocco lo store
+    //NO : riprovare tipo 3 volte a scaricare la carta, magari con un avviso e un pulsante "riprova" per rifare la query che mi deve ritornare la carta x2 acquistata dalla transaction -> quindi in teoria ripassare l'id utente e l'id della transaction e recuperare dal db il relativo record
 }
 
 
@@ -129,6 +130,7 @@ static IAPHelper * _sharedHelper;
     NSLog(@"completeTransaction...");
     
     //se interrotto a questo punto, la transazione viene recuperata all'avvio dell'app e viene chiesta la psw, dopo di che viene richiamato [self recordTransaction:] e quindi la chiamata al db ecc ---> GESTIRE STA COSA
+    //IDEA: A questo punto mostrare un avviso tipo: "acquisto effettuato, a breve riceverai la carta" e intanto scaricare in background la tessera dal nostro server. Salvare qualcosa che indichi il fatto che la TRANSAZIONE è andata a buon fine: se durante il download c'è qlc errore poi da qualche interfaccia (cardsViewController?) reperire questo tipo di stato e fare in modo di recuperare l'acquisto fatto, ovvero la carta x2.
     
     [self recordTransaction: transaction];
     //[self provideContent: transaction.payment.productIdentifier];
