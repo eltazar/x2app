@@ -78,8 +78,8 @@
     
    [MBProgressHUD hideHUDForView:self.view animated:YES];    
     
-    NSString *productIdentifier = (NSString *) notification.object;
-    NSLog(@"Purchased: %@", productIdentifier);
+    //NSString *productIdentifier = (NSString *) notification.object;
+    NSLog(@"Card acquistata: %@", notification.object);
     
     //TODO: creare la carta con i dati ricevuti e nome e cognome presi da userdefault, quindi salvare sul db locale
         

@@ -469,6 +469,8 @@
 
 -(void)didReceiveJSON:(NSDictionary *)jsonDict {
     
+    NSLog(@"recupero carta = %@",jsonDict);
+    
     if([jsonDict objectForKey:@"CartaRecuperata"] &&
        [[jsonDict objectForKey:@"CartaRecuperata"] count] > 1){
         NSLog(@"CARTA RICEVUTA = %@", jsonDict);

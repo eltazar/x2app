@@ -72,6 +72,7 @@
     [super viewWillAppear:animated];
     
     if(! [Utilita networkReachable]){
+#warning inserire alert internet assente
         NSLog(@"internet assente errore");
     }
     else{ 
