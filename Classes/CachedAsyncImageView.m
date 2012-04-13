@@ -91,6 +91,8 @@
     @synchronized (self) {
         if (connection != _connection) return;
         image = [UIImage imageWithData:_receivedData];
+        [[ImageCache sharedInstance] setImage:image forURLString:_urlString];
+        [self releaseConnection];
     }
     [_activityIndicator stopAnimating];
     
@@ -100,8 +102,6 @@
     self.image = image;
     self.alpha = 1;
     [UIView commitAnimations];
-    [[ImageCache sharedInstance] setImage:image forURLString:_urlString];
-    [self releaseConnection];
 }
 
 
@@ -109,25 +109,29 @@
 
 
 - (void)loadImageFromURL:(NSURL *)url {
-    if (_connection) {
-        [self releaseConnection];
-    }
-    
-    _urlString = [url.absoluteString retain];
-    UIImage *image = [[ImageCache sharedInstance] imageForURLString:_urlString];
-    NSLog(@"[%@ loadImageFromURL]: _urlString = %@", [self class], _urlString);
-    if (image) {
-        self.image = image;
-    }
-    else {
-        self.image = nil;
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    @synchronized (self) {
         if (_connection) {
-            [_activityIndicator startAnimating];
+            [self releaseConnection];
+        }
+        
+        _urlString = [url.absoluteString retain];
+        NSLog(@"[%@ loadImageFromUrl]  [[%@]+]", [self class], [_urlString substringWithRange:NSMakeRange(_urlString.length-1-10, 3)]);
+        UIImage *image = [[ImageCache sharedInstance] imageForURLString:_urlString];
+        //NSLog(@"[%@ loadImageFromURL]: _urlString = %@", [self class], _urlString);
+        if (image) {
+            NSLog(@"                          \t Cache Hit! [[%@]-]", [_urlString substringWithRange:NSMakeRange(_urlString.length-1-10, 3)]);
+            self.image = image;
         }
         else {
-            [self connection:nil didFailWithError:nil];
+            self.image = nil;
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+            if (_connection) {
+                [_activityIndicator startAnimating];
+            }
+            else {
+                [self connection:nil didFailWithError:nil];
+            }
         }
     }
 }
@@ -164,13 +168,15 @@
 
 
 - (void)releaseConnection {
-    [_urlString release];
-    _urlString = nil;
-    [_connection cancel];
-    [_connection release];
-    _connection = nil;
-    [_receivedData release];
-    _receivedData = nil;
+    @synchronized (self) {
+        [_urlString release];
+        _urlString = nil;
+        [_connection cancel];
+        [_connection release];
+        _connection = nil;
+        [_receivedData release];
+        _receivedData = nil;
+    }
 }
 
 @end
@@ -217,7 +223,9 @@ static ImageCache *__sharedInstance;
 }
 
 - (void)emptyCache {
-    NSLog(@"[%@]::emptyCache", [self class]);
-    [_cache removeAllObjects];
+    @synchronized (_cache) {
+        NSLog(@"[%@]::emptyCache", [self class]);
+        [_cache removeAllObjects];
+    }
 }
 @end
