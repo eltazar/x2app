@@ -277,6 +277,7 @@
 
 - (void)fetchRowsFromNumber:(NSInteger)n {
     NSString *urlString = [NSString stringWithFormat:urlFormatString, self.idEsercente, n];
+    NSLog(@"[%@ fetchRowsFromNumber] urlString:[%@]", [self class], urlString);
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
 }
 

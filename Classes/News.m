@@ -107,6 +107,9 @@
 }
 
 
+# pragma mark - News (metodi privati)
+
+
 - (void)prettifyNullValuesForCommentsInArray:(NSArray *)comments {
     NSArray *keys = [[NSArray alloc] initWithObjects:@"post_title", @"post_date", @"ID", nil];
     for (NSMutableDictionary *c in comments) {
@@ -117,6 +120,13 @@
         }
     }
     [keys release];
+}
+
+
+- (void)fetchRowsFromNumber:(NSInteger)n {
+    NSString *urlString = [NSString stringWithFormat:urlFormatString, n];
+    NSLog(@"[%@ fetchRowsFromNumber] urlString:[%@]", [self class], urlString);
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
 }
 
 
