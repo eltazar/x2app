@@ -68,10 +68,24 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.closeBtn           = nil;
+    self.creditsBtn         = nil;
+    self.tableview          = nil;
+    self.infoWebView        = nil;
+    self.sitoPerDueView     = nil;
+    self.sitoPerDueWebView  = nil;
+    self.contattiView       = nil;
 }
 
 
 - (void)dealloc {
+    self.closeBtn           = nil;
+    self.creditsBtn         = nil;
+    self.tableview          = nil;
+    self.infoWebView        = nil;
+    self.sitoPerDueView     = nil;
+    self.sitoPerDueWebView  = nil;
+    self.contattiView       = nil;
     [super dealloc];
 }
 

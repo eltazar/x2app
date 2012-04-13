@@ -133,7 +133,6 @@
     }
     
     // TODO: Me pare un po' 'na zozzata fare ste cose qui... ma vabbè
-    // TODO: codice duplicato in viewDidAppear
     if ([[UserDefaults city] isEqualToString:@"Qui"]){
 		self.navigationItem.title = @"Qui vicino";
 	} else {
