@@ -14,7 +14,7 @@
 
 @class IndexPathMapper;
 
-@interface DettaglioEsercente : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate,MKAnnotation, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, WMHTTPAccessDelegate> {
+@interface DettaglioEsercente : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, WMHTTPAccessDelegate> {
     NSInteger _idEsercente;
     // IBOutlets:
     UITableView *_tableview;

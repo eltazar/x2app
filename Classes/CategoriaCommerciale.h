@@ -13,7 +13,7 @@
 #import "WMHTTPAccess.h"
 
 
-@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, MKAnnotation, UIAlertViewDelegate, GeoDecoderDelegate, WMHTTPAccessDelegate> {
+@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, UIAlertViewDelegate, GeoDecoderDelegate, WMHTTPAccessDelegate> {
 @private
     BOOL lastFetchWasASearch;
     BOOL inSearchUI;

@@ -494,7 +494,7 @@
         [[controller navigationBar] setTintColor:[UIColor colorWithRed:142/255.0 
                                                                  green:21/255.0 
                                                                   blue:7/255.0
-                                                                  alpha:1.0]];
+                                                                 alpha:1.0]];
         NSArray *to = [NSArray arrayWithObject:[self.dataModel objectForKey:@"Email_Esercente"]];
         [controller setToRecipients:to];
         controller.mailComposeDelegate = self;
