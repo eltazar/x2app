@@ -61,6 +61,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     @synchronized (self) {
+        if (connection != _connection) return;
         _receivedData = [[NSMutableData alloc] initWithCapacity:40000];
     }
 }
@@ -68,6 +69,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     @synchronized (self) {
+        if (connection != _connection) return;
         [_receivedData appendData:data];
     }
 }
@@ -76,6 +78,7 @@
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     // Settare un immagine placeholder?
     @synchronized (self) {
+        if (connection != _connection) return;
         [_activityIndicator stopAnimating];
         [self releaseConnection];
     }
@@ -86,6 +89,7 @@
     NSLog(@"[%@ didFinishLoading]: - loaded %d bytes", [self class], _receivedData.length);
     UIImage *image;
     @synchronized (self) {
+        if (connection != _connection) return;
         image = [UIImage imageWithData:_receivedData];
     }
     [_activityIndicator stopAnimating];
