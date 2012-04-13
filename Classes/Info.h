@@ -10,30 +10,33 @@
 #import <MessageUI/MessageUI.h>
 
 
-@interface Info : UIViewController <UITableViewDelegate,UITableViewDataSource,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate>  {
-	UIButton *close;
-	UIButton *credits;
-	UITableView *tableview;
-	IBOutlet UIView *sito;
-	IBOutlet UIWebView *webView;
-	IBOutlet UIWebView *infocarta;
-	IBOutlet UIView *cred;	
-
+@interface Info : UIViewController <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, UIWebViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate>  {
+	UIButton *_closeBtn;
+	UIButton *_creditsBtn;
+	UITableView *_tableview;
+	
+    UIWebView   *_infoWebView;
+    UIView      *_sitoPerDueView;
+    UIWebView   *_sitoPerDueWebView;
+	UIView      *_contattiView;
 }
-@property (nonatomic, retain) IBOutlet UIButton *close;
-@property (nonatomic, retain) IBOutlet UIButton *credits;
-@property (nonatomic,retain) IBOutlet UITableView *tableview;
-@property (nonatomic, retain) UIView *sito;
-@property (nonatomic, retain) UIView *cred;
 
 
-@property (nonatomic, retain) UIWebView *webView;
-@property (nonatomic, retain) UIWebView *infocarta;
+@property (nonatomic, retain) IBOutlet UIButton *closeBtn;
+@property (nonatomic, retain) IBOutlet UIButton *creditsBtn;
+@property (nonatomic, retain) IBOutlet UITableView *tableview;
 
-- (IBAction)opencredits:(id)sender;
-- (IBAction)switchinfo:(id)sender;
+@property (nonatomic, retain) IBOutlet UIWebView *infoWebView;
+@property (nonatomic, retain) IBOutlet UIView    *sitoPerDueView;
+@property (nonatomic, retain) IBOutlet UIWebView *sitoPerDueWebView;
+@property (nonatomic, retain) IBOutlet UIView    *contattiView;
+
+
+
+- (IBAction)apriContattiView:(id)sender;
+- (IBAction)chiudiContattiView:(id)sender;
+- (IBAction)chiudiSitoPerDueView:(id)sender;
 - (IBAction)chiudi:(id)sender;
-- (IBAction)chiudisito:(id)sender;
 
 
 @end

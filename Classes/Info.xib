@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">11D50b</string>
-		<string key="IBDocument.InterfaceBuilderVersion">1938</string>
+		<int key="IBDocument.SystemTarget">1296</int>
+		<string key="IBDocument.SystemVersion">11D50</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2182</string>
 		<string key="IBDocument.AppKitVersion">1138.32</string>
 		<string key="IBDocument.HIToolboxVersion">568.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">933</string>
+			<string key="NS.object.0">1181</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -47,10 +47,9 @@
 					<object class="IBUIWebView" id="826843444">
 						<reference key="NSNextResponder" ref="801088266"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{6, 103}, {308, 357}}</string>
+						<string key="NSFrame">{{6, 105}, {308, 351}}</string>
 						<reference key="NSSuperview" ref="801088266"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC41NTYxMjI0NDkgMC4wODI5NDE3MTMwMiAwLjAyODUyMzIzMDYAA</bytes>
@@ -141,7 +140,6 @@
 						<string key="NSFrame">{{0, 105}, {320, 355}}</string>
 						<reference key="NSSuperview" ref="590140686"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="474704190">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC41NTYxMjI0NDkgMC4wODI5NDE3MTMwMiAwLjAyODUyMzIzMDYAA</bytes>
@@ -209,7 +207,6 @@
 						<string key="NSFrame">{{0, 44}, {320, 416}}</string>
 						<reference key="NSSuperview" ref="800895330"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -284,35 +281,35 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">cred</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="590140686"/>
-					</object>
-					<int key="connectionID">193</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">infocarta</string>
+						<string key="label">infoWebView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="826843444"/>
 					</object>
-					<int key="connectionID">211</int>
+					<int key="connectionID">220</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">sito</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="800895330"/>
-					</object>
-					<int key="connectionID">218</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">webView</string>
+						<string key="label">sitoPerDueWebView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="470787414"/>
 					</object>
-					<int key="connectionID">219</int>
+					<int key="connectionID">221</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">sitoPerDueView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="800895330"/>
+					</object>
+					<int key="connectionID">222</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">contattiView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="590140686"/>
+					</object>
+					<int key="connectionID">223</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -324,11 +321,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">opencredits:</string>
+						<string key="label">apriContattiView:</string>
 						<reference key="source" ref="771358634"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
-					<int key="connectionID">194</int>
+					<int key="connectionID">224</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -356,19 +353,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">switchinfo:</string>
+						<string key="label">chiudiContattiView:</string>
 						<reference key="source" ref="707362112"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
-					<int key="connectionID">199</int>
+					<int key="connectionID">225</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">chiudisito:</string>
+						<string key="label">chiudiSitoPerDueView:</string>
 						<reference key="source" ref="380037502"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
-					<int key="connectionID">216</int>
+					<int key="connectionID">226</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -561,7 +558,7 @@
 					<string>214.IBPluginDependency</string>
 					<string>215.IBPluginDependency</string>
 				</object>
-				<object class="NSMutableArray" key="dict.values">
+				<object class="NSArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>Info</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -600,7 +597,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">219</int>
+			<int key="maxID">226</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -612,12 +609,12 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>apriContattiView:</string>
 							<string>chiudi:</string>
-							<string>chiudisito:</string>
-							<string>opencredits:</string>
-							<string>switchinfo:</string>
+							<string>chiudiContattiView:</string>
+							<string>chiudiSitoPerDueView:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
@@ -629,27 +626,27 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>apriContattiView:</string>
 							<string>chiudi:</string>
-							<string>chiudisito:</string>
-							<string>opencredits:</string>
-							<string>switchinfo:</string>
+							<string>chiudiContattiView:</string>
+							<string>chiudiSitoPerDueView:</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">apriContattiView:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">chiudi:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">chiudisito:</string>
+								<string key="name">chiudiContattiView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">opencredits:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">switchinfo:</string>
+								<string key="name">chiudiSitoPerDueView:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>
@@ -658,73 +655,66 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>cellacredits</string>
-							<string>close</string>
-							<string>cred</string>
-							<string>credits</string>
-							<string>infocarta</string>
-							<string>sito</string>
+							<string>closeBtn</string>
+							<string>contattiView</string>
+							<string>creditsBtn</string>
+							<string>infoWebView</string>
+							<string>sitoPerDueView</string>
+							<string>sitoPerDueWebView</string>
 							<string>tableview</string>
-							<string>webView</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UITableViewCell</string>
 							<string>UIButton</string>
 							<string>UIView</string>
 							<string>UIButton</string>
 							<string>UIWebView</string>
 							<string>UIView</string>
+							<string>UIWebView</string>
 							<string>UITableView</string>
-							<string>UIWebView</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>cellacredits</string>
-							<string>close</string>
-							<string>cred</string>
-							<string>credits</string>
-							<string>infocarta</string>
-							<string>sito</string>
+							<string>closeBtn</string>
+							<string>contattiView</string>
+							<string>creditsBtn</string>
+							<string>infoWebView</string>
+							<string>sitoPerDueView</string>
+							<string>sitoPerDueWebView</string>
 							<string>tableview</string>
-							<string>webView</string>
 						</object>
-						<object class="NSMutableArray" key="dict.values">
+						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
-								<string key="name">cellacredits</string>
-								<string key="candidateClassName">UITableViewCell</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">close</string>
+								<string key="name">closeBtn</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">cred</string>
+								<string key="name">contattiView</string>
 								<string key="candidateClassName">UIView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">credits</string>
+								<string key="name">creditsBtn</string>
 								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">infocarta</string>
+								<string key="name">infoWebView</string>
 								<string key="candidateClassName">UIWebView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">sito</string>
+								<string key="name">sitoPerDueView</string>
 								<string key="candidateClassName">UIView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">sitoPerDueWebView</string>
+								<string key="candidateClassName">UIWebView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">tableview</string>
 								<string key="candidateClassName">UITableView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">webView</string>
-								<string key="candidateClassName">UIWebView</string>
 							</object>
 						</object>
 					</object>
@@ -739,7 +729,7 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1280" key="NS.object.0"/>
+			<real value="1296" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>
@@ -751,6 +741,6 @@
 			<string key="NS.key.0">logo.png</string>
 			<string key="NS.object.0">{176, 45}</string>
 		</object>
-		<string key="IBCocoaTouchPluginVersion">933</string>
+		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>
 </archive>

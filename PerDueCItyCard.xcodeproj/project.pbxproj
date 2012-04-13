@@ -177,6 +177,7 @@
 		D9678C5B1535D95900C86E83 /* WMHTTPAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D9678C5A1535D95900C86E83 /* WMHTTPAccess.m */; };
 		D9678C5F1535F8FF00C86E83 /* PDHTTPAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D9678C5E1535F8FF00C86E83 /* PDHTTPAccess.m */; };
 		D9678C631536219A00C86E83 /* NSString+Base64Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = D9678C621536219A00C86E83 /* NSString+Base64Addition.m */; };
+		D970849C1538594300B8D63F /* Info.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CAAA13ED5144001C7763 /* Info.xib */; };
 		D99378B21519368200DFC410 /* CartaPerDue.m in Sources */ = {isa = PBXBuildFile; fileRef = D99378B11519368200DFC410 /* CartaPerDue.m */; };
 		D99378C3151965D500DFC410 /* GeoDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = AC27879C15194A5C00747542 /* GeoDecoder.m */; };
 		D9AB0BC11531806900B1668F /* CouponDiscountTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AB0BC01531806900B1668F /* CouponDiscountTimeCell.m */; };
@@ -569,7 +570,7 @@
 				D9AFF6D7152F19AC00A8F346 /* Commenti e News V2 */,
 				D9CFDC17152F4F4A004E8755 /* Coupon */,
 				D9CFDC18152F5EA5004E8755 /* Coupon - pagamento */,
-				D9CFDC19152F61CB004E8755 /* Info e Contatti - Eliminare qcs? */,
+				D9CFDC19152F61CB004E8755 /* Info e Contatti */,
 				19D4CAA213ED5144001C7763 /* EsercenteMapAnnotation.h */,
 				19D4CAA313ED5144001C7763 /* EsercenteMapAnnotation.m */,
 				19D4CAC313ED5145001C7763 /* PerDueCItyCardAppDelegate.h */,
@@ -1015,7 +1016,7 @@
 			name = "Coupon - pagamento";
 			sourceTree = "<group>";
 		};
-		D9CFDC19152F61CB004E8755 /* Info e Contatti - Eliminare qcs? */ = {
+		D9CFDC19152F61CB004E8755 /* Info e Contatti */ = {
 			isa = PBXGroup;
 			children = (
 				19D4CAA813ED5144001C7763 /* Info.h */,
@@ -1027,7 +1028,7 @@
 				190BC5E81430E11E004D2705 /* Contatti.xib */,
 				D9463612152F64B6000A17CE /* ContattiCell.xib */,
 			);
-			name = "Info e Contatti - Eliminare qcs?";
+			name = "Info e Contatti";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1083,6 +1084,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D95CBF41153067C800D79209 /* Coupon.xib in Resources */,
+				D970849C1538594300B8D63F /* Info.xib in Resources */,
 				199910B8138FDE35003DB0D2 /* Commenti.xib in Resources */,
 				1999401113902345006950F1 /* Commento.xib in Resources */,
 				D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */,

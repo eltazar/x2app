@@ -11,94 +11,138 @@
 
 
 @implementation Info
-@synthesize close, credits,tableview,sito,webView,cred;
 
-- (IBAction)opencredits:(id)sender {
-
-
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:1.0];
-	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
-						   forView:[self view]
-							 cache:YES];
-	
-	[UIView commitAnimations];
-	[[self view] addSubview:cred];
-	
-
-}
-
-- (IBAction)switchinfo:(id)sender{
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:1.0];
-	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
-						   forView:[self view]
-							 cache:YES];
-	[self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
-	[UIView commitAnimations];	
-	[cred removeFromSuperview];
-	self.title = @"Info";
+@synthesize closeBtn=_closeBtn, creditsBtn=_creditsBtn, tableview=_tableview, infoWebView=_infoWebView, sitoPerDueView=_sitoPerDueView, sitoPerDueWebView=_sitoPerDueWebView, contattiView=_contattiView;
 
 
-	
-	
-}
-
-- (IBAction)chiudi:(id)sender {
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-- (IBAction)chiudisito:(id)sender{
-	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:1.0];
-	[UIView setAnimationTransition:UIViewAnimationTransitionCurlDown						   
-						   forView:[self view]
-							 cache:YES];
-    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
-    [sito removeFromSuperview];
-	[UIView commitAnimations];	
-}
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization.
-    }
-    return self;
+ - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+ self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+ if (self) {
+ // Custom initialization.
+ }
+ return self;
+ }
+ */
+
+
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc. that aren't in use.
 }
-*/
 
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+#pragma mark - View lifecycle
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"[%@ wiewDidLoad", [self class]);
 	NSURL *infos = [NSURL URLWithString:@"http://www.cartaperdue.it/partner/PD.html"];
 	NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
-	[infocarta loadRequest:requestObj];		
-	[infocarta release];
-	infocarta=nil;
+	[self.infoWebView loadRequest:requestObj];		
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSLog(@"Info::viewWillAppear");
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
+	if (![Utilita networkReachable]) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+		[alert show];
+        [alert release];
+
+	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
 }
 
 
 /*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations.
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ // Return YES for supported orientations.
+ return (interfaceOrientation == UIInterfaceOrientationPortrait);
+ }
+ */
+
+
+#pragma mark - UITableViewDataSource
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return 4;
 }
 
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
+	
+	if (cell == nil) {
+		cell = [[[NSBundle mainBundle] loadNibNamed:@"InfoCell" owner:self options:NULL] objectAtIndex:0];
+	}
+    
+    if ((indexPath.row==0) && (indexPath.section==0)) {	
+		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+		lbl.text = @"800737383"; 
+		UILabel *etc = (UILabel *)[cell viewWithTag:2];
+		etc.text = @"";
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+	}
+	else if ((indexPath.row==1) && (indexPath.section==0)) {	
+		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+		lbl.text = @"redazione@cartaperdue.it"; 
+		UILabel *etc = (UILabel *)[cell viewWithTag:2];
+		etc.text = @"";
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		
+	}
+	else if ((indexPath.row==2) && (indexPath.section==0)) {	
+		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+		lbl.text = @"www.cartaperdue.it"; 
+		UILabel *etc = (UILabel *)[cell viewWithTag:2];
+		etc.text = @"";
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		
+	}
+    else if ((indexPath.row==3) && (indexPath.section==0)) {	
+		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
+		lbl.text = @"Seguici su Facebook"; 
+		UILabel *etc = (UILabel *)[cell viewWithTag:2];
+		etc.text = @"";
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		
+	}
+	
+	return cell;
+	
+}
+
+
+#pragma mark - UITableViewDelegate
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -111,12 +155,7 @@
     lbl.lineBreakMode = UILineBreakModeWordWrap;
     lbl.numberOfLines = 0;
     lbl.font = [UIFont boldSystemFontOfSize:20];
-    //if (section == 0) {
-    //    lbl.text =@"Supervision";
-    //}
-    //else if (section == 1) {
-    //    lbl.text = @"Developer";
-    //}
+    
 	if (section == 0) {
         lbl.text = @"Contatti";	
     }
@@ -136,7 +175,7 @@
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	NSString *lblText;
-
+    
 	if (section == 0) {
         lblText = @"Contatti";	
         UIFont *txtFont = [UIFont boldSystemFontOfSize:20];
@@ -150,68 +189,8 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
-	
-	if (cell == nil) {
-		cell = [[[NSBundle mainBundle] loadNibNamed:@"InfoCell" owner:self options:NULL] objectAtIndex:0];
-	}
-		
-//	if ((indexPath.row==0) && (indexPath.section==0) ){	
-//		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-//		lbl.text = @"Prof. Emanuele Panizzi"; 
-//		UILabel *etc = (UILabel *)[cell viewWithTag:2];
-//		etc.text = @"Dipartimento di Informatica \"La Sapienza\" di Roma";
-//		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//	}
-//	if ((indexPath.row==0) && (indexPath.section==1)) {	
-//		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-//		lbl.text = @"Giuseppe Lisanti"; 
-//		UILabel *etc = (UILabel *)[cell viewWithTag:2];
-//		etc.text = @"";
-//		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//
-//	}
-	if ((indexPath.row==0) && (indexPath.section==0)) {	
-		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-		lbl.text = @"800737383"; 
-		UILabel *etc = (UILabel *)[cell viewWithTag:2];
-		etc.text = @"";
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-	}
-	if ((indexPath.row==1) && (indexPath.section==0)) {	
-		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-		lbl.text = @"redazione@cartaperdue.it"; 
-		UILabel *etc = (UILabel *)[cell viewWithTag:2];
-		etc.text = @"";
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		
-	}
-	if ((indexPath.row==2) && (indexPath.section==0)) {	
-		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-		lbl.text = @"www.cartaperdue.it"; 
-		UILabel *etc = (UILabel *)[cell viewWithTag:2];
-		etc.text = @"";
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		
-	}
-    if ((indexPath.row==3) && (indexPath.section==0)) {	
-		UILabel *lbl = (UILabel *)[cell viewWithTag:1];
-		lbl.text = @"Seguici su Facebook"; 
-		UILabel *etc = (UILabel *)[cell viewWithTag:2];
-		etc.text = @"";
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		
-	}
-	
-	return cell;
-	
-}
-
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if ( (indexPath.row == 0)&&(indexPath.section==0) ){ //telefona
 		UIActionSheet *aSheet = [[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Vuoi chiamare\nCarta PerDue?"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Chiama", nil];
 		[aSheet showInView:self.view];
@@ -219,7 +198,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		
 		[aSheet release];	
     }
-	if ( (indexPath.row == 1)&&(indexPath.section==0) ){ //mail
+	if ((indexPath.row == 1) && (indexPath.section == 0)) { 
 		MFMailComposeViewController *controller = [[MFMailComposeViewController alloc] init];
 		[[controller navigationBar] setTintColor:[UIColor colorWithRed:142/255.0 green:21/255.0 blue:7/255.0 alpha:1.0]];
 		NSArray *to = [NSArray arrayWithObject:[NSString stringWithFormat:@"info@cartaperdue.it"]];
@@ -229,31 +208,29 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 		[self presentModalViewController:controller animated:YES];
 		[controller release];
 	}
-	if ( (indexPath.row == 2)&&(indexPath.section==0) ){ //sito
+	if ((indexPath.row == 2) && (indexPath.section == 0)) { 
 		NSURL *url = [NSURL URLWithString:@"http://www.cartaperdue.it"];
 		NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-		[webView loadRequest:requestObj];		
-		//[self.navigationController pushViewController:sito animated:YES];
+		[self.sitoPerDueWebView loadRequest:requestObj];		
 		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:1.0];
 		[UIView setAnimationTransition:UIViewAnimationTransitionCurlUp
 							   forView:[self view]
 								 cache:YES];
 		
-		[UIView commitAnimations];
-		[[self view] addSubview:cred];
-		
-		[[self view] addSubview:sito];
-
-		[webView release];
-		webView=nil;
+		[UIView commitAnimations];		
+		[[self view] addSubview:self.sitoPerDueView];
+        
         [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
 	}
-    if ( (indexPath.row == 3)&&(indexPath.section==0) ){ //facebook
+    if ((indexPath.row == 3) && (indexPath.section == 0)){ 
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://www.facebook.com/perdue.roma"]];
 	}
-	
 }
+
+
+#pragma  mark - UIActionSheedDelegate
+
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
@@ -263,45 +240,61 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
     }
 }
-					  
+					 
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 		[self becomeFirstResponder];
 		[self dismissModalViewControllerAnimated:YES];
 }
 
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSLog(@"Info::viewWillAppear");
-    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
-	if (![Utilita networkReachable]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
-		[alert show];
-        [alert release];
-	}
-}
+#pragma mark - Info (IBActions)
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-					  
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
-}
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+- (IBAction)apriContattiView:(id)sender {
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:1.0];
+	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
+						   forView:[self view]
+							 cache:YES];
+	
+	[UIView commitAnimations];
+	[[self view] addSubview:self.contattiView];
 }
 
 
-- (void)dealloc {
-    [super dealloc];
+- (IBAction)chiudiContattiView:(id)sender {
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:1.0];
+	[UIView setAnimationTransition:UIViewAnimationTransitionFlipFromRight
+						   forView:[self view]
+							 cache:YES];
+	[self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
+	[UIView commitAnimations];	
+	[self.contattiView removeFromSuperview];
+	self.title = @"Info";
 }
+
+
+- (IBAction)chiudiSitoPerDueView:(id)sender {
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:1.0];
+	[UIView setAnimationTransition:UIViewAnimationTransitionCurlDown						   
+						   forView:[self view]
+							 cache:YES];
+    [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
+    [self.sitoPerDueView removeFromSuperview];
+	[UIView commitAnimations];	
+}
+
+
+- (IBAction)chiudi:(id)sender {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 
 
 @end
