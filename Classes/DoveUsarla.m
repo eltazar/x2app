@@ -120,14 +120,6 @@
     
 	[defaults synchronize];
 	NSLog(@"Ho salvato i valori: %d e %d\n",[[defaults objectForKey:@"idcity"]integerValue],[[defaults objectForKey:@"idday"]integerValue]);
-    
-    
-    if ([[UserDefaults city] isEqualToString:@"Qui"]) {
-		self.navigationItem.title = @"Qui vicino";
-	} else {
-		self.navigationItem.title = [UserDefaults city];
-	}
-	[self.tableHeaderLabel setText:[UserDefaults weekDay]];
 }
 
 
@@ -147,7 +139,7 @@
 	} else {
 		self.navigationItem.title = [UserDefaults city];
 	}
-	self.tableHeaderLabel.text = [UserDefaults weekDay];
+	self.tableHeaderLabel.text = [NSString stringWithFormat:@"Dove usare Carta PerDue %@",[UserDefaults weekDay]];
 }
 
 
@@ -209,8 +201,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView	cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 	
-	// TODO: Sta riga è nel posto sbagliato
-	[self.tableHeaderLabel setText:[UserDefaults weekDay]];
 	
 	UITableViewCell *cell = [tableView
 							 dequeueReusableCellWithIdentifier:@"DoveUsarlaCell"];

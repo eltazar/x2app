@@ -10,13 +10,13 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-@interface DoveUsarla : UITableViewController<CLLocationManagerDelegate,UIAlertViewDelegate>  {
+@interface DoveUsarla : UITableViewController <CLLocationManagerDelegate,UIAlertViewDelegate>  {
 @private
     CLLocationCoordinate2D location;
     CLLocationManager *_locationManager;
     NSArray *_dataModel;
     // IBOutlet properties' ivars:
-    IBOutlet UILabel *_tableHeaderLabel;
+    UILabel *_tableHeaderLabel;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *tableHeaderLabel;
