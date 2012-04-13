@@ -14,12 +14,20 @@
 @synthesize name=_name, surname=_surname, number=_number;
 
 
-- (id) init {
+- (id)init {
     self = [super init];
     if (self) {
         // Initialization code here.
     }
     return self;
+}
+
+
+- (void)dealloc {
+    self.name = nil;
+    self.surname = nil;
+    self.number = nil;
+    [super dealloc];
 }
 
 

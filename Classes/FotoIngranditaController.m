@@ -78,6 +78,7 @@
 - (void)dealloc {
     self.imageUrl = nil;
     self.imageView = nil;
+    [super dealloc];
 }
 
 

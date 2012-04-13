@@ -321,10 +321,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    [super viewDidLoad];
-    
+        
     [self setTitle:@"Richiedi"];
     
     sectionDescription = [[NSMutableArray alloc] initWithObjects:@"Validità carta",@"I tuoi dati",@"", nil];  

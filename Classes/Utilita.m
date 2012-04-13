@@ -14,7 +14,7 @@
 @implementation Utilita
 
 
-+(BOOL)networkReachable {
++ (BOOL)networkReachable {
     Reachability *r = [[Reachability reachabilityForInternetConnection] retain];
     NetworkStatus internetStatus = [r currentReachabilityStatus];
     BOOL result = NO;
@@ -38,7 +38,7 @@
     return  result;
 }
 
-+(NSString*)checkPhoneNumber:(NSString*) _phone{
++ (NSString*)checkPhoneNumber:(NSString*) _phone {
     
     BOOL isPlus = FALSE;
     
@@ -88,7 +88,7 @@
 
 }
 
-+(BOOL)isNumeric:(NSString*)inputString{
++ (BOOL)isNumeric:(NSString*)inputString {
     BOOL isValid = NO;
     NSCharacterSet *alphaNumbersSet = [NSCharacterSet decimalDigitCharacterSet];
     NSCharacterSet *stringSet = [NSCharacterSet characterSetWithCharactersInString:inputString];
@@ -96,7 +96,7 @@
     return isValid;
 }
 
-+(BOOL)isStringEmptyOrWhite:(NSString*)string{
++ (BOOL)isStringEmptyOrWhite:(NSString*)string {
     
     //controlla che le stringhe non siano ne vuote ne formate da soli spazi bianchi
     if([allTrim(string) length] == 0)       
@@ -104,7 +104,7 @@
     else return TRUE;
 }
 
-+(BOOL)isEmailValid:(NSString*)email{
++ (BOOL)isEmailValid:(NSString*)email {
     
     NSString* emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"; 
     NSPredicate* emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
@@ -113,9 +113,7 @@
 
 }
 
-+(BOOL)isDateFormatValid:(NSString*)data{
-    
- 
++ (BOOL)isDateFormatValid:(NSString*)data {
     //controlla formato della stringa scadenza
     if([data isEqualToString:@"--/--"] || [[data substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"--"] || [[data substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"--"]){
         return FALSE;

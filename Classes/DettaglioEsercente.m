@@ -94,6 +94,7 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
     
     if(! [Utilita networkReachable]){

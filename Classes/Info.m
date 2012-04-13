@@ -72,14 +72,13 @@
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {	
+- (void)viewDidLoad {
+    [super viewDidLoad];
 	NSURL *infos = [NSURL URLWithString:@"http://www.cartaperdue.it/partner/PD.html"];
 	NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
 	[infocarta loadRequest:requestObj];		
 	[infocarta release];
 	infocarta=nil;
-	
-    [super viewDidLoad];
 }
 
 
@@ -272,6 +271,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     NSLog(@"Info::viewWillAppear");
     [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
 	if (![Utilita networkReachable]) {
@@ -283,8 +283,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-	
-	
 }
 					  
 - (void)didReceiveMemoryWarning {

@@ -16,7 +16,7 @@
 #import "UserDefaults.h"
 
 @interface FindNearCompanyController(){
-     NSString *_phpFile;
+    NSString *_phpFile;
     BOOL isEmpty;
     CartaPerDue *_card;
     CLLocationCoordinate2D userCoordinate;

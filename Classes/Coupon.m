@@ -771,7 +771,8 @@ if ([rows count]>0) {//coupon disponibile
 
 
 
-- (void)viewWillAppear:(BOOL)animated {    
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
     
     if (self.dataModel) {

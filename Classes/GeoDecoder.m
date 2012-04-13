@@ -25,7 +25,7 @@
     return self;
 }
 
--(void) searchCoordinatesForAddress:(NSString *)inAddress
+- (void) searchCoordinatesForAddress:(NSString *)inAddress
 {
     //Build the string to Query Google Maps.
     
@@ -56,7 +56,7 @@
     [request release];
 }
 
--(void)searchAddressForCoordinate:(CLLocationCoordinate2D)coordinate
+- (void)searchAddressForCoordinate:(CLLocationCoordinate2D)coordinate
 {
     NSMutableString *urlString = [NSMutableString stringWithFormat:@"http://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&sensor=true",coordinate.latitude,coordinate.longitude];    
     
@@ -79,7 +79,7 @@
 
 }
 
--(void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
+- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse*)response
 {
     if (receivedGeoData) 
     {
@@ -117,7 +117,7 @@
 }
 
 
--(void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
+- (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
 {
    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     
@@ -130,7 +130,7 @@
 
 #pragma mark - Memory Management
 
--(void) dealloc
+- (void) dealloc
 {
     [receivedGeoData release];
     [super dealloc];

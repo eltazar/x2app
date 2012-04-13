@@ -246,8 +246,7 @@ static IAPHelper * _sharedHelper;
     
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [_productIdentifiers release];
     _productIdentifiers = nil;
     [_products release];

@@ -406,12 +406,8 @@
     self.cvv = @"";
     
     [self.tableView reloadData];
-    
-    
-    
-    
-    
 }
+
 
 -(BOOL)isNumeric:(NSString*)inputString{
     BOOL isValid = NO;

@@ -61,6 +61,19 @@ static WMHTTPAccess *__sharedInstance = nil;
 }
 
 
+- (void)dealloc {
+    // Ma il dealloc di un singleton viene mai richiamato? :/ Bah, nel dubbio, implementarlo male di sicuro non fa :P
+    for (NSURLConnection *c in self.connectionDict) {
+        [c cancel];
+        [self tearDownTerminatedConnection:c];
+    }
+    self.connectionDict = nil;
+    self.dataDict = nil;
+    self.delegateDict = nil;
+    [super dealloc];
+}
+
+
 #pragma mark - NSURLConnectionDelegate
 
 

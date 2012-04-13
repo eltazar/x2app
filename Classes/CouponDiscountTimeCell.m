@@ -33,6 +33,7 @@
     self.prezzoOrigLbl = nil;
     self.tempoLbl = nil;
     self.viewController = nil;
+    [super dealloc];
 }
 
 
@@ -42,7 +43,7 @@
 }
 
 
-- (void) awakeFromNib {
+- (void)awakeFromNib {
     NSLog(@"%@::awakeFromNib", [self class]);
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];  
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];  

@@ -44,7 +44,7 @@
 
 	// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {	
-
+    [super viewDidLoad];
 	UITextView *infoTextView = [[UITextView alloc] init];
     infoTextView.frame = CGRectMake(10, 10, 300,130);
     infoTextView.text = @"I tuoi dati e quelli della tua carta di credito sono archiviati esclusivamente sul tuo smartphone per facilitarti i prossimi acquisti. I dati della carta di credito non vengono conservati sul server. La trasmissione delle informazioni  per ogni signolo acquisto avviene utilizzando le più recenti e sicure tecnologie disponibili per assicurare la massima sicurezza, su una connessione cifrata SSL (Secure Socket Layer), e i dati non vengono conservati sul server." ;
@@ -53,7 +53,6 @@
     infoTextView.layer.cornerRadius = 6;
     [self.tableview addSubview:infoTextView];
     [infoTextView release];
-    [super viewDidLoad];
 }
 
 
@@ -191,6 +190,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 -(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     NSLog(@"Contatti::viewWillAppear");
     [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
     if( ![Utilita networkReachable]){
@@ -204,8 +204,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-	
-	
 }
 
 - (void)didReceiveMemoryWarning {

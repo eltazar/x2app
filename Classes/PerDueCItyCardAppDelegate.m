@@ -249,7 +249,7 @@
     return [facebook handleOpenURL:url]; 
 }
 
--(void)checkForPreviouslySavedAccessTokenInfo{
+- (void)checkForPreviouslySavedAccessTokenInfo{
     // Initially set the isConnected value to NO.
     //isConnected = NO;
     
@@ -275,14 +275,14 @@
     }
 }
 
--(void)logIntoFacebook
+- (void)logIntoFacebook
 {
     NSLog(@"entrato2");
     [facebook authorize:permissions];
 }
 
 #pragma mark - FBSessionDelegate
--(void)fbDidLogin{
+- (void)fbDidLogin{
     //salva valori di accesso e sessione
     NSLog(@"entrato1");
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -293,11 +293,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FBdidLogin" object:nil];
 }
 
--(void)fbDidNotLogin:(BOOL)cancelled{
+- (void)fbDidNotLogin:(BOOL)cancelled{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FBerrLogin" object:nil];
 }
 
--(void)fbDidLogout{
+- (void)fbDidLogout{
     // Keep this for testing purposes.
     
     //nascondo tasto logout

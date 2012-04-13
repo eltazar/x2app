@@ -101,6 +101,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
     if( ![Utilita networkReachable]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
@@ -125,6 +126,7 @@
 
 
 - (void)viewDidUnload {
+    [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
@@ -145,7 +147,6 @@
 	self.mapTypeSegCtrl = nil;
     self.searchSegCtrl = nil;
 	self.footerView = nil;
-    [super viewDidUnload];
 }
 
 
@@ -487,7 +488,7 @@
 #pragma mark - CategoriaCommerciale (metodi privati)
 
 
-- (void) fetchRows{
+- (void)fetchRows{
     lastFetchWasASearch = NO;
     didFetchAllRows = NO;
     NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];

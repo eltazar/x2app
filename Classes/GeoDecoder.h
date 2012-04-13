@@ -14,22 +14,23 @@
 
 /* Wrapper su api di google per geocoding e reverseGeocoding
  */
-@interface GeoDecoder : NSObject{
-    
+@interface GeoDecoder : NSObject {
     NSMutableData *receivedGeoData;
     NSMutableDictionary *geoDataDictionary;
     
     id<GeoDecoderDelegate> delegate;
-    
 }
+
 
 @property(nonatomic,readonly) NSMutableDictionary *geoDataDictionary;
 @property(nonatomic, assign) id<GeoDecoderDelegate> delegate;
 
--(void) searchCoordinatesForAddress:(NSString *)inAddress;
--(void)searchAddressForCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)searchCoordinatesForAddress:(NSString *)inAddress;
+- (void)searchAddressForCoordinate:(CLLocationCoordinate2D)coordinate;
 
 @end
+
+
 
 @protocol GeoDecoderDelegate <NSObject>
 

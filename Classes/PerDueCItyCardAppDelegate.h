@@ -27,8 +27,8 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
--(void)logIntoFacebook;
--(void)checkForPreviouslySavedAccessTokenInfo;
+- (void)logIntoFacebook;
+- (void)checkForPreviouslySavedAccessTokenInfo;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;

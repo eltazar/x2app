@@ -50,6 +50,7 @@ NSManagedObjectContext *context;
 
 - (void) dealloc {
     [context release];
+    [super dealloc];
 }
 
 

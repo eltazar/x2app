@@ -719,13 +719,12 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 	[super viewWillAppear:animated];
     [self.tablegenerale deselectRowAtIndexPath:[self.tablegenerale indexPathForSelectedRow]  animated:YES];
 	[tablegenerale reloadData];
-	
 }
-- (void)viewWillDisappear:(BOOL)animated {
 
-	
-	
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
 }
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
