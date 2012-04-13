@@ -173,9 +173,10 @@
 		NSDictionary *offertaDict = [self.dataModel objectAtIndex: indexPath.row];
 		
         CachedAsyncImageView *caImageView = (CachedAsyncImageView *)[cell viewWithTag:1];
-        NSString *imageUrlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [offertaDict objectForKey:@"offerta_foto_big"]];
-            NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
-            [caImageView loadImageFromURL:imageUrl];
+        NSString *imageUrlString = [[NSString alloc] initWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [offertaDict objectForKey:@"offerta_foto_big"]];
+        NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
+        [caImageView loadImageFromURL:imageUrl];
+        [imageUrlString release];
         
 		UILabel *intestazione = (UILabel *)[cell viewWithTag:4];
 		intestazione.text =[NSString stringWithFormat:@"Solo %@€ invece di %@€",

@@ -121,6 +121,7 @@
         if (image) {
             NSLog(@"                          \t Cache Hit! [[%@]-]", [_urlString substringWithRange:NSMakeRange(_urlString.length-1-10, 3)]);
             self.image = image;
+            [_urlString release];
         }
         else {
             self.image = nil;
