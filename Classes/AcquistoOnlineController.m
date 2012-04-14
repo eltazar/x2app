@@ -25,11 +25,39 @@
 @implementation AcquistoOnlineController
 @synthesize products;
 
+- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if(self){
+        // Custom initialization
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductsLoadedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productsLoaded:) name:kProductsLoadedNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductPurchasedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:kProductPurchasedNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductPurchaseFailedNotification object:nil];  
+        [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(productPurchaseFailed:) name:kProductPurchaseFailedNotification object: nil];
+        
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardServerError object:nil];    
+        [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloadError:) name:kCardServerError object: nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloaded object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloaded:) name:kCardDownloaded object: nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloading object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloading:) name:kCardDownloading object: nil];
+    }
+    return self;
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -79,7 +107,11 @@
    [MBProgressHUD hideHUDForView:self.view animated:YES];    
     
     //NSString *productIdentifier = (NSString *) notification.object;
-    NSLog(@"Card acquistata: %@", notification.object);
+    NSLog(@"ACQUISTO ONLINE CONTROLLER : Card acquistata: %@, notification = %@ ", notification.object, notification);
+    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Acquisto effettuato" message:@"A breve riceverai sul tuo device la carta PerDue" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+//    [alert show];
+//    [alert release];
     
     //TODO: creare la carta con i dati ricevuti e nome e cognome presi da userdefault, quindi salvare sul db locale
         
@@ -100,6 +132,32 @@
         [alert show];
     }
     
+}
+
+#pragma mark - gestione acquisto card
+
+-(void) cardDownloadError:(NSNotification*) notification{
+    NSLog(@"errore lato server nel recupero carta");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+-(void) cardDownloaded:(NSNotification*) notification{
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSLog(@"carta scaricata = %@",notification.object);
+    //mostrare alert
+}
+
+-(void) cardDownloading:(NSNotification*) notification{
+    NSLog(@"downloading carta acquistata");
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Acquisto effettuato";
+    hud.detailsLabelText = @"Download carta...";
+}
+
+-(void) cardRetrieved:(NSNotification*) notification{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSLog(@"carta recuperata = %@",notification.object);
 }
 
 #pragma mark - Gestion bottoni
@@ -175,11 +233,28 @@
     [super viewDidLoad];
     
     self.title = @"Acquisti";
+  
+    /*
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductsLoadedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productsLoaded:) name:kProductsLoadedNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductPurchasedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:kProductPurchasedNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductPurchaseFailedNotification object:nil];  
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(productPurchaseFailed:) name:kProductPurchaseFailedNotification object: nil];
     
-    NSLog(@"define = %@",kProductsLoadedNotification);
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardServerError object:nil];    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloadError:) name:kCardServerError object: nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloaded object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloaded:) name:kCardDownloaded object: nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloading object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloading:) name:kCardDownloading object: nil];
+    
+     */
     
     productsId = [[NSMutableSet alloc] init];
 
@@ -193,6 +268,10 @@
 
 - (void)viewDidUnload
 {
+    self.products = nil;
+    [productsId release];
+    productsId = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -200,7 +279,15 @@
 
 - (void)dealloc {
     
-#warning rimuovere observer per il notification server
+    //[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductsLoadedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductPurchasedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductPurchaseFailedNotification object:nil];  
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardServerError object:nil];    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloaded object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloading object:nil];
+    
     self.products = nil;
     
     [productsId release];
