@@ -127,7 +127,6 @@
 		D924E627151CBC4900AD4C07 /* CategoriaCommerciale.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E625151CBC4900AD4C07 /* CategoriaCommerciale.xib */; };
 		D924E62A151CEB6F00AD4C07 /* UserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = D924E629151CEB6E00AD4C07 /* UserDefaults.m */; };
 		D924E632151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = D924E630151D50F900AD4C07 /* CategoriaCommercialeWithPrice.m */; };
-		D924E633151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */; };
 		D92D1CF5152CF69500008CE3 /* DettaglioEsercenteRistorazione.m in Sources */ = {isa = PBXBuildFile; fileRef = D92D1CF4152CF69500008CE3 /* DettaglioEsercenteRistorazione.m */; };
 		D9463602152F642A000A17CE /* CategoriaCommercialeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9463601152F642A000A17CE /* CategoriaCommercialeCell.xib */; };
 		D9463605152F6438000A17CE /* CategoriaCommercialeWithPriceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9463604152F6438000A17CE /* CategoriaCommercialeWithPriceCell.xib */; };
@@ -373,7 +372,6 @@
 		D924E629151CEB6E00AD4C07 /* UserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaults.m; sourceTree = "<group>"; };
 		D924E62F151D50F900AD4C07 /* CategoriaCommercialeWithPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoriaCommercialeWithPrice.h; sourceTree = "<group>"; };
 		D924E630151D50F900AD4C07 /* CategoriaCommercialeWithPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoriaCommercialeWithPrice.m; sourceTree = "<group>"; };
-		D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CategoriaCommercialeWithPrice.xib; sourceTree = "<group>"; };
 		D92D1CF3152CF69500008CE3 /* DettaglioEsercenteRistorazione.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DettaglioEsercenteRistorazione.h; sourceTree = "<group>"; };
 		D92D1CF4152CF69500008CE3 /* DettaglioEsercenteRistorazione.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioEsercenteRistorazione.m; sourceTree = "<group>"; };
 		D93F81B515270D1300C9AEA3 /* EsercentiNonRistorazione.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = EsercentiNonRistorazione.php; path = "php server/PHP APPv2/EsercentiNonRistorazione.php"; sourceTree = SOURCE_ROOT; };
@@ -949,7 +947,6 @@
 				D9463601152F642A000A17CE /* CategoriaCommercialeCell.xib */,
 				D924E62F151D50F900AD4C07 /* CategoriaCommercialeWithPrice.h */,
 				D924E630151D50F900AD4C07 /* CategoriaCommercialeWithPrice.m */,
-				D924E631151D50F900AD4C07 /* CategoriaCommercialeWithPrice.xib */,
 				D9463604152F6438000A17CE /* CategoriaCommercialeWithPriceCell.xib */,
 				D9463606152F6443000A17CE /* LastCell.xib */,
 				19D4CABA13ED5144001C7763 /* Opzioni.h */,
@@ -1151,7 +1148,6 @@
 				D924E621151CB93400AD4C07 /* DoveUsarlaCell.xib in Resources */,
 				D924E622151CB93400AD4C07 /* DoveUsarlaTableHeader.xib in Resources */,
 				D924E627151CBC4900AD4C07 /* CategoriaCommerciale.xib in Resources */,
-				D924E633151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.xib in Resources */,
 				ACC808541521F678006DF894 /* grayButton2.png in Resources */,
 				AC3C57B41525313500E5457E /* refreshBtn.png in Resources */,
 				ACE86511152AEB90008EBD72 /* FindNearCompanyController.xib in Resources */,

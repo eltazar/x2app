@@ -27,6 +27,7 @@
     UITableView *_tableView;
     MKMapView *_mapView;
     UIView *_footerView;
+    UIActivityIndicatorView *_activityIndicator;
     UIActivityIndicatorView *_searchActivityIndicator;
     UISegmentedControl *_searchSegCtrl;
     UISegmentedControl *_mapTypeSegCtrl;
@@ -41,6 +42,7 @@
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) IBOutlet UIView *footerView;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *searchActivityIndicator;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *searchSegCtrl;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *mapTypeSegCtrl;

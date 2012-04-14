@@ -44,7 +44,7 @@
 
 
 // IBOutlets
-@synthesize searchBar=_searchBar, tableView=_tableView, mapView=_mapView, footerView=_footerView, searchActivityIndicator=_searchActivityIndicator,  searchSegCtrl=_searchSegCtrl, mapTypeSegCtrl=_mapTypeSegCtrl;
+@synthesize searchBar=_searchBar, tableView=_tableView, mapView=_mapView, footerView=_footerView, activityIndicator=_activityIndicator, searchActivityIndicator=_searchActivityIndicator, searchSegCtrl=_searchSegCtrl, mapTypeSegCtrl=_mapTypeSegCtrl;
 
 // Properties private
 @synthesize categoria=_categoria, geoDec=_geoDec, tempBuff=_tempBuff;
@@ -94,6 +94,8 @@
                                    target:self
                                    action:@selector(showMap:)] autorelease];
     self.navigationItem.rightBarButtonItem = mapButton;
+    self.searchActivityIndicator.hidden = YES;
+    [self.activityIndicator startAnimating];
     self.geoDec = [[[GeoDecoder alloc] init] autorelease];
     self.geoDec.delegate = self;
 }
@@ -234,7 +236,7 @@
 		indirizzo.text= [indirizzo.text capitalizedString];
         
 		UILabel *distanza = (UILabel *)[cell viewWithTag:3];
-		distanza.text = [NSString stringWithFormat:@"a %.1f Km",[[r objectForKey:@"Distanza"] doubleValue]];	
+		distanza.text = [NSString stringWithFormat:@"a %.1f km",[[r objectForKey:@"Distanza"] doubleValue]];	
 		
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
@@ -255,7 +257,7 @@
 		case 0:
 			return 0;	
 		case 1:
-			return 65;
+			return self.footerView.frame.size.height;
 		default:
 			return 0;
 	}
@@ -429,6 +431,8 @@
     
     [rows removeLastObject];
     if ([type isEqualToString:@"Esercente:FirstRows"]) {
+        [self.activityIndicator stopAnimating];
+        self.activityIndicator.hidden = YES;
         [self.dataModel removeAllObjects];
         [self.dataModel addObjectsFromArray:rows];
         [self.tableView reloadData];

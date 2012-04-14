@@ -14,6 +14,14 @@
 @implementation CategoriaCommercialeWithPrice
 
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (!nibNameOrNil) {
+        nibNameOrNil = [NSString stringWithFormat:@"%@", [self superclass]];
+    }
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    return self;
+}
+
 # pragma mark - View lifecycle
 
 
@@ -22,6 +30,13 @@
     NSLog (@"sto cambiando il valore di urlString");
     [_urlString release];
     _urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione.php";
+    [self.searchSegCtrl insertSegmentWithTitle:@"Prezzo" atIndex:1 animated:NO];
+    CGRect frame = self.searchSegCtrl.frame;
+    frame.size.width = 236;
+    self.searchSegCtrl.frame = frame;
+    CGPoint center = self.searchSegCtrl.center;
+    center.x = self.view.center.x;
+    self.searchSegCtrl.center = center;
 }
 
 
@@ -55,7 +70,7 @@
 		indirizzo.text= [indirizzo.text capitalizedString];
         
 		UILabel *distanza = (UILabel *)[cell viewWithTag:4];
-		distanza.text = [NSString stringWithFormat:@"a %.1f Km",[[r objectForKey:@"Distanza"] doubleValue]];	
+		distanza.text = [NSString stringWithFormat:@"a %.1f km",[[r objectForKey:@"Distanza"] doubleValue]];	
 		
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
