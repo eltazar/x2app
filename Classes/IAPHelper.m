@@ -10,7 +10,7 @@
 
 #import "PDHTTPAccess.h"
 #import "Utilita.h"
-
+#import "MBProgressHUD.h"
 @implementation IAPHelper
 
 @synthesize productIdentifiers = _productIdentifiers;
@@ -80,10 +80,29 @@ static IAPHelper * _sharedHelper;
 -(void)didReceiveJSON:(NSDictionary *)jsonDict {
     // Nota di Whisky: usare questo metodo per qualsiasi risposta dal server, si distingue ciò che si sta facendo in base alla chiave del dict più esterno.
     
-    NSLog(@"RISPOSTA PER LA RECEIPT = %@", jsonDict);
+    //NSLog(@"iap helper ricevuto dati = %@", jsonDict);
     //riceve carta perdue se tutto è stato verificato
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchasedNotification object:jsonDict];
+    if([jsonDict objectForKey:@"Buyed_card"]){
+        NSLog(@"didReceiveJson -> lancio notifica downloaded");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloaded object:jsonDict];
+    }
+    else if([jsonDict objectForKey:@"CartaRecuperata"]){
+        NSLog(@"CARTA RECUPERATA");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCardRetrieved object:jsonDict];
+    }
+    else if([jsonDict objectForKey:@"Buyed_card_error"]){
+        NSLog(@"errore scrittura carta su db");
+    }
+/*
+    //debug
+   static int i = 1;
+    if( i ==1 ){
+        [self didReceiveError:nil];
+        i++;
+    }
+ */
+    
 }
 
 
@@ -92,8 +111,10 @@ static IAPHelper * _sharedHelper;
     //se ricevo errore
     //mostro pulsante recupera in cardsViewController e blocco lo store
     //NO : riprovare tipo 3 volte a scaricare la carta, magari con un avviso e un pulsante "riprova" per rifare la query che mi deve ritornare la carta x2 acquistata dalla transaction -> quindi in teoria ripassare l'id utente e l'id della transaction e recuperare dal db il relativo record
-
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Errore Connessione" message:@"Errore di connessione, premi Riprova per scaricare l'acquisto effettuato"  delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Riprova", nil]autorelease];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCardServerError object:nil];
+    
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Errore connessione" message:@"Errore di connessione, premi Ricarica per scaricare l'acquisto effettuato"  delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Ricarica", nil]autorelease];
     [alert show];
 }
 
@@ -101,14 +122,15 @@ static IAPHelper * _sharedHelper;
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
         
-    switch (buttonIndex) {
-        case 0:
-            break;
-        case 1:
-            [PDHTTPAccess retrieveCardFromServer:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] delegate:self];
-            
-        default:
-            break;
+    if([alertView.title isEqualToString:@"Errore connessione"] && buttonIndex == 1){
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloading object:nil];
+        
+        //questo sembra funzionare
+        [PDHTTPAccess retrieveCardFromServer:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] delegate:self];
+    }
+    else if([alertView.title isEqualToString:@"Connessione assente"] && buttonIndex == 1){
+       // [self recordTransaction:lastTransaction];
     }
 }
 
@@ -119,14 +141,29 @@ static IAPHelper * _sharedHelper;
     //ricevuta da inviare al server
     //transaction.transactionReceipt.data
     
-    NSLog(@"iapHelper userId = %d, transId = %@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue],transaction.transactionIdentifier);
+    NSLog(@"record transaction invocato");
+    
+    //se arrivato fin qui vuol dire che transaction è andata a buon fine, quindi notifico
+    NSLog(@"record transaction -> lancio notifica purchased");
+    [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchasedNotification object:transaction];
+    
+    //NSLog(@"iapHelper userId = %d, transId = %@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue],transaction.transactionIdentifier);
     
     if([Utilita networkReachable]){
+        //invio su db ricevuta e dati utente
+        NSLog(@"record transaction -> lancio notifica downloading");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloading object:nil];
+        
         [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueIdentifier] delegate:self];
     }
     else{
 #warning alert per errore rete e per riprovare a fare la scrittura sul db
         NSLog(@"connessione assente");
+        lastTransaction = transaction;
+        
+        //alert da mostrare in interfaccia acquisto
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Connessione assente, premi Riprova per completare l'acquisto"  delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Riprova", nil]autorelease];
+        [alert show];
     }
 }
 
@@ -160,9 +197,9 @@ static IAPHelper * _sharedHelper;
     
     NSLog(@"restoreTransaction...");
         
-    [self recordTransaction: transaction];
+    //[self recordTransaction: transaction];
     //[self provideContent: transaction.originalTransaction.payment.productIdentifier];
-    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    //[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
 }
 
