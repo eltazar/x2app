@@ -154,6 +154,15 @@
 #pragma mark - Gestion bottoni
 - (IBAction)buyButtonTapped:(id)sender {
     
+    if(! [[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"]){
+        
+        NSLog(@"utente si è sloggato dal pannello coupon, annullo vendita in app");
+        
+#warning mostrare alert per questa cosa
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    
     NSLog(@"bottone premuto numero = %d", ((UIButton*)sender).tag);
    
     UIButton *buyButton = (UIButton *)sender;    
