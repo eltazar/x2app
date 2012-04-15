@@ -34,8 +34,9 @@
     
     self.iapHelper = [IAPHelper sharedHelper];
     
-#warning se utente non è loggato viene richiamata lo stesso la transazione non portata a termine
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self.iapHelper];
+//TODO: warning se utente non è loggato viene richiamata lo stesso la transazione non portata a termine
+        // sto cazzo di metodo ci mette da 0 a n secondi per agganciarsi
+    //[[SKPaymentQueue defaultQueue] addTransactionObserver:self.iapHelper];
     
     facebook = [[Facebook alloc] initWithAppId:@"223476134356120" andDelegate:self];
     

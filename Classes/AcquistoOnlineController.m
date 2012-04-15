@@ -224,6 +224,9 @@
     [super viewDidLoad];
     
     [retrieveView setHidden:YES];
+    
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:[IAPHelper sharedHelper]];
+    
     self.title = @"Acquisti";
   
     /*
@@ -274,6 +277,8 @@
 
 - (void)dealloc {
     
+    //TODO: fare removing dell'observer inapp purchase?
+    //removeTransactionObserver:
     
     [retrieveView release];
     
