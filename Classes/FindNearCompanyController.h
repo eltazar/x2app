@@ -16,7 +16,6 @@
 {
     NSString *_urlString;
     NSMutableArray *_rows;
-    CLLocationManager *locationManager;
 }
 
 -(id) initWithCard:(CartaPerDue*)aCard;

@@ -19,8 +19,11 @@
     NSString *_phpFile;
     BOOL isEmpty;
     CartaPerDue *_card;
-    CLLocationCoordinate2D userCoordinate;
+    CLLocationCoordinate2D location;
+    CLLocationManager *_locationManager;
+
 }
+@property (nonatomic, retain) CLLocationManager *locationManager;
 @property(nonatomic, retain) CartaPerDue *card;
 @property (nonatomic, retain) NSString *phpFile;
 @end
@@ -29,6 +32,7 @@
 
 @synthesize urlString = _urlString, rows = _rows, phpFile = _phpFile;
 @synthesize card = _card;
+@synthesize locationManager = _locationManager;
 
 -(id) initWithCard:(CartaPerDue *)aCard{
     
@@ -126,53 +130,51 @@
 
     NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
     [postDict setObject:@"fetch"                forKey:@"request"];
-    [postDict setObject:[UserDefaults weekDay]  forKey:@"giorno"];
+    [postDict setObject:[Utilita today]              forKey:@"giorno"];
     [postDict setObject:@"2"                    forKey:@"raggio"];
     [postDict setObject:@"distanza"             forKey:@"ordina"];
     [postDict setObject:@"0"                    forKey:@"from"];
-    [postDict setObject:@"41.890520"            forKey:@"lat"];
-    [postDict setObject:@"12.494249"            forKey:@"long"];
+    [postDict setObject:[NSString stringWithFormat:@"%f",location.latitude] forKey:@"lat"];
+    [postDict setObject:[NSString stringWithFormat:@"%f",location.longitude] forKey:@"long"];
+    NSLog(@"today = %@, lat = %f, long = %f",[Utilita today], location.latitude,location.longitude);
+
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:self.urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
 }
 
 
 - (void)fetchMoreRows {
     
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Caricamento...";
     
     NSString *fromString = [NSString stringWithFormat:@"%d", self.rows.count];
     NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
     [postDict setObject:@"fetch"                forKey:@"request"];
-    [postDict setObject:[UserDefaults weekDay]  forKey:@"giorno"];
+    [postDict setObject:[Utilita today]  forKey:@"giorno"];
     [postDict setObject:@"2"                    forKey:@"raggio"];
     [postDict setObject:@"distanza"             forKey:@"ordina"];
     [postDict setObject:fromString              forKey:@"from"];
-    [postDict setObject:@"41.890520"            forKey:@"lat"];
-    [postDict setObject:@"12.494249"            forKey:@"long"];
+    [postDict setObject:[NSString stringWithFormat:@"%f",location.latitude] forKey:@"lat"];
+    [postDict setObject:[NSString stringWithFormat:@"%f",location.longitude] forKey:@"long"];
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:self.urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
 }
 
 #pragma mark - CLLocationManagerDelegate protocol
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
-{
-    // If it's a relatively recent event, turn off updates to save power
-    NSDate* eventDate = newLocation.timestamp;
-    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
-    if (abs(howRecent) < 15.0)
-    {
-        NSLog(@"latitude %+.6f, longitude %+.6f\n",
-              newLocation.coordinate.latitude,
-              newLocation.coordinate.longitude);
-        userCoordinate = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude);
-    }
-    // else skip the event and process the next one.
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    NSLog(@"LOCATION AGGIORNATA");
+	location.latitude  = newLocation.coordinate.latitude;
+	location.longitude = newLocation.coordinate.longitude;
+    
+    //appena ottenuta la posizione lancio la query
+    [self fetchRows];
+    //stoppo l'aggiornamento della posizione
+    [self.locationManager stopUpdatingLocation];
+    
+    NSLog(@"latitude = %f, longitude = %f",location.latitude,location.longitude);
 }
-
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    NSLog(@"location error = %@",[error description]);
+    NSLog(@"LOCATION ERROR  = %@",[error description]);
 }
 
 #pragma mark - View lifecycle
@@ -183,12 +185,13 @@
 
     self.title = @"Esercenti vicini";
     
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
     
     NSLog(@"Significant Location Change Available: %d", [CLLocationManager significantLocationChangeMonitoringAvailable]);
     
-    [locationManager startMonitoringSignificantLocationChanges];
+    [self.locationManager startMonitoringSignificantLocationChanges];
     
     isEmpty = FALSE;
     
@@ -215,12 +218,14 @@
 {
     [super viewWillAppear:animated];
     
+    NSLog(@"find near company -> VIEW WILL APPEAR");
+        
     if(![Utilita networkReachable]){
         NSLog(@"ALERT INTERNET ASSENTE");
     }
     else{
-        NSLog(@"USER COORDINATE LAT = %f, LONG = %f",userCoordinate.latitude,userCoordinate.longitude);
-        [self fetchRows];
+        //[NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(fetchRows) userInfo:nil repeats:NO];
+        //[self fetchRows];
     }
     
     
@@ -242,6 +247,9 @@
 }
 
 - (void)dealloc {
+    
+    self.locationManager.delegate = nil;
+    self.locationManager = nil;
     
     self.card = nil;
     self.phpFile = nil;
