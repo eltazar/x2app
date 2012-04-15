@@ -38,6 +38,48 @@
     return  result;
 }
 
++(NSString*)today{
+
+    NSDate *data = [NSDate date];
+    
+    int weekDay = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:data] weekday];
+    
+    switch (weekDay) {
+        case 1:
+            return @"Domenica";
+            break;
+            
+        case 2:
+            return @"Lunedi";
+            break;
+            
+        case 3:
+            return @"Martedi";
+            break;
+            
+        case 4:
+            return @"Mercoledi";
+            break;
+            
+        case 5:
+            return @"Giovedi";
+            break;
+            
+        case 6:
+            return @"Venerdi";
+            break;
+            
+        case 7:
+            return @"Sabato";
+            break;
+            
+        default:
+            return @"";
+            break;
+    }
+
+}
+
 + (NSString*)checkPhoneNumber:(NSString*) _phone {
     
     BOOL isPlus = FALSE;

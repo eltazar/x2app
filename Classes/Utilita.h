@@ -10,6 +10,7 @@
 
 @interface Utilita : NSObject
 
++(NSString*)today;
 + (BOOL)isNumeric:(NSString*)inputString;
 + (BOOL)isStringEmptyOrWhite:(NSString*)string;
 + (BOOL)isEmailValid:(NSString*)email;
