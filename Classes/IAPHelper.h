@@ -18,7 +18,6 @@
 
 #define kCardDownloaded                     @"CardDownloaded"
 #define kCardDownloading                    @"CardDownloading"
-#define kCardRetrieved                      @"CardRetrieved"
 #define kCardServerError                    @"CardServerError"
 
 @interface IAPHelper : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver, WMHTTPAccessDelegate,UIAlertViewDelegate> {

@@ -35,7 +35,6 @@ static IAPHelper * _sharedHelper;
 - (id)init {
     self = [super init];
     if(self){
-
     }
     return self;
     
@@ -82,31 +81,60 @@ static IAPHelper * _sharedHelper;
     
     //NSLog(@"iap helper ricevuto dati = %@", jsonDict);
     //riceve carta perdue se tutto è stato verificato
-    
+ 
     if([jsonDict objectForKey:@"Buyed_card"]){
-        NSLog(@"didReceiveJson -> lancio notifica downloaded");
+        
+        //oggetto ricevuto, quindi transazione finita
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"error_purchase"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [[SKPaymentQueue defaultQueue] finishTransaction: lastTransaction];
+        
+        NSLog(@"buyed_Card -> lancio notifica downloaded");
         [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloaded object:jsonDict];
     }
-    else if([jsonDict objectForKey:@"CartaRecuperata"]){
-        NSLog(@"CARTA RECUPERATA");
-        [[NSNotificationCenter defaultCenter] postNotificationName:kCardRetrieved object:jsonDict];
+    else if([jsonDict objectForKey:@"Buyed_existing_card"]){ //--> deve diventare tipo idtrans_record_esistente
+        
+        //oggetto ricevuto, quindi transazione finita
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"error_purchase"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [[SKPaymentQueue defaultQueue] finishTransaction: lastTransaction];
+        NSLog(@"buyed_existing_card -> lancio notifica downloaded");
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloaded object:jsonDict];
     }
-    else if([jsonDict objectForKey:@"Buyed_card_error"]){
-        NSLog(@"errore scrittura carta su db");
+    else if([jsonDict objectForKey:@"Receipt_error"]){
+        
+        //reicevuta non valida, quindi transazione finita
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"error_purchase"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [[SKPaymentQueue defaultQueue] finishTransaction: lastTransaction];
+        NSLog(@"ricevuta acquisto non valida");
+        
     }
-/*
+    
+    
     //debug
+    
+    if([jsonDict objectForKey:@"Buyed_card_error"]){
+        //[[SKPaymentQueue defaultQueue] finishTransaction: lastTransaction];
+        //NSLog(@"errore scrittura carta su db");
+    }
+    
    static int i = 1;
     if( i ==1 ){
-        [self didReceiveError:nil];
+        //[self didReceiveError:nil];
         i++;
     }
- */
+    
     
 }
 
 
 -(void)didReceiveError:(NSError *)error{
+    
+    //di fatto non  so se la scrittura sul db è avvenuta e quindi manca solo il ritorno dei dati dal server, o se magari proprio la richiesta di scrittura non è arrivata al server. cmq la transaction non è rimossa dalla queue in questo caso
     
     //se ricevo errore
     //mostro pulsante recupera in cardsViewController e blocco lo store
@@ -114,23 +142,31 @@ static IAPHelper * _sharedHelper;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kCardServerError object:nil];
     
-    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Errore connessione" message:@"Errore di connessione, premi Ricarica per scaricare l'acquisto effettuato"  delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Ricarica", nil]autorelease];
+    NSLog(@"DEBUG ERRORE  SERVER");
+    
+    //salvo il fatto che c'è stato un errore e quindi la transazione non è finita
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"error_purchase"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Errore connessione" message:@"Errore di connessione, premi Ricarica per recuperare l'acquisto effettuato"  delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Ricarica", nil]autorelease];
     [alert show];
 }
 
 #pragma mark - UIAlertViewDelegate
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+     
+    if([alertView.title isEqualToString:@"Errore connessione"] && buttonIndex == 0){
+        //premuto annulla
         
-    if([alertView.title isEqualToString:@"Errore connessione"] && buttonIndex == 1){
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCardServerError object:nil];        
+    }
+    else if([alertView.title isEqualToString:@"Errore connessione"] && buttonIndex == 1){
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloading object:nil];
         
-        //questo sembra funzionare
-        [PDHTTPAccess retrieveCardFromServer:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] delegate:self];
-    }
-    else if([alertView.title isEqualToString:@"Connessione assente"] && buttonIndex == 1){
-       // [self recordTransaction:lastTransaction];
+        //se c'è stato un errore server, faccio ripartire la procedura per scrivere sul db  la transaction: se già presente ritorna la carta, altrimenti verifica la ricevuta, crea la carta, scrive sul db e ritorna la carta
+        [self recordTransaction:lastTransaction];
     }
 }
 
@@ -138,44 +174,45 @@ static IAPHelper * _sharedHelper;
 #pragma mark - Metodi delegati per l'acquisto
 
 - (void)recordTransaction:(SKPaymentTransaction *)transaction {            
-    //ricevuta da inviare al server
-    //transaction.transactionReceipt.data
     
     NSLog(@"record transaction invocato");
+    
+    //salvo la transaction attuale
+    lastTransaction = transaction;
     
     //se arrivato fin qui vuol dire che transaction è andata a buon fine, quindi notifico
     NSLog(@"record transaction -> lancio notifica purchased");
     [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchasedNotification object:transaction];
     
-    //NSLog(@"iapHelper userId = %d, transId = %@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue],transaction.transactionIdentifier);
+    NSLog(@"iapHelper userId = %d, transId = %@", [[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue],transaction.transactionIdentifier);
     
     if([Utilita networkReachable]){
         //invio su db ricevuta e dati utente
         NSLog(@"record transaction -> lancio notifica downloading");
         [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloading object:nil];
-        
+
         [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueIdentifier] delegate:self];
+        
+        
+        //debug
+        /*
+        static int i = 0;
+        if(i > 0){
+            [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueIdentifier] delegate:self];
+            
+        }else{
+            //debug
+            [self didReceiveError:nil];
+            i++;
+        }
+        */
     }
     else{
-#warning alert per errore rete e per riprovare a fare la scrittura sul db
         NSLog(@"connessione assente");
-        lastTransaction = transaction;
-        
-        //alert da mostrare in interfaccia acquisto
-        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Connessione assente, premi Riprova per completare l'acquisto"  delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Riprova", nil]autorelease];
+        //stessa funzione dell'altro alert
+        UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Errore connessione" message:@"Errore di connessione, premi Ricarica per recuperare l'acquisto effettuato"  delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Ricarica", nil]autorelease];
         [alert show];
     }
-}
-
-- (void)provideContent:(NSString *)productIdentifier {
-    
-//    NSLog(@"Toggling flag for: %@", productIdentifier);
-//    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:productIdentifier];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//    [_purchasedProducts addObject:productIdentifier];
-//    
-//    [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchasedNotification object:productIdentifier];
-//    
 }
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction {
@@ -184,12 +221,12 @@ static IAPHelper * _sharedHelper;
     
     NSLog(@"completeTransaction...");
     
+    
     //se interrotto a questo punto, la transazione viene recuperata all'avvio dell'app e viene chiesta la psw, dopo di che viene richiamato [self recordTransaction:] e quindi la chiamata al db ecc ---> GESTIRE STA COSA
     //IDEA: A questo punto mostrare un avviso tipo: "acquisto effettuato, a breve riceverai la carta" e intanto scaricare in background la tessera dal nostro server. Salvare qualcosa che indichi il fatto che la TRANSAZIONE è andata a buon fine: se durante il download c'è qlc errore poi da qualche interfaccia (cardsViewController?) reperire questo tipo di stato e fare in modo di recuperare l'acquisto fatto, ovvero la carta x2.
         
     [self recordTransaction: transaction];
-    //[self provideContent: transaction.payment.productIdentifier];
-    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    //[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
 }
 
@@ -197,9 +234,8 @@ static IAPHelper * _sharedHelper;
     
     NSLog(@"restoreTransaction...");
         
-    //[self recordTransaction: transaction];
-    //[self provideContent: transaction.originalTransaction.payment.productIdentifier];
-    //[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+    [self recordTransaction: transaction];
+   // [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
 }
 
@@ -219,6 +255,8 @@ static IAPHelper * _sharedHelper;
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
 {
+    NSLog(@"payment queue");
+    
     for (SKPaymentTransaction *transaction in transactions)
     {
         switch (transaction.transactionState)
@@ -244,9 +282,16 @@ static IAPHelper * _sharedHelper;
     SKPayment *payment = [SKPayment paymentWithProduct:product];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
     
+    //di default setto come acquisto fallito
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"error_purchase"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+
 - (void)dealloc {
+
+    [lastTransaction release];
+    
     [_productIdentifiers release];
     _productIdentifiers = nil;
     [_products release];
