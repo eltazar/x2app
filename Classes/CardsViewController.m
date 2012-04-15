@@ -469,7 +469,7 @@
 
 -(void)didReceiveJSON:(NSDictionary *)jsonDict {
     
-    NSLog(@"recupero carta = %@",jsonDict);
+    NSLog(@"carta ricevuta count = %d, tipo = %@",[[jsonDict objectForKey:@"CartaRecuperata"] count],[[jsonDict objectForKey:@"CartaRecuperata"] class]);
     
     if([jsonDict objectForKey:@"CartaRecuperata"] &&
        [[jsonDict objectForKey:@"CartaRecuperata"] count] > 1){
@@ -478,9 +478,9 @@
         CartaPerDue *card = [[CartaPerDue alloc] init];
         card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
         card.surname = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];     
-        card.number = [[[jsonDict objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"codice_carta"];
+        card.number = [[jsonDict objectForKey:@"CartaRecuperata"] objectForKey:@"number"];
         
-        card.expiryString = [[[jsonDict objectForKey:@"CartaRecuperata"] objectAtIndex:0] objectForKey:@"data_scadenza"];
+        card.expiryString = [[jsonDict objectForKey:@"CartaRecuperata"] objectForKey:@"expiryDate"];
         
         NSError *error;
         if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {
@@ -490,6 +490,7 @@
             [self.tableView reloadData];
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
         }
+        
         [card release];
     }
     else{
