@@ -13,6 +13,7 @@
 #import "Utilita.h"
 #import "IAPHelper.h"
 #import "PDHTTPAccess.h"
+#import "DataLoginController.h"
 
 #warning quando l'utente procede all'acquisto e quindi c'è 
 // la schermata "acquisto..." bloccare l'intera view, e non dare all'utente la possibilità di tornare indietro o cambiare tab? VALUTARE STA COSA!!!!!
@@ -154,15 +155,6 @@
 #pragma mark - Gestion bottoni
 - (IBAction)buyButtonTapped:(id)sender {
     
-    if(! [[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"]){
-        
-        NSLog(@"utente si è sloggato dal pannello coupon, annullo vendita in app");
-        
-#warning mostrare alert per questa cosa
-        [self.navigationController popViewControllerAnimated:YES];
-        return;
-    }
-    
     NSLog(@"bottone premuto numero = %d", ((UIButton*)sender).tag);
    
     UIButton *buyButton = (UIButton *)sender;    
@@ -179,6 +171,11 @@
     
     [self performSelector:@selector(timeout:) withObject:nil afterDelay:60*5];
    
+}
+
+-(void)didLogout{
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - WMHTTPAccessDelegate
@@ -231,6 +228,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
     
     [retrieveView setHidden:YES];
     
@@ -292,6 +291,8 @@
     [retrieveView release];
     
     //[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDidLogoutNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductsLoadedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kProductPurchasedNotification object:nil];
