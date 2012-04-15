@@ -89,6 +89,12 @@
         [self.rows removeObjectAtIndex:self.rows.count-1];
         [self.tableView reloadData];
         NSLog(@"rows count = %d",[self.rows count]);
+        
+        if([self.rows count] == 0){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Spiacenti" message:@"Non è stato trovato nessun esercente nelle vicinanze che accetti la carta PerDue" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+            [alert show];
+            [alert release];
+        }
     } 
     else if ([type isEqualToString:@"Esercente:MoreRows"]) {
        
