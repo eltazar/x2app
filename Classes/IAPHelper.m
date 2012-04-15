@@ -191,7 +191,7 @@ static IAPHelper * _sharedHelper;
         NSLog(@"record transaction -> lancio notifica downloading");
         [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloading object:nil];
 
-        [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueIdentifier] delegate:self];
+        [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueDeviceIdentifier] delegate:self];
         
         
         //debug
