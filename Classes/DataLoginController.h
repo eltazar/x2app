@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol DataLoginDelegate;
+#define kDidLogoutNotification                 @"didLogout"
+#define kDidAbortLogoutNotification             @"didAbortLogout"
+
+//@protocol DataLoginDelegate;
 
 @interface DataLoginController : UITableViewController{
     NSArray *sectionDescripition;
@@ -16,13 +19,15 @@
     NSUserDefaults *prefs;
 }
 
-@property(nonatomic,assign) id<DataLoginDelegate> delegate;
+//@property(nonatomic,assign) id<DataLoginDelegate> delegate;
 
 @end
 
-@protocol DataLoginDelegate <NSObject>
+/*
+ @protocol DataLoginDelegate <NSObject>
 
 -(void)didLogout;
 -(void)didAbortLogout;
 
 @end
+ */
