@@ -69,6 +69,9 @@
     [super viewDidLoad];
     [self setTitle:@"Gestione carte"];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAbortLogout) name:kDidAbortLogoutNotification object:nil];
+    
     // Allocazione strutture dati del Data Model
     self.sectionDescription = [[[NSMutableArray alloc] init] autorelease];
     NSMutableArray *cardsSection  = [[self creaDataContent] retain];
@@ -192,6 +195,10 @@
 
 
 - (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDidAbortLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDidLogoutNotification object:nil];
+    
     self.selectedRow = nil;
     self.sectionData = nil;
     self.sectionDescription = nil;
@@ -439,7 +446,7 @@
     else if([dataKey isEqualToString:@"logout"]){
         
         DataLoginController *dataLogin = [[DataLoginController alloc] initWithNibName:@"DataLoginController" bundle:nil];
-        dataLogin.delegate = self;        
+        //dataLogin.delegate = self;        
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dataLogin];
         [dataLogin release];
         
@@ -473,7 +480,14 @@
     
     if([jsonDict objectForKey:@"CartaRecuperata"] &&
        [[jsonDict objectForKey:@"CartaRecuperata"] count] > 1){
+      
         NSLog(@"CARTA RICEVUTA = %@", jsonDict);
+        
+                if(! [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"] || ! [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"]){
+            
+            NSLog(@"annullo perchè  è stato fatto logout da qualche  altra parte");
+            return;
+        }
         
         CartaPerDue *card = [[CartaPerDue alloc] init];
         card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
