@@ -461,11 +461,26 @@
         [richiediController release];
     }
     else if([dataKey isEqualToString:@"find"]){
+        
         NSLog(@"cerca esercenti");
-//        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithNibName:@"FindNearCompanyController" bundle:nil];
-        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithCard:self.card];
-        [self.navigationController pushViewController:findCtrl animated:YES];
-        [findCtrl release];
+        
+        BOOL locationAllowed = [CLLocationManager locationServicesEnabled];
+        
+        if (locationAllowed == NO) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Disabled" 
+                                                            message:@"To re-enable, please go to Settings and turn on Location Service for this app." 
+                                                           delegate:nil 
+                                                  cancelButtonTitle:@"OK" 
+                                                  otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+        }
+        else{
+    //        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithNibName:@"FindNearCompanyController" bundle:nil];
+            FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithCard:self.card];
+            [self.navigationController pushViewController:findCtrl animated:YES];
+            [findCtrl release];
+        }
     }
     else if([dataKey isEqualToString:@"rebind"]){
         //TODO: controllare bene come far avvenire l'associazione , se così semplicemente o come in "abbinaController"
