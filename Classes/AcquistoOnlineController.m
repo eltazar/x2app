@@ -109,10 +109,6 @@
     //NSString *productIdentifier = (NSString *) notification.object;
     NSLog(@"ACQUISTO ONLINE CONTROLLER : Card acquistata: %@, notification = %@ ", notification.object, notification);
     
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Acquisto effettuato" message:@"A breve riceverai sul tuo device la carta PerDue" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-//    [alert show];
-//    [alert release];
-    
     //TODO: creare la carta con i dati ricevuti e nome e cognome presi da userdefault, quindi salvare sul db locale
         
 }
@@ -137,27 +133,22 @@
 #pragma mark - gestione acquisto card
 
 -(void) cardDownloadError:(NSNotification*) notification{
-    NSLog(@"errore lato server nel recupero carta");
+    NSLog(@"ACQUISTO ONLINE CONTROLLER : errore lato server nel recupero carta");
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
 -(void) cardDownloaded:(NSNotification*) notification{
     
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSLog(@"carta scaricata = %@",notification.object);
+    NSLog(@"ACQUISTO ONLINE CONTROLLER : carta scaricata = %@",notification.object);
     //mostrare alert
 }
 
 -(void) cardDownloading:(NSNotification*) notification{
-    NSLog(@"downloading carta acquistata");
+    NSLog(@"ACQUISTO ONLINE CONTROLLER : downloading carta acquistata");
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Acquisto effettuato";
     hud.detailsLabelText = @"Download carta...";
-}
-
--(void) cardRetrieved:(NSNotification*) notification{
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSLog(@"carta recuperata = %@",notification.object);
 }
 
 #pragma mark - Gestion bottoni
@@ -232,6 +223,7 @@
 {
     [super viewDidLoad];
     
+    [retrieveView setHidden:YES];
     self.title = @"Acquisti";
   
     /*
@@ -272,12 +264,18 @@
     [productsId release];
     productsId = nil;
     
+    [retrieveView release];
+    retrieveView = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void)dealloc {
+    
+    
+    [retrieveView release];
     
     //[[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -298,6 +296,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"error_purchase"]){
+        
+        [retrieveView setHidden:NO];
+        [self.view addSubview:retrieveView];
+        return;
+    }
     
 #warning inserire canMakePurchase prima di visualizzare store
     

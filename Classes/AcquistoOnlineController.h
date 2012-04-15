@@ -19,6 +19,8 @@
 
     @private
     NSArray *products;
+    
+    IBOutlet UIView *retrieveView;
 }
 
 @end
