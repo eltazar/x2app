@@ -246,6 +246,10 @@ static IAPHelper * _sharedHelper;
         NSLog(@"Transaction error: %@", transaction.error.localizedDescription);
         NSLog(@"transaction error 2: %@",transaction.error);
     }
+
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"error_purchase"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kProductPurchaseFailedNotification object:transaction];
     
