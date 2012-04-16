@@ -697,6 +697,13 @@ if ([rows count]>0) {//coupon disponibile
             [self.caricamentoSpinner startAnimating];
             [PDHTTPAccess getCouponFromServerWithId:self.idCoupon delegate:self];
         }
+        else{
+            [self.compraBtn setEnabled:YES];
+            self.titoloOffertaLbl.text = [NSString stringWithFormat:@"  Solo %@€, sconto %@%",
+                                          [Utilita formatPrice:[self.dataModel objectForKey:@"coupon_valore_acquisto"]], 
+                                          [self.dataModel objectForKey:@"offerta_sconto_per"]];
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
+        }
     }
 }
 
