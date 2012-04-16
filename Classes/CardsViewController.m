@@ -303,6 +303,20 @@
     return cell;
 }
 
+- (void)tableView:tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
+    NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
+    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
+    
+    if([dataKey isEqualToString:@"abbina"] || [dataKey isEqualToString:@"acquista"]){
+        if([[LocalDatabaseAccess getInstance] isThereAvalidCard]){
+            cell.backgroundColor = [UIColor colorWithRed:230.0/255 green:230.0/255 blue:230.0/255 alpha:1];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.userInteractionEnabled = NO;
+        }
+    }
+}
 
 #pragma mark - UITableViewDelegate
 
