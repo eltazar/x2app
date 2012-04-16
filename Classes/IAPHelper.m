@@ -82,7 +82,7 @@ static IAPHelper * _sharedHelper;
     //NSLog(@"iap helper ricevuto dati = %@", jsonDict);
     //riceve carta perdue se tutto è stato verificato
  
-    if([jsonDict objectForKey:@"Buyed_card"]){
+    if([jsonDict objectForKey:@"Bought_card"]){
         
         //oggetto ricevuto, quindi transazione finita
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"error_purchase"];
@@ -91,9 +91,9 @@ static IAPHelper * _sharedHelper;
         [[SKPaymentQueue defaultQueue] finishTransaction: lastTransaction];
         
         NSLog(@"buyed_Card -> lancio notifica downloaded");
-        [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloaded object:jsonDict];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloaded object:[jsonDict objectForKey:@"Bought_card"]];
     }
-    else if([jsonDict objectForKey:@"Buyed_existing_card"]){ //--> deve diventare tipo idtrans_record_esistente
+    else if([jsonDict objectForKey:@"Bought_existing_card"]){ //--> deve diventare tipo idtrans_record_esistente
         
         //oggetto ricevuto, quindi transazione finita
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"error_purchase"];
@@ -101,7 +101,7 @@ static IAPHelper * _sharedHelper;
         
         [[SKPaymentQueue defaultQueue] finishTransaction: lastTransaction];
         NSLog(@"buyed_existing_card -> lancio notifica downloaded");
-        [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloaded object:jsonDict];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloaded object:[jsonDict objectForKey:@"Bought_existing_card"]];
     }
     else if([jsonDict objectForKey:@"Receipt_error"]){
         
