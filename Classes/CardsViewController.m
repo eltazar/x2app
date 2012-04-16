@@ -72,6 +72,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAbortLogout) name:kDidAbortLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAssociateNewCard) name:kPurchasedCard object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDeleteCard) name:kDeletedCard object:nil];
     
     // Allocazione strutture dati del Data Model
     self.sectionDescription = [[[NSMutableArray alloc] init] autorelease];
@@ -141,7 +142,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     // FIXME: Il reloadData rompe l'animazione. bisogna usare come cristo comanda i metodi per l'inserimento delle righe nelle tabelle.
-    [super viewWillAppear:animated];    
+    [super viewWillAppear:animated];   
+    
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -200,6 +202,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kDidAbortLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kDidLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPurchasedCard object:nil];
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:kDeletedCard object:nil];
     
     self.selectedRow = nil;
     self.sectionData = nil;
@@ -561,6 +564,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)didDeleteCard{
+    [self didAssociateNewCard];
+}
 
 # pragma mark - CardsViewController (private methods)
 
