@@ -164,6 +164,7 @@
         
     NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
                               [NSString stringWithFormat:@"%d", userId], @"userId",
+                              [[UIDevice currentDevice] uniqueDeviceIdentifier], @"udid",
                               nil];
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];
        
