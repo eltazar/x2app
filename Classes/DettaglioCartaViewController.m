@@ -464,7 +464,7 @@
         
         NSLog(@"cerca esercenti");
         
-        BOOL locationAllowed = [CLLocationManager locationServicesEnabled];
+      /*  BOOL locationAllowed = [CLLocationManager locationServicesEnabled];
         
         if (locationAllowed == NO) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Disabled" 
@@ -480,7 +480,11 @@
             FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithCard:self.card];
             [self.navigationController pushViewController:findCtrl animated:YES];
             [findCtrl release];
-        }
+        }*/
+    
+        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithCard:self.card];
+        [self.navigationController pushViewController:findCtrl animated:YES];
+        [findCtrl release];
     }
     else if([dataKey isEqualToString:@"rebind"]){
         //TODO: controllare bene come far avvenire l'associazione , se così semplicemente o come in "abbinaController"

@@ -183,6 +183,20 @@
     NSLog(@"LOCATION ERROR  = %@",[error description]);
 }
 
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{
+    
+    NSLog(@"STATUS GPS = %d", status);
+    if(status != 3){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Disabled" 
+                                                        message:@"To re-enable, please go to Settings and turn on Location Service for this app." 
+                                                       delegate:nil 
+                                              cancelButtonTitle:@"OK" 
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
