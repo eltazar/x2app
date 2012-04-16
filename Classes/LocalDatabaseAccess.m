@@ -124,5 +124,50 @@ NSManagedObjectContext *context;
     return [context save:error];
 }
 
+-(BOOL)isThereAvalidCard{
+    
+    NSError *error;
+    BOOL thereIs = FALSE;
+    
+    NSArray *result = [self fetchStoredCardsAndWriteErrorIn:(&error)];
+    
+    for(CartaPerDue *card in result){
+        
+        if( ! card.isExpired){
+            thereIs = TRUE;
+        }
+    }
+    
+    return thereIs;
+}
+
+- (void) removeStoredCard:(CartaPerDue *)card error:(NSError**)error{
+
+    
+    //istanziamo la classe NSFetchRequest
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init]; 
+    
+    //istanziamo l'Entità da passare alla Fetch Request
+    NSEntityDescription *entity = [NSEntityDescription 
+                                   entityForName:@"CartaPerDue" inManagedObjectContext:context];
+    //Settiamo la proprietà Entity della Fetch Request
+    [fetchRequest setEntity:entity];
+    
+    //Eseguiamo la Fetch Request e salviamo il risultato in un array, per visualizzarlo nella tabella
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:error];
+    [fetchRequest release];
+    
+    for(NSManagedObject *c in fetchedObjects){
+        
+        if([[c valueForKey:@"numero"] isEqualToString:card.number]){
+            
+            [context deleteObject:c];
+        }
+    }
+    
+    [context save:error];
+    
+}
+
 
 @end
