@@ -14,6 +14,7 @@
 #import "IAPHelper.h"
 #import "PDHTTPAccess.h"
 #import "DataLoginController.h"
+#import "LocalDatabaseAccess.h"
 
 #warning quando l'utente procede all'acquisto e quindi c'è 
 // la schermata "acquisto..." bloccare l'intera view, e non dare all'utente la possibilità di tornare indietro o cambiare tab? VALUTARE STA COSA!!!!!
@@ -109,8 +110,6 @@
     
     //NSString *productIdentifier = (NSString *) notification.object;
     NSLog(@"ACQUISTO ONLINE CONTROLLER : Card acquistata: %@, notification = %@ ", notification.object, notification);
-    
-    //TODO: creare la carta con i dati ricevuti e nome e cognome presi da userdefault, quindi salvare sul db locale
         
 }
 
@@ -143,6 +142,29 @@
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"ACQUISTO ONLINE CONTROLLER : carta scaricata = %@",notification.object);
     //mostrare alert
+
+    //TODO: creare la carta con i dati ricevuti e nome e cognome presi da userdefault, quindi salvare sul db locale
+    
+    NSDictionary *cardReceived = (NSDictionary*)notification.object;
+    
+    CartaPerDue *card = [[CartaPerDue alloc] init];
+    card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
+    card.surname = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];     
+    card.number = [cardReceived objectForKey:@"number"];
+    
+    card.expiryString = [cardReceived objectForKey:@"expiryDate"];
+    
+    NSError *error;
+    if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {
+        NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
+    } else{
+        //[self didAssociateNewCard];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPurchasedCard object:nil];
+    }
+    
+    [card release];
+    
 }
 
 -(void) cardDownloading:(NSNotification*) notification{

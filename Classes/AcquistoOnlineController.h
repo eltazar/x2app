@@ -11,6 +11,8 @@
 #import "IAPHelper.h"
 #import "MBProgressHUD.h"
 
+#define kPurchasedCard      @"PurchasedCard"
+
 @interface AcquistoOnlineController : UITableViewController <WMHTTPAccessDelegate>
 {
     NSSet *productsId;
