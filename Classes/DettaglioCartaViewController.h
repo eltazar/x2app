@@ -9,6 +9,8 @@
 #import "CartaPerDue.h"
 #import "WMHTTPAccess.h"
 
+#define kDeletedCard            @"deletedCard"
+
 @interface DettaglioCartaViewController : UITableViewController <WMHTTPAccessDelegate> {
 }
 

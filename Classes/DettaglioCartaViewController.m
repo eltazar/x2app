@@ -15,6 +15,7 @@
 #import "AbbinaCartaViewController.h"
 #import "FindNearCompanyController.h"
 #import "PDHTTPAccess.h"
+#import "LocalDatabaseAccess.h"
 
 
 @interface DettaglioCartaViewController(){
@@ -86,22 +87,39 @@
         else{
             //altrimenti non faccio query sul db  e mostro direttamente i dati
             NSMutableArray *secExpired = [[NSMutableArray alloc] init];
-            [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                       @"buyOnline",                @"DataKey",
-                                       @"ActionCell",            @"kind",
-                                       @"Acquista carta online",   @"label",
-                                       @"",                      @"detailLabel",
-                                       @"",                      @"img",
-                                       [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                       nil] autorelease] atIndex: 0];
-            [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                       @"request",                @"DataKey",
-                                       @"ActionCell",            @"kind",
-                                       @"Richiedi carta",   @"label",
-                                       @"",                      @"detailLabel",
-                                       @"",                      @"img",
-                                       [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                                       nil] autorelease] atIndex: 1];
+
+            //se c'è un'altra carta valida posso eliminare questa scaduta
+            if([[LocalDatabaseAccess getInstance] isThereAvalidCard]){
+                [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                          @"removeCard",                @"DataKey",
+                                          @"ActionCell",            @"kind",
+                                          @"Rimuovi carta",   @"label",
+                                          @"",                      @"detailLabel",
+                                          @"",                      @"img",
+                                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                          nil] autorelease] atIndex: 0];
+            }
+            else {
+                //altrimenti posso acquistare o richiedere una nuova carta
+                
+                [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                           @"buyOnline",                @"DataKey",
+                                           @"ActionCell",            @"kind",
+                                           @"Acquista carta online",   @"label",
+                                           @"",                      @"detailLabel",
+                                           @"",                      @"img",
+                                           [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                           nil] autorelease] atIndex: 0];
+                [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                           @"request",                @"DataKey",
+                                           @"ActionCell",            @"kind",
+                                           @"Richiedi carta",   @"label",
+                                           @"",                      @"detailLabel",
+                                           @"",                      @"img",
+                                           [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                           nil] autorelease] atIndex: 1];
+            }
+             
             [self.sectionData insertObject:secExpired atIndex:0];
             [secExpired release];
             [self.tableView reloadData];
@@ -276,7 +294,7 @@
                                 [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
                                 nil] autorelease] atIndex: 0];
         [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                @"remove",                @"DataKey",
+                                @"removeBinding",                @"DataKey",
                                 @"ActionCell",            @"kind",
                                 @"Rimuovi abbinamento",   @"label",
                                 @"",                      @"detailLabel",
@@ -492,6 +510,12 @@
         hud.labelText = @"Attendere...";
         hud.detailsLabelText = @"Abbinamento in corso...";
         [PDHTTPAccess cardDeviceAssociation:self.card.number request:@"Set" delegate:self];
+    }
+    else if([dataKey isEqualToString:@"removeCard"]){
+        NSError *error;
+        [[LocalDatabaseAccess getInstance] removeStoredCard:self.card error:&error ];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kDeletedCard object:nil];        
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
