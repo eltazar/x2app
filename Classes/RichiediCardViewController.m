@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "RichiediCardViewController.h"
 #import "BaseCell.h"
 #import "TextFieldCell.h"
@@ -157,7 +158,7 @@
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b setBackgroundImage:[UIImage imageNamed:@"yellowButton.png"] forState:UIControlStateNormal];
+        [b setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
@@ -166,7 +167,8 @@
         [b setTitle:@"Invia richiesta" forState:UIControlStateNormal];
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        
+        b.layer.cornerRadius = 8.0f;
+        b.layer.masksToBounds = YES;
         
         // give it a tag in case you need it later
         //b.tag = 1;
