@@ -175,10 +175,39 @@
 }
 
 #pragma mark - Gestion bottoni
-- (IBAction)buyButtonTapped:(id)sender {
+- (IBAction)priceButtonTapped:(id)sender {
     
-    NSLog(@"bottone premuto numero = %d", ((UIButton*)sender).tag);
+    //NSLog(@"bottone premuto numero = %d", ((UIButton*)sender).tag);
    
+    //UITableViewCell *clickedCell = (UITableViewCell *)[sender superview];
+    //NSIndexPath *clickedButtonPath = [self.tableView indexPathForCell:clickedCell];
+    CGRect frame = ((UIButton*)sender).frame;
+    
+    //NSLog(@"cell = %@, index path = %@",clickedCell,clickedButtonPath);
+
+    [UIView animateWithDuration:0.2
+                     animations:^(void){
+                         ((UIButton*)sender).frame = CGRectMake(frame.origin.x, frame.origin.y, 70, frame.size.height); 
+                     }
+                     completion:^(BOOL finished){
+                         [UIView animateWithDuration:0.2
+                                          animations:^(void){
+                                              [((UIButton*)sender) setTitle:@"Acquista" forState:UIControlStateNormal];
+                                          }
+                          ];
+                         
+                     }
+     ];
+    
+    [((UIButton*)sender) addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+   
+}
+
+-(void)buyButtonTapped:(id)sender{
+ 
+    //lancio acquisto
     UIButton *buyButton = (UIButton *)sender;    
     SKProduct *product = [[IAPHelper sharedHelper].products objectAtIndex:buyButton.tag];
     
@@ -192,7 +221,7 @@
     [[IAPHelper sharedHelper] buyProductIdentifier:product];
     
     [self performSelector:@selector(timeout:) withObject:nil afterDelay:60*5];
-   
+    
 }
 
 -(void)didLogout{
@@ -250,6 +279,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView.scrollEnabled = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
     
@@ -428,20 +459,20 @@
     
     prodotto.text = pd.localizedTitle;
     descrizione.text = pd.localizedDescription;
-    prezzo.text = [NSString stringWithFormat:@"%@€",pd.price];
+    prezzo.text = [NSString stringWithFormat:@"%@ €",pd.price];
     
     UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeCustom];
     buyButton.frame = CGRectMake(0, 0, 65, 32);
-    [buyButton setTitle:@"Compra" forState:UIControlStateNormal];
+    [buyButton setTitle:[NSString stringWithFormat:@"%@ €",pd.price] forState:UIControlStateNormal];
     buyButton.titleLabel.font = [UIFont boldSystemFontOfSize:15.0];
     buyButton.tag = indexPath.row;
-    [buyButton addTarget:self action:@selector(buyButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [buyButton addTarget:self action:@selector(priceButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
     [buyButton setBackgroundImage:[UIImage imageNamed:@"greenButton.png"] forState:UIControlStateNormal];
     buyButton.layer.cornerRadius = 5.0f;
     buyButton.layer.masksToBounds = YES;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.accessoryView = buyButton;   
-    
+    //[cell.contentView addSubview:buyButton];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     return cell;
