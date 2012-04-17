@@ -61,10 +61,22 @@
     [self.tableView removeFromSuperview];
     self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = [UIColor colorWithRed:142.0/255 green:21.0/255 blue:7.0/255 alpha:1];
-    [self.view addSubview:self.tableView];
+    [self.view insertSubview:self.tableView belowSubview:self.activityIndicator];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.activityIndicator.color = [UIColor whiteColor];
+    self.activityIndicator.center = self.tableView.center;
     self.footerView = nil;
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
+    if( ![Utilita networkReachable]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        [alert show];
+        [alert release];
+	} 
 }
 
 
@@ -103,7 +115,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
-        return 50;
+        return 55;
     }
     else {
         return 90;
@@ -185,6 +197,7 @@
 
 
 - (void)fetchMoreRows {
+    queryingMoreRows = YES;
     NSString *fromString = [NSString stringWithFormat:@"%d", self.dataModel.count];
     NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
     [postDict setObject:@"fetch"                forKey:@"request"];

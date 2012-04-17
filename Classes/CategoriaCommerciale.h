@@ -17,7 +17,6 @@
 @private
     BOOL lastFetchWasASearch;
     BOOL inSearchUI;
-    BOOL queryingMoreRows;
     BOOL didFetchAllRows;
     NSString *_categoria;
     GeoDecoder *_geoDec;
@@ -36,6 +35,7 @@
     NSString *_urlString;
     NSMutableArray *_dataModel;
     CLLocationCoordinate2D location;
+    BOOL queryingMoreRows;
 }
 
 
