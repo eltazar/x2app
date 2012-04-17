@@ -165,11 +165,11 @@
     
     [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                @"bind",                @"DataKey",
-                               @"ActionCell",            @"kind",
+                               @"InfoCell",            @"kind",
                                @"Abbina carta",   @"label",
                                @"",                      @"detailLabel",
                                @"",                      @"img",
-                               [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                               //[NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
                                nil] autorelease] atIndex: 0];
     
     sectionData = [[NSMutableArray alloc] initWithObjects:bindSec, nil];
@@ -478,6 +478,7 @@
     }
     
     cell.textLabel.text = [rowDesc objectForKey:@"label"];
+    cell.textLabel.textAlignment = UITextAlignmentCenter;
     
     [cell setBackgroundColor:[UIColor whiteColor]];
     
