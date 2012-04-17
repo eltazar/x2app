@@ -8,13 +8,13 @@
 
 #import "Commenti.h"
 #import "Utilita.h"
+#import "ShowMoreCell.h"
 
-@interface Commenti (){
-}
+@interface Commenti (){}
 @property (nonatomic, retain) NSMutableArray *dataModel;
 - (void)fetchRowsFromNumber:(NSInteger)n;
 - (void)prettifyNullValuesForCommentsInArray:(NSArray *)comments;
-
+- (void)reloadShowMoreCell;
 @end
 
 
@@ -56,6 +56,7 @@
     UILabel *titolo = (UILabel *)[self.view viewWithTag:1];
     titolo.text = self.insegnaEsercente;
     didFetchAllComments = FALSE;
+    queryingMoreComments = FALSE;
 }
 
 
@@ -107,13 +108,13 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	//if (self.dataModel.count < 5) {
-	//	return 1;
-	//}	
-	//else {
+	if (self.dataModel.count == 0) {
+		return 1;
+	}	
+	else {
 		return 2;
 		
-	//}
+	}
 }
 
 
@@ -134,13 +135,21 @@
     
 	if (indexPath.section == 1) {		
 		cell = [tableView dequeueReusableCellWithIdentifier:@"LastCell"];
-		if (!cell){
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"LastCell" owner:self options:NULL] objectAtIndex:0];
-		}
-		UILabel *altri  = (UILabel *)[cell viewWithTag:1];
-        UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
-		altri.text = @"Mostra altri...";
-		altri2.text = (didFetchAllComments) ? @"Non ci sono altri commenti da mostrare" : @"";
+		if (cell == nil){
+			cell = [[[NSBundle mainBundle] loadNibNamed:@"ShowMoreCell" owner:self options:NULL] objectAtIndex:0];
+            ((ShowMoreCell *)cell).doneMessage = @"Non ci sono altri elementi da mostrare";
+        }
+        if (didFetchAllComments) {
+            ((ShowMoreCell *)cell).state = ShowMoreCellDone;
+        }
+        else if (queryingMoreComments) {
+            ((ShowMoreCell *)cell).state = ShowMoreCellAnimating;
+        }
+        else {
+            ((ShowMoreCell *)cell).state = ShowMoreCellBlank;
+        }
+		return cell;		
+
 	}
     
 	else if (self.dataModel.count > 0) {
@@ -211,6 +220,7 @@
     else if (indexPath.section == 1) {
         if (!didFetchAllComments) { // non ci sono alri commenti
             [self fetchRowsFromNumber:self.dataModel.count];
+            [self reloadShowMoreCell];
         }
         [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
     }
@@ -238,14 +248,11 @@
     }
     [self prettifyNullValuesForCommentsInArray:fetchedComments];
     
+    queryingMoreComments = NO;
     if (fetchedComments.count == 0) {
         // Abbiamo già scaricato tutti i commenti
         didFetchAllComments = TRUE;
-        NSArray *indexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil];
-        [self.tableview beginUpdates];
-        [self.tableview reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableview endUpdates];
-        [indexPaths release];
+        [self reloadShowMoreCell];
         return;
     }
 
@@ -266,6 +273,7 @@
     [self.tableview insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableview endUpdates];
     [indexPaths release];
+    [self reloadShowMoreCell];
     return;
 }
 
@@ -276,7 +284,11 @@
 }
 
 
+#pragma mark - Commenti (Metodi Privati)
+
+
 - (void)fetchRowsFromNumber:(NSInteger)n {
+    queryingMoreComments = YES;
     NSString *urlString = [NSString stringWithFormat:urlFormatString, self.idEsercente, n];
     NSLog(@"[%@ fetchRowsFromNumber] urlString:[%@]", [self class], urlString);
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
@@ -295,5 +307,13 @@
     [keys release];
 }
 
+
+- (void)reloadShowMoreCell {
+    NSArray *indexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil];
+    [self.tableview beginUpdates];
+    [self.tableview reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableview endUpdates];
+    [indexPaths release];
+}
 
 @end

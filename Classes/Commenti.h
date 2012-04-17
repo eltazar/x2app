@@ -16,6 +16,7 @@
 @private
     NSMutableArray *_dataModel; //era: rows
     BOOL didFetchAllComments;
+    BOOL queryingMoreComments;
 	NSInteger _idEsercente;
 	NSString *_insegnaEsercente;
     

@@ -196,7 +196,6 @@
 
 
 - (void)dealloc {
-    
     [sectionData release];
     [sectionDescription release];
     

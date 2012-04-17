@@ -14,6 +14,7 @@
 #import "CJSONDeserializer.h"
 #import "Utilita.h"
 #import "DettaglioEsercente.h"
+#import "ShowMoreCell.h"
 #import "WMHTTPAccess.h"
 
 
@@ -31,7 +32,7 @@
 - (void)fetchRowsBySearchKey:(NSString *)searchkey;
 - (void)showMap:(id)sender;
 - (void)hideMap:(id)sender;
-
+- (void)reloadShowMoreCell;
 @end
 
 
@@ -87,6 +88,7 @@
     self.dataModel = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
     inSearchUI = NO;
+    queryingMoreRows = NO;
     didFetchAllRows = NO;
 	UIBarButtonItem *mapButton = [[[UIBarButtonItem alloc]
                                    initWithTitle:@"Mappa"
@@ -183,7 +185,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tView {
-	if ([self.dataModel count] < 6) {
+	if ([self.dataModel count] == 0) {
 		return 1;
 	} 
     else {
@@ -207,15 +209,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1) {
         // Stiamo mostrando la cella che suggerisce la visualizzazione di ulteriori esercenti
-		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:@"LastCell"];
+		UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:@"ShowMoreCell"];
 		
 		if (cell == nil){
-			cell = [[[NSBundle mainBundle] loadNibNamed:@"LastCell" owner:self options:NULL] objectAtIndex:0];
-		}
-		UILabel *altri = (UILabel *)[cell viewWithTag:1];
-		altri.text = @"Mostra altri...";
-		UILabel *altri2 = (UILabel *)[cell viewWithTag:2];
-		altri2.text = (didFetchAllRows)? @"Non ci sono altri risultati da mostrare" : @"";
+			cell = [[[NSBundle mainBundle] loadNibNamed:@"ShowMoreCell" owner:self options:NULL] objectAtIndex:0];
+            ((ShowMoreCell *)cell).doneMessage = @"Non ci sono altri elementi da mostrare";
+        }
+        if (didFetchAllRows) {
+            ((ShowMoreCell *)cell).state = ShowMoreCellDone;
+        }
+        else if (queryingMoreRows) {
+            ((ShowMoreCell *)cell).state = ShowMoreCellAnimating;
+        }
+        else {
+            ((ShowMoreCell *)cell).state = ShowMoreCellBlank;
+        }
 		return cell;		
 	} 
     else {
@@ -281,6 +289,7 @@
 	else { 
 		if (!didFetchAllRows) {
             [self fetchMoreRows];
+            [self reloadShowMoreCell];
         }
         [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -440,12 +449,6 @@
     else if ([type isEqualToString:@"Esercente:MoreRows"]) {
         if (rows.count == 0) {
             didFetchAllRows = YES;
-            NSArray *indexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil];
-            [self.tableView beginUpdates];
-            [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableView endUpdates];
-            [indexPaths release];
-
         }
         else {
             NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:rows.count]; 
@@ -458,7 +461,10 @@
             [self.tableView endUpdates];
             [indexPaths release];
         }
+        queryingMoreRows = NO;
+        [self reloadShowMoreCell];
     } 
+    
     else if ([type isEqualToString:@"Esercente:Search"]) {
         [self.searchActivityIndicator stopAnimating];
         self.searchActivityIndicator.hidden = YES;
@@ -512,6 +518,7 @@
     if (lastFetchWasASearch) {
         return;
     }
+    queryingMoreRows = YES;
     NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
     [postDict setObject:@"fetch"                forKey:@"request"];
     [postDict setObject:self.categoria          forKey:@"categ"];
@@ -616,6 +623,15 @@
     } else {
         return @"";
     }
+}
+
+
+- (void)reloadShowMoreCell {
+    NSArray *indexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil];
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+    [indexPaths release];
 }
 
 
