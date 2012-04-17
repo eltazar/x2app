@@ -47,8 +47,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUILabel" id="948456049">
 								<reference key="NSNextResponder" ref="422827293"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{17, 2}, {280, 21}}</string>
+								<int key="NSvFlags">293</int>
+								<string key="NSFrame">{{17, 5}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="422827293"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="605474526"/>
@@ -84,8 +84,8 @@
 							</object>
 							<object class="IBUILabel" id="605474526">
 								<reference key="NSNextResponder" ref="422827293"/>
-								<int key="NSvFlags">260</int>
-								<string key="NSFrame">{{23, 20}, {274, 24}}</string>
+								<int key="NSvFlags">269</int>
+								<string key="NSFrame">{{23, 14}, {274, 24}}</string>
 								<reference key="NSSuperview" ref="422827293"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="33481704"/>
@@ -118,10 +118,11 @@
 							</object>
 							<object class="IBUIActivityIndicatorView" id="33481704">
 								<reference key="NSNextResponder" ref="422827293"/>
-								<int key="NSvFlags">260</int>
-								<string key="NSFrame">{{150, 22}, {20, 20}}</string>
+								<int key="NSvFlags">269</int>
+								<string key="NSFrame">{{150, 16}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="422827293"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<float key="IBUIAlpha">0.0</float>
