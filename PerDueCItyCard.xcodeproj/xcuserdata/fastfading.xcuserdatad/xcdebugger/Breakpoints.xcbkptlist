@@ -259,14 +259,13 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Classes/DettaglioCartaViewController.m"
-         timestampString = "355879872.012529"
+         filePath = "Classes/FindNearCompanyController2.m"
+         timestampString = "356386839.547371"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "250"
-         endingLineNumber = "250"
-         landmarkName = "-didReceiveJSON:"
+         startingLineNumber = "135"
+         endingLineNumber = "135"
+         landmarkName = "-locationManager:didUpdateToLocation:fromLocation:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

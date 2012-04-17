@@ -13,9 +13,9 @@
 #import "BaseCell.h"
 #import "MBProgressHUD.h"
 #import "AbbinaCartaViewController.h"
-#import "FindNearCompanyController.h"
 #import "PDHTTPAccess.h"
 #import "LocalDatabaseAccess.h"
+#import "FindNearCompanyController.h"
 
 
 @interface DettaglioCartaViewController(){
@@ -500,7 +500,7 @@
             [findCtrl release];
         }*/
     
-        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithCard:self.card];
+        FindNearCompanyController *findCtrl = [[FindNearCompanyController alloc] initWithNibName:nil bundle:nil card:self.card];
         [self.navigationController pushViewController:findCtrl animated:YES];
         [findCtrl release];
     }

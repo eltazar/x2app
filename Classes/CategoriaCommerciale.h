@@ -18,7 +18,6 @@
     BOOL lastFetchWasASearch;
     BOOL inSearchUI;
     BOOL didFetchAllRows;
-    CLLocationCoordinate2D location;
     NSString *_categoria;
     GeoDecoder *_geoDec;
     NSArray* _tempBuff;
@@ -35,6 +34,7 @@
 @protected
     NSString *_urlString;
     NSMutableArray *_dataModel;
+    CLLocationCoordinate2D location;
 }
 
 

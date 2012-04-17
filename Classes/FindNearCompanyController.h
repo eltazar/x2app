@@ -1,24 +1,21 @@
 //
-//  FindNearCompanyController.h
+//  FindNearCompanyController2.h
 //  PerDueCItyCard
 //
-//  Created by mario greco on 03/04/12.
+//  Created by Gabriele "Whisky" Visconti on 16/04/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
-#import "WMHTTPAccess.h"
+#import "CategoriaCommerciale.h"
+#import "CartaPerDue.h"
 
-@class CartaPerDue;
 
-@interface FindNearCompanyController : UITableViewController <WMHTTPAccessDelegate,CLLocationManagerDelegate>
-{
-    NSString *_urlString;
-    NSMutableArray *_rows;
+@interface FindNearCompanyController : CategoriaCommerciale <CLLocationManagerDelegate> {
+@private
+    CartaPerDue *_card;
+    CLLocationManager *_locationManager;
 }
 
--(id) initWithCard:(CartaPerDue*)aCard;
-@property (nonatomic, retain) NSString *urlString;
-@property (nonatomic, retain) NSMutableArray *rows;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil card:(CartaPerDue *)card;
+
 @end

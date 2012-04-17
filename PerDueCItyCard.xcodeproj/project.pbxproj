@@ -113,8 +113,6 @@
 		ACDE7C9A14FDA988000F6890 /* DatiPagamentoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDE7C9814FDA987000F6890 /* DatiPagamentoController.xib */; };
 		ACDE7C9D14FDB0A9000F6890 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */; };
 		ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9F14FDB432000F6890 /* PickerViewController.m */; };
-		ACE86510152AEB90008EBD72 /* FindNearCompanyController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE8650E152AEB90008EBD72 /* FindNearCompanyController.m */; };
-		ACE86511152AEB90008EBD72 /* FindNearCompanyController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACE8650F152AEB90008EBD72 /* FindNearCompanyController.xib */; };
 		ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */; };
 		ACF7656E151A4CF000914BDD /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF7656D151A4CF000914BDD /* IAPHelper.m */; };
 		ACF76574151A4D4900914BDD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF76573151A4D4900914BDD /* StoreKit.framework */; };
@@ -189,6 +187,7 @@
 		D9AEA971152C523C00C4756A /* DettaglioEsercente.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */; };
 		D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */; };
 		D9AFF6DA152F1B3C00A8F346 /* CommentiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AFF6D9152F1B3C00A8F346 /* CommentiCell.xib */; };
+		D9B16094153D92EE0084FF4E /* FindNearCompanyController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B16093153D92EE0084FF4E /* FindNearCompanyController.m */; };
 		D9BBBC48152F84B60032B9E3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */; };
 		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
 		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
@@ -346,9 +345,6 @@
 		ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
 		ACDE7C9E14FDB432000F6890 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		ACDE7C9F14FDB432000F6890 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
-		ACE8650D152AEB90008EBD72 /* FindNearCompanyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindNearCompanyController.h; sourceTree = "<group>"; };
-		ACE8650E152AEB90008EBD72 /* FindNearCompanyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindNearCompanyController.m; sourceTree = "<group>"; };
-		ACE8650F152AEB90008EBD72 /* FindNearCompanyController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindNearCompanyController.xib; sourceTree = "<group>"; };
 		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
 		ACF7656C151A4CF000914BDD /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
 		ACF7656D151A4CF000914BDD /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
@@ -470,6 +466,8 @@
 		D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioEsercente.m; sourceTree = "<group>"; };
 		D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettaglioEsercente.xib; sourceTree = "<group>"; };
 		D9AFF6D9152F1B3C00A8F346 /* CommentiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentiCell.xib; sourceTree = "<group>"; };
+		D9B16092153D92EE0084FF4E /* FindNearCompanyController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = FindNearCompanyController.h; sourceTree = "<group>"; };
+		D9B16093153D92EE0084FF4E /* FindNearCompanyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindNearCompanyController.m; sourceTree = "<group>"; };
 		D9BBBC46152F84B60032B9E3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		D9ED8BF6152F8FEF002C3D65 /* FotoIngranditaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FotoIngranditaController.h; sourceTree = "<group>"; };
@@ -738,13 +736,12 @@
 				AC9B69261507AFAA00BE6A30 /* DettaglioCartaViewController.h */,
 				AC9B69271507AFAA00BE6A30 /* DettaglioCartaViewController.m */,
 				AC9B69281507AFAA00BE6A30 /* DettaglioCartaViewController.xib */,
-				ACE8650D152AEB90008EBD72 /* FindNearCompanyController.h */,
-				ACE8650E152AEB90008EBD72 /* FindNearCompanyController.m */,
-				ACE8650F152AEB90008EBD72 /* FindNearCompanyController.xib */,
-				D9463614152F64C6000A17CE /* FindNearCompanyCell.xib */,
 				ACDE4798152DA435004772D4 /* ValidateCardController.h */,
 				ACDE4799152DA435004772D4 /* ValidateCardController.m */,
 				ACDE479A152DA435004772D4 /* ValidateCardController.xib */,
+				D9B16092153D92EE0084FF4E /* FindNearCompanyController.h */,
+				D9B16093153D92EE0084FF4E /* FindNearCompanyController.m */,
+				D9463614152F64C6000A17CE /* FindNearCompanyCell.xib */,
 			);
 			name = Carte;
 			sourceTree = "<group>";
@@ -1150,7 +1147,6 @@
 				D924E627151CBC4900AD4C07 /* CategoriaCommerciale.xib in Resources */,
 				ACC808541521F678006DF894 /* grayButton2.png in Resources */,
 				AC3C57B41525313500E5457E /* refreshBtn.png in Resources */,
-				ACE86511152AEB90008EBD72 /* FindNearCompanyController.xib in Resources */,
 				ACDE479C152DA436004772D4 /* ValidateCardController.xib in Resources */,
 				D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */,
 				D9AE33A8152E51A8006757FA /* DettEsercAddressCell.xib in Resources */,
@@ -1231,7 +1227,6 @@
 				D924E62A151CEB6F00AD4C07 /* UserDefaults.m in Sources */,
 				D924E632151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.m in Sources */,
 				AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */,
-				ACE86510152AEB90008EBD72 /* FindNearCompanyController.m in Sources */,
 				ACDE479B152DA436004772D4 /* ValidateCardController.m in Sources */,
 				D9AEA971152C523C00C4756A /* DettaglioEsercente.m in Sources */,
 				D92D1CF5152CF69500008CE3 /* DettaglioEsercenteRistorazione.m in Sources */,
@@ -1267,6 +1262,7 @@
 				D9678C5B1535D95900C86E83 /* WMHTTPAccess.m in Sources */,
 				D9678C5F1535F8FF00C86E83 /* PDHTTPAccess.m in Sources */,
 				D9678C631536219A00C86E83 /* NSString+Base64Addition.m in Sources */,
+				D9B16094153D92EE0084FF4E /* FindNearCompanyController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
