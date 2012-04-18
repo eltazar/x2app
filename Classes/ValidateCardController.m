@@ -24,7 +24,7 @@
 @implementation ValidateCardController
 @synthesize card = _card;
 @synthesize company = _company;
-@synthesize pushView = _pushView, cardLabel = _cardLabel, companyLabel = _companyLabel;
+@synthesize pushView = _pushView, cardLabel = _cardLabel, companyLabel = _companyLabel, spinner;
 @synthesize validateBtn = _validateBtn;
 
 -(id) initWhitCard:(CartaPerDue*)aCard company:(NSDictionary*)aCompany{
@@ -54,14 +54,47 @@
 
 #pragma mark - WMHTTPAccessDelegate
 
-
 -(void)didReceiveString:(NSString *)receivedString {
+    
     NSLog(@"received data = %@", receivedString);
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    [self.spinner stopAnimating];
+    
+    if([receivedString isEqualToString:@"push"]){
+        [self.validateBtn addTarget:self action:@selector(sendPush:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [UIView animateWithDuration:0.2
+                         animations:^(void){
+                             self.validateBtn.alpha = 1.0;
+                         }
+         ];
+
+    }
+    else if([receivedString isEqualToString:@"webpage"]){
+        [self.validateBtn addTarget:self action:@selector(launchWebPage:) forControlEvents:UIControlEventTouchUpInside];
+        //[self.validateBtn setHidden:NO];
+        [UIView animateWithDuration:0.2
+                         animations:^(void){
+                             self.validateBtn.alpha = 1.0;
+                         }
+         ];
+        
+    }
+    else if([receivedString isEqualToString:@"not_found"]){
+        
+        //mostra label "esercente non accetta carta virtuale"
+    }
+    else {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    }
+    
 }
 
 
 -(void)didReceiveError:(NSError *)error{
+    
+    [self.spinner stopAnimating];
+    
     NSLog(@"error = %@", [error description]);
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore connessione" message:@"Non è stato possibile eseguire la richiesta, riprovare" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
@@ -72,8 +105,20 @@
 
 #pragma mark - bottoni view
 
+-(void)launchWebPage:(id)sender{
+    NSLog(@"lancio safari = %@",self.card.number);
 
--(IBAction)validateRequestBtn:(id)sender{
+    //lancia safari con i dati in GET
+    
+    NSString *numberMod = [self.card.number stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/layoutCopia.php?name=%@&surname=%@&number=%@",self.card.name,self.card.surname,numberMod];
+    NSLog(@"url string = %@",    urlString);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+}
+
+-(IBAction)sendPush:(id)sender{
+    
+    NSLog(@"lancio push");
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Invio richiesta...";
@@ -83,6 +128,12 @@
 
 #pragma mark - View lifecycle
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+    [self.spinner startAnimating];
+    [PDHTTPAccess checkCompanyValidateMethod:[[self.company objectForKey:@"IDesercente"] intValue]  delegate:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -95,26 +146,30 @@
     [self.validateBtn setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
     self.validateBtn.layer.cornerRadius = 6;
     self.validateBtn.layer.masksToBounds = YES;
-    
+    //nascondo appena caricata la view
+    //[self.validateBtn setHidden:YES];
+    self.validateBtn.alpha = 0.0;
     [self.view addSubview:self.pushView];
 }
 
 
 - (void)viewDidUnload {
-    [super viewDidUnload];
+    
 
+    self.spinner = nil;
     self.validateBtn = nil;
     self.cardLabel = nil;
     self.companyLabel = nil;
     self.pushView = nil;
-
+    
+    [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void)dealloc {
 
-    
+    self.spinner = nil;
     self.validateBtn = nil;
     self.cardLabel = nil;
     self.companyLabel = nil;

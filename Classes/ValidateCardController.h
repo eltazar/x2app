@@ -14,8 +14,10 @@
     UILabel *_companyLabel;
     UILabel *_cardLabel;
     UIButton *_validateBtn;
+    UIActivityIndicatorView *spinner;
 }
 
+@property(nonatomic, retain) IBOutlet UIActivityIndicatorView *spinner;
 @property(nonatomic, retain) IBOutlet UIButton *validateBtn;
 @property(nonatomic, retain) IBOutlet UILabel *companyLabel;
 @property(nonatomic, retain) IBOutlet UILabel *cardLabel;
