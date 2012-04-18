@@ -44,8 +44,8 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingLocation];
-    NSLog(@"Significant Location Change Available: %d", [CLLocationManager significantLocationChangeMonitoringAvailable]);
-    [self.locationManager startMonitoringSignificantLocationChanges];
+    //NSLog(@"Significant Location Change Available: %d", [CLLocationManager significantLocationChangeMonitoringAvailable]);
+    //[self.locationManager startMonitoringSignificantLocationChanges];
     
     //isEmpty = FALSE;
     
@@ -190,8 +190,10 @@
 }
 
 
-#pragma mark - FindNearCompanyController (metodi privati)
 
+#pragma mark - FindNearCompanyController (metodi privati)
+//@"41.890520"            forKey:@"lat"];
+//[postDict setObject:@"12.494249"
 
 - (void)fetchRows {
     //MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -200,11 +202,13 @@
     NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
     [postDict setObject:@"fetch"                forKey:@"request"];
     [postDict setObject:[Utilita today]         forKey:@"giorno"];
-    [postDict setObject:@"20"                    forKey:@"raggio"];
+    [postDict setObject:@"2"                    forKey:@"raggio"];
     [postDict setObject:@"distanza"             forKey:@"ordina"];
     [postDict setObject:@"0"                    forKey:@"from"];
-    [postDict setObject:[NSString stringWithFormat:@"%f",location.latitude] forKey:@"lat"];
-    [postDict setObject:[NSString stringWithFormat:@"%f",location.longitude] forKey:@"long"];
+    //[postDict setObject:[NSString stringWithFormat:@"%f",location.latitude] forKey:@"lat"];
+    //[postDict setObject:[NSString stringWithFormat:@"%f",location.longitude] forKey:@"long"];
+    [postDict setObject:@"41.890520" forKey:@"lat"];
+    [postDict setObject:@"12.494249" forKey:@"long"];
     NSLog(@"today = %@, lat = %f, long = %f",[Utilita today], location.latitude,location.longitude);
     
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:_urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
@@ -217,11 +221,14 @@
     NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
     [postDict setObject:@"fetch"                forKey:@"request"];
     [postDict setObject:[Utilita today]         forKey:@"giorno"];
-    [postDict setObject:@"20"                    forKey:@"raggio"];
+    [postDict setObject:@"2"                    forKey:@"raggio"];
     [postDict setObject:@"distanza"             forKey:@"ordina"];
     [postDict setObject:fromString              forKey:@"from"];
     [postDict setObject:[NSString stringWithFormat:@"%f",location.latitude] forKey:@"lat"];
     [postDict setObject:[NSString stringWithFormat:@"%f",location.longitude] forKey:@"long"];
+    //[postDict setObject:@"41.890520" forKey:@"lat"];
+    //[postDict setObject:@"12.494249" forKey:@"long"];
+
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:_urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
 }
 
