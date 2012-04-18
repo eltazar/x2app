@@ -48,6 +48,18 @@
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];    
 }
 
++ (void)checkCompanyValidateMethod:(NSInteger)companyID delegate:(id<WMHTTPAccessDelegate>)delegate{
+    
+    NSLog(@"DBACCESS validate request");
+    NSString *urlString = @"https://cartaperdue.it/partner/v2.0/ControllaTipoValidazione.php";
+    
+    NSString *companyIDString = [NSString stringWithFormat:@"%d", companyID];
+    NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                              companyIDString, @"companyID",
+                              nil];
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];    
+}
+
 
 
 + (void)registerUserOnServer:(NSArray*)userData delegate:(id<WMHTTPAccessDelegate>)delegate {

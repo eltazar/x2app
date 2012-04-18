@@ -17,6 +17,8 @@
 
 + (void)sendValidateRequest:(CartaPerDue *)card companyID:(NSInteger)companyID delegate:(id<WMHTTPAccessDelegate>)delegate ;
 
++ (void)checkCompanyValidateMethod:(NSInteger)companyID delegate:(id<WMHTTPAccessDelegate>)delegate ;
+
 + (void)registerUserOnServer:(NSArray*)userData delegate:(id<WMHTTPAccessDelegate>)delegate;
 
 + (void)checkUserFields:(NSArray*)usr delegate:(id<WMHTTPAccessDelegate>)delegate;
