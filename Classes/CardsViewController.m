@@ -315,6 +315,7 @@
     if([dataKey isEqualToString:@"abbina"] || [dataKey isEqualToString:@"acquista"]){
         if([[LocalDatabaseAccess getInstance] isThereAvalidCard]){
             cell.backgroundColor = [UIColor colorWithRed:230.0/255 green:230.0/255 blue:230.0/255 alpha:1];
+            cell.textLabel.textColor = [UIColor grayColor];
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.userInteractionEnabled = NO;
         }
