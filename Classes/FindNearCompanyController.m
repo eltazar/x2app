@@ -68,8 +68,17 @@
     self.activityIndicator.center = self.tableView.center;
     self.footerView = nil;
 }
-- (void)dealloc
-{   
+
+
+- (void)viewDidUnload {
+    self.locationManager.delegate = nil;
+    self.locationManager = nil;
+    [super viewDidUnload];
+}
+
+
+- (void)dealloc {
+    self.card = nil;
     self.locationManager.delegate = nil;
     self.locationManager = nil;
     [super dealloc];
