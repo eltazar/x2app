@@ -68,6 +68,12 @@
     self.activityIndicator.center = self.tableView.center;
     self.footerView = nil;
 }
+- (void)dealloc
+{   
+    self.locationManager.delegate = nil;
+    self.locationManager = nil;
+    [super dealloc];
+}
 
 
 - (void)viewWillAppear:(BOOL)animated {
