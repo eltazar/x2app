@@ -286,7 +286,7 @@
     
     [retrieveView setHidden:YES];
     
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:[IAPHelper sharedHelper]];
+    //[[SKPaymentQueue defaultQueue] addTransactionObserver:[IAPHelper sharedHelper]];
     
     self.title = @"Acquisti";
   
