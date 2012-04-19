@@ -492,6 +492,59 @@
     }
 }
 
+#pragma mark - InAppPurchase metodi per gestire acquisti recuperati o non terminati
+
+
+
+-(void) cardDownloadError:(NSNotification*) notification{
+ 
+    NSLog(@"CARDS CONTROLLER : errore lato server nel recupero carta");
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
+-(void) cardDownloaded:(NSNotification*) notification{
+        
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    NSLog(@"CARDS CONTROLLER : carta scaricata = %@",notification.object);
+    //mostrare alert
+    
+    //TODO: creare la carta con i dati ricevuti e nome e cognome presi da userdefault, quindi salvare sul db locale
+    
+    NSDictionary *cardReceived = (NSDictionary*)notification.object;
+    
+    CartaPerDue *card = [[CartaPerDue alloc] init];
+    card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"originalName"];
+    card.surname = [[NSUserDefaults standardUserDefaults] objectForKey:@"originalSurname"];     
+    card.number = [cardReceived objectForKey:@"number"];
+    
+    card.expiryString = [cardReceived objectForKey:@"expiryDate"];
+    
+    NSError *error;
+    if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {
+        NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
+    } else{
+        //[self didAssociateNewCard];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPurchasedCard object:nil];
+    }
+    
+    [card release];
+    
+    //crash se le sezioni sono 2, ovvero senza carte aggiunte
+    
+    [self didAssociateNewCard];
+    
+    [self.tableView reloadData];
+}
+
+-(void) cardDownloading:(NSNotification*) notification{
+    
+    NSLog(@"CARDS CONTROLLER : downloading carta acquistata");
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"Recupero acquisto";
+    hud.detailsLabelText = @"Download carta...";
+}
+
 #pragma mark - DataLoginDelegate
 
 -(void)didLogout{
