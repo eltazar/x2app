@@ -92,11 +92,11 @@
             if([[LocalDatabaseAccess getInstance] isThereAvalidCard]){
                 [secExpired insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                           @"removeCard",                @"DataKey",
-                                          @"ActionCell",            @"kind",
+                                          @"InfoCell",            @"kind",
                                           @"Rimuovi carta",   @"label",
                                           @"",                      @"detailLabel",
                                           @"",                      @"img",
-                                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                          //[NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
                                           nil] autorelease] atIndex: 0];
             }
             else {
@@ -287,19 +287,19 @@
         
         [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                 @"rebind",                @"DataKey",
-                                @"ActionCell",            @"kind",
+                                @"InfoCell",            @"kind",
                                 @"Riabbina questa carta",   @"label",
                                 @"",                      @"detailLabel",
                                 @"",                      @"img",
-                                [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                //[NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
                                 nil] autorelease] atIndex: 0];
         [bindSec insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                 @"removeBinding",                @"DataKey",
-                                @"ActionCell",            @"kind",
+                                @"InfoCell",            @"kind",
                                 @"Rimuovi abbinamento",   @"label",
                                 @"",                      @"detailLabel",
                                 @"",                      @"img",
-                                [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                                //[NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
                                 nil] autorelease] atIndex: 1];
         //        [sectionDescription removeAllObjects];
         //        [sectionDescription insertObject:@"Carta già abbinata" atIndex:0];
@@ -364,6 +364,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
     NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
+    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
     NSString *kind = [rowDesc objectForKey:@"kind"];
     int cellStyle = UITableViewCellStyleDefault;
     
@@ -379,6 +380,12 @@
     }
     
     cell.textLabel.text = [rowDesc objectForKey:@"label"];
+    
+    if([dataKey isEqualToString:@"removeCard"] || [dataKey isEqualToString:@"rebind"] ||
+       [dataKey isEqualToString:@"removeBinding"]){
+        
+        cell.textLabel.textAlignment = UITextAlignmentCenter;
+    }
     
     [cell setBackgroundColor:[UIColor whiteColor]];
     
