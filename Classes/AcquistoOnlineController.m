@@ -148,8 +148,8 @@
     NSDictionary *cardReceived = (NSDictionary*)notification.object;
     
     CartaPerDue *card = [[CartaPerDue alloc] init];
-    card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
-    card.surname = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];     
+    card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"originalName"];
+    card.surname = [[NSUserDefaults standardUserDefaults] objectForKey:@"originalSurname"];     
     card.number = [cardReceived objectForKey:@"number"];
     
     card.expiryString = [cardReceived objectForKey:@"expiryDate"];
@@ -313,8 +313,22 @@
      */
     
     productsId = [[NSMutableSet alloc] init];
-
     
+    //salvo dati dell'utente appena loggato nel negozio online, per usarli quando creo la carta acquistata e inviare i dati al server, nel caso in cui durante la procedura di acquisto l'utente si slogghi da altre parti
+    
+    NSString *originalName = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
+    NSString *originalSurname = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];
+    NSString *originalUserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"_idUtente"];
+   
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"originalName"];
+    [[NSUserDefaults standardUserDefaults] setObject:originalName forKey:@"originalName"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"originalSurname"];
+    [[NSUserDefaults standardUserDefaults] setObject:originalSurname forKey:@"originalSurname"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"originalUserId"];
+    [[NSUserDefaults standardUserDefaults] setObject:originalUserId forKey:@"originalUserId"];
+  
+    [[NSUserDefaults standardUserDefaults] synchronize];
+ 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
