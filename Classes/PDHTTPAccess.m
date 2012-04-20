@@ -125,6 +125,22 @@
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];
 }
 
++ (void)requestACard:(NSArray*)data delegate:(id<WMHTTPAccessDelegate>)delegate {
+    
+    NSString *urlString = @"https://cartaperdue.it/partner/v2.0/RichiediCarta.php";
+    
+    
+    NSDictionary *postDict =[NSDictionary dictionaryWithObjectsAndKeys:
+                             [data objectAtIndex:0], @"cardType",
+                             [data objectAtIndex:1], @"name",
+                             [data objectAtIndex:2], @"surname",
+                             [data objectAtIndex:3], @"phone",
+                             [data objectAtIndex:4], @"email",
+                             nil];
+    
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];
+}
+
 
 + (void)getAltreOfferteFromServer:(NSString*)prov delegate:(id<WMHTTPAccessDelegate>)delegate {
     NSLog(@"QUERY: altre offerte");

@@ -27,6 +27,8 @@
 
 + (void)buyCouponRequest:(NSString*)string delegate:(id<WMHTTPAccessDelegate>)delegate;
 
++ (void)requestACard:(NSArray*)data delegate:(id<WMHTTPAccessDelegate>)delegate;
+
 + (void)getAltreOfferteFromServer:(NSString*)prov delegate:(id<WMHTTPAccessDelegate>)delegate;
 
 + (void)getIAPCatalogWithDelegate:(id<WMHTTPAccessDelegate>)delegate;
