@@ -615,18 +615,14 @@
     if (self.sectionData.count == 2) {
         [self.sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
         [self.sectionDescription insertObject:@"Gestione" atIndex:1];
-        [self.sectionDescription insertObject:@"Recupera acquisti" atIndex:2];
         
         NSArray *tempA = [[self.sectionData objectAtIndex:0]retain];
-        NSArray *tempB = [[self.sectionData objectAtIndex:1]retain];
         
         [self.sectionData removeObjectAtIndex:0];
         [self.sectionData insertObject:[self creaDataContent] atIndex:0];
         [self.sectionData insertObject:tempA atIndex:1];
-        [self.sectionData insertObject:tempB atIndex:2];
         
         [tempA release];
-        [tempB release];
     } else if(self.sectionData.count > 2){
         
         [self.sectionData replaceObjectAtIndex:0 withObject:[self creaDataContent]];
