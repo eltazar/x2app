@@ -95,8 +95,8 @@
     NSLog(@"oggetti in array = %d, capacità passata = %d", objectsInRow.count,numElements);
     
     for(int i = 0; i < numElements; i++){
-        NSLog(@"aggiungo %d", i);
-        [objectsInRow addObject:@"--"];
+        NSLog(@"aggiungo %@", [self.arrayFields objectAtIndex:0]);
+        [objectsInRow addObject:[[self.arrayFields objectAtIndex:i] objectAtIndex:0]];
     }
     
     NSLog(@"oggetti in array = %d dopo init", objectsInRow.count);
