@@ -87,8 +87,9 @@
     //NSLog(@"_PHONE = %@",_phone);
     
     //se il numero di telefono ha il prefisso internazionale che comincia con +
-    if([[_phone substringWithRange:NSMakeRange(0,1)] isEqualToString:@"+"])
+    if([[_phone substringWithRange:NSMakeRange(0,1)] isEqualToString:@"+"]){
         isPlus = TRUE;
+    }
     
     NSMutableString *strippedString = [NSMutableString 
                                        stringWithCapacity:_phone.length+1];
@@ -103,7 +104,8 @@
             
             //reinserisco il + ad inizio stringa
             if(isPlus){
-                strippedString = [NSMutableString stringWithFormat:@"%2B"];
+                strippedString = [NSMutableString stringWithFormat:@"%@",@"%2B"];
+                //NSLog(@"stripped -> = %@",strippedString);
                 isPlus = FALSE;
             }
             
