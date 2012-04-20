@@ -36,7 +36,7 @@
 @implementation AbbinaCartaViewController
 
 // Properties
-@synthesize delegate = _delegate, pickerDate = _pickerDate;
+@synthesize delegate = _delegate; //, pickerDate = _pickerDate;
 // IBOutlets
 // Properties private:
 @synthesize card = _card;
@@ -117,19 +117,19 @@
     numeroCartaField.tag = 4;
     numeroCartaField.delegate = self;
     
-    UITextField *scadenzaField = [[UITextField alloc] initWithFrame:CGRectMake(numeroCartaField.frame.origin.x+numeroCartaField.frame.size.width+15, cartaView.frame.size.height/2 + nomeField.frame.size.height+20, 100, 28)];
-    scadenzaField.borderStyle = UITextBorderStyleRoundedRect;
-    scadenzaField.font = [UIFont systemFontOfSize:15];
-    scadenzaField.placeholder = @"Scadenza";
+    //UITextField *scadenzaField = [[UITextField alloc] initWithFrame:CGRectMake(numeroCartaField.frame.origin.x+numeroCartaField.frame.size.width+15, cartaView.frame.size.height/2 + nomeField.frame.size.height+20, 100, 28)];
+    //scadenzaField.borderStyle = UITextBorderStyleRoundedRect;
+    //scadenzaField.font = [UIFont systemFontOfSize:15];
+    //scadenzaField.placeholder = @"Scadenza";
     //    scadenzaField.autocorrectionType = UITextAutocorrectionTypeNo;
     //    scadenzaField.keyboardType = UIKeyboardTypeDefault;
     //    scadenzaField.returnKeyType = UIReturnKeyDone;
     //    scadenzaField.clearButtonMode = UITextFieldViewModeWhileEditing;
     //    scadenzaField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter; 
-    scadenzaField.tag = 3;
-    scadenzaField.delegate = self;
+    //scadenzaField.tag = 3;
+    //scadenzaField.delegate = self;
     
-    [cartaView addSubview:scadenzaField];
+    //[cartaView addSubview:scadenzaField];
     [cartaView addSubview:numeroCartaField];
     [cartaView addSubview:nomeField];
     [cartaView addSubview:cognomeField];
@@ -149,14 +149,14 @@
     [cartaView release];
     [numeroCartaField release];
     [nomeField release];
-    [scadenzaField release];
+    //[scadenzaField release];
     [cognomeField release];
     
-    NSArray *calendar = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"--",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12", nil],[NSArray arrayWithObjects:@"--",@"2012",@"2013",@"2014",@"2015",@"2016",@"2017",@"2018",@"2020",@"2021",@"2022",@"2023",@"2024", nil] , nil];
+    //NSArray *calendar = [[NSArray alloc] initWithObjects:[NSArray arrayWithObjects:@"--",@"01",@"02",@"03",@"04",@"05",@"06",@"07",@"08",@"09",@"10",@"11",@"12", nil],[NSArray arrayWithObjects:@"--",@"2012",@"2013",@"2014",@"2015",@"2016",@"2017",@"2018",@"2020",@"2021",@"2022",@"2023",@"2024", nil] , nil];
     
-    self.pickerDate = [[[PickerViewController alloc] initWithArray: calendar andNumber:2] autorelease];
+    //self.pickerDate = [[[PickerViewController alloc] initWithArray: calendar andNumber:2] autorelease];
     
-    [calendar release];
+    //[calendar release];
 
     
     sectionDescription = [[NSMutableArray alloc] initWithObjects:@"", nil];
@@ -181,7 +181,7 @@
 
 - (void)viewDidUnload {
     // Roba ricreata in viewDidLoad:
-    self.pickerDate = nil;
+    //self.pickerDate = nil;
     // IBOutlets:    
     self.viewForImage = nil;
     
@@ -202,7 +202,7 @@
     [_viewForImage release];
     
     [_delegate release];
-    [_pickerDate release];
+    //[_pickerDate release];
     
     [_card release];
     
@@ -263,7 +263,7 @@
     }
 }
 
-
+/*
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {    
     if(textField.tag == 3){
         UIActionSheet *myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Data scadenza" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
@@ -282,6 +282,7 @@
         //1 lo passo a mano, MODIFICARE
         [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
         //        pickerView = [[PickerViewController alloc] initw];
+       
         [myActionSheet addSubview: self.pickerDate.view];
         
         [textField setInputView:myActionSheet];
@@ -291,11 +292,12 @@
     }
     return YES;
 }
-
+*/
 
 #pragma mark - ActionSheetDelegate
 
 
+/*
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {         
     NSString *date = [NSString stringWithFormat:@"%@/%@",[self.pickerDate.objectsInRow objectAtIndex:0],[self.pickerDate.objectsInRow objectAtIndex:1]];
     
@@ -313,7 +315,7 @@
     }
     self.card.expiryString = date;
 }
-
+*/
 
 #pragma mark - DatabaseAccessDelegate
 

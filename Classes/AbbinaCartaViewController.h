@@ -14,12 +14,12 @@
 
 @interface AbbinaCartaViewController : UITableViewController <UITextFieldDelegate, UIActionSheetDelegate, UIAlertViewDelegate, WMHTTPAccessDelegate> {
     id<AbbinaCartaDelegate> _delegate;
-    PickerViewController *_pickerDate;
+    //PickerViewController *_pickerDate;
 }
 
 
 @property (nonatomic, retain) id<AbbinaCartaDelegate> delegate;
-@property (nonatomic, retain) PickerViewController *pickerDate;
+//@property (nonatomic, retain) PickerViewController *pickerDate;
 
 @end
 
