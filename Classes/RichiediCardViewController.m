@@ -11,6 +11,10 @@
 #import "BaseCell.h"
 #import "TextFieldCell.h"
 #import "Utilita.h"
+#import "PickerViewController.h"
+#import "ActionCell.h"
+#import "PDHTTPAccess.h"
+#import "MBProgressHUD.h"
 
 //metodi e variabili private
 @interface RichiediCardViewController ()
@@ -19,11 +23,13 @@
 @property(nonatomic,retain) NSString *cognome;
 @property(nonatomic,retain) NSString *telefono;
 @property(nonatomic,retain) NSString *email;
+@property(nonatomic,retain) NSString *tipoCarta;
+
 -(void)fillCell: (UITableViewCell *)cell rowDesc:(NSDictionary *)rowDesc;
 @end
 
 @implementation RichiediCardViewController
-@synthesize nome,cognome,telefono,email;
+@synthesize nome,cognome,telefono,email,tipoCarta;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -74,10 +80,8 @@
         //NSLog(@"CELL = %@",cell);
     }    
     
-    if(indexPath.section == 0 && indexPath.row == 0){
-        cell.accessoryView = segmentedCtrl;
-        //[cell.contentView addSubview:segmentedCtrl]; 
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
+    if(indexPath.section == 0 && isNew){
+        cell.detailTextLabel.text = @"Scegli...";
     }
     
     [self fillCell:cell rowDesc:rowDesc];
@@ -220,6 +224,54 @@
         TextFieldCell *cell = (TextFieldCell*)[self.tableView cellForRowAtIndexPath:indexPath];
         [cell.textField becomeFirstResponder];
     }
+    else{
+        //creo actionSheet con un solo tasto custom
+        UIActionSheet *myActionSheet = [[UIActionSheet alloc] initWithTitle:@"Tipo di carta" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Seleziona", nil];
+        //setto il frame NN CE NE è BISOGNO; PERCHé???
+        //        [actionSheet setFrame:CGRectMake(0, 117, 320, 383)];
+        
+        myActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+        //imposto questo controller come delegato dell'actionSheet
+        [myActionSheet setDelegate:self];
+        //[actionSheet showInView:self.view];
+        [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+        //setto i bounds dell'action sheet in modo tale da contenere il picker
+        [myActionSheet setBounds:CGRectMake(0,0,320, 565)]; 
+        
+        //array contenente le subviews dello sheet (sono 2, il titolo e il bottone custom
+        NSArray *subviews = [myActionSheet subviews];
+        //setto il frame del tasto così da mostrarlo sotto al picker
+        //1 lo passo a mano, MODIFICARE
+        [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
+        [myActionSheet addSubview: pickerCards.view];   
+        
+        [myActionSheet release];
+
+    }
+}
+
+#pragma mark - action sheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{   
+    
+    if([[actionSheet.subviews objectAtIndex:2] tag] == 777){
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        BaseCell *cell = (ActionCell*)[self.tableView cellForRowAtIndexPath:indexPath];
+        
+        cell.detailTextLabel.text = [pickerCards.objectsInRow objectAtIndex:0];
+        
+        self.tipoCarta = [pickerCards.objectsInRow objectAtIndex:0];
+        
+        //NSLog(@" carta  = %@, cell = %@",self.tipoCarta,cell.detailTextLabel.text);
+        
+        isNew = NO;
+        
+    }
+    
+    [self.tableView reloadData];
+    
 }
 
 #pragma mark - Bottoni view
@@ -245,13 +297,21 @@
         return FALSE ;
     }
     
-    //controlla che i dati inseriti siano solo numerici per il numero di telefono
-    if(![Utilita isNumeric:telefono]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero di telefono formalmente non valido" message:@"Il numero deve esser composto da soli numeri" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    if([self.tipoCarta isEqualToString:@"Scegli..."]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Scegli il tipo di carta" message:@"Per favore scegli quale carta PerDue richiedere" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
-        return FALSE;
+        
+        return FALSE ;
     }
+    
+    //controlla che i dati inseriti siano solo numerici per il numero di telefono
+//    if(![Utilita isNumeric:telefono]){
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero di telefono formalmente non valido" message:@"Il numero deve esser composto da soli numeri" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+//        [alert show];
+//        [alert release];
+//        return FALSE;
+//    }
     
     //controlla che i dati inseriti nel titolare siano solo caratteri
     
@@ -274,15 +334,48 @@
     //fa si che il testo inserito nei texfield sia preso anche se non è stata dismessa la keyboard
     [self.view endEditing:TRUE];
     
-    if([self validateFields])
+    if([self validateFields]){
         NSLog(@"tutti campi sono validi!");
-    
-    //TODO: inviare email alla PerDue o salvare richiesta sul DB
-    
+        
+        NSArray *data = [NSArray arrayWithObjects:self.tipoCarta,self.nome,self.cognome,[Utilita checkPhoneNumber:self.telefono],self.email, nil];
+        NSLog(@"%@",data);
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Invio...";
+        
+        [PDHTTPAccess requestACard:data delegate:self];
+        
+    }    
 }
 
--(void)selectedTime:(id)sender{
+
+#pragma mark PDHTTPAccessDelegate
+
+-(void)didReceiveString:(NSString *)receivedString{
     
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] autorelease];
+    hud.mode = MBProgressHUDModeCustomView;
+    hud.labelText = @"Richiesta inviata";
+    
+   [hud hide:YES afterDelay:3];
+    
+    NSLog(@"%@",receivedString);
+}
+
+-(void)didReceiveError:(NSError *)error{
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+     hud.customView = nil;
+    hud.labelText = @"Errore, riprova";
+    hud.mode = MBProgressHUDModeCustomView;
+    
+    [hud hide:YES afterDelay:3];
+    NSLog(@"errore server =%@",error.description);
 }
 
 #pragma mark - TextField and TextView Delegate
@@ -326,21 +419,25 @@
         
     [self setTitle:@"Richiedi"];
     
-    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"Validità carta",@"I tuoi dati",@"", nil];  
+    isNew = YES;
+    self.tipoCarta = @"Scegli...";
+    
+    sectionDescription = [[NSMutableArray alloc] initWithObjects:@"",@"I tuoi dati",@"", nil];  
     sectionData = [[NSMutableArray alloc] init];
     
     NSArray *secBtn = [[NSArray alloc] init];
     NSMutableArray *secB = [[NSMutableArray alloc] initWithCapacity:4];
     NSMutableArray *secA = [[NSMutableArray alloc] initWithCapacity:1];
     
-    [secA insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                         @"segmentedCtrl",              @"DataKey",
-                         @"BaseCell",               @"kind",
-                         @""      , @"label",
-                         @"",                   @"detailLabel",
-                         @"",               @"img",
-                         [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
-                         nil] autorelease] atIndex: 0];
+    [secA insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
+                         @"type",            @"DataKey",
+                         @"ActionCell",    @"kind",
+                         @"Carta PerDue",         @"label",
+                         //@"Scegli...",             @"detailLabel",
+                         @"Scegli la tua carta",         @"placeholder",
+                         @"",                 @"img",
+                         [NSString stringWithFormat:@"%d", UITableViewCellStyleValue1], @"style",
+                         nil] autorelease ]  atIndex: 0];
     
     [secB insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                          @"name",              @"DataKey",
@@ -378,6 +475,10 @@
     [sectionData insertObject:secB atIndex:1];
     [sectionData insertObject:secBtn atIndex:2];
     
+    NSArray *payCards = [[NSArray alloc] initWithObjects:@"Semestrale 20€",@"Annuale 36€",@"Biennale  55€", nil];
+    pickerCards = [[PickerViewController alloc] initWithArray:[NSArray arrayWithObjects:payCards,nil] andNumber:1];
+    [payCards release];
+    
     [secA release];
     [secBtn release];
     [secB release];
@@ -386,13 +487,6 @@
     self.cognome = @"";
     self.telefono = @"";
     self.email = @"";
-    
-    segmentedCtrl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"1 mese",@"6 mesi",@"1 anno",@"2 anni", nil]];       
-    segmentedCtrl.frame = CGRectMake(25, 7, 280, 30);
-    [segmentedCtrl addTarget:self
-                      action:@selector(selectedTime:)
-            forControlEvents:UIControlEventValueChanged];
-    segmentedCtrl.segmentedControlStyle = UISegmentedControlStyleBar;
     
 }
 
@@ -420,7 +514,7 @@
 
 - (void)dealloc {
 
-    [segmentedCtrl release];
+    [pickerCards release];
     self.nome = nil;
     self.cognome = nil;
     self.telefono = nil;

@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMHTTPAccess.h"
+@class PickerViewController;
 
-@interface RichiediCardViewController : UITableViewController{
+@interface RichiediCardViewController : UITableViewController<UIActionSheetDelegate,WMHTTPAccessDelegate>{
     
+    PickerViewController *pickerCards;
     NSMutableArray *sectionData;
     NSMutableArray *sectionDescription;
-    UISegmentedControl *segmentedCtrl;
+    BOOL isNew;
 
 }
 @end
