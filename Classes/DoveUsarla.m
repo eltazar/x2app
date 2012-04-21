@@ -79,6 +79,11 @@
                          @"musei",                          @"categoria",
                          nil] autorelease],
                        [[[NSDictionary alloc] initWithObjectsAndKeys:
+                         @"ToucHotel",                      @"title",
+                         @"CategoriaCommerciale",           @"class",
+                         @"touchotel",                      @"categoria",
+                         nil] autorelease],
+                       [[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"Librerie",                       @"title",
                          @"CategoriaCommerciale",           @"class",
                          @"librerie",                       @"categoria",
@@ -223,18 +228,26 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     NSDictionary *rowData = [self.dataModel objectAtIndex:indexPath.row];
     
-    Class ViewControllerClass = NSClassFromString([rowData objectForKey:@"class"]);
-    CategoriaCommerciale *viewController = [[ViewControllerClass alloc]
-                                            initWithTitle:[rowData objectForKey:@"title"]                                            categoria:[rowData objectForKey:@"categoria"]
-                                                 location:location];
+    if([[rowData objectForKey:@"title"] isEqualToString:@"ToucHotel"]){
+        NSLog(@"touch hotel cliccato");
+        [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString: @"th://"]] ? [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"th://"]]:[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/it/app/touchotel/id358599349?mt=8"]];
         
-    //Facciamo visualizzare la vista con i dettagli
-	[self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    else{
+        Class ViewControllerClass = NSClassFromString([rowData objectForKey:@"class"]);
+        CategoriaCommerciale *viewController = [[ViewControllerClass alloc]
+                                                initWithTitle:[rowData objectForKey:@"title"]                                            categoria:[rowData objectForKey:@"categoria"]
+                                                     location:location];
+            
+        //Facciamo visualizzare la vista con i dettagli
+        [self.navigationController pushViewController:viewController animated:YES];
+        [viewController release];
+    }
 }
-
 
 #pragma mark - DoveUsarla (IBActions)
 
