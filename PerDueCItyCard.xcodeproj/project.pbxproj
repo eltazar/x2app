@@ -80,6 +80,8 @@
 		AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7031509658D00E54106 /* AcquistoOnlineController.m */; };
 		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
+		AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80D1543005100A980D7 /* ToucHotel.png */; };
+		AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80E1543005100A980D7 /* ToucHotel@2x.png */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CardsViewController.m */; };
@@ -292,6 +294,8 @@
 		AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcquistoOnlineController.xib; sourceTree = "<group>"; };
 		AC13B7071509691500E54106 /* BuyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyCell.h; sourceTree = "<group>"; };
 		AC13B7081509691500E54106 /* BuyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyCell.m; sourceTree = "<group>"; };
+		AC18B80D1543005100A980D7 /* ToucHotel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToucHotel.png; sourceTree = "<group>"; };
+		AC18B80E1543005100A980D7 /* ToucHotel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToucHotel@2x.png"; sourceTree = "<group>"; };
 		AC27879B15194A5C00747542 /* GeoDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoDecoder.h; sourceTree = "<group>"; };
 		AC27879C15194A5C00747542 /* GeoDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoDecoder.m; sourceTree = "<group>"; };
 		AC3AC159151DCA4000C8164D /* grayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton.png; sourceTree = "<group>"; };
@@ -504,6 +508,8 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				AC18B80D1543005100A980D7 /* ToucHotel.png */,
+				AC18B80E1543005100A980D7 /* ToucHotel@2x.png */,
 				ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */,
 				ACD9CF6F1541B78E007B7887 /* 37x-Checkmark.png */,
 				AC3C57B31525313500E5457E /* refreshBtn.png */,
@@ -1184,6 +1190,8 @@
 				D94C1C41153238B800697575 /* PagamentoTotaleCell.xib in Resources */,
 				ACD9CF701541B78E007B7887 /* 37x-Checkmark@2x.png in Resources */,
 				ACD9CF711541B78E007B7887 /* 37x-Checkmark.png in Resources */,
+				AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */,
+				AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
