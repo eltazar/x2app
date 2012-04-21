@@ -446,6 +446,7 @@
                          @"",                   @"detailLabel",
                          @"",               @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UIKeyboardAppearanceDefault], @"keyboardType",
                          nil] autorelease] atIndex: 0];
     
     [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
@@ -454,13 +455,16 @@
                          @"Cognome",   @"label",
                          @"",       @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UIKeyboardAppearanceDefault], @"keyboardType",
                          nil] autorelease] atIndex: 1];
+    
     [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"email",           @"DataKey",
                          @"TextFieldCell",       @"kind",
                          @"E-mail",   @"label",
                          @"",       @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UIKeyboardTypeEmailAddress], @"keyboardType",
                          nil] autorelease] atIndex: 2];
     
     [secB insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
@@ -469,6 +473,7 @@
                          @"Telefono",   @"label",
                          @"",       @"img",
                          [NSString stringWithFormat:@"%d", UITableViewCellStyleDefault], @"style",
+                         [NSString stringWithFormat:@"%d", UIKeyboardTypeNumbersAndPunctuation], @"keyboardType",
                          nil] autorelease] atIndex: 2];
     
     [sectionData insertObject:secA atIndex:0];
