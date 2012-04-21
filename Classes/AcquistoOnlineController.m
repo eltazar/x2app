@@ -283,9 +283,7 @@
     self.tableView.scrollEnabled = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
-    
-    [retrieveView setHidden:YES];
-    
+        
     //[[SKPaymentQueue defaultQueue] addTransactionObserver:[IAPHelper sharedHelper]];
     
     self.title = @"Acquisti";
@@ -341,10 +339,7 @@
     self.products = nil;
     [productsId release];
     productsId = nil;
-    
-    [retrieveView release];
-    retrieveView = nil;
-    
+        
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -355,7 +350,6 @@
     //TODO: fare removing dell'observer inapp purchase?
     //removeTransactionObserver:
     
-    [retrieveView release];
     
     //[[NSNotificationCenter defaultCenter] removeObserver:self];
     
@@ -378,13 +372,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"error_purchase"]){
-        
-        [retrieveView setHidden:NO];
-        [self.view addSubview:retrieveView];
-        return;
-    }
     
 #warning inserire canMakePurchase prima di visualizzare store
     
