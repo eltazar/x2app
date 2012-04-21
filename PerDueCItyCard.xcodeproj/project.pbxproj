@@ -170,8 +170,6 @@
 		D94C1C3D1532386300697575 /* PagamentoCreditCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C3C1532386200697575 /* PagamentoCreditCardCell.xib */; };
 		D94C1C3F1532388100697575 /* PagamentoDatiLoginCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C3E1532388100697575 /* PagamentoDatiLoginCell.xib */; };
 		D94C1C41153238B800697575 /* PagamentoTotaleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C40153238B800697575 /* PagamentoTotaleCell.xib */; };
-		D94C1C5115323A9F00697575 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5015323A9F00697575 /* Default.png */; };
-		D94C1C5315323AA200697575 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5215323AA200697575 /* Default@2x.png */; };
 		D95CBF41153067C800D79209 /* Coupon.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D4CA8B13ED5144001C7763 /* Coupon.xib */; };
 		D9678C5B1535D95900C86E83 /* WMHTTPAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D9678C5A1535D95900C86E83 /* WMHTTPAccess.m */; };
 		D9678C5F1535F8FF00C86E83 /* PDHTTPAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D9678C5E1535F8FF00C86E83 /* PDHTTPAccess.m */; };
@@ -1184,8 +1182,6 @@
 				D94C1C3D1532386300697575 /* PagamentoCreditCardCell.xib in Resources */,
 				D94C1C3F1532388100697575 /* PagamentoDatiLoginCell.xib in Resources */,
 				D94C1C41153238B800697575 /* PagamentoTotaleCell.xib in Resources */,
-				D94C1C5115323A9F00697575 /* Default.png in Resources */,
-				D94C1C5315323AA200697575 /* Default@2x.png in Resources */,
 				ACD9CF701541B78E007B7887 /* 37x-Checkmark@2x.png in Resources */,
 				ACD9CF711541B78E007B7887 /* 37x-Checkmark.png in Resources */,
 			);
