@@ -53,12 +53,14 @@ typedef enum {CouponEsercenteNULL, CouponEsercenteNormale, CouponEsercenteRistor
 @property (nonatomic, retain) NSString *username;
 @end
 
+//variabile globale per contare quante volte è stata mostrata la view home temporanea
+static int count = 0;
 
 @implementation Coupon
 
 @synthesize dataModel=_dataModel, idCoupon=_idCoupon;
 
-@synthesize titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tableview=_tableview, webViewContr=_webViewController, faqViewController=_faqViewController, faqWebView=_faqWebView;
+@synthesize titoloOffertaLbl=_titoloOffertaLbl, compraBtn=_compraBtn, reloadBtn=_reloadBtn, caricamentoSpinner=_caricamentoSpinner, tableview=_tableview, webViewContr=_webViewController, faqViewController=_faqViewController, faqWebView=_faqWebView , home;
 
 @synthesize timer=_timer, tempoLbl=_tempoLbl, appDelegate=_appDelegate;
 
@@ -434,6 +436,21 @@ typedef enum {CouponEsercenteNULL, CouponEsercenteNormale, CouponEsercenteRistor
 
 #pragma mark - Gestione view e bottoni
 
+-(IBAction)showWhereToUse:(id)sender{
+    
+    PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*) [[UIApplication sharedApplication] delegate];
+    [appDelegate switchToTab:1];
+    [self.home removeFromSuperview];
+}
+
+-(IBAction)showCouponTab:(id)sender{
+    
+    [UIView animateWithDuration:0.4
+                     animations:^(void){
+                         [self.home setAlpha:0.0];
+                     }
+     ];
+}
 
 -(IBAction)refreshView:(id)sender {
     [self viewDidAppear:YES];
@@ -774,6 +791,12 @@ if ([rows count]>0) {//coupon disponibile
                                                object:nil];
     
     waitingForFacebook = NO;
+    
+    //se è offerta del giorno ed ancora non è stata mostrata mostro la view home temporanea
+    if(isOffertaDelGiorno && count == 0){
+        [self.navigationController.view addSubview:self.home];
+        count++;
+    }
 }	
 
 
@@ -805,6 +828,7 @@ if ([rows count]>0) {//coupon disponibile
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.home removeFromSuperview];
 }
 
 
@@ -834,6 +858,9 @@ if ([rows count]>0) {//coupon disponibile
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    self.home = nil;
+    
     self.reloadBtn = nil;
     self.caricamentoSpinner = nil;
 	//[url release];

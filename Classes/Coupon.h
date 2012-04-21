@@ -51,6 +51,10 @@
 @property (nonatomic, retain) IBOutlet UIViewController *faqViewController;
 @property (nonatomic, retain) IBOutlet UIWebView *faqWebView;
 
+@property (nonatomic, retain) IBOutlet UIView *home;
+
+-(IBAction)showCouponTab:(id)sender;
+-(IBAction)showWhereToUse:(id)sender;
 
 
 
