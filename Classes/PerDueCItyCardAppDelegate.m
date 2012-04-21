@@ -233,6 +233,11 @@
 }
 */
 
+-(void)switchToTab:(NSInteger)index{
+    
+    [tabBarController setSelectedIndex:index];
+}
+
 #pragma mark - Facebook
 
 #pragma mark - FacebookSessionDelegate

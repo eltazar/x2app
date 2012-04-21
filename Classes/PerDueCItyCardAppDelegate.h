@@ -25,6 +25,7 @@
 @property (readonly, retain, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, retain, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+-(void)switchToTab:(NSInteger)index;
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 - (void)logIntoFacebook;
