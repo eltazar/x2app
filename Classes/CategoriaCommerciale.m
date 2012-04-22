@@ -441,7 +441,7 @@
     [rows removeLastObject];
     if ([type isEqualToString:@"Esercente:FirstRows"]) {
         [self.activityIndicator stopAnimating];
-        self.activityIndicator.hidden = YES;
+        //self.activityIndicator.hidden = YES;
         [self.dataModel removeAllObjects];
         [self.dataModel addObjectsFromArray:rows];
         [self.tableView reloadData];
@@ -467,7 +467,7 @@
     
     else if ([type isEqualToString:@"Esercente:Search"]) {
         [self.searchActivityIndicator stopAnimating];
-        self.searchActivityIndicator.hidden = YES;
+        //self.searchActivityIndicator.hidden = YES;
         [self.dataModel removeAllObjects];
         [self.dataModel addObjectsFromArray:rows];
         [self.tableView reloadData];
