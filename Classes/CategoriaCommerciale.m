@@ -474,6 +474,12 @@
     } 
 }
 
+-(void)didReceiveError:(NSError *)error{
+    
+    UIAlertView *alert = [[ UIAlertView alloc] initWithTitle:@"Errore di connessione" message:@"Errore di connessione, riprovare" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
+}
 
 #pragma mark - CategoriaCommerciale (IBActions)
 
