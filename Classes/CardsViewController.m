@@ -551,6 +551,13 @@
     
     //rimuovo dal model riga relativa al tasto logout
     [[self.sectionData objectAtIndex:self.sectionData.count - 1] removeObjectAtIndex:1];
+    //NSLog(@"sec data = %@, count = %d",[self.sectionData objectAtIndex:self.sectionData.count - 1],[[self.sectionData objectAtIndex:self.sectionData.count - 1] count]);
+    
+    //se nella sezione c'è la riga "logout" la rimuovo
+    if([[self.sectionData objectAtIndex:self.sectionData.count - 1] count] > 1){
+        NSLog(@"entrato in remove logout row");
+        [[self.sectionData objectAtIndex:self.sectionData.count - 1] removeObjectAtIndex:1];
+    }
     [self.tableView reloadData];
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
