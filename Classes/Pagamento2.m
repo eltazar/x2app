@@ -714,6 +714,15 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 }
 
 -(void)didLogout{
+    
+    //se effettuo il logout cancello i dati della carta di credito, perchè non è detto che al prossimo login sia  lo stesso utente
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_nome"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_tipoCarta"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_numero"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_scadenza"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [self.navigationController dismissModalViewControllerAnimated:YES];
     [self.navigationController popViewControllerAnimated:YES];
 }
