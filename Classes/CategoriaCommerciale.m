@@ -400,6 +400,14 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{ 
 	NSLog(@"searchBarSearchButtonClicked");
     [self.searchBar resignFirstResponder];
+    
+    for(id subview in [self.searchBar subviews])
+    {
+        if ([subview isKindOfClass:[UIButton class]]) {
+            [subview setEnabled:YES];
+        }
+    }
+    
 	//self.searchBar.text = @"";
 	self.navigationItem.rightBarButtonItem.enabled = TRUE;
 }
@@ -543,7 +551,7 @@
     // inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
     searchKey = [searchKey stringByReplacingOccurrencesOfString:@" " withString:@"-"]; 
     
-    self.searchActivityIndicator.hidden = NO;
+    //self.searchActivityIndicator.hidden = NO;
     [self.searchActivityIndicator startAnimating];
     
     NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
