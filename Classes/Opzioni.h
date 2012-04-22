@@ -23,6 +23,6 @@
 @property (nonatomic, retain) IBOutlet UIButton *fatto;
 @property (nonatomic, retain) NSArray *giorni;
 @property (nonatomic, retain) NSArray *provinceattive;
+- (IBAction)conferma:(id)sender;
 - (IBAction)chiudi:(id)sender;
-
 @end

@@ -107,13 +107,17 @@
 }
 
 
-- (IBAction)chiudi:(id)sender {
+- (IBAction)conferma:(id)sender {
 	[defaults setObject:[NSNumber numberWithInt:[optPicker selectedRowInComponent:0]] forKey:@"idcity"];
 	[defaults setObject:[NSNumber numberWithInt:[optPicker selectedRowInComponent:1]] forKey:@"idday"];
 	[defaults synchronize];
 	NSLog(@"Indici salvati: %d e %d\n",[[defaults objectForKey:@"idcity"]integerValue],[[defaults objectForKey:@"idday"]integerValue]);
     [self dismissModalViewControllerAnimated:YES];
 
+}
+
+- (IBAction)chiudi:(id)sender{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
