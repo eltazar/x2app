@@ -11,6 +11,7 @@
 #import "ValidateCardController.h"
 #import "Utilita.h"
 #import "WMHTTPAccess.h"
+#import "MBProgressHUD.h"
 
 @interface FindNearCompanyController () {}
 @property (nonatomic, retain) CartaPerDue *card;
@@ -189,7 +190,28 @@
     }
 }
 
+#pragma mark - WMHTTPAccessDelegate
 
+
+- (void)didReceiveJSON:(NSDictionary *)dataDict {
+    
+    NSLog(@"data dict find near = %@", dataDict);
+    NSString *type = [[dataDict allKeys] objectAtIndex:0];
+    NSMutableArray *rows = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
+    
+    //se non ci sono risultati mostro avviso
+    if( [type isEqualToString:@"Esercente:FirstRows"] && rows.count == 1){
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"Non ci sono esercenti vicini";
+        hud.mode = MBProgressHUDModeCustomView;
+        hud.customView = nil;
+        [hud hide:YES afterDelay:2];
+       [self.activityIndicator stopAnimating];
+    }
+    else{
+        [super didReceiveJSON:dataDict];
+    }
+}
 
 #pragma mark - FindNearCompanyController (metodi privati)
 //@"41.890520"            forKey:@"lat"];
