@@ -549,8 +549,16 @@
 
 -(void)didLogout{
     
-    //rimuovo dal model riga relativa al tasto logout
-    [[self.sectionData objectAtIndex:self.sectionData.count - 1] removeObjectAtIndex:1];
+    NSLog(@"did logout in cards view controller");
+    
+    //se effettuo il logout cancello i dati della carta di credito, perchè non è detto che al prossimo login sia  lo stesso utente
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_nome"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_tipoCarta"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_numero"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_scadenza"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     //NSLog(@"sec data = %@, count = %d",[self.sectionData objectAtIndex:self.sectionData.count - 1],[[self.sectionData objectAtIndex:self.sectionData.count - 1] count]);
     
     //se nella sezione c'è la riga "logout" la rimuovo
