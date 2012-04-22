@@ -434,10 +434,20 @@
         return FALSE ;
     }
     
+    //controllo se è stata inserita carta di credito
+    if([tipoCarta isEqualToString:@"--"]){
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Seleziona una carta" message:@"Seleziona una carta di credito valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+        return FALSE;
+    }
+
+    
     //controlla formato della stringa scadenza
     if([scadenza isEqualToString:@"--/--"] || [[scadenza substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"--"] || [[scadenza substringWithRange:NSMakeRange(3, 2)] isEqualToString:@"--"]){
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Formato data errato" message:@"Seleziona una data di scadenza valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Data di scadenza non valida" message:@"Seleziona una data di scadenza valida" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
@@ -445,14 +455,14 @@
     
     //controlla che i dati inseriti siano solo numerici per il numero carta e cvv
     if(![self isNumeric:numeroCarta]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero carta di credito non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Numero carta di credito non valido" message:@"Il campo richiesto può contenere solo numeri" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
     }
     
     if(![self isNumeric:cvv]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Codice CVV non valido" message:@"Controlla il numero inserito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Codice CVV non valido" message:@"Il campo richiesto può contenere solo numeri" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
         return FALSE;
