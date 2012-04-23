@@ -578,36 +578,39 @@
 
 -(void)didReceiveJSON:(NSDictionary *)jsonDict {
     
-    NSLog(@"carta ricevuta count = %d, tipo = %@",[[jsonDict objectForKey:@"CartaRecuperata"] count],[[jsonDict objectForKey:@"CartaRecuperata"] class]);
+    NSLog(@"procedura recupero carta count = %d, tipo = %@",[[jsonDict objectForKey:@"CartaRecuperata"] count],[[jsonDict objectForKey:@"CartaRecuperata"] class]);
     
     if([jsonDict objectForKey:@"CartaRecuperata"] &&
-       [[jsonDict objectForKey:@"CartaRecuperata"] count] > 1){
+       [[jsonDict objectForKey:@"CartaRecuperata"] count] > 0){
       
         NSLog(@"CARTA RICEVUTA = %@", jsonDict);
         
-                if(! [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"] || ! [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"]){
+        
+        
+        for(int i = 0; i < [[jsonDict objectForKey:@"CartaRecuperata"] count]; i++){
+          
+            NSDictionary *c = [[jsonDict objectForKey:@"CartaRecuperata"] objectAtIndex:i];
+          
+            NSLog(@"DIZIONARIO MINI = %@",[c objectForKey:@"expiryDate"]);
             
-            NSLog(@"annullo perchè  è stato fatto logout da qualche  altra parte");
-            return;
+            CartaPerDue *card = [[CartaPerDue alloc] init];
+            card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
+            card.surname = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];     
+            card.number = [c objectForKey:@"number"];
+            card.expiryString = [c objectForKey:@"expiryDate"];
+            
+            NSError *error;
+            if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {
+                NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
+            } else if (self && [self respondsToSelector:@selector(didAssociateNewCard)]) {
+                [self didAssociateNewCard];
+                [self.tableView reloadData];
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            
+            [card release];
+    
         }
-        
-        CartaPerDue *card = [[CartaPerDue alloc] init];
-        card.name = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"];
-        card.surname = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"];     
-        card.number = [[jsonDict objectForKey:@"CartaRecuperata"] objectForKey:@"number"];
-        
-        card.expiryString = [[jsonDict objectForKey:@"CartaRecuperata"] objectForKey:@"expiryDate"];
-        
-        NSError *error;
-        if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {
-            NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
-        } else if (self && [self respondsToSelector:@selector(didAssociateNewCard)]) {
-            [self didAssociateNewCard];
-            [self.tableView reloadData];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-        }
-        
-        [card release];
     }
     else{
 #warning mostrare alert ad utente
