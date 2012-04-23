@@ -11,6 +11,8 @@
 #import "PDHTTPAccess.h"
 #import "Utilita.h"
 #import "MBProgressHUD.h"
+#import "UIDevice+IdentifierAddition.h"
+
 @implementation IAPHelper
 
 @synthesize productIdentifiers = _productIdentifiers;
@@ -34,7 +36,7 @@ static IAPHelper * _sharedHelper;
 
 - (id)init {
     self = [super init];
-    if(self){
+    if(self){        
     }
     return self;
     
@@ -290,6 +292,11 @@ static IAPHelper * _sharedHelper;
     //di default setto come acquisto fallito
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"error_purchase"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)canMakePurchases
+{
+    return [SKPaymentQueue canMakePayments];
 }
 
 

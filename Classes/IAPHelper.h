@@ -39,5 +39,6 @@
 + (IAPHelper *) sharedHelper;
 //metodo per far partire l'acquisto
 - (void)buyProductIdentifier:(SKProduct *)product;
+- (BOOL)canMakePurchases;
 
 @end
