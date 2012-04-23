@@ -117,40 +117,61 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
-    if (section == 2) {
-        
-        UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
-        [customView setBackgroundColor:[UIColor clearColor]];
-        
-        UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
-        
-        lbl.backgroundColor = [UIColor clearColor];
-        lbl.textColor = [UIColor whiteColor];
-        lbl.lineBreakMode = UILineBreakModeWordWrap;
-        lbl.numberOfLines = 0;
-        lbl.textAlignment =  UITextAlignmentCenter;
-        lbl.font = [UIFont systemFontOfSize:14];       
-        
-        
-        lbl.text = @"Sarai ricontattato entro un giorno lavorativo ";
-        
-        UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
-        CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
-        CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-        
-        lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height);
-        
-        [customView addSubview:lbl];
-        [lbl release];
-        return customView;
+    if(section == 1){
+        return nil;
     }
     
-    return nil;
+    UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 44.0)] autorelease];
+    [customView setBackgroundColor:[UIColor clearColor]];
+    
+    UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectZero];
+    
+    lbl.backgroundColor = [UIColor clearColor];
+    lbl.textColor = [UIColor whiteColor];
+    lbl.lineBreakMode = UILineBreakModeWordWrap;
+    lbl.numberOfLines = 0;
+    lbl.textAlignment =  UITextAlignmentCenter;
+    lbl.font = [UIFont systemFontOfSize:14];       
+    
+    if(section == 0){
+        lbl.text = @"Per richiedere la Guida ai Vantaggi + Carta PerDue";
+    }
+    else if(section == 2){
+        lbl.text = @"Sarai ricontattato entro un giorno lavorativo ";
+    }
+    
+    UIFont *txtFont = [UIFont boldSystemFontOfSize:18];
+    CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
+    CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+    
+    lbl.frame = CGRectMake(10, 0, tableView.bounds.size.width-20, labelSize.height);
+    
+    [customView addSubview:lbl];
+    [lbl release];
+    return customView;
 }
-
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if(section == 0){
+        return 30;
+    }
+    else if(section == 2){
+        return 2;
+    }
+    else return [super tableView:tableView heightForFooterInSection:section];
+}
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-	return 30.0;
+//    if(section != 0)
+//        return 35.0;
+//    else
+    if(section == 1){
+        return 35.0;
+    }
+    else if(section == 2){
+        return 25;
+    }
+    else return [super tableView:tableView heightForHeaderInSection:section];
+
 }
 
 //setta il colore delle label dell'header BIANCHE
@@ -167,8 +188,12 @@
         //[b setBackgroundColor:[UIColor grayColor]];
         
         b.frame = CGRectMake(21.0, 0, 280.0, 37);
-        b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-        [b setTitle:@"Invia richiesta" forState:UIControlStateNormal];
+        b.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+        [b setTitle:@"Invia richiesta via email allo staff di Carta PerDue" forState:UIControlStateNormal];
+        b.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
+        b.titleLabel.numberOfLines = 0;
+        [b.titleLabel sizeToFit];
+        b.titleLabel.textAlignment = UITextAlignmentCenter;
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         b.layer.cornerRadius = 8.0f;
@@ -432,7 +457,7 @@
     [secA insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                          @"type",            @"DataKey",
                          @"ActionCell",    @"kind",
-                         @"Carta PerDue",         @"label",
+                         @"Tipo Carta",         @"label",
                          //@"Scegli...",             @"detailLabel",
                          @"Scegli la tua carta",         @"placeholder",
                          @"",                 @"img",
