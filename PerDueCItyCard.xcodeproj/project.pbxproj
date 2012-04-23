@@ -102,6 +102,8 @@
 		ACA2FBEE1507A22000E3921B /* Utilita.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA2FBED1507A22000E3921B /* Utilita.m */; };
 		ACB207F1151BE5EC0033B060 /* DataLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB207EF151BE5EC0033B060 /* DataLoginController.m */; };
 		ACB207F2151BE5EC0033B060 /* DataLoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACB207F0151BE5EC0033B060 /* DataLoginController.xib */; };
+		ACB9EB99154553B800C1EBC7 /* cartaBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB9EB98154553B800C1EBC7 /* cartaBtn@2x.png */; };
+		ACB9EB9C154553C700C1EBC7 /* couponBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB9EB9B154553C700C1EBC7 /* couponBtn@2x.png */; };
 		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
 		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
 		ACC808541521F678006DF894 /* grayButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC808531521F678006DF894 /* grayButton2.png */; };
@@ -329,6 +331,8 @@
 		ACB207EE151BE5EC0033B060 /* DataLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoginController.h; sourceTree = "<group>"; };
 		ACB207EF151BE5EC0033B060 /* DataLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoginController.m; sourceTree = "<group>"; };
 		ACB207F0151BE5EC0033B060 /* DataLoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataLoginController.xib; sourceTree = "<group>"; };
+		ACB9EB98154553B800C1EBC7 /* cartaBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cartaBtn@2x.png"; sourceTree = "<group>"; };
+		ACB9EB9B154553C700C1EBC7 /* couponBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "couponBtn@2x.png"; sourceTree = "<group>"; };
 		ACC313C7151A9507008DBEBA /* greenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButton.png; sourceTree = "<group>"; };
 		ACC313C9151A972C008DBEBA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ACC31927151CD815008229B0 /* LoginControllerBis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginControllerBis.h; sourceTree = "<group>"; };
@@ -508,6 +512,8 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				ACB9EB9B154553C700C1EBC7 /* couponBtn@2x.png */,
+				ACB9EB98154553B800C1EBC7 /* cartaBtn@2x.png */,
 				AC18B80D1543005100A980D7 /* ToucHotel.png */,
 				AC18B80E1543005100A980D7 /* ToucHotel@2x.png */,
 				ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */,
@@ -1192,6 +1198,8 @@
 				ACD9CF711541B78E007B7887 /* 37x-Checkmark.png in Resources */,
 				AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */,
 				AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */,
+				ACB9EB99154553B800C1EBC7 /* cartaBtn@2x.png in Resources */,
+				ACB9EB9C154553C700C1EBC7 /* couponBtn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
