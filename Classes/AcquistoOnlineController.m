@@ -86,11 +86,6 @@
     
 }
 
-- (void)dismissHUD:(id)arg {
-    
-    [MBProgressHUD hideHUDForView:self.view animated:YES];    
-}
-
 - (void)productsLoaded:(NSNotification *)notification {
     
     //ho recuperato catalogo da server apple e lo mostro
@@ -123,7 +118,7 @@
                                                          message:transaction.error.localizedDescription 
                                                         delegate:nil 
                                                cancelButtonTitle:nil 
-                                               otherButtonTitles:@"OK", nil] autorelease];
+                                               otherButtonTitles:@"Chiudi", nil] autorelease];
         
         [alert show];
     }
@@ -215,12 +210,12 @@
     
     //lancio hud per processo di acquisto
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"Acquisto carta...";
+    hud.labelText = @"Attendere...";
     
     //lancio procedura di acquisto
     [[IAPHelper sharedHelper] buyProductIdentifier:product];
     
-    [self performSelector:@selector(timeout:) withObject:nil afterDelay:60*5];
+    //[self performSelector:@selector(timeout:) withObject:nil afterDelay:60*5];
     
 }
 
@@ -265,13 +260,19 @@
     }
     else{
         NSLog(@"lancio query prodotti alla apple: internet assente");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+		[alert show];
+        [alert release];
     }
     
 }
 
 -(void)didReceiveError:(NSError *)error{
     NSLog(@"RICEZIONE CATALOGO AZIENDA ERRORE SERVER = %@", [error description]);
-    [self dismissHUD:nil];
+      [MBProgressHUD hideHUDForView:self.view animated:YES];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore di connessione" message:@"Si è verificato un errore di connessione, riprovare" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+    [alert show];
+    [alert release];
 }
 
 #pragma mark - View lifecycle
@@ -375,17 +376,25 @@
     
 #warning inserire canMakePurchase prima di visualizzare store
     
-    if([Utilita networkReachable]){
-        //carico codici da catalogo sul nostro server
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"Caricamento catalogo...";
-        [PDHTTPAccess getIAPCatalogWithDelegate:self];
+    if([IAPHelper.sharedHelper canMakePurchases]){
+        if([Utilita networkReachable]){
+            //carico codici da catalogo sul nostro server
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"Caricamento catalogo...";
+            [PDHTTPAccess getIAPCatalogWithDelegate:self];
+        }
+        else{
+            NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+            [alert show];
+            [alert release];
+        }
     }
     else{
-#warning inserire alert
-        NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Acquisti In-App disabilitati" message:@"Abilitare il servizio dalla sezione: Impostazioni->Generali->Restrizioni" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
     }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
