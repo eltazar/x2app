@@ -359,23 +359,31 @@
     //fa si che il testo inserito nei texfield sia preso anche se non è stata dismessa la keyboard
     [self.view endEditing:TRUE];
     
-    if([self validateFields]){
-        NSLog(@"tutti campi sono validi!");
-        
-        //prendo solo il nome del tipo carta, senza prezzo
-        NSArray *token = [[self.tipoCarta componentsSeparatedByString:@" "] objectAtIndex:0];
-        
-        NSLog(@"token = %@",token);
-        
-        NSArray *data = [NSArray arrayWithObjects:token,self.nome,self.cognome,[Utilita checkPhoneNumber:self.telefono],self.email, nil];
-        NSLog(@"%@",data);
-        
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"Invio...";
-        
-        [PDHTTPAccess requestACard:data delegate:self];
-        
-    }    
+    if([Utilita networkReachable]){
+    
+        if([self validateFields]){
+            NSLog(@"tutti campi sono validi!");
+            
+            //prendo solo il nome del tipo carta, senza prezzo
+            NSArray *token = [[self.tipoCarta componentsSeparatedByString:@" "] objectAtIndex:0];
+            
+            NSLog(@"token = %@",token);
+            
+            NSArray *data = [NSArray arrayWithObjects:token,self.nome,self.cognome,[Utilita checkPhoneNumber:self.telefono],self.email, nil];
+            NSLog(@"%@",data);
+            
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"Invio...";
+            
+            [PDHTTPAccess requestACard:data delegate:self];
+            
+        }    
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+		[alert show];
+        [alert release];
+    }
 }
 
 
