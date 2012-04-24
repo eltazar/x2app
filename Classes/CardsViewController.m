@@ -470,11 +470,20 @@
             [navController release];
             
         } 
-        else{            
-            //lancio query per recupero della carta acquistato dall'utente idutente
-            NSLog(@"ID UTENTE = %d",[idUtente intValue]);
-            [PDHTTPAccess retrieveCardFromServer:[idUtente intValue] delegate:self]; 
+        else{         
+            if([Utilita networkReachable]){
+                //lancio query per recupero della carta acquistato dall'utente idutente
+                NSLog(@"ID UTENTE = %d",[idUtente intValue]);
+                [PDHTTPAccess retrieveCardFromServer:[idUtente intValue] delegate:self]; 
+            }
+            else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+                [alert show];
+                [alert release];
+            }
         }
+        
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
     }
     else if([dataKey isEqualToString:@"logout"]){
@@ -620,6 +629,10 @@
 
 -(void)didReceiveError:(NSError *)error{
     NSLog(@"ERRORE = %@", error.description);
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore connessione" message:@"Si è verificato un errore di connessione, riprovare" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+    [alert show];
+    [alert release];
 }
 
 
