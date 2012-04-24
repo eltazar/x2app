@@ -459,7 +459,7 @@ static int count = 0;
 
 -(void)Paga:(id)sender{
     if (![Utilita networkReachable]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi", nil];
         [alert show];
         [alert release];
         return;
@@ -671,7 +671,7 @@ if ([rows count]>0) {//coupon disponibile
         [self.compraBtn setHidden:YES];
         [self.compraBtn setEnabled:NO];
         [self.reloadBtn setHidden:NO];
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
 		[alert show];
         [alert release];
         return;
@@ -833,10 +833,10 @@ if ([rows count]>0) {//coupon disponibile
 
 
 -(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"WIEW WILL DISAPPEAR TIMER prima di invalidazione = %@",self.timer);
+    NSLog(@"WIEW DID DISAPPEAR TIMER prima di invalidazione = %@",self.timer);
     [self.timer invalidate];
     self.timer = nil;
-    NSLog(@"WIEW WILL DISAPPEAR TIMER dopo di invalidazione = %@", self.timer);
+    NSLog(@"WIEW DID DISAPPEAR TIMER dopo di invalidazione = %@", self.timer);
     [super viewDidDisappear:animated];
 }
 

@@ -73,8 +73,10 @@
     [super viewWillAppear:animated];
     
     if(! [Utilita networkReachable]){
-#warning inserire alert internet assente
         NSLog(@"internet assente errore");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+		[alert show];
+        [alert release];
     }
     else{ 
         //se la carta non è scaduta controllo se è associata ad un altro dispositivo

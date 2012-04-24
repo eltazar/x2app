@@ -68,7 +68,7 @@
     [super viewWillAppear:animated];
     NSLog(@"ALTRE OFFERTE VIEW WILL APPEAR");
     if(! [Utilita networkReachable]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
 		[alert show];
         [alert release];
 		
