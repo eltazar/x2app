@@ -362,7 +362,12 @@
     if([self validateFields]){
         NSLog(@"tutti campi sono validi!");
         
-        NSArray *data = [NSArray arrayWithObjects:self.tipoCarta,self.nome,self.cognome,[Utilita checkPhoneNumber:self.telefono],self.email, nil];
+        //prendo solo il nome del tipo carta, senza prezzo
+        NSArray *token = [[self.tipoCarta componentsSeparatedByString:@" "] objectAtIndex:0];
+        
+        NSLog(@"token = %@",token);
+        
+        NSArray *data = [NSArray arrayWithObjects:token,self.nome,self.cognome,[Utilita checkPhoneNumber:self.telefono],self.email, nil];
         NSLog(@"%@",data);
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
