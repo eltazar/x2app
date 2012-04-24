@@ -515,10 +515,18 @@
     }
     else if([dataKey isEqualToString:@"rebind"]){
         //TODO: controllare bene come far avvenire l'associazione , se così semplicemente o come in "abbinaController"
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"Attendere...";
-        hud.detailsLabelText = @"Abbinamento in corso...";
-        [PDHTTPAccess cardDeviceAssociation:self.card.number request:@"Set" delegate:self];
+        if([Utilita networkReachable]){
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"Attendere...";
+            hud.detailsLabelText = @"Abbinamento in corso...";
+            [PDHTTPAccess cardDeviceAssociation:self.card.number request:@"Set" delegate:self];
+        }
+        else{
+            NSLog(@"internet assente");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+            [alert show];
+            [alert release];
+        }
     }
     else if([dataKey isEqualToString:@"removeCard"]){
         NSError *error;
