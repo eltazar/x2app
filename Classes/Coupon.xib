@@ -336,7 +336,7 @@
 						<reference key="IBUINormalTitleShadowColor" ref="1009134908"/>
 						<object class="NSCustomResource" key="IBUINormalImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">cartaBtn@2x.png</string>
+							<string key="NSResourceName">cartaBtn2@2x.png</string>
 						</object>
 						<reference key="IBUIFontDescription" ref="895779236"/>
 						<reference key="IBUIFont" ref="669540011"/>
@@ -1064,7 +1064,7 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>cartaBtn@2x.png</string>
+				<string>cartaBtn2@2x.png</string>
 				<string>couponBtn@2x.png</string>
 				<string>logo.png</string>
 				<string>refreshBtn.png</string>
