@@ -260,7 +260,7 @@
     }
     else{
         NSLog(@"lancio query prodotti alla apple: internet assente");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
 		[alert show];
         [alert release];
     }
@@ -373,9 +373,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-#warning inserire canMakePurchase prima di visualizzare store
-    
+        
     if([IAPHelper.sharedHelper canMakePurchases]){
         if([Utilita networkReachable]){
             //carico codici da catalogo sul nostro server
@@ -385,7 +383,7 @@
         }
         else{
             NSLog(@"ACQUISTO ONLINE VIEW: INTERNET NON DISPONIBILE");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Ok",nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
             [alert show];
             [alert release];
         }
