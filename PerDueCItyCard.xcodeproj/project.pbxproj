@@ -113,7 +113,6 @@
 		ACDE7C9D14FDB0A9000F6890 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */; };
 		ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9F14FDB432000F6890 /* PickerViewController.m */; };
 		ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */; };
-		ACF7656E151A4CF000914BDD /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF7656D151A4CF000914BDD /* IAPHelper.m */; };
 		ACF76574151A4D4900914BDD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF76573151A4D4900914BDD /* StoreKit.framework */; };
 		D91D43041519CD50001D9033 /* LocalDatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */; };
 		D924E61A151CA49800AD4C07 /* DoveUsarla.m in Sources */ = {isa = PBXBuildFile; fileRef = D924E618151CA49800AD4C07 /* DoveUsarla.m */; };
@@ -335,8 +334,6 @@
 		ACDE7C9E14FDB432000F6890 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		ACDE7C9F14FDB432000F6890 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
-		ACF7656C151A4CF000914BDD /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
-		ACF7656D151A4CF000914BDD /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
 		ACF76573151A4D4900914BDD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D91D43021519CD50001D9033 /* LocalDatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDatabaseAccess.h; sourceTree = "<group>"; };
 		D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDatabaseAccess.m; sourceTree = "<group>"; };
@@ -659,19 +656,9 @@
 			name = Networking;
 			sourceTree = "<group>";
 		};
-		AC4B2E92151A0A4C00CA5F9E /* in app purchase */ = {
-			isa = PBXGroup;
-			children = (
-				ACF7656C151A4CF000914BDD /* IAPHelper.h */,
-				ACF7656D151A4CF000914BDD /* IAPHelper.m */,
-			);
-			name = "in app purchase";
-			sourceTree = "<group>";
-		};
 		AC85A21B14FB97FC00DD91F6 /* classi x aggiornamento */ = {
 			isa = PBXGroup;
 			children = (
-				AC4B2E92151A0A4C00CA5F9E /* in app purchase */,
 				D99378B81519463700DFC410 /* PHP */,
 				AC365D5F150B6B9B006CF120 /* Networking */,
 				ACBAA16D14FF968100F7B347 /* Utilities */,
@@ -1195,7 +1182,6 @@
 				ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */,
 				D99378B21519368200DFC410 /* CartaPerDue.m in Sources */,
 				D91D43041519CD50001D9033 /* LocalDatabaseAccess.m in Sources */,
-				ACF7656E151A4CF000914BDD /* IAPHelper.m in Sources */,
 				ACB207F1151BE5EC0033B060 /* DataLoginController.m in Sources */,
 				D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */,
 				D924E61A151CA49800AD4C07 /* DoveUsarla.m in Sources */,

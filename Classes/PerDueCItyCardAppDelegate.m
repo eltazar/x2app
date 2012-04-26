@@ -9,7 +9,6 @@
 #import "PerDueCItyCardAppDelegate.h"
 #import <CoreData/CoreData.h>
 #import "FBConnect.h"
-#import "IAPHelper.h"
 #import "CachedAsyncImageView.h"
 
 @implementation PerDueCItyCardAppDelegate
@@ -20,7 +19,6 @@
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize facebook;
-@synthesize iapHelper = _iapHelper;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -32,7 +30,6 @@
     
     // Override point for customization after application launch.   
     
-    self.iapHelper = [IAPHelper sharedHelper];
     
 //TODO: warning se utente non è loggato viene richiamata lo stesso la transazione non portata a termine
         // sto cazzo di metodo ci mette da 0 a n secondi per agganciarsi
@@ -332,9 +329,7 @@
 
 
 - (void)dealloc {
-    
-    self.iapHelper = nil;
-    
+        
     [tabBarController release];
     [window release];
     
