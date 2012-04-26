@@ -14,7 +14,7 @@
 
 
 + (LocalDatabaseAccess *) getInstance;
-- (NSArray *) fetchStoredCardsAndWriteErrorIn:(NSError **)error;
+- (NSArray *) fetchStoredCards:(NSError **)error;
 - (BOOL) storeCard:(CartaPerDue *)card error:(NSError **)error; 
 - (void) removeStoredCard:(CartaPerDue *)card error:(NSError**)error;
 - (BOOL) isThereAvalidCard;

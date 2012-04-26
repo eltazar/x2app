@@ -57,7 +57,7 @@ NSManagedObjectContext *context;
 # pragma mark - LocalDatabaseAccess
 
 
-- (NSArray *)fetchStoredCardsAndWriteErrorIn:(NSError **)error {
+- (NSArray *)fetchStoredCards:(NSError **)error {
     //istanziamo la classe NSFetchRequest
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init]; 
     
@@ -102,7 +102,7 @@ NSManagedObjectContext *context;
 - (BOOL)storeCard:(CartaPerDue *)card error:(NSError **)error {
     //Controlliamo prima che non sia già memorizzata la carta, in tal caso, nn facciamo nulla
     NSError *e;
-    NSArray *storedCards = [self fetchStoredCardsAndWriteErrorIn:&e];
+    NSArray *storedCards = [self fetchStoredCards:&e];
     for (CartaPerDue *c in storedCards) {
         if ([c.number isEqualToString:card.number]) {
             return TRUE;
@@ -129,7 +129,7 @@ NSManagedObjectContext *context;
     NSError *error;
     BOOL thereIs = FALSE;
     
-    NSArray *result = [self fetchStoredCardsAndWriteErrorIn:(&error)];
+    NSArray *result = [self fetchStoredCards:(&error)];
     
     for(CartaPerDue *card in result){
         

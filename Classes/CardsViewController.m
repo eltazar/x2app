@@ -672,7 +672,7 @@
 
 - (NSMutableArray*)creaDataContent {
     NSError *error;
-    NSArray *cardsArray = [[LocalDatabaseAccess getInstance]fetchStoredCardsAndWriteErrorIn:&error];
+    NSArray *cardsArray = [[LocalDatabaseAccess getInstance]fetchStoredCards:&error];
     NSMutableArray *dataContent = [[NSMutableArray alloc] init];
     
     // TODO: controllare errori
