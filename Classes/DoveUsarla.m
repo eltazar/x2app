@@ -233,7 +233,7 @@
     
     if([[rowData objectForKey:@"title"] isEqualToString:@"ToucHotel"]){
         NSLog(@"touch hotel cliccato");
-        [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString: @"th://"]] ? [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"th://"]]:[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/it/app/touchotel/id358599349?mt=8"]];
+        [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString: @"touchotel://"]] ? [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"touchotel://"]]:[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/it/app/touchotel/id358599349?mt=8"]];
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
