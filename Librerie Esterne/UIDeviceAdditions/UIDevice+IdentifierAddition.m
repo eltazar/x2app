@@ -79,7 +79,7 @@
 #pragma mark -
 #pragma mark Public Methods
 
-- (NSString *) uniqueDeviceIdentifier{
+- (NSString *) identificativoUnivocoDispositivo {
     NSString *macaddress = [[UIDevice currentDevice] macaddress];
     NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
     
@@ -89,7 +89,7 @@
     return uniqueIdentifier;
 }
 
-- (NSString *) uniqueGlobalDeviceIdentifier{
+- (NSString *) identificativoUnivocoGlobaleDispositivo {
     NSString *macaddress = [[UIDevice currentDevice] macaddress];
     NSString *uniqueIdentifier = [macaddress stringFromMD5];
     

@@ -116,7 +116,6 @@
 		ACF76574151A4D4900914BDD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF76573151A4D4900914BDD /* StoreKit.framework */; };
 		ACFCEF7A154979AD00037B0B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5015323A9F00697575 /* Default.png */; };
 		ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5215323AA200697575 /* Default@2x.png */; };
-		D91D43041519CD50001D9033 /* LocalDatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */; };
 		D924E61A151CA49800AD4C07 /* DoveUsarla.m in Sources */ = {isa = PBXBuildFile; fileRef = D924E618151CA49800AD4C07 /* DoveUsarla.m */; };
 		D924E61B151CA49800AD4C07 /* DoveUsarla.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E619151CA49800AD4C07 /* DoveUsarla.xib */; };
 		D924E621151CB93400AD4C07 /* DoveUsarlaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E61F151CB93400AD4C07 /* DoveUsarlaCell.xib */; };
@@ -337,8 +336,6 @@
 		ACDE7C9F14FDB432000F6890 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
 		ACF76573151A4D4900914BDD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		D91D43021519CD50001D9033 /* LocalDatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDatabaseAccess.h; sourceTree = "<group>"; };
-		D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDatabaseAccess.m; sourceTree = "<group>"; };
 		D91D431A151A3D6F001D9033 /* CardDeviceAssociation.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = CardDeviceAssociation.php; path = "php server/PHP APPv2/CardDeviceAssociation.php"; sourceTree = SOURCE_ROOT; };
 		D91D431B151A3D6F001D9033 /* checkEmail.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = checkEmail.php; path = "php server/PHP APPv2/checkEmail.php"; sourceTree = SOURCE_ROOT; };
 		D91D431C151A3D6F001D9033 /* login.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = login.php; path = "php server/PHP APPv2/login.php"; sourceTree = SOURCE_ROOT; };
@@ -670,8 +667,6 @@
 				ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */,
 				D99378B01519368200DFC410 /* CartaPerDue.h */,
 				D99378B11519368200DFC410 /* CartaPerDue.m */,
-				D91D43021519CD50001D9033 /* LocalDatabaseAccess.h */,
-				D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */,
 			);
 			name = "classi x aggiornamento";
 			sourceTree = "<group>";
@@ -1185,7 +1180,6 @@
 				AC13B7091509691500E54106 /* BuyCell.m in Sources */,
 				ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */,
 				D99378B21519368200DFC410 /* CartaPerDue.m in Sources */,
-				D91D43041519CD50001D9033 /* LocalDatabaseAccess.m in Sources */,
 				ACB207F1151BE5EC0033B060 /* DataLoginController.m in Sources */,
 				D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */,
 				D924E61A151CA49800AD4C07 /* DoveUsarla.m in Sources */,
