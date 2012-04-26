@@ -82,6 +82,10 @@
 
 + (NSString*)checkPhoneNumber:(NSString*) _phone {
     
+    if([_phone isEqualToString:@""]){
+        return @"";
+    }
+    
     BOOL isPlus = FALSE;
     
     //NSLog(@"_PHONE = %@",_phone);
