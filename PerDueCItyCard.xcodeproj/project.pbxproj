@@ -77,24 +77,16 @@
 		AC0C66421505053700B4F971 /* DoneDown3.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66401505053700B4F971 /* DoneDown3.png */; };
 		AC0C66431505053700B4F971 /* DoneUp3.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66411505053700B4F971 /* DoneUp3.png */; };
 		AC0C66451505185600B4F971 /* cartaGrande.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66441505185600B4F971 /* cartaGrande.png */; };
-		AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7031509658D00E54106 /* AcquistoOnlineController.m */; };
-		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
 		AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80D1543005100A980D7 /* ToucHotel.png */; };
 		AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80E1543005100A980D7 /* ToucHotel@2x.png */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
-		AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CardsViewController.m */; };
-		AC85A22914FB9CA900DD91F6 /* CardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A22714FB9CA900DD91F6 /* CardsViewController.xib */; };
 		AC85A22D14FBA37300DD91F6 /* BaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22C14FBA37300DD91F6 /* BaseCell.m */; };
 		AC85A23014FBA38000DD91F6 /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22F14FBA38000DD91F6 /* ActionCell.m */; };
 		AC85A23514FBB59400DD91F6 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A23414FBB59400DD91F6 /* InfoCell.m */; };
 		AC85A23814FBBD1500DD91F6 /* CartaTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A23714FBBD1500DD91F6 /* CartaTableViewCell.m */; };
 		AC85A23D14FBF04800DD91F6 /* colorPattern.png in Resources */ = {isa = PBXBuildFile; fileRef = AC85A23C14FBF04800DD91F6 /* colorPattern.png */; };
-		AC85A24114FBF87B00DD91F6 /* AbbinaCartaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A23F14FBF87900DD91F6 /* AbbinaCartaViewController.m */; };
-		AC85A24214FBF87B00DD91F6 /* AbbinaCartaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */; };
-		AC9B69291507AFAA00BE6A30 /* DettaglioCartaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9B69271507AFAA00BE6A30 /* DettaglioCartaViewController.m */; };
-		AC9B692A1507AFAA00BE6A30 /* DettaglioCartaViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC9B69281507AFAA00BE6A30 /* DettaglioCartaViewController.xib */; };
 		AC9B692E1507D84A00BE6A30 /* scadutaImg.png in Resources */ = {isa = PBXBuildFile; fileRef = AC9B692D1507D84A00BE6A30 /* scadutaImg.png */; };
 		ACA2FBE81507969100E3921B /* RichiediCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA2FBE61507969000E3921B /* RichiediCardViewController.m */; };
 		ACA2FBE91507969100E3921B /* RichiediCardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACA2FBE71507969100E3921B /* RichiediCardViewController.xib */; };
@@ -116,8 +108,6 @@
 		ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDBD982151755490079A966 /* RegistrazioneController.m */; };
 		ACDBD985151755490079A966 /* RegistrazioneController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDBD983151755490079A966 /* RegistrazioneController.xib */; };
 		ACDD14891500481500ACEEB0 /* buttonGrayPattern.png in Resources */ = {isa = PBXBuildFile; fileRef = ACDD14881500481500ACEEB0 /* buttonGrayPattern.png */; };
-		ACDE479B152DA436004772D4 /* ValidateCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE4799152DA435004772D4 /* ValidateCardController.m */; };
-		ACDE479C152DA436004772D4 /* ValidateCardController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDE479A152DA435004772D4 /* ValidateCardController.xib */; };
 		ACDE7C9914FDA988000F6890 /* DatiPagamentoController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9714FDA987000F6890 /* DatiPagamentoController.m */; };
 		ACDE7C9A14FDA988000F6890 /* DatiPagamentoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACDE7C9814FDA987000F6890 /* DatiPagamentoController.xib */; };
 		ACDE7C9D14FDB0A9000F6890 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */; };
@@ -144,7 +134,6 @@
 		D946360F152F6494000A17CE /* AltreOfferteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D946360E152F6494000A17CE /* AltreOfferteCell.xib */; };
 		D9463611152F64A6000A17CE /* InfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9463610152F64A6000A17CE /* InfoCell.xib */; };
 		D9463613152F64B6000A17CE /* ContattiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9463612152F64B6000A17CE /* ContattiCell.xib */; };
-		D9463615152F64C6000A17CE /* FindNearCompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9463614152F64C6000A17CE /* FindNearCompanyCell.xib */; };
 		D9463643152F6A0F000A17CE /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D9463619152F6A0F000A17CE /* FBDialog.bundle */; };
 		D9463644152F6A0F000A17CE /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = D946361B152F6A0F000A17CE /* FBDialog.m */; };
 		D9463645152F6A0F000A17CE /* FBFrictionlessRequestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D946361D152F6A0F000A17CE /* FBFrictionlessRequestSettings.m */; };
@@ -173,7 +162,6 @@
 		D94C1C0F1531F8EB00697575 /* CouponDiscountTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C0E1531F8EB00697575 /* CouponDiscountTimeCell.xib */; };
 		D94C1C111531FEF800697575 /* TipoEsercente.php in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C101531FEF800697575 /* TipoEsercente.php */; };
 		D94C1C1415320D5E00697575 /* CouponEsercCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D94C1C1315320D5E00697575 /* CouponEsercCell.m */; };
-		D94C1C3B1532382400697575 /* AcquistoOnlineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C3A1532382300697575 /* AcquistoOnlineCell.xib */; };
 		D94C1C3D1532386300697575 /* PagamentoCreditCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C3C1532386200697575 /* PagamentoCreditCardCell.xib */; };
 		D94C1C3F1532388100697575 /* PagamentoDatiLoginCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C3E1532388100697575 /* PagamentoDatiLoginCell.xib */; };
 		D94C1C41153238B800697575 /* PagamentoTotaleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C40153238B800697575 /* PagamentoTotaleCell.xib */; };
@@ -195,7 +183,6 @@
 		D9AEA971152C523C00C4756A /* DettaglioEsercente.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */; };
 		D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */; };
 		D9AFF6DA152F1B3C00A8F346 /* CommentiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AFF6D9152F1B3C00A8F346 /* CommentiCell.xib */; };
-		D9B16094153D92EE0084FF4E /* FindNearCompanyController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B16093153D92EE0084FF4E /* FindNearCompanyController.m */; };
 		D9BBBC48152F84B60032B9E3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */; };
 		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
 		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
@@ -294,9 +281,6 @@
 		AC0C66401505053700B4F971 /* DoneDown3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneDown3.png; sourceTree = "<group>"; };
 		AC0C66411505053700B4F971 /* DoneUp3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneUp3.png; sourceTree = "<group>"; };
 		AC0C66441505185600B4F971 /* cartaGrande.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartaGrande.png; sourceTree = "<group>"; };
-		AC13B7021509658D00E54106 /* AcquistoOnlineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcquistoOnlineController.h; sourceTree = "<group>"; };
-		AC13B7031509658D00E54106 /* AcquistoOnlineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcquistoOnlineController.m; sourceTree = "<group>"; };
-		AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcquistoOnlineController.xib; sourceTree = "<group>"; };
 		AC13B7071509691500E54106 /* BuyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyCell.h; sourceTree = "<group>"; };
 		AC13B7081509691500E54106 /* BuyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyCell.m; sourceTree = "<group>"; };
 		AC18B80D1543005100A980D7 /* ToucHotel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToucHotel.png; sourceTree = "<group>"; };
@@ -306,9 +290,6 @@
 		AC3AC159151DCA4000C8164D /* grayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton.png; sourceTree = "<group>"; };
 		AC3C57B31525313500E5457E /* refreshBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refreshBtn.png; sourceTree = "<group>"; };
 		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		AC85A22514FB9CA900DD91F6 /* CardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
-		AC85A22614FB9CA900DD91F6 /* CardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
-		AC85A22714FB9CA900DD91F6 /* CardsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CardsViewController.xib; sourceTree = "<group>"; };
 		AC85A22B14FBA37300DD91F6 /* BaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCell.h; sourceTree = "<group>"; };
 		AC85A22C14FBA37300DD91F6 /* BaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCell.m; sourceTree = "<group>"; };
 		AC85A22E14FBA38000DD91F6 /* ActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionCell.h; sourceTree = "<group>"; };
@@ -318,12 +299,6 @@
 		AC85A23614FBBD1400DD91F6 /* CartaTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CartaTableViewCell.h; sourceTree = "<group>"; };
 		AC85A23714FBBD1500DD91F6 /* CartaTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CartaTableViewCell.m; sourceTree = "<group>"; };
 		AC85A23C14FBF04800DD91F6 /* colorPattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = colorPattern.png; sourceTree = "<group>"; };
-		AC85A23E14FBF87800DD91F6 /* AbbinaCartaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbbinaCartaViewController.h; sourceTree = "<group>"; };
-		AC85A23F14FBF87900DD91F6 /* AbbinaCartaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbbinaCartaViewController.m; sourceTree = "<group>"; };
-		AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AbbinaCartaViewController.xib; sourceTree = "<group>"; };
-		AC9B69261507AFAA00BE6A30 /* DettaglioCartaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DettaglioCartaViewController.h; sourceTree = "<group>"; };
-		AC9B69271507AFAA00BE6A30 /* DettaglioCartaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioCartaViewController.m; sourceTree = "<group>"; };
-		AC9B69281507AFAA00BE6A30 /* DettaglioCartaViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettaglioCartaViewController.xib; sourceTree = "<group>"; };
 		AC9B692D1507D84A00BE6A30 /* scadutaImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scadutaImg.png; sourceTree = "<group>"; };
 		ACA2FBE51507969000E3921B /* RichiediCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichiediCardViewController.h; sourceTree = "<group>"; };
 		ACA2FBE61507969000E3921B /* RichiediCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichiediCardViewController.m; sourceTree = "<group>"; };
@@ -352,9 +327,6 @@
 		ACDBD982151755490079A966 /* RegistrazioneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrazioneController.m; sourceTree = "<group>"; };
 		ACDBD983151755490079A966 /* RegistrazioneController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegistrazioneController.xib; sourceTree = "<group>"; };
 		ACDD14881500481500ACEEB0 /* buttonGrayPattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonGrayPattern.png; sourceTree = "<group>"; };
-		ACDE4798152DA435004772D4 /* ValidateCardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ValidateCardController.h; sourceTree = "<group>"; };
-		ACDE4799152DA435004772D4 /* ValidateCardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ValidateCardController.m; sourceTree = "<group>"; };
-		ACDE479A152DA435004772D4 /* ValidateCardController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ValidateCardController.xib; sourceTree = "<group>"; };
 		ACDE7C9614FDA987000F6890 /* DatiPagamentoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatiPagamentoController.h; sourceTree = "<group>"; };
 		ACDE7C9714FDA987000F6890 /* DatiPagamentoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatiPagamentoController.m; sourceTree = "<group>"; };
 		ACDE7C9814FDA987000F6890 /* DatiPagamentoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatiPagamentoController.xib; sourceTree = "<group>"; };
@@ -398,7 +370,6 @@
 		D946360E152F6494000A17CE /* AltreOfferteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AltreOfferteCell.xib; sourceTree = "<group>"; };
 		D9463610152F64A6000A17CE /* InfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfoCell.xib; sourceTree = "<group>"; };
 		D9463612152F64B6000A17CE /* ContattiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContattiCell.xib; sourceTree = "<group>"; };
-		D9463614152F64C6000A17CE /* FindNearCompanyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindNearCompanyCell.xib; sourceTree = "<group>"; };
 		D9463618152F6A0F000A17CE /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
 		D9463619152F6A0F000A17CE /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
 		D946361A152F6A0F000A17CE /* FBDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialog.h; sourceTree = "<group>"; };
@@ -454,7 +425,6 @@
 		D94C1C101531FEF800697575 /* TipoEsercente.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = TipoEsercente.php; path = "php server/PHP APPv2/TipoEsercente.php"; sourceTree = SOURCE_ROOT; };
 		D94C1C1215320D5E00697575 /* CouponEsercCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponEsercCell.h; sourceTree = "<group>"; };
 		D94C1C1315320D5E00697575 /* CouponEsercCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponEsercCell.m; sourceTree = "<group>"; };
-		D94C1C3A1532382300697575 /* AcquistoOnlineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcquistoOnlineCell.xib; sourceTree = "<group>"; };
 		D94C1C3C1532386200697575 /* PagamentoCreditCardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PagamentoCreditCardCell.xib; sourceTree = "<group>"; };
 		D94C1C3E1532388100697575 /* PagamentoDatiLoginCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PagamentoDatiLoginCell.xib; sourceTree = "<group>"; };
 		D94C1C40153238B800697575 /* PagamentoTotaleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PagamentoTotaleCell.xib; sourceTree = "<group>"; };
@@ -485,8 +455,6 @@
 		D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioEsercente.m; sourceTree = "<group>"; };
 		D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettaglioEsercente.xib; sourceTree = "<group>"; };
 		D9AFF6D9152F1B3C00A8F346 /* CommentiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentiCell.xib; sourceTree = "<group>"; };
-		D9B16092153D92EE0084FF4E /* FindNearCompanyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindNearCompanyController.h; sourceTree = "<group>"; };
-		D9B16093153D92EE0084FF4E /* FindNearCompanyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindNearCompanyController.m; sourceTree = "<group>"; };
 		D9BBBC46152F84B60032B9E3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		D9ED8BF6152F8FEF002C3D65 /* FotoIngranditaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FotoIngranditaController.h; sourceTree = "<group>"; };
@@ -750,29 +718,10 @@
 		D93C796E151F4B7F006FD19E /* Carte */ = {
 			isa = PBXGroup;
 			children = (
-				AC85A22514FB9CA900DD91F6 /* CardsViewController.h */,
-				AC85A22614FB9CA900DD91F6 /* CardsViewController.m */,
-				AC85A22714FB9CA900DD91F6 /* CardsViewController.xib */,
-				AC85A23E14FBF87800DD91F6 /* AbbinaCartaViewController.h */,
-				AC85A23F14FBF87900DD91F6 /* AbbinaCartaViewController.m */,
-				AC85A24014FBF87A00DD91F6 /* AbbinaCartaViewController.xib */,
 				ACA2FBE51507969000E3921B /* RichiediCardViewController.h */,
 				ACA2FBE61507969000E3921B /* RichiediCardViewController.m */,
 				ACA2FBE71507969100E3921B /* RichiediCardViewController.xib */,
 				ACB9EBA11545ABA800C1EBC7 /* CellRichiedi.xib */,
-				AC13B7021509658D00E54106 /* AcquistoOnlineController.h */,
-				AC13B7031509658D00E54106 /* AcquistoOnlineController.m */,
-				AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */,
-				D94C1C3A1532382300697575 /* AcquistoOnlineCell.xib */,
-				AC9B69261507AFAA00BE6A30 /* DettaglioCartaViewController.h */,
-				AC9B69271507AFAA00BE6A30 /* DettaglioCartaViewController.m */,
-				AC9B69281507AFAA00BE6A30 /* DettaglioCartaViewController.xib */,
-				ACDE4798152DA435004772D4 /* ValidateCardController.h */,
-				ACDE4799152DA435004772D4 /* ValidateCardController.m */,
-				ACDE479A152DA435004772D4 /* ValidateCardController.xib */,
-				D9B16092153D92EE0084FF4E /* FindNearCompanyController.h */,
-				D9B16093153D92EE0084FF4E /* FindNearCompanyController.m */,
-				D9463614152F64C6000A17CE /* FindNearCompanyCell.xib */,
 			);
 			name = Carte;
 			sourceTree = "<group>";
@@ -1153,9 +1102,7 @@
 				19F2B070140FA1A600B10A9A /* PerDueCItyCard_2.xcclassmodel in Resources */,
 				1960C1C7142A5EE400213D4C /* yellow3.jpg in Resources */,
 				190BC5EA1430E11E004D2705 /* Contatti.xib in Resources */,
-				AC85A22914FB9CA900DD91F6 /* CardsViewController.xib in Resources */,
 				AC85A23D14FBF04800DD91F6 /* colorPattern.png in Resources */,
-				AC85A24214FBF87B00DD91F6 /* AbbinaCartaViewController.xib in Resources */,
 				ACDE7C9A14FDA988000F6890 /* DatiPagamentoController.xib in Resources */,
 				ACDD14891500481500ACEEB0 /* buttonGrayPattern.png in Resources */,
 				ACCCDE6415041A3100035479 /* cancelButton.png in Resources */,
@@ -1165,9 +1112,7 @@
 				AC0C66451505185600B4F971 /* cartaGrande.png in Resources */,
 				ACA2FBE91507969100E3921B /* RichiediCardViewController.xib in Resources */,
 				ACA2FBEB15079F1700E3921B /* yellowButton.png in Resources */,
-				AC9B692A1507AFAA00BE6A30 /* DettaglioCartaViewController.xib in Resources */,
 				AC9B692E1507D84A00BE6A30 /* scadutaImg.png in Resources */,
-				AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */,
 				ACDBD985151755490079A966 /* RegistrazioneController.xib in Resources */,
 				ACC313C8151A9507008DBEBA /* greenButton.png in Resources */,
 				ACB207F2151BE5EC0033B060 /* DataLoginController.xib in Resources */,
@@ -1177,7 +1122,6 @@
 				D924E627151CBC4900AD4C07 /* CategoriaCommerciale.xib in Resources */,
 				ACC808541521F678006DF894 /* grayButton2.png in Resources */,
 				AC3C57B41525313500E5457E /* refreshBtn.png in Resources */,
-				ACDE479C152DA436004772D4 /* ValidateCardController.xib in Resources */,
 				D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */,
 				D9AE33A8152E51A8006757FA /* DettEsercAddressCell.xib in Resources */,
 				D9AE33AA152E51B3006757FA /* DettEsercCellWithTitle.xib in Resources */,
@@ -1194,12 +1138,10 @@
 				D946360F152F6494000A17CE /* AltreOfferteCell.xib in Resources */,
 				D9463611152F64A6000A17CE /* InfoCell.xib in Resources */,
 				D9463613152F64B6000A17CE /* ContattiCell.xib in Resources */,
-				D9463615152F64C6000A17CE /* FindNearCompanyCell.xib in Resources */,
 				D9463643152F6A0F000A17CE /* FBDialog.bundle in Resources */,
 				D9ED8BFA152F8FF0002C3D65 /* FotoIngranditaController.xib in Resources */,
 				D94C1C0F1531F8EB00697575 /* CouponDiscountTimeCell.xib in Resources */,
 				D94C1C111531FEF800697575 /* TipoEsercente.php in Resources */,
-				D94C1C3B1532382400697575 /* AcquistoOnlineCell.xib in Resources */,
 				D94C1C3D1532386300697575 /* PagamentoCreditCardCell.xib in Resources */,
 				D94C1C3F1532388100697575 /* PagamentoDatiLoginCell.xib in Resources */,
 				D94C1C41153238B800697575 /* PagamentoTotaleCell.xib in Resources */,
@@ -1242,7 +1184,6 @@
 				AC85A23014FBA38000DD91F6 /* ActionCell.m in Sources */,
 				AC85A23514FBB59400DD91F6 /* InfoCell.m in Sources */,
 				AC85A23814FBBD1500DD91F6 /* CartaTableViewCell.m in Sources */,
-				AC85A24114FBF87B00DD91F6 /* AbbinaCartaViewController.m in Sources */,
 				ACDE7C9914FDA988000F6890 /* DatiPagamentoController.m in Sources */,
 				ACDE7C9D14FDB0A9000F6890 /* TextFieldCell.m in Sources */,
 				ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */,
@@ -1250,8 +1191,6 @@
 				ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */,
 				ACA2FBE81507969100E3921B /* RichiediCardViewController.m in Sources */,
 				ACA2FBEE1507A22000E3921B /* Utilita.m in Sources */,
-				AC9B69291507AFAA00BE6A30 /* DettaglioCartaViewController.m in Sources */,
-				AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */,
 				AC13B7091509691500E54106 /* BuyCell.m in Sources */,
 				ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */,
 				D99378B21519368200DFC410 /* CartaPerDue.m in Sources */,
@@ -1263,8 +1202,6 @@
 				D924E626151CBC4900AD4C07 /* CategoriaCommerciale.m in Sources */,
 				D924E62A151CEB6F00AD4C07 /* UserDefaults.m in Sources */,
 				D924E632151D50FA00AD4C07 /* CategoriaCommercialeWithPrice.m in Sources */,
-				AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */,
-				ACDE479B152DA436004772D4 /* ValidateCardController.m in Sources */,
 				D9AEA971152C523C00C4756A /* DettaglioEsercente.m in Sources */,
 				D92D1CF5152CF69500008CE3 /* DettaglioEsercenteRistorazione.m in Sources */,
 				D9463644152F6A0F000A17CE /* FBDialog.m in Sources */,
@@ -1299,7 +1236,6 @@
 				D9678C5B1535D95900C86E83 /* WMHTTPAccess.m in Sources */,
 				D9678C5F1535F8FF00C86E83 /* PDHTTPAccess.m in Sources */,
 				D9678C631536219A00C86E83 /* NSString+Base64Addition.m in Sources */,
-				D9B16094153D92EE0084FF4E /* FindNearCompanyController.m in Sources */,
 				D97442E5153B827800B3AE08 /* ShowMoreCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
