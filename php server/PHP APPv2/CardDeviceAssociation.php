@@ -29,7 +29,7 @@
 
         echo '{"CardDeviceAssociation:Check": '.json_encode($response).'}';
     }
-    
+    //ATTENZIONE QUESTA VERSIONE DELLO SCRIPT è VECCHIA RISPETTO A QUELLA SUL SERVER!!!
     if (!strcmp($request, 'Set')) {
         $query = "INSERT INTO cartaperdue_app.abbinamento_carta_iphone (codice_carta, udid_iphone) VALUES (REPLACE('$card_number', ' ', ''), '$device_udid') ON DUPLICATE KEY UPDATE udid_iphone='$device_udid'";
         
@@ -38,6 +38,14 @@
             $response = "Fail";
         } else {
             $response = "Success";
+        }
+        
+        $query = "INSERT INTO cartaperdue_app.abbinamento_carta_iphone (codice_carta, udid_iphone) VALUES (REPLACE('$card_number', ' ', ''), '$device_udid') ON DUPLICATE KEY UPDATE udid_iphone='$device_udid'";
+        $result2 = $qh->raw_query($query);
+        if (!$result2) {
+            $response2 = "Fail";
+        } else {
+            $response2 = "Success";
         }
         
         echo '{"CardDeviceAssociation:Set": '.json_encode($response).'}';
