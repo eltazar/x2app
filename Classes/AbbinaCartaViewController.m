@@ -410,7 +410,7 @@
         NSLog(@"SUCCESS");
         //Effettuiamo il salvataggio gestendo eventuali errori
         NSError *error;
-        if (![[LocalDatabaseAccess getInstance]storeCard:self.card AndWriteErrorIn:&error]) {
+        if (![[LocalDatabaseAccess getInstance]storeCard:self.card error:&error]) {
             NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
         } else if (self.delegate && [self.delegate respondsToSelector:@selector(didAssociateNewCard)]) {
             [self.delegate didAssociateNewCard];
