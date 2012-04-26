@@ -114,6 +114,8 @@
 		ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9F14FDB432000F6890 /* PickerViewController.m */; };
 		ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */; };
 		ACF76574151A4D4900914BDD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF76573151A4D4900914BDD /* StoreKit.framework */; };
+		ACFCEF7A154979AD00037B0B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5015323A9F00697575 /* Default.png */; };
+		ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5215323AA200697575 /* Default@2x.png */; };
 		D91D43041519CD50001D9033 /* LocalDatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */; };
 		D924E61A151CA49800AD4C07 /* DoveUsarla.m in Sources */ = {isa = PBXBuildFile; fileRef = D924E618151CA49800AD4C07 /* DoveUsarla.m */; };
 		D924E61B151CA49800AD4C07 /* DoveUsarla.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E619151CA49800AD4C07 /* DoveUsarla.xib */; };
@@ -1141,6 +1143,8 @@
 				ACB9EBA21545ABA800C1EBC7 /* CellRichiedi.xib in Resources */,
 				ACCDB1381546E18D00578758 /* cartaBtn2@2x.png in Resources */,
 				ACCDB13B1546E26C00578758 /* couponBtn2@2x.png in Resources */,
+				ACFCEF7A154979AD00037B0B /* Default.png in Resources */,
+				ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
