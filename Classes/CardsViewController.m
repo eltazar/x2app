@@ -180,7 +180,7 @@
     
     
     [self.tableView reloadData];
-    NSLog(@"********UDID: %@",[[UIDevice currentDevice] uniqueDeviceIdentifier]);
+    NSLog(@"********UDID: %@",[[UIDevice currentDevice] identificativoUnivocoDispositivo]);
 }
 
 

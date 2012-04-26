@@ -194,7 +194,7 @@ static IAPHelper * _sharedHelper;
         [[NSNotificationCenter defaultCenter] postNotificationName:kCardDownloading object:nil];
 
         //invio l'id dell'utente che si è loggato e ha confermato l'acquisto, così da evitare che in seguito a un logout-login da qualche altra interfaccia con un eventuale utente diverso, venga associato l'acquisto ad un utente sbagliato
-        [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"originalUserId"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] uniqueDeviceIdentifier] delegate:self];
+        [PDHTTPAccess sendReceipt:transaction.transactionReceipt userId:[[[NSUserDefaults standardUserDefaults] objectForKey:@"originalUserId"] intValue] transactionId:transaction.transactionIdentifier udid:[[UIDevice currentDevice] identificativoUnivocoDispositivo] delegate:self];
         
         
         //debug
