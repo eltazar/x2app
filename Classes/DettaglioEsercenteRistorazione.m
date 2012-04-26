@@ -187,7 +187,7 @@
 
         pranzoLbl.text = pranzo;
         cenaLbl.text = cena;
-        etic.text = @"Giorni di validità della Carta PerDue";
+        etic.text = @"Giorni e condizioni di validità della Carta PerDue";
         if ([[self.dataModel objectForKey:@"Note_Varie_CE"] isKindOfClass:[NSNull class]]) {
             //non ci sono condizioni
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
