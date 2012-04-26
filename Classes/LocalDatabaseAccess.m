@@ -141,7 +141,7 @@ NSManagedObjectContext *context;
     return thereIs;
 }
 
-- (void) removeStoredCard:(CartaPerDue *)card error:(NSError**)error{
+- (BOOL) removeStoredCard:(CartaPerDue *)card error:(NSError**)error{
 
     
     //istanziamo la classe NSFetchRequest
@@ -157,17 +157,18 @@ NSManagedObjectContext *context;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:error];
     [fetchRequest release];
     
+    //Se la fetch request fallisce, ritorniamo FALSE
+    if (!fetchedObjects) {
+        return FALSE;
+    }
+    
     for(NSManagedObject *c in fetchedObjects){
-        
         if([[c valueForKey:@"numero"] isEqualToString:card.number]){
-            
             [context deleteObject:c];
         }
     }
     
-    [context save:error];
-    
+    return [context save:error];
 }
-
 
 @end
