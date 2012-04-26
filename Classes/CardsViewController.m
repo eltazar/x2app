@@ -592,9 +592,17 @@
     if([jsonDict objectForKey:@"CartaRecuperata"] &&
        [[jsonDict objectForKey:@"CartaRecuperata"] count] > 0){
       
+        //dal server arriva arrai senza valore sentinella alla fine dell'array
+        
         NSLog(@"CARTA RICEVUTA = %@", jsonDict);
         
+//        if(! [[NSUserDefaults standardUserDefaults] objectForKey:@"_nomeUtente"] || ! [[NSUserDefaults standardUserDefaults] objectForKey:@"_cognome"]){
+//            
+//            NSLog(@"annullo perchè  è stato fatto logout da qualche  altra parte");
+//            return;
+//        }
         
+//        NSLog(@"tipo = %@, obj: %@", [[jsonDict objectForKey:@"CartaRecuperata"] class], [[[jsonDict objectForKey:@"CartaRecuperata"] objectAtIndex:0] class] );
         
         for(int i = 0; i < [[jsonDict objectForKey:@"CartaRecuperata"] count]; i++){
           
