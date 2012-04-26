@@ -150,7 +150,7 @@
     card.expiryString = [cardReceived objectForKey:@"expiryDate"];
     
     NSError *error;
-    if (![[LocalDatabaseAccess getInstance]storeCard:card AndWriteErrorIn:&error]) {
+    if (![[LocalDatabaseAccess getInstance]storeCard:card error:&error]) {
         NSLog(@"Errore durante il salvataggio: %@", [error localizedDescription]);
     } else{
         //[self didAssociateNewCard];

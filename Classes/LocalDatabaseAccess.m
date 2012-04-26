@@ -99,7 +99,7 @@ NSManagedObjectContext *context;
 }
 
 
-- (BOOL)storeCard:(CartaPerDue *)card AndWriteErrorIn:(NSError **)error {
+- (BOOL)storeCard:(CartaPerDue *)card error:(NSError **)error {
     //Controlliamo prima che non sia già memorizzata la carta, in tal caso, nn facciamo nulla
     NSError *e;
     NSArray *storedCards = [self fetchStoredCardsAndWriteErrorIn:&e];
