@@ -108,13 +108,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (self.dataModel.count == 0) {
-		return 1;
-	}	
-	else {
-		return 2;
-		
-	}
+    return 2;
 }
 
 
@@ -313,7 +307,7 @@
 
 
 - (void)reloadShowMoreCell {
-    NSArray *indexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:1], nil];
+    NSArray *indexPaths = [[NSArray alloc] initWithObjects:[NSIndexPath indexPathForRow:0 inSection:[self numberOfSectionsInTableView:nil]-1], nil];
     [self.tableview beginUpdates];
     [self.tableview reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableview endUpdates];
