@@ -735,6 +735,20 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    if (![[self.navigationController viewControllers] containsObject:self]) {
+        // We were removed from the navigation controller's view controller stack
+        // thus, we can infer that the back button was pressed
+    
+        NSLog(@"back button clicked");
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_nome"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_tipoCarta"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_numero"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_scadenza"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
