@@ -1041,7 +1041,7 @@ if ([rows count]>0) {//coupon disponibile
     NSString *stringCaption = [NSString stringWithFormat:@"<b>Descrizione:</b> %@, <b>Prezzo coupon:</b> %@€, <b>Invece di:</b> %@€, </b>Risparmio: </b>%@€ ", [self.dataModel objectForKey:@"offerta_titolo_breve"], [self.dataModel objectForKey:@"coupon_valore_acquisto"], [self.dataModel objectForKey:@"coupon_valore_facciale"],[self.dataModel objectForKey:@"offerta_sconto_va"]];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                   @"175161829247160", @"app_id",
+                                   @"293263097423193", @"app_id",
                                    linkHref, @"link",
                                    @"http://www.cartaperdue.it/partner/icon.png", @"picture",
                                    @"Offerta da non perdere da PerDue - click per dettagli",@"name",
