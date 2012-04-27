@@ -35,7 +35,7 @@
         // sto cazzo di metodo ci mette da 0 a n secondi per agganciarsi
     //[[SKPaymentQueue defaultQueue] addTransactionObserver:self.iapHelper];
     
-    facebook = [[Facebook alloc] initWithAppId:@"223476134356120" andDelegate:self];
+    facebook = [[Facebook alloc] initWithAppId:@"293263097423193" andDelegate:self];
     
     //FACEBOOK
     // Set i permessi di accesso
