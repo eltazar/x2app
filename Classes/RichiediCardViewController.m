@@ -19,6 +19,7 @@
 //metodi e variabili private
 @interface RichiediCardViewController ()
 
+@property(nonatomic, retain) UIActionSheet *confirmActionSheet;
 @property(nonatomic,retain) NSString *nome;
 @property(nonatomic,retain) NSString *cognome;
 @property(nonatomic,retain) NSString *telefono;
@@ -29,7 +30,7 @@
 @end
 
 @implementation RichiediCardViewController
-@synthesize nome,cognome,telefono,email,tipoCarta;
+@synthesize nome,cognome,telefono,email,tipoCarta, confirmActionSheet;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -179,7 +180,7 @@
     
     if(section == 2){
         // create the parent view that will hold 1 or more buttons
-        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 37)];
+        UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 40)];
         
         // create the button object
         UIButton* b = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -187,7 +188,7 @@
         
         //[b setBackgroundColor:[UIColor grayColor]];
         
-        b.frame = CGRectMake(21.0, 0, 280.0, 37);
+        b.frame = CGRectMake(21.0, 0, 280.0, 40);
         b.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
         [b setTitle:@"Invia richiesta via email allo staff di Carta PerDue" forState:UIControlStateNormal];
         b.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -279,8 +280,41 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {   
+    NSLog(@"action sheet title = %@, button = %d", actionSheet.title, buttonIndex);
     
-    if([[actionSheet.subviews objectAtIndex:2] tag] == 777){
+    if([actionSheet.title isEqualToString:@"Conferma richiesta"]){
+     
+        if([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Invia"]){
+            
+            if([Utilita networkReachable]){
+                
+                NSLog(@"tutti campi sono validi!");
+                
+                //prendo solo il nome del tipo carta, senza prezzo
+                NSString *token = [[self.tipoCarta componentsSeparatedByString:@" "] objectAtIndex:0];
+                
+                NSLog(@"token = %@",token);
+                
+                NSArray *data = [NSArray arrayWithObjects:token,self.nome,self.cognome,self.telefono,self.email, nil];
+                NSLog(@"%@",data);
+                
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.labelText = @"Invio...";
+                
+                [PDHTTPAccess requestACard:data delegate:self];
+                
+             
+            }
+            else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
+                [alert show];
+                [alert release];
+            }
+
+        }
+        
+    }
+    else if([[actionSheet.subviews objectAtIndex:2] tag] == 777){
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         BaseCell *cell = (ActionCell*)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -368,6 +402,10 @@
     //fa si che il testo inserito nei texfield sia preso anche se non è stata dismessa la keyboard
     [self.view endEditing:TRUE];
     
+    if([self validateFields]){
+        [self.confirmActionSheet showFromTabBar:self.tabBarController.tabBar];
+    }
+    /*
     if([Utilita networkReachable]){
     
         if([self validateFields]){
@@ -392,7 +430,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
 		[alert show];
         [alert release];
-    }
+    }*/
 }
 
 
@@ -468,6 +506,13 @@
     
     isNew = YES;
     self.tipoCarta = @"Scegli...";
+    
+    self.confirmActionSheet = [[UIActionSheet alloc] init];
+    self.confirmActionSheet.delegate = self;
+    self.confirmActionSheet.title = @"Conferma richiesta";
+    [self.confirmActionSheet addButtonWithTitle:@"Invia"];
+    [self.confirmActionSheet addButtonWithTitle:@"Annulla"];
+    self.confirmActionSheet.destructiveButtonIndex = 1;
     
     sectionDescription = [[NSMutableArray alloc] initWithObjects:@"",@"I tuoi dati",@"", nil];  
     sectionData = [[NSMutableArray alloc] init];
@@ -547,6 +592,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.confirmActionSheet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -567,6 +613,7 @@
 - (void)dealloc {
 
     [pickerCards release];
+    self.confirmActionSheet = nil;
     self.nome = nil;
     self.cognome = nil;
     self.telefono = nil;
