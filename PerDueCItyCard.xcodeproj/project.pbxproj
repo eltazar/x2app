@@ -81,6 +81,8 @@
 		AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80D1543005100A980D7 /* ToucHotel.png */; };
 		AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80E1543005100A980D7 /* ToucHotel@2x.png */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
+		AC5D3225154ADC090086A3F2 /* ToucHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5D3223154ADC090086A3F2 /* ToucHotelViewController.m */; };
+		AC5D3226154ADC090086A3F2 /* ToucHotelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC5D3224154ADC090086A3F2 /* ToucHotelViewController.xib */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22D14FBA37300DD91F6 /* BaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22C14FBA37300DD91F6 /* BaseCell.m */; };
 		AC85A23014FBA38000DD91F6 /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22F14FBA38000DD91F6 /* ActionCell.m */; };
@@ -289,6 +291,9 @@
 		AC27879C15194A5C00747542 /* GeoDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoDecoder.m; sourceTree = "<group>"; };
 		AC3AC159151DCA4000C8164D /* grayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton.png; sourceTree = "<group>"; };
 		AC3C57B31525313500E5457E /* refreshBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refreshBtn.png; sourceTree = "<group>"; };
+		AC5D3222154ADC090086A3F2 /* ToucHotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToucHotelViewController.h; sourceTree = "<group>"; };
+		AC5D3223154ADC090086A3F2 /* ToucHotelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToucHotelViewController.m; sourceTree = "<group>"; };
+		AC5D3224154ADC090086A3F2 /* ToucHotelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToucHotelViewController.xib; sourceTree = "<group>"; };
 		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AC85A22B14FBA37300DD91F6 /* BaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCell.h; sourceTree = "<group>"; };
 		AC85A22C14FBA37300DD91F6 /* BaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCell.m; sourceTree = "<group>"; };
@@ -900,6 +905,9 @@
 				D924E617151CA49800AD4C07 /* DoveUsarla.h */,
 				D924E618151CA49800AD4C07 /* DoveUsarla.m */,
 				D924E619151CA49800AD4C07 /* DoveUsarla.xib */,
+				AC5D3222154ADC090086A3F2 /* ToucHotelViewController.h */,
+				AC5D3223154ADC090086A3F2 /* ToucHotelViewController.m */,
+				AC5D3224154ADC090086A3F2 /* ToucHotelViewController.xib */,
 				D924E61F151CB93400AD4C07 /* DoveUsarlaCell.xib */,
 				D924E620151CB93400AD4C07 /* DoveUsarlaTableHeader.xib */,
 				D924E623151CBC4900AD4C07 /* CategoriaCommerciale.h */,
@@ -1140,6 +1148,7 @@
 				ACCDB13B1546E26C00578758 /* couponBtn2@2x.png in Resources */,
 				ACFCEF7A154979AD00037B0B /* Default.png in Resources */,
 				ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */,
+				AC5D3226154ADC090086A3F2 /* ToucHotelViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1221,6 +1230,7 @@
 				D9678C5F1535F8FF00C86E83 /* PDHTTPAccess.m in Sources */,
 				D9678C631536219A00C86E83 /* NSString+Base64Addition.m in Sources */,
 				D97442E5153B827800B3AE08 /* ShowMoreCell.m in Sources */,
+				AC5D3225154ADC090086A3F2 /* ToucHotelViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
