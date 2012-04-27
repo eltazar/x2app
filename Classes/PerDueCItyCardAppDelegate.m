@@ -52,7 +52,13 @@
 //        [facebook authorize:nil];
 //    }
     
-
+    //cancello dati  carta di credito appena avviata app
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_nome"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_tipoCarta"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_numero"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_cvv"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_scadenza"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 
     
     return YES;
@@ -90,7 +96,7 @@
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
-	}
+}
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
