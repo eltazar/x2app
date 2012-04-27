@@ -278,7 +278,7 @@
         
         b.frame = CGRectMake(21.0, 0.0, 280.0, 37);
         b.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-        [b setTitle:@"Salva dati" forState:UIControlStateNormal];
+        [b setTitle:@"Conferma" forState:UIControlStateNormal];
         [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [b setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         
@@ -294,7 +294,7 @@
         
         return [v autorelease];
     }
-    
+    /*
     else if(section == 3){
         // create the parent view that will hold 1 or more buttons
         UIView* v = [[UIView alloc] initWithFrame:CGRectMake(21.0, 10.0, 280.0, 37)];
@@ -323,7 +323,7 @@
         
         return [v autorelease];
     }
-    
+    */
     return nil;
 }
 
@@ -345,6 +345,7 @@
 //    else return  [super tableView:tableView heightForFooterInSection:section];
 //}
 
+/*
 //setta il colore delle label dell'header BIANCHE
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
@@ -379,6 +380,8 @@
     
     else return nil;
 }
+
+*/
 
 //setto altezza celle
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
