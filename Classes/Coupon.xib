@@ -140,7 +140,6 @@
 						<string key="NSFrame">{{0, 48}, {320, 319}}</string>
 						<reference key="NSSuperview" ref="21044560"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC41NTYxMjI0NDkgMC4wODI5NDE3MTMwMiAwLjAyODUyMzIzMDYAA</bytes>
@@ -270,7 +269,7 @@
 					<object class="IBUILabel" id="896253187">
 						<reference key="NSNextResponder" ref="268316121"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{130, 199}, {61, 21}}</string>
+						<string key="NSFrame">{{127, 192}, {66, 24}}</string>
 						<reference key="NSSuperview" ref="268316121"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="641088208"/>
@@ -298,10 +297,9 @@
 					<object class="IBUILabel" id="851771844">
 						<reference key="NSNextResponder" ref="268316121"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{105, 330}, {110, 21}}</string>
+						<string key="NSFrame">{{105, 325}, {110, 21}}</string>
 						<reference key="NSSuperview" ref="268316121"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -365,7 +363,6 @@
 							<string key="NSFrame">{{7, 8}, {307, 359}}</string>
 							<reference key="NSSuperview" ref="907138180"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<object class="NSColor" key="IBUIBackgroundColor">
 								<int key="NSColorSpace">1</int>
 								<bytes key="NSRGB">MC41NTYxMjI0NDkgMC4wODI5NDE3MTMwMiAwLjAyODUyMzIzMDYAA</bytes>
@@ -412,7 +409,6 @@
 							<string key="NSFrame">{{6, 103}, {308, 357}}</string>
 							<reference key="NSSuperview" ref="34482718"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<object class="NSColor" key="IBUIBackgroundColor">
 								<int key="NSColorSpace">1</int>
 								<bytes key="NSRGB">MC41NTYxMjI0NDkgMC4wODI5NDE3MTMwMiAwLjAyODUyMzIzMDYAA</bytes>
@@ -781,8 +777,8 @@
 							<reference ref="95778497"/>
 							<reference ref="542169744"/>
 							<reference ref="641088208"/>
-							<reference ref="851771844"/>
 							<reference ref="896253187"/>
+							<reference ref="851771844"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
