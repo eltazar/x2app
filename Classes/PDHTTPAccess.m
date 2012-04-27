@@ -15,53 +15,6 @@
 @implementation PDHTTPAccess
 
 
-+ (void)sendReceipt:(NSData *)receipt userId:(NSInteger)userId transactionId:(NSString *)transactionId udid:(NSString *)udid delegate:(id<WMHTTPAccessDelegate>)delegate {
-    // TODO: togliere udid dai parametri?
-    NSLog(@"DBACCESS sendReceipt");
-    
-    NSString *urlString = @"https://cartaperdue.it/partner/v2.0/InAppPurchase.php";
-
-    NSString *receiptString = [NSString base64StringFromData:receipt length:[receipt length]];
-    NSString *userIdString  = [NSString stringWithFormat:@"%d", userId];
-    NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              receiptString, @"receipt",
-                              userIdString, @"userId",
-                              transactionId, @"transactionId",
-                              udid, @"udid",
-                              nil];
-    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];    
-}
-
-
-+ (void)sendValidateRequest:(CartaPerDue*)card companyID:(NSInteger)companyID delegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSLog(@"DBACCESS validate request");
-    
-    NSString *urlString = @"https://cartaperdue.it/partner/app_esercenti/notify.php";
-    
-    NSString *companyIDString = [NSString stringWithFormat:@"%d", companyID];
-    NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              card.name, @"name",
-                              card.surname, @"surname",
-                              card.number, @"number",
-                              companyIDString, @"companyID",
-                              nil];
-    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];    
-}
-
-+ (void)checkCompanyValidateMethod:(NSInteger)companyID delegate:(id<WMHTTPAccessDelegate>)delegate{
-    
-    NSLog(@"DBACCESS validate request");
-    NSString *urlString = @"https://cartaperdue.it/partner/v2.0/ControllaTipoValidazione.php";
-    
-    NSString *companyIDString = [NSString stringWithFormat:@"%d", companyID];
-    NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              companyIDString, @"companyID",
-                              nil];
-    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];    
-}
-
-
-
 + (void)registerUserOnServer:(NSArray*)userData delegate:(id<WMHTTPAccessDelegate>)delegate {
     NSLog(@"DBACCESS REGISTER  --> user = %@", userData);
     
@@ -149,13 +102,6 @@
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:delegate];
 }
 
-
-+ (void)getIAPCatalogWithDelegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSString *urlString = @"http://www.cartaperdue.it/partner/catalogoIAP.php";
-    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:delegate];
-}
-
-
 + (void)getCouponFromServerWithId:(NSInteger)idCoupon delegate:(id<WMHTTPAccessDelegate>) delegate {
     NSLog(@"QUERY PER COUPON CON ID");
     
@@ -171,46 +117,6 @@
 }
 
 
-+ (void)checkCardExistence:(CartaPerDue *)card delegate:(id<WMHTTPAccessDelegate>)delegate {
-    // Inizializzazione della URLRequest
-    NSLog(@"DatabaseAccess::checkCardExistence");
-    NSString *urlString = @"http://www.cartaperdue.it/partner/Card.php";
-
-    NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              card.name, @"name",
-                              card.surname, @"surname",
-                              card.number, @"number",
-                              @"blah", @"expiration",
-                              nil];
-    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];
-}
-
-
-+ (void)retrieveCardFromServer:(NSInteger)userId delegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSLog(@"DBACCESS retriveCard");
-    NSString *urlString = @"https://cartaperdue.it/partner/v2.0/RecuperaCartaOnline.php";
-        
-    NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSString stringWithFormat:@"%d", userId], @"userId",
-                              [[UIDevice currentDevice] identificativoUnivocoDispositivo], @"udid",
-                              nil];
-    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];
-       
-}
-
-
-+ (void)cardDeviceAssociation:(NSString *)cardNumber request:(NSString *)r delegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSLog(@"DatabaseAccess::checkCardExistence [%@][%@]", r, cardNumber);
-    NSString *urlString = @"http://www.cartaperdue.it/partner/CardDeviceAssociation.php";
-    
-    NSString *udid = [[UIDevice currentDevice] identificativoUnivocoDispositivo];
-    NSDictionary *postDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              r, @"request",
-                              cardNumber, @"card_number",
-                              udid, @"device_udid",
-                              nil];
-    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:delegate];
-}
 
 
 @end
