@@ -10,6 +10,6 @@
 
 @interface ToucHotelViewController : UIViewController
 
-
+@property(nonatomic, retain) IBOutlet UIWebView *descriptionWebView;
 -(IBAction)downloadFromAppStore:(id)sender;
 @end
