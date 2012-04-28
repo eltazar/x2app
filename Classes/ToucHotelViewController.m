@@ -8,11 +8,9 @@
 
 #import "ToucHotelViewController.h"
 
-@interface ToucHotelViewController ()
-
-@end
 
 @implementation ToucHotelViewController
+@synthesize descriptionWebView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,14 +35,25 @@
     
     self.title = @"ToucHotel";
 
+    NSURL *infos = [NSURL URLWithString:@"http://www.cartaperdue.it/partner/toucHotelInfo.html"];
+	NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
+	[self.descriptionWebView loadRequest:requestObj];		
 
+    
 }
 
 - (void)viewDidUnload
 {
+    self.descriptionWebView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)dealloc
+{
+    self.descriptionWebView = nil;
+    [super dealloc];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
