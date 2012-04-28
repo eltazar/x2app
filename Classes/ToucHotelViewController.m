@@ -46,7 +46,6 @@
     [appStoreBtn addTarget:self action:@selector(downloadFromAppStore:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:appStoreBtn];
-    [appStoreBtn release];
 
     
 }
