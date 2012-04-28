@@ -295,7 +295,7 @@
                 
                 NSLog(@"token = %@",token);
                 
-                NSArray *data = [NSArray arrayWithObjects:token,self.nome,self.cognome,self.telefono,self.email, nil];
+                NSArray *data = [NSArray arrayWithObjects:token,self.nome,self.cognome,[Utilita checkPhoneNumber:self.telefono],self.email, nil];
                 NSLog(@"%@",data);
                 
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -365,9 +365,9 @@
     
     //controlla che i dati inseriti nel titolare siano solo caratteri
     
-    self.telefono = [Utilita checkPhoneNumber:self.telefono];
+    NSString *telefonoTemp = [Utilita checkPhoneNumber:self.telefono];
     
-    if(![Utilita isStringEmptyOrWhite:telefono] && ! [Utilita isStringEmptyOrWhite:email]){
+    if(![Utilita isStringEmptyOrWhite:telefonoTemp] && ! [Utilita isStringEmptyOrWhite:email]){
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Contatti mancanti" message:@"Per favore inserisci almeno un tuo recapito" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
