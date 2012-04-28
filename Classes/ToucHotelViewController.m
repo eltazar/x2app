@@ -38,6 +38,15 @@
     NSURL *infos = [NSURL URLWithString:@"http://www.cartaperdue.it/partner/toucHotelInfo.html"];
 	NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
 	[self.descriptionWebView loadRequest:requestObj];		
+    
+    UIButton *appStoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [appStoreBtn setBackgroundImage:[UIImage imageNamed:@"appStore.png"] forState:UIControlStateNormal];
+    appStoreBtn.frame = CGRectMake(74, 312, 165, 45);
+    
+    [appStoreBtn addTarget:self action:@selector(downloadFromAppStore:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:appStoreBtn];
+    [appStoreBtn release];
 
     
 }
