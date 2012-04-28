@@ -961,7 +961,7 @@ if ([rows count]>0) {//coupon disponibile
             // c'è solo il FALSE finale, quindi l'esercente non ha contratto.
             tipodettaglio = CouponEsercenteSenzaContratto;
         }
-        if (arr.count == 2) {
+        if (arr.count >= 2) {
             // abbiamo un risultato. Il primo elemento dovrebbe essere un dict, il secondo il false. controlliamo:
             temp = [arr objectAtIndex:0];
             if (![temp isKindOfClass:[NSDictionary class]]) {
