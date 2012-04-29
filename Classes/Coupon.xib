@@ -222,7 +222,7 @@
 					<object class="IBUIButton" id="542169744">
 						<reference key="NSNextResponder" ref="268316121"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{76, 119}, {174, 71}}</string>
+						<string key="NSFrame">{{66, 115}, {189, 77}}</string>
 						<reference key="NSSuperview" ref="268316121"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="896253187"/>
@@ -269,7 +269,7 @@
 					<object class="IBUILabel" id="896253187">
 						<reference key="NSNextResponder" ref="268316121"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{120, 189}, {66, 24}}</string>
+						<string key="NSFrame">{{120, 193}, {66, 24}}</string>
 						<reference key="NSSuperview" ref="268316121"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="641088208"/>
@@ -297,7 +297,7 @@
 					<object class="IBUILabel" id="851771844">
 						<reference key="NSNextResponder" ref="268316121"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{105, 313}, {110, 21}}</string>
+						<string key="NSFrame">{{98, 337}, {110, 21}}</string>
 						<reference key="NSSuperview" ref="268316121"/>
 						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -317,7 +317,7 @@
 					<object class="IBUIButton" id="641088208">
 						<reference key="NSNextResponder" ref="268316121"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{76, 239}, {174, 72}}</string>
+						<string key="NSFrame">{{66, 252}, {189, 77}}</string>
 						<reference key="NSSuperview" ref="268316121"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="851771844"/>
@@ -776,9 +776,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="95778497"/>
 							<reference ref="542169744"/>
-							<reference ref="851771844"/>
-							<reference ref="896253187"/>
 							<reference ref="641088208"/>
+							<reference ref="896253187"/>
+							<reference ref="851771844"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
