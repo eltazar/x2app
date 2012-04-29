@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DataLoginController
-@synthesize delegate;
+//@synthesize delegate;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -131,19 +131,20 @@
     [prefs removeObjectForKey:@"_email"];
     [prefs synchronize];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
     
-    if(delegate && [delegate respondsToSelector:@selector(didLogout)])
-        [self.delegate didLogout];
+    //if(delegate && [delegate respondsToSelector:@selector(didLogout)])
+        //[self.delegate didLogout];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDidLogoutNotification object:nil];
 
-    //[[NSNotificationCenter defaultCenter] postNotificationName:kDidLogoutNotification object:nil];
 }
 
 -(void)cancel{
     
-    if(delegate && [delegate respondsToSelector:@selector(didAbortLogout)])
-        [self.delegate didAbortLogout];
-    //[[NSNotificationCenter defaultCenter] postNotificationName:kDidAbortLogoutNotification object:nil];
+    //if(delegate && [delegate respondsToSelector:@selector(didAbortLogout)])
+        //[self.delegate didAbortLogout];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kDidAbortLogoutNotification object:nil];
 }
 
 #pragma mark - Table view data source
