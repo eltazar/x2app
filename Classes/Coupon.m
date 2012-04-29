@@ -392,6 +392,7 @@ static int count = 0;
             self.aSheet = [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil] autorelease];
         }
 		[self.aSheet showInView:self.appDelegate.window];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
 	} 
     else if ( (indexPath.section == 2) && (indexPath.row == 1) ) {
 		self.aSheet2 = [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Contatta PerDue"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Telefona", @"Invia mail", nil] autorelease];
