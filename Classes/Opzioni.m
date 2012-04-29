@@ -58,7 +58,7 @@
 	defaults = [NSUserDefaults standardUserDefaults];
 
 	NSString *testoSalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"citta"];
-	NSLog(@"Testo salvato:%@", testoSalvato);
+	//NSLog(@"Testo salvato:%@", testoSalvato);
 	self.provinceattive = [[[NSArray alloc] initWithObjects:
                            @"Qui vicino", @"Catania", @"Cosenza",  @"Firenze",
                            @"Frosinone",  @"Genova",  @"Grosseto", @"L'Aquila",

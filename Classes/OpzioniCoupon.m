@@ -35,7 +35,7 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
 	NSString *testoSalvato=[[NSUserDefaults standardUserDefaults] objectForKey:@"cittacoupon"];
-	NSLog(@"Testo salvato:%@",testoSalvato);
+	//NSLog(@"Testo salvato:%@",testoSalvato);
 	self.province = [NSArray arrayWithObjects:
                        @"Agrigento", @"Alessandria", @"Ancona", @"Aosta", @"Arezzo",
                        @"Ascoli Piceno", @"Asti", @"Avellino", @"Bari", 

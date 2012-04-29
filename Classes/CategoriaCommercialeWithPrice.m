@@ -27,7 +27,7 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    NSLog (@"sto cambiando il valore di urlString");
+    //NSLog (@"sto cambiando il valore di urlString");
     [_urlString release];
     _urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione.php";
     [self.searchSegCtrl insertSegmentWithTitle:@"Prezzo" atIndex:1 animated:NO];
@@ -87,7 +87,7 @@
     if (indexPath.section == 0) {
 		NSDictionary* r = [super.dataModel objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
-		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
+		//NSLog(@"L'id dell'esercente da visualizzare è %d",i );
         DettaglioEsercenteRistorazione *detail = [[DettaglioEsercenteRistorazione alloc]initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
 		detail.idEsercente = i;
 		detail.title = @"Esercente";

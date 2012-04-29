@@ -409,18 +409,18 @@ static int count = 0;
 #pragma mark - LoginControllerDelegate
 
 - (void)didLogin:(int)idUtente {
-    NSLog(@"IN COUPON DOPO LOGIN id = %d", idUtente);
+    //NSLog(@"IN COUPON DOPO LOGIN id = %d", idUtente);
     [self dismissModalViewControllerAnimated:YES];
     
     //identificativo è relativo all'offerta
     Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:nil bundle:nil];
     pagamentoController.idUtente = idUtente;
     [pagamentoController setValore:[[self.dataModel objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-    NSLog(@"Valore: %f", [[self.dataModel objectForKey:@"coupon_valore_acquisto"] doubleValue]);
+    //NSLog(@"Valore: %f", [[self.dataModel objectForKey:@"coupon_valore_acquisto"] doubleValue]);
     //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
     [pagamentoController setIdentificativo:self.idCoupon];
     NSString *tit = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_titolo_breve"]];
-    NSLog(@"%@", tit);
+    //NSLog(@"%@", tit);
     pagamentoController.titolo = tit;
     [pagamentoController setTitle:@"Acquisto"];
     [self.navigationController pushViewController:pagamentoController animated:YES];
@@ -491,11 +491,11 @@ static int count = 0;
     else {
         Pagamento2 *pagamentoController = [[Pagamento2 alloc] initWithNibName:nil bundle:nil];
         [pagamentoController setValore:[[self.dataModel objectForKey:@"coupon_valore_acquisto"]doubleValue]];
-        NSLog(@"Valore:%f", [[self.dataModel objectForKey:@"coupon_valore_acquisto"] doubleValue]);
+        //NSLog(@"Valore:%f", [[self.dataModel objectForKey:@"coupon_valore_acquisto"] doubleValue]);
         //NSLog(@"PREMUTO TASTO COMPRA IDENTIFICATIVO = %d",identificativo);
         [pagamentoController setIdentificativo:self.idCoupon];
         NSString *tit=[NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"offerta_titolo_breve"]];
-        NSLog(@"%@",tit);
+        //NSLog(@"%@",tit);
         pagamentoController.titolo = tit;
         [pagamentoController setTitle:@"Acquisto"];
         [self.navigationController pushViewController:pagamentoController animated:YES];
@@ -696,12 +696,12 @@ if ([rows count]>0) {//coupon disponibile
             [defaults synchronize];
         }
         
-        NSLog(@"Ho salvato il valore: %d",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
+        //NSLog(@"Ho salvato il valore: %d",[[defaults objectForKey:@"idcitycoupon"]integerValue]);
         //self.navigationItem.title=[NSString stringWithFormat:@"%@",[defaults objectForKey:@"cittacoupon"]];
         
         NSString *prov = [citycoupon stringByReplacingOccurrencesOfString:@" " withString:@"!"]; //inserisco un carattere speciale per gli spazi, nel file php verrà risostituito dallo spazio
         if(self.view.window){
-            NSLog(@"%@::viewDidAppear - lancio la query (coupon del giorno)", [self class]);
+            //NSLog(@"%@::viewDidAppear - lancio la query (coupon del giorno)", [self class]);
             [self.caricamentoSpinner startAnimating];
             [PDHTTPAccess getCouponFromServer:prov delegate:self];
         }
@@ -710,7 +710,7 @@ if ([rows count]>0) {//coupon disponibile
     else { // !isOffertaDelGiorno
         // Se i dati del coupon sono già arrivati, non rilancio la query
         if(self.view.window && !(self.dataModel)){
-            NSLog(@"%@::viewDidAppear - Rilancio la query (coupon non del giorno)", [self class]);
+            //NSLog(@"%@::viewDidAppear - Rilancio la query (coupon non del giorno)", [self class]);
             [self.caricamentoSpinner startAnimating];
             [PDHTTPAccess getCouponFromServerWithId:self.idCoupon delegate:self];
         }

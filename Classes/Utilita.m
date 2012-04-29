@@ -120,7 +120,7 @@
         }
     }
     
-    NSLog(@"STRIPPED STRING = %@",strippedString);
+    //NSLog(@"STRIPPED STRING = %@",strippedString);
 
     return strippedString;
     

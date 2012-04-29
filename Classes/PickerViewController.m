@@ -37,11 +37,11 @@
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
       inComponent:(NSInteger)component
 {    
-    NSLog(@"SELEZIONATO SUL PICKER = %@, component = %d", [[arrayFields objectAtIndex:component] objectAtIndex:row], component);
+    //NSLog(@"SELEZIONATO SUL PICKER = %@, component = %d", [[arrayFields objectAtIndex:component] objectAtIndex:row], component);
 
     
     [objectsInRow replaceObjectAtIndex:component withObject:[[arrayFields objectAtIndex:component] objectAtIndex:row]];
-    NSLog(@" object = %@", [objectsInRow objectAtIndex:component]);
+    //NSLog(@" object = %@", [objectsInRow objectAtIndex:component]);
     
 
 }
@@ -92,14 +92,14 @@
     
     
     objectsInRow = [[NSMutableArray alloc] init];
-    NSLog(@"oggetti in array = %d, capacità passata = %d", objectsInRow.count,numElements);
+    //NSLog(@"oggetti in array = %d, capacità passata = %d", objectsInRow.count,numElements);
     
     for(int i = 0; i < numElements; i++){
-        NSLog(@"aggiungo %@", [self.arrayFields objectAtIndex:0]);
+        //NSLog(@"aggiungo %@", [self.arrayFields objectAtIndex:0]);
         [objectsInRow addObject:[[self.arrayFields objectAtIndex:i] objectAtIndex:0]];
     }
     
-    NSLog(@"oggetti in array = %d dopo init", objectsInRow.count);
+    //NSLog(@"oggetti in array = %d dopo init", objectsInRow.count);
 
     
 }

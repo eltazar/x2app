@@ -58,11 +58,11 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     NSArray *componentiScadenza = [scadenza componentsSeparatedByString:@"/"];
     NSString *mesescadenza = [componentiScadenza objectAtIndex:0];
     NSString *annoscadenza = [componentiScadenza objectAtIndex:1];
-    NSLog(@"scadenza = %@, mese = %@, anno %@",scadenza,mesescadenza, annoscadenza);
+    //NSLog(@"scadenza = %@, mese = %@, anno %@",scadenza,mesescadenza, annoscadenza);
 	NSString *cvv = [[NSUserDefaults standardUserDefaults] objectForKey:@"_cvv"];
 	NSString *intestatario = [[NSUserDefaults standardUserDefaults] objectForKey:@"_nome"];
     
-    NSLog(@"tipo carta = %@, numero = %@, mese  = %@, anno = %@, cvv = %@, intestatario = %@", tipocarta, numerocarta, mesescadenza, annoscadenza, cvv, intestatario);
+    //NSLog(@"tipo carta = %@, numero = %@, mese  = %@, anno = %@, cvv = %@, intestatario = %@", tipocarta, numerocarta, mesescadenza, annoscadenza, cvv, intestatario);
     
     if( (tipocarta && tipocarta.length > 0) && (numerocarta && numerocarta.length > 0) &&
        (mesescadenza && mesescadenza.length >0) && (annoscadenza && annoscadenza.length > 0) &&
@@ -350,7 +350,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         [prezzo setText:[NSString stringWithFormat:@"%.2f€", valore]];
         
         UITextField *quantita= (UITextField *)[cell viewWithTag:2];
-        NSLog(@"QUANTITA = %d", quant);
+        //NSLog(@"QUANTITA = %d", quant);
         quantita.text = [NSString stringWithFormat:@"%d", quant];
         //[quantita setInputView:myActionSheet];
             

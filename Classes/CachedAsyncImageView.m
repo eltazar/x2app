@@ -33,7 +33,7 @@
 
 
 - (id)init {
-    NSLog(@"[%@]::init", [self class]);
+    //NSLog(@"[%@]::init", [self class]);
     self = [super init];
     if (self) {
         
@@ -43,7 +43,7 @@
 
 
 - (void)awakeFromNib {
-    NSLog(@"[%@]::awakeFromNib", [self class]);
+    //NSLog(@"[%@]::awakeFromNib", [self class]);
     [super awakeFromNib];
     [self initialize];
 }
@@ -86,7 +86,7 @@
 
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    NSLog(@"[%@ didFinishLoading]: - loaded %d bytes", [self class], _receivedData.length);
+    //NSLog(@"[%@ didFinishLoading]: - loaded %d bytes", [self class], _receivedData.length);
     UIImage *image;
     @synchronized (self) {
         if (connection != _connection) return;
@@ -115,11 +115,11 @@
         }
         
         _urlString = [url.absoluteString retain];
-        NSLog(@"[%@ loadImageFromUrl]  [[%@]+]", [self class], [_urlString substringWithRange:NSMakeRange(_urlString.length-1-10, 3)]);
+        //NSLog(@"[%@ loadImageFromUrl]  [[%@]+]", [self class], [_urlString substringWithRange:NSMakeRange(_urlString.length-1-10, 3)]);
         UIImage *image = [[ImageCache sharedInstance] imageForURLString:_urlString];
         //NSLog(@"[%@ loadImageFromURL]: _urlString = %@", [self class], _urlString);
         if (image) {
-            NSLog(@"                          \t Cache Hit! [[%@]-]", [_urlString substringWithRange:NSMakeRange(_urlString.length-1-10, 3)]);
+            //NSLog(@"                          \t Cache Hit! [[%@]-]", [_urlString substringWithRange:NSMakeRange(_urlString.length-1-10, 3)]);
             self.image = image;
             [_urlString release];
             _urlString = nil;
@@ -226,7 +226,7 @@ static ImageCache *__sharedInstance;
 
 - (void)emptyCache {
     @synchronized (_cache) {
-        NSLog(@"[%@]::emptyCache", [self class]);
+        //NSLog(@"[%@]::emptyCache", [self class]);
         [_cache removeAllObjects];
     }
 }

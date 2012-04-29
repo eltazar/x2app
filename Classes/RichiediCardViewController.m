@@ -280,7 +280,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {   
-    NSLog(@"action sheet title = %@, button = %d", actionSheet.title, buttonIndex);
+    //NSLog(@"action sheet title = %@, button = %d", actionSheet.title, buttonIndex);
     
     if([actionSheet.title isEqualToString:@"Conferma richiesta"]){
      
@@ -288,15 +288,15 @@
             
             if([Utilita networkReachable]){
                 
-                NSLog(@"tutti campi sono validi!");
+                //NSLog(@"tutti campi sono validi!");
                 
                 //prendo solo il nome del tipo carta, senza prezzo
                 NSString *token = [[self.tipoCarta componentsSeparatedByString:@" "] objectAtIndex:0];
                 
-                NSLog(@"token = %@",token);
+                //NSLog(@"token = %@",token);
                 
                 NSArray *data = [NSArray arrayWithObjects:token,self.nome,self.cognome,[Utilita checkPhoneNumber:self.telefono],self.email, nil];
-                NSLog(@"%@",data);
+                //NSLog(@"%@",data);
                 
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.labelText = @"Invio...";
@@ -447,7 +447,7 @@
     
    [hud hide:YES afterDelay:3];
     
-    NSLog(@"%@",receivedString);
+    //NSLog(@"%@",receivedString);
 }
 
 -(void)didReceiveError:(NSError *)error{
@@ -460,7 +460,7 @@
     hud.mode = MBProgressHUDModeCustomView;
     
     [hud hide:YES afterDelay:3];
-    NSLog(@"errore server =%@",error.description);
+    //NSLog(@"errore server =%@",error.description);
 }
 
 #pragma mark - TextField and TextView Delegate

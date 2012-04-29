@@ -104,7 +104,7 @@ static WMHTTPAccess *__sharedInstance = nil;
     id<WMHTTPAccessDelegate> delegate   = [self.delegateDict objectForKey:k];
     
     //Debug:
-    NSLog(@"Dal Server è arrivato: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+    //NSLog(@"Dal Server è arrivato: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
     
     if ([delegate respondsToSelector:@selector(didReceiveJSON:)]) {
         NSError *error = nil;

@@ -97,7 +97,7 @@
     else if (indexPath.section == 0) {
         NSDictionary *notizia = [self.dataModel objectAtIndex:indexPath.row];
         NSInteger idNotizia = [[notizia objectForKey:@"ID"] integerValue];
-        NSLog(@"L'id della notizia da visualizzare è %d", idNotizia);
+        //NSLog(@"L'id della notizia da visualizzare è %d", idNotizia);
         Notizia *detail = [[Notizia alloc] initWithNibName:nil bundle:nil];
         detail.title = @"News";
         detail.idNotizia = idNotizia;
@@ -125,7 +125,7 @@
 
 - (void)fetchRowsFromNumber:(NSInteger)n {
     NSString *urlString = [NSString stringWithFormat:urlFormatString, n];
-    NSLog(@"[%@ fetchRowsFromNumber] urlString:[%@]", [self class], urlString);
+    //NSLog(@"[%@ fetchRowsFromNumber] urlString:[%@]", [self class], urlString);
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
 }
 

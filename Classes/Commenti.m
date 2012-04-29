@@ -229,7 +229,7 @@
     self.activityIndicator.hidden = YES;
     NSObject *temp = [jsonDict objectForKey:@"Esercente"];
     
-    NSLog(@"COMMENTI OBJECT = %@",temp);
+    //NSLog(@"COMMENTI OBJECT = %@",temp);
     
     if (![temp isKindOfClass:[NSArray class]]) {
         return;
@@ -244,7 +244,7 @@
     }
     [self prettifyNullValuesForCommentsInArray:fetchedComments];
     
-    NSLog(@"fetched comments count = %d",fetchedComments.count);
+    //NSLog(@"fetched comments count = %d",fetchedComments.count);
         
     queryingMoreComments = NO;
     if (fetchedComments.count == 0) {
@@ -288,7 +288,7 @@
 - (void)fetchRowsFromNumber:(NSInteger)n {
     queryingMoreComments = YES;
     NSString *urlString = [NSString stringWithFormat:urlFormatString, self.idEsercente, n];
-    NSLog(@"[%@ fetchRowsFromNumber] urlString:[%@]", [self class], urlString);
+    //NSLog(@"[%@ fetchRowsFromNumber] urlString:[%@]", [self class], urlString);
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
 }
 

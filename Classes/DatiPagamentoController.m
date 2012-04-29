@@ -161,7 +161,7 @@
         
         cell.detailTextLabel.text = [pickerCards.objectsInRow objectAtIndex:0];
         
-        NSLog(@" carta di credito = %@, cell = %@",[pickerCards.objectsInRow objectAtIndex:0],cell.detailTextLabel.text);
+        //NSLog(@" carta di credito = %@, cell = %@",[pickerCards.objectsInRow objectAtIndex:0],cell.detailTextLabel.text);
         
        
         self.tipoCarta = [pickerCards.objectsInRow objectAtIndex:0];
@@ -176,7 +176,7 @@
         //NSLog(@"cell = %@, %p",cell,cell);
         NSString *date = [NSString stringWithFormat:@"%@/%@",[pickerDate.objectsInRow objectAtIndex:0],[pickerDate.objectsInRow objectAtIndex:1]];
         
-        NSLog(@"date = %@", date);
+        //NSLog(@"date = %@", date);
         
         cell.detailTextLabel.text = date;
         
@@ -418,7 +418,7 @@
     NSCharacterSet *alphaNumbersSet = [NSCharacterSet decimalDigitCharacterSet];
     NSCharacterSet *stringSet = [NSCharacterSet characterSetWithCharactersInString:newString];
     isValid = [alphaNumbersSet isSupersetOfSet:stringSet];
-    NSLog(@"carta di credito trimmed = %@",newString);
+    //NSLog(@"carta di credito trimmed = %@",newString);
     return isValid;
 }
 
@@ -529,7 +529,7 @@
     //dismette la tastiera e prende i salva i dati nelle variabili quando si preme il button
     [self.view endEditing:TRUE];
     
-    NSLog(@"Save button pressed: \n titolare = %@, numero = %@, cvv = %@, tipo = %@, scadenza = %@", titolare, numeroCarta, cvv, tipoCarta, scadenza);
+    //NSLog(@"Save button pressed: \n titolare = %@, numero = %@, cvv = %@, tipo = %@, scadenza = %@", titolare, numeroCarta, cvv, tipoCarta, scadenza);
     
     if(! [self validateFields]){
         //qualcosa

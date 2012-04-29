@@ -47,7 +47,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection*)theConnection {
-    NSLog(@"%@::connectionDidFinishLoading", [self class]);
+    //NSLog(@"%@::connectionDidFinishLoading", [self class]);
     [connection release];
     connection=nil;
 	

@@ -16,7 +16,7 @@
 
 
 + (void)registerUserOnServer:(NSArray*)userData delegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSLog(@"DBACCESS REGISTER  --> user = %@", userData);
+    //NSLog(@"DBACCESS REGISTER  --> user = %@", userData);
     
     NSString *urlString = @"https://cartaperdue.it/coupon/registrazione_utente_app_exe.jsp";
     
@@ -31,7 +31,7 @@
 
 
 + (void)checkUserFields:(NSArray*)usr delegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSLog(@"DBACCESS CHECK  EMAIL --> user = %@",usr);
+    //NSLog(@"DBACCESS CHECK  EMAIL --> user = %@",usr);
     
     NSString *urlString = @"";
     NSDictionary *postDict = nil;
@@ -53,7 +53,7 @@
 
 
 + (void)sendRetrievePswForUser:(NSString*)usr delegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSLog(@"DBACCESS RECUPERA PASSWORD");
+    //NSLog(@"DBACCESS RECUPERA PASSWORD");
     
     NSString *urlString = @"http://www.cartaperdue.it/partner/recuperaPsw.php";
     
@@ -96,21 +96,21 @@
 
 
 + (void)getAltreOfferteFromServer:(NSString*)prov delegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSLog(@"QUERY: altre offerte");
+    //NSLog(@"QUERY: altre offerte");
     
     NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/altreofferte.php?prov=%@", prov];
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:delegate];
 }
 
 + (void)getCouponFromServerWithId:(NSInteger)idCoupon delegate:(id<WMHTTPAccessDelegate>) delegate {
-    NSLog(@"QUERY PER COUPON CON ID");
+   // NSLog(@"QUERY PER COUPON CON ID");
     
 	NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/offerta2.php?id=%d", idCoupon];
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:delegate];
 }
 
 + (void)getCouponFromServer:(NSString*)prov delegate:(id<WMHTTPAccessDelegate>)delegate {
-    NSLog(@"QUERY PER COUPON");
+    //NSLog(@"QUERY PER COUPON");
     
     NSString *urlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/partner/coupon2.php?prov=%@",prov];
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:delegate];

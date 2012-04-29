@@ -237,7 +237,7 @@
     if(buttonIndex == 1){
         if([Utilita networkReachable]){
             UITextField* textField = (UITextField*)[alertView viewWithTag:120];
-            NSLog(@"textfield = %@",textField.text);
+            //NSLog(@"textfield = %@",textField.text);
             
             if(![Utilita isStringEmptyOrWhite: textField.text] || ![Utilita isEmailValid:textField.text]){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"E-mail non valida" message:@"Inserisci un indirizzo e-mail valido" delegate:self cancelButtonTitle:@"Chiudi" otherButtonTitles:nil, nil];
@@ -281,7 +281,7 @@
 
 
 - (void)processJSONServerResponse:(NSDictionary *)jsonDict {    
-    NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@", jsonDict);
+    //NSLog(@"VALORE RITORNATO DA SERVER CHECK EMAIL = %@", jsonDict);
     
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
@@ -292,15 +292,15 @@
     if ([jsonDict objectForKey:@"recuperoPsw"]) {
         array = [[jsonDict objectForKey:@"recuperoPsw"] retain];
         
-        NSLog(@"recupero psw = %@",array);
+        //NSLog(@"recupero psw = %@",array);
         
     }
     else if([jsonDict objectForKey:@"login"]){
         array = [[jsonDict objectForKey:@"login"] retain];
         if(array.count == 2){
-            NSLog(@"UTENTE ESISTE");
+            //NSLog(@"UTENTE ESISTE");
             idUtente = [[[array objectAtIndex:0] objectForKey:@"idcustomer"] intValue];
-            NSLog(@" ID CUSTOMER LOGIN = %d",idUtente);
+            //NSLog(@" ID CUSTOMER LOGIN = %d",idUtente);
             
             //salvo i dati per il login
             NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -335,7 +335,7 @@
 - (void)processStringServerResponse:(NSString *)responseString {
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
     self.hud = nil;
-    NSLog(@"DATI RICEVUTO DA RECUPERP PSW = %@", responseString);
+    //NSLog(@"DATI RICEVUTO DA RECUPERP PSW = %@", responseString);
     
     UIAlertView *alert = [[UIAlertView alloc] init];
     alert.delegate = self;

@@ -294,7 +294,7 @@
     //dismette la tastiera e prende i salva i dati nelle variabili quando si preme il button
     [self.view endEditing:TRUE];
     
-    NSLog(@"Save button pressed: \n nome = %@, cognome = %@, telefono = %@, email = %@",nome, cognome, telefono, email);
+    //NSLog(@"Save button pressed: \n nome = %@, cognome = %@, telefono = %@, email = %@",nome, cognome, telefono, email);
     
     if(! [self validateFields]){
         //qualcosa

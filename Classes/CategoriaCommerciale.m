@@ -276,7 +276,7 @@
 	if (indexPath.section == 0) {
 		NSDictionary* r = [self.dataModel objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
-		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
+		//NSLog(@"L'id dell'esercente da visualizzare è %d",i );
 		DettaglioEsercente *detail = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
 		detail.idEsercente = i;
 		detail.title = @"Esercente";
