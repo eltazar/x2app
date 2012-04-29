@@ -83,6 +83,10 @@
 		AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80D1543005100A980D7 /* ToucHotel.png */; };
 		AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80E1543005100A980D7 /* ToucHotel@2x.png */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
+		AC709D54154D42CB00C6B3A2 /* ToucHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC709D52154D42CB00C6B3A2 /* ToucHotelViewController.m */; };
+		AC709D55154D42CB00C6B3A2 /* ToucHotelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC709D53154D42CB00C6B3A2 /* ToucHotelViewController.xib */; };
+		AC709D59154D4A4A00C6B3A2 /* appStore.png in Resources */ = {isa = PBXBuildFile; fileRef = AC709D57154D4A4A00C6B3A2 /* appStore.png */; };
+		AC709D5A154D4A4A00C6B3A2 /* appStore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC709D58154D4A4A00C6B3A2 /* appStore@2x.png */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CardsViewController.m */; };
 		AC85A22914FB9CA900DD91F6 /* CardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A22714FB9CA900DD91F6 /* CardsViewController.xib */; };
@@ -305,6 +309,11 @@
 		AC27879C15194A5C00747542 /* GeoDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoDecoder.m; sourceTree = "<group>"; };
 		AC3AC159151DCA4000C8164D /* grayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton.png; sourceTree = "<group>"; };
 		AC3C57B31525313500E5457E /* refreshBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refreshBtn.png; sourceTree = "<group>"; };
+		AC709D51154D42CB00C6B3A2 /* ToucHotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToucHotelViewController.h; sourceTree = "<group>"; };
+		AC709D52154D42CB00C6B3A2 /* ToucHotelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToucHotelViewController.m; sourceTree = "<group>"; };
+		AC709D53154D42CB00C6B3A2 /* ToucHotelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToucHotelViewController.xib; sourceTree = "<group>"; };
+		AC709D57154D4A4A00C6B3A2 /* appStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appStore.png; sourceTree = "<group>"; };
+		AC709D58154D4A4A00C6B3A2 /* appStore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appStore@2x.png"; sourceTree = "<group>"; };
 		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AC85A22514FB9CA900DD91F6 /* CardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		AC85A22614FB9CA900DD91F6 /* CardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
@@ -518,6 +527,8 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				AC709D57154D4A4A00C6B3A2 /* appStore.png */,
+				AC709D58154D4A4A00C6B3A2 /* appStore@2x.png */,
 				ACCDB13A1546E26C00578758 /* couponBtn2@2x.png */,
 				ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */,
 				ACB9EB9B154553C700C1EBC7 /* couponBtn@2x.png */,
@@ -962,6 +973,9 @@
 		D9B05324151C8AED005A2E3D /* Dove Usarla V2 */ = {
 			isa = PBXGroup;
 			children = (
+				AC709D51154D42CB00C6B3A2 /* ToucHotelViewController.h */,
+				AC709D52154D42CB00C6B3A2 /* ToucHotelViewController.m */,
+				AC709D53154D42CB00C6B3A2 /* ToucHotelViewController.xib */,
 				D924E628151CEB6E00AD4C07 /* UserDefaults.h */,
 				D924E629151CEB6E00AD4C07 /* UserDefaults.m */,
 				D924E617151CA49800AD4C07 /* DoveUsarla.h */,
@@ -1212,6 +1226,9 @@
 				ACB9EBA21545ABA800C1EBC7 /* CellRichiedi.xib in Resources */,
 				ACCDB1381546E18D00578758 /* cartaBtn2@2x.png in Resources */,
 				ACCDB13B1546E26C00578758 /* couponBtn2@2x.png in Resources */,
+				AC709D55154D42CB00C6B3A2 /* ToucHotelViewController.xib in Resources */,
+				AC709D59154D4A4A00C6B3A2 /* appStore.png in Resources */,
+				AC709D5A154D4A4A00C6B3A2 /* appStore@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1301,6 +1318,7 @@
 				D9678C631536219A00C86E83 /* NSString+Base64Addition.m in Sources */,
 				D9B16094153D92EE0084FF4E /* FindNearCompanyController.m in Sources */,
 				D97442E5153B827800B3AE08 /* ShowMoreCell.m in Sources */,
+				AC709D54154D42CB00C6B3A2 /* ToucHotelViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
