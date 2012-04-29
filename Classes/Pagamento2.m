@@ -442,7 +442,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     else if(indexPath.section == 1 && indexPath.row == 0){
         
         DataLoginController *dataLogin = [[DataLoginController alloc] initWithNibName:@"DataLoginController" bundle:nil];
-        dataLogin.delegate = self;        
+        //dataLogin.delegate = self;        
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:dataLogin];
         [dataLogin release];
         
@@ -586,8 +586,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAbortLogout) name:kDidAbortLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAbortLogout) name:kDidAbortLogoutNotification object:nil];
     
     buyAlert = [[UIAlertView alloc] initWithTitle:@"Vuoi comprare il coupon?" message:@"L'importo sarà effettivamente addebitato sulla tua carta di credito solamente se il processo di acquisto sarà completato e confermato" delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Compra", nil];
     
@@ -778,8 +778,8 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 		
     NSLog(@"DEALLOC PAGAMENTO2");
     
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:kDidAbortLogoutNotification object:nil];
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:kDidLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDidAbortLogoutNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kDidLogoutNotification object:nil];
     
     [buyAlert release];
     self.utente = nil;

@@ -16,7 +16,7 @@
 #import "DataLoginController.h"
 @class PickerViewController;
 
-@interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate, /*DatiUtenteDelegate,*/WMHTTPAccessDelegate,DataLoginDelegate> {
+@interface Pagamento2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UIActionSheetDelegate,UITextFieldDelegate,UIAlertViewDelegate,UIActionSheetDelegate, DatiPagamentoDelegate, /*DatiUtenteDelegate,*/WMHTTPAccessDelegate/*,DataLoginDelegate*/> {
 	
     NSInteger identificativo;
 	double valore;
