@@ -87,7 +87,36 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
+    
+    if([CLLocationManager locationServicesEnabled]){
+        
+        if([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized){
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Servizi di localizazione disabilitati" 
+                                                            message:@"Per riabilitarli, vai su Impostazioni e seleziona ON sul servizio di localizzazione per questa app" 
+                                                           delegate:nil 
+                                                  cancelButtonTitle:@"Ok" 
+                                                  otherButtonTitles:nil];
+            [alert show];
+            [alert release];
+        }
+        else{
+            // gps genereale e per l'app su ON
+        }
+    }
+    else{
+        // gps generale disabilitato
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Servizi di localizazione disabilitati" 
+                                                        message:@"Per riabilitarli, vai su Impostazioni e abilita i servizi di localizzazione per questa app" 
+                                                       delegate:nil 
+                                              cancelButtonTitle:@"Ok" 
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    }
+    
     if( ![Utilita networkReachable]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
         [alert show];
@@ -178,7 +207,8 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     
     NSLog(@"STATUS GPS = %d", status);
-    if(status != kCLAuthorizationStatusAuthorized){
+    /*
+     if(status != kCLAuthorizationStatusAuthorized){
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location Service Disabled" 
                                                         message:@"To re-enable, please go to Settings and turn on Location Service for this app." 
@@ -188,6 +218,7 @@
         [alert show];
         [alert release];
     }
+    */
 }
 
 #pragma mark - WMHTTPAccessDelegate
