@@ -12,6 +12,7 @@
 #import "MBProgressHUD.h"
 
 #define kPurchasedCard      @"PurchasedCard"
+#define kCardWithoutCode    @"CardWithoutCode"
 
 @interface AcquistoOnlineController : UITableViewController <WMHTTPAccessDelegate>
 {

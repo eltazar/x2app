@@ -51,6 +51,9 @@
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloading object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloading:) name:kCardDownloading object: nil];
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardNoCode object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardNoCode:) name:kCardNoCode object: nil];
     }
     return self;
 }
@@ -167,6 +170,13 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Acquisto effettuato";
     hud.detailsLabelText = @"Download carta...";
+}
+
+-(void) cardNoCode:(NSNotification*) notificatin{
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCardWithoutCode object:nil];
 }
 
 #pragma mark - Gestion bottoni
@@ -362,6 +372,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardServerError object:nil];    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloaded object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloading object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardNoCode object:nil];
     
     self.products = nil;
     
