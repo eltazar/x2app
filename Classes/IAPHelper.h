@@ -19,6 +19,7 @@
 #define kCardDownloaded                     @"CardDownloaded"
 #define kCardDownloading                    @"CardDownloading"
 #define kCardServerError                    @"CardServerError"
+#define kCardNoCode                         @"CardNoCode"
 
 @interface IAPHelper : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver, WMHTTPAccessDelegate,UIAlertViewDelegate> {
     NSSet * _productIdentifiers;    
