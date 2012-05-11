@@ -83,6 +83,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloadError:) name:kCardServerError object: nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloaded:) name:kCardDownloaded object: nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloading:) name:kCardDownloading object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardNoCode:) name:kCardWithoutCode object: nil];
+
     
     // Allocazione strutture dati del Data Model
     self.sectionDescription = [[[NSMutableArray alloc] init] autorelease];
@@ -217,7 +219,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardServerError object:nil];    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloaded object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloading object:nil];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardWithoutCode object:nil];
+
     self.selectedRow = nil;
     self.sectionData = nil;
     self.sectionDescription = nil;
@@ -322,18 +325,18 @@
 
 - (void)tableView:tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
-    NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
-    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
-    
-    if([dataKey isEqualToString:@"abbina"] || [dataKey isEqualToString:@"acquista"]){
-        if([[LocalDatabaseAccess getInstance] isThereAvalidCard]){
-            cell.backgroundColor = [UIColor colorWithRed:230.0/255 green:230.0/255 blue:230.0/255 alpha:1];
-            cell.textLabel.textColor = [UIColor grayColor];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.userInteractionEnabled = NO;
-        }
-    }
+//    NSArray *sec = [self.sectionData objectAtIndex:indexPath.section];
+//    NSDictionary *rowDesc = [sec objectAtIndex:indexPath.row]; 
+//    NSString *dataKey = [rowDesc objectForKey:@"DataKey"];
+//    
+//    if([dataKey isEqualToString:@"abbina"] || [dataKey isEqualToString:@"acquista"]){
+//        if([[LocalDatabaseAccess getInstance] isThereAvalidCard]){
+//            cell.backgroundColor = [UIColor colorWithRed:230.0/255 green:230.0/255 blue:230.0/255 alpha:1];
+//            cell.textLabel.textColor = [UIColor grayColor];
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//            cell.userInteractionEnabled = NO;
+//        }
+//    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -552,6 +555,18 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"Recupero acquisto";
     hud.detailsLabelText = @"Download carta...";
+}
+
+-(void) cardNoCode:(id)sender{
+    NSLog(@"CARD SENZA CODICE");
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Servizio momentaneamente non disponibile" message:@"Il tuo acquisto è andato a buon fine, ma bla bla bla" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
+    
 }
 
 #pragma mark - DataLoginDelegate
