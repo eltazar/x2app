@@ -228,10 +228,28 @@
     
     NSLog(@"data dict find near = %@", dataDict);
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
-    NSMutableArray *rows = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
+    NSMutableArray *rowsTemp = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
+    
+    // Ci aspettiamo che rows sia effettivamente un array, se non lo è
+    // si ignora.  
+    if (![rowsTemp isKindOfClass:[NSArray class]]) return;
+    
+    [rowsTemp removeLastObject];
+    
+    NSMutableArray *rows = [NSMutableArray array];
+    
+    //seleziono solo gli esercenti che accettano la card virtuale
+    for(int i = 0 ; i < rowsTemp.count ; i++){
+        if( [[[rowsTemp objectAtIndex:i] objectForKey:@"Esercente_virtuale"] intValue] != 0){
+            
+            [rows addObject:[rowsTemp objectAtIndex:i]];
+        }
+    }
+    
+    NSLog(@" ROWS FILTRATO é UGUALE A = %d", rows.count);
     
     //se non ci sono risultati mostro avviso
-    if( [type isEqualToString:@"Esercente:FirstRows"] && rows.count == 1){
+    if( [type isEqualToString:@"Esercente:FirstRows"] && rows.count == 0){
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"Non ci sono esercenti vicini";
         hud.mode = MBProgressHUDModeCustomView;
@@ -240,7 +258,34 @@
        [self.activityIndicator stopAnimating];
     }
     else{
-        [super didReceiveJSON:dataDict];
+
+        //TODO: ricostruire il dict ricevuto con il nuovo array rows e chiamare [super didReceiveJson...];
+        
+        if ([type isEqualToString:@"Esercente:FirstRows"]) {
+            [self.activityIndicator stopAnimating];
+            //self.activityIndicator.hidden = YES;
+            [self.dataModel removeAllObjects];
+            [self.dataModel addObjectsFromArray:rows];        
+            [self.tableView reloadData];
+        } 
+        else if ([type isEqualToString:@"Esercente:MoreRows"]) {
+            if (rows.count == 0) {
+                didFetchAllRows = YES;
+            }
+            else {
+                NSMutableArray *indexPaths = [[NSMutableArray alloc] initWithCapacity:rows.count]; 
+                for (int i = self.dataModel.count; i < self.dataModel.count + rows.count; i++) {
+                    [indexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                }
+                [self.tableView beginUpdates];
+                [self.dataModel addObjectsFromArray:rows];
+                [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView endUpdates];
+                [indexPaths release];
+            }
+            queryingMoreRows = NO;
+            [self reloadShowMoreCell];
+        }       
     }
 }
 
