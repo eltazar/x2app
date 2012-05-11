@@ -14,10 +14,12 @@
 
 
 @interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, UIAlertViewDelegate, GeoDecoderDelegate, WMHTTPAccessDelegate> {
+    
+@protected
+    BOOL didFetchAllRows;
 @private
     BOOL lastFetchWasASearch;
     BOOL inSearchUI;
-    BOOL didFetchAllRows;
     NSString *_categoria;
     GeoDecoder *_geoDec;
     NSArray* _tempBuff;
