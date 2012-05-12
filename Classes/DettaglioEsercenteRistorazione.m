@@ -28,7 +28,7 @@
         [urlStringCoupon release];
         [urlStringGenerico release];
         [urlStringValiditaCarta release];
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioRistorantePub.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioRistorantePub.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringValiditaCarta = nil;
@@ -47,7 +47,7 @@
         [urlStringCoupon release];
         [urlStringGenerico release];
         [urlStringValiditaCarta release];
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioRistorantePub.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioRistorantePub.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringValiditaCarta = nil;
@@ -340,25 +340,27 @@
     NSString *insegnaEsercente = [self.dataModel objectForKey:@"Insegna_Esercente"];
     NSString *tipoEsercente    = [self.dataModel objectForKey:@"Tipo_Teser"];
 
-    [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
-    [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
-    [self.idxMap setKey:@"PastiValidita"    forSection:0 row:2];
-    [self.idxMap setTitle:insegnaEsercente  forSection:0];
+    [self.idxMap setKey:@"Indirizzo"          forSection:0 row:0];
+    [self.idxMap setKey:@"GiornoChiusura"     forSection:0 row:1];
+    [self.idxMap setKey:@"PastiValidita"      forSection:0 row:2];
+    [self.idxMap setKey:@"Esercente_Virtuale" forSection:0 row:3];
+    [self.idxMap setTitle:insegnaEsercente    forSection:0];
     
-    [self.idxMap setKey:@"Ambiente"         forSection:1 row:0];
-    [self.idxMap setKey:@"Subtipo_STeser"   forSection:1 row:1];
-    [self.idxMap setKey:@"Specialita_CE"    forSection:1 row:2];
-    [self.idxMap setKey:@"Fasciaprezzo"     forSection:1 row:3];
-    [self.idxMap setKey:@"Commenti"         forSection:1 row:4];
-    [self.idxMap setTitle:tipoEsercente     forSection:1];
+    [self.idxMap setKey:@"Ambiente"           forSection:1 row:0];
+    [self.idxMap setKey:@"Subtipo_STeser"     forSection:1 row:1];
+    [self.idxMap setKey:@"Specialita_CE"      forSection:1 row:2];
+    [self.idxMap setKey:@"Fasciaprezzo"       forSection:1 row:3];
+    [self.idxMap setKey:@"Commenti"           forSection:1 row:4];
+    [self.idxMap setTitle:tipoEsercente       forSection:1];
     
-    [self.idxMap setKey:@"Telefono"         forSection:2 row:0];
-    [self.idxMap setKey:@"Email"            forSection:2 row:1];
-    [self.idxMap setKey:@"URL"              forSection:2 row:2];
-    [self.idxMap setTitle:@"Contatti"       forSection:2];
+    [self.idxMap setKey:@"Telefono"           forSection:2 row:0];
+    [self.idxMap setKey:@"Email"              forSection:2 row:1];
+    [self.idxMap setKey:@"URL"                forSection:2 row:2];
+    [self.idxMap setTitle:@"Contatti"         forSection:2];
     
     if (isCoupon || isGenerico) {
-        [self.idxMap removeKey:@"PastiValidita"]; 
+        [self.idxMap removeKey:@"PastiValidita"];
+        [self.idxMap removeKey:@"Esercente_Virtuale"];
     }
 }
 

@@ -205,6 +205,8 @@
 		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
 		D9ED8BF9152F8FF0002C3D65 /* FotoIngranditaController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */; };
 		D9ED8BFA152F8FF0002C3D65 /* FotoIngranditaController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9ED8BF8152F8FEF002C3D65 /* FotoIngranditaController.xib */; };
+		D9F27086155F147B008AE6CC /* DettaglioEsercente.php in Resources */ = {isa = PBXBuildFile; fileRef = D9F27084155F147B008AE6CC /* DettaglioEsercente.php */; };
+		D9F27087155F147B008AE6CC /* DettaglioRistorantePub.php in Resources */ = {isa = PBXBuildFile; fileRef = D9F27085155F147B008AE6CC /* DettaglioRistorantePub.php */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -501,6 +503,8 @@
 		D9ED8BF6152F8FEF002C3D65 /* FotoIngranditaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FotoIngranditaController.h; sourceTree = "<group>"; };
 		D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FotoIngranditaController.m; sourceTree = "<group>"; };
 		D9ED8BF8152F8FEF002C3D65 /* FotoIngranditaController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FotoIngranditaController.xib; sourceTree = "<group>"; };
+		D9F27084155F147B008AE6CC /* DettaglioEsercente.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = DettaglioEsercente.php; path = "php server/PHP APPv2/DettaglioEsercente.php"; sourceTree = SOURCE_ROOT; };
+		D9F27085155F147B008AE6CC /* DettaglioRistorantePub.php */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.php; name = DettaglioRistorantePub.php; path = "php server/PHP APPv2/DettaglioRistorantePub.php"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -920,6 +924,8 @@
 		D99378B81519463700DFC410 /* PHP */ = {
 			isa = PBXGroup;
 			children = (
+				D9F27084155F147B008AE6CC /* DettaglioEsercente.php */,
+				D9F27085155F147B008AE6CC /* DettaglioRistorantePub.php */,
 				D91D431A151A3D6F001D9033 /* CardDeviceAssociation.php */,
 				D91D431B151A3D6F001D9033 /* checkEmail.php */,
 				D91D431C151A3D6F001D9033 /* login.php */,
@@ -1229,6 +1235,8 @@
 				AC709D55154D42CB00C6B3A2 /* ToucHotelViewController.xib in Resources */,
 				AC709D59154D4A4A00C6B3A2 /* appStore.png in Resources */,
 				AC709D5A154D4A4A00C6B3A2 /* appStore@2x.png in Resources */,
+				D9F27086155F147B008AE6CC /* DettaglioEsercente.php in Resources */,
+				D9F27087155F147B008AE6CC /* DettaglioRistorantePub.php in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

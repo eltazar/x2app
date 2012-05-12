@@ -40,7 +40,7 @@
         isGenerico = FALSE;
         isCoupon = FALSE;
         isDataModelReady = FALSE;
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioEsercente.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
         urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
@@ -55,7 +55,7 @@
         isGenerico = FALSE;
         isCoupon = FALSE;
         isDataModelReady = FALSE;
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioEsercente.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
         urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
@@ -346,7 +346,27 @@
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
         }
-
+    }
+    
+    else if ([key isEqualToString:@"Esercente_Virtuale"]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+        }
+        UILabel *virt = (UILabel *)[cell viewWithTag:1];
+        UILabel *etic = (UILabel *)[cell viewWithTag:2];
+        etic.text = @"";
+        if ([[self.dataModel objectForKey:@"Esercente_Virtuale"] isEqualToString:@"1"]) {
+            virt.text = @"Questo esercente accetta la Carta PerDue virtuale!";
+        }
+        else {
+            virt.text = @"Questo esercente non accetta la Carta PerDue virtuale!";
+        }
+        virt.numberOfLines = 2;
+        virt.font = [UIFont systemFontOfSize:virt.font.pointSize];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSLog(@"%@", [[self.dataModel objectForKey:@"Esercente_Virtuale"] class]);
     }
     
     else if ([key isEqualToString:@"Telefono"]) {
@@ -598,17 +618,19 @@
 
 - (void)populateIndexPathMap {
     NSString *insegnaEsercente = [self.dataModel objectForKey:@"Insegna_Esercente"];
-    [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
-    [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
-    [self.idxMap setKey:@"GiornoValidita"   forSection:0 row:2];
-    [self.idxMap setTitle:insegnaEsercente  forSection:0];
-    [self.idxMap setKey:@"Telefono"         forSection:1 row:0];
-    [self.idxMap setKey:@"Email"            forSection:1 row:2];
-    [self.idxMap setKey:@"URL"              forSection:1 row:3];
-    [self.idxMap setTitle:@"Contatti"       forSection:1];
+    [self.idxMap setKey:@"Indirizzo"          forSection:0 row:0];
+    [self.idxMap setKey:@"GiornoChiusura"     forSection:0 row:1];
+    [self.idxMap setKey:@"GiornoValidita"     forSection:0 row:2];
+    [self.idxMap setKey:@"Esercente_Virtuale" forSection:0 row:3];
+    [self.idxMap setTitle:insegnaEsercente    forSection:0];
+    [self.idxMap setKey:@"Telefono"           forSection:1 row:0];
+    [self.idxMap setKey:@"Email"              forSection:1 row:2];
+    [self.idxMap setKey:@"URL"                forSection:1 row:3];
+    [self.idxMap setTitle:@"Contatti"         forSection:1];
     
     if (isCoupon || isGenerico) {
         [self.idxMap removeKey:@"GiornoValidita"]; 
+        [self.idxMap removeKey:@"Esercente_Virtuale"];
     }
 }
 
