@@ -349,21 +349,17 @@
     }
     
     else if ([key isEqualToString:@"Esercente_Virtuale"]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCartaVirtualeCell"];
         if (!cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCartaVirtualeCell" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *virt = (UILabel *)[cell viewWithTag:1];
         UILabel *etic = (UILabel *)[cell viewWithTag:2];
-        etic.text = @"";
         if ([[self.dataModel objectForKey:@"Esercente_Virtuale"] isEqualToString:@"1"]) {
-            virt.text = @"Questo esercente accetta la Carta PerDue virtuale!";
+            etic.text = @"Sì";
         }
         else {
-            virt.text = @"Questo esercente non accetta la Carta PerDue virtuale!";
+            etic.text = @"No";
         }
-        virt.numberOfLines = 2;
-        virt.font = [UIFont systemFontOfSize:virt.font.pointSize];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         NSLog(@"%@", [[self.dataModel objectForKey:@"Esercente_Virtuale"] class]);
