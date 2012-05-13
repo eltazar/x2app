@@ -82,6 +82,7 @@
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
 		AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80D1543005100A980D7 /* ToucHotel.png */; };
 		AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80E1543005100A980D7 /* ToucHotel@2x.png */; };
+		AC20E1191560323B00A4562D /* DettEsercCartaVirtualeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC20E1181560323B00A4562D /* DettEsercCartaVirtualeCell.xib */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
 		AC709D54154D42CB00C6B3A2 /* ToucHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC709D52154D42CB00C6B3A2 /* ToucHotelViewController.m */; };
 		AC709D55154D42CB00C6B3A2 /* ToucHotelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC709D53154D42CB00C6B3A2 /* ToucHotelViewController.xib */; };
@@ -307,6 +308,7 @@
 		AC13B7081509691500E54106 /* BuyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyCell.m; sourceTree = "<group>"; };
 		AC18B80D1543005100A980D7 /* ToucHotel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToucHotel.png; sourceTree = "<group>"; };
 		AC18B80E1543005100A980D7 /* ToucHotel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToucHotel@2x.png"; sourceTree = "<group>"; };
+		AC20E1181560323B00A4562D /* DettEsercCartaVirtualeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercCartaVirtualeCell.xib; sourceTree = "<group>"; };
 		AC27879B15194A5C00747542 /* GeoDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoDecoder.h; sourceTree = "<group>"; };
 		AC27879C15194A5C00747542 /* GeoDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoDecoder.m; sourceTree = "<group>"; };
 		AC3AC159151DCA4000C8164D /* grayButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton.png; sourceTree = "<group>"; };
@@ -950,6 +952,7 @@
 				D9AE33AB152E51BB006757FA /* DettEsercGiorniValiditaCell.xib */,
 				D9AE33A9152E51B3006757FA /* DettEsercCellWithTitle.xib */,
 				D9AE33AD152E51CC006757FA /* DettEsercCell.xib */,
+				AC20E1181560323B00A4562D /* DettEsercCartaVirtualeCell.xib */,
 				D92D1CF3152CF69500008CE3 /* DettaglioEsercenteRistorazione.h */,
 				D92D1CF4152CF69500008CE3 /* DettaglioEsercenteRistorazione.m */,
 				D9AE33AF152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib */,
@@ -1237,6 +1240,7 @@
 				AC709D5A154D4A4A00C6B3A2 /* appStore@2x.png in Resources */,
 				D9F27086155F147B008AE6CC /* DettaglioEsercente.php in Resources */,
 				D9F27087155F147B008AE6CC /* DettaglioRistorantePub.php in Resources */,
+				AC20E1191560323B00A4562D /* DettEsercCartaVirtualeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
