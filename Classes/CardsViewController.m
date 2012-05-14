@@ -77,7 +77,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAbortLogout) name:kDidAbortLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAssociateNewCard) name:kPurchasedCard object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDeleteCard) name:kDeletedCard object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didDeleteCard) name:kDeletedCard object:nil];
     
     //inapp purchase
     [[NSNotificationCenter defaultCenter] addObserver:self selector: @selector(cardDownloadError:) name:kCardServerError object: nil];
@@ -214,7 +214,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kDidAbortLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kDidLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kPurchasedCard object:nil];
-     [[NSNotificationCenter defaultCenter] removeObserver:self name:kDeletedCard object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:kDeletedCard object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardServerError object:nil];    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kCardDownloaded object:nil];
