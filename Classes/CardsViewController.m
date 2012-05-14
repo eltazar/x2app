@@ -687,8 +687,21 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)didDeleteCard{
+#pragma mark - DettaglioCardViewControllerDelegate
+
+-(void)didDeleteCard:(id)sender{
     [self didAssociateNewCard];
+}
+-(void)didBuyRequest:(id)sender{
+        
+    //rimuovo il DettaglioCardViewController
+    [self.navigationController popViewControllerAnimated:NO];
+    
+    //Lancio a mano la selezione della cella "Acquista Online"
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:1];
+    //[self.tableView selectRowAtIndexPath:indexPath animated:false scrollPosition:UITableViewScrollPositionMiddle];
+    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+    
 }
 
 # pragma mark - CardsViewController (private methods)
