@@ -11,8 +11,9 @@
 #import "LoginControllerBis.h"
 #import "WMHTTPAccess.h"
 #import "DataLoginController.h"
+#import "DettaglioCartaViewController.h"
 
-@interface CardsViewController : UITableViewController <AbbinaCartaDelegate, LoginControllerBisDelegate, WMHTTPAccessDelegate/*,DataLoginDelegate*/> { 
+@interface CardsViewController : UITableViewController <AbbinaCartaDelegate, LoginControllerBisDelegate, WMHTTPAccessDelegate, DettaglioCartaViewControllerDelegate/*,DataLoginDelegate*/> { 
 }
 
 @end

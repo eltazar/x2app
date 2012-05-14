@@ -72,7 +72,7 @@
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:[IAPHelper sharedHelper]];
     
-    [self setTitle:@"Gestione carte"];
+    [self setTitle:@"Gestione"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAbortLogout) name:kDidAbortLogoutNotification object:nil];
@@ -399,6 +399,7 @@
     if ([dataKey isEqualToString:@"card"]){
         CartaPerDue *card = [row objectForKey:@"card"];
         DettaglioCartaViewController *controllaCartaCtrl = [[DettaglioCartaViewController alloc] initWithCard:card];
+        controllaCartaCtrl.delegate = self;
         [self.navigationController pushViewController:controllaCartaCtrl animated:YES];
         [controllaCartaCtrl release];
     }
