@@ -112,6 +112,8 @@
 		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
 		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
 		ACC408521560F4E5008687A3 /* cartaX2hd.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408511560F4E5008687A3 /* cartaX2hd.png */; };
+		ACC408561560F8D4008687A3 /* gestione.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408541560F8D3008687A3 /* gestione.png */; };
+		ACC408571560F8D4008687A3 /* gestione@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408551560F8D3008687A3 /* gestione@2x.png */; };
 		ACC808541521F678006DF894 /* grayButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC808531521F678006DF894 /* grayButton2.png */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACCDB1381546E18D00578758 /* cartaBtn2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */; };
@@ -355,6 +357,8 @@
 		ACC31928151CD815008229B0 /* LoginControllerBis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginControllerBis.m; sourceTree = "<group>"; };
 		ACC31929151CD815008229B0 /* LoginControllerBis.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginControllerBis.xib; sourceTree = "<group>"; };
 		ACC408511560F4E5008687A3 /* cartaX2hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartaX2hd.png; sourceTree = "<group>"; };
+		ACC408541560F8D3008687A3 /* gestione.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gestione.png; sourceTree = "<group>"; };
+		ACC408551560F8D3008687A3 /* gestione@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gestione@2x.png"; sourceTree = "<group>"; };
 		ACC808531521F678006DF894 /* grayButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton2.png; sourceTree = "<group>"; };
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
 		ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cartaBtn2@2x.png"; sourceTree = "<group>"; };
@@ -533,6 +537,8 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				ACC408541560F8D3008687A3 /* gestione.png */,
+				ACC408551560F8D3008687A3 /* gestione@2x.png */,
 				ACC408511560F4E5008687A3 /* cartaX2hd.png */,
 				AC709D57154D4A4A00C6B3A2 /* appStore.png */,
 				AC709D58154D4A4A00C6B3A2 /* appStore@2x.png */,
@@ -1241,6 +1247,8 @@
 				D9F27087155F147B008AE6CC /* DettaglioRistorantePub.php in Resources */,
 				AC20E1191560323B00A4562D /* DettEsercCartaVirtualeCell.xib in Resources */,
 				ACC408521560F4E5008687A3 /* cartaX2hd.png in Resources */,
+				ACC408561560F8D4008687A3 /* gestione.png in Resources */,
+				ACC408571560F8D4008687A3 /* gestione@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
