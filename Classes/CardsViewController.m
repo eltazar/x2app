@@ -22,6 +22,7 @@
 #import "LoginControllerBis.h"
 #import "UIDevice+IdentifierAddition.h"
 #import "PDHTTPAccess.h"
+#import "MBProgressHUD.h"
 
 
 @interface CardsViewController() {
@@ -478,6 +479,11 @@
             if([Utilita networkReachable]){
                 //lancio query per recupero della carta acquistato dall'utente idutente
                 NSLog(@"ID UTENTE = %d",[idUtente intValue]);
+                
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.labelText = @"Recupero acquisti";
+                hud.detailsLabelText = @"Download in corso...";
+                
                 [PDHTTPAccess retrieveCardFromServer:[idUtente intValue] delegate:self]; 
             }
             else{
@@ -605,6 +611,8 @@
     
     NSLog(@"procedura recupero carta count = %d, tipo = %@",[[jsonDict objectForKey:@"CartaRecuperata"] count],[[jsonDict objectForKey:@"CartaRecuperata"] class]);
     
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
     if([jsonDict objectForKey:@"CartaRecuperata"] &&
        [[jsonDict objectForKey:@"CartaRecuperata"] count] > 0){
       
@@ -653,6 +661,8 @@
 
 -(void)didReceiveError:(NSError *)error{
     NSLog(@"ERRORE = %@", error.description);
+    
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Errore connessione" message:@"Si è verificato un errore di connessione, riprovare" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
     [alert show];
