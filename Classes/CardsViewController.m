@@ -94,7 +94,7 @@
     NSMutableArray *retrieveSection = [[NSMutableArray alloc]init];
     
     // Inizializzazione struttura dati della sezione di gestione
-    [manageSection insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
+    /*[manageSection insertObject:[[[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                   @"abbina",                @"DataKey",
                                   @"ActionCell",            @"kind",
                                   @"Abbina la tua carta",   @"label",
@@ -102,7 +102,7 @@
                                   @"Per abbinare la tua carta reale all'iPhone", @"subtitle",
                                   @"",                      @"img",
                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
-                                  nil] autorelease] atIndex: 0];
+                                  nil] autorelease] atIndex: 0];*/
     
     [manageSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                                   @"acquista",              @"DataKey",
@@ -111,7 +111,7 @@
                                   @"Per acquistare la carta PerDue online", @"subtitle",
                                   @"",                      @"img",
                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
-                                  nil] autorelease] atIndex: 1];
+                                  nil] autorelease] atIndex: 0];
     [manageSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                                   @"richiedi",              @"DataKey",
                                   @"ActionCell",            @"kind",
@@ -119,7 +119,7 @@
                                   @"Sarai ricontattato da PerDue", @"subtitle",
                                   @"",                      @"img",
                                   [NSString stringWithFormat:@"%d", UITableViewCellStyleSubtitle], @"style",
-                                  nil] autorelease] atIndex: 2];
+                                  nil] autorelease] atIndex: 1];
     
     [retrieveSection insertObject:[[[NSDictionary alloc] initWithObjectsAndKeys:
                                   @"recupera",              @"DataKey",
@@ -133,7 +133,7 @@
     
     // se la sezione "Carte" è vuota, non la aggiungo al model, così da nasconderla
     if (cardsSection && cardsSection.count > 0) {
-        [self.sectionDescription insertObject:@"Carte" atIndex:0];
+        [self.sectionDescription insertObject:@"Carte Virtuali" atIndex:0];
         [self.sectionDescription insertObject:@"Gestione" atIndex:1];
         [self.sectionDescription insertObject:@"Recupera acquisti" atIndex:2];
         
@@ -570,7 +570,7 @@
     [self.navigationController popViewControllerAnimated:YES];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Servizio momentaneamente non disponibile" message:@"Il tuo acquisto è andato a buon fine, ma bla bla bla" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Servizio momentaneamente non disponibile" message:@"Il tuo acquisto è andato a buon fine, ma si è verificato un errore di rete, recupera in seguito il tuo acquisto dalla sezione \"Gestione\"" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     [alert show];
     [alert release];
     
