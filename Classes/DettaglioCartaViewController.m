@@ -17,7 +17,6 @@
 #import "LocalDatabaseAccess.h"
 #import "FindNearCompanyController.h"
 
-
 @interface DettaglioCartaViewController(){
     CartaPerDue *_card;
     NSMutableArray *_sectionData;
@@ -36,7 +35,7 @@
 
 @synthesize viewForImage=_viewForImage;
 @synthesize card=_card, sectionData=_sectionData, sectionDescription=_sectionDescription;
-
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -389,6 +388,7 @@
         cell.textLabel.textAlignment = UITextAlignmentCenter;
     }
     
+    [cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
     [cell setBackgroundColor:[UIColor whiteColor]];
     
     return cell;
@@ -477,9 +477,15 @@
     NSDictionary *row = [sec objectAtIndex:indexPath.row];
     NSString *dataKey = [row objectForKey:@"DataKey"];
     
+    NSLog(@"DATA KEY = %@", dataKey);
+    
     // Click su una carta
     if ([dataKey isEqualToString:@"buyOnline"]){
         NSLog(@"compra online");
+        
+        if(delegate && [delegate respondsToSelector:@selector(didBuyRequest:)]){
+            [delegate didBuyRequest:self];
+        }
     }
     else if([dataKey isEqualToString:@"request"]){
         RichiediCardViewController *richiediController = [[RichiediCardViewController alloc] initWithNibName:@"RichiediCardViewController" bundle:nil];
@@ -532,7 +538,10 @@
         NSError *error;
         [[LocalDatabaseAccess getInstance] removeStoredCard:self.card error:&error ];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:kDeletedCard object:nil];        
+        //[[NSNotificationCenter defaultCenter] postNotificationName:kDeletedCard object:nil];        
+        if(self.delegate && [delegate respondsToSelector:@selector(didDeleteCard:)]){
+            [delegate didDeleteCard:self];
+        }
     }
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

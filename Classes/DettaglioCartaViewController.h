@@ -9,14 +9,25 @@
 #import "CartaPerDue.h"
 #import "WMHTTPAccess.h"
 
-#define kDeletedCard            @"deletedCard"
+//#define kDeletedCard            @"deletedCard"
+
+@protocol DettaglioCartaViewControllerDelegate;
 
 @interface DettaglioCartaViewController : UITableViewController <WMHTTPAccessDelegate> {
 }
 
+@property(nonatomic, assign) id<DettaglioCartaViewControllerDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UIView *viewForImage;
 
 - (id)initWithCard:(CartaPerDue *)card;
 
+
+@end
+
+
+@protocol DettaglioCartaViewControllerDelegate <NSObject>
+
+-(void)didDeleteCard:(id)sender;
+-(void)didBuyRequest:(id)sender;
 
 @end
