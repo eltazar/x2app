@@ -76,7 +76,6 @@
 		AC0C663E1504DDB400B4F971 /* DatiUtenteController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC0C663C1504DDB400B4F971 /* DatiUtenteController.xib */; };
 		AC0C66421505053700B4F971 /* DoneDown3.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66401505053700B4F971 /* DoneDown3.png */; };
 		AC0C66431505053700B4F971 /* DoneUp3.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66411505053700B4F971 /* DoneUp3.png */; };
-		AC0C66451505185600B4F971 /* cartaGrande.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66441505185600B4F971 /* cartaGrande.png */; };
 		AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7031509658D00E54106 /* AcquistoOnlineController.m */; };
 		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
@@ -112,6 +111,7 @@
 		ACB9EBA21545ABA800C1EBC7 /* CellRichiedi.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACB9EBA11545ABA800C1EBC7 /* CellRichiedi.xib */; };
 		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
 		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
+		ACC408521560F4E5008687A3 /* cartaX2hd.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408511560F4E5008687A3 /* cartaX2hd.png */; };
 		ACC808541521F678006DF894 /* grayButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC808531521F678006DF894 /* grayButton2.png */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACCDB1381546E18D00578758 /* cartaBtn2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */; };
@@ -300,7 +300,6 @@
 		AC0C663C1504DDB400B4F971 /* DatiUtenteController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatiUtenteController.xib; sourceTree = "<group>"; };
 		AC0C66401505053700B4F971 /* DoneDown3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneDown3.png; sourceTree = "<group>"; };
 		AC0C66411505053700B4F971 /* DoneUp3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DoneUp3.png; sourceTree = "<group>"; };
-		AC0C66441505185600B4F971 /* cartaGrande.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartaGrande.png; sourceTree = "<group>"; };
 		AC13B7021509658D00E54106 /* AcquistoOnlineController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcquistoOnlineController.h; sourceTree = "<group>"; };
 		AC13B7031509658D00E54106 /* AcquistoOnlineController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcquistoOnlineController.m; sourceTree = "<group>"; };
 		AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcquistoOnlineController.xib; sourceTree = "<group>"; };
@@ -355,6 +354,7 @@
 		ACC31927151CD815008229B0 /* LoginControllerBis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginControllerBis.h; sourceTree = "<group>"; };
 		ACC31928151CD815008229B0 /* LoginControllerBis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginControllerBis.m; sourceTree = "<group>"; };
 		ACC31929151CD815008229B0 /* LoginControllerBis.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginControllerBis.xib; sourceTree = "<group>"; };
+		ACC408511560F4E5008687A3 /* cartaX2hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartaX2hd.png; sourceTree = "<group>"; };
 		ACC808531521F678006DF894 /* grayButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton2.png; sourceTree = "<group>"; };
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
 		ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cartaBtn2@2x.png"; sourceTree = "<group>"; };
@@ -533,6 +533,7 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				ACC408511560F4E5008687A3 /* cartaX2hd.png */,
 				AC709D57154D4A4A00C6B3A2 /* appStore.png */,
 				AC709D58154D4A4A00C6B3A2 /* appStore@2x.png */,
 				ACCDB13A1546E26C00578758 /* couponBtn2@2x.png */,
@@ -549,7 +550,6 @@
 				ACC313C7151A9507008DBEBA /* greenButton.png */,
 				AC9B692D1507D84A00BE6A30 /* scadutaImg.png */,
 				ACA2FBEA15079F1700E3921B /* yellowButton.png */,
-				AC0C66441505185600B4F971 /* cartaGrande.png */,
 				AC0C66401505053700B4F971 /* DoneDown3.png */,
 				AC0C66411505053700B4F971 /* DoneUp3.png */,
 				ACCCDE6315041A3100035479 /* cancelButton.png */,
@@ -1185,7 +1185,6 @@
 				AC0C663E1504DDB400B4F971 /* DatiUtenteController.xib in Resources */,
 				AC0C66421505053700B4F971 /* DoneDown3.png in Resources */,
 				AC0C66431505053700B4F971 /* DoneUp3.png in Resources */,
-				AC0C66451505185600B4F971 /* cartaGrande.png in Resources */,
 				ACA2FBE91507969100E3921B /* RichiediCardViewController.xib in Resources */,
 				ACA2FBEB15079F1700E3921B /* yellowButton.png in Resources */,
 				AC9B692A1507AFAA00BE6A30 /* DettaglioCartaViewController.xib in Resources */,
@@ -1241,6 +1240,7 @@
 				D9F27086155F147B008AE6CC /* DettaglioEsercente.php in Resources */,
 				D9F27087155F147B008AE6CC /* DettaglioRistorantePub.php in Resources */,
 				AC20E1191560323B00A4562D /* DettEsercCartaVirtualeCell.xib in Resources */,
+				ACC408521560F4E5008687A3 /* cartaX2hd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
