@@ -142,7 +142,7 @@
     
     isNotBind = FALSE;
     
-    UIImageView *cartaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartaGrande.png"]];
+    UIImageView *cartaView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartaX2hd.png"]];
     [cartaView setFrame:CGRectMake(11, 12, 300, 180)];
     
     
@@ -156,7 +156,7 @@
     CGFloat padding = 10;
     CGFloat boundsWidth = cartaView.frame.size.width;
     
-    UITextField *titolareLabel = [[UITextField alloc] initWithFrame:CGRectMake(padding, cartaView.frame.size.height/2 + padding, boundsWidth-2*padding, 28)];
+    UITextField *titolareLabel = [[UITextField alloc] initWithFrame:CGRectMake(padding, cartaView.frame.size.height/2 + padding + 4, boundsWidth-2*padding, 28)];
     titolareLabel.font = [UIFont systemFontOfSize:15];
     titolareLabel.text = [NSString stringWithFormat:@"%@ %@", self.card.name, self.card.surname];
     titolareLabel.backgroundColor = [UIColor clearColor];
