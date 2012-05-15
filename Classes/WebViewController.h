@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WebViewController : UIViewController
+@interface WebViewController : UIViewController{
+    
+    @private
+    IBOutlet UIWebView *webView;
+    NSString *urlString;
+}
+@property(nonatomic, retain) NSString *urlString;
+@property(nonatomic, retain) IBOutlet UIWebView *webView;
+
+-(id) initWithUrlString:(NSString *)urlStr;
 
 @end
