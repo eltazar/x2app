@@ -73,7 +73,7 @@
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:[IAPHelper sharedHelper]];
     
-    [self setTitle:@"Gestione"];
+    [self setTitle:@"PerDue Shop"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAbortLogout) name:kDidAbortLogoutNotification object:nil];
@@ -133,14 +133,14 @@
     
     // se la sezione "Carte" è vuota, non la aggiungo al model, così da nasconderla
     if (cardsSection && cardsSection.count > 0) {
-        [self.sectionDescription insertObject:@"Carte Virtuali" atIndex:0];
-        [self.sectionDescription insertObject:@"Gestione" atIndex:1];
+        [self.sectionDescription insertObject:@"Elenco acquisti" atIndex:0];
+        [self.sectionDescription insertObject:@"PerDue Shop" atIndex:1];
         [self.sectionDescription insertObject:@"Recupera acquisti" atIndex:2];
         
         self.sectionData = [[[NSMutableArray alloc] initWithObjects:cardsSection, manageSection, retrieveSection, nil] autorelease];
         nAssociatedCards = cardsSection.count;
     } else {
-        [self.sectionDescription insertObject:@"Gestione" atIndex:0];
+        [self.sectionDescription insertObject:@"PerDue Shop" atIndex:0];
         [self.sectionDescription insertObject:@"Recupera acquisti" atIndex:1];
         self.sectionData = [[[NSMutableArray alloc] initWithObjects:manageSection, retrieveSection, nil] autorelease];
     }
@@ -678,8 +678,8 @@
     NSLog(@" quiiiiiiiiiii");
     
     if (self.sectionData.count == 2) {
-        [self.sectionDescription replaceObjectAtIndex:0 withObject:@"Carte"];
-        [self.sectionDescription insertObject:@"Gestione" atIndex:1];
+        [self.sectionDescription replaceObjectAtIndex:0 withObject:@"Elenco acquisti"];
+        [self.sectionDescription insertObject:@"PerDue Shop" atIndex:1];
         
         NSArray *tempA = [[self.sectionData objectAtIndex:0]retain];
         
