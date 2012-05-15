@@ -13,7 +13,10 @@
 #import "WMHTTPAccess.h"
 #import "MBProgressHUD.h"
 
-@interface FindNearCompanyController () {}
+@interface FindNearCompanyController () {
+    int firstFetchCount;
+}
+
 @property (nonatomic, retain) CartaPerDue *card;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @end
@@ -41,6 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Esercenti vicini";
+    
+    firstFetchCount = 0;
     
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
@@ -236,10 +241,21 @@
     
     [rowsTemp removeLastObject];
     
+    if( [type isEqualToString:@"Esercente:FirstRows"]){
+        //se è la prima query salvo quante righe sono state ottenute dal server
+        firstFetchCount = rowsTemp.count;
+        NSLog(@"firstFetchCount = %d", firstFetchCount);
+    }
+    else{
+        //alle query successive aggiorno il contatore sommando i nuovi risultati
+        firstFetchCount += rowsTemp.count;
+    }
+    
     NSMutableArray *rows = [NSMutableArray array];
     
     //seleziono solo gli esercenti che accettano la card virtuale
     for(int i = 0 ; i < rowsTemp.count ; i++){
+        // == 0 per debug, != versione da pubblicare
         if( [[[rowsTemp objectAtIndex:i] objectForKey:@"Esercente_virtuale"] intValue] != 0){
             
             [rows addObject:[rowsTemp objectAtIndex:i]];
@@ -305,8 +321,11 @@
     [postDict setObject:@"0"                    forKey:@"from"];
     //[postDict setObject:[NSString stringWithFormat:@"%f",location.latitude] forKey:@"lat"];
     //[postDict setObject:[NSString stringWithFormat:@"%f",location.longitude] forKey:@"long"];
-    [postDict setObject:@"41.890520" forKey:@"lat"];
-    [postDict setObject:@"12.494249" forKey:@"long"];
+    
+    //12.4974148,41.914047,0 via salaria
+    // 12.4942486,41.8905198,0 centro roma
+    [postDict setObject:@"41.914047" forKey:@"lat"];
+    [postDict setObject:@"12.4974148" forKey:@"long"];
     NSLog(@"today = %@, lat = %f, long = %f",[Utilita today], location.latitude,location.longitude);
     
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:_urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
@@ -314,18 +333,23 @@
 
 
 - (void)fetchMoreRows {
+    
+    NSLog(@"count rows first fetch = %d", firstFetchCount);
+    
     queryingMoreRows = YES;
-    NSString *fromString = [NSString stringWithFormat:@"%d", self.dataModel.count];
+    NSString *fromString = [NSString stringWithFormat:@"%d", firstFetchCount];
     NSMutableDictionary *postDict = [NSMutableDictionary dictionaryWithCapacity:8];
     [postDict setObject:@"fetch"                forKey:@"request"];
     [postDict setObject:[Utilita today]         forKey:@"giorno"];
     [postDict setObject:@"2"                    forKey:@"raggio"];
     [postDict setObject:@"distanza"             forKey:@"ordina"];
     [postDict setObject:fromString              forKey:@"from"];
-    [postDict setObject:[NSString stringWithFormat:@"%f",location.latitude] forKey:@"lat"];
-    [postDict setObject:[NSString stringWithFormat:@"%f",location.longitude] forKey:@"long"];
-    //[postDict setObject:@"41.890520" forKey:@"lat"];
-    //[postDict setObject:@"12.494249" forKey:@"long"];
+    //[postDict setObject:[NSString stringWithFormat:@"%f",location.latitude] forKey:@"lat"];
+    //[postDict setObject:[NSString stringWithFormat:@"%f",location.longitude] forKey:@"long"];
+    //12.4974148,41.914047,0 via salaria
+    // 12.494249,41.890520,0 centro roma    
+    [postDict setObject:@"41.914047" forKey:@"lat"];
+    [postDict setObject:@"12.4974148" forKey:@"long"];
 
     [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:_urlString method:WMHTTPAccessConnectionMethodPOST parameters:postDict delegate:self];
 }
