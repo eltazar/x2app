@@ -57,6 +57,7 @@
 						<int key="NSvFlags">1298</int>
 						<string key="NSFrame">{{82, 216}, {157, 48}}</string>
 						<reference key="NSSuperview" ref="380026005"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -91,7 +92,7 @@
 				<bool key="IBUIHorizontal">NO</bool>
 				<object class="IBUINavigationController" key="IBUISelectedViewController" id="304568708">
 					<object class="IBUITabBarItem" key="IBUITabBarItem" id="999825742">
-						<string key="IBUITitle">Gestione</string>
+						<string key="IBUITitle">PerDue Shop</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">gestione.png</string>
@@ -312,6 +313,7 @@
 					<int key="NSvFlags">266</int>
 					<string key="NSFrame">{{0, 431}, {320, 49}}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSNextKeyView"/>
 					<object class="NSColor" key="IBUIBackgroundColor">
 						<int key="NSColorSpace">3</int>
 						<bytes key="NSWhite">MCAwAA</bytes>
