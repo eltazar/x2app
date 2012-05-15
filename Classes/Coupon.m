@@ -166,42 +166,46 @@ static int count = 0;
     
     else if (indexPath.section == 0 && indexPath.row == 1) {
         // Qui cambiamo un po' il flusso. Dato che è inutile reinizializzare ogni volta la cella (ogni reinizializzazione causa l'apertura di una connessione http per il download dell'immagine...) se la cella arriva dal dequeue allora (dato che è l'unica con questo reuse identifier) assumiamo che sia già pronta, e non facciamo nulla.    In caso contrario, la allochiamo e inizializziamo. 
+        CouponDiscountTimeCell *cdtCell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"CouponDiscountTimeCell"];
         if (!cell) {
             NSLog(@"%@::cellForRow Non stiamo riusando!", [self class]);
-            CouponDiscountTimeCell *cdtCell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDiscountTimeCell" owner:self options:NULL] objectAtIndex:0];
-         
-            self.tempoLbl = cdtCell.tempoLbl;
-            [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra", [self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
-            cdtCell.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"coupon_valore_acquisto"]] ]; 
-            cdtCell.scontoLbl.text = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_sconto_per"]];
-            cdtCell.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"offerta_sconto_va"]]];
-            cdtCell.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"coupon_valore_facciale"]]];
-            
-            NSString *imgUrlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
-            [cdtCell loadImageFromUrlString:imgUrlString];
-            cdtCell.viewController = self;
-            //NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
-            //[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
-            //NSString *datadb = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"coupon_periodo_dal"]];
-            NSDateFormatter *formatodb = [[NSDateFormatter alloc] init];
-            [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-            NSDate *now = [[NSDate alloc] init];
-            NSString *scad = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_periodo_al"]];
-            NSDate *datascadenza = [formatodb dateFromString:scad];
-            secondsLeft =[datascadenza timeIntervalSinceDate:now];
-            int days, hours, minutes, seconds;
-            days = secondsLeft / (3600 * 24);
-            hours = (secondsLeft - (days *24 * 3600)) / 3600;
-            minutes = (secondsLeft - ((hours * 3600) + (days *24 * 3600))) / 60;
-            seconds = secondsLeft % 60;
-            //NSLog(@"time =%02d:%02d:%02d:%02d", days, hours, minutes, seconds);
-            self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds", days, hours, minutes, seconds];
-            [formatodb release];
-            [now release];
-            cell = cdtCell;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cdtCell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDiscountTimeCell" owner:self options:NULL] objectAtIndex:0];
         }
+        else {
+            cdtCell = (CouponDiscountTimeCell*)cell;
+        }
+        self.tempoLbl = cdtCell.tempoLbl;
+        [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra", [self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+        cdtCell.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"coupon_valore_acquisto"]] ]; 
+        cdtCell.scontoLbl.text = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_sconto_per"]];
+        cdtCell.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"offerta_sconto_va"]]];
+        cdtCell.prezzoOrigLbl.text = [NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"coupon_valore_facciale"]]];
+        
+        NSString *imgUrlString = [NSString stringWithFormat:@"http://www.cartaperdue.it/coupon/img_offerte/%@", [self.dataModel objectForKey:@"offerta_foto_big"]];
+        [cdtCell loadImageFromUrlString:imgUrlString];
+        cdtCell.viewController = self;
+        //NSDateFormatter *formatoapp = [[NSDateFormatter alloc] init];
+        //[formatoapp setDateFormat:@"dd-MM-YYYY HH:mm:ss"];
+        //NSString *datadb = [NSString stringWithFormat:@"%@",[self.dataModel objectForKey:@"coupon_periodo_dal"]];
+        NSDateFormatter *formatodb = [[NSDateFormatter alloc] init];
+        [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *now = [[NSDate alloc] init];
+        NSString *scad = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_periodo_al"]];
+        NSDate *datascadenza = [formatodb dateFromString:scad];
+        secondsLeft =[datascadenza timeIntervalSinceDate:now];
+        int days, hours, minutes, seconds;
+        days = secondsLeft / (3600 * 24);
+        hours = (secondsLeft - (days *24 * 3600)) / 3600;
+        minutes = (secondsLeft - ((hours * 3600) + (days *24 * 3600))) / 60;
+        seconds = secondsLeft % 60;
+        //NSLog(@"time =%02d:%02d:%02d:%02d", days, hours, minutes, seconds);
+        self.tempoLbl.text = [NSString stringWithFormat:@"%dg %02dh:%02dm:%02ds", days, hours, minutes, seconds];
+        [formatodb release];
+        [now release];
+        cell = cdtCell;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
     }
     
     else if (indexPath.section == 1 && indexPath.row == 0) {
