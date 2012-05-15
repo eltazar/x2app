@@ -111,6 +111,8 @@
 		ACB9EBA21545ABA800C1EBC7 /* CellRichiedi.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACB9EBA11545ABA800C1EBC7 /* CellRichiedi.xib */; };
 		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
 		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
+		ACC35FB81562CE3100A8DD1C /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC35FB61562CE3100A8DD1C /* WebViewController.m */; };
+		ACC35FB91562CE3100A8DD1C /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC35FB71562CE3100A8DD1C /* WebViewController.xib */; };
 		ACC408521560F4E5008687A3 /* cartaX2hd.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408511560F4E5008687A3 /* cartaX2hd.png */; };
 		ACC408561560F8D4008687A3 /* gestione.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408541560F8D3008687A3 /* gestione.png */; };
 		ACC408571560F8D4008687A3 /* gestione@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408551560F8D3008687A3 /* gestione@2x.png */; };
@@ -356,6 +358,9 @@
 		ACC31927151CD815008229B0 /* LoginControllerBis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginControllerBis.h; sourceTree = "<group>"; };
 		ACC31928151CD815008229B0 /* LoginControllerBis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginControllerBis.m; sourceTree = "<group>"; };
 		ACC31929151CD815008229B0 /* LoginControllerBis.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginControllerBis.xib; sourceTree = "<group>"; };
+		ACC35FB51562CE3100A8DD1C /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		ACC35FB61562CE3100A8DD1C /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		ACC35FB71562CE3100A8DD1C /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		ACC408511560F4E5008687A3 /* cartaX2hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartaX2hd.png; sourceTree = "<group>"; };
 		ACC408541560F8D3008687A3 /* gestione.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gestione.png; sourceTree = "<group>"; };
 		ACC408551560F8D3008687A3 /* gestione@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gestione@2x.png"; sourceTree = "<group>"; };
@@ -793,6 +798,9 @@
 				ACDE4798152DA435004772D4 /* ValidateCardController.h */,
 				ACDE4799152DA435004772D4 /* ValidateCardController.m */,
 				ACDE479A152DA435004772D4 /* ValidateCardController.xib */,
+				ACC35FB51562CE3100A8DD1C /* WebViewController.h */,
+				ACC35FB61562CE3100A8DD1C /* WebViewController.m */,
+				ACC35FB71562CE3100A8DD1C /* WebViewController.xib */,
 				D9B16092153D92EE0084FF4E /* FindNearCompanyController.h */,
 				D9B16093153D92EE0084FF4E /* FindNearCompanyController.m */,
 				D9463614152F64C6000A17CE /* FindNearCompanyCell.xib */,
@@ -1249,6 +1257,7 @@
 				ACC408521560F4E5008687A3 /* cartaX2hd.png in Resources */,
 				ACC408561560F8D4008687A3 /* gestione.png in Resources */,
 				ACC408571560F8D4008687A3 /* gestione@2x.png in Resources */,
+				ACC35FB91562CE3100A8DD1C /* WebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1339,6 +1348,7 @@
 				D9B16094153D92EE0084FF4E /* FindNearCompanyController.m in Sources */,
 				D97442E5153B827800B3AE08 /* ShowMoreCell.m in Sources */,
 				AC709D54154D42CB00C6B3A2 /* ToucHotelViewController.m in Sources */,
+				ACC35FB81562CE3100A8DD1C /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
