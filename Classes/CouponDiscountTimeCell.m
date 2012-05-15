@@ -60,6 +60,7 @@
 
 - (void)loadImageFromUrlString:(NSString *)urlString {
     NSLog(@"%@::loadImageFromUrlString", [self class]);
+    [_imgUrlString release];
     _imgUrlString = [urlString retain];
     NSURL *url = [NSURL URLWithString:urlString];
     [self.asyncImageView loadImageFromURL:url];
