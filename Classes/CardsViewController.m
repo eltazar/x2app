@@ -314,10 +314,10 @@
         cell.detailTextLabel.text = [rowDesc objectForKey:@"subtitle"];
     }
     
-    if(indexPath.section == 1 && nAssociatedCards >= MAX_CARD){
-        cell.backgroundColor = [UIColor lightGrayColor];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+//    if(indexPath.section == 1 && nAssociatedCards >= MAX_CARD){
+//        cell.backgroundColor = [UIColor lightGrayColor];
+//        cell.accessoryType = UITableViewCellAccessoryNone;
+//    }
     
     [cell setBackgroundColor:[UIColor whiteColor]];
     
