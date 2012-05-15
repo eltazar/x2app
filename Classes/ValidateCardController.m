@@ -111,7 +111,7 @@
     //lancia safari con i dati in GET
     
     NSString *numberMod = [self.card.number stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-    NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/layoutCopia.php?name=%@&surname=%@&number=%@",self.card.name,self.card.surname,numberMod];
+    NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/app_esercenti/verificaCarta.php?name=%@&surname=%@&number=%@",self.card.name,self.card.surname,numberMod];
     NSLog(@"url string = %@",    urlString);
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
