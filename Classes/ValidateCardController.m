@@ -11,6 +11,7 @@
 #import "CartaPerDue.h"
 #import "MBProgressHUD.h"
 #import "PDHTTPAccess.h"
+#import "WebViewController.h"
 
 
 @interface ValidateCardController(){
@@ -109,12 +110,27 @@
     NSLog(@"lancio safari = %@",self.card.number);
 
     //lancia safari con i dati in GET
-    
+    /*
     NSString *numberMod = [self.card.number stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/app_esercenti/verificaCarta.php?name=%@&surname=%@&number=%@",self.card.name,self.card.surname,numberMod];
     NSLog(@"url string = %@",    urlString);
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+     */
+  
+    NSString *numberMod = [self.card.number stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+
+    NSString *urlString = [NSString stringWithFormat: @"http://www.cartaperdue.it/partner/app_esercenti/verificaCarta.php?name=%@&surname=%@&number=%@",self.card.name,self.card.surname,numberMod];
+   
+    WebViewController *webViewController = [[WebViewController alloc] initWithUrlString:urlString];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:webViewController];
+    
+    [self.navigationController presentModalViewController:navController animated:YES];
+
+    [webViewController release];
+    [navController release];
 }
+
 
 -(IBAction)sendPush:(id)sender{
     
