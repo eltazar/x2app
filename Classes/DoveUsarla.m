@@ -234,19 +234,10 @@
     if([[rowData objectForKey:@"title"] isEqualToString:@"ToucHotel"]){
         NSLog(@"touch hotel cliccato");
         
-        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString: @"touchotel://"]]) 
-        {
-            //app th installata, la lancio
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"touchotel://"]];
-        }
-        else {
-            //lancio view controller relativo a th
-            ToucHotelViewController *th = [[ToucHotelViewController alloc] initWithNibName:@"ToucHotelViewController" bundle:nil];
-            [self.navigationController pushViewController:th animated:YES];
-            [th release];
-        }
-        //@"http://itunes.apple.com/it/app/touchotel/id358599349?mt=8"
-        
+        //lancio view controller relativo a th
+        ToucHotelViewController *th = [[ToucHotelViewController alloc] initWithNibName:@"ToucHotelViewController" bundle:nil];
+        [self.navigationController pushViewController:th animated:YES];
+        [th release];
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
