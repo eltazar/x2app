@@ -99,14 +99,16 @@
 		ACB9EB99154553B800C1EBC7 /* cartaBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB9EB98154553B800C1EBC7 /* cartaBtn@2x.png */; };
 		ACB9EB9C154553C700C1EBC7 /* couponBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB9EB9B154553C700C1EBC7 /* couponBtn@2x.png */; };
 		ACB9EBA21545ABA800C1EBC7 /* CellRichiedi.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACB9EBA11545ABA800C1EBC7 /* CellRichiedi.xib */; };
-		ACBAA44B154C5D2800CD634A /* appStore.png in Resources */ = {isa = PBXBuildFile; fileRef = ACBAA449154C5D2800CD634A /* appStore.png */; };
-		ACBAA44C154C5D2800CD634A /* appStore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACBAA44A154C5D2800CD634A /* appStore@2x.png */; };
 		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
 		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
 		ACC808541521F678006DF894 /* grayButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC808531521F678006DF894 /* grayButton2.png */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACCDB1381546E18D00578758 /* cartaBtn2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */; };
 		ACCDB13B1546E26C00578758 /* couponBtn2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCDB13A1546E26C00578758 /* couponBtn2@2x.png */; };
+		ACD2C53F15650839008EBAE5 /* app-storeDW.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C53D15650839008EBAE5 /* app-storeDW.png */; };
+		ACD2C54015650839008EBAE5 /* app-storeDW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C53E15650839008EBAE5 /* app-storeDW@2x.png */; };
+		ACD2C54315650BD4008EBAE5 /* thBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C54115650BD4008EBAE5 /* thBtn.png */; };
+		ACD2C54415650BD4008EBAE5 /* thBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C54215650BD4008EBAE5 /* thBtn@2x.png */; };
 		ACD9CF701541B78E007B7887 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */; };
 		ACD9CF711541B78E007B7887 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD9CF6F1541B78E007B7887 /* 37x-Checkmark.png */; };
 		ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDBD982151755490079A966 /* RegistrazioneController.m */; };
@@ -319,8 +321,6 @@
 		ACB9EB98154553B800C1EBC7 /* cartaBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cartaBtn@2x.png"; sourceTree = "<group>"; };
 		ACB9EB9B154553C700C1EBC7 /* couponBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "couponBtn@2x.png"; sourceTree = "<group>"; };
 		ACB9EBA11545ABA800C1EBC7 /* CellRichiedi.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellRichiedi.xib; sourceTree = "<group>"; };
-		ACBAA449154C5D2800CD634A /* appStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appStore.png; sourceTree = "<group>"; };
-		ACBAA44A154C5D2800CD634A /* appStore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appStore@2x.png"; sourceTree = "<group>"; };
 		ACC313C7151A9507008DBEBA /* greenButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenButton.png; sourceTree = "<group>"; };
 		ACC313C9151A972C008DBEBA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		ACC31927151CD815008229B0 /* LoginControllerBis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginControllerBis.h; sourceTree = "<group>"; };
@@ -330,6 +330,10 @@
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
 		ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cartaBtn2@2x.png"; sourceTree = "<group>"; };
 		ACCDB13A1546E26C00578758 /* couponBtn2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "couponBtn2@2x.png"; sourceTree = "<group>"; };
+		ACD2C53D15650839008EBAE5 /* app-storeDW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-storeDW.png"; sourceTree = "<group>"; };
+		ACD2C53E15650839008EBAE5 /* app-storeDW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-storeDW@2x.png"; sourceTree = "<group>"; };
+		ACD2C54115650BD4008EBAE5 /* thBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thBtn.png; sourceTree = "<group>"; };
+		ACD2C54215650BD4008EBAE5 /* thBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thBtn@2x.png"; sourceTree = "<group>"; };
 		ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		ACD9CF6F1541B78E007B7887 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		ACDBD981151755490079A966 /* RegistrazioneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrazioneController.h; sourceTree = "<group>"; };
@@ -491,8 +495,10 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
-				ACBAA449154C5D2800CD634A /* appStore.png */,
-				ACBAA44A154C5D2800CD634A /* appStore@2x.png */,
+				ACD2C54115650BD4008EBAE5 /* thBtn.png */,
+				ACD2C54215650BD4008EBAE5 /* thBtn@2x.png */,
+				ACD2C53D15650839008EBAE5 /* app-storeDW.png */,
+				ACD2C53E15650839008EBAE5 /* app-storeDW@2x.png */,
 				ACCDB13A1546E26C00578758 /* couponBtn2@2x.png */,
 				ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */,
 				ACB9EB9B154553C700C1EBC7 /* couponBtn@2x.png */,
@@ -1155,8 +1161,10 @@
 				ACFCEF7A154979AD00037B0B /* Default.png in Resources */,
 				ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */,
 				AC5D3226154ADC090086A3F2 /* ToucHotelViewController.xib in Resources */,
-				ACBAA44B154C5D2800CD634A /* appStore.png in Resources */,
-				ACBAA44C154C5D2800CD634A /* appStore@2x.png in Resources */,
+				ACD2C53F15650839008EBAE5 /* app-storeDW.png in Resources */,
+				ACD2C54015650839008EBAE5 /* app-storeDW@2x.png in Resources */,
+				ACD2C54315650BD4008EBAE5 /* thBtn.png in Resources */,
+				ACD2C54415650BD4008EBAE5 /* thBtn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
