@@ -10,7 +10,7 @@
 
 
 @implementation ToucHotelViewController
-@synthesize descriptionWebView;
+@synthesize descriptionWebView, openTHbtn, openStoreBtn;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +28,11 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/it/app/touchotel/id358599349?mt=8"]];
 }
 
+-(IBAction)launchThApp:(id)sender{
+ 
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"touchotel://"]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,19 +44,31 @@
 	NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
 	[self.descriptionWebView loadRequest:requestObj];		
     
-    UIButton *appStoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [appStoreBtn setBackgroundImage:[UIImage imageNamed:@"appStore.png"] forState:UIControlStateNormal];
-    appStoreBtn.frame = CGRectMake(74, 312, 165, 45);
+    [self.openTHbtn setHidden:YES];
+    [self.openStoreBtn setHidden:YES];
     
-    [appStoreBtn addTarget:self action:@selector(downloadFromAppStore:) forControlEvents:UIControlEventTouchUpInside];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString: @"touchotel://"]]) 
+    {
+        //app th installata, creo pulsante per lanciare app
+        
+        [self.openTHbtn setHidden:NO];
+        
+    }
+    else {        
+        
+        //creo pulsante per lancio app store
+        [self.openStoreBtn setHidden:NO];
+    }
+    //@"http://itunes.apple.com/it/app/touchotel/id358599349?mt=8"
     
-    [self.view addSubview:appStoreBtn];
 
     
 }
 
 - (void)viewDidUnload
 {
+    self.openStoreBtn = nil;
+    self.openTHbtn = nil;
     self.descriptionWebView = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -60,6 +77,8 @@
 
 - (void)dealloc
 {
+    self.openStoreBtn = nil;
+    self.openTHbtn = nil;
     self.descriptionWebView = nil;
     [super dealloc];
 }

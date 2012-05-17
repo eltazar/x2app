@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface ToucHotelViewController : UIViewController
-
+{
+    @private
+    IBOutlet UIButton *openTHbtn;
+    IBOutlet UIButton *openStoreBtn;
+}
+@property(nonatomic, retain) IBOutlet UIButton *openStoreBtn;
+@property(nonatomic, retain) IBOutlet UIButton *openTHbtn;
 @property(nonatomic, retain) IBOutlet UIWebView *descriptionWebView;
 -(IBAction)downloadFromAppStore:(id)sender;
+-(IBAction)launchThApp:(id)sender;
 @end
