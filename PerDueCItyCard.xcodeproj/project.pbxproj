@@ -120,6 +120,10 @@
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACCDB1381546E18D00578758 /* cartaBtn2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */; };
 		ACCDB13B1546E26C00578758 /* couponBtn2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCDB13A1546E26C00578758 /* couponBtn2@2x.png */; };
+		ACD2C53F15650839008EBAE5 /* app-storeDW.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C53D15650839008EBAE5 /* app-storeDW.png */; };
+		ACD2C54015650839008EBAE5 /* app-storeDW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C53E15650839008EBAE5 /* app-storeDW@2x.png */; };
+		ACD2C54315650BD4008EBAE5 /* thBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C54115650BD4008EBAE5 /* thBtn.png */; };
+		ACD2C54415650BD4008EBAE5 /* thBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C54215650BD4008EBAE5 /* thBtn@2x.png */; };
 		ACD9CF701541B78E007B7887 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */; };
 		ACD9CF711541B78E007B7887 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD9CF6F1541B78E007B7887 /* 37x-Checkmark.png */; };
 		ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDBD982151755490079A966 /* RegistrazioneController.m */; };
@@ -368,6 +372,10 @@
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
 		ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cartaBtn2@2x.png"; sourceTree = "<group>"; };
 		ACCDB13A1546E26C00578758 /* couponBtn2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "couponBtn2@2x.png"; sourceTree = "<group>"; };
+		ACD2C53D15650839008EBAE5 /* app-storeDW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-storeDW.png"; sourceTree = "<group>"; };
+		ACD2C53E15650839008EBAE5 /* app-storeDW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-storeDW@2x.png"; sourceTree = "<group>"; };
+		ACD2C54115650BD4008EBAE5 /* thBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thBtn.png; sourceTree = "<group>"; };
+		ACD2C54215650BD4008EBAE5 /* thBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thBtn@2x.png"; sourceTree = "<group>"; };
 		ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		ACD9CF6F1541B78E007B7887 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		ACDBD981151755490079A966 /* RegistrazioneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrazioneController.h; sourceTree = "<group>"; };
@@ -542,11 +550,11 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
-				ACC408541560F8D3008687A3 /* gestione.png */,
-				ACC408551560F8D3008687A3 /* gestione@2x.png */,
-				ACC408511560F4E5008687A3 /* cartaX2hd.png */,
-				AC709D57154D4A4A00C6B3A2 /* appStore.png */,
-				AC709D58154D4A4A00C6B3A2 /* appStore@2x.png */,
+
+				ACD2C54115650BD4008EBAE5 /* thBtn.png */,
+				ACD2C54215650BD4008EBAE5 /* thBtn@2x.png */,
+				ACD2C53D15650839008EBAE5 /* app-storeDW.png */,
+				ACD2C53E15650839008EBAE5 /* app-storeDW@2x.png */,
 				ACCDB13A1546E26C00578758 /* couponBtn2@2x.png */,
 				ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */,
 				ACB9EB9B154553C700C1EBC7 /* couponBtn@2x.png */,
@@ -1248,16 +1256,13 @@
 				ACB9EBA21545ABA800C1EBC7 /* CellRichiedi.xib in Resources */,
 				ACCDB1381546E18D00578758 /* cartaBtn2@2x.png in Resources */,
 				ACCDB13B1546E26C00578758 /* couponBtn2@2x.png in Resources */,
-				AC709D55154D42CB00C6B3A2 /* ToucHotelViewController.xib in Resources */,
-				AC709D59154D4A4A00C6B3A2 /* appStore.png in Resources */,
-				AC709D5A154D4A4A00C6B3A2 /* appStore@2x.png in Resources */,
-				D9F27086155F147B008AE6CC /* DettaglioEsercente.php in Resources */,
-				D9F27087155F147B008AE6CC /* DettaglioRistorantePub.php in Resources */,
-				AC20E1191560323B00A4562D /* DettEsercCartaVirtualeCell.xib in Resources */,
-				ACC408521560F4E5008687A3 /* cartaX2hd.png in Resources */,
-				ACC408561560F8D4008687A3 /* gestione.png in Resources */,
-				ACC408571560F8D4008687A3 /* gestione@2x.png in Resources */,
-				ACC35FB91562CE3100A8DD1C /* WebViewController.xib in Resources */,
+				ACFCEF7A154979AD00037B0B /* Default.png in Resources */,
+				ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */,
+				AC5D3226154ADC090086A3F2 /* ToucHotelViewController.xib in Resources */,
+				ACD2C53F15650839008EBAE5 /* app-storeDW.png in Resources */,
+				ACD2C54015650839008EBAE5 /* app-storeDW@2x.png in Resources */,
+				ACD2C54315650BD4008EBAE5 /* thBtn.png in Resources */,
+				ACD2C54415650BD4008EBAE5 /* thBtn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
