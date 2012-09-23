@@ -16,6 +16,8 @@
 #import "PDHTTPAccess.h"
 #import "MBProgressHUD.h"
 
+#define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+
 //metodi e variabili private
 @interface RichiediCardViewController ()
 
@@ -270,7 +272,7 @@
         //1 lo passo a mano, MODIFICARE
         [[subviews objectAtIndex:1] setFrame:CGRectMake(20, 255, 280, 46)]; 
         [myActionSheet addSubview: pickerCards.view];   
-        
+        NSLog(@"ACTION SHEET SUBVIEWS: %@, num = %d", myActionSheet.subviews,myActionSheet.subviews.count);
         [myActionSheet release];
 
     }
@@ -280,8 +282,12 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {   
-    //NSLog(@"action sheet title = %@, button = %d", actionSheet.title, buttonIndex);
+    int actionSheetSubviewNumber = 2;
     
+    if(IOS_VERSION >= 6.0)
+        actionSheetSubviewNumber = 3;
+    
+        
     if([actionSheet.title isEqualToString:@"Conferma richiesta"]){
      
         if([[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Invia"]){
@@ -293,7 +299,7 @@
                 //prendo solo il nome del tipo carta, senza prezzo
                 NSString *token = [[self.tipoCarta componentsSeparatedByString:@" "] objectAtIndex:0];
                 
-                //NSLog(@"token = %@",token);
+                NSLog(@"token = %@",token);
                 
                 NSArray *data = [NSArray arrayWithObjects:token,self.nome,self.cognome,[Utilita checkPhoneNumber:self.telefono],self.email, nil];
                 //NSLog(@"%@",data);
@@ -314,7 +320,7 @@
         }
         
     }
-    else if([[actionSheet.subviews objectAtIndex:2] tag] == 777){
+    else if([[actionSheet.subviews objectAtIndex:actionSheetSubviewNumber] tag] == 777){
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         BaseCell *cell = (ActionCell*)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -323,7 +329,7 @@
         
         self.tipoCarta = [pickerCards.objectsInRow objectAtIndex:0];
         
-        //NSLog(@" carta  = %@, cell = %@",self.tipoCarta,cell.detailTextLabel.text);
+        NSLog(@" carta  = %@, cell = %@",self.tipoCarta,cell.detailTextLabel.text);
         
         isNew = NO;
         
