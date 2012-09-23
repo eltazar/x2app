@@ -160,6 +160,8 @@ static int count = 0;
         lbl.numberOfLines = 0;
         lbl.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
         [lbl sizeToFit];
+        
+        //cell.textLabel.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
 
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
