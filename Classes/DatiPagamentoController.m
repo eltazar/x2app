@@ -16,6 +16,9 @@
 
 #define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
 
+#define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+
+
 @implementation DatiPagamentoController
 @synthesize delegate, titolare, numeroCarta, tipoCarta, cvv, scadenza;
 
@@ -154,7 +157,12 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {   
 
-    if([[actionSheet.subviews objectAtIndex:2] tag] == 777){
+    int actionSheetSubviewNumber = 2;
+    
+    if(IOS_VERSION >= 6.0)
+        ++actionSheetSubviewNumber;
+    
+    if([[actionSheet.subviews objectAtIndex:actionSheetSubviewNumber] tag] == 777){
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         BaseCell *cell = (ActionCell*)[self.tableView cellForRowAtIndexPath:indexPath];
@@ -169,7 +177,7 @@
         //[prefs setObject: [pickerCards.objectsInRow objectAtIndex:0] forKey:@"_tipoCarta"];
         
     }
-    else if([[actionSheet.subviews objectAtIndex:2] tag] == 778){
+    else if([[actionSheet.subviews objectAtIndex:actionSheetSubviewNumber] tag] == 778){
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
         BaseCell *cell = (ActionCell*)[self.tableView cellForRowAtIndexPath:indexPath];
