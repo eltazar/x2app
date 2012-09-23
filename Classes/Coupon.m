@@ -736,6 +736,20 @@ if ([rows count]>0) {//coupon disponibile
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"%@::viewDidLoad", [self class]);
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            // iPhone Classic
+        }
+        if(result.height == 568)
+        {
+            // iPhone 5
+            [self.home setFrame:CGRectMake(self.home.frame.origin.x, self.home.frame.origin.y, self.home.frame.size.width, 550)];
+        }
+    }
 
     if (isOffertaDelGiorno)
         NSLog(@"Coupon::viewDidLoad: questa istanza rappresenta l'offerta del giorno.");
