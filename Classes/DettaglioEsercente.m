@@ -90,6 +90,20 @@
     self.idxMap = [[[IndexPathMapper alloc] init] autorelease];
         
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            // iPhone Classic
+        }
+        if(result.height == 568)
+        {
+            // iPhone 5
+            [self.mkMapView setFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height, self.mkMapView.frame.size.width,568)];
+        }
+    }
 }
 
 
