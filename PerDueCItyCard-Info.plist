@@ -41,7 +41,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8</string>
+	<string>2.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -57,20 +57,12 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>perdue</string>
-			</array>
-			<key>CFBundleURLName</key>
-			<string>it.perdue.${PRODUCT_NAME}</string>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
 				<string>fb293263097423193</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.8</string>
+	<string>2.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
