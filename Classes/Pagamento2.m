@@ -6,6 +6,8 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "Pagamento2.h"
 #import "DatiPagamentoController.h"
 //#import "DatiUtenteController.h"
@@ -585,10 +587,25 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didLogout) name:kDidLogoutNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didAbortLogout) name:kDidAbortLogoutNotification object:nil];
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            // iPhone Classic
+        }
+        if(result.height == 568)
+        {
+            // iPhone 5
+            [self.compra setFrame:CGRectMake(self.compra.frame.origin.x, self.compra.frame.origin.y+40, self.compra.frame.size.width, self.compra.frame.size.height)];
+        }
+    }
     
     buyAlert = [[UIAlertView alloc] initWithTitle:@"Vuoi comprare il coupon?" message:@"L'importo sarà effettivamente addebitato sulla tua carta di credito solamente se il processo di acquisto sarà completato e confermato" delegate:self cancelButtonTitle:@"Annulla" otherButtonTitles:@"Compra", nil];
     
@@ -599,9 +616,9 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
     totale = quant * valore;
     
     
-	[[compra layer] setCornerRadius:8.0f];
-	[[compra layer] setMasksToBounds:YES];
-	[compra setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
+	[[self.compra layer] setCornerRadius:8.0f];
+	[[self.compra layer] setMasksToBounds:YES];
+	[self.compra setBackgroundImage:[UIImage imageNamed:@"yellow3.jpg"] forState:UIControlStateNormal];
 	
 	UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
 	[infoButton addTarget:self action:@selector(OpenContatti:) forControlEvents:UIControlEventTouchUpInside];

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 #import "Contatti.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "DatiPagamentoController.h"
