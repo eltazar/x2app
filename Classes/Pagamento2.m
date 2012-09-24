@@ -7,7 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-
+#import "UIDevice+IdentifierAddition.h"
 #import "Pagamento2.h"
 #import "DatiPagamentoController.h"
 //#import "DatiUtenteController.h"
@@ -137,7 +137,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
        //mario: perchè deve eliminare gli spazi :| ???
         //intestatario=[intestatario stringByReplacingOccurrencesOfString:@" " withString:@""]; //elimino eventuali spazi
 		
-        NSString *idiphone = [NSString stringWithFormat:@"%@", [[UIDevice currentDevice] uniqueIdentifier]];
+        NSString *idiphone = [NSString stringWithFormat:@"%@", [[UIDevice currentDevice] identificativoUnivocoDispositivo]];
         
         NSLog(@"PAGAMENTO AVVIATO IDENTIFICATIVO = %d",identificativo);
       
