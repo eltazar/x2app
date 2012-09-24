@@ -79,15 +79,10 @@
 		AC13B7051509658D00E54106 /* AcquistoOnlineController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7031509658D00E54106 /* AcquistoOnlineController.m */; };
 		AC13B7061509658D00E54106 /* AcquistoOnlineController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
-		AC165293160CA6CC00A2494D /* yellowBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = AC165292160CA6CB00A2494D /* yellowBackground.png */; };
 		AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80D1543005100A980D7 /* ToucHotel.png */; };
 		AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80E1543005100A980D7 /* ToucHotel@2x.png */; };
-		AC20E1191560323B00A4562D /* DettEsercCartaVirtualeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC20E1181560323B00A4562D /* DettEsercCartaVirtualeCell.xib */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
 		AC709D54154D42CB00C6B3A2 /* ToucHotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC709D52154D42CB00C6B3A2 /* ToucHotelViewController.m */; };
-		AC709D55154D42CB00C6B3A2 /* ToucHotelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC709D53154D42CB00C6B3A2 /* ToucHotelViewController.xib */; };
-		AC709D59154D4A4A00C6B3A2 /* appStore.png in Resources */ = {isa = PBXBuildFile; fileRef = AC709D57154D4A4A00C6B3A2 /* appStore.png */; };
-		AC709D5A154D4A4A00C6B3A2 /* appStore@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC709D58154D4A4A00C6B3A2 /* appStore@2x.png */; };
 		AC75F4F2150680CE00EE15B3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC75F4F1150680CE00EE15B3 /* CoreData.framework */; };
 		AC85A22814FB9CA900DD91F6 /* CardsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC85A22614FB9CA900DD91F6 /* CardsViewController.m */; };
 		AC85A22914FB9CA900DD91F6 /* CardsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC85A22714FB9CA900DD91F6 /* CardsViewController.xib */; };
@@ -113,10 +108,6 @@
 		ACC313C8151A9507008DBEBA /* greenButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC313C7151A9507008DBEBA /* greenButton.png */; };
 		ACC313CA151A972C008DBEBA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACC313C9151A972C008DBEBA /* QuartzCore.framework */; };
 		ACC35FB81562CE3100A8DD1C /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC35FB61562CE3100A8DD1C /* WebViewController.m */; };
-		ACC35FB91562CE3100A8DD1C /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC35FB71562CE3100A8DD1C /* WebViewController.xib */; };
-		ACC408521560F4E5008687A3 /* cartaX2hd.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408511560F4E5008687A3 /* cartaX2hd.png */; };
-		ACC408561560F8D4008687A3 /* gestione.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408541560F8D3008687A3 /* gestione.png */; };
-		ACC408571560F8D4008687A3 /* gestione@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC408551560F8D3008687A3 /* gestione@2x.png */; };
 		ACC808541521F678006DF894 /* grayButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = ACC808531521F678006DF894 /* grayButton2.png */; };
 		ACCCDE6415041A3100035479 /* cancelButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCCDE6315041A3100035479 /* cancelButton.png */; };
 		ACCDB1381546E18D00578758 /* cartaBtn2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */; };
@@ -139,10 +130,10 @@
 		ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */; };
 		ACF7656E151A4CF000914BDD /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF7656D151A4CF000914BDD /* IAPHelper.m */; };
 		ACF76574151A4D4900914BDD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF76573151A4D4900914BDD /* StoreKit.framework */; };
-		D91D43041519CD50001D9033 /* LocalDatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */; };
 		ACFAC574160CB928003883F7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACFAC573160CB928003883F7 /* Default-568h@2x.png */; };
 		ACFCEF7A154979AD00037B0B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5015323A9F00697575 /* Default.png */; };
 		ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5215323AA200697575 /* Default@2x.png */; };
+		D91D43041519CD50001D9033 /* LocalDatabaseAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */; };
 		D924E61A151CA49800AD4C07 /* DoveUsarla.m in Sources */ = {isa = PBXBuildFile; fileRef = D924E618151CA49800AD4C07 /* DoveUsarla.m */; };
 		D924E61B151CA49800AD4C07 /* DoveUsarla.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E619151CA49800AD4C07 /* DoveUsarla.xib */; };
 		D924E621151CB93400AD4C07 /* DoveUsarlaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E61F151CB93400AD4C07 /* DoveUsarlaCell.xib */; };
@@ -218,8 +209,6 @@
 		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
 		D9ED8BF9152F8FF0002C3D65 /* FotoIngranditaController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */; };
 		D9ED8BFA152F8FF0002C3D65 /* FotoIngranditaController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9ED8BF8152F8FEF002C3D65 /* FotoIngranditaController.xib */; };
-		D9F27086155F147B008AE6CC /* DettaglioEsercente.php in Resources */ = {isa = PBXBuildFile; fileRef = D9F27084155F147B008AE6CC /* DettaglioEsercente.php */; };
-		D9F27087155F147B008AE6CC /* DettaglioRistorantePub.php in Resources */ = {isa = PBXBuildFile; fileRef = D9F27085155F147B008AE6CC /* DettaglioRistorantePub.php */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -317,7 +306,6 @@
 		AC13B7041509658D00E54106 /* AcquistoOnlineController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcquistoOnlineController.xib; sourceTree = "<group>"; };
 		AC13B7071509691500E54106 /* BuyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyCell.h; sourceTree = "<group>"; };
 		AC13B7081509691500E54106 /* BuyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyCell.m; sourceTree = "<group>"; };
-		AC165292160CA6CB00A2494D /* yellowBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowBackground.png; sourceTree = "<group>"; };
 		AC18B80D1543005100A980D7 /* ToucHotel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToucHotel.png; sourceTree = "<group>"; };
 		AC18B80E1543005100A980D7 /* ToucHotel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToucHotel@2x.png"; sourceTree = "<group>"; };
 		AC20E1181560323B00A4562D /* DettEsercCartaVirtualeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercCartaVirtualeCell.xib; sourceTree = "<group>"; };
@@ -328,8 +316,6 @@
 		AC709D51154D42CB00C6B3A2 /* ToucHotelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToucHotelViewController.h; sourceTree = "<group>"; };
 		AC709D52154D42CB00C6B3A2 /* ToucHotelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToucHotelViewController.m; sourceTree = "<group>"; };
 		AC709D53154D42CB00C6B3A2 /* ToucHotelViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToucHotelViewController.xib; sourceTree = "<group>"; };
-		AC709D57154D4A4A00C6B3A2 /* appStore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appStore.png; sourceTree = "<group>"; };
-		AC709D58154D4A4A00C6B3A2 /* appStore@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appStore@2x.png"; sourceTree = "<group>"; };
 		AC75F4F1150680CE00EE15B3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		AC85A22514FB9CA900DD91F6 /* CardsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardsViewController.h; sourceTree = "<group>"; };
 		AC85A22614FB9CA900DD91F6 /* CardsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardsViewController.m; sourceTree = "<group>"; };
@@ -370,9 +356,6 @@
 		ACC35FB51562CE3100A8DD1C /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		ACC35FB61562CE3100A8DD1C /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		ACC35FB71562CE3100A8DD1C /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
-		ACC408511560F4E5008687A3 /* cartaX2hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartaX2hd.png; sourceTree = "<group>"; };
-		ACC408541560F8D3008687A3 /* gestione.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gestione.png; sourceTree = "<group>"; };
-		ACC408551560F8D3008687A3 /* gestione@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gestione@2x.png"; sourceTree = "<group>"; };
 		ACC808531521F678006DF894 /* grayButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grayButton2.png; sourceTree = "<group>"; };
 		ACCCDE6315041A3100035479 /* cancelButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancelButton.png; sourceTree = "<group>"; };
 		ACCDB1371546E18D00578758 /* cartaBtn2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cartaBtn2@2x.png"; sourceTree = "<group>"; };
@@ -401,9 +384,9 @@
 		ACF7656C151A4CF000914BDD /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
 		ACF7656D151A4CF000914BDD /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
 		ACF76573151A4D4900914BDD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		ACFAC573160CB928003883F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D91D43021519CD50001D9033 /* LocalDatabaseAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalDatabaseAccess.h; sourceTree = "<group>"; };
 		D91D43031519CD50001D9033 /* LocalDatabaseAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalDatabaseAccess.m; sourceTree = "<group>"; };
-		ACFAC573160CB928003883F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D91D431A151A3D6F001D9033 /* CardDeviceAssociation.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = CardDeviceAssociation.php; path = "php server/PHP APPv2/CardDeviceAssociation.php"; sourceTree = SOURCE_ROOT; };
 		D91D431B151A3D6F001D9033 /* checkEmail.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = checkEmail.php; path = "php server/PHP APPv2/checkEmail.php"; sourceTree = SOURCE_ROOT; };
 		D91D431C151A3D6F001D9033 /* login.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = login.php; path = "php server/PHP APPv2/login.php"; sourceTree = SOURCE_ROOT; };
@@ -1264,12 +1247,10 @@
 				ACCDB13B1546E26C00578758 /* couponBtn2@2x.png in Resources */,
 				ACFCEF7A154979AD00037B0B /* Default.png in Resources */,
 				ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */,
-				AC5D3226154ADC090086A3F2 /* ToucHotelViewController.xib in Resources */,
 				ACD2C53F15650839008EBAE5 /* app-storeDW.png in Resources */,
 				ACD2C54015650839008EBAE5 /* app-storeDW@2x.png in Resources */,
 				ACD2C54315650BD4008EBAE5 /* thBtn.png in Resources */,
 				ACD2C54415650BD4008EBAE5 /* thBtn@2x.png in Resources */,
-				AC165293160CA6CC00A2494D /* yellowBackground.png in Resources */,
 				ACFAC574160CB928003883F7 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
