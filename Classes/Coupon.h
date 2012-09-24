@@ -53,6 +53,12 @@
 
 @property (nonatomic, retain) IBOutlet UIView *home;
 
+@property(nonatomic, retain) IBOutlet UIButton *couponHomeButton;
+@property(nonatomic, retain) IBOutlet UIButton *cartaHomeButton;
+@property(nonatomic, retain) IBOutlet UILabel *cartaHomeLabel;
+@property(nonatomic, retain) IBOutlet UILabel *couponHomeLabel;
+
+
 -(IBAction)showCouponTab:(id)sender;
 -(IBAction)showWhereToUse:(id)sender;
 
