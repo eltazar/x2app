@@ -178,7 +178,7 @@ static int count = 0;
             cdtCell = (CouponDiscountTimeCell*)cell;
         }
         self.tempoLbl = cdtCell.tempoLbl;
-        [self.compraBtn setTitle: [NSString stringWithFormat:@"Compra", [self.dataModel objectForKey:@"coupon_valore_acquisto"]] forState:UIControlStateNormal];
+        [self.compraBtn setTitle: @"Compra" forState:UIControlStateNormal];
         cdtCell.prezzoCouponLbl.text = [NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"coupon_valore_acquisto"]] ]; 
         cdtCell.scontoLbl.text = [NSString stringWithFormat:@"%@", [self.dataModel objectForKey:@"offerta_sconto_per"]];
         cdtCell.risparmioLbl.text=[NSString stringWithFormat:@"%@€", [Utilita formatPrice:[self.dataModel objectForKey:@"offerta_sconto_va"]]];
