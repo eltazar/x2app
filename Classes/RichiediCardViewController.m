@@ -174,7 +174,7 @@
         return 25;
     }
     else return [super tableView:tableView heightForHeaderInSection:section];
-
+#warning riga 176 crasha con ios 4.3
 }
 
 //setta il colore delle label dell'header BIANCHE
