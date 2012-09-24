@@ -78,6 +78,7 @@
 		AC0C66431505053700B4F971 /* DoneUp3.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66411505053700B4F971 /* DoneUp3.png */; };
 		AC0C66451505185600B4F971 /* cartaGrande.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66441505185600B4F971 /* cartaGrande.png */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
+		AC165293160CA6CC00A2494D /* yellowBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = AC165292160CA6CB00A2494D /* yellowBackground.png */; };
 		AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80D1543005100A980D7 /* ToucHotel.png */; };
 		AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80E1543005100A980D7 /* ToucHotel@2x.png */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
@@ -120,6 +121,7 @@
 		ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9F14FDB432000F6890 /* PickerViewController.m */; };
 		ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */; };
 		ACF76574151A4D4900914BDD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF76573151A4D4900914BDD /* StoreKit.framework */; };
+		ACFAC574160CB928003883F7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACFAC573160CB928003883F7 /* Default-568h@2x.png */; };
 		ACFCEF7A154979AD00037B0B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5015323A9F00697575 /* Default.png */; };
 		ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5215323AA200697575 /* Default@2x.png */; };
 		D924E61A151CA49800AD4C07 /* DoveUsarla.m in Sources */ = {isa = PBXBuildFile; fileRef = D924E618151CA49800AD4C07 /* DoveUsarla.m */; };
@@ -289,6 +291,7 @@
 		AC0C66441505185600B4F971 /* cartaGrande.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartaGrande.png; sourceTree = "<group>"; };
 		AC13B7071509691500E54106 /* BuyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyCell.h; sourceTree = "<group>"; };
 		AC13B7081509691500E54106 /* BuyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyCell.m; sourceTree = "<group>"; };
+		AC165292160CA6CB00A2494D /* yellowBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowBackground.png; sourceTree = "<group>"; };
 		AC18B80D1543005100A980D7 /* ToucHotel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToucHotel.png; sourceTree = "<group>"; };
 		AC18B80E1543005100A980D7 /* ToucHotel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToucHotel@2x.png"; sourceTree = "<group>"; };
 		AC27879B15194A5C00747542 /* GeoDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoDecoder.h; sourceTree = "<group>"; };
@@ -349,6 +352,7 @@
 		ACDE7C9F14FDB432000F6890 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
 		ACF76573151A4D4900914BDD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		ACFAC573160CB928003883F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D91D431A151A3D6F001D9033 /* CardDeviceAssociation.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = CardDeviceAssociation.php; path = "php server/PHP APPv2/CardDeviceAssociation.php"; sourceTree = SOURCE_ROOT; };
 		D91D431B151A3D6F001D9033 /* checkEmail.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = checkEmail.php; path = "php server/PHP APPv2/checkEmail.php"; sourceTree = SOURCE_ROOT; };
 		D91D431C151A3D6F001D9033 /* login.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = login.php; path = "php server/PHP APPv2/login.php"; sourceTree = SOURCE_ROOT; };
@@ -495,6 +499,7 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				AC165292160CA6CB00A2494D /* yellowBackground.png */,
 				ACD2C54115650BD4008EBAE5 /* thBtn.png */,
 				ACD2C54215650BD4008EBAE5 /* thBtn@2x.png */,
 				ACD2C53D15650839008EBAE5 /* app-storeDW.png */,
@@ -594,6 +599,7 @@
 		29B97314FDCFA39411CA2CEA /* PerDueCItyCard */ = {
 			isa = PBXGroup;
 			children = (
+				ACFAC573160CB928003883F7 /* Default-568h@2x.png */,
 				19D4CA7413ED5144001C7763 /* Classes */,
 				D9463616152F6953000A17CE /* Librerie Esterne */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1165,6 +1171,8 @@
 				ACD2C54015650839008EBAE5 /* app-storeDW@2x.png in Resources */,
 				ACD2C54315650BD4008EBAE5 /* thBtn.png in Resources */,
 				ACD2C54415650BD4008EBAE5 /* thBtn@2x.png in Resources */,
+				AC165293160CA6CC00A2494D /* yellowBackground.png in Resources */,
+				ACFAC574160CB928003883F7 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1267,8 +1275,8 @@
 				INFOPLIST_FILE = "PerDueCItyCard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = PerDue;
-				PROVISIONING_PROFILE = "8BC8E49A-C1EC-4CAF-B882-8DFA5C9E3AA0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8BC8E49A-C1EC-4CAF-B882-8DFA5C9E3AA0";
+				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
 			};
 			name = Debug;
 		};
@@ -1284,8 +1292,8 @@
 				INFOPLIST_FILE = "PerDueCItyCard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = PerDue;
-				PROVISIONING_PROFILE = "8BC8E49A-C1EC-4CAF-B882-8DFA5C9E3AA0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8BC8E49A-C1EC-4CAF-B882-8DFA5C9E3AA0";
+				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1307,8 +1315,8 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "8BC8E49A-C1EC-4CAF-B882-8DFA5C9E3AA0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8BC8E49A-C1EC-4CAF-B882-8DFA5C9E3AA0";
+				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Librerie\\ Esterne/**";
 			};
@@ -1332,8 +1340,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "8BC8E49A-C1EC-4CAF-B882-8DFA5C9E3AA0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8BC8E49A-C1EC-4CAF-B882-8DFA5C9E3AA0";
+				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Librerie\\ Esterne/**";
 			};
