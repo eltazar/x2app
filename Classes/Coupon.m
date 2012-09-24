@@ -64,7 +64,7 @@ static int count = 0;
 
 @synthesize timer=_timer, tempoLbl=_tempoLbl, appDelegate=_appDelegate;
 
-@synthesize aSheet=_aSheet, aSheet2=_aSheet2;
+@synthesize aSheet=_aSheet, aSheet2=_aSheet2, cartaHomeButton, couponHomeButton, cartaHomeLabel, couponHomeLabel;
 
 /*facebook*/
 @synthesize permissions=_permissions, facebookAlert=_facebookAlert, username=_username;
@@ -748,6 +748,12 @@ if ([rows count]>0) {//coupon disponibile
         {
             // iPhone 5
             [self.home setFrame:CGRectMake(self.home.frame.origin.x, self.home.frame.origin.y, self.home.frame.size.width, 550)];
+            
+            [self.couponHomeButton setFrame:CGRectMake(couponHomeButton.frame.origin.x, couponHomeButton.frame.origin.y+60, couponHomeButton.frame.size.width, couponHomeButton.frame.size.height)];
+            [self.cartaHomeButton setFrame:CGRectMake(cartaHomeButton.frame.origin.x, cartaHomeButton.frame.origin.y+60, cartaHomeButton.frame.size.width, cartaHomeButton.frame.size.height)];
+            
+            [self.couponHomeLabel setFrame:CGRectMake(couponHomeLabel.frame.origin.x, couponHomeLabel.frame.origin.y+60, couponHomeLabel.frame.size.width, couponHomeLabel.frame.size.height)];
+            [self.cartaHomeLabel setFrame:CGRectMake(cartaHomeLabel.frame.origin.x, cartaHomeLabel.frame.origin.y+60, cartaHomeLabel.frame.size.width, cartaHomeLabel.frame.size.height)];
         }
     }
 
@@ -879,6 +885,11 @@ if ([rows count]>0) {//coupon disponibile
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    self.cartaHomeButton = nil;
+    self.couponHomeButton = nil;
+    self.cartaHomeLabel = nil;
+    self.couponHomeLabel = nil;
     
     self.home = nil;
     
