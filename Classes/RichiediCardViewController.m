@@ -160,10 +160,13 @@
     else if(section == 2){
         return 2;
     }
+    else if(IOS_VERSION < 5.0)
+        return 0;
     else return [super tableView:tableView heightForFooterInSection:section];
 }
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    
 //    if(section != 0)
 //        return 35.0;
 //    else
@@ -173,8 +176,9 @@
     else if(section == 2){
         return 25;
     }
+    else if(IOS_VERSION < 5.0)
+        return 0;
     else return [super tableView:tableView heightForHeaderInSection:section];
-#warning riga 176 crasha con ios 4.3
 }
 
 //setta il colore delle label dell'header BIANCHE
