@@ -1040,7 +1040,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PerDueCItyCard" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1265,6 +1265,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
 				COPY_PHASE_STRIP = NO;
@@ -1273,7 +1277,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PerDueCItyCard_Prefix.pch;
 				INFOPLIST_FILE = "PerDueCItyCard-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = PerDue;
 				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
@@ -1284,13 +1288,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PerDueCItyCard_Prefix.pch;
 				INFOPLIST_FILE = "PerDueCItyCard-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = PerDue;
 				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
@@ -1305,8 +1313,8 @@
 					armv6,
 					armv7,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Megapoli S.r.l.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Megapoli S.r.l.";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1315,8 +1323,8 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
+				PROVISIONING_PROFILE = "E87B582B-B500-46CB-87B5-9BF19C08514F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E87B582B-B500-46CB-87B5-9BF19C08514F";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Librerie\\ Esterne/**";
 			};
@@ -1329,8 +1337,8 @@
 					armv6,
 					armv7,
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Megapoli S.r.l.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Megapoli S.r.l.";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -1340,8 +1348,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
+				PROVISIONING_PROFILE = "E87B582B-B500-46CB-87B5-9BF19C08514F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E87B582B-B500-46CB-87B5-9BF19C08514F";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "./Librerie\\ Esterne/**";
 			};
