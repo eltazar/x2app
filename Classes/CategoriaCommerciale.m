@@ -254,7 +254,7 @@
 		esercente.text = [r objectForKey:@"Insegna_Esercente"];
 		
 		UILabel *indirizzo = (UILabel *)[cell viewWithTag:2];
-		indirizzo.text = [NSString stringWithFormat:@"%@, %@",[r objectForKey:@"Indirizzo_Esercente"],[r objectForKey:@"Citta_Esercente"]];	
+		indirizzo.text = [NSString stringWithFormat:@"%@,\n%@",[r objectForKey:@"Indirizzo_Esercente"],[r objectForKey:@"Citta_Esercente"]];	
 		indirizzo.text= [indirizzo.text capitalizedString];
         
 		UILabel *distanza = (UILabel *)[cell viewWithTag:3];
@@ -460,7 +460,7 @@
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
     NSMutableArray *rows = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
     
-    //NSLog(@"RISULTATO = %@",dataDict);
+    NSLog(@"RISULTATO = %@",dataDict);
     
     // Ci aspettiamo che rows sia effettivamente un array, se non lo è
     // si ignora.

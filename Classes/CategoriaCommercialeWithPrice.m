@@ -67,6 +67,11 @@
         else [caImageView setImage:[UIImage imageNamed:@"icon.png"]];
         [imageUrlString release];
         
+        UILabel *cucina = (UILabel*)[cell viewWithTag:6];
+        if([[r objectForKey:@"Subtipo_STeser"] isEqualToString:@"Non Disponibile"])
+            cucina.text = [NSString stringWithFormat:@"Cucina: --"];
+        else cucina.text = [NSString stringWithFormat:@"Cucina: %@",[r objectForKey:@"Subtipo_STeser"]];
+        
 		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
 		esercente.text = [r objectForKey:@"Insegna_Esercente"];
 		
