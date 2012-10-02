@@ -9,7 +9,7 @@
 #import "CategoriaCommercialeWithPrice.h"
 #import "DettaglioEsercenteRistorazione.h"
 #import "EsercenteMapAnnotation.h"
-
+#import "CachedAsyncImageView.h"
 
 @implementation CategoriaCommercialeWithPrice
 
@@ -29,7 +29,7 @@
     [super viewDidLoad];
     //NSLog (@"sto cambiando il valore di urlString");
     [_urlString release];
-    _urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione.php";
+    _urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione_con_img.php";
     [self.searchSegCtrl insertSegmentWithTitle:@"Prezzo" atIndex:1 animated:NO];
     CGRect frame = self.searchSegCtrl.frame;
     frame.size.width = 236;
@@ -54,6 +54,19 @@
 		
 		NSDictionary *r  = [super.dataModel objectAtIndex:indexPath.row];
 		
+        CachedAsyncImageView *caImageView = (CachedAsyncImageView *)[cell viewWithTag:5];
+        NSString *imageUrlString;
+        //NSLog(@" IMMAGINE CARICATA = %@",[r objectForKey:@"logoaz1"]);
+        imageUrlString= [[NSString alloc] initWithFormat:@"http://cartaperdue.it/img/img_aziende/%@", [r objectForKey:@"logoaz1"]];
+        
+        
+        NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
+        //NSLog(@"image url = %@",imageUrl);
+        if(imageUrl != nil)
+            [caImageView loadImageFromURL:imageUrl];
+        else [caImageView setImage:[UIImage imageNamed:@"icon.png"]];
+        [imageUrlString release];
+        
 		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
 		esercente.text = [r objectForKey:@"Insegna_Esercente"];
 		
@@ -66,7 +79,7 @@
         
         }
         UILabel *indirizzo = (UILabel *)[cell viewWithTag:3];
-		indirizzo.text = [NSString stringWithFormat:@"%@, %@",[r objectForKey:@"Indirizzo_Esercente"],[r objectForKey:@"Citta_Esercente"]];	
+		indirizzo.text = [NSString stringWithFormat:@"%@,\n%@",[r objectForKey:@"Indirizzo_Esercente"],[r objectForKey:@"Citta_Esercente"]];	
 		indirizzo.text= [indirizzo.text capitalizedString];
         
 		UILabel *distanza = (UILabel *)[cell viewWithTag:4];

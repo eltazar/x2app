@@ -16,6 +16,7 @@
 #import "DettaglioEsercente.h"
 #import "ShowMoreCell.h"
 #import "WMHTTPAccess.h"
+#import "CachedAsyncImageView.h"
 
 
 //Metodi privati
@@ -84,7 +85,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione.php";
+    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione_con_img.php";
     self.dataModel = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
     inSearchUI = NO;
@@ -236,6 +237,19 @@
 		
 		NSDictionary *r  = [self.dataModel objectAtIndex:indexPath.row];
 		
+        CachedAsyncImageView *caImageView = (CachedAsyncImageView *)[cell viewWithTag:5];
+        NSString *imageUrlString;
+        //NSLog(@" IMMAGINE CARICATA = %@",[r objectForKey:@"logoaz1"]);
+        imageUrlString= [[NSString alloc] initWithFormat:@"http://cartaperdue.it/img/img_aziende/%@", [r objectForKey:@"logoaz1"]];
+        
+        
+        NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
+        //NSLog(@"image url = %@",imageUrl);
+        if(imageUrl != nil)
+            [caImageView loadImageFromURL:imageUrl];
+        else [caImageView setImage:[UIImage imageNamed:@"icon.png"]];
+        [imageUrlString release];
+        
 		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
 		esercente.text = [r objectForKey:@"Insegna_Esercente"];
 		
@@ -254,6 +268,10 @@
 
 #pragma mark - UITableViewDelegate
 
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
+}
 
 - (UIView *)tableView:(UITableView *)tView viewForFooterInSection:(NSInteger)section {
     return self.footerView;
@@ -441,6 +459,8 @@
 - (void)didReceiveJSON:(NSDictionary *)dataDict {
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
     NSMutableArray *rows = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
+    
+    //NSLog(@"RISULTATO = %@",dataDict);
     
     // Ci aspettiamo che rows sia effettivamente un array, se non lo è
     // si ignora.
