@@ -30,6 +30,8 @@
     UIActivityIndicatorView *_searchActivityIndicator;
     UISegmentedControl *_searchSegCtrl;
     UISegmentedControl *_mapTypeSegCtrl;
+    IBOutlet UIButton *filterBtn;
+    IBOutlet UIView *filterPanel;
     
 @protected
     NSString *_urlString;
@@ -38,7 +40,7 @@
     BOOL queryingMoreRows;
 }
 
-
+@property (nonatomic, retain) IBOutlet UIButton *filterBtn;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
@@ -55,6 +57,7 @@
 
 - (IBAction)didChangeSearchSegCtrlState:(id)sender;
 - (IBAction)didChangeMapTypeSegCtrlState:(id)sender;
+- (IBAction)filterBtnPressed:(id)sender;
 
 
 @end

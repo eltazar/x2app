@@ -85,6 +85,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"filterPanel.png"]]];
+    //[filterPanel.layer setOpaque:NO];
+    //filterPanel.opaque = NO;
+    NSLog(@"PRIMA altezza = %f, larghezza = %f",filterPanel.frame.size.height,filterPanel.frame.size.width);
+    
+    [filterPanel setFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, filterPanel.frame.size.width, filterPanel.frame.size.height)];
+    [self.view insertSubview:filterPanel aboveSubview:self.view];
+
+  
+        
     self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione_con_img.php";
     self.dataModel = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
@@ -156,6 +167,9 @@
 
 
 - (void)dealloc {
+
+    [filterPanel release];
+    filterPanel = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
     self.tableView.delegate = nil;
@@ -241,7 +255,6 @@
         NSString *imageUrlString;
         //NSLog(@" IMMAGINE CARICATA = %@",[r objectForKey:@"logoaz1"]);
         imageUrlString= [[NSString alloc] initWithFormat:@"http://cartaperdue.it/img/img_aziende/%@", [r objectForKey:@"logoaz1"]];
-        
         
         NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
         //NSLog(@"image url = %@",imageUrl);
@@ -434,6 +447,26 @@
 	self.navigationItem.rightBarButtonItem.enabled = TRUE;
 }
 
+#pragma mark - View button actions
+
+-(IBAction)filterBtnPressed:(id)sender{
+
+   // [filterPanel setFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, filterPanel.frame.size.width, filterPanel.frame.size.height)];
+    
+    [UIView animateWithDuration:2
+                        animations:^{
+                            //[filterBtn setUserInteractionEnabled:NO];
+                            float oldW = filterPanel.frame.size.width;
+                            float oldH = filterPanel.frame.size.height;
+                            [filterPanel setFrame:CGRectMake(self.tableView.frame.size.width-filterPanel.frame.size.width, self.tableView.frame.origin.y, oldW, oldH)];
+                            NSLog(@"DOPO altezza = %f, larghezza = %f",filterPanel.frame.size.height,filterPanel.frame.size.width);
+                        }
+                        completion:^(BOOL x){
+    
+                        }
+
+     ];
+}
 
 # pragma mark - GeoDecoderDelegate
 
@@ -464,7 +497,7 @@
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
     NSMutableArray *rows = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
     
-    NSLog(@"RISULTATO = %@",dataDict);
+    //NSLog(@"RISULTATO = %@",dataDict);
     
     // Ci aspettiamo che rows sia effettivamente un array, se non lo è
     // si ignora.
