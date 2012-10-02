@@ -171,7 +171,7 @@ static int count = 0;
         CouponDiscountTimeCell *cdtCell;
         cell = [tableView dequeueReusableCellWithIdentifier:@"CouponDiscountTimeCell"];
         if (!cell) {
-            NSLog(@"%@::cellForRow Non stiamo riusando!", [self class]);
+            //NSLog(@"%@::cellForRow Non stiamo riusando!", [self class]);
             cdtCell = [[[NSBundle mainBundle] loadNibNamed:@"CouponDiscountTimeCell" owner:self options:NULL] objectAtIndex:0];
         }
         else {
@@ -394,7 +394,7 @@ static int count = 0;
             self.aSheet = [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:@"Logout da Facebook" otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil] autorelease];
         } 
         else {
-            NSLog(@"DID LOAD NOT CONNECTED");
+            //NSLog(@"DID LOAD NOT CONNECTED");
             self.aSheet = [[[UIActionSheet alloc] initWithTitle:[NSString stringWithFormat:@"Condividi questa offerta con i tuoi amici"] delegate:self cancelButtonTitle:@"Annulla" destructiveButtonTitle:nil otherButtonTitles:@"Invia email", @"Condividi su Facebook", nil] autorelease];
         }
 		[self.aSheet showInView:self.appDelegate.window];
@@ -583,15 +583,15 @@ if ([rows count]>0) {//coupon disponibile
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     // Qualsiasi sia l'actionSheet, se premiamo annulla dobbiamo deselezionare la cella della tabella
     if (buttonIndex == actionSheet.numberOfButtons - 1) {
-        NSLog (@"buttonIndex == nOfButtons");
+        //NSLog (@"buttonIndex == nOfButtons");
         [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow] animated:YES];
     }
     
     if (actionSheet == self.aSheet) {
-        NSLog(@" numero di bottoni = %d, tap sul n. %d", actionSheet.numberOfButtons, buttonIndex);
+        //NSLog(@" numero di bottoni = %d, tap sul n. %d", actionSheet.numberOfButtons, buttonIndex);
         if (actionSheet.numberOfButtons == 4) {
             if(buttonIndex == 0){
-                NSLog(@"richiamo logout facebook");
+                //NSLog(@"richiamo logout facebook");
                 [self logoutFromFB];
                 return;
             } 
@@ -684,8 +684,8 @@ if ([rows count]>0) {//coupon disponibile
         return;
     }    
 	
-    NSLog(@"INTERNET PRESENTE");
-    NSLog(@"VIEW DID APPEAR TIMER prima dell'invalidazione = %@", self.timer);
+    //NSLog(@"INTERNET PRESENTE");
+    //NSLog(@"VIEW DID APPEAR TIMER prima dell'invalidazione = %@", self.timer);
     [self.timer invalidate];
     self.timer = nil;
     
@@ -757,10 +757,12 @@ if ([rows count]>0) {//coupon disponibile
         }
     }
 
+    /*
     if (isOffertaDelGiorno)
         NSLog(@"Coupon::viewDidLoad: questa istanza rappresenta l'offerta del giorno.");
     else
         NSLog(@"Coupon::viewDidLoad: questa istanza rappresenta un coupon generico.");
+    */
     
     altezzaCella = 44.0;
     tipodettaglio = CouponEsercenteNULL;
@@ -833,7 +835,7 @@ if ([rows count]>0) {//coupon disponibile
     [self.tableview deselectRowAtIndexPath:[self.tableview indexPathForSelectedRow]  animated:YES];
     
     if (self.dataModel) {
-        NSLog(@"VIEW WILL APPEAR: allineo counter");
+        //NSLog(@"VIEW WILL APPEAR: allineo counter");
         NSDateFormatter *formatodb = [[NSDateFormatter alloc] init];
         [formatodb setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *now = [[NSDate alloc] init];
@@ -860,10 +862,10 @@ if ([rows count]>0) {//coupon disponibile
 
 
 -(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"WIEW DID DISAPPEAR TIMER prima di invalidazione = %@",self.timer);
+    //NSLog(@"WIEW DID DISAPPEAR TIMER prima di invalidazione = %@",self.timer);
     [self.timer invalidate];
     self.timer = nil;
-    NSLog(@"WIEW DID DISAPPEAR TIMER dopo di invalidazione = %@", self.timer);
+    //NSLog(@"WIEW DID DISAPPEAR TIMER dopo di invalidazione = %@", self.timer);
     [super viewDidDisappear:animated];
 }
 
@@ -955,7 +957,7 @@ if ([rows count]>0) {//coupon disponibile
             myLabel.text = [self.dataModel objectForKey:@"offerta_titolo_breve"];
             [myLabel sizeToFit];
             
-            NSLog(@"ALTEZZA = %f",myLabel.frame.size.height);
+            //NSLog(@"ALTEZZA = %f",myLabel.frame.size.height);
             
             if(myLabel.frame.size.height <=21)
                 altezzaCella = 44;
@@ -1018,10 +1020,10 @@ if ([rows count]>0) {//coupon disponibile
 
     
     if(self.view.window){
-        NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",self.timer);
+        //NSLog(@"DID RECEIVE COUPON prima di attivazione timer = %@",self.timer);
         [self.timer invalidate];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown) userInfo:nil repeats:YES];
-        NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",self.timer);
+        //NSLog(@"DID RECEIVE COUPON dopo di attivazione timer = %@",self.timer);
     }
 }
 

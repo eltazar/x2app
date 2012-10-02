@@ -44,7 +44,7 @@
 
 
 - (void)awakeFromNib {
-    NSLog(@"%@::awakeFromNib", [self class]);
+    //NSLog(@"%@::awakeFromNib", [self class]);
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];  
     UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)];  
     [doubleTap setNumberOfTapsRequired:2];  
@@ -59,7 +59,7 @@
 
 
 - (void)loadImageFromUrlString:(NSString *)urlString {
-    NSLog(@"%@::loadImageFromUrlString", [self class]);
+    //NSLog(@"%@::loadImageFromUrlString", [self class]);
     [_imgUrlString release];
     _imgUrlString = [urlString retain];
     NSURL *url = [NSURL URLWithString:urlString];

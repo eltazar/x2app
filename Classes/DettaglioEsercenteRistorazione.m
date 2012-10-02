@@ -302,7 +302,7 @@
 
 
 - (void)removeNullItemsFromModel {
-    NSLog(@"DettaglioEsercenteRistorazione::removeNullItemsFromModel");
+    //NSLog(@"DettaglioEsercenteRistorazione::removeNullItemsFromModel");
     Class null = [NSNull class];
     if ([[self.dataModel objectForKey:@"Giorno_chiusura_Esercente"] isKindOfClass:null]){
         [self.idxMap removeKey:@"GiornoChiusura"];

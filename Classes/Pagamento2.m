@@ -762,7 +762,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
         // We were removed from the navigation controller's view controller stack
         // thus, we can infer that the back button was pressed
     
-        NSLog(@"back button clicked");
+        //NSLog(@"back button clicked");
         
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_nome"];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_tipoCarta"];
@@ -793,7 +793,7 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 - (void)dealloc {
 		
-    NSLog(@"DEALLOC PAGAMENTO2");
+    //NSLog(@"DEALLOC PAGAMENTO2");
     
     //[[NSNotificationCenter defaultCenter] removeObserver:self name:kDidAbortLogoutNotification object:nil];
     //[[NSNotificationCenter defaultCenter] removeObserver:self name:kDidLogoutNotification object:nil];

@@ -124,7 +124,7 @@
 	[defaults setObject:[NSNumber numberWithInt:0] forKey:@"idday"];
     
 	[defaults synchronize];
-	NSLog(@"Ho salvato i valori: %d e %d\n",[[defaults objectForKey:@"idcity"]integerValue],[[defaults objectForKey:@"idday"]integerValue]);
+	//NSLog(@"Ho salvato i valori: %d e %d\n",[[defaults objectForKey:@"idcity"]integerValue],[[defaults objectForKey:@"idday"]integerValue]);
 }
 
 

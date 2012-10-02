@@ -273,12 +273,12 @@
         // If it’s not valid clear any authorization and mark the status as not connected.
         if (![facebook isSessionValid]) {
             //[facebook authorize:nil];
-                        NSLog(@"APP DELEGATE: SESSIONE NN VALIDA");
+                        //NSLog(@"APP DELEGATE: SESSIONE NN VALIDA");
             [facebook logout:self];
             //isConnected = NO;
         }
         else {
-                        NSLog(@"APP DELEGATE: SESSIONE VALIDA");
+                        //NSLog(@"APP DELEGATE: SESSIONE VALIDA");
             //isConnected = YES;
         }
     }
