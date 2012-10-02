@@ -108,6 +108,8 @@
 		//NSLog(@"L'id dell'esercente da visualizzare è %d",i );
         DettaglioEsercenteRistorazione *detail = [[DettaglioEsercenteRistorazione alloc]initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
 		detail.idEsercente = i;
+        UITableViewCell *cell = [tView cellForRowAtIndexPath:indexPath];
+        detail.img = ((CachedAsyncImageView*)[cell viewWithTag:5]).image;
 		detail.title = @"Esercente";
         //Facciamo visualizzare la vista con i dettagli
 		[self.navigationController pushViewController:detail animated:YES];

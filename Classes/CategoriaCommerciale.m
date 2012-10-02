@@ -297,6 +297,10 @@
 		//NSLog(@"L'id dell'esercente da visualizzare è %d",i );
 		DettaglioEsercente *detail = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
 		detail.idEsercente = i;
+        
+        UITableViewCell *cell = [tView cellForRowAtIndexPath:indexPath];
+        NSLog(@"immagine salvata = %@",(CachedAsyncImageView*)[cell viewWithTag:5]);
+        detail.img = ((CachedAsyncImageView*)[cell viewWithTag:5]).image;
 		detail.title = @"Esercente";
         //Facciamo visualizzare la vista con i dettagli
 //        if (inSearchUI)
