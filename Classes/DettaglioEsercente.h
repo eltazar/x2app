@@ -26,12 +26,14 @@
     UITextView *_condizioniTextView;
     UIViewController *_sitoViewController;
     UIWebView *_sitoWebView;
+    UIImage *img;
 
     
 @private
     IndexPathMapper *_idxMap;
     NSDictionary *_dataModel;
     BOOL isDataModelReady;
+    IBOutlet UIImageView *imageHeader;
     
 @protected
     BOOL isGenerico;
@@ -42,7 +44,7 @@
     NSString *urlStringValiditaCarta;
 }
 
-
+@property (nonatomic, retain) UIImage *img;
 @property (nonatomic, assign) NSInteger idEsercente; 
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;

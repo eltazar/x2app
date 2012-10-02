@@ -6,6 +6,7 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "DettaglioEsercente.h"
 #import "PerDueCItyCardAppDelegate.h"
 #import "CJSONDeserializer.h"
@@ -28,7 +29,7 @@
 @synthesize idEsercente=_idEsercente;
 
 // IBOutlets:
-@synthesize tableview=_tableview, activityIndicator=_activityIndicator, mapViewController=_mapViewController, mkMapView=_mkMapView, mapTypeSegCtrl=_mapTypeSegCtrl,condizioniViewController=_condizioniViewController, condizioniTextView=_condizioniTextView,  sitoViewController=_sitoViewController, sitoWebView=_sitoWebView;
+@synthesize tableview=_tableview, activityIndicator=_activityIndicator, mapViewController=_mapViewController, mkMapView=_mkMapView, mapTypeSegCtrl=_mapTypeSegCtrl,condizioniViewController=_condizioniViewController, condizioniTextView=_condizioniTextView,  sitoViewController=_sitoViewController, sitoWebView=_sitoWebView,img;
 
 //Properties private:
 @synthesize idxMap=_idxMap, dataModel=_dataModel;
@@ -87,6 +88,13 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
+    imageHeader.layer.masksToBounds = YES;
+    [imageHeader.layer setCornerRadius:8.0];
+    
+    UIImage *bigImg = [UIImage imageWithCGImage:img.CGImage scale:0.8 orientation:img.imageOrientation];
+    
+    [imageHeader setImage:bigImg];
+    
     self.idxMap = [[[IndexPathMapper alloc] init] autorelease];
         
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -140,6 +148,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     // IBOutlets:
+    self.img = nil;
     self.sitoWebView.delegate = nil;
     self.sitoWebView = nil;
     self.tableview.delegate = nil;
@@ -164,6 +173,9 @@
 
 
 - (void)dealloc {
+    
+    [imageHeader release];
+    self.img = nil;
     // IBOutlets:
     self.sitoWebView.delegate = nil;
     self.sitoWebView = nil;
