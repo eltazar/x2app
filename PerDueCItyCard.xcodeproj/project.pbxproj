@@ -79,7 +79,6 @@
 		AC0C66431505053700B4F971 /* DoneUp3.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66411505053700B4F971 /* DoneUp3.png */; };
 		AC0C66451505185600B4F971 /* cartaGrande.png in Resources */ = {isa = PBXBuildFile; fileRef = AC0C66441505185600B4F971 /* cartaGrande.png */; };
 		AC13B7091509691500E54106 /* BuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC13B7081509691500E54106 /* BuyCell.m */; };
-		AC165293160CA6CC00A2494D /* yellowBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = AC165292160CA6CB00A2494D /* yellowBackground.png */; };
 		AC18B80F1543005100A980D7 /* ToucHotel.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80D1543005100A980D7 /* ToucHotel.png */; };
 		AC18B8101543005100A980D7 /* ToucHotel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC18B80E1543005100A980D7 /* ToucHotel@2x.png */; };
 		AC3C57B41525313500E5457E /* refreshBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = AC3C57B31525313500E5457E /* refreshBtn.png */; };
@@ -1043,7 +1042,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PerDueCItyCard" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1174,7 +1173,6 @@
 				ACD2C54015650839008EBAE5 /* app-storeDW@2x.png in Resources */,
 				ACD2C54315650BD4008EBAE5 /* thBtn.png in Resources */,
 				ACD2C54415650BD4008EBAE5 /* thBtn@2x.png in Resources */,
-				AC165293160CA6CC00A2494D /* yellowBackground.png in Resources */,
 				ACFAC574160CB928003883F7 /* Default-568h@2x.png in Resources */,
 				AC073A13161B378C0082A643 /* filterPanel.png in Resources */,
 			);

@@ -88,11 +88,19 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     //NSLog(@"[%@ didFinishLoading]: - loaded %d bytes", [self class], _receivedData.length);
     UIImage *image;
+    NSString *string;
     @synchronized (self) {
         if (connection != _connection) return;
-        image = [UIImage imageWithData:_receivedData];
-        [[ImageCache sharedInstance] setImage:image forURLString:_urlString];
+        string =[[NSString alloc] initWithBytes:[_receivedData mutableBytes] length:[_receivedData length]encoding:NSUTF8StringEncoding]; 
+        if ([string isEqualToString:@"Use a placeholder"]) {
+            image = [UIImage imageNamed:@"icon.png"];
+        }
+        else {
+            image = [UIImage imageWithData:_receivedData];
+            [[ImageCache sharedInstance] setImage:image forURLString:_urlString];
+        }
         [self releaseConnection];
+        [string release];
     }
     [_activityIndicator stopAnimating];
     
