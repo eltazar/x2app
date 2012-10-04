@@ -252,16 +252,8 @@
 		NSDictionary *r  = [self.dataModel objectAtIndex:indexPath.row];
 		
         CachedAsyncImageView *caImageView = (CachedAsyncImageView *)[cell viewWithTag:5];
-        NSString *imageUrlString;
-        //NSLog(@" IMMAGINE CARICATA = %@",[r objectForKey:@"logoaz1"]);
-        imageUrlString= [[NSString alloc] initWithFormat:@"http://cartaperdue.it/img/img_aziende/%@", [r objectForKey:@"logoaz1"]];
-        
-        NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
-        //NSLog(@"image url = %@",imageUrl);
-        if(imageUrl != nil)
-            [caImageView loadImageFromURL:imageUrl];
-        else [caImageView setImage:[UIImage imageNamed:@"icon.png"]];
-        [imageUrlString release];
+        NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.cartaperdue.it/partner/v2.0/ImmagineEsercente.php?id=%d", [[r objectForKey:@"IDesercente"] intValue]]];
+        [caImageView loadImageFromURL:imageUrl];
         
 		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
 		esercente.text = [r objectForKey:@"Insegna_Esercente"];
