@@ -18,12 +18,16 @@
 #import "WMHTTPAccess.h"
 #import "CachedAsyncImageView.h"
 
+#define MAX_LEFT_X
+#define MAX_RIGHT_X
+
 
 //Metodi privati
 @interface CategoriaCommerciale () {}
 @property (nonatomic, retain) NSString *categoria;
 @property (nonatomic, retain) GeoDecoder *geoDec;
 @property (nonatomic, retain) NSArray *tempBuff;
+@property (nonatomic, retain) PullableView *filterPanel;
 
 @property (nonatomic, retain) NSString *urlString;
 @property (nonatomic, retain) NSMutableArray *dataModel;
@@ -49,7 +53,7 @@
 @synthesize searchBar=_searchBar, tableView=_tableView, mapView=_mapView, footerView=_footerView, activityIndicator=_activityIndicator, searchActivityIndicator=_searchActivityIndicator, searchSegCtrl=_searchSegCtrl, mapTypeSegCtrl=_mapTypeSegCtrl;
 
 // Properties private
-@synthesize categoria=_categoria, geoDec=_geoDec, tempBuff=_tempBuff;
+@synthesize categoria=_categoria, geoDec=_geoDec, tempBuff=_tempBuff, filterPanel;
 
 // Properties protected
 @synthesize urlString=_urlString, dataModel=_dataModel;
@@ -84,18 +88,51 @@
 
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad];    
+        
+    self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, 296, 56)];
+        
+    filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, self.tableView.frame.origin.y+ (filterPanel.frame.size.height / 2));
+    filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), self.tableView.frame.origin.y+ (filterPanel.frame.size.height / 2));
     
+    filterPanel.center = filterPanel.closedCenter;
+    filterPanel.animate = YES;
     [filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"filterPanel.png"]]];
-    //[filterPanel.layer setOpaque:NO];
-    //filterPanel.opaque = NO;
-    NSLog(@"PRIMA altezza = %f, larghezza = %f",filterPanel.frame.size.height,filterPanel.frame.size.width);
+    [self.filterPanel setAlpha:0.95];
+    [self.view addSubview:self.filterPanel];
+    [self.filterPanel release];
+//    
+//    pullRightView = [[PullableView alloc] initWithFrame:CGRectMake(0, 200, 200, 300)];
+//    pullRightView.backgroundColor = [UIColor lightGrayColor];
+//    pullRightView.openedCenter = CGPointMake(100, 200);
+//    pullRightView.closedCenter = CGPointMake(-70, 200);
+//    pullRightView.center = pullRightView.closedCenter;
+//    pullRightView.animate = NO;
+
+    
+  /*
+    [filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"filterPanel.png"]]];
     
     [filterPanel setFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, filterPanel.frame.size.width, filterPanel.frame.size.height)];
     [self.view insertSubview:filterPanel aboveSubview:self.view];
+    
+    maxLeft = self.tableView.frame.size.width - filterPanel.frame.size.width;
 
-  
-        
+    NSLog(@"DID LOAD x = %f, y = %f, maxLeft = %f,tableView x = %f",filterPanel.frame.origin.x,filterPanel.frame.origin.y,maxLeft,self.tableView.frame.origin.x);
+    
+//    // create a UIPanGestureRecognizer to detect when the screenshot is touched and dragged
+//    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureMoveAround:)];
+//    [panGesture setMaximumNumberOfTouches:2];
+//    [panGesture setDelegate:self];
+//    [filterPanel addGestureRecognizer:panGesture];
+//    [panGesture release];
+    
+    UILongPressGestureRecognizer* longPressure = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressDetected:)];
+    [filterPanel addGestureRecognizer:longPressure];
+    [longPressure release];
+
+    */
+    
     self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione_con_img.php";
     self.dataModel = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
@@ -142,11 +179,16 @@
 
 
 - (void)viewDidUnload {
-    [super viewDidUnload];
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
+//    filterPanel removeGestureRecognizer:<#(UIGestureRecognizer *)#>
+    
     // Roba ri-creata in viewDidLoad:
+    
+    self.filterPanel = nil;
+    
     self.urlString = nil;
     self.dataModel = nil;
     self.navigationItem.rightBarButtonItem = nil;
@@ -163,13 +205,13 @@
 	self.mapTypeSegCtrl = nil;
     self.searchSegCtrl = nil;
 	self.footerView = nil;
+    [super viewDidUnload];
 }
 
 
 - (void)dealloc {
 
-    [filterPanel release];
-    filterPanel = nil;
+    self.filterPanel = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
     self.tableView.delegate = nil;
@@ -441,23 +483,75 @@
 
 #pragma mark - View button actions
 
+//-(void)longPressDetected:(UILongPressGestureRecognizer*)longPress{
+//        
+//    switch ([longPress state]) {
+//        case UIGestureRecognizerStatePossible:
+//            
+//            break;
+//            
+//        case UIGestureRecognizerStateBegan:
+//            
+//            NSLog(@"Got it!"); // Long press is successfully recognized
+//            break;
+//            
+//            
+//        case UIGestureRecognizerStateChanged:
+//            
+//            
+//            NSLog(@"Wow! Its moving! --> x = %f",[((UIGestureRecognizer*)longPress) locationInView:nil].x); // finger position has changed
+//            
+//            float x = [((UIGestureRecognizer*)longPress) locationInView:nil].x;
+//            float y = [((UIGestureRecognizer*)longPress) locationInView:nil].y;
+//            
+//            
+//            if( filterPanel.frame.origin.x > 60){
+//                float oldW = filterPanel.frame.size.width;
+//                float oldH = filterPanel.frame.size.height;
+//                
+//                [UIView animateWithDuration:.4
+//                                 animations:^{
+//                                     
+//                                      [filterPanel setFrame:CGRectMake(x, self.tableView.frame.origin.y, oldW, oldH)];                
+//                                 }
+//                 ];
+//                
+//               
+//                NSLog(@"PANNELLO X = %f, CGPOINT x=%f, y=%f",filterPanel.frame.origin.x,x,y);
+//            }
+//            else{
+//                NSLog(@"END");
+//            }
+//            
+//            //NSLog(@"FILTER PANEL MOVING %f", filterPanel.frame.origin.x);
+//            break;
+//            
+//        case UIGestureRecognizerStateEnded:
+//            
+//            
+//        default:
+//            break;
+//    }
+//}
+
+
 -(IBAction)filterBtnPressed:(id)sender{
 
    // [filterPanel setFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, filterPanel.frame.size.width, filterPanel.frame.size.height)];
     
-    [UIView animateWithDuration:2
+    /*[UIView animateWithDuration:2
                         animations:^{
                             //[filterBtn setUserInteractionEnabled:NO];
                             float oldW = filterPanel.frame.size.width;
                             float oldH = filterPanel.frame.size.height;
                             [filterPanel setFrame:CGRectMake(self.tableView.frame.size.width-filterPanel.frame.size.width, self.tableView.frame.origin.y, oldW, oldH)];
-                            NSLog(@"DOPO altezza = %f, larghezza = %f",filterPanel.frame.size.height,filterPanel.frame.size.width);
+                            //NSLog(@"DOPO altezza = %f, larghezza = %f",filterPanel.frame.size.height,filterPanel.frame.size.width);
                         }
                         completion:^(BOOL x){
     
                         }
 
-     ];
+     ];*/
 }
 
 # pragma mark - GeoDecoderDelegate

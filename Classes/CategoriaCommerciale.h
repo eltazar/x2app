@@ -11,9 +11,10 @@
 
 #import "GeoDecoder.h"
 #import "WMHTTPAccess.h"
+#import "PullableView.h"
 
 
-@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, UIAlertViewDelegate, GeoDecoderDelegate, WMHTTPAccessDelegate> {
+@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, UIAlertViewDelegate, GeoDecoderDelegate, WMHTTPAccessDelegate, UIGestureRecognizerDelegate> {
 @private
     BOOL lastFetchWasASearch;
     BOOL inSearchUI;
@@ -30,8 +31,6 @@
     UIActivityIndicatorView *_searchActivityIndicator;
     UISegmentedControl *_searchSegCtrl;
     UISegmentedControl *_mapTypeSegCtrl;
-    IBOutlet UIButton *filterBtn;
-    IBOutlet UIView *filterPanel;
     
 @protected
     NSString *_urlString;
@@ -40,7 +39,6 @@
     BOOL queryingMoreRows;
 }
 
-@property (nonatomic, retain) IBOutlet UIButton *filterBtn;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
