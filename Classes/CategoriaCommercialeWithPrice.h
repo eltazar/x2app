@@ -10,4 +10,5 @@
 
 @interface CategoriaCommercialeWithPrice : CategoriaCommerciale
 
+
 @end

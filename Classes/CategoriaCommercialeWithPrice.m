@@ -37,6 +37,35 @@
     CGPoint center = self.searchSegCtrl.center;
     center.x = self.view.center.x;
     self.searchSegCtrl.center = center;
+    
+    self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-30, 0, 296, 56)];
+    
+    filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, 0+ (filterPanel.frame.size.height / 2));
+    filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), 0+ (filterPanel.frame.size.height / 2));
+    
+    filterPanel.center = filterPanel.closedCenter;
+    filterPanel.animate = YES;
+    [filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"filterPanel.png"]]];
+    [self.filterPanel setAlpha:0.95];
+    [self.tableView addSubview:self.filterPanel];
+    [self.filterPanel release];
+    
+    UIImageView *imageFilter = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"filtroDisattivato.png"]];
+    [imageFilter setFrame:CGRectMake(13, 8, imageFilter.frame.size.width, imageFilter.frame.size.height)];
+    
+    [self.filterPanel addSubview:imageFilter];
+    [imageFilter release];
+    
+    [segCtrlFilter setFrame:CGRectMake(60, self.filterPanel.frame.size.height/4, segCtrlFilter.frame.size.width, segCtrlFilter.frame.size.height)];
+    
+    UIColor *newTintColor = [UIColor colorWithRed: 251/255.0 green:175/255.0 blue:93/255.0 alpha:1.0];
+    segCtrlFilter.tintColor = newTintColor;
+    
+//    UIColor *newSelectedTintColor = [UIColor colorWithRed: 0/255.0 green:175/255.0 blue:0/255.0 alpha:1.0];
+//    [[[segCtrlFilter subviews] objectAtIndex:0] setTintColor:newSelectedTintColor];
+    
+    [self.filterPanel addSubview:segCtrlFilter];
+    
 }
 
 
@@ -137,6 +166,23 @@
         return @"nome";
     } else {
         return @"";
+    }
+}
+
+-(IBAction)filterSegmentedControlClicked:(id)sender{
+  
+    switch(segCtrlFilter.selectedSegmentIndex)
+    {
+        case 0:
+            NSLog(@"TUTTI");
+            break;
+        case 1:
+            NSLog(@"PRANZO");
+            break;
+        case 2:
+            NSLog(@"CENA");
+        default:
+            break;
     }
 }
 
