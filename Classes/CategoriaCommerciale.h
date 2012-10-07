@@ -33,12 +33,16 @@
     UISegmentedControl *_mapTypeSegCtrl;
     
 @protected
+    
+    PullableView *filterPanel;
     NSString *_urlString;
     NSMutableArray *_dataModel;
     CLLocationCoordinate2D location;
     BOOL queryingMoreRows;
+    IBOutlet UISegmentedControl *segCtrlFilter;
 }
 
+@property (nonatomic, retain) PullableView *filterPanel;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
@@ -56,6 +60,7 @@
 - (IBAction)didChangeSearchSegCtrlState:(id)sender;
 - (IBAction)didChangeMapTypeSegCtrlState:(id)sender;
 - (IBAction)filterBtnPressed:(id)sender;
+-(IBAction)filterSegmentedControlClicked:(id)sender;
 
 
 @end

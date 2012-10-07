@@ -27,7 +27,6 @@
 @property (nonatomic, retain) NSString *categoria;
 @property (nonatomic, retain) GeoDecoder *geoDec;
 @property (nonatomic, retain) NSArray *tempBuff;
-@property (nonatomic, retain) PullableView *filterPanel;
 
 @property (nonatomic, retain) NSString *urlString;
 @property (nonatomic, retain) NSMutableArray *dataModel;
@@ -89,19 +88,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];    
-        
-    self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, 296, 56)];
-        
-    filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, self.tableView.frame.origin.y+ (filterPanel.frame.size.height / 2));
-    filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), self.tableView.frame.origin.y+ (filterPanel.frame.size.height / 2));
     
-    filterPanel.center = filterPanel.closedCenter;
-    filterPanel.animate = YES;
-    [filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"filterPanel.png"]]];
-    [self.filterPanel setAlpha:0.95];
-    [self.view addSubview:self.filterPanel];
-    [self.filterPanel release];
-//    
+//    UISegmentedControl *segController = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Tutti",@"Pranzo",@"Cena",nil]];
+//    [segController setSegmentedControlStyle:UISegmentedControlStyleBar];
+//    [segController setFrame:CGRectMake(50, 5, 150, 50)];
+//    [self.filterPanel addSubview:segController];
+//    [segController release];
+//
 //    pullRightView = [[PullableView alloc] initWithFrame:CGRectMake(0, 200, 200, 300)];
 //    pullRightView.backgroundColor = [UIColor lightGrayColor];
 //    pullRightView.openedCenter = CGPointMake(100, 200);
@@ -151,10 +144,9 @@
     self.geoDec.delegate = self;
 }
 
-
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow]  animated:YES];
     if( ![Utilita networkReachable]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connessione assente" message:@"Verifica le impostazioni di connessione ad Internet e riprova" delegate:self cancelButtonTitle:nil otherButtonTitles:@"Chiudi",nil];
@@ -175,6 +167,7 @@
     }
     if (inSearchUI)
         [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
 }
 
 
@@ -186,7 +179,8 @@
 //    filterPanel removeGestureRecognizer:<#(UIGestureRecognizer *)#>
     
     // Roba ri-creata in viewDidLoad:
-    
+    [segCtrlFilter release];
+    segCtrlFilter = nil;
     self.filterPanel = nil;
     
     self.urlString = nil;
@@ -211,6 +205,7 @@
 
 - (void)dealloc {
 
+    [segCtrlFilter release];
     self.filterPanel = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
@@ -583,7 +578,7 @@
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
     NSMutableArray *rows = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
     
-    //NSLog(@"RISULTATO = %@",dataDict);
+    NSLog(@"RISULTATO = %@",dataDict);
     
     // Ci aspettiamo che rows sia effettivamente un array, se non lo è
     // si ignora.
