@@ -111,6 +111,9 @@
 		ACD2C54015650839008EBAE5 /* app-storeDW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C53E15650839008EBAE5 /* app-storeDW@2x.png */; };
 		ACD2C54315650BD4008EBAE5 /* thBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C54115650BD4008EBAE5 /* thBtn.png */; };
 		ACD2C54415650BD4008EBAE5 /* thBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD2C54215650BD4008EBAE5 /* thBtn@2x.png */; };
+		ACD6570D1622192C001813A7 /* filtroAttivo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD6570C1622192C001813A7 /* filtroAttivo@2x.png */; };
+		ACD6571016221C4B001813A7 /* filtroDisattivato@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD6570F16221C4B001813A7 /* filtroDisattivato@2x.png */; };
+		ACD65712162228EE001813A7 /* Anzio, IT.gpx in Resources */ = {isa = PBXBuildFile; fileRef = ACD65711162228EE001813A7 /* Anzio, IT.gpx */; };
 		ACD9CF701541B78E007B7887 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */; };
 		ACD9CF711541B78E007B7887 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD9CF6F1541B78E007B7887 /* 37x-Checkmark.png */; };
 		ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDBD982151755490079A966 /* RegistrazioneController.m */; };
@@ -341,6 +344,9 @@
 		ACD2C53E15650839008EBAE5 /* app-storeDW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-storeDW@2x.png"; sourceTree = "<group>"; };
 		ACD2C54115650BD4008EBAE5 /* thBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thBtn.png; sourceTree = "<group>"; };
 		ACD2C54215650BD4008EBAE5 /* thBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thBtn@2x.png"; sourceTree = "<group>"; };
+		ACD6570C1622192C001813A7 /* filtroAttivo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filtroAttivo@2x.png"; sourceTree = "<group>"; };
+		ACD6570F16221C4B001813A7 /* filtroDisattivato@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filtroDisattivato@2x.png"; sourceTree = "<group>"; };
+		ACD65711162228EE001813A7 /* Anzio, IT.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Anzio, IT.gpx"; sourceTree = "<group>"; };
 		ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		ACD9CF6F1541B78E007B7887 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		ACDBD981151755490079A966 /* RegistrazioneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrazioneController.h; sourceTree = "<group>"; };
@@ -503,6 +509,8 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				ACD6570F16221C4B001813A7 /* filtroDisattivato@2x.png */,
+				ACD6570C1622192C001813A7 /* filtroAttivo@2x.png */,
 				AC073A12161B378C0082A643 /* filterPanel.png */,
 				AC165292160CA6CB00A2494D /* yellowBackground.png */,
 				ACD2C54115650BD4008EBAE5 /* thBtn.png */,
@@ -605,6 +613,7 @@
 			isa = PBXGroup;
 			children = (
 				ACFAC573160CB928003883F7 /* Default-568h@2x.png */,
+				ACD65711162228EE001813A7 /* Anzio, IT.gpx */,
 				19D4CA7413ED5144001C7763 /* Classes */,
 				D9463616152F6953000A17CE /* Librerie Esterne */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1180,6 +1189,9 @@
 				ACD2C54415650BD4008EBAE5 /* thBtn@2x.png in Resources */,
 				ACFAC574160CB928003883F7 /* Default-568h@2x.png in Resources */,
 				AC073A13161B378C0082A643 /* filterPanel.png in Resources */,
+				ACD6570D1622192C001813A7 /* filtroAttivo@2x.png in Resources */,
+				ACD6571016221C4B001813A7 /* filtroDisattivato@2x.png in Resources */,
+				ACD65712162228EE001813A7 /* Anzio, IT.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
