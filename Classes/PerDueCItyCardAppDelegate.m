@@ -60,6 +60,11 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"_scadenza"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
+    NSLog(@"FILTRO = %@", [[NSUserDefaults standardUserDefaults] objectForKey:@"filter"]);
+    
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"filter"] == nil){
+        [[NSUserDefaults standardUserDefaults] setObject:@"Tutti" forKey:@"filter"] ;
+    }
     
     return YES;
 }
