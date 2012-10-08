@@ -32,11 +32,12 @@
     _urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione_con_img.php";
     [self.searchSegCtrl insertSegmentWithTitle:@"Prezzo" atIndex:1 animated:NO];
     CGRect frame = self.searchSegCtrl.frame;
-    frame.size.width = 236;
+    frame.size.width = 190;
+    frame.origin.x = 55;
     self.searchSegCtrl.frame = frame;
-    CGPoint center = self.searchSegCtrl.center;
-    center.x = self.view.center.x;
-    self.searchSegCtrl.center = center;
+//    CGPoint center = self.searchSegCtrl.center;
+//    center.x = self.view.center.x;
+//    self.searchSegCtrl.center = center;
     
     self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, 296, 56)];
     
@@ -194,12 +195,16 @@
 - (NSString *)searchMethod {
     NSInteger selection = [self.searchSegCtrl selectedSegmentIndex];
     if (selection == 0) {
+        self.sortingLabel.text = @"Km";
         return @"distanza";
     } else if (selection == 1) {
+        self.sortingLabel.text = @"  €";
         return @"prezzo";
     } else if (selection == 2) {
+        self.sortingLabel.text = @"A-Z";
         return @"nome";
     } else {
+        self.sortingLabel.text = @"";
         return @"";
     }
 }

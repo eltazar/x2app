@@ -49,6 +49,7 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *searchActivityIndicator;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *searchSegCtrl;
+@property (nonatomic, retain) UILabel *sortingLabel;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *mapTypeSegCtrl;
 
 @property (nonatomic, retain, readonly) NSMutableArray *dataModel;

@@ -88,6 +88,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];    
     
+    PullableView *leftPanel = [[PullableView alloc] initWithFrame:CGRectMake(0-300+50, self.searchBar.frame.size.height, 300, 35)];
+    
+    leftPanel.openedCenter = CGPointMake(100, self.searchBar.frame.size.height+ (leftPanel.frame.size.height / 2));
+    leftPanel.closedCenter = CGPointMake(0-(leftPanel.frame.size.width/2)+50,self.searchBar.frame.size.height+ (leftPanel.frame.size.height / 2));
+
+    leftPanel.center = leftPanel.closedCenter;
+    leftPanel.animate = YES;
+    [leftPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"leftPanel.png"]]];
+    [leftPanel setAlpha:0.95];
+    
+    
+    self.searchSegCtrl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Distanza",@"Nome", nil]];
+    [self.searchSegCtrl setFrame:CGRectMake(55, 2, 180, 30)];
+    self.searchSegCtrl.selectedSegmentIndex = 0;
+    UIColor *newTintColor = [UIColor colorWithRed: 251/255.0 green:175/255.0 blue:93/255.0 alpha:1.0];
+    self.searchSegCtrl.segmentedControlStyle = UISegmentedControlStyleBar;
+    self.searchSegCtrl.tintColor = newTintColor;
+
+    [self.searchSegCtrl addTarget:self action:@selector(didChangeSearchSegCtrlState:) forControlEvents:UIControlEventValueChanged];
+
+    self.sortingLabel = [[UILabel alloc] initWithFrame:CGRectMake(253, 7, 30, 20)];
+    self.sortingLabel.text = @"Km";
+    [self.sortingLabel setFont:[UIFont boldSystemFontOfSize:16]];
+    self.sortingLabel.backgroundColor = [UIColor clearColor];
+    self.sortingLabel.textColor = [UIColor whiteColor];
+    [leftPanel addSubview:self.sortingLabel];
+    [self.sortingLabel release];
+    
+    [leftPanel addSubview:self.searchSegCtrl];
+    [self.searchSegCtrl release];
+    
+    [self.view addSubview:leftPanel];
+    [leftPanel release];
+    
+    [self.view addSubview:leftPanel];
+    
+    
 //    UISegmentedControl *segController = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Tutti",@"Pranzo",@"Cena",nil]];
 //    [segController setSegmentedControlStyle:UISegmentedControlStyleBar];
 //    [segController setFrame:CGRectMake(50, 5, 150, 50)];
@@ -202,6 +239,7 @@
 
 - (void)dealloc {
 
+    self.sortingLabel = nil;
     self.filterPanel = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
@@ -474,76 +512,7 @@
 
 #pragma mark - View button actions
 
-//-(void)longPressDetected:(UILongPressGestureRecognizer*)longPress{
-//        
-//    switch ([longPress state]) {
-//        case UIGestureRecognizerStatePossible:
-//            
-//            break;
-//            
-//        case UIGestureRecognizerStateBegan:
-//            
-//            NSLog(@"Got it!"); // Long press is successfully recognized
-//            break;
-//            
-//            
-//        case UIGestureRecognizerStateChanged:
-//            
-//            
-//            NSLog(@"Wow! Its moving! --> x = %f",[((UIGestureRecognizer*)longPress) locationInView:nil].x); // finger position has changed
-//            
-//            float x = [((UIGestureRecognizer*)longPress) locationInView:nil].x;
-//            float y = [((UIGestureRecognizer*)longPress) locationInView:nil].y;
-//            
-//            
-//            if( filterPanel.frame.origin.x > 60){
-//                float oldW = filterPanel.frame.size.width;
-//                float oldH = filterPanel.frame.size.height;
-//                
-//                [UIView animateWithDuration:.4
-//                                 animations:^{
-//                                     
-//                                      [filterPanel setFrame:CGRectMake(x, self.tableView.frame.origin.y, oldW, oldH)];                
-//                                 }
-//                 ];
-//                
-//               
-//                NSLog(@"PANNELLO X = %f, CGPOINT x=%f, y=%f",filterPanel.frame.origin.x,x,y);
-//            }
-//            else{
-//                NSLog(@"END");
-//            }
-//            
-//            //NSLog(@"FILTER PANEL MOVING %f", filterPanel.frame.origin.x);
-//            break;
-//            
-//        case UIGestureRecognizerStateEnded:
-//            
-//            
-//        default:
-//            break;
-//    }
-//}
 
-
--(IBAction)filterBtnPressed:(id)sender{
-
-   // [filterPanel setFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, filterPanel.frame.size.width, filterPanel.frame.size.height)];
-    
-    /*[UIView animateWithDuration:2
-                        animations:^{
-                            //[filterBtn setUserInteractionEnabled:NO];
-                            float oldW = filterPanel.frame.size.width;
-                            float oldH = filterPanel.frame.size.height;
-                            [filterPanel setFrame:CGRectMake(self.tableView.frame.size.width-filterPanel.frame.size.width, self.tableView.frame.origin.y, oldW, oldH)];
-                            //NSLog(@"DOPO altezza = %f, larghezza = %f",filterPanel.frame.size.height,filterPanel.frame.size.width);
-                        }
-                        completion:^(BOOL x){
-    
-                        }
-
-     ];*/
-}
 
 # pragma mark - GeoDecoderDelegate
 
@@ -771,10 +740,13 @@
 - (NSString *)searchMethod {
     NSInteger selection = [self.searchSegCtrl selectedSegmentIndex];
     if (selection == 0) {
+        self.sortingLabel.text = @"Km";
         return @"distanza";
     } else if (selection == 1) {
+        self.sortingLabel.text = @"A-Z";
         return @"nome";
     } else {
+        self.sortingLabel.text = @"";
         return @"";
     }
 }
