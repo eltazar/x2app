@@ -59,5 +59,6 @@
 - (IBAction)didChangeSearchSegCtrlState:(id)sender;
 - (IBAction)didChangeMapTypeSegCtrlState:(id)sender;
 
+- (void)fetchRows;
 
 @end

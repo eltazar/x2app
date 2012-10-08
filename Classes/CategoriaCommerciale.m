@@ -31,7 +31,6 @@
 @property (nonatomic, retain) NSString *urlString;
 @property (nonatomic, retain) NSMutableArray *dataModel;
 - (NSString *)searchMethod;
-- (void)fetchRows;
 - (void)fetchMoreRows;
 - (void)fetchRowsBySearchKey:(NSString *)searchkey;
 - (void)showMap:(id)sender;
@@ -656,6 +655,7 @@
     [postDict setObject:[UserDefaults city]     forKey:@"prov"];
     [postDict setObject:[UserDefaults weekDay]  forKey:@"giorno"];
     [postDict setObject:[self searchMethod]     forKey:@"ordina"];
+    [postDict setObject:[self filterMethod]      forKey:@"filtro"];
     [postDict setObject:@"0"                    forKey:@"from"];
     [postDict setObject:[NSString stringWithFormat:@"%f", location.latitude]  forKey:@"lat"];
     [postDict setObject:[NSString stringWithFormat:@"%f", location.longitude] forKey:@"long"];
@@ -674,6 +674,7 @@
     [postDict setObject:[UserDefaults city]     forKey:@"prov"];
     [postDict setObject:[UserDefaults weekDay]  forKey:@"giorno"];
     [postDict setObject:[self searchMethod]     forKey:@"ordina"];
+    [postDict setObject:[self filterMethod]      forKey:@"filtro"];
     [postDict setObject:[NSString stringWithFormat:@"%d", self.dataModel.count] forKey:@"from"];
     [postDict setObject:[NSString stringWithFormat:@"%f", location.latitude]    forKey:@"lat"];
     [postDict setObject:[NSString stringWithFormat:@"%f", location.longitude]   forKey:@"long"];
@@ -762,6 +763,10 @@
 	
 }
 
+- (NSString *)filterMethod{
+    
+    return @"";
+}
 
 - (NSString *)searchMethod {
     NSInteger selection = [self.searchSegCtrl selectedSegmentIndex];

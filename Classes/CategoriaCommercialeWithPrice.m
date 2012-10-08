@@ -204,6 +204,10 @@
     }
 }
 
+-(IBAction)didChangeFilterSegCtrlState:(id)sender{
+
+    [super fetchRows];
+    
     switch(segCtrlFilter.selectedSegmentIndex)
     {
         case 0:
