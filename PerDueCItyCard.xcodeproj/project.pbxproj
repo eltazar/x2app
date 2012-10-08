@@ -96,6 +96,7 @@
 		ACA2FBEB15079F1700E3921B /* yellowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ACA2FBEA15079F1700E3921B /* yellowButton.png */; };
 		ACA2FBEE1507A22000E3921B /* Utilita.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA2FBED1507A22000E3921B /* Utilita.m */; };
 		ACAC4FFD161DC3BB00BFD8A1 /* PullableView.m in Sources */ = {isa = PBXBuildFile; fileRef = ACAC4FFC161DC3BB00BFD8A1 /* PullableView.m */; };
+		ACB10B4A162369FA0082263A /* leftPanel.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB10B49162369FA0082263A /* leftPanel.png */; };
 		ACB207F1151BE5EC0033B060 /* DataLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB207EF151BE5EC0033B060 /* DataLoginController.m */; };
 		ACB207F2151BE5EC0033B060 /* DataLoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACB207F0151BE5EC0033B060 /* DataLoginController.xib */; };
 		ACB9EB99154553B800C1EBC7 /* cartaBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACB9EB98154553B800C1EBC7 /* cartaBtn@2x.png */; };
@@ -325,6 +326,7 @@
 		ACA2FBED1507A22000E3921B /* Utilita.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilita.m; sourceTree = "<group>"; };
 		ACAC4FFB161DC3BB00BFD8A1 /* PullableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullableView.h; path = "Librerie Esterne/PullableView.h"; sourceTree = "<group>"; };
 		ACAC4FFC161DC3BB00BFD8A1 /* PullableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullableView.m; path = "Librerie Esterne/PullableView.m"; sourceTree = "<group>"; };
+		ACB10B49162369FA0082263A /* leftPanel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftPanel.png; sourceTree = "<group>"; };
 		ACB207EE151BE5EC0033B060 /* DataLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLoginController.h; sourceTree = "<group>"; };
 		ACB207EF151BE5EC0033B060 /* DataLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataLoginController.m; sourceTree = "<group>"; };
 		ACB207F0151BE5EC0033B060 /* DataLoginController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataLoginController.xib; sourceTree = "<group>"; };
@@ -509,6 +511,7 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				ACB10B49162369FA0082263A /* leftPanel.png */,
 				ACD6570F16221C4B001813A7 /* filtroDisattivato@2x.png */,
 				ACD6570C1622192C001813A7 /* filtroAttivo@2x.png */,
 				AC073A12161B378C0082A643 /* filterPanel.png */,
@@ -1192,6 +1195,7 @@
 				ACD6570D1622192C001813A7 /* filtroAttivo@2x.png in Resources */,
 				ACD6571016221C4B001813A7 /* filtroDisattivato@2x.png in Resources */,
 				ACD65712162228EE001813A7 /* Anzio, IT.gpx in Resources */,
+				ACB10B4A162369FA0082263A /* leftPanel.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
