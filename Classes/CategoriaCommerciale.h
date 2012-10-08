@@ -39,7 +39,6 @@
     NSMutableArray *_dataModel;
     CLLocationCoordinate2D location;
     BOOL queryingMoreRows;
-    IBOutlet UISegmentedControl *segCtrlFilter;
 }
 
 @property (nonatomic, retain) PullableView *filterPanel;
@@ -59,8 +58,6 @@
 
 - (IBAction)didChangeSearchSegCtrlState:(id)sender;
 - (IBAction)didChangeMapTypeSegCtrlState:(id)sender;
-- (IBAction)filterBtnPressed:(id)sender;
--(IBAction)filterSegmentedControlClicked:(id)sender;
 
 
 @end

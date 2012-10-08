@@ -179,8 +179,6 @@
 //    filterPanel removeGestureRecognizer:<#(UIGestureRecognizer *)#>
     
     // Roba ri-creata in viewDidLoad:
-    [segCtrlFilter release];
-    segCtrlFilter = nil;
     self.filterPanel = nil;
     
     self.urlString = nil;
@@ -205,7 +203,6 @@
 
 - (void)dealloc {
 
-    [segCtrlFilter release];
     self.filterPanel = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;

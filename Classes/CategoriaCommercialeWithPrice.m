@@ -38,16 +38,16 @@
     center.x = self.view.center.x;
     self.searchSegCtrl.center = center;
     
-    self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-30, 0, 296, 56)];
+    self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, 296, 56)];
     
-    filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, 0+ (filterPanel.frame.size.height / 2));
-    filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), 0+ (filterPanel.frame.size.height / 2));
+    filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, self.tableView.frame.origin.y+ (filterPanel.frame.size.height / 2));
+    filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), self.tableView.frame.origin.y+ (filterPanel.frame.size.height / 2));
     
     filterPanel.center = filterPanel.closedCenter;
     filterPanel.animate = YES;
     [filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"filterPanel.png"]]];
     [self.filterPanel setAlpha:0.95];
-    [self.tableView addSubview:self.filterPanel];
+    [self.view addSubview:self.filterPanel];
     [self.filterPanel release];
     
     UIImageView *imageFilter = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"filtroDisattivato.png"]];
@@ -56,10 +56,16 @@
     [self.filterPanel addSubview:imageFilter];
     [imageFilter release];
     
-    [segCtrlFilter setFrame:CGRectMake(60, self.filterPanel.frame.size.height/4, segCtrlFilter.frame.size.width, segCtrlFilter.frame.size.height)];
+    segCtrlFilter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Tutti",@"Pranzo",@"Cena", nil]];
+    segCtrlFilter.selectedSegmentIndex = 0;
+    
+    [segCtrlFilter setFrame:CGRectMake(60, self.filterPanel.frame.size.height/4, 161, 30)];
     
     UIColor *newTintColor = [UIColor colorWithRed: 251/255.0 green:175/255.0 blue:93/255.0 alpha:1.0];
+    segCtrlFilter.segmentedControlStyle = UISegmentedControlStyleBar;
     segCtrlFilter.tintColor = newTintColor;
+    
+    [segCtrlFilter addTarget:self action:@selector(didChangeFilterSegCtrlState:) forControlEvents:UIControlEventValueChanged];
     
 //    UIColor *newSelectedTintColor = [UIColor colorWithRed: 0/255.0 green:175/255.0 blue:0/255.0 alpha:1.0];
 //    [[[segCtrlFilter subviews] objectAtIndex:0] setTintColor:newSelectedTintColor];
@@ -68,6 +74,17 @@
     
 }
 
+-(void)dealloc{
+    
+    [segCtrlFilter release];
+    [super dealloc];
+}
+
+-(void)viewDidUnload{
+    
+    [segCtrlFilter release];
+    segCtrlFilter = nil;
+}
 
 # pragma mark - UITableViewDataSource
 
@@ -156,6 +173,24 @@
 
 #pragma mark - CategoriaCommercialeWithPrice (metodi privati)
 
+- (NSString *)filterMethod{
+    
+    switch(segCtrlFilter.selectedSegmentIndex)
+    {
+        case 0:
+            return @"Tutti";
+            break;
+        case 1:
+            return @"Pranzo";
+            break;
+        case 2:
+            return @"Cena";
+        default:
+            return @"";
+            break;
+    }
+}
+
 - (NSString *)searchMethod {
     NSInteger selection = [self.searchSegCtrl selectedSegmentIndex];
     if (selection == 0) {
@@ -169,8 +204,6 @@
     }
 }
 
--(IBAction)filterSegmentedControlClicked:(id)sender{
-  
     switch(segCtrlFilter.selectedSegmentIndex)
     {
         case 0:
@@ -185,6 +218,7 @@
             break;
     }
 }
+
 
 
 @end

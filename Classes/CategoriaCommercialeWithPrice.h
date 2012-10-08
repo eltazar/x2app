@@ -8,7 +8,11 @@
 
 #import "CategoriaCommerciale.h"
 
-@interface CategoriaCommercialeWithPrice : CategoriaCommerciale
+@interface CategoriaCommercialeWithPrice : CategoriaCommerciale{
+    
+    @private
+    UISegmentedControl *segCtrlFilter;
+}
 
 
 @end
