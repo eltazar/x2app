@@ -14,6 +14,7 @@
     UISegmentedControl *segCtrlFilter;
 }
 
+@property (nonatomic, retain) UIImageView *filterImg;
 @property (nonatomic, retain) PullableView *filterPanel;
 
 @end

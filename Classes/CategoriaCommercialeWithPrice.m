@@ -39,14 +39,54 @@
 //    center.x = self.view.center.x;
 //    self.searchSegCtrl.center = center;
     
+    
+    self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-50,self.searchBar.frame.size.height, 300, 35)];
+    
+    
+//    self.filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, self.tableView.frame.origin.y+ (self.filterPanel.frame.size.height / 2));
+//    self.filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), self.tableView.frame.origin.y+ (self.filterPanel.frame.size.height / 2));
+//    
+//    self.filterPanel.center = self.filterPanel.closedCenter;
+    self.filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-80, self.searchBar.frame.size.height+ (self.filterPanel.frame.size.height / 2));
+    self.filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width+( (self.filterPanel.frame.size.width / 2)-50), self.searchBar.frame.size.height+ (self.filterPanel.frame.size.height / 2));
+    self.filterPanel.center = self.filterPanel.closedCenter;
+    self.filterPanel.animate = YES;
+    [self.filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"rightPanel.png"]]];
+    [self.filterPanel setAlpha:0.95];
+    
+    
+    segCtrlFilter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Tutti",@"Pranzo",@"Cena", nil]];
+    segCtrlFilter.selectedSegmentIndex = 0;
+    [segCtrlFilter setFrame:CGRectMake(56, 2, 170, 30)];
+    UIColor *newTintColor = [UIColor colorWithRed: 251/255.0 green:175/255.0 blue:93/255.0 alpha:1.0];
+    segCtrlFilter.segmentedControlStyle = UISegmentedControlStyleBar;
+    segCtrlFilter.tintColor = newTintColor;
+    
+    [segCtrlFilter addTarget:self action:@selector(didChangeFilterSegCtrlState:) forControlEvents:UIControlEventValueChanged];
+
+    self.filterImg = [[UIImageView alloc] initWithFrame:CGRectMake(22, 8, 20, 20)];
+    self.filterImg.backgroundColor = [UIColor clearColor];
+    self.filterImg.image = [UIImage imageNamed:@"filterImg.png"];
+    [self.filterPanel addSubview:self.filterImg];
+    
+    [self.filterPanel addSubview:segCtrlFilter];
+    [self.view addSubview:self.filterPanel];
+    [self.filterPanel release];
+    [self.filterImg release];
+    [segCtrlFilter release];
+    
+    
+    
+    /* //vecchia barra filtro
+     
     self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-30, self.tableView.frame.origin.y, 296, 56)];
     
-    filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, self.tableView.frame.origin.y+ (filterPanel.frame.size.height / 2));
-    filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), self.tableView.frame.origin.y+ (filterPanel.frame.size.height / 2));
+    self.filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, self.tableView.frame.origin.y+ (self.filterPanel.frame.size.height / 2));
+    self.filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), self.tableView.frame.origin.y+ (self.filterPanel.frame.size.height / 2));
     
-    filterPanel.center = filterPanel.closedCenter;
-    filterPanel.animate = YES;
-    [filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"filterPanel.png"]]];
+    self.filterPanel.center = self.filterPanel.closedCenter;
+    self.filterPanel.animate = YES;
+    [self.filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"filterPanel.png"]]];
     [self.filterPanel setAlpha:0.95];
     [self.view addSubview:self.filterPanel];
     [self.filterPanel release];
@@ -72,11 +112,14 @@
 //    [[[segCtrlFilter subviews] objectAtIndex:0] setTintColor:newSelectedTintColor];
     
     [self.filterPanel addSubview:segCtrlFilter];
+     
+     */
     
 }
 
 -(void)dealloc{
     
+    self.filterImg = nil;
     self.filterPanel = nil;
     [segCtrlFilter release];
     [super dealloc];
@@ -84,9 +127,13 @@
 
 -(void)viewDidUnload{
     
+    self.filterImg = nil;
     self.filterPanel = nil;
     [segCtrlFilter release];
     segCtrlFilter = nil;
+    [super viewDidUnload];
+}
+
 }
 
 # pragma mark - UITableViewDataSource
@@ -181,17 +228,22 @@
     switch(segCtrlFilter.selectedSegmentIndex)
     {
         case 0:
+            self.filterImg.image = [UIImage imageNamed:@"filterImg.png"];
             return @"Tutti";
             break;
         case 1:
+            self.filterImg.image = [UIImage imageNamed:@"sun.png"];
             return @"Pranzo";
             break;
         case 2:
+            self.filterImg.image = [UIImage imageNamed:@"moon.png"];
             return @"Cena";
         default:
+            self.filterImg.image = [UIImage imageNamed:@"filterImg.png"];
             return @"";
             break;
     }
+    
 }
 
 - (NSString *)searchMethod {
