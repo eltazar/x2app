@@ -34,14 +34,11 @@
     
 @protected
     
-    PullableView *filterPanel;
     NSString *_urlString;
     NSMutableArray *_dataModel;
     CLLocationCoordinate2D location;
     BOOL queryingMoreRows;
 }
-
-@property (nonatomic, retain) PullableView *filterPanel;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;

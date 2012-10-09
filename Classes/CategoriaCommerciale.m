@@ -51,7 +51,7 @@
 @synthesize searchBar=_searchBar, tableView=_tableView, mapView=_mapView, footerView=_footerView, activityIndicator=_activityIndicator, searchActivityIndicator=_searchActivityIndicator, searchSegCtrl=_searchSegCtrl, mapTypeSegCtrl=_mapTypeSegCtrl;
 
 // Properties private
-@synthesize categoria=_categoria, geoDec=_geoDec, tempBuff=_tempBuff, filterPanel;
+@synthesize categoria=_categoria, geoDec=_geoDec, tempBuff=_tempBuff;
 
 // Properties protected
 @synthesize urlString=_urlString, dataModel=_dataModel;
@@ -215,7 +215,6 @@
 //    filterPanel removeGestureRecognizer:<#(UIGestureRecognizer *)#>
     
     // Roba ri-creata in viewDidLoad:
-    self.filterPanel = nil;
     
     self.urlString = nil;
     self.dataModel = nil;
@@ -240,7 +239,6 @@
 - (void)dealloc {
 
     self.sortingLabel = nil;
-    self.filterPanel = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
     self.tableView.delegate = nil;

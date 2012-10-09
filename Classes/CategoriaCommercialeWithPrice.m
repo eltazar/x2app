@@ -12,7 +12,7 @@
 #import "CachedAsyncImageView.h"
 
 @implementation CategoriaCommercialeWithPrice
-
+@synthesize filterPanel = _filterPanel, filterImg = _filterImg;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (!nibNameOrNil) {
@@ -77,12 +77,14 @@
 
 -(void)dealloc{
     
+    self.filterPanel = nil;
     [segCtrlFilter release];
     [super dealloc];
 }
 
 -(void)viewDidUnload{
     
+    self.filterPanel = nil;
     [segCtrlFilter release];
     segCtrlFilter = nil;
 }
