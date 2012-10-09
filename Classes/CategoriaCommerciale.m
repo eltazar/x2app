@@ -551,7 +551,7 @@
     NSString *type = [[dataDict allKeys] objectAtIndex:0];
     NSMutableArray *rows = [NSMutableArray arrayWithArray:[dataDict objectForKey:type]];
     
-    NSLog(@"RISULTATO = %@",dataDict);
+    //NSLog(@"RISULTATO = %@",dataDict);
     
     // Ci aspettiamo che rows sia effettivamente un array, se non lo è
     // si ignora.
@@ -604,6 +604,7 @@
 
 
 - (IBAction)didChangeSearchSegCtrlState:(id)sender {
+   
     [self fetchRows];
 }
 
@@ -747,6 +748,12 @@
 
 - (NSString *)searchMethod {
     NSInteger selection = [self.searchSegCtrl selectedSegmentIndex];
+    
+    //TODO: cambiare colore del pulsante selezionato
+//    UIBarButtonItem *selectedItem = [self.searchSegCtrl.subviews objectAtIndex:selection];
+//    [selectedItem setTintColor:[UIColor blackColor]];
+//    NSLog(@"OGGETTI = %@, SELEZIOMATO = %@",self.searchSegCtrl.subviews,selectedItem);
+    
     if (selection == 0) {
         self.sortingLabel.text = @"Km";
         return @"distanza";
@@ -757,6 +764,7 @@
         self.sortingLabel.text = @"";
         return @"";
     }
+    
 }
 
 
