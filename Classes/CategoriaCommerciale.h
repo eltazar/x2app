@@ -14,7 +14,7 @@
 #import "PullableView.h"
 
 
-@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, UIAlertViewDelegate, GeoDecoderDelegate, WMHTTPAccessDelegate, UIGestureRecognizerDelegate> {
+@interface CategoriaCommerciale : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MKMapViewDelegate, UIAlertViewDelegate, GeoDecoderDelegate, WMHTTPAccessDelegate, UIGestureRecognizerDelegate, PullableViewDelegate> {
 @private
     BOOL lastFetchWasASearch;
     BOOL inSearchUI;
@@ -38,7 +38,9 @@
     NSMutableArray *_dataModel;
     CLLocationCoordinate2D location;
     BOOL queryingMoreRows;
+    PullableView *leftPanel;
 }
+@property (nonatomic, retain) PullableView *leftPanel;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;

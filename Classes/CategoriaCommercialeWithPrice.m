@@ -42,6 +42,7 @@
     
     self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-50,self.searchBar.frame.size.height, 300, 35)];
     
+    self.filterPanel.delegate = self;
     
 //    self.filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, self.tableView.frame.origin.y+ (self.filterPanel.frame.size.height / 2));
 //    self.filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), self.tableView.frame.origin.y+ (self.filterPanel.frame.size.height / 2));
@@ -134,6 +135,9 @@
     [super viewDidUnload];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.filterPanel setOpened:FALSE animated:YES];
 }
 
 # pragma mark - UITableViewDataSource
@@ -279,6 +283,19 @@
             NSLog(@"CENA");
         default:
             break;
+    }
+}
+
+#pragma mark - PullableView Delegate
+
+- (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened{
+    NSLog(@"STATO DEL SIDE PANEL = %@", opened?@"aperto":@"chiuso");
+    
+    if([pView isEqual:self.filterPanel] && opened){
+        [leftPanel setOpened:FALSE animated:YES];
+    }
+    else if([pView isEqual:leftPanel] && opened){
+        [self.filterPanel setOpened:FALSE animated:YES];
     }
 }
 

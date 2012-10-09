@@ -54,7 +54,7 @@
 @synthesize categoria=_categoria, geoDec=_geoDec, tempBuff=_tempBuff;
 
 // Properties protected
-@synthesize urlString=_urlString, dataModel=_dataModel;
+@synthesize urlString=_urlString, dataModel=_dataModel, leftPanel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -88,7 +88,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];    
     
-    PullableView *leftPanel = [[PullableView alloc] initWithFrame:CGRectMake(0-300+50, self.searchBar.frame.size.height, 300, 35)];
+    self.leftPanel = [[PullableView alloc] initWithFrame:CGRectMake(0-300+50, self.searchBar.frame.size.height, 300, 35)];
+    
+    leftPanel.delegate = self;
     
     leftPanel.openedCenter = CGPointMake(100, self.searchBar.frame.size.height+ (leftPanel.frame.size.height / 2));
     leftPanel.closedCenter = CGPointMake(0-(leftPanel.frame.size.width/2)+50,self.searchBar.frame.size.height+ (leftPanel.frame.size.height / 2));
@@ -120,7 +122,7 @@
     [self.searchSegCtrl release];
     
     [self.view addSubview:leftPanel];
-    [leftPanel release];
+    [self.leftPanel release];
     
     [self.view addSubview:leftPanel];
     
@@ -180,6 +182,12 @@
     self.geoDec.delegate = self;
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+
+    [leftPanel setOpened:FALSE animated:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
@@ -216,6 +224,7 @@
     
     // Roba ri-creata in viewDidLoad:
     
+    self.leftPanel = nil;
     self.urlString = nil;
     self.dataModel = nil;
     self.navigationItem.rightBarButtonItem = nil;
@@ -238,6 +247,7 @@
 
 - (void)dealloc {
 
+    self.leftPanel = nil;
     self.sortingLabel = nil;
     self.mapView.delegate = nil;
     self.mapView = nil;
@@ -758,6 +768,9 @@
     [indexPaths release];
 }
 
+- (void)pullableView:(PullableView *)pView didChangeState:(BOOL)opened{
+    NSLog(@"STATO DEL SIDE PANEL = %@", opened?@"aperto":@"chiuso");
+}
 
 
 @end
