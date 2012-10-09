@@ -54,7 +54,7 @@
 @synthesize categoria=_categoria, geoDec=_geoDec, tempBuff=_tempBuff;
 
 // Properties protected
-@synthesize urlString=_urlString, dataModel=_dataModel, leftPanel;
+@synthesize urlString=_urlString, dataModel=_dataModel, leftPanel, sortingLbl;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -88,7 +88,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];    
     
-    self.leftPanel = [[PullableView alloc] initWithFrame:CGRectMake(0-300+50, self.searchBar.frame.size.height, 300, 35)];
+    leftPanel = [[PullableView alloc] initWithFrame:CGRectMake(0-300+50, self.searchBar.frame.size.height, 300, 35)];
     
     leftPanel.delegate = self;
     
@@ -101,7 +101,7 @@
     [leftPanel setAlpha:0.95];
     
     
-    self.searchSegCtrl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Distanza",@"Nome", nil]];
+    _searchSegCtrl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Distanza",@"Nome", nil]];
     [self.searchSegCtrl setFrame:CGRectMake(55, 2, 180, 30)];
     self.searchSegCtrl.selectedSegmentIndex = 0;
     UIColor *newTintColor = [UIColor colorWithRed: 251/255.0 green:175/255.0 blue:93/255.0 alpha:1.0];
@@ -110,22 +110,21 @@
 
     [self.searchSegCtrl addTarget:self action:@selector(didChangeSearchSegCtrlState:) forControlEvents:UIControlEventValueChanged];
 
-    self.sortingLabel = [[UILabel alloc] initWithFrame:CGRectMake(253, 7, 30, 20)];
-    self.sortingLabel.text = @"Km";
-    [self.sortingLabel setFont:[UIFont boldSystemFontOfSize:16]];
-    self.sortingLabel.backgroundColor = [UIColor clearColor];
-    self.sortingLabel.textColor = [UIColor whiteColor];
-    [leftPanel addSubview:self.sortingLabel];
-    [self.sortingLabel release];
+    sortingLbl = [[UILabel alloc] initWithFrame:CGRectMake(253, 7, 30, 20)];
+    sortingLbl.text = @"Km";
+    [sortingLbl setFont:[UIFont boldSystemFontOfSize:16]];
+    sortingLbl.backgroundColor = [UIColor clearColor];
+    sortingLbl.textColor = [UIColor whiteColor];
+    
+    [leftPanel addSubview:sortingLbl];
+    //[self.sortingLabel release];
     
     [leftPanel addSubview:self.searchSegCtrl];
-    [self.searchSegCtrl release];
+    //[self.searchSegCtrl release];
     
     [self.view addSubview:leftPanel];
-    [self.leftPanel release];
-    
-    [self.view addSubview:leftPanel];
-    
+    //[self.leftPanel release];
+        
     
 //    UISegmentedControl *segController = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Tutti",@"Pranzo",@"Cena",nil]];
 //    [segController setSegmentedControlStyle:UISegmentedControlStyleBar];
@@ -224,6 +223,7 @@
     
     // Roba ri-creata in viewDidLoad:
     
+    self.sortingLbl = nil;
     self.leftPanel = nil;
     self.urlString = nil;
     self.dataModel = nil;
@@ -247,8 +247,8 @@
 
 - (void)dealloc {
 
-    self.leftPanel = nil;
-    self.sortingLabel = nil;
+    [leftPanel release];
+    [sortingLbl release];
     self.mapView.delegate = nil;
     self.mapView = nil;
     self.tableView.delegate = nil;
@@ -755,13 +755,13 @@
 //    NSLog(@"OGGETTI = %@, SELEZIOMATO = %@",self.searchSegCtrl.subviews,selectedItem);
     
     if (selection == 0) {
-        self.sortingLabel.text = @"Km";
+        sortingLbl.text = @"Km";
         return @"distanza";
     } else if (selection == 1) {
-        self.sortingLabel.text = @"A-Z";
+        sortingLbl.text = @"A-Z";
         return @"nome";
     } else {
-        self.sortingLabel.text = @"";
+        sortingLbl.text = @"";
         return @"";
     }
     

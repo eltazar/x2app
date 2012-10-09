@@ -12,7 +12,7 @@
 #import "CachedAsyncImageView.h"
 
 @implementation CategoriaCommercialeWithPrice
-@synthesize filterPanel = _filterPanel, filterImg = _filterImg;
+@synthesize filterPanel, filterImg;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (!nibNameOrNil) {
@@ -40,20 +40,20 @@
 //    self.searchSegCtrl.center = center;
     
     
-    self.filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-50,self.searchBar.frame.size.height, 300, 35)];
+    filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-50,self.searchBar.frame.size.height, 300, 35)];
     
-    self.filterPanel.delegate = self;
+    filterPanel.delegate = self;
     
 //    self.filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-100, self.tableView.frame.origin.y+ (self.filterPanel.frame.size.height / 2));
 //    self.filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width +( (self.filterPanel.frame.size.width / 2)-30), self.tableView.frame.origin.y+ (self.filterPanel.frame.size.height / 2));
 //    
 //    self.filterPanel.center = self.filterPanel.closedCenter;
-    self.filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-80, self.searchBar.frame.size.height+ (self.filterPanel.frame.size.height / 2));
-    self.filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width+( (self.filterPanel.frame.size.width / 2)-50), self.searchBar.frame.size.height+ (self.filterPanel.frame.size.height / 2));
-    self.filterPanel.center = self.filterPanel.closedCenter;
-    self.filterPanel.animate = YES;
-    [self.filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"rightPanel.png"]]];
-    [self.filterPanel setAlpha:0.95];
+    filterPanel.openedCenter = CGPointMake(self.tableView.frame.size.width-80, self.searchBar.frame.size.height+ (self.filterPanel.frame.size.height / 2));
+    filterPanel.closedCenter = CGPointMake(self.tableView.frame.size.width+( (self.filterPanel.frame.size.width / 2)-50), self.searchBar.frame.size.height+ (self.filterPanel.frame.size.height / 2));
+    filterPanel.center = self.filterPanel.closedCenter;
+    filterPanel.animate = YES;
+    [filterPanel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"rightPanel.png"]]];
+    [filterPanel setAlpha:0.95];
     
     
     segCtrlFilter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Tutti",@"Pranzo",@"Cena", nil]];
@@ -65,15 +65,15 @@
     
     [segCtrlFilter addTarget:self action:@selector(didChangeFilterSegCtrlState:) forControlEvents:UIControlEventValueChanged];
 
-    self.filterImg = [[UIImageView alloc] initWithFrame:CGRectMake(22, 8, 20, 20)];
-    self.filterImg.backgroundColor = [UIColor clearColor];
-    self.filterImg.image = [UIImage imageNamed:@"filterImg.png"];
-    [self.filterPanel addSubview:self.filterImg];
+    filterImg = [[UIImageView alloc] initWithFrame:CGRectMake(22, 8, 20, 20)];
+    filterImg.backgroundColor = [UIColor clearColor];
+    filterImg.image = [UIImage imageNamed:@"filterImg.png"];
+    [filterPanel addSubview:filterImg];
     
-    [self.filterPanel addSubview:segCtrlFilter];
+    [filterPanel addSubview:segCtrlFilter];
     [self.view addSubview:self.filterPanel];
-    [self.filterPanel release];
-    [self.filterImg release];
+    //[self.filterPanel release];
+    //[self.filterImg release];
     [segCtrlFilter release];
     
     
@@ -119,9 +119,11 @@
 }
 
 -(void)dealloc{
-    
-    self.filterImg = nil;
-    self.filterPanel = nil;
+
+    [filterImg release];
+    [filterPanel release];
+//    self.filterImg = nil;
+//    self.filterPanel = nil;
     [segCtrlFilter release];
     [super dealloc];
 }
@@ -253,16 +255,16 @@
 - (NSString *)searchMethod {
     NSInteger selection = [self.searchSegCtrl selectedSegmentIndex];
     if (selection == 0) {
-        self.sortingLabel.text = @"Km";
+        self.sortingLbl.text = @"Km";
         return @"distanza";
     } else if (selection == 1) {
-        self.sortingLabel.text = @"  €";
+        self.sortingLbl.text = @"  €";
         return @"prezzo";
     } else if (selection == 2) {
-        self.sortingLabel.text = @"A-Z";
+        self.sortingLbl.text = @"A-Z";
         return @"nome";
     } else {
-        self.sortingLabel.text = @"";
+        self.sortingLbl.text = @"";
         return @"";
     }
 }
