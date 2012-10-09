@@ -125,6 +125,10 @@
 		ACDE7C9D14FDB0A9000F6890 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9C14FDB0A9000F6890 /* TextFieldCell.m */; };
 		ACDE7CA014FDB433000F6890 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE7C9F14FDB432000F6890 /* PickerViewController.m */; };
 		ACE8AC98150681AD005988CE /* PerDUEmodel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACE8AC96150681AD005988CE /* PerDUEmodel.xcdatamodeld */; };
+		ACF75F5F1624239A00471B7B /* rightPanel.png in Resources */ = {isa = PBXBuildFile; fileRef = ACF75F5E1624239A00471B7B /* rightPanel.png */; };
+		ACF75F6216242C7000471B7B /* filterImg.png in Resources */ = {isa = PBXBuildFile; fileRef = ACF75F6116242C7000471B7B /* filterImg.png */; };
+		ACF75F6416242D0100471B7B /* sun.png in Resources */ = {isa = PBXBuildFile; fileRef = ACF75F6316242D0100471B7B /* sun.png */; };
+		ACF75F6616242DA600471B7B /* moon.png in Resources */ = {isa = PBXBuildFile; fileRef = ACF75F6516242DA600471B7B /* moon.png */; };
 		ACF76574151A4D4900914BDD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF76573151A4D4900914BDD /* StoreKit.framework */; };
 		ACFAC574160CB928003883F7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACFAC573160CB928003883F7 /* Default-568h@2x.png */; };
 		ACFCEF7A154979AD00037B0B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5015323A9F00697575 /* Default.png */; };
@@ -363,6 +367,10 @@
 		ACDE7C9E14FDB432000F6890 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		ACDE7C9F14FDB432000F6890 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		ACE8AC97150681AD005988CE /* PerDUEmodel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PerDUEmodel.xcdatamodel; sourceTree = "<group>"; };
+		ACF75F5E1624239A00471B7B /* rightPanel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightPanel.png; sourceTree = "<group>"; };
+		ACF75F6116242C7000471B7B /* filterImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = filterImg.png; sourceTree = "<group>"; };
+		ACF75F6316242D0100471B7B /* sun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sun.png; sourceTree = "<group>"; };
+		ACF75F6516242DA600471B7B /* moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moon.png; sourceTree = "<group>"; };
 		ACF76573151A4D4900914BDD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		ACFAC573160CB928003883F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D91D431A151A3D6F001D9033 /* CardDeviceAssociation.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = CardDeviceAssociation.php; path = "php server/PHP APPv2/CardDeviceAssociation.php"; sourceTree = SOURCE_ROOT; };
@@ -511,6 +519,10 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				ACF75F6516242DA600471B7B /* moon.png */,
+				ACF75F6316242D0100471B7B /* sun.png */,
+				ACF75F6116242C7000471B7B /* filterImg.png */,
+				ACF75F5E1624239A00471B7B /* rightPanel.png */,
 				ACB10B49162369FA0082263A /* leftPanel.png */,
 				ACD6570F16221C4B001813A7 /* filtroDisattivato@2x.png */,
 				ACD6570C1622192C001813A7 /* filtroAttivo@2x.png */,
@@ -1196,6 +1208,10 @@
 				ACD6571016221C4B001813A7 /* filtroDisattivato@2x.png in Resources */,
 				ACD65712162228EE001813A7 /* Anzio, IT.gpx in Resources */,
 				ACB10B4A162369FA0082263A /* leftPanel.png in Resources */,
+				ACF75F5F1624239A00471B7B /* rightPanel.png in Resources */,
+				ACF75F6216242C7000471B7B /* filterImg.png in Resources */,
+				ACF75F6416242D0100471B7B /* sun.png in Resources */,
+				ACF75F6616242DA600471B7B /* moon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
