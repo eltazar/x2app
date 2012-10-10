@@ -74,9 +74,7 @@
     [filterPanel addSubview:segCtrlFilter];
     [self.view addSubview:self.filterPanel];
     //[self.filterPanel release];
-    //[self.filterImg release];
-    [segCtrlFilter release];
-    
+    //[self.filterImg release];    
     
     
     /* //vecchia barra filtro
