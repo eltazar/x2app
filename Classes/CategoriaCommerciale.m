@@ -102,11 +102,11 @@
     
     
     _searchSegCtrl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Distanza",@"Nome", nil]];
-    [self.searchSegCtrl setFrame:CGRectMake(55, 2, 180, 30)];
+    [self.searchSegCtrl setFrame:CGRectMake(55, 4, 180, 26)];
     self.searchSegCtrl.selectedSegmentIndex = 0;
-    UIColor *newTintColor = [UIColor colorWithRed: 251/255.0 green:175/255.0 blue:93/255.0 alpha:1.0];
     self.searchSegCtrl.segmentedControlStyle = UISegmentedControlStyleBar;
-    self.searchSegCtrl.tintColor = newTintColor;
+    self.searchSegCtrl.tintColor = [UIColor colorWithRed: 180/255.0 green:21/255.0 blue:7/255.0 alpha:1.0];
+
 
     [self.searchSegCtrl addTarget:self action:@selector(didChangeSearchSegCtrlState:) forControlEvents:UIControlEventValueChanged];
 

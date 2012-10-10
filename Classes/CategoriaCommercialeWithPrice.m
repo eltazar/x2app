@@ -58,11 +58,12 @@
     
     segCtrlFilter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Tutti",@"Pranzo",@"Cena", nil]];
     segCtrlFilter.selectedSegmentIndex = 0;
-    [segCtrlFilter setFrame:CGRectMake(56, 2, 170, 30)];
-    UIColor *newTintColor = [UIColor colorWithRed: 251/255.0 green:175/255.0 blue:93/255.0 alpha:1.0];
+    [segCtrlFilter setFrame:CGRectMake(56, 4, 170, 26)];
+    UIColor *newTintColor = [UIColor colorWithRed: 180/255.0 green:21/255.0 blue:7/255.0 alpha:1.0];
+    //UIColor *newTintColor = [UIColor colorWithRed: 251/255.0 green:175/255.0 blue:93/255.0 alpha:1.0];
     segCtrlFilter.segmentedControlStyle = UISegmentedControlStyleBar;
     segCtrlFilter.tintColor = newTintColor;
-    
+        
     [segCtrlFilter addTarget:self action:@selector(didChangeFilterSegCtrlState:) forControlEvents:UIControlEventValueChanged];
 
     filterImg = [[UIImageView alloc] initWithFrame:CGRectMake(22, 8, 20, 20)];

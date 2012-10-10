@@ -133,6 +133,8 @@
 		ACFAC574160CB928003883F7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACFAC573160CB928003883F7 /* Default-568h@2x.png */; };
 		ACFCEF7A154979AD00037B0B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5015323A9F00697575 /* Default.png */; };
 		ACFCEF7C154979B200037B0B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D94C1C5215323AA200697575 /* Default@2x.png */; };
+		D9020F0616258CF400F93125 /* rightPanel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9020F0516258CF400F93125 /* rightPanel@2x.png */; };
+		D9020F09162597D200F93125 /* leftPanel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D9020F08162597D200F93125 /* leftPanel@2x.png */; };
 		D924E61A151CA49800AD4C07 /* DoveUsarla.m in Sources */ = {isa = PBXBuildFile; fileRef = D924E618151CA49800AD4C07 /* DoveUsarla.m */; };
 		D924E61B151CA49800AD4C07 /* DoveUsarla.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E619151CA49800AD4C07 /* DoveUsarla.xib */; };
 		D924E621151CB93400AD4C07 /* DoveUsarlaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D924E61F151CB93400AD4C07 /* DoveUsarlaCell.xib */; };
@@ -373,6 +375,8 @@
 		ACF75F6516242DA600471B7B /* moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moon.png; sourceTree = "<group>"; };
 		ACF76573151A4D4900914BDD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		ACFAC573160CB928003883F7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D9020F0516258CF400F93125 /* rightPanel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rightPanel@2x.png"; sourceTree = "<group>"; };
+		D9020F08162597D200F93125 /* leftPanel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leftPanel@2x.png"; sourceTree = "<group>"; };
 		D91D431A151A3D6F001D9033 /* CardDeviceAssociation.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = CardDeviceAssociation.php; path = "php server/PHP APPv2/CardDeviceAssociation.php"; sourceTree = SOURCE_ROOT; };
 		D91D431B151A3D6F001D9033 /* checkEmail.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = checkEmail.php; path = "php server/PHP APPv2/checkEmail.php"; sourceTree = SOURCE_ROOT; };
 		D91D431C151A3D6F001D9033 /* login.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; name = login.php; path = "php server/PHP APPv2/login.php"; sourceTree = SOURCE_ROOT; };
@@ -519,6 +523,8 @@
 		19186625139A49D800172698 /* img */ = {
 			isa = PBXGroup;
 			children = (
+				D9020F08162597D200F93125 /* leftPanel@2x.png */,
+				D9020F0516258CF400F93125 /* rightPanel@2x.png */,
 				ACF75F6516242DA600471B7B /* moon.png */,
 				ACF75F6316242D0100471B7B /* sun.png */,
 				ACF75F6116242C7000471B7B /* filterImg.png */,
@@ -1097,6 +1103,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9020F09162597D200F93125 /* leftPanel@2x.png in Resources */,
+				D9020F0616258CF400F93125 /* rightPanel@2x.png in Resources */,
 				D95CBF41153067C800D79209 /* Coupon.xib in Resources */,
 				D970849C1538594300B8D63F /* Info.xib in Resources */,
 				199910B8138FDE35003DB0D2 /* Commenti.xib in Resources */,
