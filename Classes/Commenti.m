@@ -242,6 +242,13 @@
     else {
         fetchedComments = [NSMutableArray arrayWithArray:((NSArray *)temp)];
     }
+    
+    // Nota: nella classe figlia News.m la query è fatta attraverso QueryHelper,
+    // che lascia un false finale nell'array. Se è presente così facendo lo 
+    // rimuoviamo. Un bug che m'ha fatto sputare sangue -.-'' GV.
+    if (![fetchedComments.lastObject isKindOfClass:[NSDictionary class]])
+        [fetchedComments removeLastObject];
+    
     [self prettifyNullValuesForCommentsInArray:fetchedComments];
     
     //NSLog(@"fetched comments count = %d",fetchedComments.count);

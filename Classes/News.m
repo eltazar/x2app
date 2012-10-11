@@ -40,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [urlFormatString release];
-    urlFormatString = @"http://www.cartaperdue.it/partner/news.php?from=%d&to=10";
+    urlFormatString = @"http://www.cartaperdue.it/partner/v2.0/News.php";
     
     // Un po' di magheggi per far sparire la label che nella classe dei commenti
     // contiene l'insegna esercente: a noi qui non serve.
@@ -124,9 +124,14 @@
 
 
 - (void)fetchRowsFromNumber:(NSInteger)n {
-    NSString *urlString = [NSString stringWithFormat:urlFormatString, n];
-    //NSLog(@"[%@ fetchRowsFromNumber] urlString:[%@]", [self class], urlString);
-    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlString method:WMHTTPAccessConnectionMethodGET parameters:nil delegate:self];
+    NSDictionary *postDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              [NSString stringWithFormat:@"%d", n], @"from", 
+                              nil];
+    [[WMHTTPAccess sharedInstance] startHTTPConnectionWithURLString:urlFormatString 
+                                                    method:WMHTTPAccessConnectionMethodPOST 
+                                                    parameters:postDict 
+                                                    delegate:self];
+    //[postDict release];
 }
 
 
