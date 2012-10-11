@@ -40,7 +40,7 @@
 //    self.searchSegCtrl.center = center;
     
     
-    filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-50,self.searchBar.frame.size.height, 300, 35)];
+    filterPanel = [[PullableView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width-50,self.searchBar.frame.size.height, 340, 35)];
     
     filterPanel.delegate = self;
     
@@ -58,7 +58,7 @@
     
     segCtrlFilter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Tutti",@"Pranzo",@"Cena", nil]];
     segCtrlFilter.selectedSegmentIndex = 0;
-    [segCtrlFilter setFrame:CGRectMake(56, 4, 170, 26)];
+    [segCtrlFilter setFrame:CGRectMake(56, 4, 190, 26)];
     UIColor *newTintColor = [UIColor colorWithRed: 180/255.0 green:21/255.0 blue:7/255.0 alpha:1.0];
     //UIColor *newTintColor = [UIColor colorWithRed: 251/255.0 green:175/255.0 blue:93/255.0 alpha:1.0];
     segCtrlFilter.segmentedControlStyle = UISegmentedControlStyleBar;
