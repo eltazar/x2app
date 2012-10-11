@@ -98,8 +98,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "253"
          endingLineNumber = "253"
-         landmarkName = "-tableView:cellForRowAtIndexPath:"
-         landmarkType = "5">
+         landmarkName = "@implementation DettaglioEsercente"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -107,12 +107,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/DettaglioEsercente.m"
-         timestampString = "355857922.04342"
+         timestampString = "371644838.29788"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "437"
-         endingLineNumber = "437"
-         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         startingLineNumber = "449"
+         endingLineNumber = "449"
+         landmarkName = "-tableView:viewForHeaderInSection:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -219,13 +219,13 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/DettaglioEsercente.m"
-         timestampString = "355928209.437289"
+         timestampString = "371660027.693517"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "628"
-         endingLineNumber = "628"
-         landmarkName = "@implementation IndexPathMapper"
-         landmarkType = "3">
+         startingLineNumber = "660"
+         endingLineNumber = "660"
+         landmarkName = "-populateIndexPathMap"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -233,12 +233,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/DettaglioEsercente.m"
-         timestampString = "355857922.04342"
+         timestampString = "371660027.693517"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "598"
-         endingLineNumber = "598"
-         landmarkName = "-populateIndexPathMap"
+         startingLineNumber = "630"
+         endingLineNumber = "630"
+         landmarkName = "-mostraTipoMappa:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -338,11 +338,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Classes/Commenti.m"
-         timestampString = "371643091.0525"
+         timestampString = "371644838.29788"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "304"
-         endingLineNumber = "304"
+         startingLineNumber = "303"
+         endingLineNumber = "303"
          landmarkName = "-prettifyNullValuesForCommentsInArray:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -370,6 +370,32 @@
          startingLineNumber = "121"
          endingLineNumber = "121"
          landmarkName = "-prettifyNullValuesForCommentsInArray:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Classes/DettaglioEsercente.m"
+         timestampString = "371645131.44824"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "516"
+         endingLineNumber = "516"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Classes/DettaglioEsercente.m"
+         timestampString = "371645989.192638"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "522"
+         endingLineNumber = "522"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

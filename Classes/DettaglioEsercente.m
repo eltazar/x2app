@@ -375,6 +375,18 @@
 
     }
     
+    else if ([key isEqualToString:@"UlterioriInfo"]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        if (!cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+        }
+        UILabel *ulterioriInfo = (UILabel *)[cell viewWithTag:1];
+        UILabel *etic = (UILabel *)[cell viewWithTag:2];
+        etic.text=@"";
+        ulterioriInfo.text = @"Ulteriori Informazioni";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
     else if ([key isEqualToString:@"Telefono"]) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
         if (!cell) {
@@ -500,6 +512,26 @@
 		self.condizioniTextView.text = [self.dataModel objectForKey:@"Note_Varie_CE"];
         [self.navigationController pushViewController:self.condizioniViewController animated:YES];
 	}
+    
+    if ([key isEqualToString:@"UlterioriInfo"]) {
+        NSString *infoUrlString = @"http://www.cartaperdue.it/partner/v2.0/UlterioriInformazioni.php";
+        NSURL *url = [NSURL URLWithString:infoUrlString];
+        
+        NSString *postString = [NSString stringWithFormat:
+                                @"idesercente=%d", self.idEsercente];
+        NSData *postData = [postString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        [request addValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPMethod:@"POST"];
+        [request setHTTPBody:postData];
+        [self.sitoWebView loadRequest:request];
+        
+		
+        self.sitoViewController.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
+        [self.navigationController pushViewController:self.sitoViewController animated:YES];
+    }
 	
 	if ([key isEqualToString:@"Telefono"]) { //telefona o mail o sito
         PerDueCItyCardAppDelegate *appDelegate = (PerDueCItyCardAppDelegate*)[[UIApplication sharedApplication] delegate];
@@ -627,6 +659,7 @@
     [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
     [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
     [self.idxMap setKey:@"GiornoValidita"   forSection:0 row:2];
+    [self.idxMap setKey:@"UlterioriInfo"    forSection:0 row:3];
     [self.idxMap setTitle:insegnaEsercente  forSection:0];
     [self.idxMap setKey:@"Telefono"         forSection:1 row:0];
     [self.idxMap setKey:@"Email"            forSection:1 row:2];

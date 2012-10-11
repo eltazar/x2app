@@ -350,6 +350,7 @@
     [self.idxMap setKey:@"Specialita_CE"    forSection:1 row:2];
     [self.idxMap setKey:@"Fasciaprezzo"     forSection:1 row:3];
     [self.idxMap setKey:@"Commenti"         forSection:1 row:4];
+    [self.idxMap setKey:@"UlterioriInfo"    forSection:1 row:5];
     [self.idxMap setTitle:tipoEsercente     forSection:1];
     
     [self.idxMap setKey:@"Telefono"         forSection:2 row:0];
