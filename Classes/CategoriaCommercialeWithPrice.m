@@ -223,6 +223,29 @@
     [detail release];
 }
 
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+
+    
+    [super searchBarTextDidBeginEditing:searchBar];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    [segCtrlFilter setEnabled:NO];
+    segCtrlFilter.alpha = 0.5;
+    [UIView commitAnimations];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    
+    [super searchBarCancelButtonClicked:searchBar];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.5];
+    [segCtrlFilter setEnabled:YES];
+    segCtrlFilter.alpha = 1.0;
+    [UIView commitAnimations];
+    
+}
 
 #pragma mark - CategoriaCommercialeWithPrice (metodi privati)
 
