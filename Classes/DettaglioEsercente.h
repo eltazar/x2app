@@ -11,10 +11,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
 #import "WMHTTPAccess.h"
+#import "CachedAsyncImageView.h"
 
 @class IndexPathMapper;
 
-@interface DettaglioEsercente : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, WMHTTPAccessDelegate> {
+@interface DettaglioEsercente : UIViewController <UITableViewDelegate,UITableViewDataSource,MKMapViewDelegate, CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIWebViewDelegate,UIAlertViewDelegate,UIActionSheetDelegate, WMHTTPAccessDelegate, CachedAsyncImageViewDelegate> {
     NSInteger _idEsercente;
     // IBOutlets:
     UITableView *_tableview;
@@ -26,14 +27,15 @@
     UITextView *_condizioniTextView;
     UIViewController *_sitoViewController;
     UIWebView *_sitoWebView;
-    UIImage *img;
+    NSString *imgString;
 
     
 @private
     IndexPathMapper *_idxMap;
     NSDictionary *_dataModel;
     BOOL isDataModelReady;
-    IBOutlet UIImageView *imageHeader;
+    IBOutlet CachedAsyncImageView *imageHeader;
+    IBOutlet UIView *headerView;
     
 @protected
     BOOL isGenerico;
@@ -44,7 +46,7 @@
     NSString *urlStringValiditaCarta;
 }
 
-@property (nonatomic, retain) UIImage *img;
+@property (nonatomic, retain) NSString *imgString;
 @property (nonatomic, assign) NSInteger idEsercente; 
 @property (nonatomic, retain) IBOutlet UITableView *tableview;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;

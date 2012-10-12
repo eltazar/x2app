@@ -29,7 +29,7 @@
 @synthesize idEsercente=_idEsercente;
 
 // IBOutlets:
-@synthesize tableview=_tableview, activityIndicator=_activityIndicator, mapViewController=_mapViewController, mkMapView=_mkMapView, mapTypeSegCtrl=_mapTypeSegCtrl,condizioniViewController=_condizioniViewController, condizioniTextView=_condizioniTextView,  sitoViewController=_sitoViewController, sitoWebView=_sitoWebView,img;
+@synthesize tableview=_tableview, activityIndicator=_activityIndicator, mapViewController=_mapViewController, mkMapView=_mkMapView, mapTypeSegCtrl=_mapTypeSegCtrl,condizioniViewController=_condizioniViewController, condizioniTextView=_condizioniTextView,  sitoViewController=_sitoViewController, sitoWebView=_sitoWebView,imgString;
 
 //Properties private:
 @synthesize idxMap=_idxMap, dataModel=_dataModel;
@@ -90,10 +90,23 @@
     
     imageHeader.layer.masksToBounds = YES;
     [imageHeader.layer setCornerRadius:8.0];
+    imageHeader.delegate = self;
     
-    UIImage *bigImg = [UIImage imageWithCGImage:img.CGImage scale:0.8 orientation:img.imageOrientation];
+    //UIImage *bigImg = [UIImage imageWithCGImage:imgString.CGImage scale:0.8 orientation:imgString.imageOrientation];
     
-    [imageHeader setImage:bigImg];
+    //[imageHeader setImage:bigImg];
+    
+    
+    //imageHeader = (CachedAsyncImageView *)[cell viewWithTag:1];
+    NSString *imageUrlString = [[NSString alloc] initWithFormat:@"http://www.cartaperdue.it/partner/v2.0/ImmagineEsercente.php?id=%d", self.idEsercente];
+    NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
+    [imageHeader loadImageFromURL:imageUrl];
+    
+    //TODO: inserire dentro metodo del protocollo di cachedasynciamge
+    if(imageHeader.image.size.height != 0){
+        NSLog(@"altezza diversa da zero");
+        [self didFinishLoadingImage:nil];
+    }
     
     self.idxMap = [[[IndexPathMapper alloc] init] autorelease];
         
@@ -148,7 +161,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     // IBOutlets:
-    self.img = nil;
+    self.imgString = nil;
     self.sitoWebView.delegate = nil;
     self.sitoWebView = nil;
     self.tableview.delegate = nil;
@@ -175,7 +188,7 @@
 - (void)dealloc {
     
     [imageHeader release];
-    self.img = nil;
+    self.imgString = nil;
     // IBOutlets:
     self.sitoWebView.delegate = nil;
     self.sitoWebView = nil;
@@ -209,6 +222,23 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - CachedAsyncImageDelegate
+
+-(void)didFinishLoadingImage:(id)sender{
+    NSLog(@"PRIMA imageHeader.image.h = %f, imageHeader.h = %f, headerView.h = %f",imageHeader.image.size.height,imageHeader.frame.size.height, headerView.frame.size.height);
+    
+    [headerView setFrame:CGRectMake(headerView.frame.origin.x, headerView.frame.origin.y, headerView.frame.size.width,MIN(200,imageHeader.image.size.height+5))];
+   
+    [imageHeader setFrame:CGRectMake(imageHeader.frame.origin.x, imageHeader.frame.origin.y, imageHeader.frame.size.width, MIN(200,imageHeader.image.size.height))];
+   
+    NSLog(@"DOPO imageHeader.image.h = %f, imageHeader.h = %f, headerView.h = %f",imageHeader.image.size.height,imageHeader.frame.size.height, headerView.frame.size.height);
+    //[self.tableview reloadData];
+    
+}
+
+-(void)didErrorLoadingImage:(id)sender{
+    
+}
 
 #pragma mark - WMHTTPAccessDelegate
 
