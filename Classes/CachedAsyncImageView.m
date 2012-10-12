@@ -30,7 +30,7 @@
 
 
 @implementation CachedAsyncImageView
-
+@synthesize delegate;
 
 - (id)init {
     //NSLog(@"[%@]::init", [self class]);
@@ -82,6 +82,9 @@
         [_activityIndicator stopAnimating];
         [self releaseConnection];
     }
+    
+    if(delegate && [delegate respondsToSelector:@selector(didErrorLoadingImage:)])
+        [delegate didErrorLoadingImage:self];
 }
 
 
@@ -110,6 +113,9 @@
     self.image = image;
     self.alpha = 1;
     [UIView commitAnimations];
+    
+    if(delegate && [delegate respondsToSelector:@selector(didFinishLoadingImage:)])
+       [delegate didFinishLoadingImage:self];
 }
 
 

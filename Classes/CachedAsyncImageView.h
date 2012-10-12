@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CachedAsyncImageViewDelegate <NSObject>
+@optional
+-(void)didFinishLoadingImage:(id)sender;
+-(void)didErrorLoadingImage:(id)sender;
+
+@end
 
 @interface CachedAsyncImageView : UIImageView <NSURLConnectionDelegate> {
 @private
@@ -16,7 +22,10 @@
     NSMutableData *_receivedData;
 @protected
     UIActivityIndicatorView *_activityIndicator;
+    id<CachedAsyncImageViewDelegate> delegate;
 }
+
+@property(nonatomic, assign)id<CachedAsyncImageViewDelegate> delegate;
 
 - (void)loadImageFromURLString:(NSString *)urlString;
 - (void)loadImageFromURL:(NSURL *)url;
