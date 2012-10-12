@@ -55,6 +55,17 @@
     self.tableview.frame = frame;
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    NSLog(@"NEWS FACCIO QUERY NEWS");
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.dataModel removeAllObjects];
+    [self.tableview reloadData];
+}
 
 #pragma mark - UITableViewDataSource
 
