@@ -41,7 +41,7 @@
         isGenerico = FALSE;
         isCoupon = FALSE;
         isDataModelReady = FALSE;
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioEsercenteDevelopment.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
         urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
@@ -56,7 +56,7 @@
         isGenerico = FALSE;
         isCoupon = FALSE;
         isDataModelReady = FALSE;
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioEsercenteDevelopment.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
         urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
@@ -558,7 +558,6 @@
         [request setHTTPBody:postData];
         [self.sitoWebView loadRequest:request];
         
-		
         self.sitoViewController.title = [self.dataModel objectForKey:@"Insegna_Esercente"];
         [self.navigationController pushViewController:self.sitoViewController animated:YES];
     }
@@ -680,6 +679,9 @@
     }
     if ([[self.dataModel objectForKey:@"Url_Esercente"] isKindOfClass:null]) {
         [self.idxMap removeKey:@"URL"];
+    }
+    if ([[self.dataModel objectForKey:@"Ulteriori_Informazioni"] boolValue] == false) {
+        [self.idxMap removeKey:@"UlterioriInfo"];
     }
 }
 

@@ -28,7 +28,7 @@
         [urlStringCoupon release];
         [urlStringGenerico release];
         [urlStringValiditaCarta release];
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioRistorantePub.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioRistorantePub.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringValiditaCarta = nil;
@@ -47,7 +47,7 @@
         [urlStringCoupon release];
         [urlStringGenerico release];
         [urlStringValiditaCarta release];
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioRistorantePub.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioRistorantePub.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringValiditaCarta = nil;
@@ -67,7 +67,7 @@
         [urlStringCoupon release];
         [urlStringGenerico release];
         [urlStringValiditaCarta release];
-        urlString = @"http://www.cartaperdue.it/partner/DettaglioRistorantePub.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioRistorantePub.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioRistoCoupon.php?id=%d";
         urlStringValiditaCarta = nil;
@@ -322,6 +322,9 @@
     }
     if ([[self.dataModel objectForKey:@"Commenti"] isKindOfClass:null]){
         [self.idxMap removeKey:@"Commenti"];
+    }
+    if ([[self.dataModel objectForKey:@"Ulteriori_Informazioni"] boolValue] == false) {
+        [self.idxMap removeKey:@"UlterioriInfo"];
     }
     
     if ([[self.dataModel objectForKey:@"Telefono_Esercente"] isKindOfClass:null]) {
