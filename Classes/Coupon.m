@@ -959,6 +959,24 @@ if ([rows count]>0) {//coupon disponibile
             
             //NSLog(@"ALTEZZA = %f",myLabel.frame.size.height);
             
+            //TODO: prima o poi inventarsi qls di piu dinamico, tipo qui sotto
+            
+//            int hCellTemp = 35;
+//            int valueCmp = 21;
+//            BOOL flag = FALSE;
+//            
+//            while (!flag) {
+//                if(myLabel.frame.size.height <= valueCmp){
+//                    altezzaCella = hCellTemp + 15;
+//                    hCellTemp += 15;
+//                    flag = TRUE;
+//                }
+//                else{
+//                    valueCmp *=2;
+//                     hCellTemp += 15;
+//                }
+//            }
+            
             if(myLabel.frame.size.height <=21)
                 altezzaCella = 44;
             else if(myLabel.frame.size.height <= 42)
@@ -969,7 +987,8 @@ if ([rows count]>0) {//coupon disponibile
                 altezzaCella = 90;
             else if(myLabel.frame.size.height <= 105)
                 altezzaCella = 110;
-            
+            else if(myLabel.frame.size.height <= 126)
+                altezzaCella = 120;
             [myLabel release];
             
             NSInteger idEsercente = [[self.dataModel objectForKey:@"idesercente"] integerValue];
