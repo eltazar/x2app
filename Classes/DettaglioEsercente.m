@@ -510,6 +510,9 @@
         //TODO: capire se ste righe relative a map.showUserLocation devono
         //andare qui...
 		self.mkMapView.showsUserLocation = YES;
+        // Togliamo i pin presenti nella mappa, altrimenti ogni volta che si apre
+        // continuano a cadere
+        [self.mkMapView removeAnnotations:self.mkMapView.annotations];
 		[self.navigationController pushViewController:self.mapViewController animated:YES];
 		
         
