@@ -29,7 +29,7 @@
     [super viewDidLoad];
     //NSLog (@"sto cambiando il valore di urlString");
     [_urlString release];
-    _urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione_con_img.php";
+    _urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiRistorazione.php";
     [self.searchSegCtrl insertSegmentWithTitle:@"Prezzo" atIndex:1 animated:NO];
     CGRect frame = self.searchSegCtrl.frame;
     frame.size.width = 190;

@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#define MAX_LEFT_X
+#define MAX_RIGHT_X
+
 #import <CoreLocation/CoreLocation.h>
 
 #import "CategoriaCommerciale.h"
@@ -17,9 +20,6 @@
 #import "ShowMoreCell.h"
 #import "WMHTTPAccess.h"
 #import "CachedAsyncImageView.h"
-
-#define MAX_LEFT_X
-#define MAX_RIGHT_X
 
 
 //Metodi privati
@@ -163,7 +163,7 @@
 
     */
     
-    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione_con_img.php";
+    self.urlString = @"http://www.cartaperdue.it/partner/v2.0/EsercentiNonRistorazione.php";
     self.dataModel = [[[NSMutableArray alloc] init] autorelease];
     lastFetchWasASearch = NO;
     inSearchUI = NO;
@@ -378,7 +378,7 @@
 	if (indexPath.section == 0) {
 		NSDictionary* r = [self.dataModel objectAtIndex: indexPath.row];
 		NSInteger i = [[r objectForKey:@"IDesercente"] integerValue];
-		//NSLog(@"L'id dell'esercente da visualizzare è %d",i );
+		NSLog(@"L'id dell'esercente da visualizzare è %d",i );
 		DettaglioEsercente *detail = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
 		detail.idEsercente = i;
         

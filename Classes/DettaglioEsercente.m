@@ -41,7 +41,7 @@
         isGenerico = FALSE;
         isCoupon = FALSE;
         isDataModelReady = FALSE;
-        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioEsercenteDevelopment.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioEsercente.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
         urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
@@ -56,7 +56,7 @@
         isGenerico = FALSE;
         isCoupon = FALSE;
         isDataModelReady = FALSE;
-        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioEsercenteDevelopment.php?id=%d";
+        urlString = @"http://www.cartaperdue.it/partner/v2.0/DettaglioEsercente.php?id=%d";
         urlStringCoupon = @"http://www.cartaperdue.it/partner/DettaglioEsercente.php?id=%d";
         urlStringGenerico = @"http://www.cartaperdue.it/partner/DettaglioEsercenteGenerico.php?id=%d";
         urlStringValiditaCarta = @"http://www.cartaperdue.it/partner/Validita.php?idcontratto=%d";
