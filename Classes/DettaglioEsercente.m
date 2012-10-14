@@ -227,7 +227,7 @@
 -(void)didFinishLoadingImage:(id)sender{
     NSLog(@"PRIMA imageHeader.image.h = %f, imageHeader.h = %f, headerView.h = %f",imageHeader.image.size.height,imageHeader.frame.size.height, headerView.frame.size.height);
     
-    [headerView setFrame:CGRectMake(headerView.frame.origin.x, headerView.frame.origin.y, headerView.frame.size.width,MIN(200,imageHeader.image.size.height+5))];
+    [headerView setFrame:CGRectMake(headerView.frame.origin.x, headerView.frame.origin.y, headerView.frame.size.width,MIN(205,imageHeader.image.size.height+5))];
    
     [imageHeader setFrame:CGRectMake(imageHeader.frame.origin.x, imageHeader.frame.origin.y, imageHeader.frame.size.width, MIN(200,imageHeader.image.size.height))];
    
