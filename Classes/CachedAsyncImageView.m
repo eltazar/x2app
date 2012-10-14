@@ -100,8 +100,8 @@
         }
         else {
             image = [UIImage imageWithData:_receivedData];
-            [[ImageCache sharedInstance] setImage:image forURLString:_urlString];
         }
+        [[ImageCache sharedInstance] setImage:image forURLString:_urlString];
         [self releaseConnection];
         [string release];
     }
