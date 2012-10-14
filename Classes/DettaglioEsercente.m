@@ -224,19 +224,50 @@
 
 #pragma mark - CachedAsyncImageDelegate
 
--(void)didFinishLoadingImage:(id)sender{
-    NSLog(@"PRIMA imageHeader.image.h = %f, imageHeader.h = %f, headerView.h = %f",imageHeader.image.size.height,imageHeader.frame.size.height, headerView.frame.size.height);
+- (void)didFinishLoadingImage:(id)sender{
+    NSLog(@"\nPRIMA imageHeader.image.size = (%.2f, %.2f)\n\t \
+          imageHeader.frame.size = (%.2f, %.2f)\n\t \
+          headerView.frame.size  = (%.2f, %.2f)",
+          imageHeader.image.size.width, imageHeader.image.size.height, 
+          imageHeader.frame.size.width, imageHeader.frame.size.height, 
+          headerView.frame.size.width,  headerView.frame.size.height);
+
+    // imageHeader (AsyncImageView) mantiene l'aspect ratio dell'immagine inserita, ergo, tocca fare qualche conto per stringerla opportunamente intorno all'immagine, al fine di visualizzare i rounded corners.
     
-    [headerView setFrame:CGRectMake(headerView.frame.origin.x, headerView.frame.origin.y, headerView.frame.size.width,MIN(205,imageHeader.image.size.height+5))];
-   
-    [imageHeader setFrame:CGRectMake(imageHeader.frame.origin.x, imageHeader.frame.origin.y, imageHeader.frame.size.width, MIN(200,imageHeader.image.size.height))];
-   
-    NSLog(@"DOPO imageHeader.image.h = %f, imageHeader.h = %f, headerView.h = %f",imageHeader.image.size.height,imageHeader.frame.size.height, headerView.frame.size.height);
+    CGFloat newHeight;
+    CGFloat newWidth;
+    CGFloat aspectRatio;
+    
+    aspectRatio = imageHeader.image.size.width / imageHeader.image.size.height;
+    newHeight = MIN(200.0, (imageHeader.image.size.height));
+    newWidth  =  aspectRatio * newHeight;
+    if (newWidth > 300) {
+        newWidth = 300;
+        newHeight = newWidth / aspectRatio;
+    }
+    NSLog(@"\naspectRatio: %.2f \nnewWidth: %.2f \nnewHeight:%.2f", aspectRatio, newWidth, newHeight);
+    
+    [headerView setFrame:CGRectMake(headerView.frame.origin.x, 
+                                    headerView.frame.origin.y, 
+                                    headerView.frame.size.width,
+                                    newHeight + 5)];
+
+    
+    [imageHeader setFrame:CGRectMake((headerView.frame.size.width - newWidth) / 2.0,
+                                     imageHeader.frame.origin.y,
+                                     newWidth, newHeight)];
+
+    NSLog(@"\nDOPO imageHeader.image.size = (%.2f, %.2f)\n\t \
+          imageHeader.frame.size = (%.2f, %.2f)\n\t \
+          headerView.frame.size  = (%.2f, %.2f)",
+          imageHeader.image.size.width, imageHeader.image.size.height, 
+          imageHeader.frame.size.width, imageHeader.frame.size.height, 
+          headerView.frame.size.width,  headerView.frame.size.height);
     //[self.tableview reloadData];
     
 }
 
--(void)didErrorLoadingImage:(id)sender{
+- (void)didErrorLoadingImage:(id)sender{
     
 }
 
