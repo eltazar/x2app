@@ -383,13 +383,13 @@
 		DettaglioEsercente *detail = [[DettaglioEsercente alloc] initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
 		detail.idEsercente = i;
         
-       //UITableViewCell *cell = [tView cellForRowAtIndexPath:indexPath];
+        //UITableViewCell *cell = [tView cellForRowAtIndexPath:indexPath];
         //NSLog(@"immagine salvata = %@",(CachedAsyncImageView*)[cell viewWithTag:5]);
         //detail.imgString = [r objectForKey:@"IDesercente"];
-		detail.title = @"Esercente";
+		detail.title = [r objectForKey:@"Insegna_Esercente"];
         //Facciamo visualizzare la vista con i dettagli
-//        if (inSearchUI)
-//            [self.navigationController setNavigationBarHidden:NO animated:YES];
+        //if (inSearchUI)
+        //    [self.navigationController setNavigationBarHidden:NO animated:YES];
 		[self.navigationController pushViewController:detail animated:YES];
         [detail release];
 	}

@@ -713,12 +713,12 @@
 
 
 - (void)populateIndexPathMap {
-    NSString *insegnaEsercente = [self.dataModel objectForKey:@"Insegna_Esercente"];
     [self.idxMap setKey:@"Indirizzo"        forSection:0 row:0];
     [self.idxMap setKey:@"GiornoChiusura"   forSection:0 row:1];
     [self.idxMap setKey:@"GiornoValidita"   forSection:0 row:2];
     [self.idxMap setKey:@"UlterioriInfo"    forSection:0 row:3];
-    [self.idxMap setTitle:insegnaEsercente  forSection:0];
+    [self.idxMap setTitle:@""               forSection:0];
+    
     [self.idxMap setKey:@"Telefono"         forSection:1 row:0];
     [self.idxMap setKey:@"Email"            forSection:1 row:2];
     [self.idxMap setKey:@"URL"              forSection:1 row:3];

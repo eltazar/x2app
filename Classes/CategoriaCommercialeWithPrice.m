@@ -199,7 +199,7 @@
 		//NSLog(@"L'id dell'esercente da visualizzare è %d",i );
         DettaglioEsercenteRistorazione *detail = [[DettaglioEsercenteRistorazione alloc]initWithNibName:nil bundle:nil couponMode:NO genericoMode:NO];
 		detail.idEsercente = i;
-		detail.title = @"Esercente";
+		detail.title = [r objectForKey:@"Insegna_Esercente"];
         //Facciamo visualizzare la vista con i dettagli
 		[self.navigationController pushViewController:detail animated:YES];
         [detail release];
