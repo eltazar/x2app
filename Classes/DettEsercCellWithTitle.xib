@@ -50,7 +50,7 @@
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
-								<int key="IBUITag">1</int>
+								<int key="IBUITag">-1</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Titolo</string>
 								<object class="NSColor" key="IBUITextColor">
@@ -83,7 +83,7 @@
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
-								<int key="IBUITag">2</int>
+								<int key="IBUITag">1</int>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText">Descrizione</string>
 								<object class="NSColor" key="IBUITextColor">
