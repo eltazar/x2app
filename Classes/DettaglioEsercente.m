@@ -6,6 +6,8 @@
 //  Copyright 2012 __MyCompanyName__. All rights reserved.
 //
 
+#undef STRANGEBACKGROUNDS
+
 #import <QuartzCore/QuartzCore.h>
 #import "DettaglioEsercente.h"
 #import "PerDueCItyCardAppDelegate.h"
@@ -88,9 +90,9 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     
-    imageHeader.layer.masksToBounds = YES;
-    [imageHeader.layer setCornerRadius:8.0];
-    imageHeader.delegate = self;
+    headerImageView.layer.masksToBounds = YES;
+    [headerImageView.layer setCornerRadius:8.0];
+    headerImageView.delegate = self;
     
     //UIImage *bigImg = [UIImage imageWithCGImage:imgString.CGImage scale:0.8 orientation:imgString.imageOrientation];
     
@@ -100,10 +102,10 @@
     //imageHeader = (CachedAsyncImageView *)[cell viewWithTag:1];
     NSString *imageUrlString = [[NSString alloc] initWithFormat:@"http://www.cartaperdue.it/partner/v2.0/ImmagineEsercente.php?id=%d", self.idEsercente];
     NSURL *imageUrl = [NSURL URLWithString:imageUrlString];
-    [imageHeader loadImageFromURL:imageUrl];
+    [headerImageView loadImageFromURL:imageUrl];
     
     //TODO: inserire dentro metodo del protocollo di cachedasynciamge
-    if(imageHeader.image.size.height != 0){
+    if(headerImageView.image.size.height != 0){
         NSLog(@"altezza diversa da zero");
         [self didFinishLoadingImage:nil];
     }
@@ -187,7 +189,7 @@
 
 - (void)dealloc {
     
-    [imageHeader release];
+    [headerImageView release];
     self.imgString = nil;
     // IBOutlets:
     self.sitoWebView.delegate = nil;
@@ -225,45 +227,64 @@
 #pragma mark - CachedAsyncImageDelegate
 
 - (void)didFinishLoadingImage:(id)sender{
-    NSLog(@"\nPRIMA imageHeader.image.size = (%.2f, %.2f)\n\t \
-          imageHeader.frame.size = (%.2f, %.2f)\n\t \
-          headerView.frame.size  = (%.2f, %.2f)",
-          imageHeader.image.size.width, imageHeader.image.size.height, 
-          imageHeader.frame.size.width, imageHeader.frame.size.height, 
-          headerView.frame.size.width,  headerView.frame.size.height);
+    NSLog(@"\nPRIMA\n\theaderImageView.IMAGE.size = (%.2f, %.2f)"
+               @"\n\n\theaderImageView.frame.orig = (%.2f, %.2f)"
+                 @"\n\theaderImageView.frame.size = (%.2f, %.2f)"
+               @"\n\n\t     headerView.frame.orig = (%.2f, %.2f)"
+                 @"\n\t     headerView.frame.size = (%.2f, %.2f)",
+          headerImageView.image.size.width, headerImageView.image.size.height, 
+          headerImageView.frame.origin.x,   headerImageView.frame.origin.x, 
+          headerImageView.frame.size.width, headerImageView.frame.size.height, 
+               headerView.frame.origin.x,        headerView.frame.origin.y,
+               headerView.frame.size.width,      headerView.frame.size.height);
 
-    // imageHeader (AsyncImageView) mantiene l'aspect ratio dell'immagine inserita, ergo, tocca fare qualche conto per stringerla opportunamente intorno all'immagine, al fine di visualizzare i rounded corners.
+    // headerImageView (AsyncImageView) mantiene l'aspect ratio dell'immagine inserita, ergo, tocca fare qualche conto per stringerla opportunamente intorno all'immagine, al fine di visualizzare i rounded corners.
     
     CGFloat newHeight;
     CGFloat newWidth;
     CGFloat aspectRatio;
     
-    aspectRatio = imageHeader.image.size.width / imageHeader.image.size.height;
-    newHeight = MIN(200.0, (imageHeader.image.size.height));
+    aspectRatio = headerImageView.image.size.width / headerImageView.image.size.height;
+    newHeight = MIN(200.0, (headerImageView.image.size.height));
     newWidth  =  aspectRatio * newHeight;
     if (newWidth > 300) {
         newWidth = 300;
         newHeight = newWidth / aspectRatio;
     }
-    NSLog(@"\naspectRatio: %.2f \nnewWidth: %.2f \nnewHeight:%.2f", aspectRatio, newWidth, newHeight);
+    NSLog(@"\n\taspectRatio: %.2f \n\tnewWidth: %.2f \n\tnewHeight:%.2f", aspectRatio, newWidth, newHeight);
     
+    CGFloat padding = 9;
     [headerView setFrame:CGRectMake(headerView.frame.origin.x, 
                                     headerView.frame.origin.y, 
                                     headerView.frame.size.width,
-                                    newHeight + 5)];
+                                    newHeight + 2*padding)];
 
     
-    [imageHeader setFrame:CGRectMake((headerView.frame.size.width - newWidth) / 2.0,
-                                     imageHeader.frame.origin.y,
-                                     newWidth, newHeight)];
+    [headerImageView setFrame:CGRectMake((
+                            headerView.frame.size.width - newWidth) / 2.0,
+                            padding,
+                            newWidth, newHeight)];
 
-    NSLog(@"\nDOPO imageHeader.image.size = (%.2f, %.2f)\n\t \
-          imageHeader.frame.size = (%.2f, %.2f)\n\t \
-          headerView.frame.size  = (%.2f, %.2f)",
-          imageHeader.image.size.width, imageHeader.image.size.height, 
-          imageHeader.frame.size.width, imageHeader.frame.size.height, 
-          headerView.frame.size.width,  headerView.frame.size.height);
-    //[self.tableview reloadData];
+    NSLog(@"\nDOPO \n\theaderImageView.IMAGE.size = (%.2f, %.2f)"
+               @"\n\n\theaderImageView.frame.orig = (%.2f, %.2f)"
+                 @"\n\theaderImageView.frame.size = (%.2f, %.2f)"
+               @"\n\n\t     headerView.frame.orig = (%.2f, %.2f)"
+                 @"\n\t     headerView.frame.size = (%.2f, %.2f)",
+          headerImageView.image.size.width, headerImageView.image.size.height, 
+          headerImageView.frame.origin.x,   headerImageView.frame.origin.
+          y, 
+          headerImageView.frame.size.width, headerImageView.frame.size.height, 
+               headerView.frame.origin.x,        headerView.frame.origin.y,
+               headerView.frame.size.width,      headerView.frame.size.height);
+
+#ifdef STRANGEBACKGROUNDS
+    // *** DEBUG: Non cancellare le righe seguenti, ************************
+    headerView.backgroundColor =      [UIColor blueColor];
+    headerImageView.backgroundColor = [UIColor purpleColor];
+    headerView.alpha        = 0.5;
+    headerImageView.alpha   = 0.5;
+    // *** DEBUG ************************************************************
+#endif
     
 }
 
@@ -483,10 +504,7 @@
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *customView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 47)] autorelease];
-    [customView setBackgroundColor: [UIColor clearColor]];
-    
-    UILabel *lbl = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+    UILabel *lbl = [[[UILabel alloc] init] autorelease];
     lbl.backgroundColor = [UIColor clearColor];
     lbl.textColor = [UIColor whiteColor];
     lbl.shadowColor = [UIColor blackColor];
@@ -495,26 +513,50 @@
     lbl.numberOfLines = 0;
     lbl.font = [UIFont boldSystemFontOfSize:17];
     lbl.text = [self.idxMap titleForSection:section];
+    [lbl sizeToFit];
 	    
-    UIFont *txtFont = [UIFont boldSystemFontOfSize:17];
-    CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
-    CGSize labelSize = [lbl.text sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     
-    NSInteger lblPadding = 20;
-    lbl.frame = CGRectMake(lblPadding, lblPadding-10, tableView.bounds.size.width-2*lblPadding, labelSize.height);
+    CGFloat lblPaddingBase = 10.0;
+    CGFloat lblPaddingLeft  = 1.7 * lblPaddingBase;
+    CGFloat lblPaddingRight = 2.0 * lblPaddingBase;
+    CGFloat lblPaddingTop   = 1.5 * lblPaddingBase;
+    CGFloat lblPaddingBott  = 0.5 * lblPaddingBase;
     
+    CGFloat lblHeight  = lbl.frame.size.height;
+    CGFloat lblWidth   = tableView.bounds.size.width - lblPaddingLeft - lblPaddingRight; 
+    
+    lbl.frame = CGRectMake(lblPaddingLeft, lblPaddingTop, 
+                           lblWidth, lblHeight);
+    
+    UIView *customView = [[[UIView alloc] initWithFrame:
+                           CGRectMake(0, 0,
+                                      lblWidth, //ignorato
+                                      lblHeight + lblPaddingTop + lblPaddingBott)] autorelease]; 
+    
+    
+    [customView setBackgroundColor: [UIColor clearColor]];
     [customView addSubview:lbl];
     
+#ifdef STRANGEBACKGROUNDS
+    // *** DEBUG: Non cancellare le righe seguenti, ************************
+    lbl.backgroundColor         = [UIColor magentaColor];
+    customView.backgroundColor  = [UIColor greenColor];
+    lbl.alpha        = 0.5;
+    customView.alpha = 0.0;
+    // *** DEBUG ************************************************************
+#endif    
+
     return customView;
 }
 
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-	NSString *lblText = [self.idxMap titleForSection:section];
-    UIFont *txtFont = [UIFont boldSystemFontOfSize:17];
-    CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
-    CGSize labelSize = [lblText sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
-    return labelSize.height+10+5;
+    return [self tableView:tableView viewForHeaderInSection:section].frame.size.height;
+}
+
+
+- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 1;
 }
 
 

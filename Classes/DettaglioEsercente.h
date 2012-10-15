@@ -34,7 +34,7 @@
     IndexPathMapper *_idxMap;
     NSDictionary *_dataModel;
     BOOL isDataModelReady;
-    IBOutlet CachedAsyncImageView *imageHeader;
+    IBOutlet CachedAsyncImageView *headerImageView;
     IBOutlet UIView *headerView;
     
 @protected
