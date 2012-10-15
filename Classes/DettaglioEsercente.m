@@ -403,20 +403,21 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *titolo = (UILabel *)[cell viewWithTag:1];
-        UILabel *descrizione = (UILabel *)[cell viewWithTag:2];
+        UILabel *titolo = (UILabel *)[cell viewWithTag:-1];
+        UILabel *descrizione = (UILabel *)[cell viewWithTag:1];
         titolo.text = @"Chiusura settimanale";
         descrizione.text = [self.dataModel objectForKey:@"Giorno_chiusura_Esercente"];
         descrizione.text = [descrizione.text capitalizedString];
+        [Utilita resizeCell:cell];
     }
     
     else if ([key isEqualToString:@"GiornoValidita"]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercGiorniValiditaCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCellWithTitle"];
         if (!cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercGiorniValiditaCell" owner:self options:NULL] objectAtIndex:0];
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *etich = (UILabel *)[cell viewWithTag:1];
-        UILabel *validita = (UILabel *)[cell viewWithTag:2];
+        UILabel *etich = (UILabel *)[cell viewWithTag:-1];
+        UILabel *validita = (UILabel *)[cell viewWithTag:1];
         etich.text = @"Giorni di validita della Carta PerDue";
         
         // Questo oggetto del data model viene caricato a posteriori, attraverso una query
@@ -451,6 +452,7 @@
             else {
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
+            [Utilita resizeCell:cell];
         }
 
     }

@@ -8,6 +8,7 @@
 
 #import "DettaglioEsercenteRistorazione.h"
 #import "Commenti.h"
+#import "Utilita.h"
 
 
 
@@ -203,10 +204,11 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *titolo   = (UILabel *)[cell viewWithTag:1];
-        UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
+        UILabel *titolo   = (UILabel *)[cell viewWithTag:-1];
+        UILabel *descrizione  = (UILabel *)[cell viewWithTag:1];
         titolo.text = @"Ambiente";
         descrizione.text = [self.dataModel objectForKey:@"Ambiente_Esercente"];
+        [Utilita resizeCell:cell];
     }
 		
     else if ([key isEqualToString:@"Subtipo_STeser"]) {
@@ -214,10 +216,11 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *titolo     = (UILabel *)[cell viewWithTag:1];
-        UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
+        UILabel *titolo     = (UILabel *)[cell viewWithTag:-1];
+        UILabel *descrizione  = (UILabel *)[cell viewWithTag:1];
         titolo.text = @"Cucina";
         descrizione.text = [self.dataModel objectForKey:@"Subtipo_STeser"];
+        [Utilita resizeCell:cell];
     }
                 
     else if ([key isEqualToString:@"Specialita_CE"] ) {
@@ -225,10 +228,11 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *titolo = (UILabel *)[cell viewWithTag:1];
-        UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
+        UILabel *titolo = (UILabel *)[cell viewWithTag:-1];
+        UILabel *descrizione  = (UILabel *)[cell viewWithTag:1];
         titolo.text = @"Specialità";
         descrizione.text  = [self.dataModel objectForKey:@"Specialita_CE"];
+        [Utilita resizeCell:cell];
     }
 	
     else if ([key isEqualToString:@"Fasciaprezzo"]) { 
@@ -236,8 +240,8 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *titolo     = (UILabel *)[cell viewWithTag:1];
-        UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
+        UILabel *titolo     = (UILabel *)[cell viewWithTag:-1];
+        UILabel *descrizione  = (UILabel *)[cell viewWithTag:1];
         titolo.text = @"Prezzo Medio";
 
         descrizione.text = [NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"Fasciaprezzo_Esercente"]];         

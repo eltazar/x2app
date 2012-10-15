@@ -10,6 +10,7 @@
 #import "DettaglioEsercenteRistorazione.h"
 #import "EsercenteMapAnnotation.h"
 #import "CachedAsyncImageView.h"
+#import "Utilita.h"
 
 @implementation CategoriaCommercialeWithPrice
 @synthesize filterPanel, filterImg;
@@ -181,7 +182,7 @@
             prezzo.text = @"";
         }
         
-        [self resizeCell:cell];
+        [Utilita resizeCell:cell];
 
 		return cell;
 	} 

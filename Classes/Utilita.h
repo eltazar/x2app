@@ -10,7 +10,7 @@
 
 @interface Utilita : NSObject
 
-+(NSString*)today;
++ (NSString*)today;
 + (BOOL)isNumeric:(NSString*)inputString;
 + (BOOL)isStringEmptyOrWhite:(NSString*)string;
 + (BOOL)isEmailValid:(NSString*)email;
@@ -19,4 +19,6 @@
 + (NSString *)checkPhoneNumber:(NSString*) _phone;
 + (NSString *)dateStringFromMySQLDate:(NSString *)mySQLDate;
 + (NSString *)formatPrice:(NSString *)price;
++ (void)resizeCell:(UITableViewCell *) cell;
+
 @end

@@ -197,4 +197,72 @@
 }
 
 
++ (void)resizeCell:(UITableViewCell *) cell {
+    /* Attenzione: Il metodo fa il reflow del testo nella label con tag
+     * uguale ad 1. sposta in basso tutte le label con tag maggiore, 
+     * e allunga le UIImageView verso il _basso_.
+     */
+    UILabel *insegnaLbl = (UILabel *)[cell viewWithTag:1];
+    if (![insegnaLbl isKindOfClass:[UILabel class]]) {
+        NSLog(@"[Utilita resizeCell]: Impossibile ridimensionare la cella. La View con tag 1 deve essere una label");
+        return;
+    }
+    
+    CGFloat oldH = insegnaLbl.frame.size.height;
+    CGFloat newH;
+    CGFloat deltaH;
+    
+    /* Nota: la chiamata a sizeToFit modifica la larghezza della label 
+     * (dopo il word wrap la label viene aumentata in altezza e diminuita
+     * in larghezza, quindi bisogna reimpostare la vecchia larghezza
+     */
+    CGFloat width = insegnaLbl.frame.size.width;
+    insegnaLbl.numberOfLines = 0;
+    [insegnaLbl sizeToFit];
+    
+    // Ripristiniamo la vecchia larghezza:
+    [insegnaLbl setFrame:CGRectMake(insegnaLbl.frame.origin.x, 
+                                    insegnaLbl.frame.origin.y,
+                                    width, insegnaLbl.frame.size.height)];
+    
+    // Calcoliamo la variazione d'altezza:
+    newH = insegnaLbl.frame.size.height; 
+    deltaH = newH - oldH;
+    
+    // La cella dovrà essere allungata di deltaH pixel
+    [cell setFrame:CGRectMake(cell.frame.origin.x, cell.frame.origin.y, 
+                              cell.frame.size.width, cell.frame.size.height + deltaH)];
+    
+    for (UIView *view in cell.contentView.subviews) {
+        if ([view isKindOfClass:[UIImageView class]]) {
+            // L'imageView va allungata di deltaH pixel
+            [view setFrame:CGRectMake(view.frame.origin.x, 
+                                      view.frame.origin.y, 
+                                      view.frame.size.width, 
+                                      view.frame.size.height + deltaH)];
+        }
+        else if ([view isKindOfClass:[UILabel class]]) {
+            if (view.tag > 1) {
+                // Le label sottostanti l'insegna vanno abbassate di deltaH pixel
+                [view setFrame:CGRectMake(view.frame.origin.x, 
+                                          view.frame.origin.y + deltaH, 
+                                          view.frame.size.width, 
+                                          view.frame.size.height)];
+            }
+            else { 
+                // Le label con tag minore di 1 non vanno abbassate,
+                // quella con tag == 1 è quella su cui viene eseguito il reflow.
+                continue; 
+            }
+        }
+        else {
+            NSLog(@"ATTENZIONE: il resize della cella ha incontrato una view inaspettata: %@", view);
+        }
+    }
+}
+
+
+
+
+
 @end
