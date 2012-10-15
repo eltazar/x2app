@@ -151,6 +151,7 @@
 		
 		if (cell == nil){
 			cell = [[[NSBundle mainBundle] loadNibNamed:@"CategoriaCommercialeWithPriceCell" owner:self options:NULL] objectAtIndex:0];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		}
 		
 		NSDictionary *r  = [super.dataModel objectAtIndex:indexPath.row];
@@ -179,8 +180,9 @@
         if ([prezzo.text isEqualToString:@"<null>€"]) {
             prezzo.text = @"";
         }
+        
+        [self resizeCell:cell];
 
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
 	} 
     else {
