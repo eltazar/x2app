@@ -408,7 +408,6 @@
         titolo.text = @"Chiusura settimanale";
         descrizione.text = [self.dataModel objectForKey:@"Giorno_chiusura_Esercente"];
         descrizione.text = [descrizione.text capitalizedString];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     else if ([key isEqualToString:@"GiornoValidita"]) {

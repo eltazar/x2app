@@ -207,7 +207,6 @@
         UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
         titolo.text = @"Ambiente";
         descrizione.text = [self.dataModel objectForKey:@"Ambiente_Esercente"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 		
     else if ([key isEqualToString:@"Subtipo_STeser"]) {
@@ -219,7 +218,6 @@
         UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
         titolo.text = @"Cucina";
         descrizione.text = [self.dataModel objectForKey:@"Subtipo_STeser"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
                 
     else if ([key isEqualToString:@"Specialita_CE"] ) {
@@ -231,7 +229,6 @@
         UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
         titolo.text = @"Specialità";
         descrizione.text  = [self.dataModel objectForKey:@"Specialita_CE"];
-        
     }
 	
     else if ([key isEqualToString:@"Fasciaprezzo"]) { 
@@ -243,9 +240,7 @@
         UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
         titolo.text = @"Prezzo Medio";
 
-        descrizione.text = [NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"Fasciaprezzo_Esercente"]]; 
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        descrizione.text = [NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"Fasciaprezzo_Esercente"]];         
     }
     
     else if ([key isEqualToString:@"Commenti"]) {
