@@ -555,7 +555,14 @@
 
 
 - (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 1;
+    if (section == self.idxMap.sections-1) {
+        // Per l'ultima sezione ritorniamo un po' di padding da inserire in fondo
+        // alla tabella, in modo che l'ultima riga non appaia appiccicata alla tabbar.
+        return 10;
+    }
+    else {
+        return 1;
+    }
 }
 
 
