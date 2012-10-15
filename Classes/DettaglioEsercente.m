@@ -382,13 +382,12 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *giorno = (UILabel *)[cell viewWithTag:1];
-        UILabel *etich = (UILabel *)[cell viewWithTag:2];
-        etich.text = @"Chiusura settimanale";
-        giorno.text = [self.dataModel objectForKey:@"Giorno_chiusura_Esercente"];
-        giorno.text = [giorno.text capitalizedString];
+        UILabel *titolo = (UILabel *)[cell viewWithTag:1];
+        UILabel *descrizione = (UILabel *)[cell viewWithTag:2];
+        titolo.text = @"Chiusura settimanale";
+        descrizione.text = [self.dataModel objectForKey:@"Giorno_chiusura_Esercente"];
+        descrizione.text = [descrizione.text capitalizedString];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
     }
     
     else if ([key isEqualToString:@"GiornoValidita"]) {
@@ -437,50 +436,38 @@
     }
     
     else if ([key isEqualToString:@"UlterioriInfo"]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCellStyleDefault"];
         if (!cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCellStyleDefault"] autorelease];
         }
-        UILabel *ulterioriInfo = (UILabel *)[cell viewWithTag:1];
-        UILabel *etic = (UILabel *)[cell viewWithTag:2];
-        etic.text=@"";
-        ulterioriInfo.text = @"Ulteriori Informazioni";
+        cell.textLabel.text = @"Ulteriori Informazioni";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     else if ([key isEqualToString:@"Telefono"]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCellStyleDefault"];
         if (!cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCellStyleDefault"] autorelease];
         }
-        UILabel *telefono = (UILabel *)[cell viewWithTag:1];
-        UILabel *etic = (UILabel *)[cell viewWithTag:2];
-        etic.text = @"";
-        telefono.text = [self.dataModel objectForKey:@"Telefono_Esercente"];
+        cell.textLabel.text = [self.dataModel objectForKey:@"Telefono_Esercente"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     else if ([key isEqualToString:@"Email"]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCellStyleDefault"];
         if (!cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCellStyleDefault"] autorelease];
         }
-        UILabel *email = (UILabel *)[cell viewWithTag:1];
-        UILabel *etic = (UILabel *)[cell viewWithTag:2];
-        etic.text = @"";
-        email.text = [self.dataModel objectForKey:@"Email_Esercente"];
+        cell.textLabel.text = [self.dataModel objectForKey:@"Email_Esercente"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     else if ([key isEqualToString:@"URL"]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCellStyleDefault"];
         if (!cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCell" owner:self options:NULL] objectAtIndex:0];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCellStyleDefault"] autorelease];
         }
-        UILabel *sitoweb = (UILabel *)[cell viewWithTag:1];
-        UILabel *etic = (UILabel *)[cell viewWithTag:2];
-        etic.text=@"";
-        sitoweb.text = [self.dataModel objectForKey:@"Url_Esercente"];
+        cell.textLabel.text = [self.dataModel objectForKey:@"Url_Esercente"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -528,6 +515,11 @@
     CGSize constraintSize = CGSizeMake(280, MAXFLOAT);
     CGSize labelSize = [lblText sizeWithFont:txtFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
     return labelSize.height+10+5;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
 }
 
 

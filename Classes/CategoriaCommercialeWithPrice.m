@@ -155,36 +155,35 @@
 		
 		NSDictionary *r  = [super.dataModel objectAtIndex:indexPath.row];
 		
-        CachedAsyncImageView *caImageView = (CachedAsyncImageView *)[cell viewWithTag:5];
+        CachedAsyncImageView *caImageView = (CachedAsyncImageView *)[cell viewWithTag:7];
         NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.cartaperdue.it/partner/v2.0/ImmagineEsercente.php?id=%d", [[r objectForKey:@"IDesercente"] intValue]]];
         [caImageView loadImageFromURL:imageUrl];
         
-        UILabel *cucina = (UILabel*)[cell viewWithTag:6];
-        if([[r objectForKey:@"Subtipo_STeser"] isEqualToString:@"Non Disponibile"])
-            cucina.text = [NSString stringWithFormat:@"Cucina: --"];
-        else cucina.text = [NSString stringWithFormat:@"Cucina: %@",[r objectForKey:@"Subtipo_STeser"]];
-        
-		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
-		esercente.text = [r objectForKey:@"Insegna_Esercente"];
-		
-		UILabel *prezzo = (UILabel *)[cell viewWithTag:2];
-        if( [ [NSString stringWithFormat:@"%@",[r objectForKey:@"Fasciaprezzo_Esercente"]] isEqualToString:@"<null>"] ){
-            prezzo.text=@"Prezzo medio: Non disponibile";
+        UILabel *esercente  = (UILabel *)[cell viewWithTag:1];
+        UILabel *cucina     = (UILabel *)[cell viewWithTag:2];
+        UILabel *indirizzo  = (UILabel *)[cell viewWithTag:3];
+        UILabel *citta      = (UILabel *)[cell viewWithTag:4];
+        UILabel *prezzo     = (UILabel *)[cell viewWithTag:5];
+        UILabel *distanza   = (UILabel *)[cell viewWithTag:6];
+
+        esercente.text  = [r objectForKey:@"Insegna_Esercente"];
+        cucina.text     = [NSString stringWithFormat:@"Cucina: %@",
+                           [r objectForKey:@"Subtipo_STeser"]];
+        indirizzo.text  = [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString];
+        citta.text      = [[r objectForKey:@"Citta_Esercente"] capitalizedString];
+        prezzo.text     = [NSString stringWithFormat:@"%@€",
+                           [r objectForKey:@"Fasciaprezzo_Esercente"]];
+        distanza.text   = [NSString stringWithFormat:@"a %.1f km",
+                           [[r objectForKey:@"Distanza"] doubleValue]];
+                
+        if ([prezzo.text isEqualToString:@"<null>€"]) {
+            prezzo.text = @"";
         }
-        else {
-            prezzo.text =[NSString stringWithFormat:@"Prezzo medio: %@€",[r objectForKey:@"Fasciaprezzo_Esercente"]];	
-        
-        }
-        UILabel *indirizzo = (UILabel *)[cell viewWithTag:3];
-		indirizzo.text = [NSString stringWithFormat:@"%@,\n%@",[r objectForKey:@"Indirizzo_Esercente"],[r objectForKey:@"Citta_Esercente"]];	
-		indirizzo.text= [indirizzo.text capitalizedString];
-        
-		UILabel *distanza = (UILabel *)[cell viewWithTag:4];
-		distanza.text = [NSString stringWithFormat:@"a %.1f km",[[r objectForKey:@"Distanza"] doubleValue]];	
-		
+
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
-	} else {
+	} 
+    else {
         return [super tableView:tView cellForRowAtIndexPath:indexPath];
     }
 }

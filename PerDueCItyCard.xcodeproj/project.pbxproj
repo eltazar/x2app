@@ -195,14 +195,13 @@
 		D9AB0BC11531806900B1668F /* CouponDiscountTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AB0BC01531806900B1668F /* CouponDiscountTimeCell.m */; };
 		D9AC3B331534AA6B006BA6A0 /* CachedAsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AC3B321534AA6B006BA6A0 /* CachedAsyncImageView.m */; };
 		D9AE33A8152E51A8006757FA /* DettEsercAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33A7152E51A8006757FA /* DettEsercAddressCell.xib */; };
-		D9AE33AA152E51B3006757FA /* DettEsercCellWithTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33A9152E51B3006757FA /* DettEsercCellWithTitle.xib */; };
 		D9AE33AC152E51BB006757FA /* DettEsercGiorniValiditaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AB152E51BB006757FA /* DettEsercGiorniValiditaCell.xib */; };
-		D9AE33AE152E51CC006757FA /* DettEsercCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AD152E51CC006757FA /* DettEsercCell.xib */; };
 		D9AE33B0152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AE33AF152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib */; };
 		D9AEA971152C523C00C4756A /* DettaglioEsercente.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */; };
 		D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */; };
 		D9AFF6DA152F1B3C00A8F346 /* CommentiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9AFF6D9152F1B3C00A8F346 /* CommentiCell.xib */; };
 		D9BBBC48152F84B60032B9E3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */; };
+		D9BFB816162C0BD100184696 /* DettEsercCellWithTitle.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9BFB815162C0BD100184696 /* DettEsercCellWithTitle.xib */; };
 		D9D9D4C4151DD883004FCECA /* LoginControllerBis.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC31928151CD815008229B0 /* LoginControllerBis.m */; };
 		D9D9D4C6151DD96D004FCECA /* LoginControllerBis.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACC31929151CD815008229B0 /* LoginControllerBis.xib */; };
 		D9ED8BF9152F8FF0002C3D65 /* FotoIngranditaController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */; };
@@ -484,9 +483,7 @@
 		D9AC3B311534AA6A006BA6A0 /* CachedAsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CachedAsyncImageView.h; sourceTree = "<group>"; };
 		D9AC3B321534AA6B006BA6A0 /* CachedAsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CachedAsyncImageView.m; sourceTree = "<group>"; };
 		D9AE33A7152E51A8006757FA /* DettEsercAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercAddressCell.xib; sourceTree = "<group>"; };
-		D9AE33A9152E51B3006757FA /* DettEsercCellWithTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercCellWithTitle.xib; sourceTree = "<group>"; };
 		D9AE33AB152E51BB006757FA /* DettEsercGiorniValiditaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercGiorniValiditaCell.xib; sourceTree = "<group>"; };
-		D9AE33AD152E51CC006757FA /* DettEsercCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercCell.xib; sourceTree = "<group>"; };
 		D9AE33AF152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercRistorazionePastiValiditaCell.xib; sourceTree = "<group>"; };
 		D9AEA96E152C523C00C4756A /* DettaglioEsercente.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DettaglioEsercente.h; sourceTree = "<group>"; };
 		D9AEA96F152C523C00C4756A /* DettaglioEsercente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DettaglioEsercente.m; sourceTree = "<group>"; };
@@ -494,6 +491,7 @@
 		D9AFF6D9152F1B3C00A8F346 /* CommentiCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentiCell.xib; sourceTree = "<group>"; };
 		D9BBBC46152F84B60032B9E3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		D9BBBC47152F84B60032B9E3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		D9BFB815162C0BD100184696 /* DettEsercCellWithTitle.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DettEsercCellWithTitle.xib; sourceTree = "<group>"; };
 		D9ED8BF6152F8FEF002C3D65 /* FotoIngranditaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FotoIngranditaController.h; sourceTree = "<group>"; };
 		D9ED8BF7152F8FEF002C3D65 /* FotoIngranditaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FotoIngranditaController.m; sourceTree = "<group>"; };
 		D9ED8BF8152F8FEF002C3D65 /* FotoIngranditaController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FotoIngranditaController.xib; sourceTree = "<group>"; };
@@ -924,10 +922,9 @@
 				D9AEA970152C523C00C4756A /* DettaglioEsercente.xib */,
 				D9AE33A7152E51A8006757FA /* DettEsercAddressCell.xib */,
 				D9AE33AB152E51BB006757FA /* DettEsercGiorniValiditaCell.xib */,
-				D9AE33A9152E51B3006757FA /* DettEsercCellWithTitle.xib */,
-				D9AE33AD152E51CC006757FA /* DettEsercCell.xib */,
 				D92D1CF3152CF69500008CE3 /* DettaglioEsercenteRistorazione.h */,
 				D92D1CF4152CF69500008CE3 /* DettaglioEsercenteRistorazione.m */,
+				D9BFB815162C0BD100184696 /* DettEsercCellWithTitle.xib */,
 				D9AE33AF152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib */,
 			);
 			name = "Dettaglio Esercente V2";
@@ -1173,9 +1170,7 @@
 				AC3C57B41525313500E5457E /* refreshBtn.png in Resources */,
 				D9AEA972152C523C00C4756A /* DettaglioEsercente.xib in Resources */,
 				D9AE33A8152E51A8006757FA /* DettEsercAddressCell.xib in Resources */,
-				D9AE33AA152E51B3006757FA /* DettEsercCellWithTitle.xib in Resources */,
 				D9AE33AC152E51BB006757FA /* DettEsercGiorniValiditaCell.xib in Resources */,
-				D9AE33AE152E51CC006757FA /* DettEsercCell.xib in Resources */,
 				D9AE33B0152E51DF006757FA /* DettEsercRistorazionePastiValiditaCell.xib in Resources */,
 				D9AFF6DA152F1B3C00A8F346 /* CommentiCell.xib in Resources */,
 				D9463602152F642A000A17CE /* CategoriaCommercialeCell.xib in Resources */,
@@ -1220,6 +1215,7 @@
 				ACF75F6216242C7000471B7B /* filterImg.png in Resources */,
 				ACF75F6416242D0100471B7B /* sun.png in Resources */,
 				ACF75F6616242DA600471B7B /* moon.png in Resources */,
+				D9BFB816162C0BD100184696 /* DettEsercCellWithTitle.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

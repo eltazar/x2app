@@ -203,10 +203,10 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *ambiente   = (UILabel *)[cell viewWithTag:1];
-        UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
-        ambiente.text = [self.dataModel objectForKey:@"Ambiente_Esercente"];
-        etichetta.text = @"Ambiente";
+        UILabel *titolo   = (UILabel *)[cell viewWithTag:1];
+        UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
+        titolo.text = @"Ambiente";
+        descrizione.text = [self.dataModel objectForKey:@"Ambiente_Esercente"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 		
@@ -215,10 +215,10 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *cucina     = (UILabel *)[cell viewWithTag:1];
-        UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
-        cucina.text = [self.dataModel objectForKey:@"Subtipo_STeser"];
-        etichetta.text = @"Cucina";
+        UILabel *titolo     = (UILabel *)[cell viewWithTag:1];
+        UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
+        titolo.text = @"Cucina";
+        descrizione.text = [self.dataModel objectForKey:@"Subtipo_STeser"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
                 
@@ -227,11 +227,10 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *specialita = (UILabel *)[cell viewWithTag:1];
-        UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
-        specialita.text = [self.dataModel objectForKey:@"Specialita_CE"];
-        etichetta.text = @"Specialità";
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        UILabel *titolo = (UILabel *)[cell viewWithTag:1];
+        UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
+        titolo.text = @"Specialità";
+        descrizione.text  = [self.dataModel objectForKey:@"Specialita_CE"];
         
     }
 	
@@ -240,25 +239,22 @@
         if (!cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
         }
-        UILabel *prezzo     = (UILabel *)[cell viewWithTag:1];
-        UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
-        prezzo.text = [NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"Fasciaprezzo_Esercente"]]; 
-        etichetta.text = @"Prezzo Medio";
+        UILabel *titolo     = (UILabel *)[cell viewWithTag:1];
+        UILabel *descrizione  = (UILabel *)[cell viewWithTag:2];
+        titolo.text = @"Prezzo Medio";
+
+        descrizione.text = [NSString stringWithFormat:@"%@€",[self.dataModel objectForKey:@"Fasciaprezzo_Esercente"]]; 
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
     }
     
     else if ([key isEqualToString:@"Commenti"]) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"DettEsercCellWithTitle"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"UITableViewCellStyleDefault"];
         if (!cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:@"DettEsercCellWithTitle" owner:self options:NULL] objectAtIndex:0];
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCellStyleDefault"] autorelease];
         }
-        UILabel *commenti   = (UILabel *)[cell viewWithTag:1]; 
-        UILabel *etichetta  = (UILabel *)[cell viewWithTag:2];
-        commenti.text = @"Commenti";
-        etichetta.text = @"";
+        cell.textLabel.text = @"Commenti";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
     }
 
     else {

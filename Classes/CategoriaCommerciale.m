@@ -334,15 +334,16 @@
         NSURL *imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"http://www.cartaperdue.it/partner/v2.0/ImmagineEsercente.php?id=%d", [[r objectForKey:@"IDesercente"] intValue]]];
         [caImageView loadImageFromURL:imageUrl];
         
-		UILabel *esercente = (UILabel *)[cell viewWithTag:1];
-		esercente.text = [r objectForKey:@"Insegna_Esercente"];
-		
-		UILabel *indirizzo = (UILabel *)[cell viewWithTag:2];
-		indirizzo.text = [NSString stringWithFormat:@"%@,\n%@",[r objectForKey:@"Indirizzo_Esercente"],[r objectForKey:@"Citta_Esercente"]];	
-		indirizzo.text= [indirizzo.text capitalizedString];
-        
-		UILabel *distanza = (UILabel *)[cell viewWithTag:3];
-		distanza.text = [NSString stringWithFormat:@"a %.1f km",[[r objectForKey:@"Distanza"] doubleValue]];	
+		UILabel *insegnaEsercente   = (UILabel *)[cell viewWithTag:1];
+        UILabel *indirizzo          = (UILabel *)[cell viewWithTag:2];
+        UILabel *citta              = (UILabel *)[cell viewWithTag:3];
+        UILabel *distanza           = (UILabel *)[cell viewWithTag:4];
+
+		insegnaEsercente.text  = [r objectForKey:@"Insegna_Esercente"];
+		indirizzo.text         = [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString];
+        citta.text             = [[r objectForKey:@"Citta_Esercente"] capitalizedString];
+		distanza.text          = [NSString stringWithFormat:@"a %.1f km",
+                                  [[r objectForKey:@"Distanza"] doubleValue]];	
 		
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
