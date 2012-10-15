@@ -55,6 +55,7 @@
 
 
 - (id)initWithTitle:(NSString *)title categoria:(NSString *)cat location:(CLLocationCoordinate2D)lo;
++ (void)resizeCell:(UITableViewCell *) cell;
 
 - (IBAction)didChangeSearchSegCtrlState:(id)sender;
 - (IBAction)didChangeMapTypeSegCtrlState:(id)sender;
