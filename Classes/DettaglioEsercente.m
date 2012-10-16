@@ -285,7 +285,9 @@
     headerImageView.alpha   = 0.5;
     // *** DEBUG ************************************************************
 #endif
-    
+    // Nota Bene: l'interfaccia non viene aggiornata col nuovo frame della 
+    // headerView se non viene invocato setTableHeder. GV.
+    [self.tableview setTableHeaderView:self.tableview.tableHeaderView];
 }
 
 - (void)didErrorLoadingImage:(id)sender{

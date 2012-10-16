@@ -35,6 +35,7 @@
     NSDictionary *_dataModel;
     BOOL isDataModelReady;
     IBOutlet CachedAsyncImageView *headerImageView;
+    // TODO: questa va rimossa, c'è già la property self.tableView.tableHeaderView
     IBOutlet UIView *headerView;
     
 @protected
