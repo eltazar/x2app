@@ -254,6 +254,7 @@
         }
         cell.textLabel.text = @"Commenti";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.backgroundColor = [UIColor whiteColor];
     }
 
     else {
