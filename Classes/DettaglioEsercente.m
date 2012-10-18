@@ -464,6 +464,7 @@
         if (!cell) {
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCellStyleDefault"] autorelease];
         }
+        cell.backgroundColor = [UIColor whiteColor];
         cell.textLabel.text = @"Ulteriori Informazioni";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
