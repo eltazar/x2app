@@ -60,11 +60,12 @@
 	NSString *testoSalvato = [[NSUserDefaults standardUserDefaults] objectForKey:@"citta"];
 	//NSLog(@"Testo salvato:%@", testoSalvato);
 	self.provinceattive = [[[NSArray alloc] initWithObjects:
-                           @"Qui vicino", @"Catania", @"Cosenza",  @"Firenze",
+                           @"Qui vicino", @"Bergamo", @"Bologna",@"Brescia",
+                            @"Catania", @"Como", @"Cosenza", @"Cremona", @"Ferrara", @"Firenze", @"Forlì",
                            @"Frosinone",  @"Genova",  @"Grosseto", @"L'Aquila",
-                           @"Latina",     @"Lecce",   @"Matera",   @"Napoli", 
-                           @"Perugia",    @"Rieti",   @"Roma",     @"Siena",
-                           @"Terni",      @"Trapani", @"Viterbo",
+                           @"Latina",     @"Lecce", @"Lecco",@"Lodi",@"Mantova",  @"Matera",  @"Milano", @"Modena", @"Monza", @"Napoli",@"Parma", @"Pavia",
+                           @"Perugia", @"Piacenza", @"Ravenna", @"Reggio Emilia",   @"Rieti",  @"Rimini",  @"Roma",     @"Siena", @"Sondrio",
+                           @"Terni",      @"Trapani", @"Varese",@"Viterbo",
                            nil] autorelease];
 	
 	
