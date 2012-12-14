@@ -171,8 +171,28 @@
         esercente.text  = [r objectForKey:@"Insegna_Esercente"];
         cucina.text     = [NSString stringWithFormat:@"Cucina: %@",
                            [r objectForKey:@"Subtipo_STeser"]];
-        indirizzo.text  = [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString];
-        citta.text      = [[r objectForKey:@"Citta_Esercente"] capitalizedString];
+        
+        NSString *indirizzoString = [r objectForKey:@"Indirizzo_Esercente"];
+        if (indirizzoString && (indirizzoString != (id)[NSNull null])){
+            // Here I have the value I expect
+            indirizzo.text         = [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString];
+            // Do something
+        }else{
+            // The value is null ... don't display
+            
+            indirizzo.text = @"Non disponibile";
+        }
+        
+        NSString *cittaString = [r objectForKey:@"Citta_Esercente"];
+        if (cittaString && (cittaString != (id)[NSNull null])){
+            // Here I have the value I expect
+            citta.text             = [[r objectForKey:@"Citta_Esercente"] capitalizedString];            // Do something
+        }else{
+            // The value is null ... don't display
+            
+            citta.text = @"Non disponibile";
+        }
+
         prezzo.text     = [NSString stringWithFormat:@"%@€",
                            [r objectForKey:@"Fasciaprezzo_Esercente"]];
         distanza.text   = [NSString stringWithFormat:@"a %.1f km",

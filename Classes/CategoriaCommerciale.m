@@ -340,9 +340,29 @@
         UILabel *citta              = (UILabel *)[cell viewWithTag:3];
         UILabel *distanza           = (UILabel *)[cell viewWithTag:4];
 
+        
+        NSString *indirizzoString = [r objectForKey:@"Indirizzo_Esercente"];
+        if (indirizzoString && (indirizzoString != (id)[NSNull null])){
+            // Here I have the value I expect
+            indirizzo.text         = [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString];
+            // Do something
+        }else{
+            // The value is null ... don't display
+            
+            indirizzo.text = @"Non disponibile";
+        }
+        
+        NSString *cittaString = [r objectForKey:@"Citta_Esercente"];
+        if (cittaString && (cittaString != (id)[NSNull null])){
+            // Here I have the value I expect
+            citta.text             = [[r objectForKey:@"Citta_Esercente"] capitalizedString];            // Do something
+        }else{
+            // The value is null ... don't display
+            
+            citta.text = @"Non disponibile";
+        }
+        
 		insegnaEsercente.text  = [r objectForKey:@"Insegna_Esercente"];
-		indirizzo.text         = [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString];
-        citta.text             = [[r objectForKey:@"Citta_Esercente"] capitalizedString];
 		distanza.text          = [NSString stringWithFormat:@"a %.1f km",
                                   [[r objectForKey:@"Distanza"] doubleValue]];	
         
@@ -708,9 +728,42 @@
 		double longi   = [[r objectForKey:@"Longitudine"] doubleValue];
 		NSInteger Id   = [[r objectForKey:@"IDesercente"] intValue];
 		NSString *name = [r objectForKey:@"Insegna_Esercente"];
-		NSString *address = [[[NSString alloc] initWithFormat:@"%@, %@",
-                             [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString],
-                             [[r objectForKey:@"Citta_Esercente"] capitalizedString]] autorelease];
+        
+        
+		NSString *address = @"" ; 
+        
+        
+        NSString *indirizzoString = [r objectForKey:@"Indirizzo_Esercente"];
+        if (indirizzoString && (indirizzoString != (id)[NSNull null])){
+            // Here I have the value I expect
+            indirizzoString = [[r objectForKey:@"Indirizzo_Esercente"] capitalizedString];
+            // Do something
+        }
+        else{
+            indirizzoString = @"";
+        }
+        
+        NSString *cittaString = [r objectForKey:@"Citta_Esercente"];
+        if (cittaString && (cittaString != (id)[NSNull null])){
+            // Here I have the value I expect
+             address = [[r objectForKey:@"Citta_Esercente"] capitalizedString];
+        }
+        else{
+            cittaString = @"";
+        }
+        
+        if(![indirizzoString isEqualToString:@""]){
+            address = indirizzoString;
+            if(![cittaString isEqualToString:@""]){
+                address = [NSString stringWithFormat:@"%@, %@", indirizzoString, cittaString];
+            }
+        }
+        else{
+            address = cittaString;
+        }
+        
+        
+
 		
 		EsercenteMapAnnotation *newAnnotation = [[[EsercenteMapAnnotation alloc] initWithLatitudine:lati longitudine:longi insegna:name indirizzo:address idEsercente:Id] autorelease];
         [self.mapView addAnnotation:newAnnotation];
