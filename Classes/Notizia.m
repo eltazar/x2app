@@ -22,7 +22,7 @@
 @synthesize activityIndicator=_activityIndicator;
 
 @synthesize dataModel=_dataModel;
-
+@synthesize webV = _webV;
 
 /*
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -47,6 +47,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            // iPhone Classic
+        }
+        if(result.height == 568)
+        {
+            // iPhone 5
+            [self.webV setFrame:CGRectMake(self.webV.frame.origin.x, self.webV.frame.origin.y, self.webV.frame.size.width, 390)];
+        }
+    }
+
 }
 
 
@@ -84,6 +99,7 @@
 
 
 - (void)dealloc {
+    self.webV = nil;
     self.activityIndicator = nil;
     [super dealloc];
 }

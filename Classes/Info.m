@@ -41,6 +41,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"[%@ wiewDidLoad", [self class]);
+    
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+    {
+        CGSize result = [[UIScreen mainScreen] bounds].size;
+        if(result.height == 480)
+        {
+            // iPhone Classic
+        }
+        if(result.height == 568)
+        {
+            // iPhone 5
+            [self.infoWebView setFrame:CGRectMake(self.infoWebView.frame.origin.x, self.infoWebView.frame.origin.y, self.infoWebView.frame.size.width, 430)];
+        }
+    }
+    
 	NSURL *infos = [NSURL URLWithString:@"http://www.cartaperdue.it/partner/PD.html"];
 	NSURLRequest *requestObj = [NSURLRequest requestWithURL:infos];
 	[self.infoWebView loadRequest:requestObj];		

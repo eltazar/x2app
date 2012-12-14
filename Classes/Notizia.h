@@ -17,6 +17,7 @@
     UIActivityIndicatorView *_activityIndicator;
 }
 
+@property (nonatomic, retain) IBOutlet UIWebView *webV;
 @property (nonatomic, assign) NSInteger idNotizia;
 @property (nonatomic, assign) IBOutlet UIActivityIndicatorView *activityIndicator;
 
