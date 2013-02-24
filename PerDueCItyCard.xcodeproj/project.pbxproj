@@ -115,6 +115,7 @@
 		ACD6570D1622192C001813A7 /* filtroAttivo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD6570C1622192C001813A7 /* filtroAttivo@2x.png */; };
 		ACD6571016221C4B001813A7 /* filtroDisattivato@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD6570F16221C4B001813A7 /* filtroDisattivato@2x.png */; };
 		ACD65712162228EE001813A7 /* Anzio, IT.gpx in Resources */ = {isa = PBXBuildFile; fileRef = ACD65711162228EE001813A7 /* Anzio, IT.gpx */; };
+		ACD75C621680E63D000A4AC6 /* libFlurry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD75C611680E63D000A4AC6 /* libFlurry.a */; };
 		ACD9CF701541B78E007B7887 /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */; };
 		ACD9CF711541B78E007B7887 /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = ACD9CF6F1541B78E007B7887 /* 37x-Checkmark.png */; };
 		ACDBD984151755490079A966 /* RegistrazioneController.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDBD982151755490079A966 /* RegistrazioneController.m */; };
@@ -353,6 +354,8 @@
 		ACD6570C1622192C001813A7 /* filtroAttivo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filtroAttivo@2x.png"; sourceTree = "<group>"; };
 		ACD6570F16221C4B001813A7 /* filtroDisattivato@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "filtroDisattivato@2x.png"; sourceTree = "<group>"; };
 		ACD65711162228EE001813A7 /* Anzio, IT.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Anzio, IT.gpx"; sourceTree = "<group>"; };
+		ACD75C601680E63D000A4AC6 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		ACD75C611680E63D000A4AC6 /* libFlurry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry.a; sourceTree = "<group>"; };
 		ACD9CF6E1541B78E007B7887 /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark@2x.png"; sourceTree = "<group>"; };
 		ACD9CF6F1541B78E007B7887 /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
 		ACDBD981151755490079A966 /* RegistrazioneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrazioneController.h; sourceTree = "<group>"; };
@@ -510,6 +513,7 @@
 				19BE0EFB13588A5500C0ED8F /* CoreLocation.framework in Frameworks */,
 				19EFAB161381971F00A64DBA /* MessageUI.framework in Frameworks */,
 				19DA382313AA008D007B5D38 /* SystemConfiguration.framework in Frameworks */,
+				ACD75C621680E63D000A4AC6 /* libFlurry.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,6 +757,16 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
+		ACD75C5F1680E63D000A4AC6 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				ACD75C601680E63D000A4AC6 /* Flurry.h */,
+				ACD75C611680E63D000A4AC6 /* libFlurry.a */,
+			);
+			name = Flurry;
+			path = "Librerie Esterne/Flurry";
+			sourceTree = "<group>";
+		};
 		D93C796E151F4B7F006FD19E /* Carte */ = {
 			isa = PBXGroup;
 			children = (
@@ -769,6 +783,7 @@
 			children = (
 				ACAC4FFB161DC3BB00BFD8A1 /* PullableView.h */,
 				ACAC4FFC161DC3BB00BFD8A1 /* PullableView.m */,
+				ACD75C5F1680E63D000A4AC6 /* Flurry */,
 				D9678C601536214100C86E83 /* NSStringAdditions */,
 				D9BBBC45152F84B60032B9E3 /* MBProgressHUD */,
 				D9463617152F6A0F000A17CE /* Facebook */,
@@ -1309,8 +1324,8 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Megapoli S.r.l.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Megapoli S.r.l.";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1318,9 +1333,13 @@
 				GCC_PREFIX_HEADER = PerDueCItyCard_Prefix.pch;
 				INFOPLIST_FILE = "PerDueCItyCard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Librerie Esterne/Flurry\"",
+				);
 				PRODUCT_NAME = PerDue;
-				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
+				PROVISIONING_PROFILE = "E87B582B-B500-46CB-87B5-9BF19C08514F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E87B582B-B500-46CB-87B5-9BF19C08514F";
 			};
 			name = Debug;
 		};
@@ -1332,16 +1351,20 @@
 					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
 				);
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mario Parroco (Q56JFCMDC5)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Megapoli S.r.l.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Megapoli S.r.l.";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PerDueCItyCard_Prefix.pch;
 				INFOPLIST_FILE = "PerDueCItyCard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Librerie Esterne/Flurry\"",
+				);
 				PRODUCT_NAME = PerDue;
-				PROVISIONING_PROFILE = "F023F770-35F3-4D27-A841-8C734548BC06";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F023F770-35F3-4D27-A841-8C734548BC06";
+				PROVISIONING_PROFILE = "E87B582B-B500-46CB-87B5-9BF19C08514F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E87B582B-B500-46CB-87B5-9BF19C08514F";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
