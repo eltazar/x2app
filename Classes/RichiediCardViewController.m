@@ -303,7 +303,7 @@
                 //prendo solo il nome del tipo carta, senza prezzo
                 NSString *token = [[self.tipoCarta componentsSeparatedByString:@" "] objectAtIndex:0];
                 
-                NSLog(@"token = %@",token);
+                //NSLog(@"token = %@",token);
                 
                 NSArray *data = [NSArray arrayWithObjects:token,self.nome,self.cognome,[Utilita checkPhoneNumber:self.telefono],self.email, nil];
                 //NSLog(@"%@",data);
@@ -582,7 +582,7 @@
     [sectionData insertObject:secB atIndex:1];
     [sectionData insertObject:secBtn atIndex:2];
     
-    NSArray *payCards = [[NSArray alloc] initWithObjects:@"Semestrale 20€",@"Annuale 36€",@"Biennale  55€", nil];
+    NSArray *payCards = [[NSArray alloc] initWithObjects:@"Semestrale 24€",@"Annuale 39€",@"Biennale  59€", nil];
     pickerCards = [[PickerViewController alloc] initWithArray:[NSArray arrayWithObjects:payCards,nil] andNumber:1];
     [payCards release];
     
