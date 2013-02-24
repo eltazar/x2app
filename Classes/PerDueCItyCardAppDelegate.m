@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "FBConnect.h"
 #import "CachedAsyncImageView.h"
+#import "Flurry.h"
 
 @implementation PerDueCItyCardAppDelegate
 
@@ -23,7 +24,9 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [Flurry startSession:@""];
     // Set the tab bar controller as the window's root view controller and display.
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
