@@ -53,6 +53,7 @@
         {
             // iPhone 5
             [self.infoWebView setFrame:CGRectMake(self.infoWebView.frame.origin.x, self.infoWebView.frame.origin.y, self.infoWebView.frame.size.width, 430)];
+            [self.contattiView setFrame:CGRectMake(self.contattiView.frame.origin.x, self.contattiView.frame.origin.y, self.contattiView.frame.size.width, 540)];
         }
     }
     
